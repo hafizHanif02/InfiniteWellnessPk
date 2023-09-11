@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th class="no-border">SUPPLIER:</th>
-                <th class="text-start no-border" colspan="4">{{ $requistion->vendor->accout_title }}</th>
+                <th class="text-start no-border" colspan="4">{{ $requistion->vendor->account_title }}</th>
                 <th class="text-start no-border" colspan="5">{{ $requistion->vendor->address }} <br>
                     {{ $requistion->vendor->area }}</th>
                 <th class="text-start" colspan="2" rowspan="2">Ship to: STORE 1 PHARMACY</th>
@@ -55,14 +55,14 @@
                 <tr>
                     <td class="text-center"  scope="row">{{ $loop->iteration }}</td>
                     <td class="text-center" >{{ $requistionproduct->product->product_name }}</td>
-                    <td class="text-center">{{ $requistionproduct->qty }}</td>
+                    <td class="text-center">{{ $requistionproduct->total_piece/$requistionproduct->product->pieces_per_pack }}</td>
                     <td class="text-center">{{ $requistionproduct->product->unit_retail }} /-</td>
                     <td class="text-center">{{$requistionproduct->product->pieces_per_pack}}
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
-                    <td class="text-center">{{ $requistionproduct->product->trade_price/$requistionproduct->product->total_quantity }}</td>
-                    <td class="text-center">{{ (($requistionproduct->product->trade_price/$requistionproduct->product->total_quantity)*($requistionproduct->product->pieces_per_pack))*$requistionproduct->qty}}</td>
+                    <td class="text-center">{{ $requistionproduct->price_per_unit }}</td>
+                    <td class="text-center">{{ $requistionproduct->total_amount}}</td>
                     <td class="text-center">{{ $requistionproduct->product->discount_trade_price }}.00 %</td>
-                    <td class="text-center">{{ $requistionproduct->product->sale_tax }} %</td>
+                    <td class="text-center">{{ ($requistionproduct->product->sale_tax != null)?$requistionproduct->product->sale_tax.'%':'-' }} </td>
                     <td class="text-center" class="text-center">{{ $requistionproduct->total_amount }}</td>
                     <td class="text-center">{{ $requistionproduct->total_amount }}.00</td>
                 </tr>
@@ -73,11 +73,11 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr>
+            {{-- <tr>
                 <th>Dis Amount</th>
+                <th>{{ $requistion->requistionProducts->product->sum('discount_trade_price') }}.00</th>
                 <th>{{ $totalDiscount }}.00</th>
-                <th>{{ $totalDiscount }}.00</th>
-            </tr>
+            </tr> --}}
             <tr>
                 <th>Grand Total</th>
                 <th>{{ $totalcost }}.00</th>
@@ -97,7 +97,7 @@
         </tbody>
     </table>
     <script nonce="{{ csp_nonce() }}">
-        window.print();
+        // window.print();
     </script>
     <style>
         .text-center{
