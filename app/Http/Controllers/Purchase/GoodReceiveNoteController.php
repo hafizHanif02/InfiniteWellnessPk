@@ -32,7 +32,6 @@ class GoodReceiveNoteController extends Controller
 
     public function getRequisitions($vendorId): JsonResponse
     {
-
         return response()->json([
             'requistions' => Requistion::where(['vendor_id' => $vendorId, 'is_approved' => 1])->get(),
         ]);
@@ -125,20 +124,19 @@ class GoodReceiveNoteController extends Controller
         return back()->with('success', 'GRN deleted!');
     }
 
-    public function print(GoodReceiveNote $id): View
+    public function print(GoodReceiveNote $goodReceiveNote): View
     {
-        $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $id->id)->with('product')->get();
+        // $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('product')->get();
 
-        $totalproductamount = 0;
-        foreach ($goodreceiveproduct as $product) {
-            $totalproductamount += $product->item_amount;
-        }
+        // $totalproductamount = 0;
+        // foreach ($goodreceiveproduct as $product) {
+        //     $totalproductamount += $product->item_amount;
+        // }
 
         return view('purchase.goodreceivenote.print', [
-            'goodReceiveNote' => $id->load(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts']),
-            'goodreceiveproduct' => $goodreceiveproduct,
-            'totalproductamount' => $totalproductamount,
-
+            'goodReceiveNote' => $goodReceiveNote->load(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts']),
+            // 'goodreceiveproduct' => $goodreceiveproduct,
+            // 'totalproductamount' => $totalproductamount,
         ]);
     }
 }
