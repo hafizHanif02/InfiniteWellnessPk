@@ -94,15 +94,15 @@
                         <table class="table table-bordered">
                             <thead class="table-dark">
                                 <tr class="text-white">
-                                    <td>Product</td>
-                                    <td>Total Stock</td>
-                                    <td>Limit</td>
-                                    <td>Price Per Unit</td>
-                                    <td>Total Peice</td>
-                                    <td>Previous Price</td>
-                                    <td>Total Packet</td>
-                                    <td>Amount</td>
-                                    <td></td>
+                                    <td style="min-width: 200px">Product</td>
+                                    <td style="min-width: 120px">Total Stock</td>
+                                    <td style="min-width: 200px">Limit</td>
+                                    <td style="min-width: 150px">Price Per Unit</td>
+                                    <td style="min-width: 150px">Total Peice</td>
+                                    <td style="min-width: 150px">Previous Price</td>
+                                    <td style="min-width: 150px">Total Packet</td>
+                                    <td style="min-width: 200px">Amount</td>
+                                    <td style="min-width: 50px"></td>
                                 </tr>
                             </thead>
                             <tbody id="add-products">

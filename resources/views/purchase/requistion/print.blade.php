@@ -54,18 +54,20 @@
                     <td>{{ $requistionProduct->disc }}%</td>
                     <td>{{ $requistionProduct->sale_tax }}%</td>
                     <td>{{ $requistionProduct->total_amount }}</td>
+                    @if($last_purchase)
                     @foreach ($last_purchase->goodReceiveProducts as $goodReceiveProducts)
                     @if ($requistionProduct->product->id == $goodReceiveProducts->product_id)
                     <td>{{$last_purchase->date}}</td>
                     <td>{{$goodReceiveProducts->deliver_qty}}</td>
                     <td>{{$goodReceiveProducts->item_amount}}</td>
                     <td>{{$goodReceiveProducts->discount}}</td>
+                    @endif
+                    @endforeach
                     @else
                     <td></td>
                     <td></td>
                     <td></td>
                     @endif
-                    @endforeach
                     <td></td>
                     <td></td>
                     <td></td>
