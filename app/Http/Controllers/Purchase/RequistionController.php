@@ -163,7 +163,7 @@ class RequistionController extends Controller
     {
         return view('purchase.requistion.print', [
             'requistion' => $requistion->load(['requistionProducts.product.manufacturer', 'vendor']),
-            'last_purchase' => GoodReceiveNote::where('requistion_id',$requistion->id)->latest()->first()
+            'last_purchase' => GoodReceiveNote::where('requistion_id',$requistion->id)->with('goodReceiveProducts')->latest()->first(),
         ]);
     }
 }
