@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class FrontService extends Model implements HasMedia
+{
+    use HasFactory, InteractsWithMedia;
+
+    public const PATH = 'front-services';
+
+    public static $rules = [
+        'name' => 'required',
+        'short_description' => 'required',
+    ];
+
+    public $fillable = [
+        'name',
+        'short_description',
+    ];
+
+    protected $appends = ['icon_url'];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'short_description' => 'string',
+    ];
+
+    public function getIconUrlAttribute()
+    {
+        $media = $this->media->first();
+        if (! empty($media)) {
+            return $media->getFullUrl();
+        }
+
+        return $this->value;
+    }
+}

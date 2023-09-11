@@ -1,0 +1,17 @@
+<?php
+
+use App\Http\Controllers\Shift\StockReportController;
+use App\Http\Controllers\Shift\TransferController;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('shift')->as('shift.')->middleware(['auth'])->group(function () {
+    // Transfer
+    Route::resource('transfers', TransferController::class);
+    Route::get('transfer-products/{product}', [TransferController::class, 'products'])->name('transfers.products');
+    Route::get('transfer-report-print', [TransferController::class, 'printReport'])->name('transfers.export');
+
+    //Stock In
+    Route::get('stock-in', [StockReportController::class, 'stockInReport'])->name('stock-in.index');
+    Route::get('stock-in/export', [StockReportController::class, 'exportStockInReport'])->name('stock-in.export');
+
+});

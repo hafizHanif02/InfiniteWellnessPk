@@ -1,0 +1,22 @@
+{
+    "name": "Infinitewellness",
+    "short_name": "Infinitewellness",
+    "start_url": "http://127.0.0.1:8000",
+    "display": "fullscreen",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "34x34",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#fff",
+    "background_color": "#eff3f7",
+    "splash_pages": null,
+    "splash_screen": {
+        "template": "/splash.html",
+        "image_path": "/logo.png"
+    }
+}
