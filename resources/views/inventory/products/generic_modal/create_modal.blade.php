@@ -31,8 +31,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="generic_detail" class="form-label">Generic Details <sup
-                                        class="text-danger">*</sup></label>
+                                <label for="generic_detail" class="form-label">Generic Details </label>
                                 <textarea type="text" name="generic_detail" id="generic_detail"
                                     class="form-control @error('generic_detail') is-invalid @enderror" placeholder="Enter Generic Details">{{ old('generic_detail') }}</textarea>
                                     <div class="text-danger" id="generic-details-error"></div>

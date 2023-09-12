@@ -9,6 +9,24 @@
             <div class="modal-body">
                 <form>
                     @csrf
+                    <div class="mb-3">
+                        <label for="vendor_manufacturer_id" class="form-label">Manufacturer <sup
+                                class="text-danger">*</sup></label>
+                        <select name="manufacturer_id" id="vendor_manufacturer_id"
+                            class="form-control @error('manufacturer_id') is-invalid @enderror" title="Manufacturer">
+                            <option value="" disabled selected>Select Manufacturer</option>
+                            @forelse ($manufacturers as $manufacturer)
+                                <option value="{{ $manufacturer->id }}"
+                                    {{ old('manufacturer_id') == $manufacturer->id ? 'selected' : '' }}>
+                                    {{ $manufacturer->company_name }}</option>
+                            @empty
+                                <option value="" class="text-danger" disabled>No manfacturer found!</option>
+                            @endforelse
+                        </select>
+                        @error('manufacturer_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -112,13 +130,6 @@
                             class="form-control" value="{{ old('city') }}">
                         <div class="text-danger" id="vendor-city-error"></div>
                     </div>
-                    <div class="mb-3">
-                        <label for="default_project" class="form-label">Default Project <sup
-                                class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter default project" name="default_project"
-                            id="default_project" class="form-control" value="{{ old('default_project') }}">
-                        <div class="text-danger" id="vendor-default-project-error"></div>
-                    </div>
                     <div class="d-flex justify-content-center mt-5">
                         <button type="button" onclick="clearVendorForm()" class="btn btn-danger">Cancel</button>
                         <button onclick="submitVendorForm()" type="button"
@@ -160,6 +171,7 @@
                 data: {
                     '_token': "{{ csrf_token() }}",
                     'code': $('#vendor_code').val(),
+                    'manufacturer_id': $('#vendor_manufacturer_id').val(),
                     'account_title': $('#account_title').val(),
                     'contact_person': $('#supplier_contact_person').val(),
                     'phone': $('#supplier_phone').val(),

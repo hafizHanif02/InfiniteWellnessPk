@@ -104,7 +104,7 @@ class ProductController extends Controller
             'manufacturer_id' => ['required', 'exists:manufacturers,id'],
             'account_title' => ['required', 'string', 'max:255'],
             'contact_person' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric', 'digits:11'],
+            'phone' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email'],
             'address' => ['required', 'string', 'max:255'],
             'ntn' => ['required', 'integer'],
