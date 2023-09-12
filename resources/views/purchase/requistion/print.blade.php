@@ -45,7 +45,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($requistion->requistionProducts as $requistionProduct)
+            @forelse ($requistionProducts as $requistionProduct)
                 <tr class="text-center-data">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $requistionProduct->product->product_name }}</td>
