@@ -103,7 +103,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'manufacturer_id' => ['required', 'exists:manufacturers,id'],
             'account_title' => ['required', 'string', 'max:255'],
-            'contact_person' => ['required', 'string', 'max:255', $this->method() == 'POST' ? 'unique:vendors,contact_person' : ''],
+            'contact_person' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:11'],
             'email' => ['required', 'string', 'email'],
             'address' => ['required', 'string', 'max:255'],

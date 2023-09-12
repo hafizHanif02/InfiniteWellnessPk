@@ -9,28 +9,6 @@
             <div class="modal-body">
                 <form>
                     @csrf
-                    <div class="mb-3">
-                        <label for="account_mature" class="form-label">Account Mature <sup
-                                class="text-danger">*</sup></label>
-                        <select name="account_mature" id="account_mature" class="form-control" required>
-                            <option value="" disabled selected>Select Account Mature</option>
-                            <option value="assets">ASSETS</option>
-                            <option value="laibilities">LIABILITIES</option>
-                            <option value="captal">CAPITAL</option>
-                            <option value="revenue">REVENUE</option>
-                            <option value="expenses">EXPENSES</option>
-                        </select>
-                        <div class="text-danger" id="vemdor-account-mature-error"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="totalling_group" class="form-label">Totalling Group <sup
-                                class="text-danger">*</sup></label>
-                        <select name="totalling_group" id="totalling_group" class="form-control"
-                            value="{{ old('totalling_group') }}" required>
-                            <option value="creditors" selected>CREDITORS</option>
-                        </select>
-                        <div class="text-danger" id="vendor-totalling-group-error"></div>
-                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -80,23 +58,10 @@
                         <div class="text-danger" id="vendor-contact-person-error"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="invoice_to" class="form-label">Invoice To <sup
-                                class="text-danger">*</sup></label>
-                        <textarea type="text" name="invoice_to" id="invoice_to" class="form-control" value="{{ old('invoice_to') }}"
-                            placeholder="Enter invoice to"></textarea>
-                        <div class="text-danger" id="vendor-invoice-to-error"></div>
-                    </div>
-                    <div class="mb-3">
                         <label for="supplier_phone" class="form-label">Phone <sup class="text-danger">*</sup></label>
                         <input type="number" name="phone" id="supplier_phone" class="form-control"
                             value="{{ old('phone') }}" placeholder="Phone Number" autocomplete="phone">
                         <div class="text-danger" id="vendor-phone-error"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplier_fax" class="form-label">Fax <sup class="text-danger">*</sup></label>
-                        <input type="number" name="fax" id="supplier_fax" class="form-control"
-                            value="{{ old('fax') }}" placeholder="Enter fax number">
-                        <div class="text-danger" id="vendor-fax-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="supplier_email" class="form-label">Email <sup class="text-danger">*</sup></label>
@@ -119,40 +84,21 @@
                         <div class="text-danger" id="vendor-ntn-error"></div>
                     </div>
                     <div class="mb-3">
-                        <label for="nic" class="form-label">National Identity Card (NIC) <sup
-                                class="text-danger">*</sup></label>
-                        <input type="number" name="nic" id="nic" class="form-control"
-                            value="{{ old('nic') }}" placeholder="Enter Your national identity card number">
-                        <div class="text-danger" id="vendor-nic-error"></div>
-                    </div>
-                    <div class="mb-3">
                         <label for="sales_tax_reg" class="form-label">Sales Tax Registration Number (STRN) <sup
                                 class="text-danger">*</sup></label>
                         <input type="number" name="sales_tax_reg" id="sales_tax_reg" class="form-control"
                             value="{{ old('sales_tax_reg') }}" placeholder="Enter sales tax registration number">
                         <div class="text-danger" id="vendor-strn-error"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="supplier_active" class="form-label">Active<sup
-                                        class="text-danger">*</sup></label>
-                                <select type="active" name="active" id="supplier_active" class="form-control"
-                                    value="{{ old('active') }}" placeholder="Enter your status">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                <div class="text-danger" id="vendor-active-error"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="old_code" class="form-label">Old Code</label>
-                                <input type="number" placeholder="Enter Old Code" name="old_code" id="old_code"
-                                    class="form-control" value="{{ old('old_code') }}">
-                                <div class="text-danger" id="vendor-old-code-error"></div>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label for="supplier_active" class="form-label">Active<sup
+                                class="text-danger">*</sup></label>
+                        <select type="active" name="active" id="supplier_active" class="form-control"
+                            value="{{ old('active') }}" placeholder="Enter your status">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                        <div class="text-danger" id="vendor-active-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="supplier_area" class="form-label">Area <sup class="text-danger">*</sup></label>
@@ -172,13 +118,6 @@
                         <input type="text" placeholder="Enter default project" name="default_project"
                             id="default_project" class="form-control" value="{{ old('default_project') }}">
                         <div class="text-danger" id="vendor-default-project-error"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="account_category" class="form-label">Account Category <sup
-                                class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter account category" name="account_category"
-                            id="account_category" class="form-control" value="{{ old('account_category') }}">
-                        <div class="text-danger" id="vendor-account-category-error"></div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
                         <button type="button" onclick="clearVendorForm()" class="btn btn-danger">Cancel</button>
@@ -220,25 +159,17 @@
                 url: "{{ route('inventory.products.vendors.store') }}",
                 data: {
                     '_token': "{{ csrf_token() }}",
-                    'account_mature': $('#account_mature').val(),
-                    'totalling_group': $('#totalling_group').val(),
                     'code': $('#vendor_code').val(),
                     'account_title': $('#account_title').val(),
-                    'invoice_to': $('#invoice_to').val(),
                     'contact_person': $('#supplier_contact_person').val(),
                     'phone': $('#supplier_phone').val(),
-                    'fax': $('#supplier_fax').val(),
                     'email': $('#supplier_email').val(),
                     'address': $('#supplier_address').val(),
                     'ntn': $('#ntn').val(),
-                    'nic': $('#nic').val(),
                     'sales_tax_reg': $('#sales_tax_reg').val(),
                     'active': $('#supplier_active').val(),
-                    'old_code': $('#old_code').val(),
                     'area': $('#supplier_area').val(),
                     'city': $('#supplier_city').val(),
-                    'default_project': $('#default_project').val(),
-                    'account_category': $('#account_category').val(),
                 },
                 success: function(response) {
                     if (response.errors) {
@@ -248,24 +179,9 @@
                                     $("#vendor-code-error").text(message);
                                 });
                             }
-                            if (index == 'account_mature') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-account-mature-error").text(message);
-                                });
-                            }
-                            if (index == 'totalling_group') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-totalling-group-error").text(message);
-                                });
-                            }
                             if (index == 'account_title') {
                                 $.each(error, function(index, message) {
                                     $("#vendor-account-title-error").text(message);
-                                });
-                            }
-                            if (index == 'invoice_to') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-invoice-to-error").text(message);
                                 });
                             }
                             if (index == 'contact_person') {
@@ -276,11 +192,6 @@
                             if (index == 'phone') {
                                 $.each(error, function(index, message) {
                                     $("#vendor-phone-error").text(message);
-                                });
-                            }
-                            if (index == 'fax') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-fax-error").text(message);
                                 });
                             }
                             if (index == 'email') {
@@ -298,11 +209,6 @@
                                     $("#vendor-ntn-error").text(message);
                                 });
                             }
-                            if (index == 'nic') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-nic-error").text(message);
-                                });
-                            }
                             if (index == 'sales_tax_reg') {
                                 $.each(error, function(index, message) {
                                     $("#vendor-strn-error").text(message);
@@ -313,11 +219,6 @@
                                     $("#vendor-active-error").text(message);
                                 });
                             }
-                            if (index == 'old_code') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-old-code-error").text(message);
-                                });
-                            }
                             if (index == 'area') {
                                 $.each(error, function(index, message) {
                                     $("#vendor-area-error").text(message);
@@ -326,16 +227,6 @@
                             if (index == 'city') {
                                 $.each(error, function(index, message) {
                                     $("#vendor-city-error").text(message);
-                                });
-                            }
-                            if (index == 'default_project') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-default-project-error").text(message);
-                                });
-                            }
-                            if (index == 'account_category') {
-                                $.each(error, function(index, message) {
-                                    $("#vendor-account-category-error").text(message);
                                 });
                             }
 
@@ -352,20 +243,15 @@
         }
 
         function clearVendorForm() {
-            $('#account_mature').val('');
-            $('#totalling_group').val('');
             $('#account_title').val('');
-            $('#invoice_to').val('');
             $('#supplier_contact_person').val('');
             $('#supplier_phone').val('');
             $('#supplier_fax').val('');
             $('#supplier_email').val('');
             $('#supplier_address').val('');
             $('#ntn').val('');
-            $('#nic').val('');
             $('#sales_tax_reg').val('');
             $('#supplier_active').val('');
-            $('#old_code').val('');
             $('#supplier_area').val('');
             $('#supplier_city').val('');
             $('#default_project').val('');
@@ -383,11 +269,8 @@
             $('#vendor-nic-error').empty();
             $('#vendor-sales-tax-reg-error').empty();
             $('#vendor-active-error').empty();
-            $('#vendor-old-code-error').empty();
             $('#vendor-area-error').empty();
             $('#vendor-city-error').empty();
-            $('#vendor-default-project-error').empty();
-            $('#vendor-account-category-error').empty();
             $('#vendorCreateModal').modal('hide');
         }
     </script>
