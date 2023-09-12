@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('limit');
             $table->float('price_per_unit');
             $table->integer('total_piece'); // Quantity
+            $table->float('discount_percentage')->nullable();
             $table->integer('total_amount');
             $table->boolean('is_approved')->nullable();
             $table->timestamps();

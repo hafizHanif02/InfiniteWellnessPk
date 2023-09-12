@@ -26,6 +26,7 @@ class Product extends Model
         'number_of_pack',
         'pieces_per_pack',
         'total_quantity',
+        'open_quantity',
         'trade_price_percentage',
         'unit_retail',
         'fixed_discount',

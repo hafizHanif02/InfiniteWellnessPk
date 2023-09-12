@@ -107,7 +107,7 @@
                     <th>DIS AMOUNT</th>
                     <th></th>
                     <th></th>
-                    <th class="text-center">0.00</th>
+                    <th class="text-center">{{$goodReceiveNote->total_discount_amount }}</th>
                 </tr>
                 <tr>
                     <th>ADV TAX</th>

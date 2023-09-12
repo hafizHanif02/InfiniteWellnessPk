@@ -19,6 +19,7 @@ class Requistion extends Model
         'delivery_date',
         'is_approved',
         'purchase_order_date',
+        'discount_amount',
         'is_updated'
     ];
 

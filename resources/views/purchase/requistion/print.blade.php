@@ -50,9 +50,9 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $requistionProduct->product->product_name }}</td>
                     <td>{{ $requistionProduct->total_piece }}</td>
-                    <td>{{ $requistionProduct->product->cost_price / $requistionProduct->product->total_quantity }}</td>
-                    <td>{{ $requistionProduct->disc }}%</td>
-                    <td>{{ $requistionProduct->sale_tax }}%</td>
+                    <td>{{ $requistionProduct->total_amount / $requistionProduct->total_piece }}</td>
+                    <td>{{ $requistionProduct->discount_percentage }}%</td>
+                    <td>{{ ($requistionProduct->sale_tax == 0)?'-':$requistionProduct->sale_tax.'%' }}</td>
                     <td>{{ $requistionProduct->total_amount }}</td>
                     @if($last_purchase)
                     @foreach ($last_purchase->goodReceiveProducts as $goodReceiveProducts)
@@ -61,17 +61,22 @@
                     <td>{{$goodReceiveProducts->deliver_qty}}</td>
                     <td>{{$goodReceiveProducts->item_amount}}</td>
                     <td>{{$goodReceiveProducts->discount}}</td>
+                    <td>{{$goodReceiveProducts->product->open_quantity }}</td>
+                    <td>{{($requistionProduct->consume== 0)?'-':$requistionProduct->consume}}</td>
+                    <td>{{$goodReceiveProducts->product->total_quantity}}</td>
+                    <td>{{($requistionProduct->averageMonthly == 0)?'-':$requistionProduct->averageMonthly }}</td>
                     @endif
                     @endforeach
                     @else
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     @endif
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
             @empty
                 <tr>

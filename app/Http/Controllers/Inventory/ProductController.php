@@ -142,7 +142,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        Product::create($request->validated());
+        Product::create($request->validated()+['open_quantity' => $request->total_quantity]);
         // StockIn::create($request->validated());
 
         return to_route('inventory.products.index')->with('success', 'Product created!');

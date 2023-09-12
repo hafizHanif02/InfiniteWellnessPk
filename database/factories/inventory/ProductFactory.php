@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'number_of_pack' => 10,
             'pieces_per_pack' => 10,
             'total_quantity' => 100,
+            'open_quantity' => 100,
             'trade_price_percentage' => 15,
             'unit_retail' => 10,
             'fixed_discount' => 7,

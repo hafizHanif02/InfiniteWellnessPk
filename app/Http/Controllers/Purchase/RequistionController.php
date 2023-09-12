@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Models\Purchase\GoodReceiveNote;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\Shift\Transfer;
 use App\Models\Inventory\Vendor;
 use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Purchase\GoodReceiveNote;
 use Illuminate\Support\Facades\Validator;
 use App\Imports\Purchase\RequistionImport;
 use App\Models\Purchase\RequistionProduct;
 use App\Http\Requests\Purchase\RequistionRequest;
 use App\Imports\Purchase\RequistionDocumentImport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Carbon;
 
 class RequistionController extends Controller
 {
@@ -100,7 +103,8 @@ class RequistionController extends Controller
         $requistion = Requistion::create([
             'vendor_id' => $request->vendor_id,
             'remarks' => $request->remarks,
-            'delivery_date' => $request->delivery_date
+            'delivery_date' => $request->delivery_date,
+            'discount_amount' => $request->discount_amount
         ]);
 
         foreach ($request->products as $product) {
@@ -110,6 +114,7 @@ class RequistionController extends Controller
                 'limit' => $product['limit'],
                 'price_per_unit' => $product['price_per_unit'],
                 'total_piece' => $product['total_piece'],
+                'discount_percentage' => $product['discount_percentage'],
                 'total_amount' => $product['total_amount'],
             ]);
         }
@@ -159,11 +164,31 @@ class RequistionController extends Controller
         return back()->with('success', 'Requistion deleted!');
     }
 
-    public function print(Requistion $requistion): View
+    public function print(Requistion $requistion)
     {
+        $requistionProduct = RequistionProduct::where('requistion_id', $requistion->id)->with('Product')->get();
+        $productIds = $requistionProduct->pluck('product_id')->toArray();
+        
+        $currentMonth = now()->format('Y-m-d');
+        
+        
+        
+        foreach($requistionProduct as $prod){
+            $date = Product::where('id',$prod->product_id)->first('created_at');;
+            $consume = TransferProduct::where('product_id', $prod->product_id)->sum('total_piece');
+            if($consume){
+                $prod->averageMonthly = now()->diffInMonths($date->created_at->format('Y-m-d')) / $consume;
+            }else {
+                $prod->averageMonthly = '0';
+            }
+            
+            $prod->consume = $consume;
+        }
+        
+        
         return view('purchase.requistion.print', [
             'requistion' => $requistion->load(['requistionProducts.product.manufacturer', 'vendor']),
-            'last_purchase' => GoodReceiveNote::where('requistion_id',$requistion->id)->with('goodReceiveProducts')->latest()->first(),
+            'last_purchase' => GoodReceiveNote::where('requistion_id',$requistion->id)->with('goodReceiveProducts.product')->latest()->first(),
         ]);
     }
 }

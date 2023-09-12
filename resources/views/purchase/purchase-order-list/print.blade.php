@@ -61,7 +61,7 @@
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
                     <td class="text-center">{{ $requistionproduct->price_per_unit }}</td>
                     <td class="text-center">{{ $requistionproduct->total_amount}}</td>
-                    <td class="text-center">{{ $requistionproduct->product->discount_trade_price }}.00 %</td>
+                    <td class="text-center">{{ $requistionproduct->discount_percentage }}.00 %</td>
                     <td class="text-center">{{ ($requistionproduct->product->sale_tax != null)?$requistionproduct->product->sale_tax.'%':'-' }} </td>
                     <td class="text-center" class="text-center">{{ $requistionproduct->total_amount }}</td>
                     <td class="text-center">{{ $requistionproduct->total_amount }}.00</td>
@@ -70,18 +70,18 @@
             <tr>
                 <td scope="row" rowspan="3" colspan="9"></td>
                 <th>Total</th>
-                <th></th>
-                <th></th>
+                <th>{{ $requistion->requistionProducts->sum('total_amount') }}</th>
+                <th>{{ $requistion->requistionProducts->sum('total_amount') }}</th>
             </tr>
-            {{-- <tr>
+            <tr>
                 <th>Dis Amount</th>
-                <th>{{ $requistion->requistionProducts->product->sum('discount_trade_price') }}.00</th>
-                <th>{{ $totalDiscount }}.00</th>
-            </tr> --}}
+                <th>{{ $requistion->discount_amount}}</th>
+                <th>{{ $requistion->discount_amount}}</th>
+            </tr>
             <tr>
                 <th>Grand Total</th>
-                <th>{{ $totalcost }}.00</th>
-                <th>{{ $totalcost }}.00  /-</th>
+                <th>{{ $totalcost - $requistion->discount_amount }}</th>
+                <th>{{ $totalcost - $requistion->discount_amount }} /-</th>
             </tr>
             <tr rowspan="2">
                 <th style="padding: 20px;" class="text-center" colspan="6">Prepared By:</th>
@@ -97,7 +97,7 @@
         </tbody>
     </table>
     <script nonce="{{ csp_nonce() }}">
-        // window.print();
+        window.print();
     </script>
     <style>
         .text-center{

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('manufacturer_retail_price');
             $table->integer('pieces_per_pack');
             $table->integer('total_quantity');
+            $table->integer('open_quantity');
             $table->float('trade_price_percentage');
             $table->float('unit_retail');
             $table->integer('fixed_discount')->nullable();

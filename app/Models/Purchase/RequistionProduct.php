@@ -17,6 +17,7 @@ class RequistionProduct extends Model
         'limit',
         'price_per_unit',
         'total_piece',
+        'discount_percentage',
         'total_amount',
         'is_approved',
     ];

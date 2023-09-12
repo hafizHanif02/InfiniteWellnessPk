@@ -15,6 +15,7 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
             $table->boolean('is_approved')->nullable();
             $table->date('purchase_order_date')->nullable();
+            $table->float('discount_amount')->nullable();
             $table->boolean('is_updated')->default(0);
             $table->timestamps();
         });

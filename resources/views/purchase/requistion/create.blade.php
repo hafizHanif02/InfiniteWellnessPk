@@ -90,6 +90,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead class="table-dark">
@@ -101,6 +102,7 @@
                                     <td style="min-width: 150px">Total Peice</td>
                                     <td style="min-width: 150px">Previous Price</td>
                                     <td style="min-width: 150px">Total Packet</td>
+                                    <td style="min-width: 150px">Discount Percentage</td>
                                     <td style="min-width: 200px">Amount</td>
                                     <td style="min-width: 50px"></td>
                                 </tr>
@@ -109,6 +111,8 @@
                             </tbody>
                         </table>
                     </div>
+                        <input type="hidden" readonly id="discount_amount" placeholder="Total Amount"
+                            name="discount_amount" class="form-control" value="0">
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{{ route('purchase.requistions.index') }}" class="btn btn-danger">Cancel</a>
                         <button type="submit" class="btn btn-primary ms-3">Save</button>
@@ -199,7 +203,11 @@
                                             <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>    
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][total_amount]" value="${value.cost_price}" class="form-control" readonly>    
+                                            <input type="number" min="0" name="products[${items}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
+                                            <input type="hidden" id="discount_amount2${value.id}">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="products[${items}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>    
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
@@ -228,10 +236,6 @@
                 var TotalPeice = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
                 var price_per_unitet = $("#" + id + " input[name='products[" + items + "][total_peice_per_pack]']").val();
                 var TotalPack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
-
-                
-
-
                 if (limit == 1) {
                     // UNIT
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
@@ -278,6 +282,24 @@
                 var mainqunatityvalue = $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val();
                 $("#" + id + " input[name='products[" + items + "][total_amount]']").val((total_pack * (priceperpeice)));
                 $("#" + id + " input[name='products[" + items + "][total_piece]']").val(total_pack * mainqunatityvalue);
+            }
+            function discountPerc(id) {
+                var discountPer = $('#discount_percentage'+id).val();
+                var total_cost_per_product = $('#total_amount'+id).val();
+                var discount_amount = ((discountPer/100) * total_cost_per_product);
+                $('#discount_amount').val(discount_amount)
+                $('#discount_amount2'+id).val(discount_amount);
+                discountTotal();
+            }
+
+            function discountTotal() {
+                var discount = 0;
+                $("input[id^='discount_amount2']").each(function() {
+                    if($(this).val() != ''){
+                        discount += parseFloat($(this).val());
+                    }
+                });    
+                $('#discount_amount').val(discount);
             }
 
             $("#document").change(function() {
