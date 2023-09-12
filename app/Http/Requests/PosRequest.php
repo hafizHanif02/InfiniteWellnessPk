@@ -17,6 +17,7 @@ class PosRequest extends FormRequest
             'prescription_id' => ['nullable', 'exists:prescriptions,id'],
             'total_amount' => ['required', 'numeric'],
             'patient_name' => ['required', 'string'],
+            'doctor_name' => ['nullable', 'string'],
             'pos_date' => ['required', 'date'],
             'given_amount' => ['nullable', 'numeric'],
             'change_amount' => ['nullable', 'numeric'],

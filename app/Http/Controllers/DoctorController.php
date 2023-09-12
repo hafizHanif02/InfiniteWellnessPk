@@ -49,6 +49,7 @@ class DoctorController extends AppBaseController
      */
     public function index()
     {
+        
         $data['statusArr'] = Doctor::STATUS_ARR;
 
         return view('doctors.index', $data);

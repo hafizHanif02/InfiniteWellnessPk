@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignId('prescription_id')->nullable()->constrained()->cascadeOnDelete();
             $table->integer('total_amount');
             $table->string('patient_name');
+            $table->string('doctor_name');
             $table->date('pos_date');
             $table->timestamps();
         });

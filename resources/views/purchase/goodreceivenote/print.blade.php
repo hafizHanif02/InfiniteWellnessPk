@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <th class="no-border">PO DATE</th>
-                    <th class="text-start no-border" colspan="8">{{ $goodReceiveNote->requistion->delivery_date }}
+                    <th class="text-start no-border" colspan="8">{{( $goodReceiveNote->requistion === null)?'-': $goodReceiveNote->requistion->delivery_date}}
                     </th>
                     <th colspan="4" rowspan="2"></th>
                 </tr>
@@ -78,7 +78,7 @@
                 </tr>
             </thead>
             <tbody class="table-bordered text-center-data">
-                @foreach ($goodreceiveproduct as $grnproduct)
+                @foreach ($goodReceiveNote->goodReceiveProducts as $grnproduct)
                     <tr>
                         <td scope="row">{{ $loop->iteration }}</td>
                         <td>{{ $grnproduct->product->product_name }}</td>
@@ -86,7 +86,7 @@
                         <td >{{ $grnproduct->expiry_date }}</td>
                         <td >{{ $grnproduct->batch_number }}</td>
                         <td>{{ $grnproduct->product->cost_price }}</td>
-                        <td>{{ $grnproduct->deliver_qty }}</td>
+                        <td>{{ ($grnproduct->deliver_qty == null)?'Wait For Approval': $grnproduct->deliver_qty}}</td>
                         <td>
                             {{ $grnproduct->item_amount}}</td>
                         <td>{{ $goodReceiveNote->sale_tax_percentage }} %</td>

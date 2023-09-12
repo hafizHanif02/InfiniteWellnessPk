@@ -124,8 +124,9 @@ class GoodReceiveNoteController extends Controller
         return back()->with('success', 'GRN deleted!');
     }
 
-    public function print(GoodReceiveNote $goodReceiveNote): View
+    public function print($goodReceiveNote): View
     {
+        
         // $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('product')->get();
 
         // $totalproductamount = 0;
@@ -134,7 +135,7 @@ class GoodReceiveNoteController extends Controller
         // }
 
         return view('purchase.goodreceivenote.print', [
-            'goodReceiveNote' => $goodReceiveNote->load(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts']),
+            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first(),
             // 'goodreceiveproduct' => $goodreceiveproduct,
             // 'totalproductamount' => $totalproductamount,
         ]);

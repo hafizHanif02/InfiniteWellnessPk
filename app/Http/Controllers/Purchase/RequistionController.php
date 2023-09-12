@@ -100,10 +100,11 @@ class RequistionController extends Controller
 
     public function store(RequistionRequest $request): RedirectResponse
     {
+        
         $requistion = Requistion::create([
             'vendor_id' => $request->vendor_id,
             'remarks' => $request->remarks,
-            'delivery_date' => $request->delivery_date,
+            'delivery_date' => now(),
             'discount_amount' => $request->discount_amount
         ]);
 

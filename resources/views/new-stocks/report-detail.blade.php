@@ -46,8 +46,8 @@
                                 <td>{{ $transferProduct->product->product_name }}</td>
                             </tr>
                             <tr>
-                                <th>Group:</th>
-                                <td>{{ $transferProduct->product->group->name }}</td>
+                                <th>Dosage:</th>
+                                <td>{{ $transferProduct->product->dosage->name }}</td>
                             </tr>
                             <tr>
                                 <th>Generic Formula:</th>

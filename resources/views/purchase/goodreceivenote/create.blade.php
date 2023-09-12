@@ -76,17 +76,17 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <td></td>
-                                        <td>Product</td>
-                                        <td>Demand Total Piece</td>
-                                        <td>Reamining Total Piece</td>
-                                        <td>Deliver Total Piece (Pcs)</td>
-                                        <td>Discount %</td>
-                                        <td>Bonus</td>
-                                        <td>Exp Date</td>
-                                        <td>Batch No.</td>
-                                        <td>Price Per Unit</td>
-                                        <td>Amount</td>
+                                        <td  style="min-width: 100px"></td>
+                                        <td  style="min-width: 200px">Product</td>
+                                        <td  style="min-width: 200px">Demand Total Piece</td>
+                                        <td  style="min-width: 200px">Reamining Total Piece</td>
+                                        <td  style="min-width: 200px">Deliver Total Piece (Pcs)</td>
+                                        <td  style="min-width: 150px">Discount %</td>
+                                        <td  style="min-width: 150px">Bonus</td>
+                                        <td  style="min-width: 150px">Exp Date</td>
+                                        <td  style="min-width: 150px">Batch No.</td>
+                                        <td  style="min-width: 150px">Price Per Unit</td>
+                                        <td  style="min-width: 150px">Amount</td>
 
                                     </tr>
                                 </thead>

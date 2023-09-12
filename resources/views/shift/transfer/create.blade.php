@@ -55,13 +55,13 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr class="text-white">
-                                        <td>Product</td>
-                                        <td>Total Stock</td>
-                                        <td>Unit of Measurement</td>
-                                        <td>Price Per Unit</td>
-                                        <td>Total Piece</td>
-                                        <td>Total Pack</td>
-                                        <td>Amount</td>
+                                        <td  style="min-width: 200px" >Product</td>
+                                        <td  style="min-width: 200px">Total Stock</td>
+                                        <td  style="min-width: 200px">Unit of Measurement</td>
+                                        <td  style="min-width: 200px">Price Per Unit</td>
+                                        <td  style="min-width: 200px">Total Piece</td>
+                                        <td  style="min-width: 200px">Total Pack</td>
+                                        <td  style="min-width: 200px">Amount</td>
                                         <td></td>
                                     </tr>
                                 </thead>

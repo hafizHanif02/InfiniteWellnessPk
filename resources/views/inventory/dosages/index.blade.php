@@ -1,9 +1,9 @@
-<x-layouts.app title="Dosages Form List">
+<x-layouts.app title="Dosage List">
     <div class="container-fluid mt-5">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h3>Dosages Form</h3>
+                    <h3>Dosage</h3>
                     <div class="d-flex gap-5">
                         <div>
                             <a href="{{ asset('csv/Dosages.xlsx') }}" class="btn btn-danger" download>Download

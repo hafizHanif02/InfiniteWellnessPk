@@ -49,19 +49,20 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <h1 class="text-center text-danger">Do You Want to Reject This Request !</h1>
-                                                    <form action="{{ route('new-stocks.update-status', $newStock->id) }}"
+                                                    <h1 class="text-center text-danger">Do You Want to Reject This Request !
+                                                    </h1>
+                                            <form action="{{ route('new-stocks.update-status', $newStock->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <input type="hidden" name="status" value="0">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">No</button>
-                                                    <button  class="btn btn-primary">Yes</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">No</button>
+                                                        <button type="submit" class="btn btn-primary">Yes</button>
                                                 </div>
-                                                </form>
+                                            </form>
                                             </div>
                                         </div>
                                     </div>

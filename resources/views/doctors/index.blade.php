@@ -14,4 +14,4 @@
         @include('partials.page.templates.templates')
     </div>
 @endsection
-{{--  JS File :- assets/js/doctors/doctors.js --}}
+ {{-- JS File :- assets/js/doctors/doctors.js --}}

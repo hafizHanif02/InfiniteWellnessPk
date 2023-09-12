@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="delivery_date" class="form-label">Delivery Date</label>
-                            <input type="date" name="delivery_date" id="delivery_date" class="form-control"
+                            <input type="date" name="delivery_date" readonly id="delivery_date" class="form-control"
                                 value="{{ old('delivery_date', date('Y-m-d')) }}" placeholder="Enter Delivery Date"
                                 title="Delivery date">
                             @error('delivery_date')
@@ -174,50 +174,51 @@
                             $("#product_id option[value='"+productId+"']").remove();
                             var items = $("tbody tr").length;
                             $.each(response.product, function(index, value) {
+                                console.log(index);
                                 $("#add-products").append(`
                                     <tr id="${value.id}">
-                                        <input type="hidden" name="products[${items}][id]" value="${value.id}">
+                                        <input type="hidden" name="products[${index}][id]" value="${value.id}">
                                         <td>
                                             <input type="text" class="form-control" value="${value.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][total_quantity]" class="form-control" value="${value.total_quantity}" readonly>
+                                            <input type="text" name="products[${index}][total_quantity]" class="form-control" value="${value.total_quantity}" readonly>
                                         </td>
                                         <td>
-                                            <select id="selectLimit${items}" onchange="changeType(${value.id},${items})" name="products[${items}][limit]" class="form-control" required>
+                                            <select id="selectLimit${index}" onchange="changeType(${value.id},${index})" name="products[${index}][limit]" class="form-control" required>
                                                 <option value="1" selected >Unit Qty</option>
                                                 <option value="0">Box Qty</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">    
-                                            <input type="number" step="any" id="price_per_unit${items}2" name="products[${items}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">    
+                                            <input type="hidden" step="any" id="price_per_unit${index}" name="products[${index}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">    
+                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">    
                                         </td>
                                         <td>
-                                            <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
+                                            <input type="number" value="1" min="1" name="products[${index}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number"  value="${value.cost_price}" class="form-control" readonly>    
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>    
+                                            <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>    
                                         </td>
                                         <td>
-                                            <input type="number" min="0" name="products[${items}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
+                                            <input type="number" step="any" name="products[${index}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
                                             <input type="hidden" id="discount_amount2${value.id}">
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>    
+                                            <input type="number" name="products[${index}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>    
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
                                         </td>
                                         
-                                        <input type="hidden" id="discountamount${value.id}" name="products[${items}][pieces_per_pack]" value="${value.pieces_per_pack }">
-                                        <input type="hidden" id="discountamount${value.id}" name="products[${items}][disc_amount]" value="${(value.discount_trade_price * value.cost_price)/100 }">
-                                        <input type="hidden" id="tradeprice${items}" value="${value.trade_price}">
-                                        <input type="hidden" id="total_peice_per_pack${items}" name="products[${items}][total_peice_per_pack]" value="${value.pieces_per_pack}">
-                                        <input type="hidden" id="mainqunatityvalue${items}" name="products[${items}][mainqunatityvalue]" >
+                                        <input type="hidden" id="discountamount${value.id}" name="products[${index}][pieces_per_pack]" value="${value.pieces_per_pack }">
+                                        <input type="hidden" id="discountamount${value.id}" name="products[${index}][disc_amount]" value="${(value.discount_trade_price * value.cost_price)/100 }">
+                                        <input type="hidden" id="tradeprice${index}" value="${value.trade_price}">
+                                        <input type="hidden" id="total_peice_per_pack${index}" name="products[${index}][total_peice_per_pack]" value="${value.pieces_per_pack}">
+                                        <input type="hidden" id="mainqunatityvalue${index}" name="products[${index}][mainqunatityvalue]" >
                                     </tr>
                                 `);
                             });
@@ -332,8 +333,8 @@
                                             </td>
                                             <td>
                                                 <select id="selectLimit${items}" onchange="changeType(${value.id},${items})" name="products[${items}][limit]" class="form-control" required>
-                                                    <option value="${value.limit == 'unit_quantity'? 1 : ''}" ${value.limit == 'unit_quantity' ? 'selected' : '' } >Unit Qty</option>
-                                                    <option value="${value.limit == 'box_quantity'? 0 : ''}" ${value.limit == 'box_quantity' ? 'selected' : '' }>Box Qty</option>
+                                                    <option value="${value.limit == 'Unit Qty'? 1 : ''}" ${value.limit == 'Unit Qty' ? 'selected' : '' } >Unit Qty</option>
+                                                    <option value="${value.limit == 'Box Qty'? 0 : ''}" ${value.limit == 'Box Qty' ? 'selected' : '' }>Box Qty</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -348,6 +349,10 @@
                                             </td>
                                             <td>
                                                 <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>    
+                                            </td>
+                                            <td>
+                                            <input type="number" step="any"  name="products[${items}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
+                                            <input type="hidden" id="discount_amount2${value.id}">
                                             </td>
                                             <td>
                                                 <input type="number" name="products[${items}][total_amount]" value="${value.product.cost_price}" class="form-control" readonly>    

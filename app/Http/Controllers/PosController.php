@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PosRequest;
 use App\Models\Pos;
-use App\Models\Prescription;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Laracasts\Flash\Flash;
+use App\Models\Prescription;
+use Illuminate\Http\Request;
+use App\Http\Requests\PosRequest;
+use App\Models\Pos_Product;
+use Illuminate\Http\RedirectResponse;
 
 class PosController extends Controller
 {
@@ -28,11 +29,20 @@ class PosController extends Controller
 
     public function store(PosRequest $request): RedirectResponse
     {
-        // dd($request);
         $pos = Pos::create($request->validated());
+        foreach($request->products as $product){
+            dd($product);
+            Pos_Product::create([
+                'pos_id' => $request->id,
+                'product_id' => $products['product_id'],
+                'product_name' => $products['product_name'],
+                'product_quantity' => $products['product_quantity'],
+                'product_total_price' => $products['product_total_price'],
+            ]);
+        }
         Flash::message('POS created!');
 
-        return to_route('pos.proceed-to-pay-page', $pos->id);
+        return to_route('pos.proceed-to-pay-page', $pos);
     }
 
     public function ProceedToPayPage($pos)

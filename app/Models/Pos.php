@@ -11,6 +11,7 @@ class Pos extends Model
         'prescription_id',
         'total_amount',
         'patient_name',
+        'doctor_name',
         'pos_date',
     ];
 

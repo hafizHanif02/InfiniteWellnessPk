@@ -53,10 +53,6 @@
                         <td>{{$vendor->area }}</td>
                     </tr>
                     <tr>
-                        <th>Contact Person:</th>
-                        <td>{{$vendor->contact_person }}</td>
-                    </tr>
-                    <tr>
                         <th>City:</th>
                         <td>{{$vendor->city }}</td>
                     </tr>

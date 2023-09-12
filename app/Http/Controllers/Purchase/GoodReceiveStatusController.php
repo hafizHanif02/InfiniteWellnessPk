@@ -28,8 +28,11 @@ class GoodReceiveStatusController extends Controller
     {
         if ($request->status == 1) {
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
+                $unit_trade = (($goodReceiveProduct->product->trade_price_percentage*$goodReceiveProduct->item_amount)/100)+$goodReceiveProduct->item_amount;
                 $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
                 $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
+                $goodReceiveProduct->product->update(['unit_trade' => $unit_trade]);
+
             }
         }
         $goodReceiveNote->update([

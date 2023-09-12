@@ -3,7 +3,6 @@
     {{ __('messages.bill.pos') }}
 @endsection
 @section('content')
-    {{-- {{dd($prescriptions) }} --}}
     @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -32,11 +31,11 @@
                                 <select name="prescription_id" id="prescription_id" class="form-control">
                                     <option value="" selected disabled>Select prescription</option>
                                     @foreach ($prescriptions as $prescription)
-                                        <option value="{{ $prescription['id'] }}"
-                                            data-patient="{{ $prescription['patient']['user']['first_name'].' '.$prescription['patient']['user']['last_name']  }}"  data-doctor ="{{$prescription['doctor']['user']['first_name'].' '.$prescription['doctor']['user']['last_name']}}"  data-medicines="{{ json_encode($prescription->getMedicine) }}">
-                                            {{ $prescription['doctor']['user']['first_name'] }} To Patient
-                                            ({{ $prescription['patient']['user']['first_name'] }}) At
-                                            ({{ $prescription['created_at'] }})
+                                        <option value="{{ $prescription->id }}"
+                                            data-patient="{{ $prescription->patient->user->first_name.' '.$prescription->patient->user->last_name  }}"  data-doctor ="{{$prescription->doctor->user->first_name.' '.$prescription->doctor->user->last_name}}"  data-medicines="{{ json_encode($prescription->getMedicine) }}">
+                                            {{ $prescription->doctor->user->first_name }} To Patient
+                                            ({{ $prescription->patient->user->first_name }}) At
+                                            ({{ $prescription->created_at }})
                                         </option>
                                     @endforeach
                                         </select>
@@ -71,16 +70,23 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <table class="table table-bodered">
-                                <thead>
+                        <div class="mt-10">
+                            <div class="row mb-5 ">
+                                <div class="col-md-8">
                                     <h4>Prescription Items</h4>
-                                    <tr class="d-flex gap-10">
-                                        <th>Product</th>
-                                        <th>Dosage</th>
-                                        <th>Comment</th>
-                                        <th>Time</th>
-                                        <th>Price</th>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <button type="button" onclick="Addmore()" class="btn btn-primary">Add More</button>
+                                </div>
+                            </div>
+                            <table class="table table-bodered">
+                                <thead class="bg-dark">
+                                    <tr>
+                                        <th class="col">Product</th>
+                                        <th class="col">Dosage</th>
+                                        <th class="col">Comment</th>
+                                        <th class="col">Time</th>
+                                        <th class="col">Price</th>
                                     </tr>
                                 </thead>
                                 <tbody class="" id="medicine-table-body">
@@ -100,7 +106,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary">Proceed To Pay</button>
+                            <button class="btn btn-success">Proceed To Pay</button>
                         </div>
                     </form>
                 </div>
@@ -118,18 +124,19 @@
 
             var total = 0;
 
-            selectedMedicinesAttr.forEach(function(medicine) {
+            selectedMedicinesAttr.forEach(function(medicine , items) {
                 var row = `
-                    <tr class="d-flex gap-5">
-                        <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" placeholder="item name"></td>
-                        <td><input type="text" class="form-control" readonly value="${medicine.dosage}" placeholder="dosage"></td>
+                    <tr scope="row">
+                        <input type="hidden" name="products[${items}]['product_id']" value="${medicine.id}">
+                        <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}]['product_name']" placeholder="item name"></td>
+                        <td><input type="text" class="form-control" readonly value="${medicine.dosage}" name="products[${items}]['product_quantity']" placeholder="dosage"></td>
                         <td><input type="text" class="form-control" readonly value="${medicine.comment}" placeholder="Comment"></td>
                         <td><input type="text" class="form-control" readonly value="${medicine.time == 0 ? 'Before Meal' : 'After Meal'}" placeholder="Before/After Meal"></td>
-                        <td><input type="text" class="form-control" id="prescription_item_price${medicine.id}" readonly value="${(medicine.medicine.selling_price/medicine.medicine.quantity)*medicine.dosage}" placeholder="selling_price"></td>
+                        <td><input type="text" class="form-control"  name="products[${items}]['product_total_price']" id="prescription_item_price${medicine.id}" readonly value="${(medicine.medicine.selling_price)*medicine.dosage}" placeholder="selling_price"></td>
                     </tr>`;
                 $("#medicine-table-body").append(row);
 
-                total += ((medicine.medicine.selling_price / medicine.medicine.quantity) * medicine.dosage);
+                total += ((medicine.medicine.selling_price) * medicine.dosage);
             });
 
             $("#total_amount").val(total.toFixed(2));
@@ -160,6 +167,7 @@
         var grandTotal = total_amount + advance_cost;
 
         $("#total_amount").val(grandTotal.toFixed(2));
+
     }
     </script>
 @endsection

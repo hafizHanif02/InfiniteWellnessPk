@@ -1,8 +1,8 @@
-<x-layouts.app title="Edit Dosage Form">
+<x-layouts.app title="Edit Dosage">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3>Edit Dosage Form</h3>
+                <h3>Edit Dosage</h3>
                 <a href="{{ route('inventory.dosages.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">
@@ -16,7 +16,7 @@
                                 <input type="text" name="name" id="category_name"
                                     value="{{ old('name', $dosage->name) }}"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Enter category name" title="Category name" autocomplete="name">
+                                    placeholder="Enter Dosage name" title="Category name" autocomplete="name">
                                 @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

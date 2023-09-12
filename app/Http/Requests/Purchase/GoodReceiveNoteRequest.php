@@ -27,7 +27,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'total_amount' => ['required', 'numeric', 'min:0'],
             'total_discount_amount' => ['nullable', 'numeric', 'min:0'],
             'net_total_amount' => ['required', 'numeric', 'min:0'],
-            'advance_tax_percentage' => ['nullable', 'integer', 'min:0'],
+            'advance_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'products.0' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],

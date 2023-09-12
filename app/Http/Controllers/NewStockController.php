@@ -25,10 +25,11 @@ class NewStockController extends Controller
 
     public function updateStatus(NewstockRequest $request, Transfer $transfer): RedirectResponse
     {
+        
         if ($request->status == 1) {
             $transfer = $transfer->load(['transferProducts.product.productCategory', 'transferProducts.product.vendor']);
             foreach ($transfer->transferProducts as $transferProduct) {
-
+                // dd($transferProduct);
                 $itemCategory = ItemCategory::firstOrCreate([
                     'name' => $transferProduct->product->productCategory->name,
                 ]);
@@ -37,14 +38,14 @@ class NewStockController extends Controller
                 $item = Item::where('name', $itemName)->first();
 
                 if ($item) {
-                    $item->increment('available_quantity', $transferProduct->supply_qty);
+                    $item->increment('available_quantity', $transferProduct->total_piece);
                 } else {
                     $item = Item::create([
                         'name' => $itemName,
                         'item_category_id' => $itemCategory->id,
-                        'unit' => $transferProduct->product->least_unit,
+                        'unit' => $transferProduct->product->unit_of_measurement,
                         'description' => $transferProduct->product->package_detail,
-                        'available_quantity' => $transferProduct->supply_qty,
+                        'available_quantity' => $transferProduct->total_piece,
                     ]);
                 }
 
@@ -52,8 +53,9 @@ class NewStockController extends Controller
 
                 if ($itemIdExists) {
                     ItemStock::where('item_id', $item->id)->incrementEach([
-                        'quantity' => $transferProduct->supply_qty,
-                        'purchase_price' => $transferProduct->item_amount,
+                        'quantity' => $transferProduct->total_piece,
+                    ])->update([
+                        'purchase_price' => $transferProduct->price_per_unit,
                     ]);
                 } else {
                     ItemStock::create([
@@ -61,8 +63,8 @@ class NewStockController extends Controller
                         'item_id' => $item->id,
                         'supplier_name' => $transferProduct->product->vendor->account_title,
                         'store_name' => 'Test store',
-                        'quantity' => $transferProduct->supply_qty,
-                        'purchase_price' => $transferProduct->product->unit_retail,
+                        'quantity' => $transferProduct->total_piece,
+                        'purchase_price' => $transferProduct->price_per_unit,
                         'description' => $transferProduct->product->package_detail,
                         'currency_symbol' => 'Rs',
                     ]);
@@ -74,30 +76,29 @@ class NewStockController extends Controller
 
                     $brand = Brand::create([
                         'name' => $transferProduct->product->manufacturer->company_name,
-                        'email' => $transferProduct->product->manufacturer->email,
-                        'phone' => $transferProduct->product->manufacturer->phone,
                     ]);
                 }
 
                 $medicineNameExists = Medicine::where('name', $transferProduct->product->product_name)->exists();
 
-                // dd($transferProduct->supply_qty);
+                // dd($transferProduct->total_piece);
                 if ($medicineNameExists) {
                     Medicine::where('name', $transferProduct->product->product_name)->incrementEach([
-                        'selling_price' => $transferProduct->product->trade_price,
+                        'quantity' => $transferProduct->total_piece,
+                    ])->update([
+                        'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
-                        'quantity' => $transferProduct->supply_qty,
                     ]);
                 } else {
                     Medicine::create([
                         'category_id' => $category->id,
                         'brand_id' => $brand->id,
                         'name' => $transferProduct->product->product_name,
-                        'selling_price' => $transferProduct->product->trade_price,
+                        'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
                         'description' => $transferProduct->product->package_detail,
                         'salt_composition' => $transferProduct->product->generic->formula,
-                        'quantity' => $transferProduct->supply_qty,
+                        'quantity' => $transferProduct->total_piece,
                         'currency_symbol' => 'Rs',
                     ]);
                 }
@@ -120,7 +121,7 @@ class NewStockController extends Controller
     public function show(Transfer $transfer): View
     {
         return view('new-stocks.report-detail', [
-            'stockReport' => $transfer->load(['transferProducts.product.group', 'transferProducts.product.generic', 'transferProducts.product.vendor', 'transferProducts.product.manufacturer', 'transferProducts.product.productCategory']),
+            'stockReport' => $transfer->load(['transferProducts.product.dosage', 'transferProducts.product.generic', 'transferProducts.product.vendor', 'transferProducts.product.manufacturer', 'transferProducts.product.productCategory']),
         ]);
     }
 

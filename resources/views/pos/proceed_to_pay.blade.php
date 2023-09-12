@@ -10,7 +10,7 @@
                 <a href="{{ route('pos.index') }}"><button class="btn btn-primary">Back</button></a>
             </div>
             <div class="">
-                
+                {{dd($pos) }}
             </div>
         </div>
     </div>

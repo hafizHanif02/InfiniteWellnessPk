@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Doctor extends Model
 {
     public $fillable = [
-        'user_id',
+        'doctor_user_id',
         'doctor_department_id',
         'specialist',
     ];
@@ -31,7 +31,7 @@ class Doctor extends Model
 
     protected $casts = [
         'id' => 'integer',
-        'user_id' => 'integer',
+        'doctor_user_id' => 'integer',
         'doctor_department_id' => 'integer',
         'specialist' => 'string',
     ];
@@ -67,7 +67,7 @@ class Doctor extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'doctor_user_id');
     }
 
     public function address(): MorphOne

@@ -22,7 +22,7 @@ class DoctorRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'user_id',
+        'doctor_user_id',
         'specialist',
     ];
 
@@ -66,7 +66,7 @@ class DoctorRepository extends BaseRepository
             }
 
             $doctor = Doctor::create([
-                'user_id' => $user->id,
+                'doctor_user_id' => $user->id,
                 'doctor_department_id' => $input['doctor_department_id'],
                 'specialist' => $input['specialist'],
             ]);

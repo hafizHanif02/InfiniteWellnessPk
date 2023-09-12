@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->bigInteger('doctor_user_id')->nullable;
             $table->foreignId('doctor_department_id')->constrained()->cascadeOnDelete();
             $table->string('specialist');
             $table->timestamps();
