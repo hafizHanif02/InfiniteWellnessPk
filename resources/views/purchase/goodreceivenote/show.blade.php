@@ -102,7 +102,6 @@
                                 <th>Batch #</th>
                                 <td>{{ $goodReceiveNoteProduct->batch_number }}</td>
                             </tr>
-                            
                         @endforeach
                     </tbody>
                 </table>

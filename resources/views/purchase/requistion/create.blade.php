@@ -333,8 +333,8 @@
                                             </td>
                                             <td>
                                                 <select id="selectLimit${items}" onchange="changeType(${value.id},${items})" name="products[${items}][limit]" class="form-control" required>
-                                                    <option value="${value.limit == 'Unit Qty'? 1 : ''}" ${value.limit == 'Unit Qty' ? 'selected' : '' } >Unit Qty</option>
-                                                    <option value="${value.limit == 'Box Qty'? 0 : ''}" ${value.limit == 'Box Qty' ? 'selected' : '' }>Box Qty</option>
+                                                    <option value="${value.limit == 'unit_quantity'? 1 : ''}" ${value.limit == 'unit_quantity' ? 'selected' : '' } >Unit Qty</option>
+                                                    <option value="${value.limit == 'box_quantity'? 0 : ''}" ${value.limit == 'box_quantity' ? 'selected' : '' }>Box Qty</option>
                                                 </select>
                                             </td>
                                             <td>

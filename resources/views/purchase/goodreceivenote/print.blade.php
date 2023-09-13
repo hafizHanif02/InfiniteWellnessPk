@@ -15,10 +15,10 @@
                     <th colspan="4">
                         <table style="margin: 0; padding: 0" class="no-border no-bottom-border">
                             <tbody>
-                                {{-- <tr class="no-border">
+                                <tr class="no-border">
                                     <th>INV#</th>
-                                    <td class="no-border">{{ $goodReceiveNote->grn_number }}</td>
-                                </tr> --}}
+                                    <td class="no-border">{{ $goodReceiveNote->id }}</td>
+                                </tr>
                                 <tr class="no-border">
                                     <th>SUPPLY DATE:</th>
                                     <td class="no-border">{{ $goodReceiveNote->date }}</td>
