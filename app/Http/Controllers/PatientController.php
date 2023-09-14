@@ -117,8 +117,8 @@ class PatientController extends AppBaseController
             $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();
             natcasesort($vaccinations);
 
-            $forms = DB::table('formType')->get();
-            $currentForm = DB::table('formPatient')->where(['patientID' => $patientId])->get();
+            $forms = DB::table('form_type')->get();
+            $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
 
             return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm'));
         }
@@ -202,9 +202,9 @@ class PatientController extends AppBaseController
     public function showForm(Request $request)
     {
 
-        $formPatientId = DB::Table('formPatient')->where(['id' => $request->formPatientID])->first();
-        $formFile = DB::Table('formType')->where(['id' => $formPatientId->formID])->first();
-        $formData = DB::Table('formData')->where(['formID' => $request->formPatientID])->get();
+        $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
+        $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
+        $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
 
         return view('patients.'.$formFile->fileName, compact('formData'));
     }
@@ -215,7 +215,7 @@ class PatientController extends AppBaseController
         $reqArray = $request->all();
         foreach ($reqArray as $fieldName => $fieldValue) {
             if ($fieldValue != null) {
-                DB::table('formData')
+                DB::table('form_data')
                     ->where('fieldName', $fieldName)->where('formID', $request->formPatientID) // Specify the condition for the update
                     ->update([
                         'fieldValue' => $fieldValue, // Update the fieldValue column with the new value
@@ -250,9 +250,9 @@ class PatientController extends AppBaseController
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->format('Y-m-d');
 
-        $formName = DB::table('formType')->where(['id' => $req->formName])->value('formName');
+        $formName = DB::table('form_type')->where(['id' => $req->formName])->value('formName');
         //DB::insert("INSERT INTO `formPatient` (formID, formName, patientID, formDate) VALUES (?, ?, ?, ?)", [(int)$req->formName, $formName, (int)$req->patientID, $formattedDate]);
-        $insertedId = DB::table('formPatient')->insertGetId([
+        $insertedId = DB::table('form_patient')->insertGetId([
             'formID' => (int) $req->formName,
             'formName' => $formName,
             'patientID' => (int) $req->patientID,
@@ -834,7 +834,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Monthly7066', 'fieldValue' => ''],
         ];
 
-        DB::table('formData')->insert($data);
+        DB::table('form_data')->insert($data);
     }
 
     public function insertPreTestData($formID, $patientID)
@@ -868,7 +868,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Eczema', 'fieldValue' => ''],
         ];
 
-        DB::table('formData')->insert($data);
+        DB::table('form_data')->insert($data);
     }
 
     public function insertSOAPForm($formID, $patientID)
@@ -953,6 +953,6 @@ class PatientController extends AppBaseController
 
         ];
 
-        DB::table('formData')->insert($data);
+        DB::table('form_data')->insert($data);
     }
 }
