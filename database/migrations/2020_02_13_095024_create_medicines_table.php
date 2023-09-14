@@ -14,6 +14,7 @@ return new class extends Migration
             $table->integer('total_quantity')->nullable();
             $table->string('name')->index();
             $table->string('generic_formula')->nullable();
+            $table->string('dosage_form')->nullable();
             $table->double('selling_price');
             $table->double('buying_price');
             $table->string('salt_composition');

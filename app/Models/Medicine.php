@@ -59,6 +59,7 @@ class Medicine extends Model
         'total_quantity',
         'name',
         'generic_formula',
+        'dosage_form',
         'selling_price',
         'buying_price',
         'side_effects',

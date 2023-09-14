@@ -27,7 +27,7 @@ class NewStockController extends Controller
     {
         
         if ($request->status == 1) {
-            $transfer = $transfer->load(['transferProducts.product.productCategory', 'transferProducts.product.vendor']);
+            $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
             foreach ($transfer->transferProducts as $transferProduct) {
                 // dd($transferProduct);
                 $itemCategory = ItemCategory::firstOrCreate([
@@ -91,10 +91,11 @@ class NewStockController extends Controller
                     ]);
                 } else {
                     Medicine::create([
+                        'dosage_form' => $transferProduct->product->dosage->name,
                         'category_id' => $category->id,
                         'brand_id' => $brand->id,
                         'name' => $transferProduct->product->product_name,
-                        'generic_formula' => $transferProduct->product->generic_id,
+                        'generic_formula' => $transferProduct->product->generic->formula,
                         'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
                         'description' => $transferProduct->product->package_detail,

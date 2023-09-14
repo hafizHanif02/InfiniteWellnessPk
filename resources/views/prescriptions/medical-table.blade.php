@@ -5,7 +5,8 @@
                 <thead class="thead-dark">
                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                     <th class="">{{ __('messages.medicines') }}</th>
-                    <th class="">Rmaining Quantity</th>
+                    <th>Remaining Quantity</th>
+                    <th class="">Dose</th>
                     <th class="">{{ __('messages.appointment.day') }}</th>
                     <th class="">{{ __('messages.prescription.time') }}</th>
                     <th class="">{{ __('messages.prescription.comment') }}</th>
@@ -24,7 +25,7 @@
                                 {{ Form::select('medicine[]', $medicines['medicines'], $prescription->medicine,['class' => 'form-select prescriptionMedicineId']) }}
                             </td>
                             <td>
-                                {{$medicine->total_quantity }}
+                                {{$medicines->total_quantity}}
                             </td>
                             <td>
                                 {{ Form::text('dosage[]', $prescription->dosage, ['class' => 'form-control', 'id' => 'prescriptionMedicineNameId']) }}
@@ -52,7 +53,7 @@
                             {{ Form::select('medicine[]', $medicines['medicines'], null,['class' => 'form-select prescriptionMedicineId']) }}
                         </td>
                         <td>
-                            {{$medicines->total_quantity }}
+                            {{$medicines['total_quantity']}}
                         </td>
                         <td>
                             {{ Form::text('dosage[]', null, ['class' => 'form-control', 'id' => 'prescriptionMedicineNameId']) }}

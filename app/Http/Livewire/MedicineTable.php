@@ -59,6 +59,14 @@ class MedicineTable extends LivewireTableComponent
                 ->view('medicines.templates.columns.name')
                 ->searchable()
                 ->sortable(),
+            Column::make(('generic formula'), 'generic_formula')
+                ->view('medicines.templates.columns.generic_formula')
+                ->searchable()
+                ->sortable(),
+            Column::make(('dosage form'), 'dosage_form')
+                ->view('medicines.templates.columns.dosage_form')
+                ->searchable()
+                ->sortable(),
             Column::make(__('messages.medicine.brand'), 'brand.name')
                 ->searchable()
                 ->sortable(),
@@ -68,6 +76,10 @@ class MedicineTable extends LivewireTableComponent
                 ->sortable(),
             Column::make(__('messages.medicine.buying_price'), 'buying_price')
                 ->view('medicines.templates.columns.buying_price')
+                ->searchable()
+                ->sortable(),
+            Column::make(__('Total Stock'), 'total_quantity')
+                ->view('medicines.templates.columns.total_quantity')
                 ->searchable()
                 ->sortable(),
             Column::make(__('messages.common.action'), 'id')->view('medicines.action'),
