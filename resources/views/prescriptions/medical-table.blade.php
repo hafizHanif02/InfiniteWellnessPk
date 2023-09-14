@@ -53,6 +53,7 @@
                             {{ Form::select('medicine[]', $medicines['medicines'], null,['class' => 'form-select prescriptionMedicineId']) }}
                         </td>
                         <td>
+                            {{dd($medicines) }}
                             {{$medicines['total_quantity']}}
                         </td>
                         <td>

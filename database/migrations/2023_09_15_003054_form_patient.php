@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('form_data', function (Blueprint $table) {
+        Schema::create('form_patient', function (Blueprint $table) {
             $table->id();
             $table->foreignId('formID')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('formName');
             $table->foreignId('patientID')->nullable()->constrained()->cascadeOnDelete();
-            $table->string('feildName');
-            $table->string('feildValue');
+            $table->string('formDate');
             $table->timestamps();
         });
     }
