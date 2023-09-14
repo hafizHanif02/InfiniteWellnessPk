@@ -56,6 +56,7 @@ class Medicine extends Model
     public $fillable = [
         'category_id',
         'brand_id',
+        'total_quantity',
         'name',
         'selling_price',
         'buying_price',
@@ -74,6 +75,7 @@ class Medicine extends Model
         'id' => 'integer',
         'category_id' => 'integer',
         'brand_id' => 'integer',
+        'total_quantity' => 'integer',
         'name' => 'string',
         'selling_price' => 'double',
         'buying_price' => 'double',

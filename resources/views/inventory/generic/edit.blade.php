@@ -1,8 +1,8 @@
-<x-layouts.app title="Edit Generic">
+<x-layouts.app title="Edit Generic Formula">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3>Edit Generic</h3>
+                <h3>Edit Generic Formula</h3>
                 <a href="{{ route('inventory.generics.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">

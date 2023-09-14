@@ -1,8 +1,8 @@
-<x-layouts.app title="Add Generic">
+<x-layouts.app title="Add Generic Formula">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3>Add New Generic</h3>
+                <h3>Add New Generic Formula</h3>
                 <a href="{{ route('inventory.generics.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">

@@ -15,7 +15,7 @@ class TransferRequest extends FormRequest
     {
         return [
             'supply_date' => ['required', 'date'],
-            'products.0' => ['required'],
+            'products.*' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
             'products.*.price_per_unit' => ['required', 'numeric', 'min:1'],
@@ -28,7 +28,7 @@ class TransferRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'products.0.required' => ['Atleast one product is required'],
+            'products.*.required' => ['Atleast one product is required'],
         ];
     }
 }

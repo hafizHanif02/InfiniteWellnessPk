@@ -30,7 +30,7 @@
     <a class="nav-link  d-flex align-items-center py-3"
        href="{{ route('inventory.generics.index') }}">
         <span class="aside-menu-icon pe-3 pe-3"><i class="fas fa-calendar-check"></i></span>
-        <span class="aside-menu-title">Generics</span>
+        <span class="aside-menu-title">Generic Formula</span>
     </a>
 </li>
 <li class="nav-item {{ Request::is('inventory/vendors*') ? 'active' : '' }}">

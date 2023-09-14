@@ -1,8 +1,8 @@
-<x-layouts.app title="Edit Dosage">
+<x-layouts.app title="Edit Dosage Form">
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h3>Edit Dosage</h3>
+                <h3>Edit Dosage Form</h3>
                 <a href="{{ route('inventory.dosages.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('generic_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('manufacturer_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('vendor_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('vendor_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('product_name')->unique();
             $table->string('package_detail')->nullable();
             $table->tinyInteger('unit_of_measurement');

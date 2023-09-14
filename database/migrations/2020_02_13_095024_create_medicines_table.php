@@ -11,6 +11,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->integer('total_quantity')->nullable();
             $table->string('name')->index();
             $table->double('selling_price');
             $table->double('buying_price');

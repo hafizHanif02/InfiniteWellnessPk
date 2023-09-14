@@ -57,12 +57,12 @@
                         @enderror
                     </div>
                     <div class="mb-5">
-                        <label for="generic_id" class="form-label">Generic <sup class="text-danger">*</sup></label>
+                        <label for="generic_id" class="form-label">Generic Formula <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
                                 <select name="generic_id" id="generic_id"
                                     class="form-control @error('generic_id') is-invalid @enderror">
-                                    <option value="" selected disabled>Select Generic</option>
+                                    <option value="" selected disabled>Select Generic Formula</option>
                                     @forelse ($generics as $generic)
                                         <option value="{{ $generic->id }}"
                                             {{ old('generic_id') == $generic->id ? 'selected' : '' }}>
@@ -92,20 +92,20 @@
                         @enderror
                     </div>
                     <div class="mb-5">
-                        <label for="dosage_id" class="form-label">Dosage <sup
+                        <label for="dosage_id" class="form-label">Dosage Form <sup
                                 class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
                                 <select type="text" name="dosage_id" id="dosage_id"
                                     class="form-control @error('dosage_id') is-invalid @enderror">
-                                    <option value="" selected disabled>Select Dosage </option>
+                                    <option value="" selected disabled>Select Dosage Form </option>
                                     @forelse ($dosages as $dosage)
                                         <option value="{{ $dosage->id }}"
                                             {{ old('dosage_id') == $dosage->id ? 'selected' : '' }}>
                                             {{ $dosage->name }}</option>
                                     @empty
                                         <option value="" id="no-dosage-found" class="text-danger" disabled>No
-                                            Dosage  found!</option>
+                                            Dosage form found!</option>
                                     @endforelse
                                 </select>
                                 @error('dosage_id')
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-5">
+                    {{-- <div class="mb-5">
                         <label for="vendor_id" class="form-label">Vendor <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
@@ -172,15 +172,15 @@
                                     data-bs-target="#vendorCreateModal">Add</button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-9">
                             <div class="mb-5">
                                 <label for="unit_of_measurement" class="form-label">Unit Of Measurement <sup
                                         class="text-danger">*</sup></label>
-                                <select type="text" name="unit_of_measurement" id="unit_of_measurement"
+                                <select type="text" onchange="unit_of_measurement()" name="unit_of_measurement" id="unit_of_measurement"
                                     class="form-control @error('unit_of_measurement') is-invalid @enderror" title="Unit of measurement">
-                                    <option value="" selected disabled>Select Unit</option>
+                                    {{-- <option value="" selected disabled>Select Unit</option> --}}
                                     <option value="1" {{ old('unit_of_measurement') == '1' ? 'selected' : '' }}>Unit Qty
                                     </option>
                                     <option value="0" {{ old('unit_of_measurement') == '0' ? 'selected' : '' }}>Box Qty
@@ -194,7 +194,7 @@
                         <div class="col-md-3">
                             <label for="number_of_pack" class="form-label">Number of Pack<sup
                                     class="text-danger">*</sup></label>
-                            <input type="number" readonly name="number_of_pack" id="number_of_pack"
+                            <input type="number" readonly value="1" onkeyup="calculation()" name="number_of_pack" id="number_of_pack"
                                 class="form-control @error('number_of_pack') is-invalid @enderror"
                                 placeholder="Select Unit Of Measurement First" value="{{ old('number_of_pack') }}"
                                 title="Number of packet">
@@ -209,7 +209,7 @@
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
                                 <input type="number" step="any" min="1" name="manufacturer_retail_price"
-                                    id="manufacturer_retail_price"
+                                    id="manufacturer_retail_price" onkeyup="calculation()"
                                     class="form-control @error('manufacturer_retail_price') is-invalid @enderror"
                                     placeholder="Enter manufacture retail price"
                                     value="{{ old('manufacturer_retail_price') }}" title="Manufacturer retail price">
@@ -222,7 +222,7 @@
                             <div class="mb-5">
                                 <label for="pieces_per_pack" class="form-label">Pieces Per Pack <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" min="1" name="pieces_per_pack" id="pieces_per_pack"
+                                <input type="number" min="1" onkeyup="calculation()" name="pieces_per_pack" onkeyup="pieces_per_pack()" id="pieces_per_pack"
                                     class="form-control @error('pieces_per_pack') is-invalid @enderror"
                                     placeholder="Enter pieces per packet" value="{{ old('pieces_per_pack') }}"
                                     title="Pieces per pack">
@@ -231,11 +231,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" >
                             <div class="mb-5">
-                                <label for="total_quantity" class="form-label">Total Quantity <sup
-                                        class="text-danger">*</sup></label>
-                                <input type="text" name="total_quantity" id="total_quantity"
+                                <label for="total_quantity" class="form-label"></label>
+                                <input type="hidden" name="total_quantity" id="total_quantity"
                                     class="form-control @error('total_quantity') is-invalid @enderror" readonly
                                     value="{{ old('total_quantity') }}" title="total_quantity">
                                 @error('total_quantity')
@@ -248,9 +247,9 @@
                                 <label for="trade_price_percentage" class="form-label">Trade Price % <sup
                                         class="text-danger">*</sup></label>
                                 <input type="number" min="1" name="trade_price_percentage"
-                                    id="trade_price_percentage"
+                                    id="trade_price_percentage" onkeyup="calculation()"
                                     class="form-control @error('trade_price_percentage') is-invalid @enderror"
-                                    placeholder="Enter trade price %" value="{{ old('trade_price_percentage') }}"
+                                    placeholder="Enter trade price %" onkeyup="trade_price_percentage()" value="{{ old('trade_price_percentage') }}"
                                     title="Trade price percentage">
                                 @error('trade_price_percentage')
                                     <small class="text-danger">{{ $message }}</small>
@@ -322,7 +321,7 @@
                             <div class="mb-5">
                                 <label for="discount_trade_price" class="form-label">Discount % On Trade Price</label>
                                 <input type="number"  name="discount_trade_price"
-                                    id="discount_trade_price"
+                                    id="discount_trade_price" onkeyup="calculation()"
                                     class="form-control @error('discount_trade_price') is-invalid @enderror"
                                     placeholder="Enter discount percentage on trade price"
                                     value="{{ old('discount_trade_price') }}" title="Discount trade price">
@@ -369,59 +368,51 @@
             $(document).ready(function() {
                 $('#product_category_id, #dosage_id, #manufacturer_id, #vendor_id, #generic_id').select2();
             });
-            $("#trade_price_percentage").on('keyup change', function() {
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                if ($("#manufacturer_retail_price").val() != '') {
-                    var tp = parseFloat($(this).val());
-                    var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
-                    $("#trade_price").val(calc);
-                }
-            });
 
-            $("#pieces_per_pack").on('keyup change', function() {
 
-                var pcsperpack = parseInt($(this).val());
-                var noofpack = parseInt($('#number_of_pack').val());
-
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                totaltotal_quantity = parseInt(pcsperpack * noofpack);
-
-                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
-                $("#unit_retail").val(retailpriceperunit);
-
-                var tradeprice = parseFloat($("#trade_price").val());
-
-                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
-                $("#unit_trade").val(tradepriceperunit);
-
-                $("#total_quantity").val(noofpack * pcsperpack)
-            })
-
-            $("#discount_trade_price").on('keyup change', function() {
-
-                var discperc = parseInt($(this).val());
-                var tradeprice = parseFloat($("#trade_price").val());
-                var calc = tradeprice - (tradeprice * discperc / 100);
-
-                $("#cost_price").val(calc);
-
-            })
-
-            $('#unit_of_measurement').change(function() {
-                if ($(this).val() === '0') {
-                    // Box
-                    $('#number_of_pack').prop('readonly', false);
-                } else if ($(this).val() === '1') {
-                    // Unit
-                    $('#number_of_pack').prop('readonly', true);
-                    $("#number_of_pack").val(1);
-                }
-            });
 
             $('#save-product-button').on('click', function() {
                 $(this).prop('disabled', true);
                 $('#save-product-form').submit();
             });
+
+
+
+            function calculation(){
+                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                if ($("#manufacturer_retail_price").val() != '') {
+                    var tp = parseFloat($("#trade_price_percentage").val());
+                    var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
+                    $("#trade_price").val(calc);
+
+                    var pcsperpack = parseInt($("#pieces_per_pack").val());
+                var noofpack = parseInt($('#number_of_pack').val());
+                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                totaltotal_quantity = parseInt(pcsperpack * noofpack);
+                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
+                $("#unit_retail").val(retailpriceperunit);
+                var tradeprice = parseFloat($("#trade_price").val());
+                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
+                $("#unit_trade").val(tradepriceperunit);
+                $("#total_quantity").val(noofpack * pcsperpack);
+
+                var discperc = parseInt($("#discount_trade_price").val());
+                var tradeprice = parseFloat($("#trade_price").val());
+                var calc = tradeprice - (tradeprice * discperc / 100);
+                $("#cost_price").val(calc);
+
+                 if ($('#unit_of_measurement').val() === '0') {
+                    // Box
+                    $('#number_of_pack').prop('readonly', false);
+                } else if ($('#unit_of_measurement').val() === '1') {
+                    // Unit
+                    $('#number_of_pack').prop('readonly', true);
+                    $("#number_of_pack").val(1);
+                }
+
+                }
+            }
+
         </script>
     @endpush
     @include('inventory.product-categories.model.create_modal')

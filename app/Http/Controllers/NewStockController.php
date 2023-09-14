@@ -61,7 +61,7 @@ class NewStockController extends Controller
                     ItemStock::create([
                         'item_category_id' => $itemCategory->id,
                         'item_id' => $item->id,
-                        'supplier_name' => $transferProduct->product->vendor->account_title,
+                        // 'supplier_name' => $transferProduct->product->vendor->account_title,
                         'store_name' => 'Test store',
                         'quantity' => $transferProduct->total_piece,
                         'purchase_price' => $transferProduct->price_per_unit,
@@ -84,7 +84,7 @@ class NewStockController extends Controller
                 // dd($transferProduct->total_piece);
                 if ($medicineNameExists) {
                     Medicine::where('name', $transferProduct->product->product_name)->incrementEach([
-                        'quantity' => $transferProduct->total_piece,
+                        'total_quantity' => $transferProduct->total_piece,
                     ])->update([
                         'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
@@ -98,7 +98,7 @@ class NewStockController extends Controller
                         'buying_price' => $transferProduct->product->cost_price,
                         'description' => $transferProduct->product->package_detail,
                         'salt_composition' => $transferProduct->product->generic->formula,
-                        'quantity' => $transferProduct->total_piece,
+                        'total_quantity' => $transferProduct->total_piece,
                         'currency_symbol' => 'Rs',
                     ]);
                 }

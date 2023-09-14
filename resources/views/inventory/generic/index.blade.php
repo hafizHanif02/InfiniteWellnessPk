@@ -1,9 +1,9 @@
-<x-layouts.app title="Generics List">
+<x-layouts.app title="Generic Formula List">
     <div class="container-fluid mt-5">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h3>Generics</h3>
+                    <h3>Generic Formulas</h3>
                     <div class="d-flex gap-5">
                         <div>
                             <a href="{{ asset('csv/Generics.xlsx') }}" class="btn btn-danger" download>Download

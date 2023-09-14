@@ -29,7 +29,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'net_total_amount' => ['required', 'numeric', 'min:0'],
             'advance_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
-            'products.0' => ['required'],
+            'products.*' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
             'products.*.bonus' => ['nullable', 'integer', 'min:0'],
@@ -44,7 +44,7 @@ class GoodReceiveNoteRequest extends FormRequest
     {
         return [
             'requistion_id.required' => 'The requistion field is required',
-            'products.0.required' => 'Atleast one product is required',
+            'products.*.required' => 'Atleast one product is required',
             'products.*.required' => 'The product field is required',
         ];
     }

@@ -28,6 +28,20 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
+                            <label for="manufacturer_id" class="form-label">Manufacturers <sup class="text-danger">*</sup></label>
+                            <select name="manufacturer_id" id="manufacturer_id" class="form-control" title="Manufactuter">
+                                <option value="" selected disabled>Select Manufacturer</option>
+                                @forelse ($manufactuters as $manufactuter)
+                                    <option value="{{ $manufactuter->id }}">{{ $manufactuter->company_name }}</option>
+                                @empty
+                                    <option value="" class="text-danger">No vendor found!</option>
+                                @endforelse
+                            </select>
+                            @error('manufacturer_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
                             <label for="vendor_id" class="form-label">Vendor <sup class="text-danger">*</sup></label>
                             <select name="vendor_id" id="vendor_id" class="form-control" title="Vendor">
                                 <option value="" selected disabled>Select Vendor</option>
@@ -40,11 +54,6 @@
                             @error('vendor_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
-                        <div class="col-md-4">
-                            <label for="manufacturer" class="form-label">Manufacturer</label>
-                            <input type="text" name="manufacturer" class="form-control" id="manufacturer" disabled
-                                title="Manufacturer">
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -79,7 +88,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <select name="product_id[]" id="product_id" class="form-control" multiple>
-                                    <option value="" selected>Select vendor first</option>
+                                    <option value="" selected>Select manufacturer first</option>
                                 </select>
                                 @error('product_id')
                                     <small class="text-danger">{{ $message }}</small>
@@ -126,25 +135,24 @@
         </script>
         <script nonce="{{ csp_nonce() }}">
             $(document).ready(function() {
-                $('#vendor_id, #product_id').select2();
+                $('#manufacturer_id, #product_id').select2();
             });
             $("#add-btn").click(function(e) {
                 e.preventDefault();
                 addProduct();
             });
-            $('#vendor_id').change(function() {
+            $('#manufacturer_id').change(function() {
                 $("#add-products").empty();
                 $.ajax({
                     type: "get",
                     url: "/purchase/requistions/products/list",
                     data: {
-                        vendor_id: $(this).val()
+                        manufacturer_id: $(this).val()
                     },
                     dataType: "json",
                     success: function(response) {
+                        console.log(response);
                         $("#product_id").empty();
-                        $("#manufacturer").val('');
-                        $("#manufacturer").val(response.manufacturer.manufacturer.company_name);
                         if (response.data.length != 0) {
                             $.each(response.data, function(index, value) {
                                 $("#product_id").append(`
@@ -174,7 +182,6 @@
                             $("#product_id option[value='"+productId+"']").remove();
                             var items = $("tbody tr").length;
                             $.each(response.product, function(index, value) {
-                                console.log(index);
                                 $("#add-products").append(`
                                     <tr id="${value.id}">
                                         <input type="hidden" name="products[${index}][id]" value="${value.id}">

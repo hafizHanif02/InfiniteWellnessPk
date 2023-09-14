@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="categoryModalLabel">Add new Generic</h3>
+                <h3 class="modal-title" id="categoryModalLabel">Add new Generic Formula</h3>
                 <button type="button" onclick="clearGenericForm()" class="btn-close"></button>
             </div>
             <div class="modal-body">

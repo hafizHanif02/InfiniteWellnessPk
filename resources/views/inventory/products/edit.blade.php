@@ -149,7 +149,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mb-5">
+                    {{-- <div class="mb-5">
                         <label for="vendor_id" class="form-label">Vendor <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
@@ -174,7 +174,7 @@
                                     data-bs-target="#vendorCreateModal">Add</button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-9">
                             <div class="mb-5">
@@ -199,7 +199,7 @@
                             <label for="number_of_pack" class="form-label">Number of Pack<sup
                                     class="text-danger">*</sup></label>
                             <input type="text"  name="number_of_pack" id="number_of_pack"
-                                class="form-control" value="{{ old('number_of_pack', $product->number_of_pack) }}"
+                                class="form-control" onkeyup="calculation()" value="{{ old('number_of_pack', $product->number_of_pack) }}"
                                 title="Number of packet">
                             @error('number_of_pack')
                                 <div class="text-danger">{{ $message }}</div>
@@ -211,7 +211,7 @@
                             <div class="mb-5">
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
-                                <input type="number" step="any" name="manufacturer_retail_price"
+                                <input type="number" onkeyup="calculation()" step="any" name="manufacturer_retail_price"
                                     id="manufacturer_retail_price" class="form-control"
                                     value="{{ old('manufacturer_retail_price', $product->manufacturer_retail_price) }}"
                                     title="Retail Price">
@@ -224,7 +224,7 @@
                             <div class="mb-5">
                                 <label for="pieces_per_pack" class="form-label">Pieces Per Pack <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" name="pieces_per_pack" id="pieces_per_pack"
+                                <input type="number" onkeyup="calculation()" name="pieces_per_pack" id="pieces_per_pack"
                                     class="form-control"
                                     value="{{ old('pieces_per_pack', $product->pieces_per_pack) }}"
                                     title="Pieces per pack">
@@ -235,9 +235,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="mb-5">
-                                <label for="total_quantity" class="form-label">Total Quantity <sup
-                                        class="text-danger">*</sup></label>
-                                <input type="text" name="total_quantity" id="total_quantity" class="form-control" readonly
+                                <label for="total_quantity" class="form-label"></label>
+                                <input type="hidden" onkeyup="calculation()" name="total_quantity" id="total_quantity" class="form-control" readonly
                                     value="{{ old('total_quantity', $product->total_quantity) }}" title="Paking">
                                 @error('total_quantity')
                                     <div class="text-danger">{{ $message }}</div>
@@ -248,7 +247,7 @@
                             <div class="mb-5">
                                 <label for="trade_price_percentage" class="form-label">Trade Price % <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" name="trade_price_percentage" id="trade_price_percentage"
+                                <input type="number" onkeyup="calculation()" name="trade_price_percentage" id="trade_price_percentage"
                                     class="form-control"
                                     value="{{ old('trade_price_percentage', $product->trade_price_percentage) }}"
                                     title="Trade price percentage">
@@ -284,7 +283,7 @@
                             <div class="mb-5">
                                 <label for="trade_price" class="form-label">Trade Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" name="trade_price" id="trade_price" class="form-control"
+                                <input type="number" onkeyup="calculation()" name="trade_price" id="trade_price" class="form-control"
                                     readonly value="{{ old('trade_price', $product->trade_price) }}"
                                     title="Trade price">
                                 @error('trade_price')
@@ -320,7 +319,7 @@
                             <div class="mb-5">
                                 <label for="discount_trade_price" class="form-label">Discount % On Trade Price</label>
                                 <input type="number" name="discount_trade_price" id="discount_trade_price"
-                                    class="form-control" placeholder="Enter discount percentage on trade price"
+                                    class="form-control" onkeyup="calculation()" placeholder="Enter discount percentage on trade price"
                                     value="{{ old('discount_trade_price', $product->discount_trade_price) }}"
                                     placeholder="Enter discount percentage on trade price"
                                     title="Discount percentage on trade price">
@@ -333,7 +332,7 @@
                             <div class="mb-5">
                                 <label for="cost_price" class="form-label">Cost Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" name="cost_price" id="cost_price" class="form-control"
+                                <input type="number" onkeyup="calculation()" name="cost_price" id="cost_price" class="form-control"
                                     readonly value="{{ old('cost_price', $product->cost_price) }}"
                                     placeholder="Cost price" title="Cost price">
                                 @error('cost_price')
@@ -367,68 +366,107 @@
             $(document).ready(function() {
                 $('#group_id, #product_category_id, #manufacturer_id, #vendor_id, #generic_id').select2();
             });
-            $("#trade_price_percentage").on('keyup change', function() {
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                if ($("#manufacturer_retail_price").val() != '') {
-                    var tp = parseFloat($(this).val());
-                    var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
-                    $("#trade_price").val(calc);
-                }
-            });
+            // $("#trade_price_percentage").on('keyup change', function() {
+            //     var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+            //     if ($("#manufacturer_retail_price").val() != '') {
+            //         var tp = parseFloat($(this).val());
+            //         var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
+            //         $("#trade_price").val(calc);
+            //     }
+            // });
 
-            $("#pieces_per_pack").on('keyup change', function() {
+            // $("#pieces_per_pack").on('keyup change', function() {
 
-                var pcsperpack = parseInt($(this).val());
-                var noofpack = parseInt($('#number_of_pack').val());
+            //     var pcsperpack = parseInt($(this).val());
+            //     var noofpack = parseInt($('#number_of_pack').val());
 
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                totaltotal_quantity = parseInt(pcsperpack * noofpack);
+            //     var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+            //     totaltotal_quantity = parseInt(pcsperpack * noofpack);
 
-                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
-                $("#unit_retail").val(retailpriceperunit);
+            //     var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
+            //     $("#unit_retail").val(retailpriceperunit);
 
-                var tradeprice = parseFloat($("#trade_price").val());
+            //     var tradeprice = parseFloat($("#trade_price").val());
 
-                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
-                $("#unit_trade").val(tradepriceperunit);
+            //     var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
+            //     $("#unit_trade").val(tradepriceperunit);
 
-                $("#total_quantity").val(noofpack * pcsperpack)
-            })
+            //     $("#total_quantity").val(noofpack * pcsperpack)
+            // })
 
-            $("#discount_trade_price").on('keyup change', function() {
+            // $("#discount_trade_price").on('keyup change', function() {
 
-                var discperc = parseInt($(this).val());
-                var tradeprice = parseFloat($("#trade_price").val());
-                var calc = tradeprice - (tradeprice * discperc / 100);
+            //     var discperc = parseInt($(this).val());
+            //     var tradeprice = parseFloat($("#trade_price").val());
+            //     var calc = tradeprice - (tradeprice * discperc / 100);
 
-                $("#cost_price").val(calc);
+            //     $("#cost_price").val(calc);
 
-            })
+            // })
 
-            $('#unit_of_measurement').change(function() {
-                if ($(this).val() === '0') {
-                    // Box
-                    $('#number_of_pack').prop('readonly', false);
-                } else if ($(this).val() === '1') {
-                    // Unit
-                    $('#number_of_pack').prop('readonly', true);
-                    $("#number_of_pack").val(1);
-                }
-            });
+            // $('#unit_of_measurement').change(function() {
+            //     if ($(this).val() === '0') {
+            //         // Box
+            //         $('#number_of_pack').prop('readonly', false);
+            //     } else if ($(this).val() === '1') {
+            //         // Unit
+            //         $('#number_of_pack').prop('readonly', true);
+            //         $("#number_of_pack").val(1);
+            //     }
+            // });
 
 
-            var unit_of_measurement = $('#unit_of_measurement').val();
-            if(unit_of_measurement == 0){
-                $('#number_of_pack').prop('readonly', false);
-            }
-            else if(unit_of_measurement == 1){
-                $('#number_of_pack').prop('readonly', true);
-            }
+            // var unit_of_measurement = $('#unit_of_measurement').val();
+            // if(unit_of_measurement == 0){
+            //     $('#number_of_pack').prop('readonly', false);
+            // }
+            // else if(unit_of_measurement == 1){
+            //     $('#number_of_pack').prop('readonly', true);
+            // }
 
             $('#save-product-button').on('click', function() {
                 $(this).prop('disabled', true);
                 $('#save-product-form').submit();
             });
+
+
+
+
+            
+            function calculation(){
+                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                if ($("#manufacturer_retail_price").val() != '') {
+                    var tp = parseFloat($("#trade_price_percentage").val());
+                    var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
+                    $("#trade_price").val(calc);
+
+                    var pcsperpack = parseInt($("#pieces_per_pack").val());
+                var noofpack = parseInt($('#number_of_pack').val());
+                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                totaltotal_quantity = parseInt(pcsperpack * noofpack);
+                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
+                $("#unit_retail").val(retailpriceperunit);
+                var tradeprice = parseFloat($("#trade_price").val());
+                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
+                $("#unit_trade").val(tradepriceperunit);
+                $("#total_quantity").val(noofpack * pcsperpack);
+
+                var discperc = parseInt($("#discount_trade_price").val());
+                var tradeprice = parseFloat($("#trade_price").val());
+                var calc = tradeprice - (tradeprice * discperc / 100);
+                $("#cost_price").val(calc);
+
+                 if ($('#unit_of_measurement').val() === '0') {
+                    // Box
+                    $('#number_of_pack').prop('readonly', false);
+                } else if ($('#unit_of_measurement').val() === '1') {
+                    // Unit
+                    $('#number_of_pack').prop('readonly', true);
+                    $("#number_of_pack").val(1);
+                }
+
+                }
+            }
         </script>
     @endpush
 

@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="categoryModalLabel">Add new Dosage</h3>
+                <h3 class="modal-title" id="categoryModalLabel">Add new Dosage Form</h3>
                 <button type="button" onclick="clearCategoryForm()" class="btn-close"></button>
             </div>
             <div class="modal-body">
@@ -12,7 +12,7 @@
                             <div class="mb-3">
                                 <label for="dosage_name" class="form-label">Name <sup class="text-danger">*</sup></label>
                                 <input type="text" name="dosage_name" id="dosage_name" class="form-control"
-                                    placeholder="Enter Dosage" autocomplete="name">
+                                    placeholder="Enter Dosage Form" autocomplete="name">
                                 <div class="text-danger" id="category-name-error"></div>
                             </div>
                         </div>

@@ -35,10 +35,7 @@
                         <th>Manufacturer:</th>
                         <td>{{$product->manufacturer->company_name }}</td>
                     </tr>
-                    <tr>
-                        <th>Vendor:</th>
-                        <td>{{$product->vendor->account_title }}</td>
-                    </tr>
+                   
                     <tr>
                         <th>Unit of Measurement:</th>
                         <td>{{($product->least_unit == 1)?'Packet':'Pcs' }}</td>

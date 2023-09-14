@@ -5,22 +5,25 @@ namespace App\Http\Controllers\Purchase;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
+use Illuminate\Support\Carbon;
 use App\Models\Inventory\Vendor;
 use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Inventory\Manufacturer;
 use App\Models\Purchase\GoodReceiveNote;
 use Illuminate\Support\Facades\Validator;
 use App\Imports\Purchase\RequistionImport;
 use App\Models\Purchase\RequistionProduct;
+use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\RequistionRequest;
 use App\Imports\Purchase\RequistionDocumentImport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Carbon;
 
 class RequistionController extends Controller
 {
@@ -78,8 +81,7 @@ class RequistionController extends Controller
     public function products(Request $request): JsonResponse
     {
         return response()->json([
-            'data' => Product::where('manufacturer_id', Vendor::where('id', $request->vendor_id)->pluck('manufacturer_id')->first())->get(['id', 'product_name']),
-            'manufacturer' => Vendor::where('id', $request->vendor_id)->with('manufacturer')->first(),
+            'data' => Product::where('manufacturer_id', Manufacturer::where('id', $request->manufacturer_id)->pluck('id')->first())->get(['id', 'product_name']),
         ]);
     }
 
@@ -88,6 +90,7 @@ class RequistionController extends Controller
         return view('purchase.requistion.create', [
             'requistion_id' => Requistion::latest()->pluck('id')->first(),
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
+            'manufactuters' => Manufacturer::orderBy('company_name')->get(['id', 'company_name']),
         ]);
     }
 
@@ -186,11 +189,22 @@ class RequistionController extends Controller
             $prod->consume = $consume;
         }
         
+        $currentMonth = now()->month;
+        $requistionProducts = RequistionProduct::where('requistion_id',$requistion->id)->get();
+
+        foreach($requistionProducts as $requistionProduct){
+            $currentMonth = now()->month;
+            $openQuantity = GoodReceiveProduct::where('product_id', $requistionProduct->product_id)->whereMonth(DB::raw('DATE(created_at)'), $currentMonth)->first();
+            // dd($openQuantity);
+        }
+
+        
         
         return view('purchase.requistion.print', [
             'requistion' => $requistion->load(['requistionProducts.product.manufacturer', 'vendor']),
             'last_purchase' => GoodReceiveNote::where('requistion_id',$requistion->id)->with('goodReceiveProducts.product')->latest()->first(),
-            'requistionProducts' => $requistionProduct
+            'requistionProducts' => $requistionProducts,
+            'openQuantity' => $openQuantity,
         ]);
     }
 }
