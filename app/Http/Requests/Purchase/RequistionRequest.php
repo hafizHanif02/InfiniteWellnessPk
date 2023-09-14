@@ -17,7 +17,7 @@ class RequistionRequest extends FormRequest
             'vendor_id' => $this->method() == 'POST' ? ['required', 'exists:vendors,id'] : '',
             'remarks' => ['nullable', 'string', 'max:255'],
             'delivery_date' => ['nullable', 'date'],
-            'products.0' => ['required'],
+            'products.*' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.limit' => ['required', 'integer', 'min:0'],
             'products.*.price_per_unit' => ['required', 'numeric', 'min:0'],
@@ -30,7 +30,7 @@ class RequistionRequest extends FormRequest
     {
         return [
             'vendor_id.required' => 'Select atleast one vendor',
-            'products.0.required' => 'Atleast one product is required',
+            'products.*.required' => 'Atleast one product is required',
         ];
     }
 }
