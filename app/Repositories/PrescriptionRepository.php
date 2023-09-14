@@ -230,7 +230,6 @@ class PrescriptionRepository extends BaseRepository
     public function getMedicines()
     {
         $data['medicines'] = Medicine::all()->pluck('name', 'id','total_quantity')->toArray();
-
         return $data;
     }
 }

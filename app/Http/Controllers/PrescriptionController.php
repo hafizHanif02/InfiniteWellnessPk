@@ -72,6 +72,7 @@ class PrescriptionController extends AppBaseController
         $data = $this->medicineRepository->getSyncList();
         $medicineList = $this->medicineRepository->getMedicineList($medicines['medicines']);
         $mealList = $this->medicineRepository->getMealList();
+        dd($medicineList);
 
         return view('prescriptions.create',
             compact('patients', 'doctors', 'medicines', 'mealList'))->with($data);
@@ -126,6 +127,7 @@ class PrescriptionController extends AppBaseController
             $data = $this->medicineRepository->getSyncList();
             $medicineList = $this->medicineRepository->getMedicineList($medicines['medicines']);
             $mealList = $this->medicineRepository->getMealList();
+
 
             return view('prescriptions.edit',
                 compact('patients', 'prescription', 'doctors', 'medicines', 'medicineList', 'mealList'))->with($data);
