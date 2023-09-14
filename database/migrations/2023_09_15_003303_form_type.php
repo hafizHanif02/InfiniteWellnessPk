@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('form_patient', function (Blueprint $table) {
+        Schema::create('form_type', function (Blueprint $table) {
             $table->id();
             $table->string('formName');
             $table->string('feildName');

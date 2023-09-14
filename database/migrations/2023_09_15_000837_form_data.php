@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('form_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('formID')->nullable()->constrained()->cascadeOnDelete();
-            $table->foreignId('patientID')->nullable()->constrained()->cascadeOnDelete();
+            $table->integer('formID');
+            $table->integer('patientID');
             $table->string('feildName');
             $table->string('feildValue');
             $table->timestamps();
