@@ -1102,6 +1102,7 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         'App\\Http\\Controllers\\PaymentReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentReportController.php',
         'App\\Http\\Controllers\\PharmacistController' => __DIR__ . '/../..' . '/app/Http/Controllers/PharmacistController.php',
         'App\\Http\\Controllers\\PosController' => __DIR__ . '/../..' . '/app/Http/Controllers/PosController.php',
+        'App\\Http\\Controllers\\PosProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/PosProductController.php',
         'App\\Http\\Controllers\\PostalController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostalController.php',
         'App\\Http\\Controllers\\PrescriptionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PrescriptionController.php',
         'App\\Http\\Controllers\\Purchase\\GoodReceiveNoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/Purchase/GoodReceiveNoteController.php',

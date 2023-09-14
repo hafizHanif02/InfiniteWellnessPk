@@ -208,6 +208,7 @@ return array(
     'App\\Http\\Controllers\\PaymentReportController' => $baseDir . '/app/Http/Controllers/PaymentReportController.php',
     'App\\Http\\Controllers\\PharmacistController' => $baseDir . '/app/Http/Controllers/PharmacistController.php',
     'App\\Http\\Controllers\\PosController' => $baseDir . '/app/Http/Controllers/PosController.php',
+    'App\\Http\\Controllers\\PosProductController' => $baseDir . '/app/Http/Controllers/PosProductController.php',
     'App\\Http\\Controllers\\PostalController' => $baseDir . '/app/Http/Controllers/PostalController.php',
     'App\\Http\\Controllers\\PrescriptionController' => $baseDir . '/app/Http/Controllers/PrescriptionController.php',
     'App\\Http\\Controllers\\Purchase\\GoodReceiveNoteController' => $baseDir . '/app/Http/Controllers/Purchase/GoodReceiveNoteController.php',
