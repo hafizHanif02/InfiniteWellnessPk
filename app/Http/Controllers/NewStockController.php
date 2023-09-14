@@ -94,6 +94,7 @@ class NewStockController extends Controller
                         'category_id' => $category->id,
                         'brand_id' => $brand->id,
                         'name' => $transferProduct->product->product_name,
+                        'generic_formula' => $transferProduct->product->generic_id,
                         'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
                         'description' => $transferProduct->product->package_detail,

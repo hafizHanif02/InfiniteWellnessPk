@@ -13,6 +13,7 @@ return new class extends Migration
             $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
             $table->integer('total_quantity')->nullable();
             $table->string('name')->index();
+            $table->string('generic_formula')->nullable();
             $table->double('selling_price');
             $table->double('buying_price');
             $table->string('salt_composition');
