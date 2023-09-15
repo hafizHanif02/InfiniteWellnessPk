@@ -41,7 +41,7 @@ class DoctorTableSeeder extends Seeder
                 'gender' => 0,
                 'qualification' => 'MBBS',
                 'status' => 1,
-                'doctor_department_id' => 2,
+                'department_id' => 2,
                 'specialist' => 'Liver',
                 'email_verified_at' => Carbon::now(),
             ],
