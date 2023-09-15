@@ -71,6 +71,7 @@ class PatientCaseController extends AppBaseController
     public function store(CreatePatientCaseRequest $request)
     {
         $input = $request->all();
+        
         $patientId = Patient::with('patientUser')->whereId($input['patient_id'])->first();
         $birthDate = $patientId->patientUser->dob;
         $caseDate = Carbon::parse($input['date'])->toDateString();
@@ -80,7 +81,7 @@ class PatientCaseController extends AppBaseController
             return redirect()->back()->withInput($input);
         }
 
-        $input['fee'] = removeCommaFromNumbers($input['fee']);
+
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['phone'] = preparePhoneNumber($input, 'phone');
 

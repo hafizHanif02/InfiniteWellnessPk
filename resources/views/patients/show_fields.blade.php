@@ -11,7 +11,7 @@
                             <h2><a href="javascript:void(0)"
                                    class="text-decoration-none">{{ !empty($data->patientUser->full_name) ? $data->patientUser->full_name : '' }}</a>
                             </h2>
-                            
+
                             <a href="mailto:{{ !empty($data->patientUser->email) ? $data->patientUser->email : '' }}"
                                class="text-gray-600 text-decoration-none fs-5">
                                 {{ !empty($data->patientUser->email) ? $data->patientUser->email : '' }}
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
     <div class="tab-pane fade" id="showPatientCases" role="tabpanel">
         <livewire:patient-case-table patientId="{{ $data->id }}"/>
@@ -183,10 +183,10 @@
     <div class="tab-pane fade" id="showPatientVaccinated" role="tabpanel">
         <livewire:patient-vaccination-detail-table patient-id="{{ $data->id }}"/>
     </div>
-    
-    
+
+
     <div class="tab-pane fade" id="addonForms" role="tabpanel">
-        
+
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
@@ -196,17 +196,17 @@
                       <!--<div style="margin-top: 25px;display: flex;justify-content: space-between;flex-wrap: wrap;">-->
 
                     <div class="row" >
-    
 
 
 
-                        
+
+
                       @foreach($currentForm as $form)
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                         <a href="/patients/{{$form->patientID}}/{{$form->id}}" target="_blank" ><div style="border: 1px solid #0ac074;margin: 20px 0;font-size: 20px;border-radius: 15px; padding: 50px 25px;background: #f6f6f6;">{{$form->formName}} | {{$form->formDate}}</div></a>
                       </div>
                       @endforeach
-                      
+
                     </div>
                       <!-- Modal -->
                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -227,7 +227,7 @@
                                         <option value="{{$frData->id}}">{{$frData->formName}}</option>
                                     @endforeach
                                   </select>
-                                 
+
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -243,7 +243,7 @@
             <div id="cardContainer"></div>
         </div>
     </div>
- 
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

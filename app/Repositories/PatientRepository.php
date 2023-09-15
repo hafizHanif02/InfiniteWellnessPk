@@ -81,7 +81,7 @@ class PatientRepository extends BaseRepository
         } catch (Exception $e) {
             throw new UnprocessableEntityHttpException($e->getMessage());
         }
-
+        return $patient->id;
         return true;
     }
 

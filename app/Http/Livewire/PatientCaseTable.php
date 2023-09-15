@@ -77,14 +77,14 @@ class PatientCaseTable extends LivewireTableComponent
         return [
             Column::make(__('messages.case.case_id'), 'case_id')->view('patients.patient-case-show-column.case-id')
                 ->sortable()->searchable(),
-            Column::make(__('messages.case.doctor'),
-                'doctor.doctorUser.first_name')->view('patients.patient-case-show-column.doctor')
-                ->sortable()->searchable(),
-            Column::make(__('messages.case.doctor'), 'doctor_id')->hideIf(1),
+            // Column::make(__('messages.case.doctor'),
+            //     'doctor.doctorUser.first_name')->view('patients.patient-case-show-column.doctor')
+            //     ->sortable()->searchable(),
+            // Column::make(__('messages.case.doctor'), 'doctor_id')->hideIf(1),
             Column::make(__('messages.case.case_date'), 'date')->view('patients.patient-case-show-column.case_date')
                 ->sortable()->searchable(),
-            Column::make(__('messages.case.fee'), 'fee')->view('patients.patient-case-show-column.fee')
-                ->sortable()->searchable(),
+            // Column::make(__('messages.case.fee'), 'fee')->view('patients.patient-case-show-column.fee')
+            //     ->sortable()->searchable(),
             Column::make(__('messages.common.status'), 'status')->view('patients.patient-case-show-column.status')
                 ->sortable(),
             $data,

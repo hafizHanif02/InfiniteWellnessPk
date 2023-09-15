@@ -84,14 +84,16 @@ class CaseTable extends LivewireTableComponent
                 ->view('patient_cases.templates.column.case_id')
                 ->searchable()
                 ->sortable(),
+
+            Column::make(__('MR'), 'patient.patientUser.id')
+            ->view('patient_cases.templates.column.mr')
+            ->searchable()
+            ->sortable(),
             Column::make(__('messages.case.patient'), 'patient.patientUser.first_name')
                 ->view('patient_cases.templates.column.patient_name')
                 ->searchable()
                 ->sortable(),
-            Column::make(__('messages.case.doctor'), 'doctor.doctorUser.first_name')
-                ->view('patient_cases.templates.column.doctor_name')
-                ->searchable()
-                ->sortable(),
+
             Column::make(__('messages.case.case_date'), 'date')
                 ->view('patient_cases.templates.column.date')
                 ->sortable(),

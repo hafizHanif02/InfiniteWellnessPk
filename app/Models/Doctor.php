@@ -13,7 +13,7 @@ class Doctor extends Model
 {
     public $fillable = [
         'doctor_user_id',
-        'doctor_department_id',
+        'department_id',
         'specialist',
     ];
 
@@ -32,7 +32,7 @@ class Doctor extends Model
     protected $casts = [
         'id' => 'integer',
         'doctor_user_id' => 'integer',
-        'doctor_department_id' => 'integer',
+        'department_id' => 'integer',
         'specialist' => 'string',
     ];
 

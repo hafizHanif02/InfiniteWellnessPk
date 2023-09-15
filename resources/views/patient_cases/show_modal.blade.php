@@ -27,12 +27,12 @@
                         <span id="patient_phone"
                               class="fs-5 text-gray-800 showSpan"></span>
                     </div>
-                    <div class="form-group col-6 mb-5">
+                    {{-- <div class="form-group col-6 mb-5">
                         <label for="patient_doctor"
                                class="pb-2 fs-5 text-gray-600">{{ __('messages.case.doctor').(':') }}</label><br>
                         <span id="patient_doctor"
                               class="fs-5 text-gray-800 showSpan"></span>
-                    </div>
+                    </div> --}}
                     <div class="form-group col-6 mb-5">
                         <label for="case_date"
                                class="pb-2 fs-5 text-gray-600">{{ __('messages.case.case_date').(':') }}</label><br>

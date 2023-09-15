@@ -84,11 +84,9 @@ class PatientCase extends Model
         'case_id',
         'patient_id',
         'phone',
-        'doctor_id',
         'date',
         'status',
         'description',
-        'fee',
         'currency_symbol',
     ];
 
@@ -101,13 +99,12 @@ class PatientCase extends Model
         'id' => 'integer',
         'case_id' => 'string',
         'patient_id' => 'integer',
-        'doctor_id' => 'integer',
         'phone' => 'string',
         'date' => 'date',
         'status' => 'integer',
         'description' => 'string',
         'currency_symbol' => 'string',
-        'fee' => 'double',
+
     ];
 
     /**
@@ -118,10 +115,8 @@ class PatientCase extends Model
     public static $rules = [
         'patient_id' => 'required',
         'phone' => 'nullable|numeric',
-        'doctor_id' => 'required',
         'date' => 'required',
         'description' => 'nullable',
-        'fee' => 'required',
     ];
 
     /**
@@ -142,7 +137,6 @@ class PatientCase extends Model
             'case_date' => isset($this->date) ? \Carbon\Carbon::parse($this->date)->translatedFormat('jS M, Y,g:i A') : 'N/A',
             'patient' => $this->patient->patientUser->full_name ?? 'N/A',
             'phone' => $this->phone ?? 'N/A',
-            'fee' => $this->fee ?? 'N/A',
             'created_on' => $this->created_at->diffForHumans() ?? 'N/A',
             'description' => $this->description ?? 'N/A',
             'currency' => getCurrencySymbol(),

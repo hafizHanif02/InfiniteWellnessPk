@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use App\Repositories\PatientCaseRepository;
 
 class PatientController extends AppBaseController
 {
@@ -86,11 +87,55 @@ class PatientController extends AppBaseController
         $input = $request->all();
         $input['status'] = isset($input['status']) ? 1 : 0;
 
-        $this->patientRepository->store($input);
+        $userID = $this->patientRepository->store($input);
         $this->patientRepository->createNotification($input);
+        $data = [
+            "case_id" => mb_strtoupper(PatientCase::generateUniqueCaseId()),
+            "currency_symbol" => "pkr",
+            "patient_id" => $userID,
+            "date" => now(),
+            "phone" => null,
+            "prefix_code" => "92",
+            "status" => "1",
+            "description" => null
+        ];
+
+            //---------------------
+
+            $patientCase = PatientCase::create($data);
+
+            //-------------------
+
+
         Flash::success(__('messages.advanced_payment.patient').' '.__('messages.common.saved_successfully'));
 
         return redirect(route('patients.index'));
+    }
+
+
+    public function storePatientCase($data)
+    {
+        $input = $data;
+
+        $patientId = Patient::with('patientUser')->whereId($input['patient_id'])->first();
+        $birthDate = $patientId->patientUser->dob;
+        $caseDate = Carbon::parse($input['date'])->toDateString();
+        // if (! empty($birthDate) && $caseDate < $birthDate) {
+        //     Flash::error('Case date should not be smaller than patient birth date.');
+
+        //     return redirect()->back()->withInput($input);
+        // }
+
+
+        $input['status'] = isset($input['status']) ? 1 : 0;
+        $input['phone'] = preparePhoneNumber($input, 'phone');
+
+        $this->patientCaseRepository->store($input);
+        $this->patientCaseRepository->createNotification($input);
+
+        // Flash::success(__('messages.case.case').' '.__('messages.common.saved_successfully'));
+
+        // return redirect(route('patient-cases.index'));
     }
 
     /**
@@ -203,10 +248,16 @@ class PatientController extends AppBaseController
     {
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
-        $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
-        $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
+        $fileName = "";
+        if($form_patientId){
+            $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
+            $fileName = $formFile->fileName;
+            $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
+            return view('patients.'.$fileName, compact('formData'));
+        }
 
-        return view('patients.'.$formFile->fileName, compact('formData'));
+
+        return redirect()->back();
     }
 
     public function submitForm(Request $request)

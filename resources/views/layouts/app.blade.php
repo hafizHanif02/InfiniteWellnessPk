@@ -35,8 +35,8 @@
     @routes
     {{--        @livewireScripts --}}
 
-    @include('livewire.livewire-turbo')
     <script src="{{ asset('livewire/livewire.js') }}" data-turbolinks-eval="false" data-turbo-eval="false"></script>
+    @include('livewire.livewire-turbo')
     <script src="{{ asset('js/turbo.js') }}" data-turbolinks-eval="false" data-turbo-eval="false"></script>
     <script src="{{ asset('assets/js/third-party.js') }}"></script>
     <script src="{{ asset('messages.js') }}"></script>
@@ -128,6 +128,9 @@
         });
 
     </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
 </body>
 
 </html>

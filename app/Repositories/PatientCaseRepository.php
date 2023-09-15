@@ -25,7 +25,7 @@ class PatientCaseRepository extends BaseRepository
         'case_id',
         'patient_id',
         'phone',
-        'doctor_id',
+
     ];
 
     /**
@@ -91,11 +91,11 @@ class PatientCaseRepository extends BaseRepository
     {
         try {
             $patient = Patient::with('patientUser')->where('id', $input['patient_id'])->first();
-            $doctor = Doctor::with('doctorUser')->where('id', $input['doctor_id'])->first();
+            // $doctor = Doctor::with('doctorUser')->where('id', $input['doctor_id'])->first();
             $receptionists = Receptionist::pluck('user_id', 'id')->toArray();
             $caseHandeler = CaseHandler::pluck('user_id', 'id')->toArray();
             $userIds = [
-                $doctor->user_id => Notification::NOTIFICATION_FOR[Notification::DOCTOR],
+                // $doctor->user_id => Notification::NOTIFICATION_FOR[Notification::DOCTOR],
                 $patient->user_id => Notification::NOTIFICATION_FOR[Notification::PATIENT],
             ];
 

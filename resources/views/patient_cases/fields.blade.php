@@ -5,11 +5,7 @@
         <span class="required"></span>
         {{ Form::select('patient_id', $patients, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'casePatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2', 'required']) }}
     </div>
-    <div class="form-group col-sm-6 mb-5">
-        {{ Form::label('doctor_name', __('messages.case.doctor').(':'),['class' => 'form-label']) }}
-        <span class="required"></span>
-        {{ Form::select('doctor_id', $doctors, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'caseDoctorId', 'placeholder' => 'Select Doctor', 'data-control' => 'select2', 'required']) }}
-    </div>
+   
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('date', __('messages.case.case_date').(':'), ['class' => 'form-label']) }}
         <span class="required"></span>
@@ -31,11 +27,11 @@
                    type="checkbox" {{(!isset($patientCase))? 'checked': (($patientCase->status) ? 'checked' : '')}}>
         </div>
     </div>
-    <div class="form-group col-sm-6 mb-5">
+    {{-- <div class="form-group col-sm-6 mb-5">
         {{ Form::label('fee', __('messages.case.fee').(':'), ['class' => 'form-label']) }}
         <span class="required"></span>
         {{ Form::text('fee', null, ['class' => 'form-control price-input price','required']) }}
-    </div>
+    </div> --}}
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('description', __('messages.common.description').':', ['class' => 'form-label']) }}
         {{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) }}

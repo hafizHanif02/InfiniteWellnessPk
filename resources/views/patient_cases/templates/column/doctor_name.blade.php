@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center">
+{{-- <div class="d-flex align-items-center">
     @if(Auth::user()->hasRole('Patient|Nurse|Case Manager'))
         <div class="image image-circle image-mini me-3">
             <a href="javascript:void(0)">
@@ -24,4 +24,4 @@
             <span class="fs-6">{{$row->doctor->doctorUser->email}}</span>
         </div>
     @endif
-</div>
+</div> --}}
