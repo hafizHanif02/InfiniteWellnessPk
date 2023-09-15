@@ -23,6 +23,7 @@
                     @include('flash::message')
                 </div>
             </div>
+            
                 @include('prescriptions.show_fields')
         </div>
     </div>

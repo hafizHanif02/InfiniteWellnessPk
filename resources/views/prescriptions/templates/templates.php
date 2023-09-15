@@ -1,4 +1,4 @@
-<script id="prescriptionMedicineTemplate" type="text/x-jsrender">
+<!-- <script id="prescriptionMedicineTemplate" type="text/x-jsrender">
     <tr>
         <td class="table__item-desc">
             <select class="form-select prescriptionMedicineId select2Selector" name="medicine[]" placeholder="select medicine" data-id="{{:uniqueId}}" required>
@@ -31,4 +31,4 @@
         </td>
     </tr>
 
-</script>
+</script> -->

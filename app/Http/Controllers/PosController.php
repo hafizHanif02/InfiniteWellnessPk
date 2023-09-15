@@ -30,14 +30,15 @@ class PosController extends Controller
     public function store(PosRequest $request): RedirectResponse
     {
         $pos = Pos::create($request->validated());
+        // dd($request);
         foreach($request->products as $product){
-            dd($product);
+            
             Pos_Product::create([
                 'pos_id' => $request->id,
-                'product_id' => $products['product_id'],
-                'product_name' => $products['product_name'],
-                'product_quantity' => $products['product_quantity'],
-                'product_total_price' => $products['product_total_price'],
+                'product_id' => $product['product_id'],
+                'product_name' => $product['product_name'],
+                'product_quantity' => $product['product_quantity'],
+                'product_total_price' => $product['product_total_price'],
             ]);
         }
         Flash::message('POS created!');

@@ -115,6 +115,7 @@
                         </td>
                     </tr>
                 @else
+                {{-- {{dd($prescription) }} --}}
                     @foreach($prescription->getMedicine as $medicine)
                                 <tr>
                                     <td class="py-4 border-bottom-0">{{ $medicine->medicine->name }}</td>
@@ -128,7 +129,6 @@
                                     </td>
                                     <td class="py-4 border-bottom-0">{{ $medicine->day }} Day</td>
                                 </tr>
-                            @break
                     @endforeach
                 @endif
                 </tbody>

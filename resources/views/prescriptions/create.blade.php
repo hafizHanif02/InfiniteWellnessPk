@@ -41,12 +41,12 @@
                 </div>
             </div>
             <div class="card mt-5">
-                <div class="card-header">
+                {{-- <div class="card-header">
                     <h3>{{ __('messages.medicines') }}</h3>
                     <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_new_medicine">
                         {{__('messages.prescription.new_medicine')}}
                     </a>
-                </div>
+                </div> --}}
                 <div class="card-body">
                     @include('prescriptions.medical-table')
                 </div>

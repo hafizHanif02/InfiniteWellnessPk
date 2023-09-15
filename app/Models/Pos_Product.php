@@ -11,6 +11,7 @@ class Pos_Product extends Model
     public $fillable = [
         'pos_id',
         'product_id',
+        'product_name',
         'product_quantity',
         'product_total_price',
 

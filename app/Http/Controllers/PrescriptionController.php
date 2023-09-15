@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateMedicineRequest;
-use App\Http\Requests\CreatePrescriptionRequest;
-use App\Http\Requests\UpdatePrescriptionRequest;
-use App\Models\Prescription;
-use App\Models\User;
-use App\Repositories\DoctorRepository;
-use App\Repositories\MedicineRepository;
-use App\Repositories\PrescriptionRepository;
-use Barryvdh\DomPDF\Facade as PDF;
-use Exception;
 use Flash;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
+use Exception;
+use App\Models\User;
+use Illuminate\View\View;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Repositories\DoctorRepository;
+use Illuminate\Contracts\View\Factory;
+use App\Repositories\MedicineRepository;
+use App\Models\PrescriptionMedicineModal;
+use App\Http\Requests\CreateMedicineRequest;
+use App\Repositories\PrescriptionRepository;
+use App\Http\Requests\CreatePrescriptionRequest;
+use App\Http\Requests\UpdatePrescriptionRequest;
+use Illuminate\Contracts\Foundation\Application;
 
 class PrescriptionController extends AppBaseController
 {
@@ -72,8 +73,9 @@ class PrescriptionController extends AppBaseController
         $data = $this->medicineRepository->getSyncList();
         $medicineList = $this->medicineRepository->getMedicineList($medicines['medicines']);
         $mealList = $this->medicineRepository->getMealList();
-        dd($medicineList);
-
+        // dd($medicines);
+        $medicines = $medicines['medicines'];
+        // return $medicines;
         return view('prescriptions.create',
             compact('patients', 'doctors', 'medicines', 'mealList'))->with($data);
     }
@@ -85,7 +87,6 @@ class PrescriptionController extends AppBaseController
      */
     public function store(CreatePrescriptionRequest $request)
     {
-
         $input = $request->all();
         $input['status'] = isset($input['status']) ? 1 : 0;
         $prescription = $this->prescriptionRepository->create($input);
@@ -101,6 +102,7 @@ class PrescriptionController extends AppBaseController
      */
     public function show(Prescription $prescription)
     {
+        
 
         $prescription = $this->prescriptionRepository->find($prescription->id);
         if (empty($prescription)) {
@@ -121,6 +123,7 @@ class PrescriptionController extends AppBaseController
             return view('errors.404');
         } else {
             $prescription->getMedicine;
+            $PrescriptionMedicine = PrescriptionMedicineModal::where('prescription_id',$prescription->id)->with('medicine')->get(); 
             $patients = $this->prescriptionRepository->getPatients();
             $doctors = $this->doctorRepository->getDoctors();
             $medicines = $this->prescriptionRepository->getMedicines();
@@ -130,7 +133,7 @@ class PrescriptionController extends AppBaseController
 
 
             return view('prescriptions.edit',
-                compact('patients', 'prescription', 'doctors', 'medicines', 'medicineList', 'mealList'))->with($data);
+                compact('patients', 'prescription', 'doctors', 'medicines', 'medicineList', 'mealList','PrescriptionMedicine'))->with($data);
         }
     }
 

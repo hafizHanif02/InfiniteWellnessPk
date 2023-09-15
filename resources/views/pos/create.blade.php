@@ -95,12 +95,12 @@
                             </table>
                         </div>
                         <div class="mt-9 mb-9 row">
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <label for="total_amount">Advance Cost</label>
-                                <input type="number" class="form-control" onkeyup="updateTotalPrice()" id="advance_cost" placeholder="Any Other Charges">
-                            </div>
-                            <div class="col-md-8">
-                                <label for="total_amount">Total Cost</label>
+                                <input type="number" step="any" class="form-control" onkeyup="updateTotalPrice()" id="advance_cost" placeholder="Any Other Charges">
+                            </div> --}}
+                            <div class="col-md-12">
+                                <label for="total_amount">Total Amount</label>
                                 <input type="number" class="form-control" id="total_amount" name="total_amount" readonly value="0" placeholder="Total Price">
                                 <input type="hidden" id="total_amount2">
                             </div>
@@ -127,12 +127,12 @@
             selectedMedicinesAttr.forEach(function(medicine , items) {
                 var row = `
                     <tr scope="row">
-                        <input type="hidden" name="products[${items}]['product_id']" value="${medicine.id}">
-                        <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}]['product_name']" placeholder="item name"></td>
-                        <td><input type="text" class="form-control" readonly value="${medicine.dosage}" name="products[${items}]['product_quantity']" placeholder="dosage"></td>
+                        <input type="hidden" name="products[${items}][product_id]" value="${medicine.id}">
+                        <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name"></td>
+                        <td><input type="text" class="form-control" readonly value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                         <td><input type="text" class="form-control" readonly value="${medicine.comment}" placeholder="Comment"></td>
                         <td><input type="text" class="form-control" readonly value="${medicine.time == 0 ? 'Before Meal' : 'After Meal'}" placeholder="Before/After Meal"></td>
-                        <td><input type="text" class="form-control"  name="products[${items}]['product_total_price']" id="prescription_item_price${medicine.id}" readonly value="${(medicine.medicine.selling_price)*medicine.dosage}" placeholder="selling_price"></td>
+                        <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="prescription_item_price${medicine.id}" readonly value="${(medicine.medicine.selling_price)*medicine.dosage}" placeholder="selling_price"></td>
                     </tr>`;
                 $("#medicine-table-body").append(row);
 

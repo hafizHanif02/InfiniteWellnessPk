@@ -112,16 +112,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{-- @if(empty($prescription->medicine->medicines))
-                    <tr>
-                        <td class="text-center" colspan="3">
-                            {{ __('messages.prescription.no_data_available') }}
-                        </td>
-                    </tr>
-                @else --}}
+                
                     @foreach($prescription->getMedicine as $medicine)
-                        {{-- @foreach($medicine->medicines as $medi) --}}
-                            {{--                            @foreach($medi as $md)--}}
+         
                             <tr>
                                 <td class="py-4 border-bottom-0">{{ $medicine->medicine->name }}</td>
                                 <td class="py-4 border-bottom-0">
@@ -134,11 +127,8 @@
                                 </td>
                                 <td class="py-4 border-bottom-0">{{ $medicine->day }} Day</td>
                             </tr>
-                            {{--                            @endforeach--}}
-                            @break
-                        {{-- @endforeach --}}
+                         
                     @endforeach
-                {{-- @endif --}}
                 </tbody>
             </table>
         </div>
