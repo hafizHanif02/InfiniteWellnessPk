@@ -481,7 +481,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             ->name('patients.destroy');
         Route::patch('patients/{patient}', [PatientController::class, 'update'])
             ->name('patients.update');
-        Route::get('patients/{patient}/edit', [PatientController::class, 'edit'])
+        // Route::get('patients/{patient}/edit', [PatientController::class, 'edit'])
+        //     ->name('patients.edit');
+            Route::get('patients/data/edit/{patient}', [PatientController::class, 'edit'])
             ->name('patients.edit');
         Route::post('patients/{patient}/active-deactive', [PatientController::class, 'activeDeactiveStatus']);
         Route::get('export-patients', [PatientController::class, 'patientExport'])->name('patient.excel');

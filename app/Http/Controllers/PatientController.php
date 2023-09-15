@@ -257,7 +257,7 @@ class PatientController extends AppBaseController
         }
 
 
-        return redirect()->back();
+        return "fdsfasdf";
     }
 
     public function submitForm(Request $request)
