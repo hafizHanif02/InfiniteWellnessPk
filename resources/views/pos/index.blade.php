@@ -16,6 +16,7 @@
                             <th>POS No.</th>
                             <th>Paitent</th>
                             <th>Charges</th>
+                            <th>Paid</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -23,12 +24,16 @@
                         @forelse ($poses as $pos)
                             <tr>
                                 <td>{{ $pos->id }}</td>
-                                <td>{{ $pos->prescription->patient->patientUser->fullname }}</td>
+                                <td>{{ $pos->patient_name }}</td>
                                 <td>{{ $pos->total_amount }}</td>
+                                <td>
+                                    @if ($pos->is_paid == 1)
+                                    <span class="badge bg-success">Paid</span>
+                                    @else
+                                    <span class="badge bg-danger">Unpaid</span>
+                                    @endif
+                                </td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a href="{{ route('pos.edit', $pos->id) }}">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
                                     <a href="{{ route('pos.show', $pos->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
@@ -38,6 +43,7 @@
                                         <button type="submit" class="bg-transparent border-0 text-danger"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </td>
+                                
                             </tr>
                         @empty
                             <tr class="text-center">

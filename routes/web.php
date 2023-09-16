@@ -692,7 +692,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         //POS
         Route::resource('pos', PosController::class);
         Route::get('pos/proceed-to-pay-page/{pos}', [PosController::class, 'ProceedToPayPage'])->name('pos.proceed-to-pay-page');
-
+        Route::post('pos/updatetocheckout/{pos}', [PosController::class, 'ProceedToPay'])->name('pos.updatetocheckout');
+        Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
         //Expense Rout
         Route::get('expenses', [ExpenseController::class, 'index'])->name('expenses.index')->middleware('modules');
         Route::post('expenses', [ExpenseController::class, 'store'])->name('expenses.store');

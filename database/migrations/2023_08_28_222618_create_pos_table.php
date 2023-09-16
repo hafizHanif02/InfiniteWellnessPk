@@ -15,6 +15,9 @@ return new class extends Migration
             $table->string('patient_name');
             $table->string('doctor_name');
             $table->date('pos_date');
+            $table->integer('is_paid')->nullable();
+            $table->integer('enter_payment_amount')->nullable();
+            $table->integer('change_amount')->nullable();
             $table->timestamps();
         });
     }
