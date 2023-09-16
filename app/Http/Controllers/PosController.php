@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pos;
+use App\Models\Patient;
+use App\Models\Medicine;
 use Illuminate\View\View;
 use Laracasts\Flash\Flash;
+use App\Models\Pos_Product;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Http\Requests\PosRequest;
-use App\Models\Pos_Product;
 use Illuminate\Http\RedirectResponse;
 
 class PosController extends Controller
@@ -24,18 +26,20 @@ class PosController extends Controller
     {
         return view('pos.create', [
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
+            'medicines' => Medicine::all(),
+            'patients' => Patient::all(),
         ]);
     }
 
     public function store(PosRequest $request): RedirectResponse
     {
         $pos = Pos::create($request->validated());
-        // dd($request);
+        // dd($pos->id);
         foreach($request->products as $product){
             
             Pos_Product::create([
-                'pos_id' => $request->id,
-                'product_id' => $product['product_id'],
+                'pos_id' => $pos->id,
+                'medicine_id' => $product['medicine_id'],
                 'product_name' => $product['product_name'],
                 'product_quantity' => $product['product_quantity'],
                 'product_total_price' => $product['product_total_price'],
@@ -48,20 +52,30 @@ class PosController extends Controller
 
     public function ProceedToPayPage($pos)
     {
-        $pos = Pos::where('id', $pos)->with(['prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
+        $pos = Pos::where('id', $pos)->with(['PosProduct.medicine','prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
 
         return view('pos.proceed_to_pay', [
             'pos' => $pos,
         ]);
     }
 
-    public function ProceedToPay($pos, $requst)
+    public function ProceedToPay(Request $reqeust, $pos)
     {
+        // dd($reqeust);
         Pos::where('id', $pos)->update([
             'is_paid' => 1,
-            'given_amount' => $request->given_amount,
-            'change_amount' => $request->change_amount,
+            'enter_payment_amount' => $reqeust->enter_payment_amount,
+            'change_amount' => $reqeust->change_amount,
 
+        ]);
+        Flash::message('POS Payed!');
+
+        return to_route('pos.index');
+    }
+    public function prescription(Request $request)
+    {
+        return response()->json([
+            'data' => Prescription::where('patient_id',$request->paitent_id)->with('patient.user','getMedicine.medicine','doctor.user')->get(),
         ]);
     }
 

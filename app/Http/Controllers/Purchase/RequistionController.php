@@ -80,6 +80,7 @@ class RequistionController extends Controller
 
     public function products(Request $request): JsonResponse
     {
+        
         return response()->json([
             'data' => Product::where('manufacturer_id', Manufacturer::where('id', $request->manufacturer_id)->pluck('id')->first())->get(['id', 'product_name']),
         ]);

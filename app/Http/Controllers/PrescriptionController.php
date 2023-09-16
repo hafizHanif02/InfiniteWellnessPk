@@ -262,7 +262,6 @@ class PrescriptionController extends AppBaseController
         // $pdf = PDF::loadView('prescriptions.prescription_pdf', compact('prescription'));
 
         // return $pdf->stream($prescription->patient->patientUser->full_name.'-'.$prescription->id);
-
         return view('prescriptions.prescription_pdf', [
             'prescription' => $prescription,
         ]);
