@@ -59,8 +59,12 @@ class OpdPatientDepartmentController extends AppBaseController
         foreach ($data['patients'] as $key => $value) {
             $data['patients'][$key] = $key. " - ".$value;
         }
-        
+
         return view('opd_patient_departments.create', compact('data'));
+    }
+
+    public function getOpdData(Request $request){
+        return "working here ". $request->pataientID;
     }
 
     /**

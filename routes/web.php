@@ -1275,5 +1275,5 @@ Route::get('qr-scan', function () {
 Route::get('/set-language', [Web\WebController::class, 'setLanguage'])->name('set-language');
 
 
-Route::get('get-opd-data-by-pataint-id/{pataientID}')
+Route::get('get-opd-data-by-pataint-id/{pataientID}', [OpdPatientDepartmentController::class, 'getOpdData']);
 require __DIR__.'/upgrade.php';
