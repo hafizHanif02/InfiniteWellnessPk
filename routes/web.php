@@ -1276,4 +1276,5 @@ Route::get('/set-language', [Web\WebController::class, 'setLanguage'])->name('se
 
 
 Route::get('get_opd_data_by_pataint_id/{pataientID}', [OpdPatientDepartmentController::class, 'getOpdData']);
+Route::get('get_opd_doc_by_opd/{opdNumber}', [OpdPatientDepartmentController::class, 'getOpdDataDocName']);
 require __DIR__.'/upgrade.php';

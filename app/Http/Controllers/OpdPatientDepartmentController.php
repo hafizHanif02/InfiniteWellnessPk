@@ -64,7 +64,12 @@ class OpdPatientDepartmentController extends AppBaseController
     }
 
     public function getOpdData(Request $request){
-        $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get();
+        $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->with('doctorName')->get();
+        return $data;
+    }
+
+    public function getOpdDataDocName(Request $request){
+        $data = OpdPatientDepartment::where(['opd_number'=>$request->opdNumber])->with('doctorName')->first();
         return $data;
     }
 

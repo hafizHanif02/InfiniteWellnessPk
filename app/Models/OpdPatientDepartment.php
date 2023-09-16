@@ -147,6 +147,12 @@ class OpdPatientDepartment extends Model
         return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 
+    public function doctorName()
+    {
+
+        return $this->belongsTo(Doctor::class, 'doctor_id')->with('doctorUser');
+    }
+
     /**
      * @return string
      */
