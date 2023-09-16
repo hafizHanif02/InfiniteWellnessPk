@@ -10,14 +10,14 @@
 
 
         <select class="form-select select2-hidden-accessible" required="" id="prescriptionDoctorId" name="patient_opd" data-select2-id="select2-data-prescriptionDoctorId" tabindex="-1" aria-hidden="true">
-
+<option>Select OPD Number</option>
         </select>
     </div>
 
     <div class="col-md-3">
         <div class="form-group mb-5">
             <label class="form-lable mb-2">Doctor Name</label>
-            <input class="form-control" value="" disabled/>
+            <input id="doctornamee" class="form-control" value="" disabled/>
 
         </div>
     </div>
@@ -149,6 +149,9 @@ function yourJavaScriptFunction(selectedValue) {
             let data = response;
     let prescriptionDoctorIdSelect = document.getElementById("prescriptionDoctorId");
     prescriptionDoctorIdSelect.innerHTML = "";
+    let option = document.createElement("option");
+    option.text = "Select OBD";
+    option.value = "";
     for (let i = 0; i < data.length; i++) {
         let opdNumber = data[i].opd_number;
         let option = document.createElement("option");
@@ -156,8 +159,8 @@ function yourJavaScriptFunction(selectedValue) {
         option.value = opdNumber;
         prescriptionDoctorIdSelect.appendChild(option);
     }
-    $(prescriptionDoctorIdSelect).trigger('change.select2');
 
+    $(prescriptionDoctorIdSelect).trigger('change.select2');
         },
         failure: function (response) {
             console.log(response.responseText);
@@ -168,4 +171,30 @@ function yourJavaScriptFunction(selectedValue) {
         }
     });
 }
+
+$("#prescriptionDoctorId").on("change", function () {
+    let selectedOpdNumber = $(this).val();
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/InfiniteWellnessPk/get_opd_doc_by_opd/" + selectedOpdNumber,
+        success: function (response) {
+            console.log(response);
+            let name = response;
+
+            let doc = name.full_name;
+            console.log(doc);
+
+            let docname = document.getElementById("doctornamee");
+            docname.value = doc;
+        },
+        failure: function (response) {
+            console.log(response.responseText);
+        },
+        error: function (response) {
+            console.log(response.responseText);
+        }
+    });
+});
+
 </script>
