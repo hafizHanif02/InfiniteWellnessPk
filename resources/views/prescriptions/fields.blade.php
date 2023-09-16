@@ -137,7 +137,7 @@
 {{--    <a href="{!! route('prescriptions.index') !!}"--}}
 {{--       class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>--}}
 {{--</div>--}}
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
 
 <script>
 
