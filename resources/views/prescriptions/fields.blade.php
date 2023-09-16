@@ -18,7 +18,7 @@
         <div class="form-group mb-5">
             <label class="form-lable mb-2">Doctor Name</label>
             <input id="doctornamee" class="form-control" value="" disabled/>
-
+            <input type="hidden" id="doctoride" class="form-control" value="" disabled/>
         </div>
     </div>
     {{-- @if(Auth::user()->hasRole('Doctor'))
@@ -181,6 +181,10 @@ $("#prescriptionDoctorId").on("change", function () {
         success: function (response) {
             let name = response;
             let doc = name.full_name;
+            let docid = name.id;
+            console.log(docid);
+            let doctorid = document.getElementById("doctoride");
+            doctorid.value = docid;
             let docname = document.getElementById("doctornamee");
             docname.value = doc;
         },
