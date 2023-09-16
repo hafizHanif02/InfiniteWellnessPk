@@ -141,36 +141,36 @@
 
 <script>
 
-function yourJavaScriptFunction(selectedValue) {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost/InfiniteWellnessPk/get_opd_data_by_pataint_id/" + selectedValue,
-        success: function (response) {
-            let data = response;
-    let prescriptionDoctorIdSelect = document.getElementById("prescriptionDoctorId");
-    prescriptionDoctorIdSelect.innerHTML = "";
-    let option = document.createElement("option");
-    option.text = "Select OBD";
-    option.value = "";
-    for (let i = 0; i < data.length; i++) {
-        let opdNumber = data[i].opd_number;
-        let option = document.createElement("option");
-        option.text = opdNumber;
-        option.value = opdNumber;
-        prescriptionDoctorIdSelect.appendChild(option);
+    function yourJavaScriptFunction(selectedValue) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost/InfiniteWellnessPk/get_opd_data_by_pataint_id/" + selectedValue,
+            success: function (response) {
+                let data = response;
+                let prescriptionDoctorIdSelect = document.getElementById("prescriptionDoctorId");
+                prescriptionDoctorIdSelect.innerHTML = "";
+                let initialOption = document.createElement("option");
+                initialOption.text = "Select OPD Number";
+                initialOption.value = "";
+                prescriptionDoctorIdSelect.appendChild(initialOption);
+                for (let i = 0; i < data.length; i++) {
+                    let opdNumber = data[i].opd_number;
+                    let option = document.createElement("option");
+                    option.text = opdNumber;
+                    option.value = opdNumber;
+                    prescriptionDoctorIdSelect.appendChild(option);
+                }
+                $(prescriptionDoctorIdSelect).trigger('change.select2');
+            },
+            failure: function (response) {
+                console.log(response.responseText);
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
     }
 
-    $(prescriptionDoctorIdSelect).trigger('change.select2');
-        },
-        failure: function (response) {
-            console.log(response.responseText);
-
-        },
-        error: function (response) {
-            console.log(response.responseText);
-        }
-    });
-}
 
 $("#prescriptionDoctorId").on("change", function () {
     let selectedOpdNumber = $(this).val();
