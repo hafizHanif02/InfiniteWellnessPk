@@ -2,7 +2,7 @@
     <div class="form-group col-md-3 mb-5">
         {{ Form::label('patient_id', __('MR / Patient').(':'), ['class' => 'form-label']) }}
         <span class="required"></span>
-        {{ Form::select('patient_id',$patients, null, ['class' => 'form-select','required','id' => 'prescriptionPatientId','placeholder'=>'Select Patient']) }}
+        {{ Form::select('patient_id',$patients, null, ['class' => 'form-select','required','id' => 'prescriptionPatientId','placeholder'=>'Select Patient', 'onchange' => 'yourJavaScriptFunction(this.value)']) }}
     </div>
     <div class="form-group col-md-3 mb-5">
         <label class="form-lable mb-2">OPD</label>
@@ -140,7 +140,7 @@
 
 <script>
 
-document.getElementById('prescriptionPatientId').addEventListener('onChange', function(e){
-    console.log("asdfdsf");
-});
+function yourJavaScriptFunction(selectedValue) {
+    
+}
 </script>
