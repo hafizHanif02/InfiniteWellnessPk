@@ -1,10 +1,27 @@
 <div class="row gx-10 mb-5">
     <div class="form-group col-md-3 mb-5">
-        {{ Form::label('patient_id', __('messages.prescription.patient').(':'), ['class' => 'form-label']) }}
+        {{ Form::label('patient_id', __('MR / Patient').(':'), ['class' => 'form-label']) }}
         <span class="required"></span>
         {{ Form::select('patient_id',$patients, null, ['class' => 'form-select','required','id' => 'prescriptionPatientId','placeholder'=>'Select Patient']) }}
     </div>
-    @if(Auth::user()->hasRole('Doctor'))
+    <div class="form-group col-md-3 mb-5">
+        <label class="form-lable mb-2">OPD</label>
+        <span class="required"></span>
+
+
+        <select class="form-select select2-hidden-accessible" required="" id="prescriptionDoctorId" name="patient_opd" data-select2-id="select2-data-prescriptionDoctorId" tabindex="-1" aria-hidden="true">
+
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group mb-5">
+            <label class="form-lable mb-2">Doctor Name</label>
+            <input class="form-control" value="" disabled/>
+
+        </div>
+    </div>
+    {{-- @if(Auth::user()->hasRole('Doctor'))
         <input type="hidden" name="doctor_id" value="{{ Auth::user()->owner_id }}">
     @else
         <div class="form-group col-md-3 mb-5">
@@ -12,7 +29,7 @@
             <span class="required"></span>
             {{ Form::select('doctor_id',$doctors, null, ['class' => 'form-select','required','id' => 'prescriptionDoctorId','placeholder'=>'Select Doctor']) }}
         </div>
-    @endif
+    @endif --}}
 {{--    <div class="col-md-3">--}}
 {{--        <div class="form-group mb-5">--}}
 {{--            {{ Form::label('food_allergies', __('messages.prescription.food_allergies').(':'), ['class' => 'form-label']) }}--}}
@@ -119,3 +136,11 @@
 {{--    <a href="{!! route('prescriptions.index') !!}"--}}
 {{--       class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>--}}
 {{--</div>--}}
+
+
+<script>
+
+document.getElementById('prescriptionPatientId').addEventListener('onChange', function(e){
+    console.log("asdfdsf");
+});
+</script>

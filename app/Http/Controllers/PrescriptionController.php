@@ -68,6 +68,11 @@ class PrescriptionController extends AppBaseController
     public function create()
     {
         $patients = $this->prescriptionRepository->getPatients();
+
+        foreach ($patients as $key => $value) {
+            $patients[$key] = $key . ' - '. $value;
+        }
+        
         $medicines = $this->prescriptionRepository->getMedicines();
         $doctors = $this->doctorRepository->getDoctors();
         $data = $this->medicineRepository->getSyncList();
@@ -102,7 +107,7 @@ class PrescriptionController extends AppBaseController
      */
     public function show(Prescription $prescription)
     {
-        
+
 
         $prescription = $this->prescriptionRepository->find($prescription->id);
         if (empty($prescription)) {
@@ -123,7 +128,7 @@ class PrescriptionController extends AppBaseController
             return view('errors.404');
         } else {
             $prescription->getMedicine;
-            $PrescriptionMedicine = PrescriptionMedicineModal::where('prescription_id',$prescription->id)->with('medicine')->get(); 
+            $PrescriptionMedicine = PrescriptionMedicineModal::where('prescription_id',$prescription->id)->with('medicine')->get();
             $patients = $this->prescriptionRepository->getPatients();
             $doctors = $this->doctorRepository->getDoctors();
             $medicines = $this->prescriptionRepository->getMedicines();

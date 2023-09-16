@@ -56,6 +56,10 @@ class OpdPatientDepartmentController extends AppBaseController
             $data['last_visit'] = OpdPatientDepartment::findOrFail($id);
         }
 
+        foreach ($data['patients'] as $key => $value) {
+            $data['patients'][$key] = $key. " - ".$value;
+        }
+        
         return view('opd_patient_departments.create', compact('data'));
     }
 

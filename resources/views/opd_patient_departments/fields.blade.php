@@ -1,10 +1,11 @@
 {{ Form::hidden('revisit', (isset($data['last_visit'])) ? $data['last_visit']->id : null) }}
 {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
 <div class="row gx-10 mb-5">
-    <div class="col-md-2">
+
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
-                {{ Form::label('patient_id',__('messages.ipd_patient.patient_id').':', ['class' => 'form-label']) }}
+                {{ Form::label('patient_id',__('MR / Patient name').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
                 {{ Form::select('patient_id', $data['patients'], (isset($data['last_visit'])) ? $data['last_visit']->patient_id : null, ['class' => 'form-select', 'required', 'id' => 'opdPatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2']) }}
             </div>
@@ -60,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('doctor_id',__('messages.ipd_patient.doctor_id').':', ['class' => 'form-label']) }}
@@ -92,7 +93,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('symptoms',__('messages.ipd_patient.symptoms').':', ['class' => 'form-label']) }}
@@ -100,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('notes',__('messages.ipd_patient.notes').':', ['class' => 'form-label']) }}
