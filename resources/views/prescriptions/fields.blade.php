@@ -131,6 +131,7 @@
         </div>
     </div>
 </div>
+
 {{--<div class="d-flex justify-content-end">--}}
 {{--    {!! Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2 btnPrescriptionSave','id' => 'prescriptionSave']) !!}--}}
 {{--    <a href="{!! route('prescriptions.index') !!}"--}}
@@ -141,6 +142,30 @@
 <script>
 
 function yourJavaScriptFunction(selectedValue) {
-    
+    $.ajax({
+        type: "GET",
+        url: "http://localhost/InfiniteWellnessPk/get_opd_data_by_pataint_id/" + selectedValue,
+        success: function (response) {
+            let data = response;
+    let prescriptionDoctorIdSelect = document.getElementById("prescriptionDoctorId");
+    prescriptionDoctorIdSelect.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        let opdNumber = data[i].opd_number;
+        let option = document.createElement("option");
+        option.text = opdNumber;
+        option.value = opdNumber;
+        prescriptionDoctorIdSelect.appendChild(option);
+    }
+    $(prescriptionDoctorIdSelect).trigger('change.select2');
+
+        },
+        failure: function (response) {
+            console.log(response.responseText);
+
+        },
+        error: function (response) {
+            console.log(response.responseText);
+        }
+    });
 }
 </script>
