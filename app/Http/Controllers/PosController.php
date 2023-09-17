@@ -28,12 +28,13 @@ class PosController extends Controller
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
             'medicines' => Medicine::all(),
             'patients' => Patient::all(),
+            'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
     }
 
     public function store(PosRequest $request): RedirectResponse
     {
-        $pos = Pos::create($request->validated());
+        $pos = Pos::create($request->validated()+['invoice_numer',$request->invoice_numer]);
         // dd($pos->id);
         foreach($request->products as $product){
             
@@ -75,7 +76,7 @@ class PosController extends Controller
     public function prescription(Request $request)
     {
         return response()->json([
-            'data' => Prescription::where('patient_id',$request->paitent_id)->with('patient.user','getMedicine.medicine','doctor.user')->get(),
+            'data' => Prescription::where('patient_id',$request->paitent_id)->with('patient.user','getMedicine.medicine.brand','doctor.user')->get(),
         ]);
     }
 

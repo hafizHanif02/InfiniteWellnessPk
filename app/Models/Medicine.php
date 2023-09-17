@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Label;
 use Eloquent as Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Medicine
@@ -121,5 +122,10 @@ class Medicine extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function label(): BelongsTo
+    {
+        return $this->belongsTo(Label::class);
     }
 }

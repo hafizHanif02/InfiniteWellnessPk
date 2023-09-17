@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pos', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(1210);
             $table->foreignId('prescription_id')->nullable()->constrained()->cascadeOnDelete();
             $table->integer('total_amount');
             $table->string('patient_name');

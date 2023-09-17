@@ -634,6 +634,7 @@ return array(
     'App\\Models\\ItemCategory' => $baseDir . '/app/Models/ItemCategory.php',
     'App\\Models\\ItemStock' => $baseDir . '/app/Models/ItemStock.php',
     'App\\Models\\LabTechnician' => $baseDir . '/app/Models/LabTechnician.php',
+    'App\\Models\\Label' => $baseDir . '/app/Models/Label.php',
     'App\\Models\\LiveConsultation' => $baseDir . '/app/Models/LiveConsultation.php',
     'App\\Models\\LiveMeeting' => $baseDir . '/app/Models/LiveMeeting.php',
     'App\\Models\\Log' => $baseDir . '/app/Models/Log.php',

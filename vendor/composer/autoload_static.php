@@ -1528,6 +1528,7 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         'App\\Models\\ItemCategory' => __DIR__ . '/../..' . '/app/Models/ItemCategory.php',
         'App\\Models\\ItemStock' => __DIR__ . '/../..' . '/app/Models/ItemStock.php',
         'App\\Models\\LabTechnician' => __DIR__ . '/../..' . '/app/Models/LabTechnician.php',
+        'App\\Models\\Label' => __DIR__ . '/../..' . '/app/Models/Label.php',
         'App\\Models\\LiveConsultation' => __DIR__ . '/../..' . '/app/Models/LiveConsultation.php',
         'App\\Models\\LiveMeeting' => __DIR__ . '/../..' . '/app/Models/LiveMeeting.php',
         'App\\Models\\Log' => __DIR__ . '/../..' . '/app/Models/Log.php',
