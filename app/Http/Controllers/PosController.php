@@ -43,6 +43,11 @@ class PosController extends Controller
                 'medicine_id' => $product['medicine_id'],
                 'product_name' => $product['product_name'],
                 'product_quantity' => $product['product_quantity'],
+                'mrp_perunit' => $product['mrp_perunit'],
+                'gst_percentage' => $product['gst_percentage'],
+                'gst_amount' => $product['gst_amount'],
+                'discount_percentage' => $product['discount_percentage'],
+                'discount_amount' => $product['discount_amount'],
                 'product_total_price' => $product['product_total_price'],
             ]);
         }
@@ -60,9 +65,36 @@ class PosController extends Controller
         ]);
     }
 
-    public function ProceedToPay(Request $reqeust, $pos)
+    public function EnterPayMethod($pos)
+    {
+     
+        $posData = Pos::where('id', $pos)->with(['PosProduct'])->first();
+        return view('pos.paymet',[
+            'pos' => $posData,
+        ]);
+
+    }
+
+    // public function EnterMethod(Request $reqeust, $pos){
+
+    //     $posData = Pos::where('id',$pos)->with('PosProduct')->first();
+
+    //     if($reqeust->pay_method == 0){
+    //         return view('pos.card-payment',[
+    //             'pos' => $posData,
+    //         ]);
+    //     }else{
+    //         return view('pos.cash-payment',[
+    //             'pos' => $posData,
+    //         ]);
+    //     }
+    // }
+
+
+    public function Payment(Request $reqeust, $pos)
     {
         // dd($reqeust);
+
         Pos::where('id', $pos)->update([
             'is_paid' => 1,
             'enter_payment_amount' => $reqeust->enter_payment_amount,
@@ -71,12 +103,19 @@ class PosController extends Controller
         ]);
         Flash::message('POS Payed!');
 
-        return to_route('pos.index');
+        return to_route('pos.print',$pos);
     }
+
     public function prescription(Request $request)
     {
         return response()->json([
             'data' => Prescription::where('patient_id',$request->paitent_id)->with('patient.user','getMedicine.medicine.brand','doctor.user')->get(),
+        ]);
+    }
+    public function Print($pos){
+        $posData = Pos::where('id', $pos)->with(['PosProduct'])->first();
+        return view('pos.print',[
+            'pos' => $posData,
         ]);
     }
 

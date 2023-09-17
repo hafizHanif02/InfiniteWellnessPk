@@ -371,10 +371,11 @@
                         </td>
                         <td>
                             <input type="number" value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
-                            <input type="number" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                         </td>
                         <td>
                             <input type="number"  value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                            <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                         </td>
                         <td>
                             {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
@@ -460,7 +461,7 @@
             
             var total_amount = $('#total_amount').val();
             total_sale = $('#total_saletax').val();
-            $('#total_saletax').val(total_sale+gst_amount2);
+            $('#total_saletax').val(gst_amount2);
             if (total_amount != 0) {
                 $('#total_amount').val((parseFloat(total_amount) + parseFloat(gst_amount2)).toFixed(2));
             } else {

@@ -9,7 +9,7 @@
             <div class="col-md-12 mb-5 text-end">
                 <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
             </div>
-            <form action="{{ route('pos.updatetocheckout',$pos) }}" method="post">
+            <form action="{{ route('pos.enter-paymethod',$pos) }}">
                 @csrf
             <div class="title text-center mb-5">
                 <h1>POS CHECKOUT </h1>
@@ -37,14 +37,26 @@
                         <h2 class="m-5">Products</h2>
                         <tr>
                             <th>Medicine</th>
+                            <th>Generic</th>
                             <th>Quantity</th>
+                            <th>MRP Per Unit</th>
+                            <th>GST %</th>
+                            <th>GST Amount</th>
+                            <th>Discount %</th>
+                            <th>Discount Amount</th>
                             <th>Total Cost</th>
                         </tr>
                         <tbody>
                             @foreach ($pos->PosProduct as $PosProduct)
-                            <tr>
+                            <tr class="text-center">
                                 <td>{{$PosProduct->medicine->name }}</td>
+                                <td>{{$PosProduct->generic_formula }}</td>
                                 <td>{{$PosProduct->product_quantity}}</td>
+                                <td>{{$PosProduct->mrp_perunit}}</td>
+                                <td>{{$PosProduct->gst_percentage}}</td>
+                                <td>{{$PosProduct->gst_amount}}</td>
+                                <td>{{$PosProduct->discount_percentage}}</td>
+                                <td>{{$PosProduct->discount_amount}}</td>
                                 <td>{{$PosProduct->product_total_price }} Rs</td>
                             </tr>
                             @endforeach
@@ -57,8 +69,32 @@
                         <th>Total Amount:</th>
                         <td>{{$pos->total_amount }}</td>
                     </tr>
+                    <tr colspan="2">
+                        <th>Pos Fees:</th>
+                        <td>{{$pos->pos_fees }}</td>
+                    </tr>
+                    <tr colspan="2">
+                        <th>Total Discount:</th>
+                        <td>{{$pos->total_discount }}</td>
+                    </tr>
+                    <tr colspan="2">
+                        <th>Total Sales Tax:</th>
+                        <td>{{$pos->total_saletax }}</td>
+                    </tr>
+                    <tr colspan="2">
+                        <th>Total Amount Exlusive Sale Tax:</th>
+                        <td>{{$pos->total_amount_ex_saletax }}</td>
+                    </tr>
+                    <tr colspan="2">
+                        <th>Total Amount Inclusive Sale Tax:</th>
+                        <td>{{$pos->total_amount_inc_saletax }}</td>
+                    </tr>
+                    <tr colspan="2">
+                        <th>Grand Total Amount:</th>
+                        <td>{{$pos->total_amount }}</td>
+                    </tr>
                 </table>
-                <div class="row mt-10 mb-10">
+                {{-- <div class="row mt-10 mb-10">
                     <div class="col-md-4">
                         <label for="enter_payment_amount">Enter Payment Amount</label>
                         <input type="number" onkeyup="enterpayment()" value="0" class="form-control" name="enter_payment_amount" id="enter_payment_amount" >
@@ -68,9 +104,11 @@
                         <input type="text" class="form-control"  name="change_amount" readonly class="change_amount" id="change_amount" value="{{$pos->total_amount }}" >
                     </div>
                     <input type="hidden" id="pos_total_amount" value="{{$pos->total_amount }}">
-                </div>
-                <div class="mb-5">
-                    <button type="submit" class="btn btn-primary">Proceede To Checkout</button>
+                </div> --}}
+                <div class="row text-center">
+                    <div class="mb-5">
+                        <button type="submit" class="btn btn-primary">Proceede To Checkout</button>
+                    </div>
                 </div>
             </div>
         </form>

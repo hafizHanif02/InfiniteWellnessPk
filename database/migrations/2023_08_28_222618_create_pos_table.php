@@ -13,12 +13,12 @@ return new class extends Migration
             $table->foreignId('prescription_id')->nullable()->constrained()->cascadeOnDelete();
             $table->integer('total_amount');
             $table->integer('pos_fees');
-            $table->integer('total_amount_ex_saletax');
-            $table->integer('total_amount_inc_saletax');
-            $table->integer('total_discount');
-            $table->integer('total_saletax');
+            $table->integer('total_amount_ex_saletax')->nullable();
+            $table->integer('total_amount_inc_saletax')->nullable();
+            $table->integer('total_discount')->nullable();
+            $table->integer('total_saletax')->nullable();
             $table->string('patient_name');
-            $table->string('doctor_name');
+            $table->string('doctor_name')->nullable();
             $table->date('pos_date');
             $table->integer('is_paid')->nullable();
             $table->integer('enter_payment_amount')->nullable();
