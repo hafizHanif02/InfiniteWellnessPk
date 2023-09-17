@@ -180,9 +180,8 @@ $("#prescriptionDoctorId").on("change", function () {
         url: "http://localhost/InfiniteWellnessPk/get_opd_doc_by_opd/" + selectedOpdNumber,
         success: function (response) {
             let name = response;
-            let doc = name.full_name;
+            let doc = name.doctor_user.full_name;
             let docid = name.id;
-
             let doctorid = document.getElementById("doctoride");
             doctorid.value = docid;
             let docname = document.getElementById("doctornamee");
