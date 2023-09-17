@@ -13,6 +13,11 @@ class Pos extends Model
     public $fillable = [
         'prescription_id',
         'total_amount',
+        'pos_fees',
+        'total_discount',
+        'total_saletax',
+        'total_amount_ex_saletax',
+        'total_amount_inc_saletax',
         'patient_name',
         'doctor_name',
         'pos_date',

@@ -14,7 +14,13 @@ class Pos_Product extends Model
         'pos_id',
         'medicine_id',
         'product_name',
+        'generic_formula',
         'product_quantity',
+        'mrp_perunit',
+        'gst_percentage',
+        'gst_amount',
+        'discount_percentage',
+        'discount_amount',
         'product_total_price',
 
     ];
