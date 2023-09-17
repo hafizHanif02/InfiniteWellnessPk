@@ -699,12 +699,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
 
-        
+
         // Label
         Route::resource('label', LabelController::class);
         Route::get('label/label-show/{posID}/{medicineId}',[LabelController::class,'LabelShow']);
         Route::get('lable/label-print/{posID}/{medicineId}',[LabelController::class,'Labelprint']);
-        
+
         //Expense Rout
         Route::get('expenses', [ExpenseController::class, 'index'])->name('expenses.index')->middleware('modules');
         Route::post('expenses', [ExpenseController::class, 'store'])->name('expenses.store');
@@ -1160,9 +1160,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             [OpdPatientDepartmentController::class, 'getDoctorOPDCharge'])->name('getDoctor.OPDcharge');
 
             // Dental OPD Patient routes
-        Route::get('dentalOpds',
-        [OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
-        Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
+            Route::get('dentalOpds',[OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
+            Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
+            Route::post('dentalOpds', [OpdPatientDepartmentController::class, 'dentalStore'])->name('dentalopd.patient.store');
 
 
         // OPD Diagnosis routes

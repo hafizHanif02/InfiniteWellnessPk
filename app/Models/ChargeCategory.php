@@ -12,10 +12,12 @@ class ChargeCategory extends Model
         3 => 'Others',
         4 => 'Procedures',
         5 => 'Supplier',
+        6 => 'Dental',
     ];
 
     const FILTER_CHARGE_TYPES = [
         0 => 'All',
+        6 => 'Dental',
         4 => 'Procedures',
         1 => 'Investigations',
         5 => 'Supplier',

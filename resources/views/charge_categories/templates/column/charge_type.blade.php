@@ -6,6 +6,8 @@
     <span class="badge bg-light-success">Others</span>
 @elseif($row->charge_type == 4)
     <span class="badge bg-light-danger">Procedures</span>
+@elseif($row->charge_type == 6)
+    <span class="badge bg-light-success">Dental</span>
 @else
     <span class="badge bg-light-warning">Supplier</span>
-@endif 
+@endif

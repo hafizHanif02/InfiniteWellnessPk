@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('messages.opd_patient.new_opd_patient') }}
+    New Dental OPD Patient
 @endsection
 @section('header_toolbar')
     <div class="container-fluid">
@@ -26,7 +26,8 @@
                 {{Form::hidden('lastVisit',(isset($data['last_visit'])) ? $data['last_visit']->patient_id : false,['id'=>'createOpdLastVisit','class'=>'lastVisit'])}}
 
                 <div class="card-body">
-                    {{ Form::open(['route' => ['opd.patient.store'], 'method'=>'post', 'id' => 'createOpdPatientForm']) }}
+                    {{ Form::open(['route' => ['dentalopd.patient.store'], 'method'=>'post', 'id' => 'createOpdPatientForm']) }}
+                    @csrf
                     @include('dentalOpd_patient_departments.fields')
                     {{ Form::close() }}
                 </div>

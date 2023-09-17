@@ -2,7 +2,7 @@
 {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
 <div class="row gx-10 mb-5">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('patient_id',__('MR / Patient name').':', ['class' => 'form-label']) }}
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('case_id', __('messages.ipd_patient.case_id').':', ['class' => 'form-label']) }}
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('bp', __('messages.ipd_patient.bp').':', ['class' => 'form-label']) }}
@@ -61,51 +61,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('doctor_id',__('messages.ipd_patient.doctor_id').':', ['class' => 'form-label']) }}
-                <span class="required"></span>
-                {{ Form::select('doctor_id', $data['doctors'], (isset($data['last_visit'])) ? $data['last_visit']->doctor_id : null, ['class' => 'form-select', 'required', 'id' => 'opdDoctorId', 'placeholder' => 'Select Doctor', 'data-control' => 'select2']) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="mb-5">
-            <div class="mb-5">
-                <div class="form-group">
-                    {{ Form::label('standard_charge', __('messages.doctor_opd_charge.standard_charge').':', ['class' => 'form-label']) }}
-                    <span class="required"></span>
-                    <div class="input-group">
-                        {{ Form::text('standard_charge', null , ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
-                        <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('payment_mode', __('messages.ipd_payments.payment_mode').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
                 {{ Form::select('payment_mode', $data['paymentMode'], null, ['class' => 'form-select', 'required', 'id' => 'opdPaymentMode', 'data-control' => 'select2', 'placeholder' => 'Choose Payment']) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('symptoms',__('messages.ipd_patient.symptoms').':', ['class' => 'form-label']) }}
-                {{ Form::textarea('symptoms', null, ['class' => 'form-control', 'rows' => 4]) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('notes',__('messages.ipd_patient.notes').':', ['class' => 'form-label']) }}
-                {{ Form::textarea('notes', null, ['class' => 'form-control', 'rows' => 4]) }}
             </div>
         </div>
     </div>
@@ -119,9 +81,100 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="mb-5">
+            <div class="mb-5">
+                {{ Form::label('symptoms',__('messages.ipd_patient.symptoms').':', ['class' => 'form-label']) }}
+                {{ Form::textarea('symptoms', null, ['class' => 'form-control', 'rows' => 4]) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="mb-5">
+            <div class="mb-5">
+                {{ Form::label('notes',__('messages.ipd_patient.notes').':', ['class' => 'form-label']) }}
+                {{ Form::textarea('notes', null, ['class' => 'form-control', 'rows' => 4]) }}
+            </div>
+        </div>
+    </div>
+    <input name="chargesList" type="hidden" value="" id="charges"/>
+    @foreach ($chargeCate as $cat)
+
+        <h3>{{$cat->name}}</h3>
+        @foreach ($cat->allCharges as $services)
+        <div class="col-md-4">
+            <div class="mb-5">
+                <div class="input-group d-flex flex-nowrap">
+                    <div class="input-group-text">
+                        <input  data-amount="{{$services->standard_charge}}" data-text="{{$services->code}}" type="checkbox" value="{{$services->id}}" aria-label="Checkbox for following text input" onclick="addAmount(this)">
+                      </div>
+                    <div class="input-group-append" style="width: 80%;">
+                      <span class="input-group-text bg-white font-weight-bold" style="font-weight: bold;">{{$services->code}}</span>
+                      <span class="input-group-text bg-white">{{number_format($services->standard_charge, 2)}}</span>
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+        @endforeach
+
+        <hr>
+    @endforeach
+
+
 </div>
-<div class="d-flex justify-content-end">
-    {!! Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3','id' => 'btnOpdSave']) !!}
-    <a href="{!! route('opd.patient.index') !!}"
-       class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>
+<div class="d-flex justify-content-between">
+    <div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Total Amount</span>
+        </div>
+        <input type="text" class="form-control" placeholder="0.00" name="standard_charge" id="totalAmount">
+    </div>
 </div>
+    <div>
+        {!! Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3','id' => 'btnOpdSave']) !!}
+        <a href="{!! route('opd.patient.index') !!}" class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>
+    </div>
+
+</div>
+
+<script>
+    let allServices = [];
+    function addAmount(checkBox){
+        //console.log(checkBox.value + " - " + checkBox.checked );
+        let amount = checkBox.getAttribute('data-amount');
+        //console.log(checkBox.value + " - " + amount );
+        if(checkBox.checked){
+
+            let serviceName = checkBox.getAttribute('data-text');
+            allServices.push({'id': checkBox.value, 'service': serviceName, 'amount': amount});
+            let oldAmout = document.getElementById('totalAmount').value;
+            if(!oldAmout){
+                oldAmout = 0;
+            }
+            oldAmout = parseFloat(oldAmout);
+            amount = parseFloat(amount);
+            document.getElementById('totalAmount').value = (oldAmout + amount).toFixed(2);
+        }else {
+            let oldAmout = document.getElementById('totalAmount').value;
+            if(!oldAmout){
+                oldAmout = 0;
+            }
+            oldAmout = parseFloat(oldAmout);
+            amount = parseFloat(amount);
+            document.getElementById('totalAmount').value = (oldAmout - amount).toFixed(2);
+
+            allServices.forEach((e, key)=>{
+
+                if(e.id == checkBox.value){
+
+                    allServices.splice(key, 1);
+
+                }
+            })
+
+        }
+        document.getElementById('charges').value = JSON.stringify(allServices);
+    }
+</script>

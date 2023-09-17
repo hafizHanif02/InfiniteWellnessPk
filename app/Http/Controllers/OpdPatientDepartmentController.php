@@ -8,6 +8,9 @@ use App\Models\DoctorOpdCharge;
 use App\Models\OpdPatientDepartment;
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Charge;
+use App\Models\ChargeCategory;
+use App\Models\DentalOpdPatientDepartment;
 use App\Repositories\OpdPatientDepartmentRepository;
 use Exception;
 use Flash;
@@ -80,7 +83,15 @@ class OpdPatientDepartmentController extends AppBaseController
             $data['patients'][$key] = $key. " - ".$value;
         }
 
-        return view('dentalOpd_patient_departments.create', compact('data'));
+
+        $chargeCate = ChargeCategory::where('charge_type', 6)->get();
+
+        foreach ($chargeCate as $key => $value) {
+            $chargeCate[$key]->allCharges = Charge::where('charge_category_id', $value->id)->get();
+        }
+
+
+        return view('dentalOpd_patient_departments.create', compact('data', 'chargeCate'));
     }
     public function getOpdData(Request $request){
         $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get();
@@ -109,6 +120,29 @@ class OpdPatientDepartmentController extends AppBaseController
         return redirect(route('opd.patient.index'));
     }
 
+    public function dentalStore(Request $request){
+        $input = $request->all();
+        // dd($input);
+        $data = [
+
+            "currency_symbol" => $request->currency_symbol,
+            "patient_id" => $request->patient_id,
+            "case_id" => $request->case_id,
+            "opd_number" => $request->opd_number,
+            "height" => $request->height,
+            "weight"=> $request->weight,
+            "bp" => $request->bp,
+            "appointment_date" => $request->appointment_date,
+            "payment_mode" => $request->payment_mode,
+            "symptoms"=> $request->symptoms,
+            "notes" => $request->notes,
+            "service_id" => $request->chargesList,
+            "standard_charge" => $request->standard_charge,
+        ];
+        // dd($data);
+        DentalOpdPatientDepartment::insert($data);
+        return redirect(route('dentalopd.patient.index'));
+    }
     /**
      * Display the specified OpdPatientDepartment.
      *
