@@ -115,13 +115,40 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="mt-9 mb-9 row">
-                            {{-- <div class="col-md-4">
-                                <label for="total_amount">Advance Cost</label>
-                                <input type="number" step="any" class="form-control" onkeyup="updateTotalPrice()" id="advance_cost" placeholder="Any Other Charges">
-                            </div> --}}
-                            <div class="col-md-12">
-                                <label for="total_amount">Total Amount</label>
+                        <div class="row mb-5 mt-5">
+                            <div class="col-md-6">
+                                <label for="total_saletax">Total Sale Tax</label>
+                                <input type="number" class="form-control" id="total_saletax" name="total_saletax" readonly
+                                    value="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="total_discount">Total Discount</label>
+                                <input type="number" class="form-control" id="total_discount" name="total_discount" readonly
+                                    value="0">
+                            </div>
+                        </div>
+                        <div class="row mb-5 mt-5">
+                            <div class="col-md-6">
+                                <label for="total_amount_ex_aletax">Total Amount Exclusive Sale Tax</label>
+                                <input type="number" class="form-control" id="total_amount_ex_aletax" name="total_amount_ex_aletax" readonly
+                                    value="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="total_amount_inc_saletax">Total Amount Inclusive Sale Tax</label>
+                                <input type="number" class="form-control" id="total_amount_inc_saletax" name="total_amount_inc_saletax" readonly
+                                    value="0">
+                            </div>
+                        </div>
+
+                        <div class="row mt-9 mb-9 row">
+                            <div class="col-md-6">
+                                <label for="pos_fees">FBR POS Fees</label>
+                                <input type="number" class="form-control" id="pos_fees" name="pos_fees" readonly
+                                     placeholder="Total Price" value="1">
+                                <input type="hidden" id="pos_fees">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="total_amount">Grand Total Amount</label>
                                 <input type="number" class="form-control" id="total_amount" name="total_amount" readonly
                                     value="0" placeholder="Total Price">
                                 <input type="hidden" id="total_amount2">
@@ -200,6 +227,7 @@
     <script>
         $(document).ready(function() {
             $('#paitent_id').select2();
+            $('.medicine-select').select2()
 
             
 
@@ -412,10 +440,12 @@
 
         function gstCalculation(id) {
             var gst_percentage = $('#gst_percentage' + id).val();
-            var totalMedicineCalculatedAmount = $('#total_medicine_amount2' + id).val();
+            var totalMedicineCalculatedAmount = $('#total_medicine_amount' + id).val();
             var totalMedicineAmount = $('#total_medicine_amount' + id).val();
-            var gst_amount = (gst_percentage * totalMedicineCalculatedAmount / 100).toFixed(2);
+            var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount )/ 100).toFixed(2);
             console.log(gst_amount);
+            var total_saletax = $('#total_saletax').val();
+            $('#total_saletax').val(parseFloat(total_saletax)+parseFloat(gst_amount));
             $('#total_medicine_amount' + id).val((parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2));
             var total_amount = $('#total_amount').val();
             console.log(total_amount + gst_amount);
@@ -527,7 +557,8 @@
             $('#anchorlabel' + id).attr('href', url);
             
         }
-            
+        
+        
         
     </script>
 @endsection

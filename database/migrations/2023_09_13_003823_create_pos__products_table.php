@@ -18,7 +18,13 @@ return new class extends Migration
             $table->foreignId('pos_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('medicine_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('product_name');
+            $table->string('generic_formula');
             $table->integer('product_quantity');
+            $table->integer('mrp_perunit');
+            $table->integer('gst_percentage')->nullable();
+            $table->integer('gst_amount')->nullable();
+            $table->integer('discount_percentage')->nullable();
+            $table->integer('discount_amount')->nullable();
             $table->integer('product_total_price');
             $table->timestamps();
         });
