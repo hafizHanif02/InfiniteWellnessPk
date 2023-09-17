@@ -72,7 +72,7 @@ class PrescriptionController extends AppBaseController
         foreach ($patients as $key => $value) {
             $patients[$key] = $key . ' - '. $value;
         }
-        
+
         $medicines = $this->prescriptionRepository->getMedicines();
         $doctors = $this->doctorRepository->getDoctors();
         $data = $this->medicineRepository->getSyncList();
@@ -92,6 +92,7 @@ class PrescriptionController extends AppBaseController
      */
     public function store(CreatePrescriptionRequest $request)
     {
+        // dd($request);
         $input = $request->all();
         $input['status'] = isset($input['status']) ? 1 : 0;
         $prescription = $this->prescriptionRepository->create($input);

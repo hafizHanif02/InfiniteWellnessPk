@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOpdPatientDepartmentRequest;
 use App\Models\DoctorOpdCharge;
 use App\Models\OpdPatientDepartment;
 use App\Models\User;
+use App\Models\Doctor;
 use App\Repositories\OpdPatientDepartmentRepository;
 use Exception;
 use Flash;
@@ -71,6 +72,7 @@ class OpdPatientDepartmentController extends AppBaseController
 
     public function getOpdDataDocName(Request $request){
         $data = OpdPatientDepartment::where(['opd_number'=>$request->opdNumber])->with('doctor')->first();
+        return Doctor::where('id',$data->doctor->id)->with('doctorUser')->first();
         return User::where('id',$data->doctor->doctor_user_id)->first();
     }
 

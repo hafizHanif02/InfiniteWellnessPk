@@ -114,21 +114,21 @@
                                         </td>
                                         <td>
                                             <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.cost_price}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit2]" value="${response.product.cost_price}" readonly  class="form-control">    
+                                            <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit2]" value="${response.product.cost_price}" readonly  class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][total_pack]" value="${response.product.number_of_pack}"  class="form-control" readonly>    
+                                            <input type="number" name="products[${items}][total_pack]" value="${response.product.number_of_pack}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][amount]" value="${response.product.cost_price}" class="form-control" readonly>    
+                                            <input type="number" name="products[${items}][amount]" value="${response.product.cost_price}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${response.product.id})" class="text-danger fa fa-trash"></i>
                                         </td>
-                                        
+
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][pieces_per_pack]" value="${response.product.pieces_per_pack }">
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][price_per_unit_unitonly]" value="${response.product.cost_price }">
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][disc_amount]" value="${(response.product.discount_trade_price * response.product.cost_price)/100 }">
@@ -142,8 +142,8 @@
                 }
             }
 
-                
-            
+
+
             function removeRaw(id) {
                 $("#" + id).remove();
             }
@@ -151,7 +151,7 @@
             function removeRaw(id) {
                 $("#" + id).remove();
             }
-            
+
             function changeType(id, items) {
                 var unit_of_measurement = $("#selectunit_of_measurement" + items).val();
                 var amount = $("#" + id + " input[name='products[" + items + "][amount]']").val();
@@ -187,7 +187,7 @@
                 var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
                 $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
                 let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
-                
+
                 if(quantity >= piece_per_pack){
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity/pieces_per_pack)));
                 }
@@ -195,7 +195,7 @@
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").val(0);
                 }
                 $("#" + id + " input[name='products[" + items + "][amount]']").val((quantity * (priceperpeice)));
-            
+
             }
 
             function changeQuantityPerPack(id, items, unit_of_measurement = null) {
