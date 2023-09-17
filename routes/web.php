@@ -699,8 +699,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         
         // Label
         Route::resource('label', LabelController::class);
-        Route::get('lable/label-show/{posID}/{medicine_id}',LabelController::class,'LabelShow');
-        Route::get('lable/label-print/{posID}/{medicine_id}',LabelController::class,'Labelprint');
+        Route::get('label/label-show/{posID}/{medicineId}',[LabelController::class,'LabelShow']);
+        Route::get('lable/label-print/{posID}/{medicineId}',[LabelController::class,'Labelprint']);
         
         //Expense Rout
         Route::get('expenses', [ExpenseController::class, 'index'])->name('expenses.index')->middleware('modules');
