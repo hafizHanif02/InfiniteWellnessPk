@@ -44,6 +44,9 @@ class OpdPatientDepartmentController extends AppBaseController
         return view('opd_patient_departments.index');
     }
 
+    public function dentalIndex(){
+        return view('dentalOpd_patient_departments.index');
+    }
     /**
      * Show the form for creating a new OpdPatientDepartment.
      *
@@ -65,6 +68,20 @@ class OpdPatientDepartmentController extends AppBaseController
         return view('opd_patient_departments.create', compact('data'));
     }
 
+    public function dentalCreate(Request $request){
+        $data = $this->opdPatientDepartmentRepository->getAssociatedData();
+        $data['revisit'] = ($request->get('revisit')) ? $request->get('revisit') : 0;
+        if ($data['revisit']) {
+            $id = $data['revisit'];
+            $data['last_visit'] = OpdPatientDepartment::findOrFail($id);
+        }
+
+        foreach ($data['patients'] as $key => $value) {
+            $data['patients'][$key] = $key. " - ".$value;
+        }
+
+        return view('dentalOpd_patient_departments.create', compact('data'));
+    }
     public function getOpdData(Request $request){
         $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get();
         return $data;

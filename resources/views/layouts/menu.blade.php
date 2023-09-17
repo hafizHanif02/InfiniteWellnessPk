@@ -76,7 +76,7 @@ $billingMGT = getMenuLinks(\App\Models\User::MAIN_BILLING_MGT)
             <span class="d-none">{{__('messages.payment_reports')}}</span>
             <span class="d-none">{{__('messages.advanced_payments')}}</span>
             <span class="d-none">{{__('messages.bills')}}</span>
-            <span class="d-none">{{__('messages.pos')}}</span>            
+            <span class="d-none">{{__('messages.pos')}}</span>
         </a>
     </li>
 @endif
@@ -251,18 +251,30 @@ $ipdOPD = getMenuLinks(\App\Models\User::MAIN_IPD_OPD)
 @if ($ipdOPD)
     <li class="nav-item  {{ Request::is('ipds*','opds*') ? 'active' : '' }}">
         <a class="nav-link  d-flex align-items-center py-3"
-           href="{{ $ipdOPD }}"
+           href="{{ route('opd.patient.index') }}"
            title="{{ __('messages.ipd_opd') }}">
         <span class="aside-menu-icon pe-3 pe-3">
             <i class="fas fa-notes-medical"></i>
 		</span>
-            <span class="aside-menu-title">{{ __('messages.ipd_opd') }}</span>
+            <span class="aside-menu-title">OPD</span>
             <span class="d-none">{{__('messages.ipd_patients')}}</span>
             <span class="d-none">{{__('messages.opd_patients')}}</span>
         </a>
     </li>
 @endif
 
+<li class="nav-item  {{ Request::is('dentalOpds*') ? 'active' : '' }}">
+    <a class="nav-link  d-flex align-items-center py-3"
+       href="{{ route('dentalopd.patient.index') }}"
+       title="{{ __('messages.ipd_opd') }}">
+    <span class="aside-menu-icon pe-3 pe-3">
+        <i class="fas fa-notes-medical"></i>
+    </span>
+        <span class="aside-menu-title">Dental OPD</span>
+        <span class="d-none">{{__('messages.ipd_patients')}}</span>
+        <span class="d-none">{{__('messages.opd_patients')}}</span>
+    </a>
+</li>
 {{-- Inventory Management  --}}
 <?php
 $inventoryMgt = getMenuLinks(\App\Models\User::MAIN_INVENTORY)

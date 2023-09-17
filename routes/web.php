@@ -1148,6 +1148,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('get-doctor-opd-charge',
             [OpdPatientDepartmentController::class, 'getDoctorOPDCharge'])->name('getDoctor.OPDcharge');
 
+            // Dental OPD Patient routes
+        Route::get('dentalOpds',
+        [OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
+        Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
+
+
         // OPD Diagnosis routes
         Route::post('opd-diagnosis', [OpdDiagnosisController::class, 'store'])->name('opd.diagnosis.store');
         Route::get('opd-diagnosis/{opdDiagnosis}/edit', [OpdDiagnosisController::class, 'edit'])->name('opd.diagnosis.edit');

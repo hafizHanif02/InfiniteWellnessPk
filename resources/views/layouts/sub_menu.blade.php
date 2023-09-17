@@ -16,14 +16,14 @@
     </li>
 @endrole
 @role('Admin|Doctor|Receptionist')
-    @module('IPD Patients',$modules)
+    {{-- @module('IPD Patients',$modules)
         <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('ipds*','opds*')) ? 'd-none' : '' }}">
             <a class="nav-link p-0 {{ Request::is('ipds*') ? 'active' : ''  }}"
                href="{{ route('ipd.patient.index') }}">
                 {{ __('messages.ipd_patients') }}
             </a>
         </li>
-    @endmodule
+    @endmodule --}}
     @module('OPD Patients',$modules)
         <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('ipds*','opds*')) ? 'd-none' : '' }}">
             <a class="nav-link p-0 {{ Request::is('opds*') ? 'active' : '' }} "
@@ -913,14 +913,14 @@
 @endmodule
 @endrole
 @role('Patient')
-@module('IPD Patients',$modules)
+{{-- @module('IPD Patients',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('patient/my-ipds*','opds*','patient/my-opds*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('patient/my-ipds*') ? 'active' : '' }}"
        href="{{ route('patient.ipd') }}">
         {{ __('messages.ipd_patients') }}
     </a>
 </li>
-@endmodule
+@endmodule --}}
 @module('OPD Patients',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('patient/my-ipds*','opds*','patient/my-opds*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('patient/my-opds*') ? 'active' : '' }}"
