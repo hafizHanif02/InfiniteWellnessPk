@@ -10,7 +10,7 @@ use Str;
 
 class DentalOpdPatientDepartment extends Model
 {
-    public $table = 'opd_patient_departments';
+
 
     const PAYMENT_MODES = [
         1 => 'Cash',
@@ -38,17 +38,7 @@ class DentalOpdPatientDepartment extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'patient_id' => 'required',
-        'case_id' => 'required',
-        'appointment_date' => 'required',
-        'doctor_id' => 'required',
-        'standard_charge' => 'required',
-        'payment_mode' => 'required',
-        'weight' => 'numeric|max:200|nullable',
-        'height' => 'numeric|max:7|nullable',
-        'bp' => 'nullable|numeric|max:200',
-    ];
+
 
     /**
      * @var array
@@ -60,22 +50,7 @@ class DentalOpdPatientDepartment extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'id' => 'integer',
-        'patient_id' => 'integer',
-        'opd_number' => 'string',
-        'appointment_date' => 'datetime',
-        'height' => 'integer',
-        'weight' => 'integer',
-        'bp' => 'integer',
-        'symptoms' => 'string',
-        'notes' => 'string',
-        'case_id' => 'integer',
-        'is_old_patient' => 'boolean',
-        'doctor_id' => 'integer',
-        'standard_charge' => 'integer',
-        'payment_mode' => 'integer',
-    ];
+
 
     /**
      * @return BelongsTo
@@ -93,19 +68,6 @@ class DentalOpdPatientDepartment extends Model
         return $this->belongsTo(PatientCase::class, 'case_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class, 'doctor_id');
-    }
-
-    public function doctorName()
-    {
-
-        return $this->belongsTo(Doctor::class, 'doctor_id')->with('doctorUser');
-    }
 
     /**
      * @return string

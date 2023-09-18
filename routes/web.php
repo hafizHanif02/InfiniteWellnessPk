@@ -1148,6 +1148,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             [OpdPatientDepartmentController::class, 'index'])->name('opd.patient.index')->middleware('modules');
         Route::get('opds/create', [OpdPatientDepartmentController::class, 'create'])->name('opd.patient.create');
         Route::post('opds', [OpdPatientDepartmentController::class, 'store'])->name('opd.patient.store');
+        Route::get('opds/{opdID}/print', [OpdPatientDepartmentController::class, 'opdPrint'])->name('opd.patient.print');
         Route::get('opds/{opdPatientDepartment}',
             [OpdPatientDepartmentController::class, 'show'])->name('opd.patient.show');
         Route::get('opds/{opdPatientDepartment}/edit',
@@ -1161,6 +1162,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
             // Dental OPD Patient routes
             Route::get('dentalOpds',[OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
+            Route::get('dentalOpds/{opdID}/print', [OpdPatientDepartmentController::class, 'dentalOpdPrint'])->name('dentalopd.patient.print');
             Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
             Route::post('dentalOpds', [OpdPatientDepartmentController::class, 'dentalStore'])->name('dentalopd.patient.store');
 

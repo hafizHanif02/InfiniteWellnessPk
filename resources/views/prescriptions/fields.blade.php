@@ -144,9 +144,10 @@
     function yourJavaScriptFunction(selectedValue) {
         $.ajax({
             type: "GET",
-            url: "http://localhost/InfiniteWellnessPk/get_opd_data_by_pataint_id/" + selectedValue,
+            url: "/get_opd_data_by_pataint_id/" + selectedValue,
             success: function (response) {
                 let data = response;
+                console.log(data);
                 let prescriptionDoctorIdSelect = document.getElementById("prescriptionDoctorId");
                 prescriptionDoctorIdSelect.innerHTML = "";
                 let initialOption = document.createElement("option");
@@ -177,7 +178,7 @@ $("#prescriptionDoctorId").on("change", function () {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost/InfiniteWellnessPk/get_opd_doc_by_opd/" + selectedOpdNumber,
+        url: "/get_opd_doc_by_opd/" + selectedOpdNumber,
         success: function (response) {
             let name = response;
             let doc = name.doctor_user.full_name;

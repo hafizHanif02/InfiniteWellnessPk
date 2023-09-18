@@ -94,13 +94,21 @@ class OpdPatientDepartmentController extends AppBaseController
         return view('dentalOpd_patient_departments.create', compact('data', 'chargeCate'));
     }
     public function getOpdData(Request $request){
-        $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get();
-        return $data;
+        $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get()->toArray();
+        $data2 = DentalOpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get()->toArray();
+        $newData = array_merge($data,$data2);
+
+        return $newData;
     }
 
     public function getOpdDataDocName(Request $request){
-        $data = OpdPatientDepartment::where(['opd_number'=>$request->opdNumber])->with('doctor')->first();
-        return Doctor::where('id',$data->doctor->id)->with('doctorUser')->first();
+        $data = OpdPatientDepartment::where(['opd_number'=>$request->opdNumber])->with('doctor')->get();
+        if(count($data) > 0){
+            return Doctor::where('id',$data[0]->doctor->id)->with('doctorUser')->first();
+        }else {
+            return ['doctor_user'=> ['full_name' =>'no Doctor']];
+        }
+
         return User::where('id',$data->doctor->doctor_user_id)->first();
     }
 
@@ -142,6 +150,22 @@ class OpdPatientDepartmentController extends AppBaseController
         // dd($data);
         DentalOpdPatientDepartment::insert($data);
         return redirect(route('dentalopd.patient.index'));
+    }
+
+    public function opdPrint(Request $request){
+        $doctors = $this->opdPatientDepartmentRepository->getDoctorsData();
+        $opdPatientDepartment = OpdPatientDepartment::where('id', $request->opdID)->first();
+        //        $doctorsList = $this->opdPatientDepartmentRepository->getDoctorsList();
+        return view('opd_patient_departments.print', compact('opdPatientDepartment', 'doctors'));
+        return $request->opdID;
+    }
+
+    public function dentalOpdPrint(Request $request){
+
+        $opdPatientDepartment = DentalOpdPatientDepartment::where('id', $request->opdID)->first();
+        //        $doctorsList = $this->opdPatientDepartmentRepository->getDoctorsList();
+        return view('dentalOpd_patient_departments.print', compact('opdPatientDepartment'));
+        return $request->opdID;
     }
     /**
      * Display the specified OpdPatientDepartment.
