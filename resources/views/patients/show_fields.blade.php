@@ -98,7 +98,7 @@
             </li>
             <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#nutritionassessment">Nutrition Assessment</a>
+                   href="#nutritionassessment">Dietitian Assessment</a>
             </li>
         </ul>
     </div>
@@ -288,7 +288,7 @@
                     ">
 
 
-                                    <form class="row g-3">
+                                    <form class="row g-3" method="POST" action="/patients/{{$data->id}}">
 
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age (years)</label>

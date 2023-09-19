@@ -169,6 +169,10 @@ class PatientController extends AppBaseController
         }
     }
 
+    public function formSubmit(Request $request){
+        return $request;
+    }
+
     /**
      * Show the form for editing the specified Patient.
      *

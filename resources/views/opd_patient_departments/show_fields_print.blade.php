@@ -7,6 +7,7 @@
 
                         <div class="">
                             <span class="badge bg-light-warning ">{{ !empty($opdPatientDepartment->opd_number) ? "#".$opdPatientDepartment->opd_number : __('messages.common.n/a') }}</span>
+                            <span class="badge bg-light-primary ">{{ $opdPatientDepartment->patient->id }}</span>
                             <h2><a href="#"
                                    class="text-decoration-none">{{ $opdPatientDepartment->patient->patientUser->full_name }}</a>
                             </h2>

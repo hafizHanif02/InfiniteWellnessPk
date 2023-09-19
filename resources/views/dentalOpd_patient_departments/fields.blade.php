@@ -61,7 +61,29 @@
             </div>
         </div>
     </div>
-
+    <div class="col-md-4">
+        <div class="mb-5">
+            <div class="mb-5">
+                {{ Form::label('doctor_id',__('messages.ipd_patient.doctor_id').':', ['class' => 'form-label']) }}
+                <span class="required"></span>
+                {{ Form::select('doctor_id', $data['doctors'], (isset($data['last_visit'])) ? $data['last_visit']->doctor_id : null, ['class' => 'form-select', 'required', 'id' => 'opdDoctorId', 'placeholder' => 'Select Doctor', 'data-control' => 'select2']) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="mb-5">
+            <div class="mb-5">
+                <div class="form-group">
+                    {{ Form::label('standard_charge', __('messages.doctor_opd_charge.standard_charge').':', ['class' => 'form-label']) }}
+                    <span class="required"></span>
+                    <div class="input-group">
+                        {{ Form::text('standard_charge', null , ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
+                        <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
@@ -144,6 +166,8 @@
     function addAmount(checkBox){
         //console.log(checkBox.value + " - " + checkBox.checked );
         let amount = checkBox.getAttribute('data-amount');
+        let docFee = document.getElementById('opdStandardCharge').value;
+        docFee = parseFloat(docFee);
         //console.log(checkBox.value + " - " + amount );
         if(checkBox.checked){
 
@@ -155,7 +179,7 @@
             }
             oldAmout = parseFloat(oldAmout);
             amount = parseFloat(amount);
-            document.getElementById('totalAmount').value = (oldAmout + amount).toFixed(2);
+            document.getElementById('totalAmount').value = (oldAmout + amount+ docFee).toFixed(2);
         }else {
             let oldAmout = document.getElementById('totalAmount').value;
             if(!oldAmout){
@@ -163,7 +187,7 @@
             }
             oldAmout = parseFloat(oldAmout);
             amount = parseFloat(amount);
-            document.getElementById('totalAmount').value = (oldAmout - amount).toFixed(2);
+            document.getElementById('totalAmount').value = (oldAmout - amount + docFee).toFixed(2);
 
             allServices.forEach((e, key)=>{
 
@@ -177,4 +201,6 @@
         }
         document.getElementById('charges').value = JSON.stringify(allServices);
     }
+
+    
 </script>

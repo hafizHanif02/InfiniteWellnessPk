@@ -342,6 +342,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Case Manager|Accountant')->group(function () {
         Route::get('patients/{patient}', [PatientController::class, 'show'])->where('patient',
             '[0-9]+')->name('patients.show');
+        Route::post('patients/{patient}', [PatientController::class, 'formSubmit'])->name('patients.form.submit');
         Route::get('patients/{patient}/{formPatientID}', [PatientController::class, 'showForm']);
         Route::post('patients/{patient}/{formPatientID}', [PatientController::class, 'submitForm']);
         Route::get('patient/{patient?}', [PatientController::class, 'getBirthDate'])->name('patients.birthDate');

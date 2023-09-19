@@ -60,10 +60,7 @@
                 }
                 $('#overlay-screen-lock').hide()
             }(jQuery))
-        $(document).ready(function() {
-            window.print();
-            $('.alert').delay(5000).slideUp(300)
-        })
+
 
         $('.alert').delay(5000).slideUp(300, function() {
             $('.alert').attr('style', 'display:none')
@@ -83,6 +80,10 @@
         window.location.href = $(this).attr('href');
     });
 
+    $(document).ready(function() {
+            window.print();
+            $('.alert').delay(5000).slideUp(300)
+        })
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>

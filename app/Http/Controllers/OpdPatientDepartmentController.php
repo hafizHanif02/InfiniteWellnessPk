@@ -140,6 +140,7 @@ class OpdPatientDepartmentController extends AppBaseController
             "height" => $request->height,
             "weight"=> $request->weight,
             "bp" => $request->bp,
+            "doctor_id" => $request->doctor_id,
             "appointment_date" => $request->appointment_date,
             "payment_mode" => $request->payment_mode,
             "symptoms"=> $request->symptoms,

@@ -7,6 +7,7 @@
 
                         <div class="">
                             <span class="badge bg-light-warning ">{{ !empty($opdPatientDepartment->opd_number) ? "#".$opdPatientDepartment->opd_number : __('messages.common.n/a') }}</span>
+                            <div class="badge bg-light-primary ">MR: {{ $opdPatientDepartment->patient->id }}</div>
                             <h2><a href="#"
                                    class="text-decoration-none">{{ $opdPatientDepartment->patient->patientUser->full_name }}</a>
                             </h2>
@@ -54,6 +55,7 @@
     </div>
 
     <div class="mt-2 overflow-hidden">
+
         {{-- <ul class="nav nav-tabs mb-5 pb-1 overflow-auto flex-nowrap text-nowrap" id="myTab" role="tablist">
             <li class="nav-item position-relative me-7 mb-3" role="presentation">
                 <button class="nav-link active p-0" id="opdPatientOverview" data-bs-toggle="tab"
@@ -82,12 +84,20 @@
                 </button>
             </li>
         </ul> --}}
-
+        <style>
+            @media print {
+            /* All your print styles go here */
+            .btn-print { display: none !important; }
+            }
+        </style>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="opdOverview" role="tabpanel"
                  aria-labelledby="opdPatientOverview">
+
                 <div class="card">
+                    <a href="/dentalOpds" class="btn-print btn btn-warning" style="width: 200px;margin-left: 20px;">Back</a>
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
@@ -167,7 +177,8 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
 
                         </div>
                             <script>
-                                let dataAll = document.getElementById("serviceData").value;
+                                function serverDataUpdate(){
+                                    let dataAll = document.getElementById("serviceData").value;
                                 dataAll = JSON.parse(dataAll);
                                 let htl = "";
                                 dataAll.forEach((element, key) => {
@@ -177,8 +188,9 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
                                 });
                                 console.log(htl);
                                 document.getElementById("allServices").innerHTML = htl;
+                                }
 
-
+                                serverDataUpdate();
                             </script>
                     </div>
                 </div>
