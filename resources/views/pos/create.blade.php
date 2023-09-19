@@ -47,7 +47,7 @@
                             <div class="col-md-6">
                                 <label for="prescription_id">Prescription</label>
                                 <select name="prescription_id" id="prescription_id" class="form-control">
-                                    <option value="" selected disabled>Select MR# Frist</option>
+                                    <option value="" selected disabled>Select MR# First</option>
                                 </select>
                                 @error('prescription_id')
                                     <div class="text-danger">{{ $message }}</div>
@@ -384,7 +384,7 @@
                         </td>
                         <td>
                             <input type="number" value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
-                            <input type="number" value="0" id="product_total_price2${a}" readonly class="form-control">
+                            <input type="hidden" value="0" id="product_total_price2${a}" readonly class="form-control">
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
