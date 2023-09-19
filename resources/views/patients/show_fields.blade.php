@@ -288,8 +288,9 @@
                     ">
 
 
-                                    <form class="row g-3" method="POST" action="/patients/{{$data->id}}">
-                                        
+                                    <form id="Anthropometric" class="row g-3" method="POST" >
+@csrf
+
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age (years)</label>
                                             <input type="number" name="age" value="25" class="form-control" id="age" placeholder="25">
@@ -332,8 +333,8 @@
                                         <option value="Moderately malnourished">Moderately malnourished </option>
                                         <option value="Well nourished">Well nourished </option>
                                         <option value="Over nourished">Over nourished</option>
-                                    </select>
-                                        </div>
+                                       </select>
+                                         </div>
 
 
                                         <div class="col-md-3">
@@ -380,7 +381,7 @@
 
                                         <div style="display: flex;
                                 justify-content: center;" class="col-12">
-                                            <button style="
+                                            <button id="submitButton" style="
                                     padding: 5px 20px 5px 20px;
                                 " type="submit" class="btn btn-primary">Save</button>
                                         </div>
@@ -1311,4 +1312,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 console.log("totallllll", TotalCalories)
+</script>
+<script>
+    $(document).ready(function() {
+        $("#submitButton").click(function() {
+          var formData = $("#Anthropometric").serialize();
+
+
+          var csrfToken = $('input[name="_token"]').val();
+
+
+          var apiUrl = "/patients/{{$data->id}}";
+
+          $.ajax({
+            type: "POST",
+            url: apiUrl,
+            data: formData,
+            headers: {
+              'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+
+              console.log("Form submitted successfully:", response);
+            },
+            error: function(error) {
+
+              console.error("Error submitting the form:", error);
+            }
+          });
+        });
+      });
+
 </script>
