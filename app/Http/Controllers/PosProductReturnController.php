@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Label;
-use Laracasts\Flash\Flash;
-use Illuminate\Http\Request;
-use App\Http\Requests\LabelRequest;
+use App\Models\PosProductReturn;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class LabelController extends Controller
+class PosProductReturnController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,19 +34,18 @@ class LabelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LabelRequest $request)
-{
-    Label::create($request->validated());
-
-}
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Label  $label
+     * @param  \App\Models\PosProductReturn  $posProductReturn
      * @return \Illuminate\Http\Response
      */
-    public function show(Label $label)
+    public function show(PosProductReturn $posProductReturn)
     {
         //
     }
@@ -56,10 +53,10 @@ class LabelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Label  $label
+     * @param  \App\Models\PosProductReturn  $posProductReturn
      * @return \Illuminate\Http\Response
      */
-    public function edit(Label $label)
+    public function edit(PosProductReturn $posProductReturn)
     {
         //
     }
@@ -68,10 +65,10 @@ class LabelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Label  $label
+     * @param  \App\Models\PosProductReturn  $posProductReturn
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Label $label)
+    public function update(Request $request, PosProductReturn $posProductReturn)
     {
         //
     }
@@ -79,24 +76,11 @@ class LabelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Label  $label
+     * @param  \App\Models\PosProductReturn  $posProductReturn
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Label $label)
+    public function destroy(PosProductReturn $posProductReturn)
     {
         //
-    }
-    public function LabelShow($pos_id, $medicine_id)
-    {
-        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->latest()->first();
-        return view('label.show', [
-        'label' => $label,
-    ]);
-    }
-    public function Labelprint($pos_id, $medicine_id){
-        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->latest()->first();
-        return view('label.print',[
-            'label' => $label,
-        ]);
     }
 }

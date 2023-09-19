@@ -6,8 +6,11 @@
     <div class="container-fluid">
         <div class="d-flex flex-column">
             @include('flash::message')
-            <div class="col-md-12 mb-5 text-end">
-                <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
+                <div class="col-md-12 mb-5 text-end">
+                    <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
+                </div>
+                <div class="col-md-12 mb-5 text-end">
+                    <a href="{{ route('pos.proceed-to-pay-page',$pos->id) }}"><button class="btn btn-primary">Procede To Pay</button></a>
             </div>
             <form action="{{ route('pos.enter-paymethod',$pos) }}">
                 @csrf
@@ -28,6 +31,16 @@
                         <tr>
                             <th>POS Date:</th>
                             <td>{{$pos->pos_date }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status:</th>
+                            <td>
+                                @if($pos->is_paid == 1)
+                                <span class="badge bg-success">Success</span>
+                                @else
+                                <span class="badge bg-danger">Unpaid</span>
+                                @endif
+                            </td>
                         </tr>
                     </tbody>
                 </table>

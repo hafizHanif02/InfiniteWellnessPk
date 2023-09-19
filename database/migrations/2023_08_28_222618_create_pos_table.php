@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('is_paid')->nullable();
             $table->integer('enter_payment_amount')->nullable();
             $table->integer('change_amount')->nullable();
+            $table->integer('card_number')->nullable();
             $table->timestamps();
         });
     }

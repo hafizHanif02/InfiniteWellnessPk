@@ -7,7 +7,7 @@
         
   
 <div class="container text-center">
-    <a class="btn btn-primary mb-10" href="{{ url('lable/label-print/' . $label->pos_id . '/' . $label->medicine_id) }}">Print</a>
+    <a class="btn btn-primary mb-10" href="{{ url('lable/label-print/' .$label->pos_id.'/'.$label->medicine_id) }}">Print</a>
     <table class="table table-bordered">
         <tbody>
             <tr>
@@ -51,6 +51,9 @@
     table{
         padding: 0px !important;
         margin: 0px !important;
+    }
+    table tr{
+        border: 0px; 
     }
 
 </style>

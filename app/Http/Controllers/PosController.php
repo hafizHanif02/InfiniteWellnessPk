@@ -27,7 +27,7 @@ class PosController extends Controller
         return view('pos.create', [
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
             'medicines' => Medicine::all(),
-            'patients' => Patient::all(),
+            'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
     }
@@ -35,7 +35,6 @@ class PosController extends Controller
     public function store(PosRequest $request): RedirectResponse
     {
         $pos = Pos::create($request->validated()+['invoice_numer',$request->invoice_numer]);
-        // dd($pos->id);
         foreach($request->products as $product){
             
             Pos_Product::create([
@@ -93,14 +92,22 @@ class PosController extends Controller
 
     public function Payment(Request $reqeust, $pos)
     {
-        // dd($reqeust);
+        $Pos_Product = Pos_Product::where('pos_id',$pos)->get();
+        
 
         Pos::where('id', $pos)->update([
+            'is_cash' => $reqeust->is_cash,
             'is_paid' => 1,
             'enter_payment_amount' => $reqeust->enter_payment_amount,
             'change_amount' => $reqeust->change_amount,
 
         ]);
+
+        foreach($Pos_Product as $PosProduct){
+            Medicine::where('id',$PosProduct->medicine_id)->decrementEach([
+                'total_quantity' => $PosProduct->product_quantity
+            ]);
+        }
         Flash::message('POS Payed!');
 
         return to_route('pos.print',$pos);

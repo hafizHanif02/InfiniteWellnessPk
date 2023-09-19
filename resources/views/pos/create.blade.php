@@ -37,7 +37,7 @@
                                     <select class="form-control" name="paitent_id" id="paitent_id">
                                         @foreach ($patients as $patient)
                                             <option value="" selected disabled>Select Patient MR#</option>
-                                            <option value="{{ $patient->id }}">{{ $patient->id }}</option>
+                                            <option value="{{ $patient->id }}">({{ $patient->id }}) {{$patient->user->full_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -221,12 +221,14 @@
         </div>
     </div>
 
-    <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
+    </script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  --}}
     <script>
+    
         $(document).ready(function() {
             $('#paitent_id').select2();
+            $('#prescription_id').select2();
             $('.medicine-select').select2();
 
             $('#paitent_id').change(function() {
@@ -242,11 +244,12 @@
                         $("#prescription_id").empty();
 
                         if (response.data.length !== 0) {
+                            $('#prescription_id').append(`<option>Select Prescription </option>`);
                             $.each(response.data, function(index, value) {
                                 console.log(value);
                                 $("#prescription_id").append(
                                     `
-                            <option>Select Prescription </option>
+
                             <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}"  data-medicines='${JSON.stringify(value.get_medicine)}'>
                                 ${value.doctor.user.full_name}" To "${value.patient.user.full_name}
                             </option>`
@@ -274,29 +277,41 @@
                 var selectedOption = $(this).find(":selected");
                 var selectedMedicinesAttr = selectedOption.data("medicines");
                 var selectedPatientAttr = selectedOption.data("patient");
+                var selectedDoctorAttr = selectedOption.data("doctor");
                 // console.log(selectedMedicinesAttr);
-                $("#medicine-table-body").empty(); // Clear existing rows
+                $("#medicine-table-body").empty();
+                $('#patient_name').val(selectedPatientAttr);
+                $('#doctor_name').val(selectedDoctorAttr);
 
                 var total = 0;
 
                 selectedMedicinesAttr.forEach(function(medicine, items) {
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
-                    <input type="hidden" name="products[${items}][medicine_id]" value="${medicine.id}">
+                    <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.brand.name}" data-brand_id="${medicine.medicine.brand.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
-                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic}" name="products[${items}][generic_formula]""></td>
-                    <td><span>${medicine.medicine.total_quantity}</span></td>
-                    <td><span>${medicine.medicine.selling_price}</span></td>
+                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
+                    <td>
+                            <input type="number" readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
+                        </td>
+                    <td><input type="text" class="form-control" readonly id="mrp_perunit${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
-                    <td><input type="text" class="form-control" readonly id="mrp_perunit${items}" value="${medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
-                    <td><input type="number" onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" ></td>
-                    <td><input type="number" onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" ></td>
+                    <td>
+                        <input type="number" onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
+                        <input type="hidden" value="0" readonly  name="products[${items}][discount_amount]" id="discount_amount${items}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${items}][discount_amount2]" id="discount_amount2${items}" class="form-control">
+                        </td>
+                    <td>
+                        <input type="number" onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" >
+                        <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${items}][gst_amount2]" id="gst_amount2${items}" class="form-control">
+                        </td>
                     <td><input type="text" class="form-control" readonly value="${medicine.time == 0 ? 'Before Meal' : 'After Meal'}" placeholder="Before/After Meal"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.comment}" placeholder="Comment"></td>
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_price2]" id="product_total_price2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
                     <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
-                    <td><a href="{{route('label.show',1) }}"><i class="fa fa-eye"></i></a></td>
+                    <td><button type="button" id="labelprintbtn${items}" disabled class="btn btn-success" id="labelshow${items}"><a id="anchorlabel${items}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -310,19 +325,19 @@
         });
 
 
-        const prescriptionSelect = document.getElementById('prescription_id');
-        const patientInput = document.getElementById('patient_name');
-        const doctorInput = document.getElementById('doctor_name');
+        const prescriptionSelect123 = document.getElementById('prescription_id');
+        const patientInput123 = document.getElementById('patient_name');
+        const doctorInput123 = document.getElementById('doctor_name');
 
-        prescriptionSelect.addEventListener('change', function() {
-            const selectedOption = prescriptionSelect.options[prescriptionSelect.selectedIndex];
+        prescriptionSelect123.addEventListener('change', function() {
+            const selectedOption = prescriptionSelect123.options[prescriptionSelect123.selectedIndex];
             const patientName = selectedOption.getAttribute('data-patient');
             const doctorName = selectedOption.getAttribute('data-doctor');
 
-            patientInput.value = patientName;
-            doctorInput.value = doctorName;
-            patientInput.readonly = true;
-            doctorInput.readonly = true;
+            patientInput123.value = patientName;
+            doctorInput123.value = doctorName;
+            patientInput123.readonly = true;
+            doctorInput123.readonly = true;
 
         });
 
@@ -404,6 +419,7 @@
                         
                     </tr> 
     `);
+    $('.medicine-select').select2();
         }
 
         function SelectMedicine(id) {
@@ -560,6 +576,7 @@
         }
 
         function Addlabelforprescription(id){
+            $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
@@ -575,7 +592,7 @@
             const brandName = selectMedicine.getAttribute('data-brand_name');
             const brandId = selectMedicine.getAttribute('data-brand_id');
             
-            console.log(MedicineIdTag, medicineId);
+            console.log(selectMedicine);
             
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);

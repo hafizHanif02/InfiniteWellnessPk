@@ -122,10 +122,10 @@
     </div>
     <script>
 
-        $('.reload-page').on('click', function(event) {
-            event.preventDefault();
-            window.location.href = $(this).attr('href');
-        });
+        // $('.reload-page').on('click', function(event) {
+        //     event.preventDefault();
+        //     window.location.href = $(this).attr('href');
+        // });
 
     </script>
     
