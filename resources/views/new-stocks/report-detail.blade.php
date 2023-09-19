@@ -65,10 +65,7 @@
                                 <th>Manufacturer:</th>
                                 <td>{{ $transferProduct->product->manufacturer->company_name }}</td>
                             </tr>
-                            <tr>
-                                <th>Vendor:</th>
-                                <td>{{ $transferProduct->product->vendor->account_title }}</td>
-                            </tr>
+                           
                             <tr>
                                 <th>Least Unit:</th>
                                 <td>{{ $transferProduct->product->least_unit == 1 ? 'Packet' : 'Pcs' }}</td>

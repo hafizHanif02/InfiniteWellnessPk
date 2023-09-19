@@ -121,7 +121,11 @@ class PosController extends Controller
 
     public function show($id)
     {
-        //
+        $pos = Pos::where('id', $id)->with(['PosProduct.medicine','prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
+
+        return view('pos.show', [
+            'pos' => $pos,
+        ]);
     }
 
     public function edit($id)
@@ -136,6 +140,9 @@ class PosController extends Controller
 
     public function destroy($id)
     {
-        //
+        Pos::find($id)->delete();
+        Flash::message('POS Deleted!');
+
+        return to_route('pos.index');
     }
 }
