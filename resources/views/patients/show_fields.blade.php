@@ -328,7 +328,7 @@
 
                                         <div class="col-md-3">
                                             <label for="nutritionalStatusCategory" class="form-label">Nutritional Status Category</label>
-                                            <select id="nutritionalStatusCategory" class="form-select">
+                                            <select name="nutritionalStatusCategory" id="nutritionalStatusCategory" class="form-select">
                                         <option value="Severely malnourished">Severely malnourished</option>
                                         <option value="Moderately malnourished">Moderately malnourished </option>
                                         <option value="Well nourished">Well nourished </option>
@@ -339,7 +339,7 @@
 
                                         <div class="col-md-3">
                                             <label for="pastDietaryPattern" class="form-label">Past Dietary Pattern</label>
-                                            <select id="pastDietaryPattern" class="form-select">
+                                            <select name="pastDietaryPattern" id="pastDietaryPattern" class="form-select">
                                         <option value="Severely malnourished">Compliant</option>
                                         <option value="Moderately malnourished">Partially- compliant</option>
                                         <option value="Well nourished">Non Compliant</option>
@@ -360,7 +360,7 @@
 
                                         <div class="col-md-3">
                                             <label for="activityFactor" class="form-label">Activity Factor</label>
-                                            <select id="activityFactor" class="form-select">
+                                            <select name="activityFactor" id="activityFactor" class="form-select">
                                         <option value="Sedentary: 1.2">Sedentary: 1.2</option>
                                         <option value="Active: (Exercise thrice a week) 1.4">Active: (Exercise thrice a week) 1.4
                                         </option>
@@ -371,7 +371,7 @@
 
                                         <div class="col-md-3">
                                             <label for="appetite" class="form-label">Appetite</label>
-                                            <select id="appetite" class="form-select">
+                                            <select name="appetite" id="appetite" class="form-select">
                                         <option value="Decreased">Decreased</option>
                                         <option value="Fair">Fair</option>
                                         <option value="Polyphagia">Polyphagia</option>
@@ -379,12 +379,7 @@
                                         </div>
 
 
-                                        <div style="display: flex;
-                                justify-content: center;" class="col-12">
-                                            <button id="submitButton" style="
-                                    padding: 5px 20px 5px 20px;
-                                " type="submit" class="btn btn-primary">Save</button>
-                                        </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -398,7 +393,7 @@
                     ">
 
 
-                                    <form class="row g-3">
+                                    <form id="Comorbidity" class="row g-3">
 
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
@@ -431,7 +426,7 @@
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="Arthritis" id="arthritis">
+                                                <input class="form-check-input" type="checkbox" name="Arthritis" value="Arthritis" id="arthritis">
                                                 <label class="form-check-label" for="arthritis">
                                             Arthritis
                                         </label>
@@ -522,7 +517,7 @@
                                                 <div class="row mb-3">
                                                     <label for="inputEmail3" style="padding-right: inherit;margin-right: inherit;" class="col-sm-6 col-form-label">Any other specific:</label>
                                                     <div class="col-sm-6">
-                                                        <input type="text" class="form-control" id="inputEmail3">
+                                                        <input type="text" class="form-control" name="inputEmail3" id="inputEmail3">
                                                     </div>
                                                 </div>
                                                 </label>
@@ -530,12 +525,7 @@
                                         </div>
                                         <div class="col-md-2"></div>
 
-                                        <div style="display: flex;
-                                justify-content: center;" class="col-12">
-                                            <button style="
-                                    padding: 5px 20px 5px 20px;
-                                " type="submit" class="btn btn-primary">Save</button>
-                                        </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -553,7 +543,7 @@
 
 
 
-                                    <form class="row g-3">
+                                    <form id="History" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                     display: flex;">History</h2>
@@ -578,9 +568,9 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="Midmorning" class="form-label"> Mid-morning / Evening snack:
+                                            <label for="Midmorning2" class="form-label"> Mid-morning / Evening snack:
                                     </label>
-                                            <input type="text" class="form-control" id="Midmorning" name="Midmorning">
+                                            <input type="text" class="form-control" id="Midmorning2" name="Midmorning2">
                                         </div>
 
                                         <div class="col-md-6">
@@ -601,12 +591,7 @@
 
 
 
-                                        <div style="display: flex;
-                                justify-content: center;" class="col-12">
-                                            <button style="
-                                    padding: 5px 20px 5px 20px;
-                                " type="submit" class="btn btn-primary">Save</button>
-                                        </div>
+                                     
                                     </form>
                                 </div>
                             </div>
@@ -624,7 +609,7 @@
 
 
 
-                                    <form class="row g-3">
+                                    <form id="Intervention" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                             display: flex;">Nutritional Intervention Plan</h2>
@@ -678,12 +663,7 @@
 
 
 
-                                        <div style="display: flex;
-                                        justify-content: center;" class="col-12">
-                                            <button style="
-                                            padding: 5px 20px 5px 20px;
-                                        " type="submit" class="btn btn-primary">Save</button>
-                                        </div>
+                                      
                                     </form>
                                 </div>
                             </div>
@@ -698,7 +678,7 @@
 
 
 
-                                    <form class="row g-3">
+                                    <form id="Nutritiona" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                     display: flex;">Nutritional Requirement</h2>
@@ -797,12 +777,7 @@
 
                                         </div>
 
-                                        <div style="display: flex;
-                                justify-content: center;" class="col-12">
-                                            <button style="
-                                    padding: 5px 20px 5px 20px;
-                                " type="submit" class="btn btn-primary">Save</button>
-                                        </div>
+                                      
                                     </form>
                                 </div>
                             </div>
@@ -1019,7 +994,7 @@
                                                 <p>Third Week</p>
                                             </td>
                                             <td colspan="3">
-                                                <input type="text" name="week33" class="form-control" id="week33" placeholder="ENTER TEXT HERE">
+                                                <input type="text" name="week88" class="form-control" id="week88" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <!-- //! PART 3333 ends -->
@@ -1072,15 +1047,15 @@
 
                                     </tbody>
                                 </table>
-                                <div style="display: flex;
+                               
+                            </div>
+                        </div>
+                        <div style="display: flex;
                                 justify-content: center;" class="col-12">
-                                    <button style="
+                                    <button id="submitButton" style="
                                     padding: 5px 20px 5px 20px;
                                 " type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!-- Tabs content -->
                       </div>
@@ -1344,3 +1319,45 @@ console.log("totallllll", TotalCalories)
       });
 
 </script>
+<script>
+    <script>
+    $(document).ready(function() {
+        $("#submitButton").click(function() {
+            var formData = new FormData();
+
+            formData.append('Anthropometric', $("#Anthropometric").serialize());
+            formData.append('Comorbidity', $("#Comorbidity").serialize());
+            formData.append('History', $("#History").serialize());
+            formData.append('Intervention', $("#Intervention").serialize());
+            formData.append('Nutritiona', $("#Nutritiona").serialize());
+
+            $("table tbody tr").each(function(index, row) {
+                formData.append('date[]', $(row).find("input[type='date']").val());
+                formData.append('time[]', $(row).find("input[type='time']").val());
+                formData.append('week[]', $(row).find("input[type='text']").val());
+            });
+
+            var csrfToken = $('input[name="_token"]').val();
+            formData.append('_token', csrfToken);
+
+            $.ajax({
+                type: "POST",
+                url: "/patients/{{$data->id}}",
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                processData: false, 
+                                contentType: false,
+                success: function(response) {
+                    console.log("Forms submitted successfully:", response);
+                },
+                error: function(error) {
+                    console.error("Error submitting the forms:", error);
+                }
+            });
+        });
+    });
+</script>
+
+    </script>
