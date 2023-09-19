@@ -170,6 +170,7 @@ class PatientController extends AppBaseController
     }
 
     public function formSubmit(Request $request){
+        return "yes works";
         return $request;
     }
 

@@ -289,7 +289,7 @@
 
 
                                     <form class="row g-3" method="POST" action="/patients/{{$data->id}}">
-
+                                        
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age (years)</label>
                                             <input type="number" name="age" value="25" class="form-control" id="age" placeholder="25">
