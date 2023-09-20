@@ -86,7 +86,7 @@ class PatientController extends AppBaseController
     {
         $input = $request->all();
         $input['status'] = isset($input['status']) ? 1 : 0;
-
+        $input['email'] =  null;
         $userID = $this->patientRepository->store($input);
         $this->patientRepository->createNotification($input);
         $data = [

@@ -14,13 +14,18 @@
             {{ Form::text('last_name', null, ['class' => 'form-control', 'required', 'tabindex' => '2']) }}
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group mb-5">
-            {{ Form::label('email', __('messages.user.email').':', ['class' => 'form-label']) }}
-            <span class="required"></span>
-            {{ Form::text('email', null, ['class' => 'form-control','required']) }}
-        </div>
+    <div class="col-lg-6 mb-5">
+        {{ Form::label('CNIC','CNIC'.':', ['class' => 'form-label']) }}
+        {{ Form::text('CNIC', null, ['class' => 'form-control', 'tabindex' => '3','id'=>'userCnic']) }}
     </div>
+{{--
+    <div class="col-md-6">
+        <div class="form-group mb-5"> --}}
+            {{-- {{ Form::label('email', __('messages.user.email').':', ['class' => 'form-label']) }}
+            <span class="required"></span> --}}
+            <input type="hidden" name="email" value="test@test.com" />
+        {{-- </div>
+    </div> --}}
     <div class="col-md-6">
         <div class="form-group mb-5">
             {{ Form::label('dob', __('messages.user.dob').':', ['class' => 'form-label']) }}
@@ -65,7 +70,7 @@
             {{ Form::select('blood_group', $bloodGroup, null, ['class' => 'form-select', 'id' => 'patientBloodGroup', 'placeholder' => 'Select Blood Group', 'data-control' => 'select2', 'tabindex' => "9"]) }}
         </div>
     </div>
-    <div class="col-md-3">
+    {{-- <div class="col-md-3">
         <div class="form-group mb-5">
             {{ Form::label('password', __('messages.user.password').':', ['class' => 'form-label']) }}<span class="required"></span>
             {{ Form::password('password', ['class' => 'form-control','required','min' => '6','max' => '10', 'tabindex' => '10']) }}
@@ -77,7 +82,7 @@
             <span class="required"></span>
             {{ Form::password('password_confirmation', ['class' => 'form-control','required','min' => '6','max' => '10', 'tabindex' => '11']) }}
         </div>
-    </div>
+    </div> --}}
     <div class="form-group col-md-4 mb-5">
         <div class="row2" io-image-input="true">
             {{ Form::label('image',__('messages.common.profile').(':'), ['class' => 'form-label']) }}
@@ -130,6 +135,12 @@
         <div class="form-group mb-5">
             {{ Form::label('zip', __('messages.user.zip').':', ['class' => 'form-label']) }}
             {{ Form::text('zip', null, ['class' => 'form-control', 'maxlength' => '6','minlength' => '6']) }}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group mb-5">
+            {{ Form::label('country','Country'.':', ['class' => 'form-label']) }}
+            {{ Form::text('country', null, ['class' => 'form-control']) }}
         </div>
     </div>
 </div>

@@ -36,6 +36,12 @@
                               class="fs-5 text-gray-800 showSpan"></span>
                     </div>
                     <div class="form-group col-6 mb-5">
+                        <label for="userCNIC"
+                               class="pb-2 fs-5 text-gray-600">CNIC :</label><br>
+                        <span id="userCNIC"
+                              class="fs-5 text-gray-800 showSpan"></span>
+                    </div>
+                    <div class="form-group col-6 mb-5">
                         <label for="role"
                                class="pb-2 fs-5 text-gray-600">{{ __('messages.sms.role').(':') }}</label><br>
                         <span id="showUserRole"

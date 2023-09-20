@@ -51,13 +51,14 @@ class PatientRepository extends BaseRepository
      * @param  bool  $mail
      * @return bool
      */
-    public function store($input, $mail = true)
+    public function store($input, $mail = false)
     {
         try {
             $input['phone'] = preparePhoneNumber($input, 'phone');
             $input['department_id'] = Department::whereName('Patient')->first()->id;
-            $input['password'] = Hash::make($input['password']);
+            $input['password'] = Hash::make('infinitewellnesspk');
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
+            $input['email'] =  null;
             $user = User::create($input);
             if ($mail) {
                 $user->sendEmailVerificationNotification();

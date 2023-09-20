@@ -128,6 +128,7 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $input = $request->all();

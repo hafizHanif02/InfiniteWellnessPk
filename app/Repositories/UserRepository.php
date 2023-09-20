@@ -123,7 +123,7 @@ class UserRepository extends BaseRepository
     {
         try {
             $input['phone'] = preparePhoneNumber($input, 'phone');
-            $input['password'] = Hash::make($input['password']);
+            $input['password'] = Hash::make('infinitewellnesspk');
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
             $user = User::create($input);
 

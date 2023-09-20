@@ -11,8 +11,12 @@
         {{ Form::text('last_name', null, ['class' => 'form-control', 'required', 'tabindex' => '2']) }}
     </div>
     <div class="col-lg-6 mb-5">
-        {{ Form::label('email', __('messages.user.email').':', ['class' => 'form-label required']) }}
-        {{ Form::email('email', null, ['class' => 'form-control', 'required', 'tabindex' => '3','id'=>'userEmail']) }}
+        {{ Form::label('email', __('messages.user.email').':', ['class' => 'form-label']) }}
+        {{ Form::email('email', null, ['class' => 'form-control', 'tabindex' => '3','id'=>'userEmail']) }}
+    </div>
+    <div class="col-lg-6 mb-5">
+        {{ Form::label('CNIC','CNIC'.':', ['class' => 'form-label']) }}
+        {{ Form::text('CNIC', null, ['class' => 'form-control', 'tabindex' => '3','id'=>'userCnic']) }}
     </div>
     @if(!$isEdit)
         <div class="col-lg-6 mb-5">
@@ -59,13 +63,12 @@
             <br>
             <div class="form-check form-switch">
                 <input class="form-check-input is-active" name="status" type="checkbox" value="1"
-                       tabindex="11" id="userAllowMarketing" @if($isEdit) {{(isset($user) && ($user->status)) ? 'checked' : ''}} @else
-                    {{ 'checked' }} @endif ">
+                       tabindex="11" id="userAllowMarketing" checked />
                 <label class="form-check-label" for="allowmarketing"></label>
             </div>
         </div>
     </div>
-    @if(!$isEdit)
+    {{-- @if(!$isEdit)
         <div class="col-lg-6 mb-5">
             {{ Form::label('password', __('messages.user.password').':', ['class' => 'form-label required']) }}
             {{ Form::password('password', ['class' => 'form-control', 'required','min' => '6','max' => '10', 'tabindex' => '8']) }}
@@ -97,7 +100,7 @@
     <div class="col-lg-6 mb-5">
         {{ Form::label('linkedIn_url', __('messages.linkedIn_url').':', ['class' => 'form-label']) }}
         {{ Form::text('linkedIn_url', null, ['class' => 'form-control','id'=>'userLinkedInUrl', 'onkeypress' => 'return avoidSpace(event);']) }}
-    </div>
+    </div> --}}
     <div class="form-group col-md-4 mb-5">
         <div class="row2" io-image-input="true">
             {{ Form::label('image',__('messages.common.profile').(':'), ['class' => 'form-label']) }}
@@ -116,7 +119,7 @@
                     <div class="image previewImage" id="userPreviewImage"
                          style="background-image: url({{ $image }})">
                             <span class="picker-edit rounded-circle text-gray-500 fs-small" title="{{ $isEdit ? 'Change profile' : __('messages.common.profile') }}">
-                                
+
                                     <label>
                                     <i class="fa-solid fa-pen" id="profileImageIcon"></i>
                                         <input type="file" id="userProfileImage" name="image"
