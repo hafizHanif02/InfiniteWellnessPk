@@ -26,7 +26,7 @@ class Appointment extends Model
     public $fillable = [
         'patient_id',
         'doctor_id',
-        'doctor_department_id',
+        'department_id',
         'opd_date',
         'problem',
         'is_completed',
@@ -36,7 +36,7 @@ class Appointment extends Model
         'id' => 'integer',
         'patient_id' => 'integer',
         'doctor_id' => 'integer',
-        'doctor_department_id' => 'integer',
+        'department_id' => 'integer',
         'opd_date' => 'datetime',
         'problem' => 'string',
         'is_completed' => 'integer',
@@ -45,7 +45,7 @@ class Appointment extends Model
     public static $rules = [
         'patient_id' => 'required',
         'doctor_id' => 'required',
-        'doctor_department_id' => 'required',
+        'department_id' => 'required',
         'opd_date' => 'required',
         'problem' => 'string|nullable',
     ];
@@ -85,6 +85,6 @@ class Appointment extends Model
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(DoctorDepartment::class, 'doctor_department_id');
+        return $this->belongsTo(DoctorDepartment::class, 'department_id');
     }
 }

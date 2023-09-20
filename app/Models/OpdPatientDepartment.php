@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Str;
-use Integer;
-
 
 /**
  * App\Models\OpdPatientDepartment
@@ -160,8 +158,7 @@ class OpdPatientDepartment extends Model
      */
     public static function generateUniqueOpdNumber()
     {
-
-        $opdNumber = Carbon::now()->format('Y') . '-'.random_int(1000, 9999);
+        $opdNumber = strtoupper(Str::random(8));
         while (true) {
             $isExist = self::whereOpdNumber($opdNumber)->exists();
             if ($isExist) {
