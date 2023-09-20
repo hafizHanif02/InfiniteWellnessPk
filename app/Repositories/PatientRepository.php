@@ -13,6 +13,7 @@ use Exception;
 use Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Illuminate\Support\Carbon;
 
 /**
  * Class PatientRepository
@@ -68,7 +69,10 @@ class PatientRepository extends BaseRepository
                 $mediaId = storeProfileImage($user, $input['image']);
             }
 
-            $patient = Patient::create(['user_id' => $user->id]);
+            $currentDate = Carbon::now();
+            $formattedDate = $currentDate->format('Y');
+            $mrNum = $formattedDate . '-'.$user->id;
+            $patient = Patient::create(['user_id' => $user->id, 'MR' => $mrNum]);
 
             $ownerId = $patient->id;
             $ownerType = Patient::class;

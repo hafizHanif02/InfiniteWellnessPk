@@ -61,7 +61,7 @@ class PatientTable extends LivewireTableComponent
         return [
             Column::make(__('messages.patients'), 'patientUser.first_name')->view('patients.columns.patient')
                 ->sortable()->searchable(),
-            Column::make(__('MR'), 'patientUser.id')->view('patients.columns.mrp')
+            Column::make(__('MR'), 'MR')->view('patients.columns.mrp')
                 ->sortable()->searchable(),
             Column::make(__('messages.user.phone'), 'patientUser.phone')->view('patients.columns.phone')
                 ->sortable()->searchable(),

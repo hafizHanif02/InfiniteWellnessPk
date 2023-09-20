@@ -58,6 +58,7 @@ class Patient extends Model
 
     public $fillable = [
         'user_id',
+        'MR',
     ];
 
     const STATUS_ALL = 2;
@@ -86,6 +87,7 @@ class Patient extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
+        'MR' => 'string',
     ];
 
     /**
@@ -96,7 +98,7 @@ class Patient extends Model
     public static $rules = [
         'first_name' => 'required|string',
         'last_name' => 'required|string',
-        'email' => 'required|email:filter|unique:users,email',
+        'email' => 'nullable|unique:users,email',
         'password' => 'nullable|same:password_confirmation|min:6',
         'gender' => 'required',
         'dob' => 'nullable|date',
