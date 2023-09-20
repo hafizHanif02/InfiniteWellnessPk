@@ -129,8 +129,8 @@
                         </div>
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
-                                <label for="total_amount_ex_aletax">Total Amount Exclusive Sale Tax</label>
-                                <input type="number" class="form-control" id="total_amount_ex_aletax" name="total_amount_ex_saletax" readonly
+                                <label for="total_amount_ex_saletax">Total Amount Exclusive Sale Tax</label>
+                                <input type="number" class="form-control"  id="total_amount_ex_saletax" name="total_amount_ex_saletax" readonly
                                     value="0">
                             </div>
                             <div class="col-md-6">
@@ -151,7 +151,7 @@
                                 <label for="total_amount">Grand Total Amount</label>
                                 <input type="number" class="form-control" id="total_amount" name="total_amount" readonly
                                     value="0" placeholder="Total Price">
-                                <input type="hidden" id="total_amount2">
+                                <input type="hidden" id="total_amounts2">
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -298,17 +298,17 @@
                     <td>
                         <input type="number" onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][discount_amount]" id="discount_amount${items}" class="form-control">
-                            <input type="hidden" value="0" readonly  name="products[${items}][discount_amount2]" id="discount_amount2${items}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${items}][discount_amounts2]" id="discount_amounts2${items}" class="form-control">
                         </td>
                     <td>
                         <input type="number" onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
-                            <input type="hidden" value="0" readonly  name="products[${items}][gst_amount2]" id="gst_amount2${items}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
                     <td><input type="text" class="form-control" readonly value="${medicine.time == 0 ? 'Before Meal' : 'After Meal'}" placeholder="Before/After Meal"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.comment}" placeholder="Comment"></td>
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
-                    <input type="hidden" class="form-control"  name="products[${items}][product_total_price2]" id="product_total_price2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
+                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
                     <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
                     <td><button type="button" id="labelprintbtn${items}" disabled class="btn btn-success" id="labelshow${items}"><a id="anchorlabel${items}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
                     <td></td>
@@ -319,7 +319,7 @@
                 });
 
                 $("#total_amount").val(total.toFixed(2));
-                $("#total_amount2").val(total.toFixed(2));
+                $("#total_amounts2").val(total.toFixed(2));
             });
         });
 
@@ -341,7 +341,7 @@
         });
 
         function updateTotalPrice() {
-            var total_amount = parseFloat($("#total_amount2").val()) || 0;
+            var total_amount = parseFloat($("#total_amounts2").val()) || 0;
             var advance_cost = parseFloat($("#advance_cost").val()) || 0;
 
             var grandTotal = total_amount + advance_cost;
@@ -383,12 +383,12 @@
                         <td>
                             <input type="number"  value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
-                            <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount2${a}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
                         <td>
                             <input type="number" value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
-                            <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount2${a}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
                         <td>
                             {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
@@ -398,7 +398,7 @@
                         </td>
                         <td>
                             <input type="number" value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
-                            <input type="hidden" value="0" id="product_total_price2${a}" readonly class="form-control">
+                            <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -427,7 +427,7 @@
 
             const sellingpriceTag = document.getElementById('selling_price' + id);
             var totalMedicineAmount = document.getElementById('product_total_price' + id);
-            var totalMedicineAmount2 = document.getElementById('product_total_price2' + id);
+            var totalMedicineAmount2 = document.getElementById('product_total_prices2' + id);
             var medicineID = document.getElementById('medicineID' + id);
             var genericformulatag = document.getElementById('generic_formula' + id);
 
@@ -452,20 +452,23 @@
                 var TotalCost = parseFloat($('#total_amount').val());
                 var TotalMedicineCost = (Dosage * PricePerUnit);
                 $('#product_total_price'+id).val(TotalMedicineCost);
-                $('#product_total_price2'+id).val(TotalMedicineCost)
-                ChnageDosageTotal(id);
+                $('#product_total_prices2'+id).val(TotalMedicineCost)
+                ChnageDosageTotal();
+                
             }
 
             function ChnageDosageTotal() {
                 var TotalAmount = 0;
-                $("input[id^='product_total_price2']").each(function() {
+                $("input[id^='product_total_prices2']").each(function() {
                     if($(this).val() != ''){
                         TotalAmount += parseFloat($(this).val());
-                        console.log('TotalAMount'+TotalAmount);
                     }
                 });
                 $('#total_amount').val(TotalAmount);
-                $('#total_amount2').val(TotalAmount);
+                $('#total_amounts2').val(TotalAmount);
+                $('#total_amount_ex_saletax').val(TotalAmount);
+                $('#total_amount_inc_saletax').val(TotalAmount);
+                
             }
 
      
@@ -475,31 +478,39 @@
             function discountCalculation(id) {
             var discount_percentage = $('#discount_percentage' + id).val();
             var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            var totalMedicineAmount = $('#product_total_price2' + id).val();
+            var totalMedicineAmount = $('#product_total_prices2' + id).val();
             var discount_amount = ((discount_percentage * totalMedicineAmount )/ 100).toFixed(2);
             var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount) ).toFixed(2);
+            console.log(discount_amount);
              $('#discount_amount'+id).val(discount_amount);
-             $('#discount_amount2'+id).val(discount_amount);
+             $('#discount_amounts2'+id).val(discount_amount);
              $('#product_total_price'+id).val(totalMedicineAmountwithDisc);
-             $('#product_total_price2'+id).val(totalMedicineAmountwithDisc);
+             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);
              discountCalculationTotal();
         }
 
         function discountCalculationTotal(){
-            var discount_amount2 = 0;
+            var discount_amounts2 = 0;
             var amountwithouttax = 0;
-                $("input[id^='discount_amount2']").each(function() {
+                $("input[id^='discount_amounts2']").each(function() {
                     if($(this).val() != ''){
-                        discount_amount2 += parseFloat($(this).val());
+                        discount_amounts2 += parseFloat($(this).val());
                     }
                 });
-                $("input[id^='product_total_price2']").each(function() {
+                $("input[id^='product_total_prices2']").each(function() {
                     if($(this).val() != ''){
                         amountwithouttax += parseFloat($(this).val());
                     }
                 });
-                $('#total_amount_ex_aletax').val(amountwithouttax);
-                $('#total_discount').val(discount_amount2);
+                var TotalAmount = $('#total_amounts2').val();
+                var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
+                var AmountWithDiscount  = TotalAmount-discount_amounts2Tofixed;
+                var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
+                console.log(amountwithouttaxToFixed);
+                $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
+                $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
+                $('#total_amount').val(amountwithouttaxToFixed);
+                $('#total_discount').val(discount_amounts2Tofixed);
         }
 
 
@@ -507,12 +518,13 @@
         function gstCalculation(id) {
             var gst_percentage = $('#gst_percentage' + id).val();
             var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            var totalMedicineAmount = $('#product_total_price2' + id).val();
+            var totalMedicineAmount = $('#product_total_prices2' + id).val();
             var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount )/ 100).toFixed(2);
             var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
             console.log(totalMedicineAmountwithGst);
+            
              $('#gst_amount'+id).val(gst_amount);
-             $('#gst_amount2'+id).val(gst_amount);
+             $('#gst_amounts2'+id).val(gst_amount);
              $('#product_total_price'+id).val(totalMedicineAmountwithGst);
              $('#product_total_price'+id).val(totalMedicineAmountwithGst);
             gstCalculationTotal();
@@ -521,12 +533,12 @@
         function gstCalculationTotal(){
             var Totalgstamount = 0;
             var TotalWithTax = 0;
-                $("input[id^='gst_amount2']").each(function() {
+                $("input[id^='gst_amounts2']").each(function() {
                     if($(this).val() != ''){
                         Totalgstamount += parseFloat($(this).val());
                     }
                 });
-                $("input[id^='product_total_price2']").each(function() {
+                $("input[id^='product_total_prices2']").each(function() {
                     if($(this).val() != ''){
                         TotalWithTax += parseFloat($(this).val());
                     }
