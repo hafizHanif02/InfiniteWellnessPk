@@ -56,7 +56,7 @@ class DoctorRepository extends BaseRepository
             $input['department_id'] = Department::whereName('Doctor')->first()->id;
             $input['password'] = Hash::make($input['password']);
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
-            $user = User::create(Arr::except($input, ['specialist', 'department_id']));
+            $user = User::create(Arr::except($input, ['specialist']));
             if ($mail) {
                 $user->sendEmailVerificationNotification();
             }
@@ -68,6 +68,7 @@ class DoctorRepository extends BaseRepository
             $doctor = Doctor::create([
                 'doctor_user_id' => $user->id,
                 'department_id' => $input['department_id'],
+
                 'specialist' => $input['specialist'],
             ]);
             $ownerId = $doctor->id;

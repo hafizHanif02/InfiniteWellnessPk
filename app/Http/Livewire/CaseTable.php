@@ -85,7 +85,7 @@ class CaseTable extends LivewireTableComponent
                 ->searchable()
                 ->sortable(),
 
-            Column::make(__('MR'), 'patient.patientUser.id')
+            Column::make(__('MR'), 'patient.MR')
             ->view('patient_cases.templates.column.mr')
             ->searchable()
             ->sortable(),

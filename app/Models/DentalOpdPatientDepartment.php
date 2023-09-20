@@ -75,6 +75,7 @@ class DentalOpdPatientDepartment extends Model
     public static function generateUniqueOpdNumber()
     {
         $opdNumber = strtoupper(Str::random(8));
+        $opdNumber = Carbon::now()->format('Y') . '-'.random_int(1000, 9999);
         while (true) {
             $isExist = self::whereOpdNumber($opdNumber)->exists();
             if ($isExist) {

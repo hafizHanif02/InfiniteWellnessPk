@@ -62,8 +62,9 @@ class OpdPatientDepartmentRepository extends BaseRepository
     {
         $data['patientsMR'] = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('id',
             'id')->sort();
-        $data['patients'] = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('patientUser.full_name',
-            'id')->sort();
+        // $data['patients'] = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('patientUser.full_name',
+        //     'id')->sort();
+        $data['patients2'] = Patient::Select('patients.id', 'patients.MR', 'patients.user_id')->with('patientUser')->get()->where('patientUser.status', '=', 1)->sort();
         $data['doctors'] = Doctor::with('doctorUser')->get()->where('doctorUser.status', '=', 1)->pluck('doctorUser.full_name',
             'id')->sort();
         $data['opdNumber'] = $this->model->generateUniqueOpdNumber();
