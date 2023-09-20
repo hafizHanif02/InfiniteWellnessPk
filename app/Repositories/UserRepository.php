@@ -139,9 +139,10 @@ class UserRepository extends BaseRepository
             } elseif ($input['department_id'] == 2) {
                 $doctorDepartment = DoctorDepartment::first();
                 $doctor = Doctor::create([
-                    'user_id' => $user->id,
-                    'doctor_department_id' => $doctorDepartment->id,
+                    'doctor_user_id' => $user->id,
+                    'department_id' => $doctorDepartment->id,
                     'specialist' => 'Bones',
+
                 ]);
                 $user->sendEmailVerificationNotification();
                 $ownerId = $doctor->id;
