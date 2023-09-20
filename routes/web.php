@@ -704,6 +704,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
         // POS Return
         Route::resource('pos-return', PosReturnController::class);
+        Route::get('pos-return/print/{posreturn}', [PosReturnController::class,'print'])->name('pos-return.print');
 
 
         // Label

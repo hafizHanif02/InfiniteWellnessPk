@@ -105,14 +105,21 @@ class PosReturnController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PosReturn  $posReturn
-     * @return \Illuminate\Http\Response
-     */
+    public function print($posreturn){
+        $posReturn = PosReturn::where('id',$posreturn)->with('pos')->first();
+        $posReturnProduct = PosProductReturn::where('pos_id',$posReturn->pos_id)->with('medicine.brand')->get();
+        return view('pos-return.print',[
+            'posReturn' => $posReturn,
+            'posReturnProduct' => $posReturnProduct,
+        ]);
+    }
+  
     public function destroy(PosReturn $posReturn)
     {
-        //
+        $posReturn->delete();
+        Flash::message('POS Returned Deleted!');
+
+        return to_route('pos-return.index');
+
     }
 }

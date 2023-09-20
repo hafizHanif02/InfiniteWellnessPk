@@ -8,7 +8,7 @@
             @include('flash::message')
                 <div class="col-md-12 mb-5 text-end">
                     <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
-                    {{-- <a href="{{ route('pos-return.print',$PosReturn->id) }}"><button class="btn btn-primary">Back</button></a> --}}
+                    <a href="{{ route('pos-return.print',$PosReturn->id) }}"><button class="btn btn-primary">Print</button></a>
                 </div>
                
                 {{-- {{dd($PosReturn) }} --}}
