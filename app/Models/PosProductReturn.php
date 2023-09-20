@@ -10,6 +10,7 @@ class PosProductReturn extends Model
 {
     use HasFactory;
     public $fillable = [
+        'pos_return_id',
         'pos_id',
         'medicine_id',
         'product_name',

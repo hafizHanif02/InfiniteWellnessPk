@@ -20,9 +20,11 @@ class PosReturn extends Model
 
 
 
-    public function Pos_Product_Return(): HasMany
+    
+
+    public function Pos_Product_Return()
     {
-        return $this->hasMany(PosProductReturn::class,'pos_id');
+        return $this->hasMany(PosProductReturn::class,'pos_return_id');
     }
     
     public function Pos(): BelongsTo

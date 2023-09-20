@@ -30,6 +30,14 @@
                             <th>POS Date:</th>
                             <td>{{$PosReturn->pos->pos_date }}</td>
                         </tr>
+                        <tr>
+                            <th>RETURN ID</th>
+                            <td>{{$PosReturn->id }}</td>
+                        </tr>
+                        <tr>
+                            <th>RETURN DATE/TIME</th>
+                            <td>{{$PosReturn->created_at }}</td>
+                        </tr>
                         
                     </tbody>
                 </table>
@@ -45,8 +53,8 @@
                             <th class="text-center">Total Cost</th>
                         </tr>
                         <tbody>
-                            
-                            @foreach ($Pos_return_product as $PosProduct)
+                            {{-- {{dd($PosReturn->Pos_Product_Return) }} --}}
+                            @foreach ($PosReturn->Pos_Product_Return as $PosProduct)
                             <tr class="text-center">
                                 <td>{{$PosProduct->medicine->name }}</td>
                                 <td>{{$PosProduct->generic_formula }}</td>

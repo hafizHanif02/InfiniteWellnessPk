@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pos_product_returns', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pos_return_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('pos_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('medicine_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('product_name');

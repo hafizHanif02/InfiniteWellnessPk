@@ -1,5 +1,5 @@
 {{-- {{dd($posReturn->posReturn,$posReturn->posReturnProduct) }} --}}
-
+{{-- {{dd($posReturn)}} --}}
 <x-layouts.print>
     <table class="table table-bordered">
         <thead class="table-dark text-dark">
@@ -7,21 +7,24 @@
                 <th colspan="16" class="text-center"><h3>POS RETURN SLIP</h3></th>
             </tr>
           <tr class="padding-row">
-            <th colspan="3">Date</th>
-            <th colspan="3">{{$posReturn->pos->created_at }}</th>
-            <th colspan="3">Invoice No</th>
-            <th colspan="3">{{$posReturn->pos->id }}</th>
-            <th colspan="4">Time</th>
+            <th colspan="2">POS Date</th>
+            <th colspan="2">{{$posReturn->pos->created_at }}</th>
+            <th colspan="1">POS#</th>
+            <th colspan="2">{{$posReturn->pos->id }}</th>
+            <th colspan="2">Return No</th>
+            <th colspan="2">{{$posReturn->id }}</th>
+            <th colspan="2">Return Date/Time</th>
+            <th colspan="2">{{$posReturn->created_at }}</th>
            <tr>
             <tr>
-                <th>Name</th>
-                <th>{{$posReturn->pos->patient_name }}</th>
-                <th colspan="14"></th>
+                <th colspan="2">Name</th>
+                <th colspan="2">{{$posReturn->pos->patient_name }}</th>
+                <th colspan="12"></th>
             </tr>
             <tr>
-                <th>Contact No</th>
-                <th>034124782147</th>
-                <th colspan="14"></th>
+                <th colspan="2">Contact No</th>
+                <th colspan="2">034124782147</th>
+                <th colspan="12"></th>
             </tr>
             <tr>
                 <th colspan="2" rowspan="2">S No</th>
@@ -35,7 +38,7 @@
             </tr>
             <tr></tr>
 
-            @foreach ($posReturnProduct as $product)
+            @foreach ($posReturn->Pos_Product_Return as $product)
             <tr>
                 <td class="text-center" colspan="2">{{ $loop->iteration }}</td>
                 <td class="text-center" colspan="2">{{ $product->medicine->brand->name }}</td>
@@ -49,7 +52,7 @@
             @endforeach    
             <tr>
                 <th colspan="8"></th>
-                <th colspan="6">TOTAL REFUND AMOUNT</th>
+                <th colspan="6" style="background-color:black;color:white;">TOTAL REFUND AMOUNT</th>
                 <th colspan="2">{{$posReturn->total_amount }}</th>
             </tr>
         </thead>

@@ -44,12 +44,13 @@ class PosReturnController extends Controller
      */
     public function store(Request $request)
     {
-        PosReturn::create([
+       $posReturn = PosReturn::create([
             'pos_id' => $request->pos_id,
             'total_amount' => $request->total_amount
         ]);
         foreach($request->products as $product){
             PosProductReturn::create([
+                'pos_return_id' => $posReturn->id,
                 "pos_id" => $request->pos_id,
                 "medicine_id" => $product['medicine_id'],
                 "product_id" => $product['product_id'],
@@ -75,10 +76,8 @@ class PosReturnController extends Controller
     public function show($posReturn)
     {
         $PosReturn = PosReturn::where('pos_id',$posReturn)->with(['Pos_Product_Return','Pos'])->first();
-        $PosProductReturn = PosProductReturn::where('pos_id',$posReturn)->get();
        return view('pos-return.show',[
         'PosReturn' => $PosReturn,
-        'Pos_return_product' => $PosProductReturn,
        ]);
     }
 
@@ -106,11 +105,9 @@ class PosReturnController extends Controller
     }
 
     public function print($posreturn){
-        $posReturn = PosReturn::where('id',$posreturn)->with('pos')->first();
-        $posReturnProduct = PosProductReturn::where('pos_id',$posReturn->pos_id)->with('medicine.brand')->get();
+        $posReturn = PosReturn::where('id',$posreturn)->with(['pos','Pos_Product_Return.medicine'])->first();
         return view('pos-return.print',[
             'posReturn' => $posReturn,
-            'posReturnProduct' => $posReturnProduct,
         ]);
     }
   
