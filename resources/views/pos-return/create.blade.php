@@ -58,6 +58,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            
                         </div>
                         <div class="mt-10">
                             <div class="row mb-5 ">
@@ -73,13 +74,19 @@
                                         <th class="col" >Dosage</th>
                                         <th class="col" >MRP Per Unit</th>
                                         <th class="col" >Return Quantity</th>
-                                        <th class="col" >Price</th>
+                                        <th class="col" >Return Cost</th>
                                         <th></th>
                                     </thead>
                                     <tbody class="" id="medicine-table-body">
 
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="row md-5 mt-5">
+                            <div class="col-md-12">
+                                <label for="total-amount">Total Return Amount</label>
+                                <input type="number" class="form-control" readonly id="total_amount" name="total_amount">
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mb-5 mt-5">
@@ -109,22 +116,47 @@
                 selectedPosProductAttr.forEach(function(medicine, items) {
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
-                    <td><input class="form-control" value="${medicine.medicine.name}" readonly ></td>
-                    <td><input class="form-control" value="${medicine.medicine.generic_formula}" readonly ></td>
-                    <td><input class="form-control" value="${medicine.product_quantity}" readonly ></td>
-                    <td><input class="form-control" value="${medicine.medicine.selling_price}" id="mrp_perunit${items}" readonly ></td>
-                    <td><input class="form-control" value="${medicine.product_quantity}" ></td>
-                    <td><input class="form-control" value="${medicine.product_total_price}" id="total_price${items}" readonly ></td>
+                    <input type="hidden" value="${medicine.medicine.id}" name="products[${items}][medicine_id]">
+                    <input type="hidden" value="${medicine.id}" name="products[${items}][product_id]">
+                    <td><input type="text" class="form-control" value="${medicine.medicine.name}" name="products[${items}][product_name]" readonly ></td>
+                    <td><input type="text" class="form-control" value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]" readonly ></td>
+                    <td><input type="number" class="form-control" value="${medicine.product_quantity}" readonly ></td>
+                    <td><input type="number"  class="form-control" value="${medicine.medicine.selling_price}" id="mrp_perunit${items}" readonly ></td>
+                    <td><input type="number"  class="form-control" id="return_quantity${items}" value="0" max=${medicine.product_quantity} onkeyup="chnagequantity(${items})" name="products[${items}][return_quantity]" ></td>
+                    <td><input type="number"  class="form-control" value="0"  id="product_total_price${items}" name="products[${items}][product_total_price]" readonly >
+                        <input type="hidden"  class="form-control" value="0"  id="product_total_price2${items}" name="products[${items}][product_total_price2]" readonly >
+                    </td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
-                    // total += ((medicine.medicine.selling_price) * medicine.dosage);
+                    
                 });
 
-                // $("#total_amount").val(total.toFixed(2));
-                // $("#total_amount2").val(total.toFixed(2));
             });
         });
+
+        function chnagequantity(id){
+            var return_quantity = $('#return_quantity'+id).val();
+            var price_per_unit = $('#mrp_perunit'+id).val();
+            var ReturnAmount = return_quantity * price_per_unit;
+            $('#product_total_price'+id).val(ReturnAmount);
+            $('#product_total_price2'+id).val(ReturnAmount);
+            totalAmount();
+          }
+
+          function totalAmount(){
+            var TotalAmount = 0;
+            $("input[id^='product_total_price2']").each(function() {
+                    if($(this).val() != ''){
+                        TotalAmount += parseFloat($(this).val());
+                    }
+                });
+                $('#total_amount').val(TotalAmount);
+
+          }
+
+
+      
 
 
         // const prescriptionSelect123 = document.getElementById('prescription_id');

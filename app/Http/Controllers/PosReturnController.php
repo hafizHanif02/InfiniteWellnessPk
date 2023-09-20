@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pos;
+use App\Models\Medicine;
 use App\Models\PosReturn;
+use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
+use App\Models\PosProductReturn;
 use App\Http\Controllers\Controller;
 
 class PosReturnController extends Controller
@@ -17,7 +20,7 @@ class PosReturnController extends Controller
     public function index()
     {
         return view('pos-return.index',[
-            'pos_retrun' => PosReturn::with('Pos_Product_Return')->get()
+            'pos_retrun' => PosReturn::get()
         ]);
     }
 
@@ -41,7 +44,26 @@ class PosReturnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        PosReturn::create([
+            'pos_id' => $request->pos_id,
+            'total_amount' => $request->total_amount
+        ]);
+        foreach($request->products as $product){
+            PosProductReturn::create([
+                "pos_id" => $request->pos_id,
+                "medicine_id" => $product['medicine_id'],
+                "product_id" => $product['product_id'],
+                "product_name" => $product['product_name'],
+                "generic_formula" => $product['generic_formula'],
+                "product_quantity" => $product['return_quantity'],
+                "product_total_price" => $product['product_total_price'],
+            ]);
+            Medicine::where('id', $product['medicine_id'])->increment('total_quantity', $product['return_quantity']);
+
+        }
+        Flash::message('POS Returned!');
+
+        return to_route('pos-return.index');
     }
 
     /**
@@ -50,9 +72,14 @@ class PosReturnController extends Controller
      * @param  \App\Models\PosReturn  $posReturn
      * @return \Illuminate\Http\Response
      */
-    public function show(PosReturn $posReturn)
+    public function show($posReturn)
     {
-        //
+        $PosReturn = PosReturn::where('pos_id',$posReturn)->with(['Pos_Product_Return','Pos'])->first();
+        $PosProductReturn = PosProductReturn::where('pos_id',$posReturn)->get();
+       return view('pos-return.show',[
+        'PosReturn' => $PosReturn,
+        'Pos_return_product' => $PosProductReturn,
+       ]);
     }
 
     /**
