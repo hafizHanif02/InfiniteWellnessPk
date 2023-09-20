@@ -49,7 +49,7 @@ class DoctorRepository extends BaseRepository
      * @param  bool  $mail
      * @return bool
      */
-    public function store($input, $mail = true)
+    public function store($input, $mail = false)
     {
         try {
             $input['phone'] = preparePhoneNumber($input, 'phone');
