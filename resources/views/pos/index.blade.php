@@ -34,9 +34,6 @@
                                     @endif
                                 </td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a title="POS Return" href="{{ route('pos.show', $pos->id) }}">
-                                        <i class="fa fa-recycle"></i>
-                                    </a>
                                     <a href="{{ route('pos.show', $pos->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>

@@ -14,9 +14,8 @@
                     <thead>
                         <tr>
                             <th>POS No.</th>
-                            <th>Total Quantity</th>
+                            <th>Invoice No</th>
                             <th>Charges</th>
-                            {{-- <th>Paid</th> --}}
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -24,7 +23,7 @@
                         @forelse ($pos_retrun as $pos)
                             <tr>
                                 <td>{{ $pos->id }}</td>
-                                <td>{{ $pos->patient_name }}</td>
+                                <td>{{ $pos->pos_id }}</td>
                                 <td>{{ $pos->total_amount }}</td>
                                 {{-- <td>
                                     @if ($pos->is_paid == 1)
@@ -34,7 +33,7 @@
                                     @endif --}}
                                 </td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a href="{{ route('pos.show', $pos->id) }}">
+                                    <a href="{{ route('pos-return.show', $pos->pos_id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <form action="{{ route('pos.destroy',$pos->id) }}" class="d-inline" method="post">
