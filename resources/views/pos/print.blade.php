@@ -56,7 +56,9 @@
                 <th colspan="11"></th>
                 <th>Cash</th>
                 <th colspan="4">
+                    @if ($pos->is_cash == 1)
                     <i class="fas fa-check"></i>
+                    @endif
                 </th>
             </tr>
 

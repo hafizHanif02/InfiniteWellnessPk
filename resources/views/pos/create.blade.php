@@ -130,7 +130,7 @@
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_amount_ex_aletax">Total Amount Exclusive Sale Tax</label>
-                                <input type="number" class="form-control" id="total_amount_ex_aletax" name="total_amount_ex_aletax" readonly
+                                <input type="number" class="form-control" id="total_amount_ex_aletax" name="total_amount_ex_saletax" readonly
                                     value="0">
                             </div>
                             <div class="col-md-6">
@@ -249,9 +249,8 @@
                                 console.log(value);
                                 $("#prescription_id").append(
                                     `
-
                             <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}"  data-medicines='${JSON.stringify(value.get_medicine)}'>
-                                ${value.doctor.user.full_name}" To "${value.patient.user.full_name}
+                               (${value.patient_opd}) ${value.doctor.user.full_name}" To "${value.patient.user.full_name}
                             </option>`
                                 );
                             });
@@ -364,7 +363,7 @@
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
                                     <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}" data-medicine_id="{{ $medicine->id }}" data-generic_formula="{{$medicine->generic_formula}}" data-brand_name="{{$medicine->brand->name}}" data-brand_id="{{$medicine->brand->id}}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
-                                        {{ $medicine->name }}
+                                        ({{ $medicine->generic_formula }}){{ $medicine->name }}
                                     </option>
                                     @endforeach
                             </select>

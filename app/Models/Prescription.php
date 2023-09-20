@@ -116,6 +116,7 @@ class Prescription extends Model
         'problem_description',
         'test',
         'advice',
+        'patient_opd',
         'next_visit_qty',
         'next_visit_time',
     ];
@@ -149,6 +150,7 @@ class Prescription extends Model
         'problem_description' => 'string',
         'test' => 'string',
         'advice' => 'string',
+        'patient_opd' => 'string',
         'next_visit_qty' => 'string',
         'next_visit_time' => 'string',
     ];

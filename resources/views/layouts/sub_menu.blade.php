@@ -136,6 +136,12 @@
         {{ __('messages.bill.pos') }}
     </a>
 </li>
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('pos-return*') ? 'active' : '' }}"
+       href="{{ route('pos-return.index') }}">
+        POS Retrun
+    </a>
+</li>
 @endmodule
 @endrole
 @role('Admin|Nurse')

@@ -46,6 +46,7 @@ use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\IpdChargeController;
 use App\Http\Controllers\ItemStockController;
+use App\Http\Controllers\PosReturnController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BloodDonorController;
@@ -699,6 +700,10 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('pos/paid/{pos}', [PosController::class, 'Payment'])->name('pos.paid');
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
+
+
+        // POS Return
+        Route::resource('pos-return', PosReturnController::class);
 
 
         // Label

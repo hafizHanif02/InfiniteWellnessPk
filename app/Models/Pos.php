@@ -22,6 +22,7 @@ class Pos extends Model
         'doctor_name',
         'pos_date',
         'is_paid',
+        'is_cash',
         'enter_payment_amount',
         'change_amount'
 

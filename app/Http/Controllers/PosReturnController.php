@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pos;
 use App\Models\PosReturn;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PosReturnController extends Controller
 {
@@ -15,7 +16,9 @@ class PosReturnController extends Controller
      */
     public function index()
     {
-        
+        return view('pos-return.index',[
+            'pos_retrun' => PosReturn::with('Pos_Product_Return')->get()
+        ]);
     }
 
     /**
@@ -25,7 +28,9 @@ class PosReturnController extends Controller
      */
     public function create()
     {
-        //
+        return view('pos-return.create',[
+            'poses' => Pos::with('PosProduct.medicine')->get()
+        ]);
     }
 
     /**

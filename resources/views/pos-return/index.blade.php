@@ -1,42 +1,39 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('messages.bill.pos') }}
+    POS Return
 @endsection
 @section('content')
     <div class="container-fluid">
         <div class="d-flex flex-column">
             @include('flash::message')
             <div class="col-md-12 mb-5 text-end">
-                <a href="{{ route('pos.create') }}" target="_blank"><button class="btn btn-primary">Add New POS</button></a>
+                <a href="{{ route('pos-return.create') }}" target="_blank"><button class="btn btn-primary">Add POS Return</button></a>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>POS No.</th>
-                            <th>Paitent</th>
+                            <th>Total Quantity</th>
                             <th>Charges</th>
-                            <th>Paid</th>
+                            {{-- <th>Paid</th> --}}
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($poses as $pos)
+                        @forelse ($pos_retrun as $pos)
                             <tr>
                                 <td>{{ $pos->id }}</td>
                                 <td>{{ $pos->patient_name }}</td>
                                 <td>{{ $pos->total_amount }}</td>
-                                <td>
+                                {{-- <td>
                                     @if ($pos->is_paid == 1)
                                     <span class="badge bg-success">Paid</span>
                                     @else
                                     <span class="badge bg-danger">Unpaid</span>
-                                    @endif
+                                    @endif --}}
                                 </td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a title="POS Return" href="{{ route('pos.show', $pos->id) }}">
-                                        <i class="fa fa-recycle"></i>
-                                    </a>
                                     <a href="{{ route('pos.show', $pos->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
@@ -50,13 +47,13 @@
                             </tr>
                         @empty
                             <tr class="text-center">
-                                <td colspan="5" class="text-danger">No pos stock</td>
+                                <td colspan="5" class="text-danger">No pos return stock</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
                 <div>
-                    {{ $poses->links() }}
+                    {{-- {{ $pos_retrun->links() }} --}}
                 </div>
             </div>
         </div>

@@ -9,9 +9,11 @@
                 <div class="col-md-12 mb-5 text-end">
                     <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
                 </div>
+                @if ($pos->is_paid != 1 )
                 <div class="col-md-12 mb-5 text-end">
                     <a href="{{ route('pos.proceed-to-pay-page',$pos->id) }}"><button class="btn btn-primary">Procede To Pay</button></a>
             </div>
+                @endif
             <form action="{{ route('pos.enter-paymethod',$pos) }}">
                 @csrf
             <div class="title text-center mb-5">
