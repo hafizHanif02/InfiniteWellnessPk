@@ -64,7 +64,7 @@ class LoginController extends Controller
 
         if ($request->user()->hasRole('Admin')) {
             // $this->redirectTo = 'dashboard';
-            $this->redirectTo = 'inventory/products';
+            $this->redirectTo = 'dashboard';
         } else {
             if ($request->user()->hasRole(['Receptionist'])) {
                 $this->redirectTo = 'appointments';

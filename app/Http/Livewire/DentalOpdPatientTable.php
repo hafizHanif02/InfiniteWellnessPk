@@ -98,7 +98,7 @@ class DentalOpdPatientTable extends LivewireTableComponent
             Column::make(__('messages.opd_patient.total_visits'), 'id')
                 ->view('opd_patient_departments.columns.total_visits'),
             Column::make(__('messages.common.action'), 'id')
-                ->view('dentalopd_patient_departments.action'),
+                ->view('dentalOpd_patient_departments.action'),
         ];
     }
 
