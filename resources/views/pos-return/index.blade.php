@@ -13,27 +13,22 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Return #</th>
                             <th>POS No.</th>
-                            <th>Invoice No</th>
                             <th>Charges</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{-- {{dd($pos_retrun) }} --}}
                         @forelse ($pos_retrun as $pos)
                             <tr>
                                 <td>{{ $pos->id }}</td>
                                 <td>{{ $pos->pos_id }}</td>
                                 <td>{{ $pos->total_amount }}</td>
-                                {{-- <td>
-                                    @if ($pos->is_paid == 1)
-                                    <span class="badge bg-success">Paid</span>
-                                    @else
-                                    <span class="badge bg-danger">Unpaid</span>
-                                    @endif --}}
                                 </td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a href="{{ route('pos-return.show', $pos->pos_id) }}">
+                                    <a href="{{ route('pos-return.show', $pos->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <form action="{{ route('pos-return.destroy',$pos->id) }}" class="d-inline" method="post">

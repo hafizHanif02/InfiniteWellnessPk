@@ -120,7 +120,7 @@ class PosController extends Controller
         ]);
     }
     public function Print($pos){
-        $posData = Pos::where('id', $pos)->with(['PosProduct'])->first();
+        $posData = Pos::where('id', $pos)->with(['PosProduct.medicine.brand'])->first();
         return view('pos.print',[
             'pos' => $posData,
         ]);

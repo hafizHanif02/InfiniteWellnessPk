@@ -46,4 +46,13 @@
     .table-bordered th, .table-bordered td {
         padding: 5px; /* Add padding for better appearance */
     }
+    .table-bordered tr{
+        border: 0px;
+    }
+    .table-bordered tr td{
+        border: 0px;
+    }
+    .table-bordered tr th{
+        border: 0px;
+    }
 </style>

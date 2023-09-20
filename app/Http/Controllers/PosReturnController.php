@@ -75,7 +75,7 @@ class PosReturnController extends Controller
      */
     public function show($posReturn)
     {
-        $PosReturn = PosReturn::where('pos_id',$posReturn)->with(['Pos_Product_Return','Pos'])->first();
+        $PosReturn = PosReturn::where('id',$posReturn)->with(['Pos_Product_Return','Pos'])->first();
        return view('pos-return.show',[
         'PosReturn' => $PosReturn,
        ]);

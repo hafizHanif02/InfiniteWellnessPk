@@ -28,7 +28,7 @@
                                         <input type="text" class="form-control"  name="change_amount" readonly class="change_amount" id="change_amount" value="{{$pos->total_amount }}" >
                                     </div>
                                     <input type="hidden" value="1" name="is_cash">
-                                    <input type="hidden" value=" " name="card_number">
+                                    <input type="hidden" value="" name="card_number">
                                     <input type="hidden" id="pos_total_amount" value="{{$pos->total_amount }}">
                                 </div>
                                 <button class="btn btn-primary">Enter payment</button>

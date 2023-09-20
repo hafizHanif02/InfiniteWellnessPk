@@ -35,8 +35,8 @@
                                 <div class="col-md-6">
                                     <label for="mr_number">MR No.</label>
                                     <select class="form-control" name="paitent_id" id="paitent_id">
+                                        <option value="" selected disabled>Select Patient MR#</option>
                                         @foreach ($patients as $patient)
-                                            <option value="" selected disabled>Select Patient MR#</option>
                                             <option value="{{ $patient->id }}">({{ $patient->id }}) {{$patient->user->full_name }}</option>
                                         @endforeach
                                     </select>

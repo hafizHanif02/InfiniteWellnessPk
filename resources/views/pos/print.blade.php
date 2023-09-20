@@ -10,12 +10,12 @@
            <tr>
             <tr>
                 <th>Name</th>
-                <th>{{$pos->patient_name }}</th>
+                <th colspan="2">{{$pos->patient_name }}</th>
                 <th colspan="14"></th>
             </tr>
             <tr>
                 <th>Contact No</th>
-                <th>034124782147</th>
+                <th colspan="2">034124782147</th>
                 <th colspan="14"></th>
             </tr>
             <tr>
@@ -33,7 +33,7 @@
             @foreach ($pos->PosProduct as $product)
             <tr>
                 <th colspan="2">{{ $loop->iteration }}</th>
-                <th colspan="2">{{ $product->brand_name }}</th>
+                <th colspan="2">{{ $product->medicine->brand->name }}</th>
                 <th colspan="2">14714{{ $loop->iteration  }}</th>
                 <th colspan="2">{{ $product->product_quantity }}</th>
                 <th colspan="2">{{ $product->mrp_perunit }}</th>
@@ -62,7 +62,7 @@
                 </th>
             </tr>
 
-            <tr><th colspan="16"></th></tr>
+            <tr ><th colspan="16"></th></tr>
             <tr>
                 <th colspan="16" style="background-color:#ff8b61;color:black;">Proceed To Transaction</th>
             </tr>
@@ -108,6 +108,7 @@
         padding-left: 40px;
         padding-right: 40px;
     }
+  
 </style>
 <script>
     window.print();

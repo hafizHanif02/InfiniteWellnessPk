@@ -52,7 +52,7 @@
             @endforeach    
             <tr>
                 <th colspan="8"></th>
-                <th colspan="6" style="background-color:black;color:white;">TOTAL REFUND AMOUNT</th>
+                <th colspan="6" style="background-color: black; color:white;">TOTAL REFUND AMOUNT</th>
                 <th colspan="2">{{$posReturn->total_amount }}</th>
             </tr>
         </thead>
@@ -66,6 +66,7 @@
     .text-center{
         text-align: center;
     }
+   
 </style>
 <script>
     window.print();
