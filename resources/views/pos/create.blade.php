@@ -246,7 +246,7 @@
                         if (response.data.length !== 0) {
                             $('#prescription_id').append(`<option>Select Prescription </option>`);
                             $.each(response.data, function(index, value) {
-                                console.log(value);
+                            (value);
                                 $("#prescription_id").append(
                                     `
                             <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}"  data-medicines='${JSON.stringify(value.get_medicine)}'>
@@ -269,7 +269,7 @@
                 var selectedMedicineData = selectedOption.data("medicine-data");
 
                 // Handle medicine data here...
-                // console.log(selectedMedicineData);
+                //(selectedMedicineData);
             });
 
             $("#prescription_id").change(function() {
@@ -277,7 +277,7 @@
                 var selectedMedicinesAttr = selectedOption.data("medicines");
                 var selectedPatientAttr = selectedOption.data("patient");
                 var selectedDoctorAttr = selectedOption.data("doctor");
-                // console.log(selectedMedicinesAttr);
+                //(selectedMedicinesAttr);
                 $("#medicine-table-body").empty();
                 $('#patient_name').val(selectedPatientAttr);
                 $('#doctor_name').val(selectedDoctorAttr);
@@ -464,7 +464,7 @@
                         TotalAmount += parseFloat($(this).val());
                     }
                 });
-                $('#total_amount').val(TotalAmount);
+                $('#total_amount').val(TotalAmount+1);
                 $('#total_amounts2').val(TotalAmount);
                 $('#total_amount_ex_saletax').val(TotalAmount);
                 $('#total_amount_inc_saletax').val(TotalAmount);
@@ -481,7 +481,6 @@
             var totalMedicineAmount = $('#product_total_prices2' + id).val();
             var discount_amount = ((discount_percentage * totalMedicineAmount )/ 100).toFixed(2);
             var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount) ).toFixed(2);
-            console.log(discount_amount);
              $('#discount_amount'+id).val(discount_amount);
              $('#discount_amounts2'+id).val(discount_amount);
              $('#product_total_price'+id).val(totalMedicineAmountwithDisc);
@@ -506,10 +505,10 @@
                 var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
                 var AmountWithDiscount  = TotalAmount-discount_amounts2Tofixed;
                 var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
-                console.log(amountwithouttaxToFixed);
+            (amountwithouttaxToFixed);
                 $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
                 $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-                $('#total_amount').val(amountwithouttaxToFixed);
+                $('#total_amount').val(amountwithouttaxToFixed+1);
                 $('#total_discount').val(discount_amounts2Tofixed);
         }
 
@@ -521,7 +520,6 @@
             var totalMedicineAmount = $('#product_total_prices2' + id).val();
             var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount )/ 100).toFixed(2);
             var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
-            console.log(totalMedicineAmountwithGst);
             
              $('#gst_amount'+id).val(gst_amount);
              $('#gst_amounts2'+id).val(gst_amount);
@@ -543,8 +541,14 @@
                         TotalWithTax += parseFloat($(this).val());
                     }
                 });
-                $('#total_saletax').val(Totalgstamount);
-                $('#total_amount_inc_saletax').val(TotalWithTax);
+                var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
+                var TotalgstamountToFixed = Totalgstamount.toFixed(2);
+                var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
+                var ForTotalAmount = TotalAmountWithGSTFINAL+parseFloat(1);
+
+                $('#total_saletax').val(TotalgstamountToFixed);
+                $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
+                $('#total_amount').val(ForTotalAmount);
         }
 
 
@@ -572,7 +576,7 @@
             const brandName = selectedOption.getAttribute('data-brand_name');
             const brandId = selectedOption.getAttribute('data-brand_id');
             
-            console.log(medicineLabel_Id, medicineIDValue);
+        (medicineLabel_Id, medicineIDValue);
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
@@ -603,7 +607,7 @@
             const brandName = selectMedicine.getAttribute('data-brand_name');
             const brandId = selectMedicine.getAttribute('data-brand_id');
             
-            console.log(selectMedicine);
+        (selectMedicine);
             
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);

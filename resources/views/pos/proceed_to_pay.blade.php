@@ -21,10 +21,12 @@
                             <th>Patient Name:</th>
                             <td>{{$pos->patient_name }}</td>
                         </tr>
+                        @if($pos->doctor_name != null)
                         <tr>
                             <th>Doctor Name:</th>
                             <td>{{$pos->doctor_name }}</td>
                         </tr>
+                        @endif
                         <tr>
                             <th>POS Date:</th>
                             <td>{{$pos->pos_date }}</td>
@@ -66,10 +68,6 @@
                 <div class="bg-dark w-100" style="padding: 0.01rem;"></div>
                 <table class="table table-border">
                     <tr colspan="2">
-                        <th>Total Amount:</th>
-                        <td>{{$pos->total_amount }}</td>
-                    </tr>
-                    <tr colspan="2">
                         <th>Pos Fees:</th>
                         <td>{{$pos->pos_fees }}</td>
                     </tr>
@@ -91,20 +89,9 @@
                     </tr>
                     <tr colspan="2">
                         <th>Grand Total Amount:</th>
-                        <td>{{$pos->total_amount }}</td>
+                        <td>{{$pos->total_amount+1 }}</td>
                     </tr>
                 </table>
-                {{-- <div class="row mt-10 mb-10">
-                    <div class="col-md-4">
-                        <label for="enter_payment_amount">Enter Payment Amount</label>
-                        <input type="number" onkeyup="enterpayment()" value="0" class="form-control" name="enter_payment_amount" id="enter_payment_amount" >
-                    </div>
-                    <div class="col-md-8">
-                        <label for="change_amount">Change Amount</label>
-                        <input type="text" class="form-control"  name="change_amount" readonly class="change_amount" id="change_amount" value="{{$pos->total_amount }}" >
-                    </div>
-                    <input type="hidden" id="pos_total_amount" value="{{$pos->total_amount }}">
-                </div> --}}
                 <div class="row text-center">
                     <div class="mb-5">
                         <button type="submit" class="btn btn-primary">Proceede To Checkout</button>

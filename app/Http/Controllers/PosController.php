@@ -34,7 +34,7 @@ class PosController extends Controller
 
     public function store(PosRequest $request): RedirectResponse
     {
-        $pos = Pos::create($request->validated()+['invoice_numer',$request->invoice_numer]);
+        $pos = Pos::create($request->validated());
         foreach($request->products as $product){
             
             Pos_Product::create([
