@@ -1,6 +1,6 @@
 <div class="card mb-5 mb-xl-10 p-9">
     <div class="card-title">
-        @if(Auth::user()->hasRole('Admin'))
+        @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Doctor'))
             <a href="javascript:void(0)" class="btn btn-primary float-end" data-bs-toggle="modal"
                data-bs-target="#addOpdTimelineModal">
                 {{ __('messages.ipd_patient_timeline.new_ipd_timeline') }}
