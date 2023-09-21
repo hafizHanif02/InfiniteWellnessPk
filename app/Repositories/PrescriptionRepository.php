@@ -69,14 +69,16 @@ class PrescriptionRepository extends BaseRepository
     public function getPatients()
     {
         $user = Auth::user();
-        if ($user->hasRole('Doctor')) {
-            $patients = getPatientsList($user->owner_id);
-        } else {
+        // if ($user->hasRole('Doctor')) {
+        //     $patients = getPatientsList($user->owner_id);
+        // } else {
             $patients = Patient::with('patientUser')
                 ->whereHas('patientUser', function (Builder $query) {
                     $query->where('status', 1);
                 })->get()->pluck('patientUser.full_name', 'id')->sort();
-        }
+        // }
+
+        $patients = Patient::Select('patients.id', 'patients.MR', 'patients.user_id')->with('patientUser')->get()->where('patientUser.status', '=', 1)->sort();
 
         return $patients;
     }

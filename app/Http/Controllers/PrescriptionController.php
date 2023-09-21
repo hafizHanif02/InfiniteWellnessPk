@@ -67,10 +67,14 @@ class PrescriptionController extends AppBaseController
      */
     public function create()
     {
-        $patients = $this->prescriptionRepository->getPatients();
+        $patients2 = $this->prescriptionRepository->getPatients();
+        $patients;
+        // foreach ($patients2 as $key => $value) {
+        //     $patients[$key] = $key . ' - '. $value;
+        // }
 
-        foreach ($patients as $key => $value) {
-            $patients[$key] = $key . ' - '. $value;
+        foreach ($patients2 as $key => $value) {
+            $patients[$value->id] = $value->MR. " - ".$value->patientUser->full_name;
         }
 
         $medicines = $this->prescriptionRepository->getMedicines();

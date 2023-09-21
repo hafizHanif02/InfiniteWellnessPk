@@ -86,7 +86,7 @@ class PrescriptionTable extends LivewireTableComponent
             $doctorId = Doctor::where('doctor_user_id', getLoggedInUserId())->first();
             $query = Prescription::query()->select('prescriptions.*')->with('patient', 'doctor')->where('doctor_id',
                 $doctorId->id);
-            $query = Prescription::query()->select('prescriptions.*')->with('patient', 'doctor');
+            // $query = Prescription::query()->select('prescriptions.*')->with('patient', 'doctor');
         }
         $query->when(isset($this->statusFilter), function (Builder $q) {
             if ($this->statusFilter == 2) {
