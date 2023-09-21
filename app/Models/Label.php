@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Pos;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Label extends Model
 {
@@ -22,4 +24,9 @@ class Label extends Model
         'common_side_effect',
 
     ];
+
+    public function pos(): BelongsTo
+    {
+        return $this->belongsTo(Pos::class);
+    }
 }

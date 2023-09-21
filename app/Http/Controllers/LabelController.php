@@ -88,13 +88,13 @@ class LabelController extends Controller
     }
     public function LabelShow($pos_id, $medicine_id)
     {
-        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->latest()->first();
+        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
         return view('label.show', [
         'label' => $label,
     ]);
     }
     public function Labelprint($pos_id, $medicine_id){
-        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->latest()->first();
+        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
         return view('label.print',[
             'label' => $label,
         ]);

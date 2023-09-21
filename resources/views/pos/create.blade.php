@@ -287,7 +287,7 @@
                 selectedMedicinesAttr.forEach(function(medicine, items) {
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
-                    <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.id}">
+                    <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.brand.name}" data-brand_id="${medicine.medicine.brand.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
                     <td>
@@ -356,7 +356,7 @@
             $('#medicine' + a).select2();
             $('#medicine-table-body').append(`
    
-    <tr id="medicine-row${a}">
+            <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
                             <select name="products[${a}][product_name]" class="form-control medicine-select" id="medicine${a}" onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
@@ -484,7 +484,7 @@
              $('#discount_amount'+id).val(discount_amount);
              $('#discount_amounts2'+id).val(discount_amount);
              $('#product_total_price'+id).val(totalMedicineAmountwithDisc);
-             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);
+             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);medicineID
              discountCalculationTotal();
         }
 
@@ -601,14 +601,10 @@
             const MedicineIdTag = document.getElementById('medicine_id_label');
             const BrandName = document.getElementById('brand_name_label');
             const BrandId = document.getElementById('brand_id_label');
-            var medicineLabelId = document.getElementById('medicine_id_label');
             const medicineName = selectMedicine.getAttribute('data-medicine_name');
             const medicineId = selectMedicine.getAttribute('data-medicine_id');
             const brandName = selectMedicine.getAttribute('data-brand_name');
-            const brandId = selectMedicine.getAttribute('data-brand_id');
-            
-        (selectMedicine);
-            
+            const brandId = selectMedicine.getAttribute('data-brand_id');     
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
@@ -626,10 +622,10 @@
             window.alert('Your Product Label Has been Generated');
             $('#labelprintbtn'+id).removeAttr('disabled');
             var pos_id = $('#pos_id').val();
-            var medicine_id = $('#medicineID' + id).val();
+            var medicine_id = $('#medicineID'+id).val();
+            console.log('Medicine = '+medicine_id);
 
-            // Construct the URL with the values of pos_id and medicine_id
-            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
+            var url = '/label/label-show/'+pos_id+'/'+medicine_id;
 
             $('#anchorlabel' + id).attr('href', url);
             

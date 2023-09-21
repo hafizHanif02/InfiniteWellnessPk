@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pos_id');
+            $table->foreignId('pos_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('medicine_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
             $table->String('name');

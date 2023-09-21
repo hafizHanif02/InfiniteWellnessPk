@@ -5,7 +5,7 @@
 @section('content')
 
         
-  
+
 <div class="container text-center">
     <a class="btn btn-primary mb-10" href="{{ url('lable/label-print/' .$label->pos_id.'/'.$label->medicine_id) }}">Print</a>
     <table class="table table-bordered">

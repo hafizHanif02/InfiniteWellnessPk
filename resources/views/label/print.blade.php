@@ -1,50 +1,44 @@
-<table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th class="text-end">Medicine:</th>
-            <td>{{$label->name }}</td>
-        </tr>
-        <tr>
-            <th class="text-end">Brand:</th> 
-            <td>{{$label->brand_name }}</td>
-        </tr>
-        <tr>
-            <th class="text-end">Quantity:</th>
-            <td>{{$label->quantity }}</td>
-
-        </tr>
-        <tr>
-            <th class="text-end">Patient:</th>
-            <td>{{$label->patient_name }}</td>
-
-        </tr>
-        <tr>
-            <th class="text-end">Direction Use:</th>
-            <td>{{$label->direction_use }}</td>
-
-        </tr>
-        <tr>
-            <th class="text-end">Common Side Effect:</th>
-            <td>{{$label->common_side_effect }}</td>
-
-        </tr>
-        <tr>
-            <th class="text-end">Date Of Sale:</th>
-            <td>{{$label->created_at }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table-bordered ">
+        <tbody>
+            <tr class="text-start">
+                <th>
+                    <p>{{$label->quantity}}  {{$label->name }} </p>
+                </th>
+            </tr>
+            <tr class="text-start">
+                <th><h2>{{$label->direction_use }}</h2></th>
+            </tr>
+            <tr class="text-start">
+                <th><h3>{{$label->common_side_effect }}</h3></th>
+            </tr>
+            <tr class="text-start">
+                <td>Take With OR After Meal</td>
+            </tr>
+            <tr>
+                <td>Take Regularly and Complete the Course</td>
+            </tr>
+            <tr class="text-start">
+                <th>Mr/Ms. {{$label->patient_name }}</th>
+                <th>{{$label->created_at }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <script>
-    window.print();
+    // window.print();
 </script>
 <style>
-    .table-bordered {
-        border: 2px solid black;
-        border-collapse: collapse; /* Collapse border spacing */
+    .container{
+        padding: 20px;
     }
+    .table-bordered {
+        border-radius: 14px;
+        border: 2px solid black;
+}
     .table-bordered th, .table-bordered td {
-        padding: 5px; /* Add padding for better appearance */
+        padding: 5px; 
     }
     .table-bordered tr{
         border: 0px;
@@ -54,5 +48,9 @@
     }
     .table-bordered tr th{
         border: 0px;
+    }
+    .text-start{
+        padding-left: 20px; 
+        text-align: left;
     }
 </style>
