@@ -253,7 +253,7 @@ class PatientController extends AppBaseController
     {
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
-        $fileName = "";
+        
         if($form_patientId){
             $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
