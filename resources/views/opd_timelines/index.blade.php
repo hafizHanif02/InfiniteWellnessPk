@@ -26,7 +26,7 @@
                             <i class="fa fa-download action-icon"></i>
                         </a>
                     @endif
-                    @if(Auth::user()->hasRole('Admin'))
+                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Doctor'))
                         <a title="<?php echo __('messages.common.edit') ?>" data-timeline-id="{{ $opdTimeline->id }}"
                            class="btn px-1 text-primary fs-2 edit-OpdTimeline-btn">
                             <i class="fa-solid fa-pen-to-square"></i>
