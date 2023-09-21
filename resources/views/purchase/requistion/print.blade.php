@@ -117,6 +117,19 @@
             body {
                 background-image: initial !important;
             }
+            table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table tr, table td, table th {
+            border: 1px solid black;
+        }
+
+        /* Exclude other elements from getting the border */
+        table th, table td {
+            border: 1px solid black;
+}
         }
     </style>
     <script>
