@@ -729,6 +729,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::delete('incomes/{income}', [IncomeController::class, 'destroy'])->name('incomes.destroy');
         Route::post('incomes/{income}/update', [IncomeController::class, 'update'])->name('incomes.update');
         Route::get('incomes/{income}/edit', [IncomeController::class, 'edit'])->name('incomes.edit');
+
+        //posinv
+        Route::get('posinv', [IncomeController::class, 'index'])->name('posinv.index')->middleware('modules');
+
+        //posreturninv
+        Route::get('posreturninv', [IncomeController::class, 'index'])->name('posreturninv.index')->middleware('modules');
     });
 
     Route::middleware('role:Admin|Nurse')->group(function () {
