@@ -98,7 +98,7 @@
             <tr>
                 <th colspan="8"></th>
                 <th colspan="6">GRAND TOTAL</th>
-                <th colspan="2">{{$pos->total_amount }}</th>
+                <th colspan="2">{{$pos->total_amount+1 }}</th>
             </tr>
         </thead>
     </table>
@@ -108,6 +108,16 @@
         padding-left: 40px;
         padding-right: 40px;
     }
+    table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table tr, table td, table th {
+            border: 1px solid black;
+        }
+        table th, table td {
+            border: 1px solid black;
+        }
   
 </style>
 <script>

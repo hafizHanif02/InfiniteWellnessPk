@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="pos_id">INV #</label>
-                                <input type="number" name="pos_id" id="pos_id" class="form-control"
+                                <input type="number"  step="any"name="pos_id" id="pos_id" class="form-control"
                                 value="{{ ($pos_id ? $pos_id : 1210) + 1 }}" required readonly title="Invoice Number">
                             </div>
                             <div class="mb-3 col-md-6">
@@ -119,23 +119,23 @@
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_saletax">Total Sale Tax</label>
-                                <input type="number" class="form-control" id="total_saletax" name="total_saletax" readonly value="0">
+                                <input type="number"  step="any"class="form-control" id="total_saletax" name="total_saletax" readonly value="0">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_discount">Total Discount</label>
-                                <input type="number" class="form-control" id="total_discount" name="total_discount" readonly
+                                <input type="number"  step="any"class="form-control" id="total_discount" name="total_discount" readonly
                                     value="0">
                             </div>
                         </div>
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_amount_ex_saletax">Total Amount Exclusive Sale Tax</label>
-                                <input type="number" class="form-control"  id="total_amount_ex_saletax" name="total_amount_ex_saletax" readonly
+                                <input type="number"  step="any"class="form-control"  id="total_amount_ex_saletax" name="total_amount_ex_saletax" readonly
                                     value="0">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_amount_inc_saletax">Total Amount Inclusive Sale Tax</label>
-                                <input type="number" class="form-control" id="total_amount_inc_saletax" name="total_amount_inc_saletax" readonly
+                                <input type="number"  step="any"class="form-control" id="total_amount_inc_saletax" name="total_amount_inc_saletax" readonly
                                     value="0">
                             </div>
                         </div>
@@ -143,13 +143,13 @@
                         <div class="row mt-9 mb-9 row">
                             <div class="col-md-6">
                                 <label for="pos_fees">FBR POS Fees</label>
-                                <input type="number" class="form-control" id="pos_fees" name="pos_fees" readonly
+                                <input type="number"  step="any"class="form-control" id="pos_fees" name="pos_fees" readonly
                                      placeholder="Total Price" value="1">
                                 <input type="hidden" id="pos_fees">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_amount">Grand Total Amount</label>
-                                <input type="number" class="form-control" id="total_amount" name="total_amount" readonly
+                                <input type="number"  step="any"class="form-control" id="total_amount" name="total_amount" readonly
                                     value="0" placeholder="Total Price">
                                 <input type="hidden" id="total_amounts2">
                             </div>
@@ -291,17 +291,17 @@
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.brand.name}" data-brand_id="${medicine.medicine.brand.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
                     <td>
-                            <input type="number" readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
+                            <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
                         </td>
                     <td><input type="text" class="form-control" readonly id="mrp_perunit${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                     <td>
-                        <input type="number" onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
+                        <input type="number"  step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][discount_amount]" id="discount_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][discount_amounts2]" id="discount_amounts2${items}" class="form-control">
                         </td>
                     <td>
-                        <input type="number" onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" >
+                        <input type="number"  step="any"onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
@@ -372,21 +372,21 @@
                             <input type="text" readonly  name="products[${a}][generic_formula]" id="generic_formula${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number" readonly value="0"  id="total_quantity${a}" class="form-control">
+                            <input type="number"  step="any"readonly value="0"  id="total_quantity${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number" readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
+                            <input type="number"  step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
+                            <input type="number"  step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
-                            <input type="number"  value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number" value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
@@ -397,7 +397,7 @@
                             {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1]) }}
                         </td>
                         <td>
-                            <input type="number" value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
+                            <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
                         </td>
                         <td>
@@ -471,11 +471,7 @@
                 
             }
 
-     
-
-          
-
-            function discountCalculation(id) {
+        function discountCalculation(id) {
             var discount_percentage = $('#discount_percentage' + id).val();
             var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
             var totalMedicineAmount = $('#product_total_prices2' + id).val();
@@ -484,7 +480,7 @@
              $('#discount_amount'+id).val(discount_amount);
              $('#discount_amounts2'+id).val(discount_amount);
              $('#product_total_price'+id).val(totalMedicineAmountwithDisc);
-             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);medicineID
+             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);
              discountCalculationTotal();
         }
 

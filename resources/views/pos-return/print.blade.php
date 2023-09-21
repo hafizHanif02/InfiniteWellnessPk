@@ -6,6 +6,7 @@
             <tr>
                 <th colspan="16" class="text-center"><h3>POS RETURN SLIP</h3></th>
             </tr>
+            
           <tr class="padding-row">
             <th colspan="2">POS Date</th>
             <th colspan="2">{{$posReturn->pos->created_at }}</th>
@@ -57,17 +58,27 @@
             </tr>
         </thead>
     </table>
+    <style>
+        .padding-row th{
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        .text-center{
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table tr, table td, table th {
+            border: 1px solid black;
+        }
+        table th, table td {
+            border: 1px solid black;
+        }
+    </style>
 </x-layouts.print>
-<style>
-    .padding-row th{
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-    .text-center{
-        text-align: center;
-    }
-   
-</style>
+
 <script>
     window.print();
 </script>
