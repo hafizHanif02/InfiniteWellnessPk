@@ -621,8 +621,8 @@
 @endrole
 
 @role('Admin|Accountant')
-@module('Pos Report',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*')) ? 'd-none' : '' }}">
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*', 'posreturninv*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('posinv*') ? 'active' : '' }}"
        href="{{ route('posinv.index') }}">
        POS Report
@@ -630,6 +630,18 @@
 </li>
 @endmodule
 @endrole
+
+@role('Admin|Accountant')
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*', 'posreturninv*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('posreturninv*') ? 'active' : '' }}"
+       href="{{ route('posreturninv.index') }}">
+       POS Return Report
+    </a>
+</li>
+@endmodule
+@endrole
+
 
 @role('Admin')
 @module('Items Categories',$modules)
