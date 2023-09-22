@@ -82,7 +82,7 @@ class ItemCategoryController extends AppBaseController
     public function destroy(ItemCategory $itemCategory)
     {
         $itemCategoryModel = [Item::class];
-        $result = canDelete($itemCategoryModel, 'item_category_id', $itemCategory->id);
+        $result = canDelete($itemCategoryModel, 'itemcategory_id', $itemCategory->id);
         if ($result) {
             return $this->sendError(__('messages.item_category.item_category').' '.__('messages.common.cant_be_deleted'));
         }
@@ -100,7 +100,7 @@ class ItemCategoryController extends AppBaseController
             return $this->sendError('Items not found');
         }
 
-        $itemsData = Item::get()->where('item_category_id', $request->get('id'))->pluck('name', 'id');
+        $itemsData = Item::get()->where('itemcategory_id', $request->get('id'))->pluck('name', 'id');
 
         return $this->sendResponse($itemsData, 'Retrieved successfully');
     }
