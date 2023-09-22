@@ -38,7 +38,7 @@ class PosController extends Controller
     {
         $pos = Pos::create($request->validated());
         foreach($request->products as $product){
-            
+
             Pos_Product::create([
                 'pos_id' => $pos->id,
                 'medicine_id' => $product['medicine_id'],
@@ -68,7 +68,7 @@ class PosController extends Controller
 
     public function EnterPayMethod($pos)
     {
-     
+
         $posData = Pos::where('id', $pos)->with(['PosProduct'])->first();
         return view('pos.paymet',[
             'pos' => $posData,
@@ -95,7 +95,7 @@ class PosController extends Controller
     public function Payment(Request $reqeust, $pos)
     {
         $Pos_Product = Pos_Product::where('pos_id',$pos)->get();
-        
+
 
         Pos::where('id', $pos)->update([
             'is_cash' => $reqeust->is_cash,
@@ -155,19 +155,20 @@ class PosController extends Controller
 
         return to_route('pos.index');
     }
-    
+
 
 
 
     public function posfilterlistindex(Request $request)
     {
+        
     return view('pos.filter-list', [
         'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
     ]);
     }
-    public function filter(Request $request): JsonResponse
+    public function posfilterlistajax(Request $request): JsonResponse
     {
-        
+
         return response()->json([
             'data' => Pos::filter($request)->latest()->get(),
         ]);
@@ -175,7 +176,7 @@ class PosController extends Controller
 
     public function posreturnfilterlistdata(Request $request)
 {
-    
+
     return view('pos-return.filter-list', [
         'pos' => PosReturn::latest()->paginate(10)->onEachSide(1),
     ]);
@@ -186,5 +187,5 @@ class PosController extends Controller
     //         'data' => PosReturn::with('pos')->filter2($request)->latest()->get(),
     //     ]);
     // }
-    
+
 }

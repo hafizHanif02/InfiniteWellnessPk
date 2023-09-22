@@ -40,7 +40,7 @@ class Pos extends Model
 
     public function scopeFilter($query, $request): void
     {
-        if ($request->is_cash) {
+        if (isset($request->is_cash)) {
             $query->where('is_cash', $request->is_cash);
         }
         if ($request->date_from && $request->date_to) {

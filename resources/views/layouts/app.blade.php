@@ -11,20 +11,21 @@
     @php
         $settingValue = getSettingValue();
         \Carbon\Carbon::setlocale(config('app.locale'));
-    @endphp
+        @endphp
     <link rel="icon" href="{{ $settingValue['favicon']['value'] }}" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link href="{{ asset('assets/css/third-party.css') }}" rel="stylesheet" type="text/css" />
     @if (getLoggedInUser()->thememode)
-        <link href="{{ asset('assets/css/style.dark.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/css/plugins.dark.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/css/phone-number-dark.css') }}" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <link href="{{ asset('assets/css/style.dark.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/plugins.dark.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/phone-number-dark.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     @else
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     @endif
 
+    
     {{--    @livewireStyles --}}
     {{--    <script src="{{ asset('livewire/livewire.css') }}"></script> --}}
     @yield('css')
@@ -128,7 +129,7 @@
         // });
 
     </script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
 </body>
