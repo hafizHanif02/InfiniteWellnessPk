@@ -620,7 +620,7 @@
 @endmodule
 @endrole
 
-@role('Admin|Accountant')
+{{-- @role('Admin|Accountant')
 @module('Expense',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
@@ -640,7 +640,7 @@
     </a>
 </li>
 @endmodule
-@endrole
+@endrole --}}
 
 
 @role('Admin')
