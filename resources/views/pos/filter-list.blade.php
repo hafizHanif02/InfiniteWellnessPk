@@ -9,7 +9,7 @@
             <h3>Point Of Sale List</h3>
         </div>
         <div class="card-body">
-            <div class="d-flex justify-content-center gap-5 mb-5">
+            {{-- <div class="d-flex justify-content-center gap-5 mb-5">
                 <div class="d-flex gap-5">
                     <div>
                         <label for="date_from" class="form-label">Date From</label>
@@ -33,7 +33,7 @@
                 <div class="mt-5">
                     <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-secondary mt-3">Reset</a>
                 </div>
-            </div>
+            </div> --}}
             <table class="table table-bordered text-center table-hover">
                 <thead class="table-dark">
                     <tr>
