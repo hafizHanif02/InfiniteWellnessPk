@@ -731,10 +731,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('incomes/{income}/edit', [IncomeController::class, 'edit'])->name('incomes.edit');
 
         //posinv
-        Route::get('posinv', [IncomeController::class, 'index'])->name('posinv.index')->middleware('modules');
+        Route::get('reportpos', [PosController::class, 'posfilterlistindex'])->name('posinv.index');
+        Route::get('reportpos/filter', [PosController::class, 'posfilterlistajax'])->name('posinv.filter');
 
         //posreturninv
-        Route::get('posreturninv', [IncomeController::class, 'index'])->name('posreturninv.index')->middleware('modules');
+        Route::get('returnposreport', [PosController::class, 'posreturnfilterlistdata'])->name('returnposreport.index');
+        Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
     });
 
     Route::middleware('role:Admin|Nurse')->group(function () {

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Pos;
 use App\Models\Patient;
 use App\Models\Medicine;
+use App\Models\PosReturn;
 use Illuminate\View\View;
 use Laracasts\Flash\Flash;
 use App\Models\Pos_Product;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Http\Requests\PosRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 
 class PosController extends Controller
@@ -140,6 +142,7 @@ class PosController extends Controller
         //
     }
 
+
     public function update(Request $request, $id)
     {
         //
@@ -152,4 +155,36 @@ class PosController extends Controller
 
         return to_route('pos.index');
     }
+    
+
+
+
+    public function posfilterlistindex(Request $request)
+    {
+    return view('pos.filter-list', [
+        'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
+    ]);
+    }
+    public function filter(Request $request): JsonResponse
+    {
+        
+        return response()->json([
+            'data' => Pos::filter($request)->latest()->get(),
+        ]);
+    }
+
+    public function posreturnfilterlistdata(Request $request)
+{
+    
+    return view('pos-return.filter-list', [
+        'pos' => PosReturn::latest()->paginate(10)->onEachSide(1),
+    ]);
+}
+    // public function filter2(Request $request): JsonResponse
+    // {
+    //     return response()->json([
+    //         'data' => PosReturn::with('pos')->filter2($request)->latest()->get(),
+    //     ]);
+    // }
+    
 }

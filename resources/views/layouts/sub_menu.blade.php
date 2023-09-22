@@ -601,7 +601,7 @@
 
 @role('Admin|Accountant')
 @module('Income',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('incomes*','expenses*','posinv*')) ? 'd-none' : '' }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('incomes*') ? 'active' : '' }}"
        href="{{ route('incomes.index') }}">
         {{__('messages.incomes.incomes')}}
@@ -611,8 +611,8 @@
 @endrole
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*')) ? 'd-none' : '' }}">
-    <a class="nav-link p-0 {{ Request::is('posinv*') ? 'active' : '' }}"
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('expenses*') ? 'active' : '' }}"
        href="{{ route('expenses.index') }}">
         {{__('messages.expenses')}}
     </a>
@@ -622,8 +622,8 @@
 
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*', 'posreturninv*')) ? 'd-none' : '' }}">
-    <a class="nav-link p-0 {{ Request::is('posinv*') ? 'active' : '' }}"
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
        href="{{ route('posinv.index') }}">
        POS Report
     </a>
@@ -633,9 +633,9 @@
 
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','posinv*', 'posreturninv*')) ? 'd-none' : '' }}">
-    <a class="nav-link p-0 {{ Request::is('posreturninv*') ? 'active' : '' }}"
-       href="{{ route('posreturninv.index') }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('returnposreport*') ? 'active' : '' }}"
+       href="{{ route('returnposreport.index') }}">
        POS Return Report
     </a>
 </li>
