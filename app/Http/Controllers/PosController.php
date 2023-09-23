@@ -175,17 +175,18 @@ class PosController extends Controller
     }
 
     public function posreturnfilterlistdata(Request $request)
-{
-
-    return view('pos-return.filter-list', [
-        'pos' => PosReturn::latest()->paginate(10)->onEachSide(1),
-    ]);
-}
-    // public function filter2(Request $request): JsonResponse
-    // {
-    //     return response()->json([
-    //         'data' => PosReturn::with('pos')->filter2($request)->latest()->get(),
-    //     ]);
-    // }
+    {
+        
+        return view('pos-return.filter-list', [
+            'pos' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
+        ]);
+    }
+    public function posfilterlistdata(Request $request): JsonResponse
+    {
+        return response()->json([
+            // 'data' => PosReturn::with('pos')->whereHas('pos', function ($query) {$query->where('is_cash', 1);})->latest()->get(),
+            'data' => PosReturn::with('pos')->filter($request)->latest()->get(),
+        ]);
+    }
 
 }

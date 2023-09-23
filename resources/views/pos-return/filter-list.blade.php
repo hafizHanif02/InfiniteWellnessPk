@@ -9,22 +9,22 @@
             <h3>Point Of Sale Return List</h3>
         </div>
         <div class="card-body">
-            {{-- <div class="d-flex justify-content-center gap-5 mb-5">
+            <div class="d-flex justify-content-center gap-5 mb-5">
                 <div class="d-flex gap-5">
                     <div>
                         <label for="date_from" class="form-label">Date From</label>
                         <input type="date" value="{{ request('date_from') }}" class="form-control"
-                            name="date_from" id="date_from">
+                            name="date_from" id="date_from" onchange="updateQueryString('date_from',this.value)">
                     </div>
                     <div>
                         <label for="date_to" class="form-label">Date To</label>
                         <input type="date" value="{{ request('date_to') }}" class="form-control" name="date_to"
-                            id="date_to">
+                            id="date_to" onchange="updateQueryString('date_to',this.value)">
                     </div>
                 </div>
                 <div class="mb-5">
                     <label for="is_cash" class="form-label">Payment Method</label>
-                    <select class="form-control" name="is_cash" id="is_cash">
+                    <select class="form-control" name="is_cash" id="is_cash" onchange="updateQueryString('is_cash',this.value)">
                         <option value="" selected disabled>Select Pay Method</option>
                         <option value="1">Cash</option>
                         <option value="0">Card</option>
@@ -33,7 +33,7 @@
                 <div class="mt-5">
                     <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-secondary mt-3">Reset</a>
                 </div>
-            </div> --}}
+            </div>
             <table class="table table-bordered text-center table-hover">
                 <thead class="table-dark">
                     <tr>
@@ -49,11 +49,11 @@
                     
                     @forelse ($pos as $ps)
                         <tr>
-                            <td>{{ $ps->pos->pos_date }}</td>
+                            <td>{{ $ps->created_at->format('Y-m-d') }}</td>
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->pos->id }}</td>
                             <td>{{ $ps->pos->patient_name }}</td>
-                            <td>{{($ps->pos->is_cash == 0)?'Card':'Cash' }}</td>
+                            <td>{{$ps->pos->is_cash ?'Card':'Cash' }}</td>
                             <td>{{ $ps->total_amount }}</td>
                         </tr>
                     @empty
@@ -71,10 +71,8 @@
 </div>
 @endsection
 
-@push('scripts')
-    <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script nonce="{{ csp_nonce() }}">
-        $(document).ready(function() {
+   
+    <script>
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
 
@@ -88,7 +86,7 @@
                 history.pushState({}, '', newUrl);
                 $.ajax({
                     type: "get",
-                    url: "/posreturninv/filter/?" + searchParams.toString(),
+                    url: "/returnposreport/filter/?" + searchParams.toString(),
                     dataType: "json",
                     success: function(response) {
                         $("#pos-list").empty();
@@ -97,7 +95,12 @@
                                 console.log(value);
                                 $("#pos-list").append(`
                                     <tr>
-                                        <td>${index + 1}</td>
+                                        <td>${value.created_at.substring(0,10)}</td>
+                                        <td>${value.id}</td>
+                                        <td>${value.pos.id}</td>
+                                        <td>${value.pos.patient_name}</td>
+                                        <td>${value.pos.is_cash ? 'Cash':'Card'}</td>
+                                        <td>${value.total_amount}</td>
                                     </tr>
                                  `);
                             });
@@ -112,17 +115,5 @@
                 });
             }
 
-            $("#is_cash").change(function() {
-                updateQueryString('is_cash', $(this).val());
-            });
-
-            $("#date_from").change(function() {
-                updateQueryString('date_from', $(this).val());
-            });
-
-            $("#date_to").change(function() {
-                updateQueryString('date_to', $(this).val());
-            });
-        });
+           
     </script>
-@endpush

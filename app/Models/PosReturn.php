@@ -35,18 +35,18 @@ class PosReturn extends Model
 
 
 
-    public function scopeFilter($query, $request)
+    public function scopeFilter($query, $request): void
     {
-        return $request;
-        if ($request->pos->is_cash) {
-            $query->pos->where('is_cash', $request->is_cash);
+        // return $request;
+        if (isset($request->is_cash)) {
+            $query->whereHas('pos',function ($query)use ($request) {$query->where('is_cash', $request->is_cash);});
         }
-        if ($request->pos->date_from && $request->date_to) {
-            $query->pos->whereBetween('pos_date', [$request->date_from, $request->date_to]);
+        if ($request->date_from && $request->date_to) {
+            $query->whereBetween('created_at', [$request->date_from, $request->date_to]);
         } elseif ($request->date_from) {
-            $query->pos->where('pos_date', '>=', $request->date_from);
+            $query->where('created_at', '>=', $request->date_from);
         } elseif ($request->date_to) {
-            $query->pos->where('pos_date', '<=', $request->date_to);
+            $query->where('created_at', '<=', $request->date_to);
         }
     }
 
