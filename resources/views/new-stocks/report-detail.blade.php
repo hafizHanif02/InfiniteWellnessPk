@@ -39,7 +39,11 @@
                         @forelse ($stockReport->transferProducts as $transferProduct)
                             <tr>
                                 <th>Code:</th>
-                                <td>{{ $transferProduct->product->code }}</td>
+                                <td>{{ $transferProduct->product->id }}</td>
+                            </tr>
+                            <tr>
+                                <th>QTY transfered:</th>
+                                <td>{{ $transferProduct->total_piece }}</td>
                             </tr>
                             <tr>
                                 <th>Name:</th>
@@ -65,7 +69,7 @@
                                 <th>Manufacturer:</th>
                                 <td>{{ $transferProduct->product->manufacturer->company_name }}</td>
                             </tr>
-                           
+
                             <tr>
                                 <th>Least Unit:</th>
                                 <td>{{ $transferProduct->product->least_unit == 1 ? 'Packet' : 'Pcs' }}</td>

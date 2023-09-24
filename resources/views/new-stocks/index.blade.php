@@ -12,8 +12,8 @@
                         <tr>
                             <th>Issue Date</th>
                             <th>Code</th>
-                            <th>Total Price Amount</th>
-                            <th>Total Supply Quantity</th>
+                            {{-- <th>Total Price Amount</th>
+                            <th>Total Supply Quantity</th> --}}
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -22,9 +22,10 @@
                             <tr>
                                 <td>{{ $newStock->supply_date }}</td>
                                 <td>{{ $newStock->id }}</td>
-                                <td>{{ $newStock->total_price_amount }}</td>
-                                <td>{{ $newStock->total_supply_quantity }}</td>
+                                {{-- <td>{{ $newStock->total_price_amount }}</td>
+                                <td>{{ $newStock->total_supply_quantity }}</td> --}}
                                 <td class="d-flex justify-content-center">
+                                    <a style="display: flex;align-items: center;" target="_blank" href="{{ route('new-stocks.report.show',$newStock->id) }}"><i class="fa fa-eye"></i></a>
                                     <form action="{{ route('new-stocks.update-status', $newStock->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')

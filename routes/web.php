@@ -1018,6 +1018,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('return-issued-item', [IssuedItemController::class, 'returnIssuedItem'])->name('return.issued.item');
 
         Route::get('new-stocks', [NewStockController::class, 'index'])->name('new-stocks.index');
+        // Route::get('new-stocks/view/{transferID}', [NewStockController::class, 'index'])->name('new-stocks.index');
         Route::get('new-stocks-report', [NewStockController::class, 'report'])->name('new-stocks.report');
         Route::get('new-stocks-report/{transfer}', [NewStockController::class, 'show'])->name('new-stocks.report.show');
         Route::get('transfer-report/export', [NewStockController::class, 'exportTransferReport'])->name('transfer-report.export');

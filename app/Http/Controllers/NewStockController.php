@@ -16,8 +16,9 @@ use Illuminate\View\View;
 
 class NewStockController extends Controller
 {
-    public function index(): View
+    public function index()
     {
+        // return Transfer::with('transferProducts')->where('status', null)->latest()->paginate(10)->onEachSide(1);
         return view('new-stocks.index', [
             'newStocks' => Transfer::where('status', null)->latest()->paginate(10)->onEachSide(1),
         ]);
@@ -25,7 +26,7 @@ class NewStockController extends Controller
 
     public function updateStatus(NewstockRequest $request, Transfer $transfer): RedirectResponse
     {
-        
+
         if ($request->status == 1) {
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
             foreach ($transfer->transferProducts as $transferProduct) {
