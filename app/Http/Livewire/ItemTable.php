@@ -70,6 +70,6 @@ class ItemTable extends LivewireTableComponent
     public function builder(): Builder
     {
         /** @var Item $query */
-        return Item::with('item_category')->select('items.*');
+        return Item::with('itemcategory')->select('items.*');
     }
 }
