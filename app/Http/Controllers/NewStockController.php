@@ -42,7 +42,7 @@ class NewStockController extends Controller
                 } else {
                     $item = Item::create([
                         'name' => $itemName,
-                        'item_category_id' => $itemCategory->id,
+                        'itemcategory_id' => $itemCategory->id,
                         'unit' => $transferProduct->product->unit_of_measurement,
                         'description' => $transferProduct->product->package_detail,
                         'available_quantity' => $transferProduct->total_piece,
@@ -59,7 +59,7 @@ class NewStockController extends Controller
                     ]);
                 } else {
                     ItemStock::create([
-                        'item_category_id' => $itemCategory->id,
+                        'itemcategory_id' => $itemCategory->id,
                         'item_id' => $item->id,
                         // 'supplier_name' => $transferProduct->product->vendor->account_title,
                         'store_name' => 'Test store',

@@ -24,6 +24,7 @@ class PurchaseOrderListController extends Controller
 
     public function filter(Request $request): JsonResponse
     {
+        
         return response()->json([
             'data' => Requistion::with(['vendor', 'requistionProducts.product'])->filter($request)->latest()->get(),
         ]);

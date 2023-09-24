@@ -2,9 +2,9 @@
     {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
     <div class="col-md-4 col-sm-12">
         <div class="form-group mb-5">
-            {!! Form::label('item_category_id', __('messages.item_stock.item_category').':', ['class' => 'form-label']) !!}
+            {!! Form::label('itemcategory_id', __('messages.item_stock.item_category').':', ['class' => 'form-label']) !!}
             <span class="required"></span>
-            {{ Form::select('item_category_id', $itemCategories, $itemStock->item_category_id, ['id' => 'editStockItemCategory','class' => 'form-select stockCategory','required','placeholder' => 'Select Item Category', 'data-control' => 'select2']) }}
+            {{ Form::select('itemcategory_id', $itemCategories, $itemStock->itemcategory_id, ['id' => 'editStockItemCategory','class' => 'form-select stockCategory','required','placeholder' => 'Select Item Category', 'data-control' => 'select2']) }}
         </div>
     </div>
     <div class="col-md-4 col-sm-12">

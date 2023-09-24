@@ -601,7 +601,7 @@
 
 @role('Admin|Accountant')
 @module('Income',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('incomes*','expenses*')) ? 'd-none' : '' }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('incomes*') ? 'active' : '' }}"
        href="{{ route('incomes.index') }}">
         {{__('messages.incomes.incomes')}}
@@ -611,7 +611,7 @@
 @endrole
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*')) ? 'd-none' : '' }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('expenses*') ? 'active' : '' }}"
        href="{{ route('expenses.index') }}">
         {{__('messages.expenses')}}
@@ -619,6 +619,30 @@
 </li>
 @endmodule
 @endrole
+
+@role('Admin|Accountant')
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
+       href="{{ route('posinv.index') }}">
+       POS Report
+    </a>
+</li>
+@endmodule
+@endrole
+
+@role('Admin|Accountant')
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('returnposreport*') ? 'active' : '' }}"
+       href="{{ route('returnposreport.index') }}">
+       POS Return Report
+    </a>
+</li>
+@endmodule
+@endrole
+
+
 @role('Admin')
 @module('Items Categories',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">

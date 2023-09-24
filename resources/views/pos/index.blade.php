@@ -3,13 +3,14 @@
     {{ __('messages.bill.pos') }}
 @endsection
 @section('content')
-    <div class="container-fluid">
-        <div class="d-flex flex-column">
-            @include('flash::message')
-            <div class="col-md-12 mb-5 text-end">
-                <a href="{{ route('pos.create') }}" target="_blank"><button class="btn btn-primary">Add New POS</button></a>
-            </div>
-            <div class="table-responsive">
+<div class="container-fluid">
+    <div class="d-flex flex-column">
+        @include('flash::message')
+        <div class="col-md-12 mb-5 text-end">
+            <a href="{{ route('pos.create') }}" target="_blank"><button class="btn btn-primary">Add New POS</button></a>
+            <a href="{{ route('posinv.index') }}" target="_blank"><button class="btn btn-secondary">See In Filter</button></a>
+        </div>
+        <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
