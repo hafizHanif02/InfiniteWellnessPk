@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <th>Vendor</th>
-                            <td>{{ $requistion->vendor->contact_person }}</td>
+                            <td>{{ $requistion->vendor->account_title }}</td>
                         </tr>
                         <tr>
                             <th>Remarks</th>

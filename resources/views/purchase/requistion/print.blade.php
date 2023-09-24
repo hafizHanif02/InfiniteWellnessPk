@@ -15,7 +15,7 @@
                 </th>
             </tr>
             <tr class="bg-green padding-topbottom padding-row">
-                <th colspan="1">SUPPLIER: {{ $requistion->vendor->contact_person }}</th>
+                <th colspan="1">SUPPLIER: {{ $requistion->vendor->account_title }}</th>
                 <th colspan="2">DEPARTMENT:PHARMACY</th>
                 <th colspan="2">DATE</th>
                 <th colspan="2">{{ $requistion->delivery_date }}</th>

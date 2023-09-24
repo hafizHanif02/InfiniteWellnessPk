@@ -17,12 +17,12 @@
                     </tr>
                     <tr>
                         <th>Contact Person:</th>
-                        <td>{{$vendor->contact_person }}</td>
+                        <td>{{$vendor->account_title }}</td>
                     </tr>
                     <tr>
                         <th>Account Title:</th>
                         <td>{{$vendor->account_title }}</td>
-                    </tr>              
+                    </tr>
                     <tr>
                         <th>Phone:</th>
                         <td>{{$vendor->phone }}</td>
@@ -38,7 +38,7 @@
                     <tr>
                         <th>National Tax Number (NTN):</th>
                         <td>{{$vendor->ntn }}</td>
-                    </tr>            
+                    </tr>
                     <tr>
                         <th>Sales Tax Registration Number (STRN) :</th>
                         <td>{{$vendor->sales_tax_reg }}</td>
@@ -47,7 +47,7 @@
                         <th>Active:</th>
                         <td>{{ $vendor->active == 1 ? 'Yes' : 'No' }}</td>
                     </tr>
-                 
+
                     <tr>
                         <th>Area:</th>
                         <td>{{$vendor->area }}</td>

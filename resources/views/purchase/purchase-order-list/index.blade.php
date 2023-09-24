@@ -32,7 +32,7 @@
                             <option value="" selected disabled>Select vendor</option>
                             @forelse ($vendors as $vendor)
                                 <option value="{{ $vendor->id }}">
-                                    {{ $vendor->contact_person }}</option>
+                                    {{ $vendor->account_title }}</option>
                             @empty
                                 <option value="" class="text-danger" disabled>No vendor found!</option>
                             @endforelse
@@ -59,7 +59,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $requistion->id }}</td>
-                                <td>{{ $requistion->vendor->contact_person }}</td>
+                                <td>{{ $requistion->vendor->account_title }}</td>
                                 <td>{{ $requistion->delivery_date ?? '-' }}</td>
                                 <td>{{$requistion->purchase_order_date ?? '-' }}</td>
                                 <td>

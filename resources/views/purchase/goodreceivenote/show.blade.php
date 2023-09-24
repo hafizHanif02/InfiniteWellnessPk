@@ -19,7 +19,7 @@
                         </tr>
                         <tr>
                             <th>Vendor</th>
-                            <td>{{ $goodReceiveNote->requistion->vendor->contact_person }}</td>
+                            <td>{{ $goodReceiveNote->requistion->vendor->account_title }}</td>
                         </tr>
                         <tr>
                             <th>Remarks</th>
@@ -86,7 +86,7 @@
                                 <td>{{ $goodReceiveNoteProduct->product->manufacturer_retail_price }}</td>
                             </tr>
                             <tr>
-                                
+
                                 <th>Sale Tax</th>
                                 <td>{{ $goodReceiveNoteProduct->goodReceiveNote->sale_tax_percentage ?? '-' }}</td>
                             </tr>

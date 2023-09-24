@@ -36,7 +36,7 @@
                              <tr>
                                  <td>{{ $loop->iteration }}</td>
                                  <td>{{ $requistion->id }}</td>
-                                 <td>{{ $requistion->vendor->contact_person }}</td>
+                                 <td>{{ $requistion->vendor->account_title }}</td>
                                  <td class="d-flex justify-content-center gap-5">
                                      <a href="{{ route('purchase.requistions.edit', $requistion->id) }}">
                                          <i class="fa fa-edit"></i>

@@ -57,7 +57,7 @@
                                 class="text-danger">*</sup></label>
                         <input type="text" name="contact_person" id="contact_person"
                             class="form-control @error('contact_person') in-invalid @enderror"
-                            value="{{ old('contact_person', $vendor->contact_person) }}"
+                            value="{{ old('contact_person', $vendor->account_title) }}"
                             placeholder="Enter contact person name" title="Contact person">
                         @error('contact_person')
                             <small class="text-danger">{{ $message }}</small>
