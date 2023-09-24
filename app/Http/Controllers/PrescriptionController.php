@@ -63,6 +63,7 @@ class PrescriptionController extends AppBaseController
     /**
      * Show the form for creating a new Prescription.
      *
+     * @return Factory|View
      */
     public function create()
     {

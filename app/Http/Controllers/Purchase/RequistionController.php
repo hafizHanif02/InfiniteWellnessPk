@@ -92,7 +92,6 @@ class RequistionController extends Controller
             'requistion_id' => Requistion::latest()->pluck('id')->first(),
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
             'manufactuters' => Manufacturer::orderBy('company_name')->get(['id', 'company_name']),
-            'products' => Product::orderBy('id')->with('generic')->get(),
         ]);
     }
 

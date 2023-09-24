@@ -9,14 +9,14 @@ class Item extends Model
 {
     public static $rules = [
         'name' => 'required|unique:items,name',
-        'itemcategory_id' => 'required',
+        'item_category_id' => 'required',
         'unit' => 'required',
         'description' => 'nullable',
     ];
 
     public $fillable = [
         'name',
-        'itemcategory_id',
+        'item_category_id',
         'unit',
         'description',
         'available_quantity',
@@ -25,7 +25,7 @@ class Item extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'itemcategory_id' => 'integer',
+        'item_category_id' => 'integer',
         'unit' => 'integer',
         'description' => 'string',
         'available_quantity' => 'integer',

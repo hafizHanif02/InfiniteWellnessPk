@@ -729,14 +729,6 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::delete('incomes/{income}', [IncomeController::class, 'destroy'])->name('incomes.destroy');
         Route::post('incomes/{income}/update', [IncomeController::class, 'update'])->name('incomes.update');
         Route::get('incomes/{income}/edit', [IncomeController::class, 'edit'])->name('incomes.edit');
-
-        //posinv
-        Route::get('reportpos', [PosController::class, 'posfilterlistindex'])->name('posinv.index');
-        Route::get('reportpos/filter', [PosController::class, 'posfilterlistajax'])->name('posinv.filter');
-
-        //posreturninv
-        Route::get('returnposreport', [PosController::class, 'posreturnfilterlistdata'])->name('returnposreport.index');
-        Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
     });
 
     Route::middleware('role:Admin|Nurse')->group(function () {

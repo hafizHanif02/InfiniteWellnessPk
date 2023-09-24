@@ -18,7 +18,7 @@ class ItemRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'name',
-        'itemcategory_id',
+        'item_category_id',
         'unit',
         'description',
         'avaiable_quantity',

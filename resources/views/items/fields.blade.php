@@ -8,9 +8,9 @@
     </div>
     <div class="col-md-4">
         <div class="form-group mb-5">
-            {!! Form::label('itemcategory_id', __('messages.item.item_category').':', ['class' => 'form-label']) !!}
+            {!! Form::label('item_category_id', __('messages.item.item_category').':', ['class' => 'form-label']) !!}
             <span class="required"></span>
-            {{ Form::select('itemcategory_id', $itemCategories, null, ['class' => 'form-select', 'required', 'id' => 'itemCategory', 'data-control' => 'select2', 'placeholder' => 'Select Item Category']) }}
+            {{ Form::select('item_category_id', $itemCategories, null, ['class' => 'form-select', 'required', 'id' => 'itemCategory', 'data-control' => 'select2', 'placeholder' => 'Select Item Category']) }}
         </div>
     </div>
     <div class="col-md-4">

@@ -84,14 +84,11 @@
                         @enderror
                     </div>
                     <div class="mb-5">
-                        <label for="product_id" class="form-label">(Generic Formula) Product <sup class="text-danger">*</sup></label>
+                        <label for="product_id" class="form-label">Product <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-10">
                                 <select name="product_id[]" id="product_id" class="form-control" multiple>
-                                    <option value="" selected disabled>Select Product</option>
-                                    @foreach ($products as $product)
-                                    <option value="{{$product->id }}">({{$product->generic->formula}}) {{$product->product_name }}</option>
-                                    @endforeach
+                                    <option value="" selected>Select manufacturer first</option>
                                 </select>
                                 @error('product_id')
                                     <small class="text-danger">{{ $message }}</small>
@@ -144,32 +141,32 @@
                 e.preventDefault();
                 addProduct();
             });
-            // $('#manufacturer_id').change(function() {
-            //     $("#add-products").empty();
-            //     $.ajax({
-            //         type: "get",
-            //         url: "/purchase/requistions/products/list",
-            //         data: {
-            //             manufacturer_id: $(this).val()
-            //         },
-            //         dataType: "json",
-            //         success: function(response) {
-            //             console.log(response);
-            //             $("#product_id").empty();
-            //             if (response.data.length != 0) {
-            //                 $.each(response.data, function(index, value) {
-            //                     $("#product_id").append(`
-            //                         <option value="${value.id}">${value.product_name}</option>
-            //                     `);
-            //                 });
-            //             } else {
-            //                 $("#product_id").html(`
-            //                     <option value="" class="text-danger" selected disabled>No product found!</option>
-            //                 `);
-            //             }
-            //         }
-            //     });
-            // });
+            $('#manufacturer_id').change(function() {
+                $("#add-products").empty();
+                $.ajax({
+                    type: "get",
+                    url: "/purchase/requistions/products/list",
+                    data: {
+                        manufacturer_id: $(this).val()
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        console.log(response);
+                        $("#product_id").empty();
+                        if (response.data.length != 0) {
+                            $.each(response.data, function(index, value) {
+                                $("#product_id").append(`
+                                    <option value="${value.id}">${value.product_name}</option>
+                                `);
+                            });
+                        } else {
+                            $("#product_id").html(`
+                                <option value="" class="text-danger" selected disabled>No product found!</option>
+                            `);
+                        }
+                    }
+                });
+            });
 
             function addProduct(type, callback) {
                 var productId = $("#product_id").val();

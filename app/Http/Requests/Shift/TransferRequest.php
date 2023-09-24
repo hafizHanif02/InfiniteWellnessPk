@@ -18,10 +18,10 @@ class TransferRequest extends FormRequest
             'products.*' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-            'products.*.price_per_unit' => ['required', 'numeric'],
-            'products.*.total_piece' => ['required', 'integer'],
-            'products.*.total_pack' => ['required', 'integer'],
-            'products.*.amount' => ['required', 'numeric'],
+            'products.*.price_per_unit' => ['required', 'numeric', 'min:1'],
+            'products.*.total_piece' => ['required', 'integer', 'min:1'],
+            'products.*.total_pack' => ['required', 'integer', 'min:1'],
+            'products.*.amount' => ['required', 'numeric', 'min:1'],
         ];
     }
 

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('item_stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('itemcategory_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('item_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
             $table->string('supplier_name')->nullable();
             $table->string('store_name')->nullable();

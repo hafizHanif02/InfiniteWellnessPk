@@ -26,7 +26,7 @@ class ItemStockRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'itemcategory_id',
+        'item_category_id',
         'item_id',
         'supplier_name',
         'store_name',

@@ -15,7 +15,7 @@ class ItemStock extends Model implements HasMedia
     public const PATH = 'item_stocks';
 
     public static $rules = [
-        'itemcategory_id' => 'required',
+        'item_category_id' => 'required',
         'item_id' => 'required',
         'supplier_name' => 'string|nullable',
         'store_name' => 'string|nullable',
@@ -26,7 +26,7 @@ class ItemStock extends Model implements HasMedia
     ];
 
     public $fillable = [
-        'itemcategory_id',
+        'item_category_id',
         'item_id',
         'supplier_name',
         'store_name',
@@ -38,7 +38,7 @@ class ItemStock extends Model implements HasMedia
 
     protected $casts = [
         'id' => 'integer',
-        'itemcategory_id' => 'integer',
+        'item_category_id' => 'integer',
         'item_id' => 'integer',
         'supplier_name' => 'string',
         'store_name' => 'string',
