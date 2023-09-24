@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Pos;
 use App\Models\Pos_Product;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -35,5 +36,19 @@ class Pos extends Model
     public function PosProduct()
     {
         return $this->hasMany(Pos_Product::class,'pos_id');
+    }
+
+    public function scopeFilter($query, $request): void
+    {
+        if (isset($request->is_cash)) {
+            $query->where('is_cash', $request->is_cash);
+        }
+        if ($request->date_from && $request->date_to) {
+            $query->whereBetween('pos_date', [$request->date_from, $request->date_to]);
+        } elseif ($request->date_from) {
+            $query->where('pos_date', '>=', $request->date_from);
+        } elseif ($request->date_to) {
+            $query->where('pos_date', '<=', $request->date_to);
+        }
     }
 }

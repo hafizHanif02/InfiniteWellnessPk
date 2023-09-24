@@ -189,6 +189,8 @@ $financeMGT = getMenuLinks(\App\Models\User::MAIN_FINANCE)
             <span class="aside-menu-title">{{__('messages.finance')}}</span>
             <span class="d-none">{{ __('messages.incomes.incomes') }}</span>
             <span class="d-none">{{ __('messages.expenses') }}</span>
+            <span class="d-none">POS Report</span>
+            <span class="d-none">POS Return Report</span>
         </a>
     </li>
 @endif
@@ -1338,6 +1340,8 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
                 <span class="aside-menu-title">{{__('messages.finance')}}</span>
                 <span class="d-none">{{ __('messages.incomes.incomes') }}</span>
                 <span class="d-none">{{ __('messages.expenses') }}</span>
+                <span class="d-none">POS Report</span>
+                <span class="d-none">POS Return Report</span>
             </a>
         </li>
     @endif

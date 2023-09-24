@@ -26,7 +26,7 @@ class IssuedItemRepository extends BaseRepository
         'issued_by',
         'issued_date',
         'return_date',
-        'item_category_id',
+        'itemcategory_id',
         'item_id',
         'quantity',
         'description',
