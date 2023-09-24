@@ -58,7 +58,7 @@ class TransferController extends Controller
                 'amount' => $product['amount']
             ]);
 
-            $transferProduct->product->decrement('total_quantity', $product['total_quantity']);
+            $transferProduct->product->decrement('total_quantity', $product['total_piece']);
         }
 
         return to_route('shift.transfers.index')->with('success', 'Transfer created!');
