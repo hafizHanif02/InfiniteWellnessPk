@@ -91,19 +91,42 @@ class NewStockController extends Controller
                         'buying_price' => $transferProduct->product->cost_price,
                     ]);
                 } else {
-                    Medicine::create([
-                        'dosage_form' => $transferProduct->product->dosage->name,
-                        'category_id' => $category->id,
-                        'brand_id' => $brand->id,
-                        'name' => $transferProduct->product->product_name,
-                        'generic_formula' => $transferProduct->product->generic->formula,
-                        'selling_price' => $transferProduct->product->unit_trade,
-                        'buying_price' => $transferProduct->product->cost_price,
-                        'description' => $transferProduct->product->package_detail,
-                        'salt_composition' => $transferProduct->product->generic->formula,
-                        'total_quantity' => $transferProduct->total_piece,
-                        'currency_symbol' => 'Rs',
-                    ]);
+                    $brands = Brand::where('name',$transferProduct->product->manufacturer->company_name)->first();
+                    if($brands){
+                        Medicine::create([
+                            'dosage_form' => $transferProduct->product->dosage->name,
+                            'category_id' => $transferProduct->product->product_category_id,
+                            'brand_id' => $brands->id,
+                            'name' => $transferProduct->product->product_name,
+                            'generic_formula' => $transferProduct->product->generic->formula,
+                            'barcode' => $transferProduct->product->barcode,
+                            'selling_price' => $transferProduct->product->unit_trade,
+                            'buying_price' => $transferProduct->product->cost_price,
+                            'description' => $transferProduct->product->package_detail,
+                            'salt_composition' => $transferProduct->product->generic->formula,
+                            'total_quantity' => $transferProduct->total_piece,
+                            'currency_symbol' => 'Rs',
+                        ]);
+                    }
+                    else{
+                        $brands =  Brand::create([
+                            'name' => $transferProduct->product->manufacturer->company_name
+                        ]);
+                        Medicine::create([
+                            'dosage_form' => $transferProduct->product->dosage->name,
+                            'category_id' => $transferProduct->product->product_category_id,
+                            'brand_id' => $brands->id,
+                            'name' => $transferProduct->product->product_name,
+                            'generic_formula' => $transferProduct->product->generic->formula,
+                            'barcode' => $transferProduct->product->barcode,
+                            'selling_price' => $transferProduct->product->unit_trade,
+                            'buying_price' => $transferProduct->product->cost_price,
+                            'description' => $transferProduct->product->package_detail,
+                            'salt_composition' => $transferProduct->product->generic->formula,
+                            'total_quantity' => $transferProduct->total_piece,
+                            'currency_symbol' => 'Rs',
+                        ]);
+                    }
                 }
             }
         }

@@ -31,7 +31,7 @@
     <div class="d-flex flex-column flex-column-fluid align-items-center justify-content-top p-4">
         <div class="col-12 text-center">
             <a href="{{route('dashboard')}}" class="image mb-7 mb-sm-10" data-turbo="false">
-                <img alt="Logo" src="{{ $settingValue['app_logo']['value'] }}" class="img-fluid logo-fix-size">
+                <img alt="Logo" src="https://app.infinitewellnesspk.com/logo.png" class="img-fluid logo-fix-size">
             </a>
         </div>
         <div class="width-540">

@@ -12,7 +12,7 @@
         $settingValue = getSettingValue();
         \Carbon\Carbon::setlocale(config('app.locale'));
         @endphp
-    <link rel="icon" href="{{ $settingValue['favicon']['value'] }}" type="image/png">
+    <link rel="icon" href="https://app.infinitewellnesspk.com/logo.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link href="{{ asset('assets/css/third-party.css') }}" rel="stylesheet" type="text/css" />
     @if (getLoggedInUser()->thememode)

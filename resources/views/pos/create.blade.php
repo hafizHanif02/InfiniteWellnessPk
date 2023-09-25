@@ -23,7 +23,7 @@
                     <h3>Point Of Sales</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pos.store') }}" method="post">
+                    <form action="{{ route('pos.store') }}" onsubmit="return false;" method="post">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -90,8 +90,52 @@
                                 </div>
                                 <div class="col-md-4 text-end">
                                     <button type="button" onclick="Addmore()" class="btn btn-primary">Add More</button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#advancesearch">Addvance Search</button>
                                 </div>
                             </div>
+                            
+
+
+
+                            {{-- Model --}}
+                            <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
+                                            <button type="button" onclick="clearGroupForm()" class="btn-close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input id="myInput" class="form-control" type="text" placeholder="Search..">
+                                           <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td>Product</td>
+                                                    <td>Generic Fromula</td>
+                                                    <td>Barcode</td>
+                                                    <td>Action</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="myTable">
+                                                
+                                                @foreach ($medicines as $medicine)
+                                                    <tr>
+                                                        <input type="hidden" data-product_id="{{$medicine->id}}" id="search_addbtn">
+                                                        <td>{{$medicine->name}}</td>
+                                                        <td>{{$medicine->generic_formula }}</td>
+                                                        <td>{{$medicine->barcode }}</td>
+                                                        <td><button class="btn btn-success" type="button" onclick="addMedicine()"><i class="fa fa-plus"></i></button></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                           </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- End Model --}}
+
                             <div class="table-responsive">
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
@@ -155,7 +199,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success">Proceed To Pay</button>
+                            <button class="btn btn-success" type="submit" onclick="yourFunction()">Proceed To Pay</button>
                         </div>
                 </div>
             </div>
@@ -214,22 +258,34 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="save_label" class="btn btn-primary" >Save changes</button>
+                    <button type="button" id="save_label" class="btn btn-primary" >Save changes</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
 
-    {{-- <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
-    </script> --}}
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  --}}
     <script>
-    
+   
+        function preventSubmit(event) {
+                    event.preventDefault();
+                }
         $(document).ready(function() {
             $('#paitent_id').select2();
             $('#prescription_id').select2();
             $('.medicine-select').select2();
+
+
+            $("#myInput").on("keyup", function() {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+        
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
 
             $('#paitent_id').change(function() {
                 // Fetch prescription data via AJAX
@@ -354,8 +410,7 @@
             var tableRow = document.getElementById('medicine-table-body');
             var a = tableRow.rows.length;
             $('#medicine' + a).select2();
-            $('#medicine-table-body').append(`
-   
+            $('#medicine-table-body').append(`        
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
@@ -363,7 +418,7 @@
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
                                     <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}" data-medicine_id="{{ $medicine->id }}" data-generic_formula="{{$medicine->generic_formula}}" data-brand_name="{{$medicine->brand->name}}" data-brand_id="{{$medicine->brand->id}}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
-                                        ({{ $medicine->generic_formula }}){{ $medicine->name }}
+                                        <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                     @endforeach
                             </select>
@@ -626,8 +681,34 @@
             $('#anchorlabel' + id).attr('href', url);
             
         }
+        function addMedicine(){
+            var tableRow = document.getElementById('medicine-table-body');
+            var a = tableRow.rows.length;
+            var product_id = $('#search_addbtn').getAttribute('data-product_id');
+            console.log(product_id);
+
+            $('#medicine-table-body').append(`        
+            <tr id="medicine-row${a}">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>`);
+
+        }
         
         
         
     </script>
+
+ 
 @endsection
