@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Web;
-use App\Http\Controllers\Patient;
-use App\Http\Controllers\Employee;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BedController;
-use App\Http\Controllers\LogController;
-use App\Http\Controllers\PosController;
-use App\Http\Controllers\SmsController;
-use App\Http\Controllers\BillController;
+// use App\Http\Controllers\Web;
+// use App\Http\Controllers\Patient;
+// use App\Http\Controllers\Employee;
+// use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\BedController;
+// use App\Http\Controllers\LogController;
+// use App\Http\Controllers\PosController;
+// use App\Http\Controllers\SmsController;
+// use App\Http\Controllers\BillController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MailController;
