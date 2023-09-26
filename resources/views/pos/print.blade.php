@@ -8,6 +8,9 @@
             <div style="margin-top: 25px !important; margin-bottom: 25px !important">
                 <h2>infinitewellness</h2>
             </div>
+            <div style="margin-top: 25px !important; margin-bottom: 25px !important">
+                <p>infinitewellness</p>
+            </div>
         </center>
 
         <tr class="text-start">
@@ -17,6 +20,10 @@
         <tr class="text-start">
             <th colspan="3">Name</th>
             <th colspan="5">{{ $pos->patient_name }}</th>
+        </tr>
+        <tr class="text-start">
+            <th colspan="3">EMR #</th>
+            <th colspan="5">{{ $pos->patient_mr_number }}</th>
         </tr>
         <tr class="text-start">
             <th colspan="3">Date</th>
@@ -49,7 +56,7 @@
                 <th>{{ $product->product_total_price }}</th>
             </tr>
         @endforeach
-        <tr>
+        {{-- <tr>
             <th colspan="3" style="background-color:black;color:white; ">Payment Method</th>
             <th colspan="9"></th>
             <th>Card</th>
@@ -67,7 +74,7 @@
                     <i class="fas fa-check"></i>
                 @endif
             </th>
-        </tr>
+        </tr> --}}
 
         <tr>
             <th colspan="16"></th>
@@ -124,12 +131,74 @@
                 1
             </th>
         </tr>
-        <tr>
+        <tr style="border-bottom: 1px solid rgb(29, 29, 29);">
             <th colspan="6">
                 GRAND TOTAL :
             </th>
             <th colspan="6">
                 {{ $pos->total_amount + 1 }}
+            </th>
+        </tr>
+
+
+        <tr>
+            <th colspan="3" style="padding-top: 10px !important; background-color:black;color:white;">Payment Method</th>
+            <th colspan="9"></th>
+            <th style="padding-top: 10px !important;">Card</th>
+            <th colspan="4">
+                @if ($pos->is_cash == 0)
+                    <i class="fas fa-check"></i>
+                @endif
+            </th>
+        </tr>
+        <tr>
+            <th colspan="12"></th>
+            <th>Cash</th>
+            <th colspan="4">
+                @if ($pos->is_cash == 1)
+                    <i class="fas fa-check"></i>
+                @endif
+            </th>
+        </tr>
+
+
+        <tr>
+            <th style="padding-top: 20px !important;" colspan="9">
+                -Prices are inclusive of sales tax where applicable.
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -Please check and varify your medicines, expiry dates and balance cash before leaving the counter to avoid inconvenience of claim later. 
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -Products can be returned or exchanged within 24 hours of sale. 
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -For returns/exchange or claims original receipt is required. 
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -Refrigerated items, Medical devices without warranty.<br>
+                Loose tablets/capsules, milk products, surgical items are neithe<br>
+                refundable/exchangeable.
+
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -Customer data may be utilized for sharing promotions, offers, <br>
+                market research and analysis.
+            </th>
+        </tr>
+        <tr>
+            <th colspan="9">
+                -Terms and conditions apply.
             </th>
         </tr>
 

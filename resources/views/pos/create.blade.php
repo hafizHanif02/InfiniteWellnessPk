@@ -7,14 +7,14 @@
     <div class="container-fluid">
         <div class="row">
             @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
         <div class="d-flex flex-column">
             @include('flash::message')
@@ -31,8 +31,8 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="pos_id">INV #</label>
-                                <input type="number"  step="any"name="pos_id" id="pos_id" class="form-control"
-                                value="{{ ($pos_id ? $pos_id : 1210) + 1 }}" required readonly title="Invoice Number">
+                                <input type="number" step="any"name="pos_id" id="pos_id" class="form-control"
+                                    value="{{ ($pos_id ? $pos_id : 1210) + 1 }}" required readonly title="Invoice Number">
                             </div>
                             <div class="mb-3 col-md-6">
                                 <div class="col-md-6">
@@ -40,7 +40,9 @@
                                     <select class="form-control" name="patient_mr_number" id="patient_mr_number">
                                         <option value="" selected disabled>Select Patient MR#</option>
                                         @foreach ($patients as $patient)
-                                            <option value="{{ $patient->MR }}">({{ $patient->MR }}) {{$patient->user->full_name }}</option>
+                                            <option data-patient_name="{{ $patient->user->full_name }}"
+                                                value="{{ $patient->MR }}">({{ $patient->MR }})
+                                                {{ $patient->user->full_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -58,7 +60,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="patient_name">Patient Name<sup class="text-danger">*</sup></label>
-                                <input type="text" name="patient_name"  id="patient_name" class="form-control"
+                                <input type="text" name="patient_name" id="patient_name" class="form-control"
                                     placeholder="Enter Patient Name">
                                 @error('patient_name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -94,10 +96,11 @@
                                 <div class="col-md-4 text-end">
                                     <button type="button" onclick="Addmore()" class="btn btn-primary">Add More</button>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#advancesearch" onclick="disablemainbutton()">Addvance Search</button>
+                                        data-bs-target="#advancesearch" onclick="disablemainbutton()">Addvance
+                                        Search</button>
                                 </div>
                             </div>
-                            
+
                             {{-- Model --}}
                             <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -107,37 +110,39 @@
                                             <button type="button" onclick="clearGroupForm()" class="btn-close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <input id="myInput" class="form-control" type="text" placeholder="Search..">
-                                           <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <td>Product</td>
-                                                    <td>Generic Fromula</td>
-                                                    <td>Barcode</td>
-                                                    <td>Action</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="myTable">
-                                                
-                                                @foreach ($medicines as $medicine)
+                                            <input id="myInput" class="form-control" type="text"
+                                                placeholder="Search..">
+                                            <table class="table table-bordered">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{$medicine->name}}</td>
-                                                        <td>{{$medicine->generic_formula }}</td>
-                                                        <td>{{$medicine->barcode }}</td>
-                                                        <input type="hidden"  id="search_addbtn{{$medicine->id}}" 
-                                                        data-product_id="{{$medicine->id}}"
-                                                        data-product_name="{{$medicine->name}}"
-                                                        data-generic_formula="{{$medicine->generic_formula}}"
-                                                        data-total_quantity="{{$medicine->total_quantity}}"
-                                                        data-selling_price="{{$medicine->selling_price}}"
-                                                        data-brand_name ="{{$medicine->brand->name}}"
-                                                        data-brand_id ="{{$medicine->brand->id}}"
-                                                        >
-                                                        <td><button class="btn btn-success" type="button" onclick="addMedicine({{$medicine->id }})"><i class="fa fa-plus"></i></button></td>
+                                                        <td>Product</td>
+                                                        <td>Generic Fromula</td>
+                                                        <td>Barcode</td>
+                                                        <td>Action</td>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                           </table>
+                                                </thead>
+                                                <tbody id="myTable">
+
+                                                    @foreach ($medicines as $medicine)
+                                                        <tr>
+                                                            <td>{{ $medicine->name }}</td>
+                                                            <td>{{ $medicine->generic_formula }}</td>
+                                                            <td>{{ $medicine->barcode }}</td>
+                                                            <input type="hidden" id="search_addbtn{{ $medicine->id }}"
+                                                                data-product_id="{{ $medicine->id }}"
+                                                                data-product_name="{{ $medicine->name }}"
+                                                                data-generic_formula="{{ $medicine->generic_formula }}"
+                                                                data-total_quantity="{{ $medicine->total_quantity }}"
+                                                                data-selling_price="{{ $medicine->selling_price }}"
+                                                                data-brand_name="{{ $medicine->brand->name }}"
+                                                                data-brand_id="{{ $medicine->brand->id }}">
+                                                            <td><button class="btn btn-success" type="button"
+                                                                    onclick="addMedicine({{ $medicine->id }})"><i
+                                                                        class="fa fa-plus"></i></button></td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -171,43 +176,45 @@
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_saletax">Total Sale Tax</label>
-                                <input type="number"  step="any"class="form-control" id="total_saletax" name="total_saletax" readonly value="0">
+                                <input type="number" step="any"class="form-control" id="total_saletax"
+                                    name="total_saletax" readonly value="0">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_discount">Total Discount</label>
-                                <input type="number"  step="any"class="form-control" id="total_discount" name="total_discount" readonly
-                                    value="0">
+                                <input type="number" step="any"class="form-control" id="total_discount"
+                                    name="total_discount" readonly value="0">
                             </div>
                         </div>
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_amount_ex_saletax">Total Amount Exclusive Sale Tax</label>
-                                <input type="number"  step="any"class="form-control"  id="total_amount_ex_saletax" name="total_amount_ex_saletax" readonly
-                                    value="0">
+                                <input type="number" step="any"class="form-control" id="total_amount_ex_saletax"
+                                    name="total_amount_ex_saletax" readonly value="0">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_amount_inc_saletax">Total Amount Inclusive Sale Tax</label>
-                                <input type="number"  step="any"class="form-control" id="total_amount_inc_saletax" name="total_amount_inc_saletax" readonly
-                                    value="0">
+                                <input type="number" step="any"class="form-control" id="total_amount_inc_saletax"
+                                    name="total_amount_inc_saletax" readonly value="0">
                             </div>
                         </div>
 
                         <div class="row mt-9 mb-9 row">
                             <div class="col-md-6">
                                 <label for="pos_fees">FBR POS Fees</label>
-                                <input type="number"  step="any"class="form-control" id="pos_fees" name="pos_fees" readonly
-                                     placeholder="Total Price" value="1">
+                                <input type="number" step="any"class="form-control" id="pos_fees" name="pos_fees"
+                                    readonly placeholder="Total Price" value="1">
                                 <input type="hidden" id="pos_fees">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_amount">Grand Total Amount</label>
-                                <input type="number"  step="any"class="form-control" id="total_amount" name="total_amount" readonly
-                                    value="0" placeholder="Total Price">
+                                <input type="number" step="any"class="form-control" id="total_amount"
+                                    name="total_amount" readonly value="0" placeholder="Total Price">
                                 <input type="hidden" id="total_amounts2">
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit" id="proceede_to_pay" onclick="submitbutton()">Proceed To Pay</button>
+                            <button class="btn btn-success" type="submit" id="proceede_to_pay"
+                                onclick="submitbutton()">Proceed To Pay</button>
                         </div>
                 </div>
             </div>
@@ -224,70 +231,78 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('label.store') }}" id="labelsubmitform" onsubmit="return false" method="POST">
+                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false" method="POST">
                     @csrf
-                <div class="modal-body">
-                    <div class="row m-5">
-                        <div class="mb-5">
-                            <label>INV#</label>
-                            <input type="text" id="pos_id_label" name="pos_id" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Patient Name</label>
-                            <input type="text" id="patient_name_label" name="patient_name" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Medicine Name</label>
-                            <input type="text" name="name" id="medicine_name_label" readonly class="form-control">
-                            <input type="hidden" name="medicine_id" id="medicine_id_label" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Brand Name</label>
-                            <input type="text" name="brand_name" id="brand_name_label" readonly class="form-control">
-                            <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Total Quantity</label>
-                            <input type="text" name="quantity" id="quantity_label" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Date Of Selling</label>
-                            <input type="text" name="date_of_selling" id="date_of_selling_label" readonly class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Dricetion Of Use </label>
-                            <input type="text" name="direction_use" id="direction_use_label" class="form-control">
-                        </div>
-                        <div class="mb-5">
-                            <label>Common Side Effect</label>
-                            <input type="text" name="common_side_effect" id="common_side_effect_label" class="form-control">
+                    <div class="modal-body">
+                        <div class="row m-5">
+                            <div class="mb-5">
+                                <label>INV#</label>
+                                <input type="text" id="pos_id_label" name="pos_id" readonly class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Patient Name</label>
+                                <input type="text" id="patient_name_label" name="patient_name" readonly
+                                    class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Medicine Name</label>
+                                <input type="text" name="name" id="medicine_name_label" readonly
+                                    class="form-control">
+                                <input type="hidden" name="medicine_id" id="medicine_id_label" readonly
+                                    class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Brand Name</label>
+                                <input type="text" name="brand_name" id="brand_name_label" readonly
+                                    class="form-control">
+                                <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Total Quantity</label>
+                                <input type="text" name="quantity" id="quantity_label" readonly class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Date Of Selling</label>
+                                <input type="text" name="date_of_selling" id="date_of_selling_label" readonly
+                                    class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Dricetion Of Use </label>
+                                <input type="text" name="direction_use" id="direction_use_label"
+                                    class="form-control">
+                            </div>
+                            <div class="mb-5">
+                                <label>Common Side Effect</label>
+                                <input type="text" name="common_side_effect" id="common_side_effect_label"
+                                    class="form-control">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="save_label" class="btn btn-primary" >Save changes</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="save_label" class="btn btn-primary">Save changes</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-
-        function disablemainbutton(){
-            $('#proceede_to_pay').attr('disabled','true');
+        function disablemainbutton() {
+            $('#proceede_to_pay').attr('disabled', 'true');
         }
-        function enablemainbutton(){
+
+        function enablemainbutton() {
             $('#proceede_to_pay').removeAttr('disabled');
         }
-        function submitbutton(){
+
+        function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
         }
-    
+
         function preventSubmit(event) {
-                    event.preventDefault();
-                }
+            event.preventDefault();
+        }
 
         $(document).ready(function() {
             $('#patient_mr_number').select2();
@@ -299,14 +314,23 @@
                 if (event.key === "Enter") {
                     event.preventDefault();
                 }
-        
+
                 var value = $(this).val().toLowerCase();
                 $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
 
             $('#patient_mr_number').change(function() {
+
+
+                var selectElement = document.getElementById('patient_mr_number');
+                // Get the selected option
+                var selectedOption = selectElement.options[selectElement.selectedIndex];
+                // Get the data-patient_name attribute from the selected option
+                var patientName = selectedOption.getAttribute('data-patient_name');
+                $('#patient_name').val(patientName);
+
                 // Fetch prescription data via AJAX
                 $.ajax({
                     type: "get",
@@ -319,9 +343,10 @@
                         $("#prescription_id").empty();
 
                         if (response.data.length !== 0) {
-                            $('#prescription_id').append(`<option>Select Prescription </option>`);
+                            $('#prescription_id').append(
+                                `<option>Select Prescription </option>`);
                             $.each(response.data, function(index, value) {
-                            (value);
+                                (value);
                                 $("#prescription_id").append(
                                     `
                             <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}"  data-medicines='${JSON.stringify(value.get_medicine)}'>
@@ -436,7 +461,7 @@
                             <select name="products[${a}][product_name]" class="form-control medicine-select" id="medicine${a}" onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}" data-medicine_id="{{ $medicine->id }}" data-generic_formula="{{$medicine->generic_formula}}" data-brand_name="{{$medicine->brand->name}}" data-brand_id="{{$medicine->brand->id}}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}" data-medicine_id="{{ $medicine->id }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                     @endforeach
@@ -492,7 +517,7 @@
                         
                     </tr> 
     `);
-    $('.medicine-select').select2();
+            $('.medicine-select').select2();
         }
 
         function SelectMedicine(id) {
@@ -520,66 +545,67 @@
             genericformulatag.value = GenericFormula;
 
         }
-        function ChnageDosage(id) {
-                var Dosage = $('#dosage' + id).val();
-                var PricePerUnit = $('#selling_price' + id).val();
-                var TotalCost = parseFloat($('#total_amount').val());
-                var TotalMedicineCost = (Dosage * PricePerUnit);
-                $('#product_total_price'+id).val(TotalMedicineCost);
-                $('#product_total_prices2'+id).val(TotalMedicineCost)
-                ChnageDosageTotal();
-                
-            }
 
-            function ChnageDosageTotal() {
-                var TotalAmount = 0;
-                $("input[id^='product_total_prices2']").each(function() {
-                    if($(this).val() != ''){
-                        TotalAmount += parseFloat($(this).val());
-                    }
-                });
-                $('#total_amount').val(TotalAmount+1);
-                $('#total_amounts2').val(TotalAmount);
-                $('#total_amount_ex_saletax').val(TotalAmount);
-                $('#total_amount_inc_saletax').val(TotalAmount);
-                
-            }
+        function ChnageDosage(id) {
+            var Dosage = $('#dosage' + id).val();
+            var PricePerUnit = $('#selling_price' + id).val();
+            var TotalCost = parseFloat($('#total_amount').val());
+            var TotalMedicineCost = (Dosage * PricePerUnit);
+            $('#product_total_price' + id).val(TotalMedicineCost);
+            $('#product_total_prices2' + id).val(TotalMedicineCost)
+            ChnageDosageTotal();
+
+        }
+
+        function ChnageDosageTotal() {
+            var TotalAmount = 0;
+            $("input[id^='product_total_prices2']").each(function() {
+                if ($(this).val() != '') {
+                    TotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#total_amount').val(TotalAmount + 1);
+            $('#total_amounts2').val(TotalAmount);
+            $('#total_amount_ex_saletax').val(TotalAmount);
+            $('#total_amount_inc_saletax').val(TotalAmount);
+
+        }
 
         function discountCalculation(id) {
             var discount_percentage = $('#discount_percentage' + id).val();
             var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
             var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            var discount_amount = ((discount_percentage * totalMedicineAmount )/ 100).toFixed(2);
-            var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount) ).toFixed(2);
-             $('#discount_amount'+id).val(discount_amount);
-             $('#discount_amounts2'+id).val(discount_amount);
-             $('#product_total_price'+id).val(totalMedicineAmountwithDisc);
-             $('#product_total_prices2'+id).val(totalMedicineAmountwithDisc);
-             discountCalculationTotal();
+            var discount_amount = ((discount_percentage * totalMedicineAmount) / 100).toFixed(2);
+            var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount)).toFixed(2);
+            $('#discount_amount' + id).val(discount_amount);
+            $('#discount_amounts2' + id).val(discount_amount);
+            $('#product_total_price' + id).val(totalMedicineAmountwithDisc);
+            $('#product_total_prices2' + id).val(totalMedicineAmountwithDisc);
+            discountCalculationTotal();
         }
 
-        function discountCalculationTotal(){
+        function discountCalculationTotal() {
             var discount_amounts2 = 0;
             var amountwithouttax = 0;
-                $("input[id^='discount_amounts2']").each(function() {
-                    if($(this).val() != ''){
-                        discount_amounts2 += parseFloat($(this).val());
-                    }
-                });
-                $("input[id^='product_total_prices2']").each(function() {
-                    if($(this).val() != ''){
-                        amountwithouttax += parseFloat($(this).val());
-                    }
-                });
-                var TotalAmount = $('#total_amounts2').val();
-                var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
-                var AmountWithDiscount  = TotalAmount-discount_amounts2Tofixed;
-                var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
+            $("input[id^='discount_amounts2']").each(function() {
+                if ($(this).val() != '') {
+                    discount_amounts2 += parseFloat($(this).val());
+                }
+            });
+            $("input[id^='product_total_prices2']").each(function() {
+                if ($(this).val() != '') {
+                    amountwithouttax += parseFloat($(this).val());
+                }
+            });
+            var TotalAmount = $('#total_amounts2').val();
+            var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
+            var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
+            var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             (amountwithouttaxToFixed);
-                $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
-                $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-                $('#total_amount').val(amountwithouttaxToFixed+1);
-                $('#total_discount').val(discount_amounts2Tofixed);
+            $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
+            $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
+            $('#total_amount').val(amountwithouttaxToFixed + 1);
+            $('#total_discount').val(discount_amounts2Tofixed);
         }
 
 
@@ -588,86 +614,86 @@
             var gst_percentage = $('#gst_percentage' + id).val();
             var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
             var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount )/ 100).toFixed(2);
+            var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
             var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
-            
-             $('#gst_amount'+id).val(gst_amount);
-             $('#gst_amounts2'+id).val(gst_amount);
-             $('#product_total_price'+id).val(totalMedicineAmountwithGst);
-             $('#product_total_price'+id).val(totalMedicineAmountwithGst);
+
+            $('#gst_amount' + id).val(gst_amount);
+            $('#gst_amounts2' + id).val(gst_amount);
+            $('#product_total_price' + id).val(totalMedicineAmountwithGst);
+            $('#product_total_price' + id).val(totalMedicineAmountwithGst);
             gstCalculationTotal();
         }
 
-        function gstCalculationTotal(){
+        function gstCalculationTotal() {
             var Totalgstamount = 0;
             var TotalWithTax = 0;
-                $("input[id^='gst_amounts2']").each(function() {
-                    if($(this).val() != ''){
-                        Totalgstamount += parseFloat($(this).val());
-                    }
-                });
-                $("input[id^='product_total_prices2']").each(function() {
-                    if($(this).val() != ''){
-                        TotalWithTax += parseFloat($(this).val());
-                    }
-                });
-                var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
-                var TotalgstamountToFixed = Totalgstamount.toFixed(2);
-                var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
-                var ForTotalAmount = TotalAmountWithGSTFINAL+parseFloat(1);
+            $("input[id^='gst_amounts2']").each(function() {
+                if ($(this).val() != '') {
+                    Totalgstamount += parseFloat($(this).val());
+                }
+            });
+            $("input[id^='product_total_prices2']").each(function() {
+                if ($(this).val() != '') {
+                    TotalWithTax += parseFloat($(this).val());
+                }
+            });
+            var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
+            var TotalgstamountToFixed = Totalgstamount.toFixed(2);
+            var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
+            var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
 
-                $('#total_saletax').val(TotalgstamountToFixed);
-                $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
-                $('#total_amount').val(ForTotalAmount);
+            $('#total_saletax').val(TotalgstamountToFixed);
+            $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
+            $('#total_amount').val(ForTotalAmount);
         }
 
 
-        
 
-        function Addlabel(id){
+
+        function Addlabel(id) {
             $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
             $('#patient_name_label').val(paitentName);
 
-            const selectMedicine = document.getElementById('medicine'+id);
+            const selectMedicine = document.getElementById('medicine' + id);
             const MedicineName = document.getElementById('medicine_name_label');
             const MedicineId = document.getElementById('medicine_id_label');
 
-            
+
             const BrandName = document.getElementById('brand_name_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
-            
+
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const medicineName = selectedOption.getAttribute('data-medicine_name');
             const medicineIDValue = selectedOption.getAttribute('data-medicine_id');
             const brandName = selectedOption.getAttribute('data-brand_name');
             const brandId = selectedOption.getAttribute('data-brand_id');
-            
-        (medicineLabel_Id, medicineIDValue);
+
+            (medicineLabel_Id, medicineIDValue);
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
 
-            var dosage = $('#dosage'+id).val();
+            var dosage = $('#dosage' + id).val();
             $('#quantity_label').val(dosage);
 
             MedicineName.value = medicineName;
             MedicineId.value = medicineIDValue;
             BrandName.value = brandName;
-            BrandIdTag.value = brandId;            
+            BrandIdTag.value = brandId;
         }
 
-        function Addlabelforprescription(id){
+        function Addlabelforprescription(id) {
             $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
             $('#labelsubmitform').removeAttr('onsubmit')
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
             $('#patient_name_label').val(paitentName);
-            const selectMedicine = document.getElementById('medicine'+id);
+            const selectMedicine = document.getElementById('medicine' + id);
             const MedicineName = document.getElementById('medicine_name_label');
             const MedicineIdTag = document.getElementById('medicine_id_label');
             const BrandName = document.getElementById('brand_name_label');
@@ -675,43 +701,44 @@
             const medicineName = selectMedicine.getAttribute('data-medicine_name');
             const medicineId = selectMedicine.getAttribute('data-medicine_id');
             const brandName = selectMedicine.getAttribute('data-brand_name');
-            const brandId = selectMedicine.getAttribute('data-brand_id');     
+            const brandId = selectMedicine.getAttribute('data-brand_id');
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
 
-            var dosage = $('#dosage'+id).val();
+            var dosage = $('#dosage' + id).val();
             $('#quantity_label').val(dosage);
 
             MedicineName.value = medicineName;
             MedicineIdTag.value = medicineId;
             BrandName.value = brandName;
-            BrandId.value = brandId;            
+            BrandId.value = brandId;
         }
 
-        function AlertLabel(id){
+        function AlertLabel(id) {
             window.alert('Your Product Label Has been Generated');
-            $('#labelprintbtn'+id).removeAttr('disabled');
+            $('#labelprintbtn' + id).removeAttr('disabled');
             var pos_id = $('#pos_id').val();
-            var medicine_id = $('#medicineID'+id).val();
-            console.log('Medicine = '+medicine_id);
+            var medicine_id = $('#medicineID' + id).val();
+            console.log('Medicine = ' + medicine_id);
 
-            var url = '/label/label-show/'+pos_id+'/'+medicine_id;
+            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
 
             $('#anchorlabel' + id).attr('href', url);
-            
+
         }
-        function addMedicine(id){
+
+        function addMedicine(id) {
             var tableRow = document.getElementById('medicine-table-body');
             var a = tableRow.rows.length;
-            var product_id = $('#search_addbtn'+id).data('product_id');
-            var product_name = $('#search_addbtn'+id).data('product_name');
-            var generic_formula = $('#search_addbtn'+id).data('generic_formula');
-            var brand_name = $('#search_addbtn'+id).data('brand_name');
-            var brand_id = $('#search_addbtn'+id).data('brand_id');
-            var total_quantity = $('#search_addbtn'+id).data('total_quantity');
-            var selling_price = $('#search_addbtn'+id).data('selling_price');
-            var selling_price = $('#search_addbtn'+id).data('selling_price');
+            var product_id = $('#search_addbtn' + id).data('product_id');
+            var product_name = $('#search_addbtn' + id).data('product_name');
+            var generic_formula = $('#search_addbtn' + id).data('generic_formula');
+            var brand_name = $('#search_addbtn' + id).data('brand_name');
+            var brand_id = $('#search_addbtn' + id).data('brand_id');
+            var total_quantity = $('#search_addbtn' + id).data('total_quantity');
+            var selling_price = $('#search_addbtn' + id).data('selling_price');
+            var selling_price = $('#search_addbtn' + id).data('selling_price');
             console.log(product_id);
 
             $('#medicine-table-body').append(`        
@@ -768,15 +795,11 @@
                         <td>
                             
                         </td>
-                </tr>`  
-                );
-                enablemainbutton();
+                </tr>`);
+            enablemainbutton();
 
         }
-        
-        
-        
     </script>
 
- 
+
 @endsection
