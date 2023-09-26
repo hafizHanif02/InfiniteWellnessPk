@@ -22,6 +22,7 @@ class Pos extends Model
         'patient_name',
         'patient_mr_number',
         'doctor_name',
+        'cashier_name',
         'pos_date',
         'is_paid',
         'is_cash',
