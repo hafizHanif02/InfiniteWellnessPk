@@ -119,7 +119,7 @@
                     FBR POS FEE :
                 </th>
                 <th style="text-align: end !important;" colspan="3">
-                    1
+                    1.00
                 </th>
             </tr>
             <tr style="border-bottom: 1px solid rgb(29, 29, 29);">
