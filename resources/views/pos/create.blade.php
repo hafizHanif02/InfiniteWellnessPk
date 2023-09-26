@@ -94,7 +94,7 @@
                                 <div class="col-md-4 text-end">
                                     <button type="button" onclick="Addmore()" class="btn btn-primary">Add More</button>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#advancesearch">Addvance Search</button>
+                                data-bs-target="#advancesearch" onclick="disablemainbutton()">Addvance Search</button>
                                 </div>
                             </div>
                             
@@ -207,7 +207,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit" onclick="possubmitForm()">Proceed To Pay</button>
+                            <button class="btn btn-success" type="submit" id="proceede_to_pay" onclick="submitbutton()">Proceed To Pay</button>
                         </div>
                 </div>
             </div>
@@ -274,9 +274,15 @@
     </div>
 
     <script>
-   
-   function possubmitForm() {
-            $('#possubmitform').removeAttr('onsubmit')
+
+        function disablemainbutton(){
+            $('#proceede_to_pay').attr('disabled','true');
+        }
+        function enablemainbutton(){
+            $('#proceede_to_pay').removeAttr('disabled');
+        }
+        function submitbutton(){
+            $('#possubmitform').removeAttr('onsubmit');
         }
     
         function preventSubmit(event) {
@@ -764,6 +770,7 @@
                         </td>
                 </tr>`  
                 );
+                enablemainbutton();
 
         }
         
