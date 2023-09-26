@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pos;
+use Barcode;
 use App\Models\Patient;
 use App\Models\Medicine;
 use App\Models\PosReturn;
@@ -58,6 +59,8 @@ class PosController extends Controller
                 'product_total_price' => $product['product_total_price'],
                 'user_id' => $userId,
             ]);
+
+            
         }
     
         Flash::message('POS created!');

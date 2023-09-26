@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Milon\\Barcode' => array($vendorDir . '/milon/barcode/src'),
     'Laracasts\\Flash' => array($vendorDir . '/laracasts/flash/src'),
     'JShrink' => array($vendorDir . '/tedivm/jshrink/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),

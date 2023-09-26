@@ -23,7 +23,9 @@
         </tr>
         <tr class="text-start">
             <th colspan="3">EMR #</th>
-            <th colspan="5">{{ $pos->patient_mr_number }}</th>
+            <th colspan="5">
+            {!!DNS1D::getBarcodeHtml($pos->patient_mr_number,'CODABAR')!!}
+            </th>
         </tr>
         <tr class="text-start">
             <th colspan="3">Date</th>
@@ -89,8 +91,6 @@
             <th colspan="16"></th>
             <th colspan="16"></th>
         </tr>
-
-
         <tr>
             <th colspan="6">
                 TOTAL AMOUNT Exclusive of Sales Tax :

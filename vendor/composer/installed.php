@@ -850,6 +850,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'milon/barcode' => array(
+            'pretty_version' => 'v10.0.1',
+            'version' => '10.0.1.0',
+            'reference' => 'e643a713466f0109aa3ad7d29dae4900444187a5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../milon/barcode',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'mockery/mockery' => array(
             'pretty_version' => '1.6.6',
             'version' => '1.6.6.0',
