@@ -34,8 +34,17 @@
                                 <input type="number" step="any"name="pos_id" id="pos_id" class="form-control"
                                     value="{{ ($pos_id ? $pos_id : 1210) + 1 }}" required readonly title="Invoice Number">
                             </div>
-                            <div class="mb-3 col-md-6">
                                 <div class="col-md-6">
+                                    <label for="cashier_name">Cashier Name</label>
+                                    <input type="text" id="cashier_name" name="cashier_name" placeholder="Enter Cashier Name" class="form-control">
+                                    @error('cashier_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3 mt-3">
+                            <div class="mb-3 col-md-12">
+                                <div class="col-md-12">
                                     <label for="mr_number">MR No.</label>
                                     <select class="form-control" name="patient_mr_number" id="patient_mr_number">
                                         <option value="" selected disabled>Select Patient MR#</option>
