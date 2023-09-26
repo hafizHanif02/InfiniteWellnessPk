@@ -136,10 +136,12 @@ class PosController extends Controller
     public function Print($pos){
         $posData = Pos::where('id', $pos)->with(['PosProduct.medicine.brand'])->first();
         $generatorHTML = new BarcodeGeneratorHTML();
-        $barcode = $generatorHTML->getBarcode($posData->patient_mr_number, $generatorHTML::TYPE_CODE_128);
+        $mr_barcode = $generatorHTML->getBarcode($posData->patient_mr_number, $generatorHTML::TYPE_CODE_128);
+        $invoice_barcode = $generatorHTML->getBarcode($posData->id, $generatorHTML::TYPE_CODE_128);
         return view('pos.print',[
             'pos' => $posData,
-            'barcode' => $barcode,
+            'mr_barcode' => $mr_barcode,
+            'invoice_barcode' => $invoice_barcode,
         ]);
     }
 

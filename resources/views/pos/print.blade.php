@@ -31,7 +31,7 @@
             <tr class="text-start">
                 <th colspan="3">EMR #</th>
                 <th colspan="5">
-                    {!! $barcode !!}
+                    {!! $mr_barcode !!}
                     {{ $pos->patient_mr_number }}
                 </th>
             </tr>
@@ -66,26 +66,6 @@
                     <th>{{ $product->product_total_price }}</th>
                 </tr>
             @endforeach
-            {{-- <tr>
-                <th colspan="3" style="background-color:black;color:white; ">Payment Method</th>
-                <th colspan="9"></th>
-                <th>Card</th>
-                <th colspan="4">
-                    @if ($pos->is_cash == 0)
-                        <i class="fas fa-check"></i>
-                    @endif
-                </th>
-            </tr>
-            <tr>
-                <th colspan="12"></th>
-                <th>Cash</th>
-                <th colspan="4">
-                    @if ($pos->is_cash == 1)
-                        <i class="fas fa-check"></i>
-                    @endif
-                </th>
-            </tr> --}}
-    
             <tr>
                 <th colspan="16"></th>
             </tr>
@@ -213,6 +193,10 @@
                 <th colspan="9">
                     -Terms and conditions apply.
                 </th>
+            </tr>
+
+            <tr>
+               <th colspan="12">{!! $invoice_barcode !!}</th> 
             </tr>
     
             {{-- <center>
