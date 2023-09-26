@@ -6,7 +6,7 @@
                     <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
                 </div>
                 <div style="margin-top: 25px !important; margin-bottom: 10px !important">
-                    <h2>infinitewellness</h2>
+                    <h2>InfinitewellnessPK</h2>
                 </div>
                 <div style="margin-top: 25px !important; margin-bottom: 10px !important">
                     <p>NTN # 1234567</p>
@@ -46,7 +46,6 @@
             <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
                 <th>#</th>
                 <th colspan="2">Brand</th>
-                <th colspan="2">Generic</th>
                 <th colspan="2">Qty</th>
                 <th colspan="2">M.R.P</th>
                 <th colspan="2">GST</th>
@@ -57,8 +56,10 @@
             @foreach ($pos->PosProduct as $product)
                 <tr>
                     <th>{{ $loop->iteration }}</th>
-                    <th colspan="2">{{ $product->medicine->brand->name }}</th>
-                    <th colspan="2">({{ $product->medicine->generic_formula }})</th>
+                    <th colspan="2">
+                        {{ $product->medicine->brand->name }} <br>
+                        ({{ $product->medicine->generic_formula }})
+                    </th>
                     <th colspan="2">{{ $product->product_quantity }}</th>
                     <th colspan="2">{{ $product->mrp_perunit }}</th>
                     <th colspan="2">{{ $product->gst_percentage }}</th>
@@ -133,19 +134,16 @@
     
             @if ($pos->is_cash == 0)
             <tr>
-                <th colspan="4" style="padding: 0px !important; background-color:black;color:white;">Payment
+                <th colspan="8" style="padding: 0px !important; background-color:black;color:white;">Payment
                     Method</th>
-                <th colspan="4"></th>
                 <th style="padding-top: 10px !important;" colspan="4">Card</th>
             </tr>
         @endif
 
         @if ($pos->is_cash == 1)
             <tr>
-                <th colspan="4" style="padding-top: 10px !important; background-color:black;color:white;">Payment
+                <th colspan="8" style="padding-top: 10px !important; background-color:black;color:white;">Payment
                     Method</th>
-                <th colspan="4"></th>
-               
                 <th style="padding-top: 10px !important;" colspan="4">Cash</th>
             </tr>
         @endif
@@ -198,9 +196,9 @@
                 <th colspan="6"></th>
             </tr>
             <tr>
-                <th colspan="3"></th>
+                <th colspan="4"></th>
                 <th colspan="2">{{ $pos->id }}</th> 
-                <th colspan="7"></th>
+                <th colspan="6"></th>
             </tr>
     
         </thead>
