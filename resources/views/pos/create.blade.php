@@ -339,6 +339,7 @@
                 // Get the data-patient_name attribute from the selected option
                 var patientName = selectedOption.getAttribute('data-patient_name');
                 $('#patient_name').val(patientName);
+                $('#patient_name').attr('readonly', true);
 
                 // Fetch prescription data via AJAX
                 $.ajax({
