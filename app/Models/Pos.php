@@ -20,6 +20,7 @@ class Pos extends Model
         'total_amount_ex_saletax',
         'total_amount_inc_saletax',
         'patient_name',
+        'patient_mr_number',
         'doctor_name',
         'pos_date',
         'is_paid',

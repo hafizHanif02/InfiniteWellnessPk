@@ -37,10 +37,10 @@
                             <div class="mb-3 col-md-6">
                                 <div class="col-md-6">
                                     <label for="mr_number">MR No.</label>
-                                    <select class="form-control" name="paitent_id" id="paitent_id">
+                                    <select class="form-control" name="patient_mr_number" id="patient_mr_number">
                                         <option value="" selected disabled>Select Patient MR#</option>
                                         @foreach ($patients as $patient)
-                                            <option value="{{ $patient->id }}">({{ $patient->id }}) {{$patient->user->full_name }}</option>
+                                            <option value="{{ $patient->MR }}">({{ $patient->MR }}) {{$patient->user->full_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -290,7 +290,7 @@
                 }
 
         $(document).ready(function() {
-            $('#paitent_id').select2();
+            $('#patient_mr_number').select2();
             $('#prescription_id').select2();
             $('.medicine-select').select2();
 
@@ -306,13 +306,13 @@
                 });
             });
 
-            $('#paitent_id').change(function() {
+            $('#patient_mr_number').change(function() {
                 // Fetch prescription data via AJAX
                 $.ajax({
                     type: "get",
                     url: "/pos/prescription/list",
                     data: {
-                        paitent_id: $(this).val()
+                        patient_mr_number: $(this).val()
                     },
                     dataType: "json",
                     success: function(response) {
