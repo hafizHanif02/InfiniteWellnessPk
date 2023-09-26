@@ -38,7 +38,6 @@ class LabelController extends Controller
      */
     public function store(LabelRequest $request)
 {
-    dd($request);
     Label::create($request->validated());
 
 }

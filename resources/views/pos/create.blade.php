@@ -231,7 +231,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false" method="POST">
+                <form action="{{ route('label.store') }}" id="labelsubmitform"  method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row m-5">
@@ -280,7 +280,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" id="save_label" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="save_label" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -652,6 +652,7 @@
 
         function Addlabel(id) {
             $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
+            $('#labelsubmitform').removeAttr('onsubmit');
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
@@ -688,7 +689,7 @@
 
         function Addlabelforprescription(id) {
             $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
-            $('#labelsubmitform').removeAttr('onsubmit')
+            $('#labelsubmitform').removeAttr('onsubmit');
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
@@ -716,7 +717,7 @@
         }
 
         function AlertLabel(id) {
-            window.alert('Your Product Label Has been Generated');
+            // window.alert('Your Product Label Has been Generated');
             $('#labelprintbtn' + id).removeAttr('disabled');
             var pos_id = $('#pos_id').val();
             var medicine_id = $('#medicineID' + id).val();
