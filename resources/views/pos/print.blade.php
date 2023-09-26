@@ -132,26 +132,23 @@
     
     
             @if ($pos->is_cash == 0)
-                <tr>
-                    <th colspan="4" style="padding: 0px !important; background-color:black;color:white;">Payment
-                        Method</th>
-                    <th colspan="9"></th>
-                    <th colspan="4">
-                    <th style="padding-top: 10px !important;">Card</th>
-                    </th>
-                </tr>
-            @endif
-    
-            @if ($pos->is_cash == 1)
-                <tr>
-                    <th colspan="4" style="padding-top: 10px !important; background-color:black;color:white;">Payment
-                        Method</th>
-                    <th colspan="9"></th>
-                    <th colspan="4">
-                    <th style="padding-top: 10px !important;">Cash</th>
-                    </th>
-                </tr>
-            @endif
+            <tr>
+                <th colspan="4" style="padding: 0px !important; background-color:black;color:white;">Payment
+                    Method</th>
+                <th colspan="4"></th>
+                <th style="padding-top: 10px !important;" colspan="4">Card</th>
+            </tr>
+        @endif
+
+        @if ($pos->is_cash == 1)
+            <tr>
+                <th colspan="4" style="padding-top: 10px !important; background-color:black;color:white;">Payment
+                    Method</th>
+                <th colspan="4"></th>
+               
+                <th style="padding-top: 10px !important;" colspan="4">Cash</th>
+            </tr>
+        @endif
     
     
             <tr>
@@ -196,30 +193,15 @@
             </tr>
 
             <tr>
-               <th colspan="12">{!! $invoice_barcode !!}</th> 
+                <th colspan="4"></th>
+                <th colspan="2">{!! $invoice_barcode !!}</th> 
+                <th colspan="6"></th>
             </tr>
-    
-            {{-- <center>
-                <tr>
-                    <th colspan="1">
-    
-                    <th colspan="6">
-                        <div style="margin-top: 13px !important;">
-                            <img src="{{ asset('images/fbr.png') }}" width="150px" alt="">
-                        </div>
-                    </th>
-    
-                    <th colspan="1">
-    
-                    </th>
-    
-                    <th colspan="6">
-                        <div style="margin-top: 13px !important;">
-                            <img src="{{ asset('images/qrcode.png') }}" width="110px" alt="">
-                        </div>
-                    </th>
-                </tr>
-            </center> --}}
+            <tr>
+                <th colspan="3"></th>
+                <th colspan="2">{{ $pos->id }}</th> 
+                <th colspan="7"></th>
+            </tr>
     
         </thead>
     </table>
