@@ -5,11 +5,14 @@
             <div style="margin-top: 25px !important; margin-bottom: 25px !important">
                 <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
             </div>
-            <div style="margin-top: 25px !important; margin-bottom: 25px !important">
+            <div style="margin-top: 25px !important; margin-bottom: 10px !important">
                 <h2>infinitewellness</h2>
             </div>
-            <div style="margin-top: 25px !important; margin-bottom: 25px !important">
-                <p>infinitewellness</p>
+            <div style="margin-top: 25px !important; margin-bottom: 10px !important">
+                <p>NTN #</p>
+            </div>
+            <div style="margin-bottom: 25px !important; padding: 0px 100px !important">
+                <p>address Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique incidunt laborum hic animi repudiandae. Magnam explicabo cumque unde possimus quod. </p>
             </div>
         </center>
 
@@ -26,7 +29,7 @@
             <th colspan="5">
             {!!DNS1D::getBarcodeHtml($pos->patient_mr_number,'CODABAR')!!}
             </th>
-        </tr>
+        </tr> 
         <tr class="text-start">
             <th colspan="3">Date</th>
             <th colspan="6">{{ $pos->created_at }}</th>
@@ -91,6 +94,8 @@
             <th colspan="16"></th>
             <th colspan="16"></th>
         </tr>
+
+
         <tr>
             <th colspan="6">
                 TOTAL AMOUNT Exclusive of Sales Tax :
@@ -228,6 +233,7 @@
 </table>
 {{-- </x-layouts.print> --}}
 <style>
+
     .padding-row th {
         padding-left: 40px;
         padding-right: 40px;
