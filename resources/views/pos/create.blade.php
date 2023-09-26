@@ -3,16 +3,19 @@
     {{ __('messages.bill.pos') }}
 @endsection
 @section('content')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="container-fluid">
+        <div class="row">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        </div>
         <div class="d-flex flex-column">
             @include('flash::message')
             <div class="col-md-12 mb-5 text-end">
@@ -23,7 +26,7 @@
                     <h3>Point Of Sales</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pos.store') }}" onsubmit="return false;" method="post">
+                    <form action="{{ route('pos.store') }}" id="possubmitform" onsubmit="return false;" method="post">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -95,9 +98,6 @@
                                 </div>
                             </div>
                             
-
-
-
                             {{-- Model --}}
                             <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -121,11 +121,19 @@
                                                 
                                                 @foreach ($medicines as $medicine)
                                                     <tr>
-                                                        <input type="hidden" data-product_id="{{$medicine->id}}" id="search_addbtn">
                                                         <td>{{$medicine->name}}</td>
                                                         <td>{{$medicine->generic_formula }}</td>
                                                         <td>{{$medicine->barcode }}</td>
-                                                        <td><button class="btn btn-success" type="button" onclick="addMedicine()"><i class="fa fa-plus"></i></button></td>
+                                                        <input type="hidden"  id="search_addbtn{{$medicine->id}}" 
+                                                        data-product_id="{{$medicine->id}}"
+                                                        data-product_name="{{$medicine->name}}"
+                                                        data-generic_formula="{{$medicine->generic_formula}}"
+                                                        data-total_quantity="{{$medicine->total_quantity}}"
+                                                        data-selling_price="{{$medicine->selling_price}}"
+                                                        data-brand_name ="{{$medicine->brand->name}}"
+                                                        data-brand_id ="{{$medicine->brand->id}}"
+                                                        >
+                                                        <td><button class="btn btn-success" type="button" onclick="addMedicine({{$medicine->id }})"><i class="fa fa-plus"></i></button></td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -199,7 +207,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit" onclick="yourFunction()">Proceed To Pay</button>
+                            <button class="btn btn-success" type="submit" onclick="possubmitForm()">Proceed To Pay</button>
                         </div>
                 </div>
             </div>
@@ -216,7 +224,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{route('label.store') }}" method="POST">
+                <form action="{{route('label.store') }}" id="labelsubmitform" onsubmit="return false" method="POST">
                     @csrf
                 <div class="modal-body">
                     <div class="row m-5">
@@ -267,9 +275,14 @@
 
     <script>
    
+   function possubmitForm() {
+            $('#possubmitform').removeAttr('onsubmit')
+        }
+    
         function preventSubmit(event) {
                     event.preventDefault();
                 }
+
         $(document).ready(function() {
             $('#paitent_id').select2();
             $('#prescription_id').select2();
@@ -643,6 +656,7 @@
 
         function Addlabelforprescription(id){
             $('#save_label').attr('onclick', 'AlertLabel(' + id + ')');
+            $('#labelsubmitform').removeAttr('onsubmit')
             var pos_id = $('#pos_id').val();
             $('#pos_id_label').val(pos_id);
             var paitentName = $('#patient_name').val();
@@ -681,28 +695,75 @@
             $('#anchorlabel' + id).attr('href', url);
             
         }
-        function addMedicine(){
+        function addMedicine(id){
             var tableRow = document.getElementById('medicine-table-body');
             var a = tableRow.rows.length;
-            var product_id = $('#search_addbtn').getAttribute('data-product_id');
+            var product_id = $('#search_addbtn'+id).data('product_id');
+            var product_name = $('#search_addbtn'+id).data('product_name');
+            var generic_formula = $('#search_addbtn'+id).data('generic_formula');
+            var brand_name = $('#search_addbtn'+id).data('brand_name');
+            var brand_id = $('#search_addbtn'+id).data('brand_id');
+            var total_quantity = $('#search_addbtn'+id).data('total_quantity');
+            var selling_price = $('#search_addbtn'+id).data('selling_price');
+            var selling_price = $('#search_addbtn'+id).data('selling_price');
             console.log(product_id);
 
             $('#medicine-table-body').append(`        
             <tr id="medicine-row${a}">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>`);
+                <input type="hidden" id="medicineID${a}" value="${id}" name="products[${a}][medicine_id]">
+                    <td>
+                        <input name="products[${a}][product_name]" id="medicine${a}" class="form-control" type="text" readonly value="${product_name}"
+                        data-medicine_name="${product_name}" 
+                        data-medicine_id="${id}" 
+                        data-generic_formula="${generic_formula}" 
+                        data-brand_name="${brand_name}" 
+                        data-brand_id="${brand_id}" 
+                        data-sellingPrice="${selling_price}" 
+                        data-Id="${id}" 
+                        data-totalQuantity="${total_quantity}" 
+                        data-totalPrice="${selling_price}"
+                        >
+                        </td>
+                    <td><input class="form-control" type="text" readonly name="products[${a}][generic_formula]" id="generic_formula${a}" value="${generic_formula}"></td>
+                    <td><input id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
+                    <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
+                    <td><input class="form-control" type="number" step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
+                    <td>
+                        <input class="form-control" type="number" step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                        <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
+                        </td>
+                    <td><input class="form-control" step="any"value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                            <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
+                            <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
+                        </td>
+                    <td>
+                        {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
+                        </td>
+                        <td>
+                            {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1]) }}
+                        </td>
+                        <td>
+                            <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
+                            <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add Label
+                            </button>
+                        </td>
+                        <td><button type="button" id="labelprintbtn${a}" disabled class="btn btn-success" id="labelshow${a}"><a id="anchorlabel${a}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
+                        <td class="text-center">
+                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
+                            class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                        <td>
+                            
+                        </td>
+                </tr>`  
+                );
 
         }
         
