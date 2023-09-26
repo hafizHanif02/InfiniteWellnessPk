@@ -32,13 +32,19 @@ class PosController extends Controller
             'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
+    
     }
 
     public function store(PosRequest $request): RedirectResponse
     {
-        $pos = Pos::create($request->validated());
-        foreach($request->products as $product){
+        $userId = auth()->user()->id;
+        // echo $userId;
+        //  exit; 
 
+        $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
+    
+        foreach ($request->products as $product) {
+    
             Pos_Product::create([
                 'pos_id' => $pos->id,
                 'medicine_id' => $product['medicine_id'],
@@ -50,10 +56,12 @@ class PosController extends Controller
                 'discount_percentage' => $product['discount_percentage'],
                 'discount_amount' => $product['discount_amount'],
                 'product_total_price' => $product['product_total_price'],
+                'user_id' => $userId,
             ]);
         }
+    
         Flash::message('POS created!');
-
+    
         return to_route('pos.proceed-to-pay-page', $pos);
     }
 

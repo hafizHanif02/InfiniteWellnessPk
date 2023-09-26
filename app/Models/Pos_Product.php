@@ -22,6 +22,7 @@ class Pos_Product extends Model
         'discount_percentage',
         'discount_amount',
         'product_total_price',
+        'user_id',
 
     ];
 
