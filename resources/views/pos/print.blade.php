@@ -9,27 +9,32 @@
                 <h2>infinitewellness</h2>
             </div>
             <div style="margin-top: 25px !important; margin-bottom: 10px !important">
-                <p>NTN #</p>
+                <p>NTN # 1234567</p>
             </div>
-            <div style="margin-bottom: 25px !important; padding: 0px 100px !important">
-                <p>address Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique incidunt laborum hic animi repudiandae. Magnam explicabo cumque unde possimus quod. </p>
+            <div style="margin-bottom: 25px !important;">
+                <p>Plot No.35/135. CP & Berar Cooperative Housing Society, PECHS, Block 7/8, Karachi East.</p>
             </div>
         </center>
 
+        <tr style="border-top: 1px solid rgb(29, 29, 29);" class="text-start">
+            <th colspan="3">Cashier :</th>
+            <th colspan="5">Name?</th>
+        </tr>
         <tr class="text-start">
             <th colspan="3">INV #</th>
             <th colspan="5">{{ $pos->id }}</th>
         </tr>
         <tr class="text-start">
-            <th colspan="3">Name</th>
+            <th colspan="3">Customer Name</th>
             <th colspan="5">{{ $pos->patient_name }}</th>
         </tr>
         <tr class="text-start">
             <th colspan="3">EMR #</th>
             <th colspan="5">
-            {!!DNS1D::getBarcodeHtml($pos->patient_mr_number,'CODABAR')!!}
+                {!! DNS1D::getBarcodeHtml($pos->patient_mr_number, 'CODABAR') !!}
+                {{ $pos->patient_mr_number }}
             </th>
-        </tr> 
+        </tr>
         <tr class="text-start">
             <th colspan="3">Date</th>
             <th colspan="6">{{ $pos->created_at }}</th>
@@ -40,8 +45,8 @@
         </tr>
         <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
             <th>#</th>
-            <th colspan="2">Brand Name</th>
-            <th colspan="2">Barcode</th>
+            <th colspan="2">Brand</th>
+            <th colspan="2">Generic</th>
             <th colspan="2">Qty</th>
             <th colspan="2">M.R.P</th>
             <th colspan="2">GST</th>
@@ -53,7 +58,7 @@
             <tr>
                 <th>{{ $loop->iteration }}</th>
                 <th colspan="2">{{ $product->medicine->brand->name }}</th>
-                <th colspan="2">14714{{ $loop->iteration }}</th>
+                <th colspan="2">({{ $product->medicine->generic_formula }})</th>
                 <th colspan="2">{{ $product->product_quantity }}</th>
                 <th colspan="2">{{ $product->mrp_perunit }}</th>
                 <th colspan="2">{{ $product->gst_percentage }}</th>
@@ -97,74 +102,76 @@
 
 
         <tr>
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 TOTAL AMOUNT Exclusive of Sales Tax :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 {{ $pos->total_amount_ex_saletax }}
             </th>
         </tr>
         <tr>
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 Total Discount :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 {{ $pos->total_discount }}
             </th>
         </tr>
         <tr>
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 Total Sales Tax :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 {{ $pos->total_saletax }}
             </th>
         </tr>
         <tr>
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 Net Total Inclusive of Sales Tax :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 {{ $pos->total_amount_inc_saletax }}
             </th>
         </tr>
         <tr>
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 FBR POS FEE :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 1
             </th>
         </tr>
         <tr style="border-bottom: 1px solid rgb(29, 29, 29);">
-            <th colspan="6">
+            <th style="text-align: start !important;" colspan="9">
                 GRAND TOTAL :
             </th>
-            <th colspan="6">
+            <th style="text-align: end !important;" colspan="3">
                 {{ $pos->total_amount + 1 }}
             </th>
         </tr>
 
 
-        <tr>
-            <th colspan="3" style="padding-top: 10px !important; background-color:black;color:white;">Payment Method</th>
-            <th colspan="9"></th>
-            <th style="padding-top: 10px !important;">Card</th>
-            <th colspan="4">
-                @if ($pos->is_cash == 0)
-                    <i class="fas fa-check"></i>
-                @endif
-            </th>
-        </tr>
-        <tr>
-            <th colspan="12"></th>
-            <th>Cash</th>
-            <th colspan="4">
-                @if ($pos->is_cash == 1)
-                    <i class="fas fa-check"></i>
-                @endif
-            </th>
-        </tr>
+        @if ($pos->is_cash == 0)
+            <tr>
+                <th colspan="4" style="padding: 0px !important; background-color:black;color:white;">Payment
+                    Method</th>
+                <th colspan="9"></th>
+                <th colspan="4">
+                <th style="padding-top: 10px !important;">Card</th>
+                </th>
+            </tr>
+        @endif
+
+        @if ($pos->is_cash == 1)
+            <tr>
+                <th colspan="4" style="padding-top: 10px !important; background-color:black;color:white;">Payment
+                    Method</th>
+                <th colspan="9"></th>
+                <th colspan="4">
+                <th style="padding-top: 10px !important;">Cash</th>
+                </th>
+            </tr>
+        @endif
 
 
         <tr>
@@ -174,17 +181,18 @@
         </tr>
         <tr>
             <th colspan="9">
-                -Please check and varify your medicines, expiry dates and balance cash before leaving the counter to avoid inconvenience of claim later. 
+                -Please check and varify your medicines, expiry dates and balance cash before leaving the counter to
+                avoid inconvenience of claim later.
             </th>
         </tr>
         <tr>
             <th colspan="9">
-                -Products can be returned or exchanged within 24 hours of sale. 
+                -Products can be returned or exchanged within 24 hours of sale.
             </th>
         </tr>
         <tr>
             <th colspan="9">
-                -For returns/exchange or claims original receipt is required. 
+                -For returns/exchange or claims original receipt is required.
             </th>
         </tr>
         <tr>
@@ -207,7 +215,7 @@
             </th>
         </tr>
 
-        <center>
+        {{-- <center>
             <tr>
                 <th colspan="1">
 
@@ -218,22 +226,21 @@
                 </th>
 
                 <th colspan="1">
-                    
+
                 </th>
-                
+
                 <th colspan="6">
                     <div style="margin-top: 13px !important;">
                         <img src="{{ asset('images/qrcode.png') }}" width="110px" alt="">
                     </div>
                 </th>
             </tr>
-        </center>
+        </center> --}}
 
     </thead>
 </table>
 {{-- </x-layouts.print> --}}
 <style>
-
     .padding-row th {
         padding-left: 40px;
         padding-right: 40px;
@@ -261,7 +268,7 @@
     }
 
     .text-start {
-        text-align: left;
+        text-align: start;
     }
 </style>
 <script>

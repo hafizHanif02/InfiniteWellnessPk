@@ -24,6 +24,7 @@ class PosRequest extends FormRequest
             'patient_name' => ['required', 'string'],
             'patient_mr_number' => ['nullable', 'string'],
             'doctor_name' => ['nullable', 'string'],
+            'cashier_name' => ['nullable', 'string'],
             'pos_date' => ['required', 'date'],
             'enter_payment_amount' => ['nullable', 'numeric'],
             'change_amount' => ['nullable', 'numeric'],
