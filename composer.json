@@ -36,6 +36,7 @@
         "mews/purifier": "^3.3",
         "milon/barcode": "^10.0",
         "opcodesio/log-viewer": "^1.7",
+        "picqer/php-barcode-generator": "^2.4",
         "rappasoft/laravel-livewire-tables": "dev-master",
         "rennokki/laravel-eloquent-query-cache": "^3.3",
         "spatie/laravel-cookie-consent": "^3.2",

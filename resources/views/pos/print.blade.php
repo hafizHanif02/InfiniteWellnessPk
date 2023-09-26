@@ -27,7 +27,7 @@
         <tr class="text-start">
             <th colspan="3">EMR #</th>
             <th colspan="5">
-            {!!DNS1D::getBarcodeHtml($pos->patient_mr_number,'CODABAR')!!}
+               
             </th>
         </tr> 
         <tr class="text-start">

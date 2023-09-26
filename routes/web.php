@@ -609,7 +609,6 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
         //Route for Vaccinations
         Route::resource('vaccinations', VaccinationController::class)->middleware('modules');
-
         //Route for Vaccinated Patients
         Route::get('vaccinations', [VaccinationController::class, 'index'])->name('vaccinations.index')->middleware('modules');
         Route::post('vaccinations', [VaccinationController::class, 'store'])->name('vaccinations.store');

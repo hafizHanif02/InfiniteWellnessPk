@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pos;
 use Barcode;
+use App\Models\Pos;
 use App\Models\Patient;
 use App\Models\Medicine;
 use App\Models\PosReturn;
@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PosRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class PosController extends Controller
 {
@@ -134,8 +135,11 @@ class PosController extends Controller
     }
     public function Print($pos){
         $posData = Pos::where('id', $pos)->with(['PosProduct.medicine.brand'])->first();
+        $generatorHTML = new BarcodeGeneratorHTML();
+        $barcode = $generatorHTML->getBarcode($posData->patient_mr_number, $generatorHTML::TYPE_CODE_128);
         return view('pos.print',[
             'pos' => $posData,
+            'barcode' => $barcode,
         ]);
     }
 
