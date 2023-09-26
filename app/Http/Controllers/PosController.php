@@ -139,6 +139,12 @@ class PosController extends Controller
         ]);
     }
 
+    public function sample(){
+        
+        return view('pos.sample');
+    }
+
+
     public function show($id)
     {
         $pos = Pos::where('id', $id)->with(['PosProduct.medicine','prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
@@ -153,6 +159,7 @@ class PosController extends Controller
         //
     }
 
+   
 
     public function update(Request $request, $id)
     {
