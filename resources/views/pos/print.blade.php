@@ -30,10 +30,12 @@
             </tr>
             <tr class="text-start">
                 <th colspan="3">EMR #</th>
+                @if (isset($mr_barcode))
                 <th colspan="5">
                     {!! $mr_barcode !!}
                     {{ $pos->patient_mr_number }}
                 </th>
+                @endif
             </tr>
             <tr class="text-start">
                 <th colspan="3">Date</th>
