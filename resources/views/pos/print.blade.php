@@ -150,28 +150,28 @@
     
     
             <tr>
-                <th style="padding-top: 20px !important;" colspan="9">
+                <th style="padding-top: 20px !important;" colspan="12">
                     -Prices are inclusive of sales tax where applicable.
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -Please check and varify your medicines, expiry dates and balance cash before leaving the counter to
                     avoid inconvenience of claim later.
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -Products can be returned or exchanged within 24 hours of sale.
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -For returns/exchange or claims original receipt is required.
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -Refrigerated items, Medical devices without warranty.<br>
                     Loose tablets/capsules, milk products, surgical items are neithe<br>
                     refundable/exchangeable.
@@ -179,13 +179,13 @@
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -Customer data may be utilized for sharing promotions, offers, <br>
                     market research and analysis.
                 </th>
             </tr>
             <tr>
-                <th colspan="9">
+                <th colspan="12">
                     -Terms and conditions apply.
                 </th>
             </tr>
