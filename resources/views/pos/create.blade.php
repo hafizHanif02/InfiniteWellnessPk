@@ -727,7 +727,7 @@
         }
 
         function AlertLabel(id) {
-            // window.alert('Your Product Label Has been Generated');
+            window.alert('Your Product Label Has been Generated');
             $('#labelprintbtn' + id).removeAttr('disabled');
             var pos_id = $('#pos_id').val();
             var medicine_id = $('#medicineID' + id).val();
