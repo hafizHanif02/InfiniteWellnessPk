@@ -567,7 +567,7 @@
                     TotalAmount += parseFloat($(this).val());
                 }
             });
-            $('#total_amount').val(parseFloat(TotalAmount) + parseFloat(1));
+            $('#total_amount').val(TotalAmount);
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
@@ -610,7 +610,7 @@
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-            $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + parseFloat(1));
+            $('#total_amount').val(amountwithouttaxToFixed);
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
@@ -654,7 +654,7 @@
             var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
             var TotalgstamountToFixed = Totalgstamount.toFixed(2);
             var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
-            var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
+            var ForTotalAmount = TotalAmountWithGSTFINAL;
 
             $('#total_saletax').val(TotalgstamountToFixed);
             $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
