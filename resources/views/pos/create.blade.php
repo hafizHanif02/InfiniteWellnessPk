@@ -555,7 +555,8 @@
             $('#product_total_price' + id).val(TotalMedicineCost);
             $('#product_total_prices2' + id).val(TotalMedicineCost)
             ChnageDosageTotal();
-            discountCalculation(id) 
+            discountCalculation(id);
+            gstCalculation(id);
 
         }
 
@@ -566,7 +567,7 @@
                     TotalAmount += parseFloat($(this).val());
                 }
             });
-            $('#total_amount').val(TotalAmount + 1);
+            $('#total_amount').val(parseFloat(TotalAmount) + parseFloat(1));
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
@@ -578,22 +579,14 @@
             var selling_price = $('#selling_price' + id).val();
             var product_total_price_main = Dosage*selling_price;
             var discount_percentage = $('#discount_percentage'+id).val();
-            console.log((parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2));
             var product_total_price = $('#product_total_prices2'+id).val();
             var discount_amount  = (parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2);
             var medicine__price = (parseFloat(product_total_price_main) - parseFloat(discount_amount)).toFixed(2);
-            $('#product_total_price'+id).val(medicine__price);
-            // var discount_percentage = $('#discount_percentage' + id).val();
-            // var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            // var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            // var discount_amount = ((discount_percentage * totalMedicineAmount) / 100).toFixed(2);
-            // var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount)).toFixed(2);
+            $('#product_total_price'+id).val(medicine__price);    
             $('#discount_amount' + id).val(discount_amount);
             $('#discount_amounts2' + id).val(discount_amount);
-            // $('#discount_amounts2' + id).val(discount_amount);
-            // $('#product_total_price' + id).val(totalMedicineAmountwithDisc);
-            // $('#product_total_prices2' + id).val(totalMedicineAmountwithDisc);
             discountCalculationTotal();
+            gstCalculation(id);
         }
 
         function discountCalculationTotal() {
@@ -614,50 +607,59 @@
             var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
             var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
-            (amountwithouttaxToFixed);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-            $('#total_amount').val(amountwithouttaxToFixed + 1);
+            $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + parseFloat(1));
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
 
 
-        // function gstCalculation(id) {
-        //     var gst_percentage = $('#gst_percentage' + id).val();
+        function gstCalculation(id) {
+            var Dosage = $('#dosage'+id).val();
+            var selling_price = $('#selling_price' + id).val();
+            var product_total_price_main = Dosage*selling_price;
+            var discount_percentage = $('#discount_percentage'+id).val();
+            var total_quantity_amount = (parseFloat(Dosage) * parseFloat(selling_price)).toFixed(2);
+            var amountwithdiscount = (parseFloat(total_quantity_amount) - parseFloat((total_quantity_amount*discount_percentage)/100)).toFixed(2);
+            var gst_percentage = $('#gst_percentage' + id).val();
+            var gst_amount = ((gst_percentage*amountwithdiscount)/100).toFixed(2);
+            var amount_with_gst = (parseFloat(amountwithdiscount) + parseFloat(gst_amount)).toFixed(2);
+            
+            $('#gst_amount' + id).val(gst_amount);
+            $('#gst_amounts2' + id).val(gst_amount);
+            $('#product_total_price' + id).val(amount_with_gst);
+            $('#product_total_price' + id).val(amount_with_gst);
+
         //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
         //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
         //     var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
         //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
-        //     $('#gst_amount' + id).val(gst_amount);
-        //     $('#gst_amounts2' + id).val(gst_amount);
-        //     $('#product_total_price' + id).val(totalMedicineAmountwithGst);
-        //     $('#product_total_price' + id).val(totalMedicineAmountwithGst);
-        //     gstCalculationTotal();
-        // }
+            gstCalculationTotal();
+        }
 
-        // function gstCalculationTotal() {
-        //     var Totalgstamount = 0;
-        //     var TotalWithTax = 0;
-        //     $("input[id^='gst_amounts2']").each(function() {
-        //         if ($(this).val() != '') {
-        //             Totalgstamount += parseFloat($(this).val());
-        //         }
-        //     });
-        //     $("input[id^='product_total_prices2']").each(function() {
-        //         if ($(this).val() != '') {
-        //             TotalWithTax += parseFloat($(this).val());
-        //         }
-        //     });
-        //     var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
-        //     var TotalgstamountToFixed = Totalgstamount.toFixed(2);
-        //     var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
-        //     var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
+        function gstCalculationTotal() {
+            var Totalgstamount = 0;
+            var TotalWithTax = 0;
+            $("input[id^='gst_amounts2']").each(function() {
+                if ($(this).val() != '') {
+                    Totalgstamount += parseFloat($(this).val());
+                }
+            });
+            $("input[id^='product_total_prices2']").each(function() {
+                if ($(this).val() != '') {
+                    TotalWithTax += parseFloat($(this).val());
+                }
+            });
+            var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
+            var TotalgstamountToFixed = Totalgstamount.toFixed(2);
+            var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
+            var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
 
-        //     $('#total_saletax').val(TotalgstamountToFixed);
-        //     $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
-        //     $('#total_amount').val(ForTotalAmount);
-        // }
+            $('#total_saletax').val(TotalgstamountToFixed);
+            $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
+            $('#total_amount').val(ForTotalAmount);
+        }
 
 
 
