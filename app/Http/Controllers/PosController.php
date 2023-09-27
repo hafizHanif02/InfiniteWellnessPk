@@ -149,10 +149,7 @@ class PosController extends Controller
         ]);
     }
 
-    public function sample(){
-        
-        return view('pos.sample');
-    }
+
 
 
     public function show($id)

@@ -699,7 +699,6 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('pos/paid/{pos}', [PosController::class, 'Payment'])->name('pos.paid');
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
-        Route::get('/sample', [PosController::class, 'sample'])->name('pos.sample');
 
 
         // POS Return
