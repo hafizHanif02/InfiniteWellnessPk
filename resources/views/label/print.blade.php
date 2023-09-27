@@ -1,21 +1,16 @@
-<div class="container" >
-    <table class="table-bordered " style="width: 368px;">
+<div class="container">
+    <table class="table-bordered ">
         <tbody>
             <tr class="text-start">
-                <td>
-                    {{$label->created_at }}
-            </td>
+                <th>
+                    <p>{{$label->quantity}}  {{$label->name }} </p>
+                </th>
             </tr>
             <tr class="text-start">
-                <td>
-                    <b>{{$label->quantity}}  {{$label->name }} </b>
-            </td>
+                <th><h2>{{$label->direction_use }}</h2></th>
             </tr>
             <tr class="text-start">
-                <td>{{$label->direction_use }}</td>
-            </tr>
-            <tr class="text-start" style="font-size: 12px;">
-                <td>{{$label->common_side_effect }}</td>
+                <th><h3>{{$label->common_side_effect }}</h3></th>
             </tr>
             <tr class="text-start">
                 <td>Take With OR After Meal</td>
@@ -24,8 +19,8 @@
                 <td>Take Regularly and Complete the Course</td>
             </tr>
             <tr class="text-start">
-                <td>Mr/Ms. {{$label->patient_name }}</td>
-
+                <th>Mr/Ms. {{$label->patient_name }}</th>
+                <th>{{$label->created_at }}</th>
             </tr>
         </tbody>
     </table>
@@ -35,13 +30,15 @@
     window.print();
 </script>
 <style>
-
+    .container{
+        padding: 20px;
+    }
     .table-bordered {
         border-radius: 14px;
         border: 2px solid black;
 }
     .table-bordered th, .table-bordered td {
-
+        padding: 5px; 
     }
     .table-bordered tr{
         border: 0px;
@@ -53,7 +50,7 @@
         border: 0px;
     }
     .text-start{
-
+        padding-left: 20px; 
         text-align: left;
     }
 </style>
