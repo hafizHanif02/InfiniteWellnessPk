@@ -18,11 +18,7 @@ class PosReturn extends Model
         'pos_id',
         'total_amount',
     ];
-
-
-
     
-
     public function Pos_Product_Return()
     {
         return $this->hasMany(PosProductReturn::class,'pos_return_id');

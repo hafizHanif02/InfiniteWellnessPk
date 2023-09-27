@@ -334,14 +334,11 @@
 
 
                 var selectElement = document.getElementById('patient_mr_number');
-                // Get the selected option
                 var selectedOption = selectElement.options[selectElement.selectedIndex];
-                // Get the data-patient_name attribute from the selected option
                 var patientName = selectedOption.getAttribute('data-patient_name');
                 $('#patient_name').val(patientName);
                 $('#patient_name').attr('readonly', true);
 
-                // Fetch prescription data via AJAX
                 $.ajax({
                     type: "get",
                     url: "/pos/prescription/list",
@@ -373,13 +370,9 @@
                 });
             });
 
-            // Handle medicine selection
             $('#medicine-table-body').on('change', '.medicine-select', function() {
                 var selectedOption = $(this).find(":selected");
                 var selectedMedicineData = selectedOption.data("medicine-data");
-
-                // Handle medicine data here...
-                //(selectedMedicineData);
             });
 
             $("#prescription_id").change(function() {
@@ -387,7 +380,7 @@
                 var selectedMedicinesAttr = selectedOption.data("medicines");
                 var selectedPatientAttr = selectedOption.data("patient");
                 var selectedDoctorAttr = selectedOption.data("doctor");
-                //(selectedMedicinesAttr);
+                (selectedMedicinesAttr);
                 $("#medicine-table-body").empty();
                 $('#patient_name').val(selectedPatientAttr);
                 $('#doctor_name').val(selectedDoctorAttr);
@@ -490,7 +483,7 @@
                             <input type="number"  step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
-                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(this, ${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
@@ -522,9 +515,7 @@
                             </a>
                         </td>
                         <td>
-                            
                         </td>
-                        
                     </tr> 
     `);
             $('.medicine-select').select2();
@@ -578,19 +569,24 @@
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
-
         }
 
-        function discountCalculation(id) {
-            var discount_percentage = $('#discount_percentage' + id).val();
-            var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            var discount_amount = ((discount_percentage * totalMedicineAmount) / 100).toFixed(2);
-            var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount)).toFixed(2);
+        function discountCalculation(inputElement, id) {
+            var discount_percentage = $(inputElement).val();
+            var product_total_price = $('#product_total_prices2'+id).val();
+            var discount_amount  = (parseFloat((discount_percentage*product_total_price)/100)).toFixed(2);
+            var medicine__price = (parseFloat(product_total_price) - parseFloat(discount_amount)).toFixed(2);
+            $('#product_total_price'+id).val(medicine__price);
+            // var discount_percentage = $('#discount_percentage' + id).val();
+            // var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
+            // var totalMedicineAmount = $('#product_total_prices2' + id).val();
+            // var discount_amount = ((discount_percentage * totalMedicineAmount) / 100).toFixed(2);
+            // var totalMedicineAmountwithDisc = (parseFloat(totalMedicineAmount) - parseFloat(discount_amount)).toFixed(2);
             $('#discount_amount' + id).val(discount_amount);
             $('#discount_amounts2' + id).val(discount_amount);
-            $('#product_total_price' + id).val(totalMedicineAmountwithDisc);
-            $('#product_total_prices2' + id).val(totalMedicineAmountwithDisc);
+            // $('#discount_amounts2' + id).val(discount_amount);
+            // $('#product_total_price' + id).val(totalMedicineAmountwithDisc);
+            // $('#product_total_prices2' + id).val(totalMedicineAmountwithDisc);
             discountCalculationTotal();
         }
 
@@ -600,11 +596,14 @@
             $("input[id^='discount_amounts2']").each(function() {
                 if ($(this).val() != '') {
                     discount_amounts2 += parseFloat($(this).val());
+                    console.log(discount_amounts2);
                 }
             });
-            $("input[id^='product_total_prices2']").each(function() {
+            $("input[id^='product_total_prices']").each(function() {
                 if ($(this).val() != '') {
                     amountwithouttax += parseFloat($(this).val());
+                    console.log(amountwithouttax);
+
                 }
             });
             var TotalAmount = $('#total_amounts2').val();
@@ -620,42 +619,41 @@
 
 
 
-        function gstCalculation(id) {
-            var gst_percentage = $('#gst_percentage' + id).val();
-            var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
-            var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
+        // function gstCalculation(id) {
+        //     var gst_percentage = $('#gst_percentage' + id).val();
+        //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
+        //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
+        //     var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
+        //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
+        //     $('#gst_amount' + id).val(gst_amount);
+        //     $('#gst_amounts2' + id).val(gst_amount);
+        //     $('#product_total_price' + id).val(totalMedicineAmountwithGst);
+        //     $('#product_total_price' + id).val(totalMedicineAmountwithGst);
+        //     gstCalculationTotal();
+        // }
 
-            $('#gst_amount' + id).val(gst_amount);
-            $('#gst_amounts2' + id).val(gst_amount);
-            $('#product_total_price' + id).val(totalMedicineAmountwithGst);
-            $('#product_total_price' + id).val(totalMedicineAmountwithGst);
-            gstCalculationTotal();
-        }
+        // function gstCalculationTotal() {
+        //     var Totalgstamount = 0;
+        //     var TotalWithTax = 0;
+        //     $("input[id^='gst_amounts2']").each(function() {
+        //         if ($(this).val() != '') {
+        //             Totalgstamount += parseFloat($(this).val());
+        //         }
+        //     });
+        //     $("input[id^='product_total_prices2']").each(function() {
+        //         if ($(this).val() != '') {
+        //             TotalWithTax += parseFloat($(this).val());
+        //         }
+        //     });
+        //     var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
+        //     var TotalgstamountToFixed = Totalgstamount.toFixed(2);
+        //     var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
+        //     var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
 
-        function gstCalculationTotal() {
-            var Totalgstamount = 0;
-            var TotalWithTax = 0;
-            $("input[id^='gst_amounts2']").each(function() {
-                if ($(this).val() != '') {
-                    Totalgstamount += parseFloat($(this).val());
-                }
-            });
-            $("input[id^='product_total_prices2']").each(function() {
-                if ($(this).val() != '') {
-                    TotalWithTax += parseFloat($(this).val());
-                }
-            });
-            var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
-            var TotalgstamountToFixed = Totalgstamount.toFixed(2);
-            var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
-            var ForTotalAmount = TotalAmountWithGSTFINAL + parseFloat(1);
-
-            $('#total_saletax').val(TotalgstamountToFixed);
-            $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
-            $('#total_amount').val(ForTotalAmount);
-        }
+        //     $('#total_saletax').val(TotalgstamountToFixed);
+        //     $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
+        //     $('#total_amount').val(ForTotalAmount);
+        // }
 
 
 

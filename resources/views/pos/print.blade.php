@@ -240,4 +240,3 @@
     <script>
         window.print();
     </script>
-    

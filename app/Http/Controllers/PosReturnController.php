@@ -9,6 +9,7 @@ use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PosReturnController extends Controller
 {
@@ -44,6 +45,14 @@ class PosReturnController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'pos_id' => 'required',
+            'total_amount' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->route('pos-return.create')->withErrors($validator)->withInput();
+        }
        $posReturn = PosReturn::create([
             'pos_id' => $request->pos_id,
             'total_amount' => $request->total_amount
