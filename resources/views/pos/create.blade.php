@@ -480,7 +480,7 @@
                             <input type="number"  step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
+                            <input type="number"  step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
                             <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
@@ -775,7 +775,7 @@
                     <td><input class="form-control" type="text" readonly name="products[${a}][generic_formula]" id="generic_formula${a}" value="${generic_formula}"></td>
                     <td><input id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
-                    <td><input class="form-control" type="number" step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
+                    <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
                         <input class="form-control" type="number" step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                         <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
