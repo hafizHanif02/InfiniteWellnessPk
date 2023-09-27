@@ -567,7 +567,7 @@
                     TotalAmount += parseFloat($(this).val());
                 }
             });
-            $('#total_amount').val(TotalAmount);
+            $('#total_amount').val(parseFloat(TotalAmount)+1);
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
@@ -610,7 +610,7 @@
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-            $('#total_amount').val(amountwithouttaxToFixed);
+            $('#total_amount').val(parseFloat(amountwithouttaxToFixed)+1);
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
@@ -630,7 +630,6 @@
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
             $('#product_total_price' + id).val(amount_with_gst);
-            $('#product_total_price2' + id).val(amount_with_gst);
 
         //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
         //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
@@ -659,7 +658,7 @@
 
             $('#total_saletax').val(TotalgstamountToFixed);
             $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
-            $('#total_amount').val(ForTotalAmount);
+            $('#total_amount').val(parseFloat(ForTotalAmount)+1);
         }
 
 
