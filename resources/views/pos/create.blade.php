@@ -483,7 +483,7 @@
                             <input type="number"  step="any" value="1" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
-                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(this, ${a})">
+                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
@@ -555,6 +555,7 @@
             $('#product_total_price' + id).val(TotalMedicineCost);
             $('#product_total_prices2' + id).val(TotalMedicineCost)
             ChnageDosageTotal();
+            discountCalculation(id) 
 
         }
 
@@ -569,13 +570,18 @@
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
+            
         }
 
-        function discountCalculation(inputElement, id) {
-            var discount_percentage = $(inputElement).val();
+        function discountCalculation(id) {
+            var Dosage = $('#dosage'+id).val();
+            var selling_price = $('#selling_price' + id).val();
+            var product_total_price_main = Dosage*selling_price;
+            var discount_percentage = $('#discount_percentage'+id).val();
+            console.log((parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2));
             var product_total_price = $('#product_total_prices2'+id).val();
-            var discount_amount  = (parseFloat((discount_percentage*product_total_price)/100)).toFixed(2);
-            var medicine__price = (parseFloat(product_total_price) - parseFloat(discount_amount)).toFixed(2);
+            var discount_amount  = (parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2);
+            var medicine__price = (parseFloat(product_total_price_main) - parseFloat(discount_amount)).toFixed(2);
             $('#product_total_price'+id).val(medicine__price);
             // var discount_percentage = $('#discount_percentage' + id).val();
             // var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
@@ -596,13 +602,11 @@
             $("input[id^='discount_amounts2']").each(function() {
                 if ($(this).val() != '') {
                     discount_amounts2 += parseFloat($(this).val());
-                    console.log(discount_amounts2);
                 }
             });
             $("input[id^='product_total_prices']").each(function() {
                 if ($(this).val() != '') {
                     amountwithouttax += parseFloat($(this).val());
-                    console.log(amountwithouttax);
 
                 }
             });
