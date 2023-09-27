@@ -583,6 +583,7 @@
             var discount_amount  = (parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2);
             var medicine__price = (parseFloat(product_total_price_main) - parseFloat(discount_amount)).toFixed(2);
             $('#product_total_price'+id).val(medicine__price);    
+            $('#product_total_prices2'+id).val(medicine__price);    
             $('#discount_amount' + id).val(discount_amount);
             $('#discount_amounts2' + id).val(discount_amount);
             discountCalculationTotal();
@@ -597,7 +598,7 @@
                     discount_amounts2 += parseFloat($(this).val());
                 }
             });
-            $("input[id^='product_total_prices']").each(function() {
+            $("input[id^='product_total_prices2']").each(function() {
                 if ($(this).val() != '') {
                     amountwithouttax += parseFloat($(this).val());
 
@@ -629,7 +630,7 @@
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
             $('#product_total_price' + id).val(amount_with_gst);
-            $('#product_total_price' + id).val(amount_with_gst);
+            $('#product_total_price2' + id).val(amount_with_gst);
 
         //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
         //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
