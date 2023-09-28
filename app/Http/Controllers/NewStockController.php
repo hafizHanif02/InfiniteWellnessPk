@@ -25,10 +25,10 @@ class NewStockController extends Controller
         ]);
     }
 
-    public function updateStatus(NewstockRequest $request, Transfer $transfer): RedirectResponse
+    public function updateStatus(NewstockRequest $request, Transfer $transfer)
     {
 
-
+        return $transfer;
         if ($request->status == 1) {
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
             foreach ($transfer->transferProducts as $transferProduct) {

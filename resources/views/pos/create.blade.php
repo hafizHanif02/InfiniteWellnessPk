@@ -105,7 +105,7 @@
                                 <div class="col-md-4 text-end">
                                     <button type="button" onclick="Addmore()" class="btn btn-primary">Add More</button>
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#advancesearch" onclick="disablemainbutton()">Addvance
+                                        data-bs-target="#advancesearch" onclick="disablemainbutton()">Advance
                                         Search</button>
                                 </div>
                             </div>
@@ -457,7 +457,7 @@
             var tableRow = document.getElementById('medicine-table-body');
             var a = tableRow.rows.length;
             $('#medicine' + a).select2();
-            $('#medicine-table-body').append(`        
+            $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
@@ -516,7 +516,7 @@
                         </td>
                         <td>
                         </td>
-                    </tr> 
+                    </tr>
     `);
             $('.medicine-select').select2();
         }
@@ -571,7 +571,7 @@
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
-            
+
         }
 
         function discountCalculation(id) {
@@ -582,8 +582,8 @@
             var product_total_price = $('#product_total_prices2'+id).val();
             var discount_amount  = (parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2);
             var medicine__price = (parseFloat(product_total_price_main) - parseFloat(discount_amount)).toFixed(2);
-            $('#product_total_price'+id).val(medicine__price);    
-            $('#product_total_prices2'+id).val(medicine__price);    
+            $('#product_total_price'+id).val(medicine__price);
+            $('#product_total_prices2'+id).val(medicine__price);
             $('#discount_amount' + id).val(discount_amount);
             $('#discount_amounts2' + id).val(discount_amount);
             discountCalculationTotal();
@@ -626,7 +626,7 @@
             var gst_percentage = $('#gst_percentage' + id).val();
             var gst_amount = ((gst_percentage*amountwithdiscount)/100).toFixed(2);
             var amount_with_gst = (parseFloat(amountwithdiscount) + parseFloat(gst_amount)).toFixed(2);
-            
+
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
             $('#product_total_price' + id).val(amount_with_gst);
@@ -756,19 +756,19 @@
             var selling_price = $('#search_addbtn' + id).data('selling_price');
             console.log(product_id);
 
-            $('#medicine-table-body').append(`        
+            $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
                 <input type="hidden" id="medicineID${a}" value="${id}" name="products[${a}][medicine_id]">
                     <td>
                         <input name="products[${a}][product_name]" id="medicine${a}" class="form-control" type="text" readonly value="${product_name}"
-                        data-medicine_name="${product_name}" 
-                        data-medicine_id="${id}" 
-                        data-generic_formula="${generic_formula}" 
-                        data-brand_name="${brand_name}" 
-                        data-brand_id="${brand_id}" 
-                        data-sellingPrice="${selling_price}" 
-                        data-Id="${id}" 
-                        data-totalQuantity="${total_quantity}" 
+                        data-medicine_name="${product_name}"
+                        data-medicine_id="${id}"
+                        data-generic_formula="${generic_formula}"
+                        data-brand_name="${brand_name}"
+                        data-brand_id="${brand_id}"
+                        data-sellingPrice="${selling_price}"
+                        data-Id="${id}"
+                        data-totalQuantity="${total_quantity}"
                         data-totalPrice="${selling_price}"
                         >
                         </td>
@@ -808,7 +808,7 @@
                             </a>
                         </td>
                         <td>
-                            
+
                         </td>
                 </tr>`);
             enablemainbutton();
