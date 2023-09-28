@@ -79,8 +79,8 @@ class OpdPatientDepartmentController extends AppBaseController
             $data['last_visit'] = OpdPatientDepartment::findOrFail($id);
         }
 
-        foreach ($data['patients'] as $key => $value) {
-            $data['patients'][$key] = $key. " - ".$value;
+        foreach ($data['patients2'] as $key => $value) {
+            $data['patients'][$value->id] = $value->MR. " - ".$value->patientUser->full_name;
         }
 
 
