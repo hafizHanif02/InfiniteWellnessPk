@@ -9,7 +9,7 @@
                     <h2>InfinitewellnessPK</h2>
                 </div>
                 <div style="margin-top: 25px !important; margin-bottom: 10px !important">
-                    <p>NTN # 1234567</p>
+                    <p>Ntn # 4459721-1</p>
                 </div>
                 <div style="margin-bottom: 25px !important;">
                     <p>Plot No.35/135. CP & Berar Cooperative Housing Society, PECHS, Block 7/8, Karachi East.</p>

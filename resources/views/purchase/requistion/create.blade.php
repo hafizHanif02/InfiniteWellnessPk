@@ -208,7 +208,8 @@
                                             <input type="number" value="1" min="1" name="products[${index}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number"  value="${value.cost_price}" class="form-control" readonly>    
+                                            
+                                            <input type="number" id="previouse_price${value.id}"  value="${value.cost_price}" class="form-control" readonly>    
                                         </td>
                                         <td>
                                             <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>    
@@ -225,6 +226,8 @@
                                         </td>
                                         
                                         <input type="hidden" id="discountamount${value.id}" name="products[${index}][pieces_per_pack]" value="${value.pieces_per_pack }">
+                                        <input type="hidden" id="pieces_per_pack${value.id}" name="pieces_per_pack" value="${value.pieces_per_pack }">
+                                        <input type="hidden" id="previouse_pricess${value.id}" value="${value.cost_price}">
                                         <input type="hidden" id="discountamount${value.id}" name="products[${index}][disc_amount]" value="${(value.discount_trade_price * value.cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${index}" value="${value.trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${index}" name="products[${index}][total_peice_per_pack]" value="${value.pieces_per_pack}">
@@ -242,6 +245,11 @@
             }
             
             function changeType(id, items) {
+
+                var previouse_price = $("#previouse_pricess" + id).val();
+                var pieces_per_pack = $("#pieces_per_pack" + id).val();
+                // console.log(previouse_price, pieces_per_pack)
+                // console.log(pieces_per_pack);
                 var limit = $("#selectLimit" + items).val();
                 var amount = $("#" + id + " input[name='products[" + items + "][total_amount]']").val();
                 var TotalPeice = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
@@ -255,6 +263,10 @@
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
                 } else if (limit == 0) {
                     // BOX
+                    var pprice = pieces_per_pack * previouse_price;
+                    console.log(pprice);
+                    $("#previouse_price").val(pprice);
+                    
                     $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(0);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
                         'changeQuantityPerPack(' + id + ',' + items + ')').val(0);
