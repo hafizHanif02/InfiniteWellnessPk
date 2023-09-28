@@ -1,5 +1,5 @@
 <x-layouts.print>
-    <table class="table table-bordered">
+    <table border="1" class="table table-bordered">
         <thead class="table-dark text-dark">
             <tr class="text-center">
                 <th colspan="15" class=" no-bottom-border">

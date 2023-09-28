@@ -1,6 +1,6 @@
 <x-layouts.print>
     <div class="container-fluid">
-        <table class="table-bordered">
+        <table border="1" class="table-bordered">
             <thead class="">
                 <tr>
                     <th colspan="9" class="no-bottom-border">
@@ -17,7 +17,7 @@
                             <tbody>
                                 <tr class="no-border">
                                     <th>INV#</th>
-                                    <td class="no-border">{{ $goodReceiveNote->id }}</td>
+                                    <td class="no-border">{{ $goodReceiveNote->invoice_number }}</td>
                                 </tr>
                                 <tr class="no-border">
                                     <th>SUPPLY DATE:</th>
