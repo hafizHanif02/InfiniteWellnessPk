@@ -135,10 +135,10 @@ class RequistionController extends Controller
         ]);
     }
 
-    public function edit(Requistion $requistion): View
+    public function edit($requistion): View
     {
         return view('purchase.requistion.edit', [
-            'requistion' => $requistion->load(['requistionProducts.product', 'vendor.manufacturer'])
+            'requistion' => Requistion::where('id',$requistion)->with(['requistionProducts.product', 'vendor.manufacturer'])->first(),
         ]);
     }
 
