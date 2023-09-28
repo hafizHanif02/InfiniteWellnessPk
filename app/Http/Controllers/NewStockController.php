@@ -137,7 +137,7 @@ class NewStockController extends Controller
         ]);
         foreach ($transfer->transferProducts as $transferProduct){
             // dd($transferProduct);
-            Product::where('id',$transferProduct->product_id)->increment([
+            Product::where('id',$transferProduct->product_id)->incrementEach([
                 'total_quantity' => $transferProduct->total_piece
             ]);
         }
