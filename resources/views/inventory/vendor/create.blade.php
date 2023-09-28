@@ -88,7 +88,7 @@
                    
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone <sup class="text-danger">*</sup></label>
-                        <input type="number" name="phone" id="phone"
+                        <input type="number" name="phone" id="phone" required
                             class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}"
                             placeholder="Enter phone number" title="Phone number" autocomplete="phone">
                         @error('phone')
@@ -98,7 +98,7 @@
                     
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <sup class="text-danger">*</sup></label>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="email" required
                             class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
                             placeholder="Enter email address" title="Email address" autocomplete="email">
                         @error('email')
@@ -107,7 +107,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address <sup class="text-danger">*</sup></label>
-                        <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror"
+                        <textarea name="address" id="address" required class="form-control @error('address') is-invalid @enderror"
                             placeholder="Enter Your Address" title="Address" autocomplete="address">{{ old('address') }}</textarea>
                         @error('address')
                             <small class="text-danger">{{ $message }}</small>
@@ -154,7 +154,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="area" class="form-label">Area <sup class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter your area" name="area" id="area"
+                        <input type="text" placeholder="Enter your area" name="area" id="area" required
                             class="form-control @error('area') is-invalid @enderror" value="{{ old('area') }}"
                             title="Area">
                         @error('area')
@@ -163,7 +163,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">City <sup class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter city" name="city" id="city"
+                        <input type="text" placeholder="Enter city" name="city" id="city" required
                             class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}"
                             title="City">
                         @error('city')

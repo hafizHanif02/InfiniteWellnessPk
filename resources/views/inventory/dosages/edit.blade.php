@@ -16,7 +16,7 @@
                                 <input type="text" name="name" id="category_name"
                                     value="{{ old('name', $dosage->name) }}"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Enter Dosage name" title="Category name" autocomplete="name">
+                                    placeholder="Enter Dosage name" required title="Category name" autocomplete="name">
                                 @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

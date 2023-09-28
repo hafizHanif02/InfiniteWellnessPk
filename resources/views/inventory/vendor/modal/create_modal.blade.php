@@ -77,13 +77,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="supplier_phone" class="form-label">Phone <sup class="text-danger">*</sup></label>
-                        <input type="number" name="phone" id="supplier_phone" class="form-control"
+                        <input type="number" name="phone" id="supplier_phone" required class="form-control"
                             value="{{ old('phone') }}" placeholder="Phone Number" autocomplete="phone">
                         <div class="text-danger" id="vendor-phone-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="supplier_email" class="form-label">Email <sup class="text-danger">*</sup></label>
-                        <input type="email" name="email" id="supplier_email" class="form-control"
+                        <input type="email" name="email" id="supplier_email" required class="form-control"
                             value="{{ old('email') }}" placeholder="Enter email address" autocomplete="email">
                         <div class="text-danger" id="vendor-email-error"></div>
                     </div>
@@ -121,12 +121,12 @@
                     <div class="mb-3">
                         <label for="supplier_area" class="form-label">Area <sup class="text-danger">*</sup></label>
                         <input type="text" placeholder="Enter Area" name="area" id="supplier_area"
-                            class="form-control" value="{{ old('area') }}">
+                            class="form-control" required value="{{ old('area') }}">
                         <div class="text-danger" id="vendor-area-error"></div>
                     </div>
                     <div class="mb-3">
                         <label for="supplier_city" class="form-label">City <sup class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter city" name="city" id="supplier_city"
+                        <input type="text" placeholder="Enter city" required name="city" id="supplier_city"
                             class="form-control" value="{{ old('city') }}">
                         <div class="text-danger" id="vendor-city-error"></div>
                     </div>

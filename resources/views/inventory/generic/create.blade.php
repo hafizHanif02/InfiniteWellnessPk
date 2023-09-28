@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <label for="code" class="form-label">Code<sup class="text-danger">*</sup></label>
                                 <input type="text" name="code" value="{{ ($code ? $code : 18880) + 1 }}"
-                                    id="code" class="form-control @error('code') is-invalid @enderror" readonly
+                                    id="code" required class="form-control @error('code') is-invalid @enderror" readonly
                                     title="Generic code">
                                 @error('code')
                                     <div class="text-danger">{{ $message }}</div>
@@ -24,7 +24,7 @@
                             <div class="mb-3">
                                 <label for="formula" class="form-label">Generic Formula<sup class="text-danger">*</sup></label>
                                 <input type="text" name="formula" value="{{ old('formula') }}"
-                                    placeholder="Enter generic formula" id="formula"
+                                    placeholder="Enter generic formula" id="formula" required
                                     class="form-control  @error('formula') is-invalid @enderror"
                                     title="Generic formula">
                                 @error('formula')

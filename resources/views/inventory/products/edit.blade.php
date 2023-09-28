@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="mb-5">
                                 <label for="code" class="form-label">Code <sup class="text-danger">*</sup></label>
-                                <input type="number" name="code" id="code" class="form-control"
+                                <input type="number" name="code" id="code" required class="form-control"
                                     value="{{ $product->id }}" readonly title="Unique Code">
                                 @error('code')
                                     <div class="text-danger">{{ $code }}</div>
@@ -27,7 +27,7 @@
                         <div class="col-md-5">
                             <div class="mb-5">
                                 <label for="product_category_id" class="form-label">Product Category<sup class="text-danger">*</sup></label>
-                                <select type="text" name="product_category_id" id="product_category_id"
+                                <select type="text" name="product_category_id" id="product_category_id" required
                                     class="form-control @error('product_category_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select category</option>
                                     @forelse ($productCategories as $productCategory)
@@ -64,7 +64,7 @@
                         <label for="generic_id" class="form-label">Generic <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
-                                <select name="generic_id" id="generic_id"
+                                <select name="generic_id" id="generic_id" required
                                     class="form-control @error('generic_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Generic</option>
                                     @forelse ($generics as $generic)
@@ -153,7 +153,7 @@
                         <label for="vendor_id" class="form-label">Vendor <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
-                                <select name="vendor_id" id="vendor_id" class="form-control" title="Vendor">
+                                <select name="vendor_id" required id="vendor_id" class="form-control" title="Vendor">
                                     <option value="" selected disabled>Select vendor</option>
                                     @forelse ($vendors as $vendor)
                                         <option value="{{ $vendor->id }}"
@@ -212,7 +212,7 @@
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
                                 <input type="number" onkeyup="calculation()" step="any" name="manufacturer_retail_price"
-                                    id="manufacturer_retail_price" class="form-control"
+                                    id="manufacturer_retail_price" required class="form-control"
                                     value="{{ old('manufacturer_retail_price', $product->manufacturer_retail_price) }}"
                                     title="Retail Price">
                                 @error('manufacturer_retail_price')

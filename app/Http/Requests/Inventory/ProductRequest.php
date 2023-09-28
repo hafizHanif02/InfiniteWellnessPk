@@ -43,7 +43,7 @@ class ProductRequest extends FormRequest
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'discount_trade_price' => ['nullable', 'numeric', 'min:0'],
             'cost_price' => ['required', 'numeric', 'min:0'],
-            'barcode' => ['nullable', 'numeric', 'min:0'],
+            'barcode' => ['nullable', 'string', 'min:0'],
         ];
     }
 

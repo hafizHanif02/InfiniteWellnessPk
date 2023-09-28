@@ -9,7 +9,7 @@
                 <form>
                     <div class="mb-5">
                         <label for="product_category_name" class="form-label">Name <sup class="text-danger">*</sup></label>
-                        <input type="text" name="name" id="product_category_name" value="{{ old('product_category_name') }}"
+                        <input type="text" name="name" id="product_category_name" required value="{{ old('product_category_name') }}"
                             class="form-control" placeholder="Enter category name" autocomplete="product_category_name">
                         <div class="text-danger" id="group-name-error"></div>
                     </div>

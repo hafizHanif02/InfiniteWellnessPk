@@ -47,6 +47,7 @@ class GoodReceiveNoteController extends Controller
     public function store(GoodReceiveNoteRequest $request): RedirectResponse
     {
         $goodReceiveNote = GoodReceiveNote::create([
+            'invoice_number' => $request->invoice_number,
             'requistion_id' => $request->requistion_id,
             'remark' => $request->remark,
             'date' => $request->date,
@@ -91,6 +92,7 @@ class GoodReceiveNoteController extends Controller
     public function update(GoodReceiveNoteRequest $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
         $goodReceiveNote->update([
+            'invoice_number' => $request->invoice_number,
             'remark' => $request->remark,
             'date' => $request->date,
             'bonus' => $request->bonus,

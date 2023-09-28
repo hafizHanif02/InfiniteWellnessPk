@@ -22,7 +22,7 @@ class PurchaseReturnNote extends Model
 
     public function goodReceiveNote(): BelongsTo
     {
-        return $this->belongsTo(GoodReceiveNote::class);
+        return $this->belongsTo(GoodReceiveNote::class,'good_receive_note_id');
     }
 
     public function product(): BelongsTo

@@ -16,6 +16,17 @@
                     @method('PUT')
                     <div class="row mb-5">
                         <div class="col-md-6">
+                            <label for="invoice_number" class="form-label">Invoice Number <sup class="text-danger">*</sup></label>
+                            <input type="text" name="invoice_number" value="{{ old('invoice_number', $goodReceiveNote->invoice_number) }}" id="invoice_number"
+                                class="form-control">
+                            @error('invoice_number')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-6">
                             <label for="grn_no" class="form-label">Code <sup class="text-danger ">*</sup></label>
                             <input type="number" readonly name="grn_no"
                                 value="{{ $goodReceiveNote->id }}"

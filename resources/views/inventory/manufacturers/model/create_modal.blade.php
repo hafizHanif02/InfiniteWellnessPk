@@ -20,7 +20,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="manu_code" class="form-label">Code <sup class="text-danger">*</sup></label>
-                                <input type="number" name="code" id="manu_code" class="form-control"
+                                <input type="number" name="code" id="manu_code" class="form-control" required
                                     value="{{ ($manufacturer_id ? $manufacturer_id : 1960) + 1 }}" readonly>
                                 <div class="text-danger" id="manufacturer-code-error"></div>
                             </div>

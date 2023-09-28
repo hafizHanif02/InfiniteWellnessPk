@@ -10,6 +10,7 @@
                     <thead class="table-dark">
                         <tr>
                             <td>#</td>
+                            <td>Invoice #</td>
                             <td>Code</td>
                             <td>Requistion</td>
                             <td>Vendor</td>
@@ -20,6 +21,7 @@
                         @forelse ($goodReceiveNotes as $grn)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $grn->invoice_number }}</td>
                                 <td>{{ $grn->id }}</td>
                                 <td>{{ $grn->requistion->delivery_date }}</td>
                                 <td>{{ $grn->requistion->vendor->account_title }}</td>

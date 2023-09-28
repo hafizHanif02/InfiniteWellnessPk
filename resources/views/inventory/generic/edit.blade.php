@@ -14,6 +14,7 @@
                             <div class="mb-3">
                                 <label for="code" class="form-label">Code<sup class="text-danger">*</sup></label>
                                 <input type="text" name="code" value="{{ $generic->id }}" id="code"
+                                    required
                                     class="form-control @error('code') is-invalid @enderror" readonly
                                     title="Generic code">
                                 @error('code')
@@ -25,7 +26,7 @@
                             <div class="mb-3">
                                 <label for="formula" class="form-label">Generic Formula<sup class="text-danger">*</sup></label>
                                 <input type="text" name="formula" id="formula"
-                                    value="{{ old('formula', $generic->formula) }}" placeholder="Enter Generic Formula"
+                                    value="{{ old('formula', $generic->formula) }}" placeholder="Enter Generic Formula" required
                                     class="form-control @error('formula') is-invalid @enderror" title="Generic formula">
                                 @error('formula')
                                     <div class="text-danger">{{ $message }}</div>

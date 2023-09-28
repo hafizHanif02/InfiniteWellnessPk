@@ -17,10 +17,10 @@ class PurchaseReturnStatusController extends Controller
         ]);
     }
 
-    public function show(PurchaseReturnNote $return): View
+    public function show($return): View
     {
         return view('purchase.purchase-return-status.show', [
-            'purchasereturn' => $return->load(['goodReceiveNote', 'product']),
+            'purchasereturn' => PurchaseReturnNote::where('id',$return)->with(['goodReceiveNote', 'product'])->first(),
         ]);
     }
 

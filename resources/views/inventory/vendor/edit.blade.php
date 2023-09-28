@@ -32,7 +32,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="code" class="form-label">Code <sup class="text-danger">*</sup></label>
-                                <input type="number" name="code" id="code"
+                                <input type="number" name="code" id="code" required
                                     class="form-control @error('code') in-invalid @enderror"
                                     value="{{ old('code', $vendor->id) }}" readonly title="vendor code">
                                 @error('code')
@@ -66,7 +66,7 @@
 
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone <sup class="text-danger">*</sup></label>
-                        <input type="number" name="phone" id="phone"
+                        <input type="number" name="phone" id="phone" required
                             class="form-control @error('phone') in-invalid @enderror"
                             value="{{ old('phone', $vendor->phone) }}" placeholder="Enter phone number"
                             title="Phone number" autocomplete="phone">
@@ -76,7 +76,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <sup class="text-danger">*</sup></label>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="email" required
                             class="form-control @error('email') in-invalid @enderror"
                             value="{{ old('email', $vendor->email) }}" placeholder="Enter email address" title="Email"
                             autocomplete="email">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address <sup class="text-danger">*</sup></label>
-                        <textarea name="address" id="address" class="form-control @error('address') in-invalid @enderror"
+                        <textarea name="address" id="address" required class="form-control @error('address') in-invalid @enderror"
                             placeholder="Enter your address" title="Address" autocomplete="address">{{ old('address', $vendor->address) }}</textarea>
                         @error('address')
                             <small class="text-danger">{{ $message }}</small>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="area" class="form-label">Area <sup class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter area" name="area" id="area"
+                        <input type="text" placeholder="Enter area" name="area" id="area" required
                             class="form-control @error('area') in-invalid @enderror"
                             value="{{ old('area', $vendor->area) }}" title="Area">
                         @error('area')
@@ -145,7 +145,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="city" class="form-label">City <sup class="text-danger">*</sup></label>
-                        <input type="text" placeholder="Enter city" name="city" id="city"
+                        <input type="text" placeholder="Enter city" name="city" id="city" required
                             class="form-control @error('city') in-invalid @enderror"
                             value="{{ old('city', $vendor->city) }}" title="City">
                         @error('city')

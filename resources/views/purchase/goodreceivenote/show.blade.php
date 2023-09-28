@@ -14,6 +14,10 @@
                 <table class="table table-bordered table-hover text-start">
                     <tbody>
                         <tr>
+                            <th>Invoice #</th>
+                            <td>{{ $goodReceiveNote->invoice_number }}</td>
+                        </tr>
+                        <tr>
                             <th>Code</th>
                             <td>{{ $goodReceiveNote->id }}</td>
                         </tr>

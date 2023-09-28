@@ -11,7 +11,7 @@
                     @method('PUT')
                     <div class="mb-5">
                         <label for="name" class="form-label">Name <sup class="text-danger">*</sup></label>
-                        <input type="text" name="name" id="name"
+                        <input type="text" name="name" id="name" required
                             class="form-control @error('name') is-invalid @enderror" value="{{ old('name',$productCategory->name) }}"
                             placeholder="Enter product category name" title="Group name" autocomplete="name">
                         @error('name')

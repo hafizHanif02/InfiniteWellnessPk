@@ -13,6 +13,7 @@ class GoodReceiveNote extends Model
     use HasFactory;
 
     protected $fillable = [
+        'invoice_number',
         'requistion_id',
         'remark',
         'date',

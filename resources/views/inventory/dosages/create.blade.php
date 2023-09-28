@@ -14,7 +14,7 @@
                                 <label for="category_name" class="form-label">Name <sup class="text-danger">*</sup></label>
                                 <input type="text" name="name" id="category_name" value="{{ old('name') }}"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    placeholder="Enter Dosage Form" title="Category name" autocomplete="name">
+                                    placeholder="Enter Dosage Form" title="Category name" required autocomplete="name">
                                 @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

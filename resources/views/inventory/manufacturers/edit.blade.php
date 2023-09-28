@@ -27,7 +27,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="code" class="form-label">Code <sup class="text-danger">*</sup></label>
-                                <input type="number" name="code" id="code"
+                                <input type="number" name="code" id="code" required
                                     class="form-control @error('code') is-invalid @enderror"
                                     value="{{ $manufacturer->id }}" readonly title="Manufacturer code">
                                 @error('code')

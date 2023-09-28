@@ -15,7 +15,7 @@
                         <div class="col-md-6">
                             <div class="mb-5">
                                 <label for="product_id" class="form-label">ID <sup class="text-danger">*</sup></label>
-                                <input type="number" name="product_id" id="product_id"
+                                <input type="number" name="product_id" id="product_id" required
                                     class="form-control"
                                     value="{{ ($product_id ? $product_id : 1010) + 1 }}" title="Unique ID" readonly>
                             </div>
@@ -23,7 +23,7 @@
                         <div class="col-md-5">
                             <div class="mb-5">
                                 <label for="product_category_id" class="form-label">Product Category<sup class="text-danger">*</sup></label>
-                                <select type="text" name="product_category_id" id="product_category_id"
+                                <select type="text" name="product_category_id" id="product_category_id" required
                                     class="form-control @error('product_category_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select category</option>
                                     @forelse ($productCategories as $productCategory)
@@ -60,7 +60,7 @@
                         <label for="generic_id" class="form-label">Generic Formula <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
-                                <select name="generic_id" id="generic_id"
+                                <select name="generic_id" id="generic_id" required
                                     class="form-control @error('generic_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Generic Formula</option>
                                     @forelse ($generics as $generic)
@@ -150,7 +150,7 @@
                         <label for="vendor_id" class="form-label">Vendor <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
-                                <select name="vendor_id" id="vendor_id"
+                                <select name="vendor_id" id="vendor_id" required
                                     class="form-control @error('vendor_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Vendor</option>
                                     @forelse ($vendors as $vendor)
@@ -208,7 +208,7 @@
                             <div class="mb-5">
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
-                                <input type="number" step="any" min="1" name="manufacturer_retail_price"
+                                <input type="number" step="any" min="1" name="manufacturer_retail_price" required
                                     id="manufacturer_retail_price" onkeyup="calculation()"
                                     class="form-control @error('manufacturer_retail_price') is-invalid @enderror"
                                     placeholder="Enter manufacture retail price"
@@ -345,7 +345,7 @@
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="barcode" class="form-label">Barcode</label>
-                                <input type="number" min="1" name="barcode" id="barcode"
+                                <input type="text" min="1" name="barcode" id="barcode"
                                     class="form-control @error('barcode') is-invalid @enderror"
                                     placeholder="Enter barcode" value="{{ old('barcode') }}" title="Barcode">
                                 @error('barcode')

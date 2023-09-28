@@ -11,7 +11,7 @@
                         <div class="col-md-8">
                             <div class="mb-3">
                                 <label for="dosage_name" class="form-label">Name <sup class="text-danger">*</sup></label>
-                                <input type="text" name="dosage_name" id="dosage_name" class="form-control"
+                                <input type="text" name="dosage_name" required id="dosage_name" class="form-control"
                                     placeholder="Enter Dosage Form" autocomplete="name">
                                 <div class="text-danger" id="category-name-error"></div>
                             </div>
@@ -19,7 +19,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="code" class="form-label">Code <sup class="text-danger">*</sup></label>
-                                <input type="number" name="code" id="code" class="form-control"
+                                <input type="number" name="code" required id="code" class="form-control"
                                     value="{{ ($dosage_id ? $dosage_id : 1210) + 1 }}" readonly>
                                 <div class="text-danger" id="category-code-error"></div>
                             </div>

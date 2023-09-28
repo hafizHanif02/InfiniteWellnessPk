@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <label for="generic_code" class="form-label">Code<sup class="text-danger">*</sup></label>
                                 <input type="text" name="code" value="{{ ($generics->last()->id ?? 18880) + 1 }}"
-                                    id="generic_code" class="form-control @error('code') is-invalid @enderror" readonly>
+                                    id="generic_code" required class="form-control @error('code') is-invalid @enderror" readonly>
                                     <div class="text-danger" id="generic-code-error"></div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <div class="mb-3">
                                 <label for="formula" class="form-label">Formula<sup class="text-danger">*</sup></label>
                                 <input type="text" id="formula" name="formula" value="{{ old('formula') }}"
-                                    placeholder="Enter Generic Formula" id="formula"
+                                    placeholder="Enter Generic Formula" required id="formula"
                                     class="form-control  @error('formula') is-invalid @enderror">
                                     <div class="text-danger" id="generic-formula-error"></div>
                             </div>
