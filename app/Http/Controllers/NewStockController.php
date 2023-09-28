@@ -13,6 +13,7 @@ use App\Models\Medicine;
 use App\Models\Shift\Transfer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Models\Inventory\Product;
 
 class NewStockController extends Controller
 {
@@ -26,6 +27,7 @@ class NewStockController extends Controller
 
     public function updateStatus(NewstockRequest $request, Transfer $transfer): RedirectResponse
     {
+
 
         if ($request->status == 1) {
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
@@ -133,6 +135,12 @@ class NewStockController extends Controller
         $transfer->update([
             'status' => $request->status,
         ]);
+        foreach ($transfer->transferProducts as $transferProduct){
+            // dd($transferProduct);
+            Product::where('id',$transferProduct->product_id)->increment([
+                'total_quantity' => $transferProduct->total_piece
+            ]);
+        }
 
         return back();
     }
