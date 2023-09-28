@@ -366,6 +366,15 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             $(document).ready(function() {
+
+            // Capture the key press event on all input fields within the form
+              $('form').on('keypress', 'input', function(e) {
+                if (e.which === 13) { // 13 is the key code for "Enter"
+                  e.preventDefault(); // Prevent the default form submission
+                }
+              }); 
+
+
                 $('#product_category_id, #dosage_id, #manufacturer_id, #vendor_id, #generic_id').select2();
             });
 
