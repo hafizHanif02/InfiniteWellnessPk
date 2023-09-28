@@ -130,7 +130,7 @@ class PosController extends Controller
     public function prescription(Request $request)
     {
         $getPatientID = Patient::where('MR', $request->paitent_id)->get();
-        
+        return $getPatientID;
         if(count($getPatientID) > 0){
             return response()->json([
                 'data' => Prescription::where('patient_id',$getPatientID[0]->id)->with('patient.user','getMedicine.medicine.brand','doctor.user')->get(),
