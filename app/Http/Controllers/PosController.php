@@ -34,19 +34,19 @@ class PosController extends Controller
             'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
-    
+
     }
 
     public function store(PosRequest $request): RedirectResponse
     {
         $userId = auth()->user()->id;
         // echo $userId;
-        //  exit; 
+        //  exit;
 
         $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
-    
+
         foreach ($request->products as $product) {
-    
+
             Pos_Product::create([
                 'pos_id' => $pos->id,
                 'medicine_id' => $product['medicine_id'],
@@ -61,11 +61,11 @@ class PosController extends Controller
                 'user_id' => $userId,
             ]);
 
-            
+
         }
-    
+
         Flash::message('POS created!');
-    
+
         return to_route('pos.proceed-to-pay-page', $pos);
     }
 
@@ -130,7 +130,7 @@ class PosController extends Controller
     public function prescription(Request $request)
     {
         return response()->json([
-            'data' => Prescription::where('patient_id',$request->paitent_id)->with('patient.user','getMedicine.medicine.brand','doctor.user')->get(),
+            'data' => Prescription::where('MR',$request->paitent_id)->with('patient.user','getMedicine.medicine.brand','doctor.user')->get(),
         ]);
     }
     public function Print($pos){
@@ -166,7 +166,7 @@ class PosController extends Controller
         //
     }
 
-   
+
 
     public function update(Request $request, $id)
     {
@@ -186,7 +186,7 @@ class PosController extends Controller
 
     public function posfilterlistindex(Request $request)
     {
-        
+
     return view('pos.filter-list', [
         'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
     ]);
@@ -201,7 +201,7 @@ class PosController extends Controller
 
     public function posreturnfilterlistdata(Request $request)
     {
-        
+
         return view('pos-return.filter-list', [
             'pos' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
         ]);
