@@ -91,6 +91,7 @@ class NewStockController extends Controller
                     ])->update([
                         'selling_price' => $transferProduct->product->unit_trade,
                         'buying_price' => $transferProduct->product->cost_price,
+                        'barcode' => $item->barcode,
                     ]);
                 } else {
                     $brands = Brand::where('name',$transferProduct->product->manufacturer->company_name)->first();
@@ -101,7 +102,7 @@ class NewStockController extends Controller
                             'brand_id' => $brands->id,
                             'name' => $transferProduct->product->product_name,
                             'generic_formula' => $transferProduct->product->generic->formula,
-                            'barcode' => $transferProduct->product->barcode,
+                            'barcode' => $item->barcode,
                             'selling_price' => $transferProduct->product->unit_trade,
                             'buying_price' => $transferProduct->product->cost_price,
                             'description' => $transferProduct->product->package_detail,
