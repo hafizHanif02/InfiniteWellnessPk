@@ -268,13 +268,25 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-5">
                                 <label for="fixed_discount" class="form-label">Fixed Discount</label>
                                 <input type="number" min="1" name="fixed_discount" id="fixed_discount"
                                     class="form-control @error('fixed_discount') is-invalid @enderror"
                                     value="{{ old('fixed_discount') }}" placeholder="Enter fixed discount"
                                     title="Fixed discount">
+                                @error('fixed_discount')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-5">
+                                <label for="fixed_discount" class="form-label">Discount Amount</label>
+                                <input type="number" min="1" name="discount_amount" id="discount_amount"
+                                    class="form-control @error('fixed_discount') is-invalid @enderror"
+                                    value="{{ old('discount_amount') }}" 
+                                    title="Discount Amount" readonly>
                                 @error('fixed_discount')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -307,7 +319,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="mb-5">
-                                <label for="sale_tax_percentage" class="form-label">Sales Tax Percentage</label>
+                                <label for="sale_tax_percentage" class="form-label">Sales Tax Percentage <sup
+                                    class="text-danger">*</sup></label>
                                 <input type="number" min="1" name="sale_tax_percentage" id="sale_tax_percentage"
                                     class="form-control @error('sale_tax_percentage') is-invalid @enderror"
                                     placeholder="Enter Sales Tax in Percentage" value="{{ old('sale_tax_percentage') }}" title="Sales tax">
@@ -366,6 +379,19 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             $(document).ready(function() {
+
+                
+
+                $("#fixed_discount").on('keyup',function(){
+
+                var fixed_discount = $("#fixed_discount").val();
+                var cost_price = $("#cost_price").val();
+
+                var percentage = (fixed_discount / 100) * cost_price;
+                $("#discount_amount").val(percentage);
+                console.log(percentage);
+
+                });
 
             // Capture the key press event on all input fields within the form
               $('form').on('keypress', 'input', function(e) {

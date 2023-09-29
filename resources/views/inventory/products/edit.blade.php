@@ -343,7 +343,7 @@
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="barcode" class="form-label">Barcode</label>
-                                <input type="number" name="barcode" id="barcode" class="form-control"
+                                <input type="text" name="barcode" id="barcode" class="form-control"
                                     value="{{ old('barcode', $product->barcode) }}" placeholder="Enter barcode"
                                     title="Barcode">
                                 @error('barcode')

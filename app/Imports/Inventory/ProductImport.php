@@ -25,7 +25,7 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
             'package_detail' => ['nullable', 'string', 'max:255'],
             'product_category' => ['required', 'exists:product_categories,name', 'max:255'],
             'manufacturer' => ['required', 'exists:manufacturers,company_name', 'max:255'],
-            'vendor' => ['required', 'exists:vendors,contact_person', 'max:255'],
+            // 'vendor' => ['required', 'exists:vendors,contact_person', 'max:255'],
             'unit_of_measurement' => ['required', 'in:unit_quantity,box_quantity'],
             'manufacturer_retail_price' => ['required', 'numeric', 'min:0'],
             'pieces_per_pack' => ['required', 'integer', 'min:0'],
@@ -34,7 +34,7 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
             'fixed_discount' => ['nullable', 'numeric', 'min:0'],
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'discount_trade_price' => ['nullable', 'numeric', 'min:0'],
-            'barcode' => ['nullable', 'numeric', 'min:0'],
+            // 'barcode' => ['nullable', 'numeric', 'min:0'],
         ];
     }
 
@@ -48,7 +48,7 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
                 'package_detail' => $row['package_detail'] ?? null,
                 'product_category_id' => ProductCategory::where('name', $row['product_category'])->pluck('id')->first(),
                 'manufacturer_id' => Manufacturer::where('company_name', $row['manufacturer'])->pluck('id')->first(),
-                'vendor_id' => Vendor::where('contact_person', $row['vendor'])->pluck('id')->first(),
+                // 'vendor_id' => Vendor::where('contact_person', $row['vendor'])->pluck('id')->first(),
                 'unit_of_measurement' => $row['unit_of_measurement'] == 'unit_quantity' ? 1 : 0,
                 'manufacturer_retail_price' => $row['manufacturer_retail_price'],
                 'number_of_pack' => $row['unit_of_measurement'] == 'unit_quantity' ? 1 : $row['number_of_pack'],
