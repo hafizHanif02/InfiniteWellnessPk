@@ -90,9 +90,9 @@
                                 <td>{{ $goodReceiveNoteProduct->product->manufacturer_retail_price }}</td>
                             </tr>
                             <tr>
-
+                                
                                 <th>Sale Tax</th>
-                                <td>{{ $goodReceiveNoteProduct->goodReceiveNote->sale_tax_percentage ?? '-' }}</td>
+                                <td>{{ $goodReceiveNoteProduct->sale_tax_percentage ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <th>Total Amount</th>

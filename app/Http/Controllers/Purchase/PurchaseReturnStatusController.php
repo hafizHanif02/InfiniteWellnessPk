@@ -38,4 +38,18 @@ class PurchaseReturnStatusController extends Controller
 
         return to_route('purchase.purchase-return-status.index')->with('success', 'Purchase status updated!');
     }
+
+
+    // public function retransfer($purchaseretrun){
+    //     $return = PurchaseReturnNote::where('id',$purchaseretrun)->with('product')->first();
+    //     return view('purchase.purchasereturn.retransfer',[
+    //         'return' => $return
+    //     ]);
+    // }
+    public function retransfer($purchaseretrun){
+        $return = PurchaseReturnNote::where('id',$purchaseretrun)->update([
+            'status' => null
+        ]);
+        return to_route('purchase.purchase-return-status.index')->with('success', 'Purchase status rescheduled!');
+    }
 }

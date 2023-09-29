@@ -226,6 +226,7 @@
                                         </td>
                                         <td>
                                             <input type="number" name="products[${index}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>    
+                                            <input type="hidden" name="products[${index}][total_amounts2]" value="${value.cost_price}" id="total_amounts2${value.id}" class="form-control" readonly>    
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
@@ -301,6 +302,7 @@
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").val(0);
                 }
                 $("#" + id + " input[name='products[" + items + "][total_amount]']").val((quantity * (priceperpeice)));
+                $("#" + id + " input[name='products[" + items + "][total_amounts2]']").val((quantity * (priceperpeice)));
             
             }
 
@@ -312,14 +314,16 @@
                 $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice / peice_per_pack );
                 var mainqunatityvalue = $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val();
                 $("#" + id + " input[name='products[" + items + "][total_amount]']").val((total_pack * (priceperpeice)));
+                $("#" + id + " input[name='products[" + items + "][total_amounts2]']").val((total_pack * (priceperpeice)));
                 $("#" + id + " input[name='products[" + items + "][total_piece]']").val(total_pack * mainqunatityvalue);
             }
             function discountPerc(id) {
                 var discountPer = $('#discount_percentage'+id).val();
-                var total_cost_per_product = $('#total_amount'+id).val();
+                var total_cost_per_product = $('#total_amounts2'+id).val();
                 var discount_amount = ((discountPer/100) * total_cost_per_product);
                 $('#discount_amount').val(discount_amount)
                 $('#discount_amount2'+id).val(discount_amount);
+                $('#total_amount'+id).val(total_cost_per_product-discount_amount);
                 discountTotal();
             }
 

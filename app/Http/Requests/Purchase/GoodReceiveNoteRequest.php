@@ -29,6 +29,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'total_discount_amount' => ['nullable', 'numeric', 'min:0'],
             'net_total_amount' => ['required', 'numeric', 'min:0'],
             'advance_tax_percentage' => ['nullable', 'numeric', 'min:0'],
+            'advance_tax_amount' => ['nullable', 'numeric', 'min:0'],
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'products.*' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
@@ -38,6 +39,9 @@ class GoodReceiveNoteRequest extends FormRequest
             'products.*.totalprice2' => ['required', 'numeric', 'min:0'],
             'products.*.batch_no' => ['required', 'integer', 'min:0'],
             'products.*.discount' => ['nullable', 'numeric', 'min:0'],
+            'products.*.saletax_percentage' => ['nullable', 'numeric'],
+            'products.*.saletax_amount' => ['nullable', 'numeric'],
+            
         ];
     }
 

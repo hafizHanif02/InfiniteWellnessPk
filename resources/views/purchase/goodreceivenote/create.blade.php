@@ -143,9 +143,9 @@
                                 <label for="advance_tax_percentage_amount" class="form-label">Advanced Tax
                                     Amount</label>
                                 <input type="number" id="advance_tax_percentage_amount"
-                                    placeholder="Advance Tax Amount" readonly name="advance_tax_percentage_amount"
+                                    placeholder="Advance Tax Amount" readonly name="advance_tax_amount"
                                     class="form-control" value="0">
-                                @error('advance_tax_percentage_amount')
+                                @error('advance_tax_amount')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -156,6 +156,7 @@
                             <input type="number" id="net_total_amountcosts2"   placeholder="Net Total Amount"
                                 name="net_total_amount" readonly class="form-control">
                             <input type="hidden" id="net_total_amountcosts2" >
+                            <input type="hidden" id="net_total_amountcosts3" >
                             
                             @error('net_total_amountcost')
                                 <small class="text-danger">{{ $message }}</small>
@@ -228,7 +229,7 @@
                                                     <input type="checkbox"  name='products[${items}][id]' value="${requistionProduct.product_id}" class="form-check-input">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" value="${requistionProduct.product.product_name}" readonly>
+                                                    <input type="text" class="form-control" title="${requistionProduct.product.product_name}" value="${requistionProduct.product.product_name}" readonly>
                                                 </td>
                                                 
                                                 <td>
@@ -324,7 +325,7 @@
 
             function advanceTax() {
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithouttax = parseFloat($('#net_total_amountcosts2').val());
+                var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
                 var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
                 var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
@@ -382,6 +383,7 @@
                 
                  $('#net_total_amountcost').val(Totalamountwithdisc);
                  $('#net_total_amountcosts2').val(Totalamountwithdisc); 
+                 $('#net_total_amountcosts3').val(Totalamountwithdisc); 
                 advanceTax();
             }
         </script>

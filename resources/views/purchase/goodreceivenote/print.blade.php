@@ -89,7 +89,7 @@
                         <td>{{ ($grnproduct->deliver_qty == null)?'Wait For Approval': $grnproduct->deliver_qty}}</td>
                         <td>
                             {{ $grnproduct->item_amount}}</td>
-                        <td>{{ $goodReceiveNote->sale_tax_percentage }} %</td>
+                        <td>{{ $grnproduct->saletax_percentage }} %</td>
                         <td>{{ $grnproduct->product->discount_trade_price }}.00 %</td>
                         <td>{{ $goodReceiveNote->advance_tax_percentage }}%</td>
                         <td>{{ $grnproduct->item_amount }}</td>
@@ -113,7 +113,7 @@
                     <th>ADV TAX</th>
                     <th></th>
                     <th></th>
-                    <th class="text-center">{{ ($goodReceiveNote->advance_tax_percentage*$goodReceiveNote->total_amount)/100 }}</th>
+                    <th class="text-center">{{ $goodReceiveNote->advance_tax_amount }}</th>
 
                 </tr>
                 <tr>
@@ -147,4 +147,15 @@
     <script nonce="{{ csp_nonce() }}">
         window.print();
     </script>
+    <style>
+        .table-bordered{
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        
+        
+        .text-center-data{
+            text-align: center;
+        }
+    </style>
 </x-layouts.print>

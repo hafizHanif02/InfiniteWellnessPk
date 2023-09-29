@@ -165,7 +165,7 @@
                                         <th class="col" style="min-width: 200px">Generic Formula</th>
                                         <th class="col" style="min-width: 200px">Rmaining Quantity</th>
                                         <th class="col" style="min-width: 200px">MRP Per Unit</th>
-                                        <th class="col" style="min-width: 200px">Dosage</th>
+                                        <th class="col" style="min-width: 200px">Quantity</th>
                                         <th class="col" style="min-width: 200px">Discount Percentage</th>
                                         <th class="col" style="min-width: 200px">GST %</th>
                                         <th class="col" style="min-width: 200px">Time</th>
@@ -557,6 +557,7 @@
             var PricePerUnit = $('#selling_price' + id).val();
             var TotalCost = parseFloat($('#total_amount').val());
             var TotalMedicineCost = (Dosage * PricePerUnit);
+            console.log(TotalMedicineCost);
             $('#product_total_price' + id).val(TotalMedicineCost);
             $('#product_total_prices2' + id).val(TotalMedicineCost)
             ChnageDosageTotal();
@@ -628,13 +629,13 @@
             var discount_percentage = $('#discount_percentage'+id).val();
             var total_quantity_amount = (parseFloat(Dosage) * parseFloat(selling_price)).toFixed(2);
             var amountwithdiscount = (parseFloat(total_quantity_amount) - parseFloat((total_quantity_amount*discount_percentage)/100)).toFixed(2);
-            var gst_percentage = $('#gst_percentage' + id).val();
-            var gst_amount = ((gst_percentage*amountwithdiscount)/100).toFixed(2);
+            var gst_percentage = $('#gst_percentage' + id).val();console.log('GST AMOUNT='+((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage))
+            var gst_amount = (((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage)).toFixed(2);
             var amount_with_gst = (parseFloat(amountwithdiscount) + parseFloat(gst_amount)).toFixed(2);
 
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
-            $('#product_total_price' + id).val(amount_with_gst);
+            // $('#product_total_price' + id).val(amount_with_gst);
 
         //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
         //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
@@ -658,12 +659,12 @@
             });
             var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
             var TotalgstamountToFixed = Totalgstamount.toFixed(2);
-            var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) + parseFloat(TotalgstamountToFixed)).toFixed(2);
+            var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) - parseFloat(TotalgstamountToFixed)).toFixed(2);
             var ForTotalAmount = TotalAmountWithGSTFINAL;
 
             $('#total_saletax').val(TotalgstamountToFixed);
-            $('#total_amount_inc_saletax').val(TotalAmountWithGSTFINAL);
-            $('#total_amount').val(parseFloat(ForTotalAmount)+1);
+            $('#total_amount_ex_saletax').val(TotalAmountWithGSTFINAL);
+            // $('#total_amount').val(parseFloat(ForTotalAmount)+1);
         }
 
 

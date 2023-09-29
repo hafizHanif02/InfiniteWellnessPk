@@ -21,6 +21,7 @@ class GoodReceiveNote extends Model
         'total_discount_amount',
         'net_total_amount',
         'advance_tax_percentage',
+        'advance_tax_amount',
         'sale_tax_percentage',
         'is_approved',
     ];

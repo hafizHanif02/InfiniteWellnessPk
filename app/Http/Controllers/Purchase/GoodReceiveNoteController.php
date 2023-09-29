@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
-use App\Models\Inventory\Vendor;
-use App\Models\Purchase\GoodReceiveNote;
-use App\Models\Purchase\GoodReceiveProduct;
-use App\Models\Purchase\Requistion;
-use App\Models\Purchase\RequistionProduct;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\Inventory\Vendor;
+use Illuminate\Http\JsonResponse;
+use App\Models\Purchase\Requistion;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Purchase\GoodReceiveNote;
+use App\Models\Purchase\RequistionProduct;
+use App\Models\Purchase\GoodReceiveProduct;
+use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -56,10 +57,10 @@ class GoodReceiveNoteController extends Controller
             'total_discount_amount' => $request->total_discount_amount,
             'net_total_amount' => $request->net_total_amount,
             'advance_tax_percentage' => $request->advance_tax_percentage,
+            'advance_tax_amount' => $request->advance_tax_amount,
             'sale_tax_percentage' => $request->sale_tax_percentage,
         ]);
         foreach ($request->products as $product) {
-            dd($products);
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],

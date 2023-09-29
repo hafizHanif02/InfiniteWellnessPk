@@ -20,6 +20,8 @@ class GoodReceiveProduct extends Model
         'item_amount',
         'batch_number',
         'discount',
+        'saletax_percentage',
+        'saletax_amount',
     ];
 
     public function product(): BelongsTo

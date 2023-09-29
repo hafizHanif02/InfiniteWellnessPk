@@ -54,7 +54,6 @@
                                         <td>Qty</td>
                                         <td>Available Qty</td>
                                         <td>Pur Rate</td>
-                                        <td>S Tax</td>
                                         <td>Amount</td>
                                         <td></td>
                                     </tr>
@@ -89,16 +88,18 @@
             function addProduct() {
                 console.log("pass2");
                 var goodReceiveNoteId = $("#good_receive_note_id").val();
-                console.log(goodReceiveNoteId);
+                console.log('goodReceiveNoteId '+goodReceiveNoteId);
                 if (goodReceiveNoteId) {
                     $.ajax({
                         type: "get",
                         url: "/purchase/purchase-return/"+goodReceiveNoteId+"/product-list",
                         success: function(response) {
-                            console.log(response);
                             var items = $("tbody tr").length;
+                            // console.log('TR LEN '+items);
+                            
                             $.each(response.products, function(index, value) {
-                                console.log(value);
+                                items += 1; // Increment items by 1 to count rows correctly
+                                // console.log(items);
                                 $("#add-products").append(`
                                     <tr id="${value.product.id}">
                                         <input type="hidden" name="products[${items}][id]" value="${value.product.id}">
@@ -106,36 +107,33 @@
                                             <input type="text" class="form-control" value="${value.product.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][remaining_quantity]" id="remaining_quantity${items}" class="form-control" value="${value.deliver_qty}" readonly>
+                                            <input type="text" name="products[${items}][remaining_quantity]" id="remaining_quantity${value.product.id}" class="form-control" value="${value.deliver_qty}" readonly>
                                         </td>
                                         <td>
                                             <input type="text"  placeholder="Piece" readonly  min="1" class="form-control" required>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][quantity]"  min="1" value="1" id="minusquantity${items}" max="${value.deliver_qty}" value="${value.good_receive_note.deliver_qty}" name="quantity[${items}]" onkeyup="changeQuantity(${value.product.id},${items})" class="form-control" required>
+                                            <input type="text" name="products[${items}][quantity]"  min="1" value="1" id="minusquantity${value.product.id}" max="${value.deliver_qty}" value="${value.good_receive_note.deliver_qty}" name="quantity[${items}]" onkeyup="changeQuantity(${value.product.id},${items})" class="form-control" required>
                                         </td>
                                         <td>
-                                            <input type="number"  value="${value.product.total_quantity}" id="leftedquantity${items}"  class="form-control" readonly> 
-                                            <input type="hidden"  value="${value.product.total_quantity}" id="leftedquantity2${items}"  class="form-control" readonly>
+                                            <input type="number"  value="${value.product.total_quantity}" id="leftedquantity${value.product.id}"  class="form-control" readonly> 
+                                            <input type="hidden"  value="${value.product.total_quantity}" id="leftedquantity2${value.product.id}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][purchase_rate]" id="${items}" value="${(value.product.cost_price)}" class="form-control" readonly>    
+                                            <input type="number" name="products[${items}][purchase_rate]" id="purchase_rate${value.product.id}" value="${(value.product.cost_price)}" class="form-control" readonly>    
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][sale_tax]" value="${value.good_receive_note.sale_tax_percentage}" class="form-control" readonly>    
-                                        </td>
-                                        <td>
-                                            <input type="number" id="totalprice${items}" name="products[${items}][price]" value="${value.item_amount/value.deliver_qty}" class="form-control" readonly>    
-                                            <input type="hidden" id="totalprice2${items}" name="products[${items}][price]" value="${value.item_amount/value.deliver_qty}" class="form-control" readonly>    
+                                            <input type="number" id="totalprice${value.product.id}" name="products[${items}][price]" value="${value.item_amount/value.deliver_qty}" class="form-control" readonly>    
+                                            <input type="hidden" id="totalprice2${value.product.id}" name="products[${items}][price]" value="${value.item_amount/value.deliver_qty}" class="form-control" readonly>    
 
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.product.id})" class="text-danger fa fa-trash"></i>
                                         </td>
-                                        <input type="hidden" id="discountamount${items}" value="${(value.product.disctradeprice * value.product.cost_price)/100 }">
-                                        <input type="hidden" id="tradeprice${items}" value="${value.product.tradeprice/value.product.pieces_per_pack}">
-                                        <input type="hidden" id="totalquantity${items}" value="${value.deliver_qty}">
-                                        <input type="hidden" id="leftedprice${items}" value="" name="leftedprice${items}">
+                                        <input type="hidden" id="discountamount${value.product.id}" value="${(value.product.disctradeprice * value.product.cost_price)/100 }">
+                                        <input type="hidden" id="tradeprice${value.product.id}" value="${value.product.tradeprice/value.product.pieces_per_pack}">
+                                        <input type="hidden" id="totalquantity${value.product.id}" value="${value.deliver_qty}">
+                                        <input type="hidden" id="leftedprice${value.product.id}" value="" name="leftedprice${value.product.id}">
                                     </tr>
                                 `);
                             });
@@ -151,14 +149,14 @@
             }
 
             function changeQuantity(id, items) {
-                var minusquantity = $('#minusquantity' + items).val();
-                var totalquanitity = $('#totalquantity' + items).val();
-                var price = $('#totalprice2' + items).val();
-                var tradeprice = $('#tradeprice' + items).val();
-                $("#leftedquantity" + items).val($("#leftedquantity2" + items).val() - parseInt(minusquantity));
-                $('#totalprice' + items).val((price) * (minusquantity));
-                var minusprice = $("#totalprice" + items).val()
-                $('#leftedprice' + items).val(parseInt(minusprice) - parseInt(price))
+                var minusquantity = $('#minusquantity' + id).val();
+                var totalquanitity = $('#totalquantity' + id).val();
+                var price = $('#totalprice2' + id).val();
+                var tradeprice = $('#tradeprice' + id).val();
+                $("#leftedquantity" + id).val($("#leftedquantity2" + id).val() - parseInt(minusquantity));
+                $('#totalprice' + id).val((price) * (minusquantity));
+                var minusprice = $("#totalprice" + id).val()
+                $('#leftedprice' + id).val(parseInt(minusprice) - parseInt(price))
                 $('#remaining_quantity'+items).val(parseInt(totalquanitity) - parseInt(minusquantity))
             }
 

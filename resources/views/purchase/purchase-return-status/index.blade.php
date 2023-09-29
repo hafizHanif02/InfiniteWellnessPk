@@ -49,6 +49,10 @@
                                         <div class="badge badge-success">Approved</div>
                                     @else
                                         <div class="badge badge-danger">Rejected</div>
+                                        <a href="{{route('purchase.purchase-return-status.retransfer',$purchasereturn->id) }}"><button type="button" title="Retransfer"
+                                                class="bg-transparent border-0 text-primary ms-5">
+                                                <i class="fa fa-recycle"></i>
+                                            </button></a>
                                     @endif
                                 </td>
                                 <td>

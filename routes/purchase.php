@@ -49,6 +49,7 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
 
     // Purchase return status
     Route::resource('purchase-return-status', PurchaseReturnStatusController::class);
+    Route::get('purchase-return-status/retransfer/{purchasereturn}',[ PurchaseReturnStatusController::class,'retransfer'])->name('purchase-return-status.retransfer');
 
     // Purchase GRN Print
     Route::get('good_receive_note/print/{id}', [GoodReceiveNoteController::class, 'print'])->name('good_receive_note.print');
