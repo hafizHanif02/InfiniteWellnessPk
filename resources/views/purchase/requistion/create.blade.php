@@ -139,6 +139,12 @@
         <script nonce="{{ csp_nonce() }}">
             $(document).ready(function() {
                 $('#manufacturer_id, #product_id').select2();
+                // Capture the key press event on all input fields within the form
+            $('form').on('keypress', 'input', function(e) {
+                if (e.which === 13) { // 13 is the key code for "Enter"
+                e.preventDefault(); // Prevent the default form submission
+                }
+            });
             });
             $("#add-btn").click(function(e) {
                 e.preventDefault();
@@ -248,7 +254,7 @@
 
                 var previouse_price = $("#previouse_pricess" + id).val();
                 var pieces_per_pack = $("#pieces_per_pack" + id).val();
-                // console.log(previouse_price, pieces_per_pack)
+                console.log(previouse_price, pieces_per_pack);
                 // console.log(pieces_per_pack);
                 var limit = $("#selectLimit" + items).val();
                 var amount = $("#" + id + " input[name='products[" + items + "][total_amount]']").val();
@@ -257,6 +263,8 @@
                 var TotalPack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
                 if (limit == 1) {
                     // UNIT
+                    $('#price_per_unit'+items).val(0);
+                    $('#previouse_price'+id).val(previouse_price);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
                     $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
                         'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
@@ -265,7 +273,7 @@
                     // BOX
                     var pprice = pieces_per_pack * previouse_price;
                     console.log(pprice);
-                    $("#previouse_price").val(pprice);
+                    $("#previouse_price"+id).val(pprice);
                     
                     $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(0);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',

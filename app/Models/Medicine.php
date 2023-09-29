@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Label;
 use Eloquent as Model;
 use Illuminate\Support\Carbon;
+use App\Models\Inventory\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -55,6 +56,7 @@ class Medicine extends Model
     public $table = 'medicines';
 
     public $fillable = [
+        'product_id',
         'category_id',
         'brand_id',
         'total_quantity',
@@ -125,6 +127,10 @@ class Medicine extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
     public function label(): BelongsTo
     {
         return $this->belongsTo(Label::class);

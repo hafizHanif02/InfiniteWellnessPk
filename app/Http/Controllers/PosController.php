@@ -30,7 +30,7 @@ class PosController extends Controller
     {
         return view('pos.create', [
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
-            'medicines' => Medicine::all(),
+            'medicines' => Medicine::with('product')->get(),
             'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);

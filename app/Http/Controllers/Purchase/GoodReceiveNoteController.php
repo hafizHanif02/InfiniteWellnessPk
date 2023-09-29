@@ -59,6 +59,7 @@ class GoodReceiveNoteController extends Controller
             'sale_tax_percentage' => $request->sale_tax_percentage,
         ]);
         foreach ($request->products as $product) {
+            dd($products);
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],
@@ -68,6 +69,8 @@ class GoodReceiveNoteController extends Controller
                 'item_amount' => $product['totalprice2'],
                 'batch_number' => $product['batch_no'],
                 'discount' => $product['discount'],
+                'saletax_percentage' => $product['saletax_percentage'],
+                'saletax_amount' => $product['saletax_amount'],
             ]);
         }
 

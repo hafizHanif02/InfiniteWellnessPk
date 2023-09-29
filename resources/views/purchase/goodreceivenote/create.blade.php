@@ -16,7 +16,7 @@
                     <div class="row mb-5">
                         <div class="col-md-6">
                             <label for="invoice_number" class="form-label">Invoice Number <sup class="text-danger">*</sup></label>
-                            <input type="text" name="invoice_number" id="invoice_number"
+                            <input type="text" name="invoice_number" placeholder="Enter Your Invoice Number" id="invoice_number"
                                 class="form-control">
                             @error('invoice_number')
                                 <small class="text-danger">{{ $message }}</small>
@@ -93,6 +93,8 @@
                                         <td  style="min-width: 200px">Reamining Total Piece</td>
                                         <td  style="min-width: 200px">Deliver Total Piece (Pcs)</td>
                                         <td  style="min-width: 150px">Discount %</td>
+                                        <td  style="min-width: 150px">SaleTax %</td>
+                                        <td  style="min-width: 150px">SaleTax Amount</td>
                                         <td  style="min-width: 150px">Bonus</td>
                                         <td  style="min-width: 150px">Exp Date</td>
                                         <td  style="min-width: 150px">Batch No.</td>
@@ -148,32 +150,12 @@
                                 @enderror
                             </div>
                         </div>
-
-
-                        <div class="row mb-3 mt-3">
-                            <div class="col-md-7">
-                                <label for="sale_tax_percentage" class="form-label">Sale Tax %</label>
-                                <input type="number" min="0" value="0" id="sale_tax_percentage"
-                                    name="sale_tax_percentage" onkeyup="advanceTax()" class="form-control">
-                                @error('sale_tax_percentage')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-5">
-                                <label for="sales_taxamount" class="form-label">Sales Tax Amount</label>
-                                <input type="number" id="sales_taxamount" placeholder="Sales Tax Amount"
-                                    name="sales_taxamount" readonly class="form-control" value="0">
-                                @error('sales_taxamount')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <label for="net_total_amountcost" class="form-label">Net Total Amount <sup
                                     class="text-danger">*</sup></label>
-                            <input type="number" id="net_total_amountcost" placeholder="Net Total Amount"
+                            <input type="number" id="net_total_amountcosts2"   placeholder="Net Total Amount"
                                 name="net_total_amount" readonly class="form-control">
-                            <input type="hidden" id="net_total_amountcost2">
+                            <input type="hidden" id="net_total_amountcosts2" >
                             
                             @error('net_total_amountcost')
                                 <small class="text-danger">{{ $message }}</small>
@@ -260,8 +242,14 @@
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="products[${items}][discount]" onkeyup="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >
-                                                    <input type="hidden" readonly  name="products[${items}][discount_amount]"   id="discount_amount${requistionProduct.id}" class="form-control" >
+                                                    <input type="hidden" readonly  name="products[${items}][discount_amount]"   id="discount_amount${requistionProduct.id}" value="0" class="form-control" >
                                                 </td>
+                                                <td>
+                                                    <input type="number" min="0" name="products[${items}][saletax_percentage]" onkeyup="saletaxPerc(${requistionProduct.id})"  id="saletax${requistionProduct.id}" value="0" class="form-control" >
+                                                </td>
+                                                <td>
+                                                    <input type="number" readonly  name="products[${items}][saletax_amount]"   id="saletax_amount${requistionProduct.id}" class="form-control" >
+                                                </td>    
                                                 <td>
                                                     <input type="number" name="products[${items}][item_bonus]" value="0" min="0" class="form-control" >
                                                 </td>
@@ -269,7 +257,7 @@
                                                     <input type="date" name="products[${items}][expiry_date]"  class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="products[${items}][batch_no]" class="form-control" >
+                                                    <input type="text" name="products[${items}][batch_no]" class="form-control" >
                                                 </td>
                                                 <td>
                                                     <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>  
@@ -315,7 +303,6 @@
                 $("#total_amountcost").val(totalAmount);
                 $('#net_total_amountcost').val(totalAmount);
                 $("#totalcostwithtax").val(totalAmount);
-                $('#net_total_amountcost3').val(totalAmount);
 
 
                 discountTotal();
@@ -326,23 +313,28 @@
                 $('#save-goodreceivenote-form').submit();
             });
 
+            function saletaxPerc(id){
+                var Saletax_percentage = $('#saletax' + id).val();
+                var total_cost_per_product = $('#totalprice2' + id).val();
+                var Saletax_amount = (Saletax_percentage * total_cost_per_product) / 100;
+                console.log(Saletax_amount, total_cost_per_product);
+                $('#saletax_amount' + id).val(Saletax_amount);
+            }
 
 
             function advanceTax() {
-                console.log("adv tax start");
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithouttax = parseFloat($('#net_total_amountcost2').val());
+                var totalcostwithouttax = parseFloat($('#net_total_amountcosts2').val());
                 var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
                 var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
                 $('#advance_tax_percentage_amount').val(advanceTaxAmount);
 
-                var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
-                $('#sales_taxamount').val(salesTaxAmount);
+                // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
+                // $('#sales_taxamount').val(salesTaxAmount);
 
-                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount) + parseFloat(salesTaxAmount));
-                $('#net_total_amountcost').val(amountwithtax);
-                console.log("adv tax end");
+                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
+                $('#net_total_amountcosts2').val(amountwithtax);
             }
 
 
@@ -358,27 +350,38 @@
             };
 
             function discountPerc(id) {
+
+                var minusquantity = $('#minusquantity'+id).val();
+                var amount = $("#price_per_unit" + id).val();
+                var totalPrice = minusquantity*amount;
                 var discountPer = $('#discount' + id).val();
-                var total_cost_per_product = $('#totalprice2' + id).val();
-                var discount_amount = (discountPer * total_cost_per_product) / 100;
-                console.log(discountPer, total_cost_per_product);
+                var numdiscountPer = Number(discountPer);
+                // var total_cost_per_product = $('#totalprice2' + id).val();
+                var discount_amount = (numdiscountPer * totalPrice) / 100;
                 $('#discount_amount' + id).val(discount_amount)
+                var amountwithdiscount = totalPrice - discount_amount;
+                $('#totalprice2'+id).val(amountwithdiscount);              
                 discountTotal();
             }
 
             function discountTotal() {
                 var discount = 0;
+                var discountnum = Number(discount);
                 $("input[id^='discount_amount']").each(function() {
                     if($(this).val() != ''){
-                        discount += parseFloat($(this).val());
+                        discountnum += parseFloat($(this).val());
                     }
                 });
-                
-                $('#total_discount_amount').val(discount);
+                $('#total_discount_amount').val(discountnum);
                 var total_amount = $('#totalcostwithtax').val();
-                console.log("discount "+ discount, total_amount);
-                $('#net_total_amountcost2').val(total_amount-discount);
-                //$('#net_total_amountcost').val(total_amount-discount); 
+                var testNum = Number(total_amount);
+                var amountwithdisc =  Number(testNum - discountnum);
+                var Totalamountwithdisc = amountwithdisc.toString();
+                console.log(amountwithdisc);
+ 
+                
+                 $('#net_total_amountcost').val(Totalamountwithdisc);
+                 $('#net_total_amountcosts2').val(Totalamountwithdisc); 
                 advanceTax();
             }
         </script>

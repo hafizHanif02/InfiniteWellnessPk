@@ -98,6 +98,7 @@ class NewStockController extends Controller
                     if($brands){
                         Medicine::create([
                             'dosage_form' => $transferProduct->product->dosage->name,
+                            'product_id' => $transferProduct->product->id,
                             'category_id' => $transferProduct->product->product_category_id,
                             'brand_id' => $brands->id,
                             'name' => $transferProduct->product->product_name,
@@ -117,6 +118,7 @@ class NewStockController extends Controller
                         ]);
                         Medicine::create([
                             'dosage_form' => $transferProduct->product->dosage->name,
+                            'product_id' => $transferProduct->product->id,
                             'category_id' => $transferProduct->product->product_category_id,
                             'brand_id' => $brands->id,
                             'name' => $transferProduct->product->product_name,

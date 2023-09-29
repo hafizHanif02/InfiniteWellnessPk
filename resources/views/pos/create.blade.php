@@ -464,10 +464,10 @@
                             <select name="products[${a}][product_name]" class="form-control medicine-select" id="medicine${a}" onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}" data-medicine_id="{{ $medicine->id }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ ($medicine->product != null)?$medicine->product->sale_tax_percentage:'' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
-                                    @endforeach
+                                @endforeach
                             </select>
                         </td>
                         <td>
@@ -488,7 +488,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" disabled id="gst_percentage${a}" class="form-control" >
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
@@ -528,11 +528,14 @@
             const sellingpriceTag = document.getElementById('selling_price' + id);
             var totalMedicineAmount = document.getElementById('product_total_price' + id);
             var totalMedicineAmount2 = document.getElementById('product_total_prices2' + id);
+            var gst_perc_tag = document.getElementById('gst_percentage' + id);
             var medicineID = document.getElementById('medicineID' + id);
             var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
+            const gstpercentage = selectedOption.getAttribute('data-gst');
+            
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
             const GenericFormula = selectedOption.getAttribute('data-generic_formula');
@@ -542,6 +545,8 @@
             totalMedicineAmount.value = totalPrice;
             totalMedicineAmount2.value = totalPrice;
             medicineID.value = MedicineId;
+            gst_perc_tag.value = gstpercentage;
+
             sellingpriceTag.value = sellingPriceValue;
             genericformulatag.value = GenericFormula;
 
