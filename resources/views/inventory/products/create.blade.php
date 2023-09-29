@@ -270,7 +270,8 @@
                         </div>
                         <div class="col-md-2">
                             <div class="mb-5">
-                                <label for="fixed_discount" class="form-label">Fixed Discount</label>
+                                <label for="fixed_discount" class="form-label">Fixed Discount<sup
+                                    class="text-danger">*</sup></label>
                                 <input type="number" min="1" name="fixed_discount" id="fixed_discount"
                                     class="form-control @error('fixed_discount') is-invalid @enderror"
                                     value="{{ old('fixed_discount') }}" placeholder="Enter fixed discount"
@@ -389,7 +390,6 @@
 
                 var percentage = (fixed_discount / 100) * cost_price;
                 $("#discount_amount").val(percentage);
-                console.log(percentage);
 
                 });
 
