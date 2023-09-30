@@ -61,27 +61,27 @@
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
                     <td class="text-center">{{ $requistionproduct->price_per_unit }}</td>
                     <td class="text-center">{{ $requistionproduct->total_amount}}</td>
-                    <td class="text-center">{{ $requistionproduct->discount_percentage }}.00 %</td>
+                    <td class="text-center">{{ number_format($requistionproduct->discount_percentage, 2, '.', '') }} %</td>
                     <td class="text-center">{{ ($requistionproduct->product->sale_tax != null)?$requistionproduct->product->sale_tax.'%':'-' }} </td>
                     <td class="text-center" class="text-center">{{ $requistionproduct->total_amount }}</td>
-                    <td class="text-center">{{ $requistionproduct->total_amount }}.00</td>
+                    <td class="text-center">{{ number_format($requistionproduct->total_amount, 2, '.', '') }}</td>
                 </tr>
             @endforeach
             <tr>
                 <td scope="row" rowspan="3" colspan="9"></td>
                 <th>Total</th>
-                <th>{{ $requistion->requistionProducts->sum('total_amount') }}</th>
-                <th>{{ $requistion->requistionProducts->sum('total_amount') }}</th>
+                <th>{{ number_format($requistion->requistionProducts->sum('total_amount'), 2, '.', '') }}</th>
+                <th>{{ number_format($requistion->requistionProducts->sum('total_amount'), 2, '.', '') }}</th>
             </tr>
             <tr>
                 <th>Dis Amount</th>
-                <th>{{ $requistion->discount_amount}}</th>
-                <th>{{ $requistion->discount_amount}}</th>
+                <th>{{ number_format($requistion->discount_amount, 2, '.', '')}}</th>
+                <th>{{ number_format($requistion->discount_amount, 2, '.', '')}}</th>
             </tr>
             <tr>
                 <th>Grand Total</th>
-                <th>{{ $totalcost - $requistion->discount_amount }}</th>
-                <th>{{ $totalcost - $requistion->discount_amount }} /-</th>
+                <th>{{ number_format($totalcost - $requistion->discount_amount, 2, '.', '') }}</th>
+                <th>{{ number_format($totalcost - $requistion->discount_amount, 2, '.', '') }} /-</th>
             </tr>
             <tr rowspan="2">
                 <th style="padding: 20px;" class="text-center" colspan="6">Prepared By:</th>
