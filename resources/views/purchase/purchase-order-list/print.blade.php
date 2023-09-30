@@ -85,7 +85,7 @@
             </tr>
             <tr rowspan="2">
                 <th style="padding: 20px;" class="text-center" colspan="6">Prepared By:</th>
-                <th style="padding: 20px;" class="text-center" colspan="4">Cheked By:</th>
+                <th style="padding: 20px;" class="text-center" colspan="4">Checked By:</th>
                 <th style="padding: 20px;" class="text-center" colspan="2">Approved By:</th>
             </tr>
 
