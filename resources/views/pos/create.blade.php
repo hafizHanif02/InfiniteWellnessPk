@@ -332,6 +332,12 @@
                 });
             });
 
+            $("input").on("keyup", function() {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+
             $('#patient_mr_number').change(function() {
 
 
