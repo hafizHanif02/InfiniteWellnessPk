@@ -16,7 +16,8 @@ Transfer Report
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Code</th>
+                            <th>Date</th>
+                            <th>Tranfer ID</th>
                             <th>Total Price Amount</th>
                             <th>Total Supply Quantity</th>
                             <th>Status</th>
@@ -25,7 +26,7 @@ Transfer Report
                     </thead>
                     <tbody>
                         @forelse ($reportStocks as $reportStock)
-                        
+
                             <tr class="data">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $reportStock->supply_date }}</td>
