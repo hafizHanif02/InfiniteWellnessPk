@@ -139,6 +139,14 @@
     </div>
     @push('scripts')
     <script> 
+    $(document).ready(function() {
+
+        $('form').on('keypress', 'input', function(e) {
+                    if (e.which === 13) { 
+                    e.preventDefault(); 
+                    }
+                });
+    });
         function removeRaw(id) {
             $("#" + id).remove();
         }

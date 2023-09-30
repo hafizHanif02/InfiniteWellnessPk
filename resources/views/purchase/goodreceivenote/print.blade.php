@@ -132,14 +132,14 @@
 
                 <tr>
                     <th class="text-center" style="padding: 20px;" colspan="7">Prepared By:</th>
-                    <th class="text-center" style="padding: 20px;" colspan="4">Cheked By:</th>
+                    <th class="text-center" style="padding: 20px;" colspan="4">Checked By:</th>
                     <th class="text-center" style="padding: 20px;" colspan="2">Approved By:</th>
                 </tr>
 
                 <tr>
                     <th class="text-center" style="padding: 20px;" colspan="7">ASSISTANT MANAGER SUPPLY CHAIN</th>
                     <th class="text-center" style="padding: 20px;" colspan="4">FINANCE</th>
-                    <th class="text-center" style="padding: 20px;" colspan="2">DIRECTOR OPERATION</th>
+                    <th class="text-center" style="padding: 20px;" colspan="2">DIRECTOR OPERATIONS</th>
                 </tr>
             </tbody>
         </table>

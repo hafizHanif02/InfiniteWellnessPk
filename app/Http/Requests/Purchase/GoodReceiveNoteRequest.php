@@ -35,9 +35,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
             'products.*.bonus' => ['nullable', 'integer', 'min:0'],
-            
             'products.*.totalprice2' => ['required', 'numeric', 'min:0'],
-
             'products.*.discount' => ['nullable', 'numeric', 'min:0'],
             'products.*.saletax_percentage' => ['nullable', 'numeric'],
             'products.*.saletax_amount' => ['nullable', 'numeric'],

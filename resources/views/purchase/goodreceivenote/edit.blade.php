@@ -193,6 +193,13 @@
         <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
         </script>
         <script nonce="{{ csp_nonce() }}">
+        $(document).ready(function() {
+            $('form').on('keypress', 'input', function(e) {
+                if (e.which === 13) { 
+                e.preventDefault(); 
+                }
+            });
+        });
             $(document).ready(function() {
                 $('#vendor_id, #requistion').select2();
             });

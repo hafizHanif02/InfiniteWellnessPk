@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Inventory\ProductRequest;
-use App\Imports\Inventory\ProductImport;
-use App\Models\Inventory\Dosage;
-use App\Models\Inventory\Generic;
-use App\Models\Inventory\Manufacturer;
-use App\Models\Inventory\Product;
-use App\Models\Inventory\ProductCategory;
-use App\Models\Inventory\StockIn;
-use App\Models\Inventory\Vendor;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Patient;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\Inventory\Dosage;
+use App\Models\Inventory\Vendor;
+use App\Models\Inventory\Generic;
+use App\Models\Inventory\Product;
+use App\Models\Inventory\StockIn;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Inventory\Manufacturer;
+use App\Imports\Inventory\ProductImport;
+use App\Models\Inventory\ProductCategory;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Inventory\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -182,5 +183,12 @@ class ProductController extends Controller
         $product->delete();
 
         return back()->with('success', 'Product deleted!');
+    }
+
+
+    public function form(){
+        return view('inventory.products.form',[
+            'patients' => Patient::with('user')->get(),
+        ]);
     }
 }

@@ -139,10 +139,9 @@
         <script nonce="{{ csp_nonce() }}">
             $(document).ready(function() {
                 $('#manufacturer_id, #product_id').select2();
-                // Capture the key press event on all input fields within the form
             $('form').on('keypress', 'input', function(e) {
-                if (e.which === 13) { // 13 is the key code for "Enter"
-                e.preventDefault(); // Prevent the default form submission
+                if (e.which === 13) {
+                e.preventDefault(); 
                 }
             });
             });
