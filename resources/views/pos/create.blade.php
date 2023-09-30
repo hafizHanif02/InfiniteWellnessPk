@@ -116,7 +116,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
-                                            <button type="button" data-dismiss="modal" aria-label="Close" onclick="clearGroupForm()" class="btn-close"></button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         </div>
                                         <div class="modal-body">
                                             <input id="myInput" class="form-control" type="text"
