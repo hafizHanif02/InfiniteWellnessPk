@@ -25,7 +25,7 @@ Transfer Report
                     </thead>
                     <tbody>
                         @forelse ($reportStocks as $reportStock)
-                        {{dd($reportStock) }}
+                        
                             <tr class="data">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $reportStock->supply_date }}</td>
@@ -34,7 +34,7 @@ Transfer Report
                                 <td>{{ $reportStock->total_supply_quantity }}</td>
                                 <td>{{ $reportStock->status === null ? 'Pending' : ($reportStock->status == 1 ? 'Approved' : 'Rejected') }}</td>
                                 <td>
-                                    <a href="{{ route('new-stocks.report.show',$reportStock->id) }}"><i class="fa fa-eye"></i></a>    
+                                    <a href="{{ route('new-stocks.report.show',$reportStock->id) }}"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @empty
