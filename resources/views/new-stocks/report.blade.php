@@ -18,8 +18,8 @@ Transfer Report
                             <th>#</th>
                             <th>Date</th>
                             <th>Tranfer ID</th>
-                            <th>Total Price Amount</th>
-                            <th>Total Supply Quantity</th>
+                            {{-- <th>Total Price Amount</th>
+                            <th>Total Supply Quantity</th> --}}
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -31,8 +31,8 @@ Transfer Report
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $reportStock->supply_date }}</td>
                                 <td>{{ $reportStock->id }}</td>
-                                <td>{{ $reportStock->total_price_amount }}</td>
-                                <td>{{ $reportStock->total_supply_quantity }}</td>
+                                {{-- <td>{{ $reportStock->total_price_amount }}</td>
+                                <td>{{ $reportStock->total_supply_quantity }}</td> --}}
                                 <td>{{ $reportStock->status === null ? 'Pending' : ($reportStock->status == 1 ? 'Approved' : 'Rejected') }}</td>
                                 <td>
                                     <a href="{{ route('new-stocks.report.show',$reportStock->id) }}"><i class="fa fa-eye"></i></a>
