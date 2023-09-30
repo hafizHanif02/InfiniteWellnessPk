@@ -26,8 +26,9 @@ class PosController extends Controller
         ]);
     }
 
-    public function create(): View
+    public function create()
     {
+        return Medicine::with('product')->get();
         return view('pos.create', [
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
             'medicines' => Medicine::with('product')->get(),
