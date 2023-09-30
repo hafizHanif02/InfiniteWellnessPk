@@ -332,9 +332,9 @@
                 });
             });
 
-            $("input").on("keyup", function() {
-                if (event.key === "Enter") {
-                    event.preventDefault();
+            $('form').on('keypress', 'input', function(e) {
+                if (e.which === 13) { // 13 is the key code for "Enter"
+                e.preventDefault(); // Prevent the default form submission
                 }
             });
 
