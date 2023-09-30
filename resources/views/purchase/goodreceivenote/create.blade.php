@@ -15,7 +15,7 @@
                     @csrf
                     <div class="row mb-5">
                         <div class="col-md-6">
-                            <label for="invoice_number" class="form-label">Invoice Number <sup class="text-danger">*</sup></label>
+                            <label for="invoice_number" class="form-label">Invoice Number</label>
                             <input type="text" name="invoice_number" placeholder="Enter Your Invoice Number" id="invoice_number"
                                 class="form-control">
                             @error('invoice_number')
@@ -157,7 +157,7 @@
                                 name="net_total_amount" readonly class="form-control">
                             <input type="hidden" id="net_total_amountcosts2" >
                             <input type="hidden" id="net_total_amountcosts3" >
-                            
+
                             @error('net_total_amountcost')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -226,12 +226,12 @@
                                         $('#add-products').append(`
                                             <tr id="${requistionProduct.product_id}">
                                                 <td>
-                                                    <input type="checkbox"  name='products[${items}][id]' value="${requistionProduct.product_id}" class="form-check-input">
+                                                    <input type="checkbox"  name='products[${items}][id]' value="${requistionProduct.product_id}" class="form-check-input" checked>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" title="${requistionProduct.product.product_name}" value="${requistionProduct.product.product_name}" readonly>
                                                 </td>
-                                                
+
                                                 <td>
                                                     <input type="number"  class="form-control"  id="totalquantity${requistionProduct.id}" value="${requistionProduct.total_piece}" readonly>
                                                 </td>
@@ -250,7 +250,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="number" readonly  name="products[${items}][saletax_amount]"   id="saletax_amount${requistionProduct.id}" class="form-control" >
-                                                </td>    
+                                                </td>
                                                 <td>
                                                     <input type="number" name="products[${items}][item_bonus]" value="0" min="0" class="form-control" >
                                                 </td>
@@ -261,21 +261,21 @@
                                                     <input type="text" name="products[${items}][batch_no]" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>  
+                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
                                                 </td>
-                                               
+
                                                 <td>
-                                                    <input type="number" id="totalprice2${requistionProduct.id}" name="products[${items}][totalprice]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>    
-                                                    <input type="hidden" id="totalpricefordiscount${requistionProduct.id}" name="products[${items}][totalpricefordiscount]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>    
+                                                    <input type="number" id="totalprice2${requistionProduct.id}" name="products[${items}][totalprice]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
+                                                    <input type="hidden" id="totalpricefordiscount${requistionProduct.id}" name="products[${items}][totalpricefordiscount]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
                                                 </td>
                                             </tr>
-                                           
+
                                                     <input type="hidden" class="form-control" value="${requistionProduct.disc}" readonly>
-                                                    <input type="number" value="${requistionProduct.sale_tax_percentage}" class="form-control" readonly>    
-                                                    <input type="hidden" class="form-control" value="${requistionProduct.disc_amount }" readonly>    
+                                                    <input type="number" value="${requistionProduct.sale_tax_percentage}" class="form-control" readonly>
+                                                    <input type="hidden" class="form-control" value="${requistionProduct.disc_amount }" readonly>
                                                     <input type="hidden" id="price_per_unit${requistionProduct.id}" value="${requistionProduct.price_per_unit}"
-                                                
-                                                               
+
+
                                         `);
                                     }
                                 });
@@ -342,7 +342,7 @@
             function saleTax() {
                 // var SaleTaxPercPerc = $('#sale_tax_percentage').val();
                 // var NetTotalAmountWithAdvTax = $('#net_total_amountcost2').val();
-                
+
                 // var peramountsales = (parseFloat((SaleTaxPercPerc * totalcostwithtax) / 100)).toFixed(2);
                 // $('#sales_taxamount').val(peramountsales);
                 // var amountwithtaxsale = (parseFloat(NetTotalAmountWithAdvTax) + parseFloat(peramountsales));
@@ -361,7 +361,7 @@
                 var discount_amount = (numdiscountPer * totalPrice) / 100;
                 $('#discount_amount' + id).val(discount_amount)
                 var amountwithdiscount = totalPrice - discount_amount;
-                $('#totalprice2'+id).val(amountwithdiscount);              
+                $('#totalprice2'+id).val(amountwithdiscount);
                 discountTotal();
             }
 
@@ -379,11 +379,11 @@
                 var amountwithdisc =  Number(testNum - discountnum);
                 var Totalamountwithdisc = amountwithdisc.toString();
                 console.log(amountwithdisc);
- 
-                
+
+
                  $('#net_total_amountcost').val(Totalamountwithdisc);
-                 $('#net_total_amountcosts2').val(Totalamountwithdisc); 
-                 $('#net_total_amountcosts3').val(Totalamountwithdisc); 
+                 $('#net_total_amountcosts2').val(Totalamountwithdisc);
+                 $('#net_total_amountcosts3').val(Totalamountwithdisc);
                 advanceTax();
             }
         </script>

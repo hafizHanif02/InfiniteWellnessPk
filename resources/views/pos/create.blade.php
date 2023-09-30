@@ -144,7 +144,8 @@
                                                                 data-total_quantity="{{ $medicine->total_quantity }}"
                                                                 data-selling_price="{{ $medicine->selling_price }}"
                                                                 data-brand_name="{{ $medicine->brand->name }}"
-                                                                data-brand_id="{{ $medicine->brand->id }}">
+                                                                data-brand_id="{{ $medicine->brand->id }}"
+                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}">
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
@@ -386,17 +387,17 @@
                 $('#doctor_name').val(selectedDoctorAttr);
 
                 var total = 0;
-
+                console.log(selectedMedicinesAttr);
                 selectedMedicinesAttr.forEach(function(medicine, items) {
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
-                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.brand.name}" data-brand_id="${medicine.medicine.brand.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
+                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
                         </td>
-                    <td><input type="text" class="form-control" readonly id="mrp_perunit${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
+                    <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                     <td>
                         <input type="number"  step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
@@ -404,7 +405,7 @@
                             <input type="hidden" value="0" readonly  name="products[${items}][discount_amounts2]" id="discount_amounts2${items}" class="form-control">
                         </td>
                     <td>
-                        <input type="number"  step="any"onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="0" class="form-control"  name="products[${items}][gst_percentage]" >
+                        <input type="number"  step="any"onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="${medicine.medicine.product.sale_tax_percentage}" class="form-control"  name="products[${items}][gst_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
@@ -419,10 +420,12 @@
                     $("#medicine-table-body").append(row);
 
                     total += ((medicine.medicine.selling_price) * medicine.dosage);
+                    gstCalculation(items);
                 });
 
                 $("#total_amount").val(total.toFixed(2));
                 $("#total_amounts2").val(total.toFixed(2));
+
             });
         });
 
@@ -535,7 +538,7 @@
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
-            
+
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
             const GenericFormula = selectedOption.getAttribute('data-generic_formula');
@@ -629,7 +632,9 @@
             var discount_percentage = $('#discount_percentage'+id).val();
             var total_quantity_amount = (parseFloat(Dosage) * parseFloat(selling_price)).toFixed(2);
             var amountwithdiscount = (parseFloat(total_quantity_amount) - parseFloat((total_quantity_amount*discount_percentage)/100)).toFixed(2);
-            var gst_percentage = $('#gst_percentage' + id).val();console.log('GST AMOUNT='+((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage))
+            var gst_percentage = $('#gst_percentage' + id).val();
+            console.log("amount dis = "+selling_price)
+            console.log('GST AMOUNT='+id+' = '+((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage))
             var gst_amount = (((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage)).toFixed(2);
             var amount_with_gst = (parseFloat(amountwithdiscount) + parseFloat(gst_amount)).toFixed(2);
 
@@ -759,7 +764,7 @@
             var brand_id = $('#search_addbtn' + id).data('brand_id');
             var total_quantity = $('#search_addbtn' + id).data('total_quantity');
             var selling_price = $('#search_addbtn' + id).data('selling_price');
-            var selling_price = $('#search_addbtn' + id).data('selling_price');
+            var gst = $('#search_addbtn' + id).data('gst');
             console.log(product_id);
 
             $('#medicine-table-body').append(`
@@ -776,6 +781,7 @@
                         data-Id="${id}"
                         data-totalQuantity="${total_quantity}"
                         data-totalPrice="${selling_price}"
+                        data-gst="${gst}"
                         >
                         </td>
                     <td><input class="form-control" type="text" readonly name="products[${a}][generic_formula]" id="generic_formula${a}" value="${generic_formula}"></td>
@@ -787,7 +793,7 @@
                         <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
-                    <td><input class="form-control" step="any"value="0"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                    <td><input class="form-control" step="any"value="${gst}"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>

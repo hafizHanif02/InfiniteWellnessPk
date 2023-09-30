@@ -21,7 +21,7 @@ class GoodReceiveNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'invoice_number' => 'required',
+
             'requistion_id' => ['required', 'exists:requistions,id'],
             'remark' => ['nullable', 'string', 'max:255'],
             'date' => ['required', 'date'],
@@ -35,13 +35,13 @@ class GoodReceiveNoteRequest extends FormRequest
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
             'products.*.bonus' => ['nullable', 'integer', 'min:0'],
-            'products.*.expiry_date' => ['required', 'date'],
+            
             'products.*.totalprice2' => ['required', 'numeric', 'min:0'],
-            'products.*.batch_no' => ['required', 'integer', 'min:0'],
+
             'products.*.discount' => ['nullable', 'numeric', 'min:0'],
             'products.*.saletax_percentage' => ['nullable', 'numeric'],
             'products.*.saletax_amount' => ['nullable', 'numeric'],
-            
+
         ];
     }
 

@@ -92,19 +92,19 @@
                             <table class="table table-bordered">
                                 <thead class="bg-dark">
                                     <tr class="text-white">
-                                        <td></td>
-                                        <td>Product</td>
-                                        <td>Description</td>
-                                        <td>Packing</td>
-                                        <td>Limit</td>
-                                        <td>Qty</td>
-                                        <td>Dis%</td>
-                                        <td>Dis Amt</td>
-                                        <td>Bonus</td>
-                                        <td>Pcs Qty</td>
-                                        <td>Pur Rate</td>
-                                        <td>S Tax</td>
-                                        <td>Amount</td>
+                                        <td style="min-width: 100px"></td>
+                                        <td style="min-width: 200px">Product</td>
+                                        <td style="min-width: 200px">Description</td>
+                                        <td style="min-width: 200px">Packing</td>
+                                        <td style="min-width: 200px">Limit</td>
+                                        <td style="min-width: 150px">Qty</td>
+                                        <td style="min-width: 150px">Dis%</td>
+                                        <td style="min-width: 150px">Dis Amt</td>
+                                        <td style="min-width: 150px">Bonus</td>
+                                        <td style="min-width: 150px">Pcs Qty</td>
+                                        <td style="min-width: 150px">Pur Rate</td>
+                                        <td style="min-width: 150px">S Tax</td>
+                                        <td style="min-width: 150px">Amount</td>
                                     </tr>
                                 </thead>
                                 <tbody id="add-products">
@@ -137,17 +137,17 @@
                                                     readonly>
                                             </td>
                                             <td>
-                                                <input type="number" value="1" min="1"
+                                                <input type="number" value="{{$goodReceiveProduct->deliver_qty}}" min="1"
                                                     onchange="changeQuantity({{ $goodReceiveProduct->product_id }})"
                                                     class="form-control">
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $goodReceiveProduct->disc }}" readonly>
+                                                    value="{{ $goodReceiveProduct->discount }}" readonly>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $goodReceiveProduct->disc_amount }}" readonly>
+                                                    value="{{ (($goodReceiveProduct->deliver_qty * $goodReceiveProduct->item_amount) / 100) *$goodReceiveProduct->discount }}" readonly>
                                             </td>
                                             <td>
                                                 <input type="number" name="bonus" value="0" min="0"
@@ -266,22 +266,22 @@
                                                 <input type="text" class="form-control" value="${requistionProduct.disc}" readonly>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" value="${requistionProduct.disc_amount }" readonly>    
+                                                <input type="text" class="form-control" value="${requistionProduct.disc_amount }" readonly>
                                             </td>
                                             <td>
                                                 <input type="number" name="products[${requistionProduct.id}][item_bonus]" value="0" min="0" class="form-control" >
                                             </td>
                                             <td>
-                                                <input type="number" id="totalprice${requistionProduct.id}"  value="${requistionProduct.product.trade_price}" class="form-control" readonly>    
+                                                <input type="number" id="totalprice${requistionProduct.id}"  value="${requistionProduct.product.trade_price}" class="form-control" readonly>
                                             </td>
                                             <td>
-                                                <input type="number" value="${requistionProduct.sale_tax}" class="form-control" readonly>    
+                                                <input type="number" value="${requistionProduct.sale_tax}" class="form-control" readonly>
                                             </td>
                                             <td>
-                                                <input type="number" id="totalprice2${requistionProduct.id}" name="products[${requistionProduct.id}][totalprice2]" value="${requistionProduct.total_amount/requistionProduct.qty}" class="form-control" readonly>    
+                                                <input type="number" id="totalprice2${requistionProduct.id}" name="products[${requistionProduct.id}][totalprice2]" value="${requistionProduct.total_amount/requistionProduct.qty}" class="form-control" readonly>
                                             </td>
                                         </tr>
-                                                           
+
                                     `);
                                     }
                                 });

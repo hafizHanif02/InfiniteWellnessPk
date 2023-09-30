@@ -102,7 +102,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead class="table-dark">
@@ -207,31 +207,31 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="hidden" step="any" id="price_per_unit${index}" name="products[${index}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">    
-                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">    
+                                            <input type="hidden" step="any" id="price_per_unit${index}" name="products[${index}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
+                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" value="1" min="1" name="products[${index}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
-                                            
-                                            <input type="number" id="previouse_price${value.id}"  value="${value.cost_price}" class="form-control" readonly>    
+
+                                            <input type="number" id="previouse_price${value.id}"  value="${value.cost_price}" class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>    
+                                            <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>
                                         </td>
                                         <td>
                                             <input type="number" step="any" name="products[${index}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
                                             <input type="hidden" id="discount_amount2${value.id}">
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${index}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>    
-                                            <input type="hidden" name="products[${index}][total_amounts2]" value="${value.cost_price}" id="total_amounts2${value.id}" class="form-control" readonly>    
+                                            <input type="number" name="products[${index}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>
+                                            <input type="hidden" name="products[${index}][total_amounts2]" value="${value.cost_price}" id="total_amounts2${value.id}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
                                         </td>
-                                        
+
                                         <input type="hidden" id="discountamount${value.id}" name="products[${index}][pieces_per_pack]" value="${value.pieces_per_pack }">
                                         <input type="hidden" id="pieces_per_pack${value.id}" name="pieces_per_pack" value="${value.pieces_per_pack }">
                                         <input type="hidden" id="previouse_pricess${value.id}" value="${value.cost_price}">
@@ -250,7 +250,7 @@
             function removeRaw(id) {
                 $("#" + id).remove();
             }
-            
+
             function changeType(id, items) {
 
                 var previouse_price = $("#previouse_pricess" + id).val();
@@ -266,7 +266,7 @@
                     // UNIT
                     $('#price_per_unit'+items).val(0);
                     $('#previouse_price'+id).val(previouse_price);
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
+                    // $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
                     $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
                         'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
@@ -275,7 +275,7 @@
                     var pprice = pieces_per_pack * previouse_price;
                     console.log(pprice);
                     $("#previouse_price"+id).val(pprice);
-                    
+
                     $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(0);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
                         'changeQuantityPerPack(' + id + ',' + items + ')').val(0);
@@ -294,7 +294,7 @@
                 var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
                 $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
                 let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
-                
+
                 if(quantity >= piece_per_pack){
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity/piece_per_pack)));
                 }
@@ -303,7 +303,7 @@
                 }
                 $("#" + id + " input[name='products[" + items + "][total_amount]']").val((quantity * (priceperpeice)));
                 $("#" + id + " input[name='products[" + items + "][total_amounts2]']").val((quantity * (priceperpeice)));
-            
+
             }
 
             function changeQuantityPerPack(id, items, limit = null) {
@@ -333,7 +333,7 @@
                     if($(this).val() != ''){
                         discount += parseFloat($(this).val());
                     }
-                });    
+                });
                 $('#discount_amount').val(discount);
             }
 
@@ -372,29 +372,29 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">    
-                                                <input type="number" step="any" id="price_per_unit${items}2" name="products[${items}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">    
+                                                <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
+                                                <input type="number" step="any" id="price_per_unit${items}2" name="products[${items}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
                                             </td>
                                             <td>
                                                 <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
                                             </td>
                                             <td>
-                                                <input type="number"  value="${value.product.cost_price}" class="form-control" readonly>    
+                                                <input type="number"  value="${value.product.cost_price}" class="form-control" readonly>
                                             </td>
                                             <td>
-                                                <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>    
+                                                <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>
                                             </td>
                                             <td>
                                             <input type="number" step="any"  name="products[${items}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
                                             <input type="hidden" id="discount_amount2${value.id}">
                                             </td>
                                             <td>
-                                                <input type="number" name="products[${items}][total_amount]" value="${value.product.cost_price}" class="form-control" readonly>    
+                                                <input type="number" name="products[${items}][total_amount]" value="${value.product.cost_price}" class="form-control" readonly>
                                             </td>
                                             <td>
                                                 <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
                                             </td>
-                                            
+
                                             <input type="hidden" id="discountamount${value.id}" name="products[${items}][pieces_per_pack]" value="${value.product.pieces_per_pack }">
                                             <input type="hidden" id="discountamount${value.id}" name="products[${items}][disc_amount]" value="${(value.product.discount_trade_price * value.product.cost_price)/100 }">
                                             <input type="hidden" id="tradeprice${items}" value="${value.product.trade_price}">

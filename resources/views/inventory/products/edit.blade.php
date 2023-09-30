@@ -93,7 +93,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                  
+
                     <div class="mb-5">
                         <label for="dosage_id" class="form-label">Dosage <sup
                                 class="text-danger">*</sup></label>
@@ -267,7 +267,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-5">
                                 <label for="fixed_discount" class="form-label">Fixed Discount</label>
                                 <input type="number" name="fixed_discount" id="fixed_discount" class="form-control"
@@ -275,6 +275,18 @@
                                     placeholder="Enter fix discount" title="Fixed discount">
                                 @error('fixed_discount')
                                     <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-5">
+                                <label for="fixed_discount" class="form-label">Discount Amount</label>
+                                <input type="number" min="1" name="discount_amount" id="discount_amount"
+                                    class="form-control @error('fixed_discount') is-invalid @enderror"
+                                    value="{{ old('discount_amount',($product->fixed_discount / 100)* $product->cost_price) }}"
+                                    title="Discount Amount" readonly>
+                                @error('fixed_discount')
+                                    <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
@@ -365,12 +377,21 @@
         <script>
             $(document).ready(function() {
 
+                $("#fixed_discount").on('keyup',function(){
+
+                    var fixed_discount = $("#fixed_discount").val();
+                    var cost_price = $("#cost_price").val();
+
+                    var percentage = (fixed_discount / 100) * cost_price;
+                    $("#discount_amount").val(percentage);
+
+                });
             // Capture the key press event on all input fields within the form
               $('form').on('keypress', 'input', function(e) {
                 if (e.which === 13) { // 13 is the key code for "Enter"
                   e.preventDefault(); // Prevent the default form submission
                 }
-              }); 
+              });
 
 
                 $('#group_id, #product_category_id, #manufacturer_id, #vendor_id, #generic_id').select2();
@@ -441,7 +462,7 @@
 
 
 
-            
+
             function calculation(){
                 var retailPrice = parseFloat($("#manufacturer_retail_price").val());
                 if ($("#manufacturer_retail_price").val() != '') {
