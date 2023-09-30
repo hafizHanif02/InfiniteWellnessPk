@@ -499,7 +499,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" disabled id="gst_percentage${a}" class="form-control" >
+                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" readonly id="gst_percentage${a}" class="form-control" >
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
