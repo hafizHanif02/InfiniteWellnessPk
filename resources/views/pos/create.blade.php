@@ -116,7 +116,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#advancesearch" class="btn-close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <input id="myInput" class="form-control" type="text"
