@@ -145,11 +145,7 @@
                                                                 data-selling_price="{{ $medicine->selling_price }}"
                                                                 data-brand_name="{{ $medicine->brand->name }}"
                                                                 data-brand_id="{{ $medicine->brand->id }}"
-                                                                @if($medicine->product != null)
-                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                @else
-                                                                data-gst="0">
-                                                                @endif
+                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}">
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
