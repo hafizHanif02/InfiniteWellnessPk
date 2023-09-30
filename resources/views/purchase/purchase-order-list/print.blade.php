@@ -55,7 +55,7 @@
                 <tr>
                     <td class="text-center"  scope="row">{{ $loop->iteration }}</td>
                     <td class="text-center" >{{ $requistionproduct->product->product_name }}</td>
-                    <td class="text-center">{{ $requistionproduct->total_piece/$requistionproduct->product->pieces_per_pack }}</td>
+                    <td class="text-center">{{ number_format($requistionproduct->total_piece/$requistionproduct->product->pieces_per_pack, 2, '.', '') }}</td>
                     <td class="text-center">{{ $requistionproduct->product->unit_retail }} /-</td>
                     <td class="text-center">{{$requistionproduct->product->pieces_per_pack}}
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
