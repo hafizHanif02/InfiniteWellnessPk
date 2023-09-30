@@ -39,6 +39,7 @@ class PosController extends Controller
 
     public function store(PosRequest $request): RedirectResponse
     {
+        dd($reqeust);
         $userId = auth()->user()->id;
         // echo $userId;
         //  exit;
