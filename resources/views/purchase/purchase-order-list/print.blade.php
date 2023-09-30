@@ -56,7 +56,7 @@
                     <td class="text-center"  scope="row">{{ $loop->iteration }}</td>
                     <td class="text-center" >{{ $requistionproduct->product->product_name }}</td>
                     <td class="text-center">{{ number_format($requistionproduct->total_piece/$requistionproduct->product->pieces_per_pack, 2, '.', '') }}</td>
-                    <td class="text-center">{{ $requistionproduct->product->unit_retail }} /-</td>
+                    <td class="text-center">{{ $requistionproduct->product->unit_retail }} </td>
                     <td class="text-center">{{$requistionproduct->product->pieces_per_pack}}
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
                     <td class="text-center">{{ $requistionproduct->price_per_unit }}</td>
@@ -81,7 +81,7 @@
             <tr>
                 <th>Grand Total</th>
                 <th>{{ number_format($totalcost - $requistion->discount_amount, 2, '.', '') }}</th>
-                <th>{{ number_format($totalcost - $requistion->discount_amount, 2, '.', '') }} /-</th>
+                <th>{{ number_format($totalcost - $requistion->discount_amount, 2, '.', '') }}</th>
             </tr>
             <tr rowspan="2">
                 <th style="padding: 20px;" class="text-center" colspan="6">Prepared By:</th>
