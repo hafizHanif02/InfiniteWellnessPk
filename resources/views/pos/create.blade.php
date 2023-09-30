@@ -428,6 +428,7 @@
                 $("#total_amounts2").val(total.toFixed(2));
 
             });
+            enablemainbutton();
         });
 
 
@@ -523,6 +524,7 @@
                     </tr>
     `);
             $('.medicine-select').select2();
+            enablemainbutton();
         }
 
         function SelectMedicine(id) {
