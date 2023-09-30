@@ -50,7 +50,7 @@
                             </tr>
                             <tr>
                                 <th>Total Packs</th>
-                                <td>{{$requistionProduct->total_piece/$requistionProduct->product->pieces_per_pack}} packs</td>
+                                <td>{{number_format($requistionProduct->total_piece/$requistionProduct->product->pieces_per_pack, 2, '.', '')}} packs</td>
                             </tr>
                             <tr>
                                 <th>Total Quantity</th>
