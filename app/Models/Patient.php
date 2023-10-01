@@ -149,6 +149,15 @@ class Patient extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    // /**
+    //  * @return BelongsTo
+    //  */
+    // public function nursingForm()
+    // {
+    //     return NursingForm::where('patient_mr_number', 'MR')->latest();
+    //     return $this->belongsTo(NursingForm::class, 'user_id');
+    // }
+
     /**
      * @return MorphOne
      */

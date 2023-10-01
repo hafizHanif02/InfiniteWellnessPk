@@ -1,14 +1,15 @@
-<x-layouts.app title="New Product">
-    @push('styles')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @endpush
+@extends('layouts.app')
+@section('title')
+    Nursing From List
+@endsection
+@section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Nursing Assessment Form</h3>
                 <a href="{{ route('inventory.products.index') }}" class="btn btn-secondary">Back</a>
             </div>
-            <form action="{{route('nursing_form.store') }}" method="POST">
+            <form action="{{route('nursing-form.store') }}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="row mb-5 mt-5">
@@ -131,10 +132,10 @@
                         </thead>
                         <tbody id="current_medications_table" >
                             <tr>
-                                <td><input type="text" name="medications[0]['medication_name']" class="form-control"></td>
-                                <td><input type="text" class="form-control" name="medications[0]['dosage']"></td>
-                                <td><input type="text" class="form-control" name="medications[0]['frequency']"></td>
-                                <td><input type="text" class="form-control" name="medications[0]['prescribing_physician']"></td>
+                                <td><input type="text" name="medications[0][medication_name]" class="form-control"></td>
+                                <td><input type="text" class="form-control" name="medications[0][dosage]"></td>
+                                <td><input type="text" class="form-control" name="medications[0][frequency]"></td>
+                                <td><input type="text" class="form-control" name="medications[0][prescribing_physician]"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -158,9 +159,9 @@
                         </thead>
                         <tbody id="allergies_table">
                             <tr>
-                                <td><input type="text" class="form-control" name="allergies[0]['allergen']"></td>
-                                <td><input type="text" class="form-control" name="allergies[0]['reaction']"></td>
-                                <td><input type="text" class="form-control" name="allergies[0]['severity']"></td>
+                                <td><input type="text" class="form-control" name="allergies[0][allergen]"></td>
+                                <td><input type="text" class="form-control" name="allergies[0][reaction]"></td>
+                                <td><input type="text" class="form-control" name="allergies[0][severity]"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -216,9 +217,9 @@
             var a = tableRow.rows.length;
             $('#allergies_table').append(`
             <tr id="allery-row${a}">
-                <td><input type="text" class="form-control" name="allergies[${a}]['allergen']"></td>
-                                <td><input type="text" class="form-control" name="allergies[${a}]['reaction']"></td>
-                                <td><input type="text" class="form-control" name="allergies[${a}]['severity']"></td>
+                <td><input type="text" class="form-control" name="allergies[${a}][allergen]"></td>
+                                <td><input type="text" class="form-control" name="allergies[${a}][reaction]"></td>
+                                <td><input type="text" class="form-control" name="allergies[${a}][severity]"></td>
                                 <td><button onclick="deleteRowAllergy()"  class="btn-danger"><i class="fa fa-trash"></i></button></td>
                             
                     </tr>
@@ -231,10 +232,10 @@
             console.log('AAA '+a);
             $('#current_medications_table').append(`
             <tr id="medicine-row${a}">
-                                <td><input type="text" name="medications[${a}]['medication_name']" class="form-control"></td>
-                                <td><input type="text" class="form-control" name="medications[${a}]['dosage']"></td>
-                                <td><input type="text" class="form-control" name="medications[${a}]['frequency']"></td>
-                                <td><input type="text" class="form-control" name="medications[${a}]['prescribing_physician']"></td>
+                                <td><input type="text" name="medications[${a}][medication_name]" class="form-control"></td>
+                                <td><input type="text" class="form-control" name="medications[${a}][dosage]"></td>
+                                <td><input type="text" class="form-control" name="medications[${a}][frequency]"></td>
+                                <td><input type="text" class="form-control" name="medications[${a}][prescribing_physician]"></td>
                                 <td><button onclick="deleteRowCMT()"  class="btn-danger"><i class="fa fa-trash"></i></button></td>
                             
                     </tr>
@@ -243,13 +244,15 @@
 
 
     $(document).ready(function() {
+        $('#patient_mr_number').select2();
+        $('#opd_id').select2();
         $('#patient_mr_number').change(function() {
         var selectElement = document.getElementById('patient_mr_number');
         var selectedOption = selectElement.options[selectElement.selectedIndex];
 
         $.ajax({
             type: "get",
-            url: "/form/opd/list",
+            url: "/nursing-form/opd/list",
             data: {
                 patient_mr_number: $(this).val()
             },
@@ -263,7 +266,7 @@
                     $.each(response.data, function(index, value) {
                         $("#opd_id").append(
                             `
-                    <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}" >
+                    <option value="${value.opd_number}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}" >
                     ${value.opd_number}
                     </option>`
                         );
@@ -292,4 +295,4 @@
 
     </script>
 
-</x-layouts.app>
+@endsection

@@ -12,12 +12,14 @@ use App\Models\Inventory\Product;
 use App\Models\Inventory\StockIn;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\OpdPatientDepartment;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Inventory\Manufacturer;
 use App\Imports\Inventory\ProductImport;
 use App\Models\Inventory\ProductCategory;
 use Illuminate\Support\Facades\Validator;
+use App\Models\DentalOpdPatientDepartment;
 use App\Http\Requests\Inventory\ProductRequest;
 
 class ProductController extends Controller
@@ -191,4 +193,24 @@ class ProductController extends Controller
             'patients' => Patient::with('user')->get(),
         ]);
     }
+
+
+    public function opd(Request $request)
+    {
+
+        $getPatientID = Patient::where(['MR'=> $request->patient_mr_number])->get();
+
+        if(count($getPatientID) > 0){
+            return response()->json([
+                'data' => OpdPatientDepartment::where('patient_id',$getPatientID[0]->id)->with('patient.user','doctor.user')->get(),
+                'data2' => DentalOpdPatientDepartment::where('patient_id',$getPatientID[0]->id)->with('patient.user')->get(),
+            ]);
+        }
+
+
+        return response()->json([
+            'data' => ''
+        ]);
+    }
+
 }

@@ -62,6 +62,7 @@ use App\Http\Controllers\DeathReportController;
 use App\Http\Controllers\IpdTimelineController;
 use App\Http\Controllers\LiveMeetingController;
 use App\Http\Controllers\NoticeBoardController;
+use App\Http\Controllers\NursingFormController;
 use App\Http\Controllers\OpdTimelineController;
 use App\Http\Controllers\PatientCaseController;
 use App\Http\Controllers\TestimonialController;
@@ -93,6 +94,7 @@ use App\Http\Controllers\HospitalScheduleController;
 use App\Http\Controllers\LiveConsultationController;
 use App\Http\Controllers\PatientAdmissionController;
 use App\Http\Controllers\DiagnosisCategoryController;
+use App\Http\Controllers\Inventory\ProductController;
 use App\Http\Controllers\PathologyCategoryController;
 use App\Http\Controllers\RadiologyCategoryController;
 use App\Http\Controllers\VaccinatedPatientController;
@@ -699,6 +701,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('pos/paid/{pos}', [PosController::class, 'Payment'])->name('pos.paid');
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
+
+
+        
+        // OPD GET FOR NURSE FORM 
+        Route::resource('nursing-form', NursingFormController::class);
+        Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
 
 
         // POS Return

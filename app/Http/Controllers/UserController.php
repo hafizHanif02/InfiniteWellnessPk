@@ -106,6 +106,7 @@ class UserController extends AppBaseController
     {
         $roles = Department::orderBy('name')->pluck('name', 'id')->toArray();
         $status = User::STATUS_ARR;
+        
 
         return view('users.index', compact('roles', 'status'));
     }
