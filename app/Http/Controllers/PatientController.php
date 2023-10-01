@@ -267,7 +267,7 @@ class PatientController extends AppBaseController
 
     public function submitForm(Request $request)
     {
-
+        // return $request;
         $reqArray = $request->all();
         foreach ($reqArray as $fieldName => $fieldValue) {
             if ($fieldValue != null) {
@@ -323,6 +323,8 @@ class PatientController extends AppBaseController
             $this->insertPreTestData($insertedId, (int) $req->patientID);
         } elseif ($formName == 'Nutritional Assessment Form') {
             $this->insertNutritientData($insertedId, (int) $req->patientID);
+        }   elseif ($formName == 'FAST FORM') {
+            $this->insertFASTData($insertedId, (int) $req->patientID);
         }
 
         return redirect(route('patients.show', ['patient' => $req->patientID]));
@@ -1007,6 +1009,97 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsPreviousTreatment', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnyAdditionalInformation', 'fieldValue' => ''],
 
+        ];
+
+        DB::table('form_data')->insert($data);
+    }
+
+
+    public function insertFASTData($formID, $patientID)
+    {
+        $data = [
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'mrNum', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'fullName', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'height', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'weight', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'bmi', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ibw', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'breakfast', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'lunch', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'teaTime', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'dinner', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'watterIntake', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'reason', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'sedentaryLifestyle', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'lightActivity', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'RegularExercise', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'yoga', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'meditation', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'others', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'others2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'others3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'visit1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'visit2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'visit3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'visit4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'hypertension', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'diabetesMiletus', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ischemicHeartDisease', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'depressionOrAnxiety', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'alzheimersDisease', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'chronicUrticaria', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'eczema', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'others5', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Energy1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Energy2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Energy3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Energy4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Fatigue1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Fatigue2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Fatigue3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Fatigue4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Sleep1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Sleep2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Sleep3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Sleep4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HairLoss1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HairLoss2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HairLoss3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HairLoss4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Stress1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Stress2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Stress3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Stress4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Concentration1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Concentration2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Concentration3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Concentration4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ChangeinWeight1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ChangeinWeight2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ChangeinWeight3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ChangeinWeight4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SkinChanges1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SkinChanges2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SkinChanges3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SkinChanges4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Diarrhea1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Diarrhea2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Diarrhea3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Diarrhea4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Constipation1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Constipation2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Constipation3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Constipation4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AbdominalPain1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AbdominalPain2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AbdominalPain3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AbdominalPain4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating1', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating2', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating3', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating4', 'fieldValue' => ''],
+            
+          
         ];
 
         DB::table('form_data')->insert($data);
