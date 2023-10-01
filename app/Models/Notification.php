@@ -85,6 +85,8 @@ class Notification extends Model
 
     const LAB_TECHNICIAN = 'Lab Technician';
 
+    const DIETITIAN = 'Dietitian';
+
     const NOTIFICATION_FOR = [
         self::ADMIN => 1,
         self::DOCTOR => 2,
@@ -95,6 +97,7 @@ class Notification extends Model
         self::PHARMACIST => 7,
         self::ACCOUNTANT => 8,
         self::LAB_TECHNICIAN => 9,
+        self::DIETITIAN => 10,
     ];
 
     const NOTIFICATION_TYPE = [

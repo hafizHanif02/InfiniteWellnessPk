@@ -58,18 +58,33 @@ class PatientTable extends LivewireTableComponent
 
     public function columns(): array
     {
-        return [
-            Column::make(__('messages.patients'), 'patientUser.first_name')->view('patients.columns.patient')
-                ->sortable()->searchable(),
-            Column::make(__('MR'), 'MR')->view('patients.columns.mrp')
-                ->sortable()->searchable(),
-            Column::make(__('messages.user.phone'), 'patientUser.phone')->view('patients.columns.phone')
-                ->sortable()->searchable(),
-            Column::make(__('messages.user.blood_group'), 'patientUser.blood_group')->view('patients.columns.blood_group')
-                ->sortable()->searchable(),
-            Column::make(__('messages.common.status'), 'patientUser.status')->view('patients.columns.status'),
-            Column::make(__('messages.common.action'), 'id')->view('patients.action'),
-        ];
+        if(getLoggedInUser()->hasRole(['Admin'])){
+            return [
+                Column::make(__('messages.patients'), 'patientUser.first_name')->view('patients.columns.patient')
+                    ->sortable()->searchable(),
+                Column::make(__('MR'), 'MR')->view('patients.columns.mrp')
+                    ->sortable()->searchable(),
+                Column::make(__('messages.user.phone'), 'patientUser.phone')->view('patients.columns.phone')
+                    ->sortable()->searchable(),
+                Column::make(__('messages.user.blood_group'), 'patientUser.blood_group')->view('patients.columns.blood_group')
+                    ->sortable()->searchable(),
+                Column::make(__('messages.common.status'), 'patientUser.status')->view('patients.columns.status'),
+
+                    Column::make(__('messages.common.action'), 'id')->view('patients.action'),
+            ];
+        }else {
+            return [
+                Column::make(__('messages.patients'), 'patientUser.first_name')->view('patients.columns.patient')
+                    ->sortable()->searchable(),
+                Column::make(__('MR'), 'MR')->view('patients.columns.mrp')
+                    ->sortable()->searchable(),
+                Column::make(__('messages.user.phone'), 'patientUser.phone')->view('patients.columns.phone')
+                    ->sortable()->searchable(),
+                Column::make(__('messages.user.blood_group'), 'patientUser.blood_group')->view('patients.columns.blood_group')
+                    ->sortable()->searchable(),
+              
+            ];
+        }
     }
 
     public function builder(): Builder

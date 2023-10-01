@@ -49,7 +49,7 @@ class HomeController extends AppBaseController
      */
     public function dashboard()
     {
-
+        
         //        $data['invoiceAmount'] = Invoice::sum('amount');
         $data['invoiceAmount'] = totalAmount();
         $data['billAmount'] = Bill::sum('amount');

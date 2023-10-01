@@ -37,12 +37,12 @@
                                 <h3 class="fs-5 fw-light text-gray-600 mb-0">{{__('messages.patient.total_cases')}}</h3>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-12 mb-6 mb-md-0">
+                        {{-- <div class="col-md-4 col-sm-6 col-12 mb-6 mb-md-0">
                             <div class="border rounded-10 p-5 h-100">
                                 <h2 class="text-primary mb-3">{{!empty($data->admissions) ? $data->admissions->count() : 0}}</h2>
                                 <h3 class="fs-5 fw-light text-gray-600 mb-0">{{__('messages.patient.total_admissions')}}</h3>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 col-sm-6 col-12 mb-6 mb-md-0">
                             <div class="border rounded-10 p-5 h-100">
                                 <h2 class="text-primary mb-3">{{!empty($data->appointments) ? $data->appointments->count() : 0}}</h2>
@@ -56,6 +56,7 @@
     </div>
     <div class="mt-7 overflow-hidden">
         <ul class="nav nav-tabs mb-5 pb-1 overflow-auto flex-nowrap text-nowrap">
+            @role('Admin')
             <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link active p-0" data-bs-toggle="tab"
                    href="#PatientOverview">{{ __('messages.overview') }}</a>
@@ -64,10 +65,10 @@
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientCases">{{ __('messages.cases') }}</a>
             </li>
-            <li class="nav-item position-relative me-7 mb-3">
+            {{-- <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientAdmissions">{{ __('messages.patient_admissions') }}</a>
-            </li>
+            </li> --}}
             <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientAppointments">{{ __('messages.appointments') }}</a>
@@ -100,6 +101,25 @@
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#nutritionassessment">Dietitian Assessment</a>
             </li>
+            @endrole
+            @role('Nurse')
+                <li class="nav-item position-relative me-7 mb-3">
+                    <a class="nav-link active p-0" data-bs-toggle="tab"
+                    href="#PatientOverview">{{ __('messages.overview') }}</a>
+                </li>
+                <li class="nav-item position-relative me-7 mb-3">
+                    <a class="nav-link p-0" data-bs-toggle="tab"
+                    href="#showPatientCases">{{ __('messages.cases') }}</a>
+                </li>
+                <li class="nav-item position-relative me-7 mb-3">
+                    <a class="nav-link p-0" data-bs-toggle="tab"
+                       href="#addonForms">Addon Forms</a>
+                </li>
+                <li class="nav-item position-relative me-7 mb-3">
+                    <a class="nav-link p-0" data-bs-toggle="tab"
+                       href="#nutritionassessment">Dietitian Assessment</a>
+                </li>
+            @endrole
         </ul>
     </div>
 </div>
@@ -194,6 +214,7 @@
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
+
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Add New Form
                       </button>
@@ -379,7 +400,7 @@
                                         </div>
 
 
-                                        
+
                                     </form>
                                 </div>
                             </div>
@@ -525,7 +546,7 @@
                                         </div>
                                         <div class="col-md-2"></div>
 
-                                        
+
                                     </form>
                                 </div>
                             </div>
@@ -591,7 +612,7 @@
 
 
 
-                                     
+
                                     </form>
                                 </div>
                             </div>
@@ -663,7 +684,7 @@
 
 
 
-                                      
+
                                     </form>
                                 </div>
                             </div>
@@ -777,7 +798,7 @@
 
                                         </div>
 
-                                      
+
                                     </form>
                                 </div>
                             </div>
@@ -1047,7 +1068,7 @@
 
                                     </tbody>
                                 </table>
-                               
+
                             </div>
                         </div>
                         <div style="display: flex;
@@ -1066,7 +1087,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script> --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
@@ -1347,7 +1368,7 @@ console.log("totallllll", TotalCalories)
                 headers: {
                     'X-CSRF-TOKEN': csrfToken
                 },
-                processData: false, 
+                processData: false,
                                 contentType: false,
                 success: function(response) {
                     console.log("Forms submitted successfully:", response);

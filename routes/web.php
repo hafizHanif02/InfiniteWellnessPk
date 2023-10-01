@@ -199,7 +199,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('documents/{document}/update', [DocumentController::class, 'update']);
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse')->group(function () {
         // Routes for Patients Cases listing
         Route::prefix('patient')->group(function () {
             Route::get('my-cases', [Patient\PatientCaseController::class, 'index'])->name('patients.cases')->middleware('modules');
@@ -237,7 +237,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 
     // excel export routes.
-    Route::middleware('role:Patient')->group(function () {
+    Route::middleware('role:Patient|Nurse')->group(function () {
         Route::prefix('patient')->group(function () {
             Route::get('export-prescription',
                 [Patient\PrescriptionController::class, 'prescriptionExport'])->name('prescription.excel');
@@ -392,7 +392,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             ->where('doctorDepartment', '[0-9]+');
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Nurse')->group(function () {
         Route::get('patient-cases', [PatientCaseController::class, 'index'])->name('patient-cases.index')->middleware('modules');
         Route::post('patient-cases', [PatientCaseController::class, 'store'])->name('patient-cases.store');
         Route::get('patient-cases/create', [PatientCaseController::class, 'create'])->name('patient-cases.create');
@@ -405,7 +405,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('patient-cases/{case_id}/active-deactive', [PatientCaseController::class, 'activeDeActiveStatus']);
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Nurse')->group(function () {
         Route::resource('charge-categories', ChargeCategoryController::class);
         Route::get('charge-categories',
             [ChargeCategoryController::class, 'index'])->name('charge-categories.index')->middleware('modules');
@@ -534,14 +534,14 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('brands/{brand}', [BrandController::class, 'show'])->name('brands.show');
     });
 
-    Route::middleware('role:Admin|Doctor|Case Manager|Patient|Receptionist')->group(function () {
+    Route::middleware('role:Admin|Doctor|Case Manager|Patient|Receptionist|Nurse')->group(function () {
         Route::get('patient-admissions',
             [PatientAdmissionController::class, 'index'])->name('patient-admissions.index')->middleware('modules');
         Route::get('insurances/{insurance}', [InsuranceController::class, 'show'])->where('insurance', '[0-9]+');
         Route::get('packages/{package}', [PackageController::class, 'show'])->where('package', '[0-9]+');
     });
 
-    Route::middleware('role:Admin|Patient')->group(function () {
+    Route::middleware('role:Admin|Patient|Nurse')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('patient-admissions', [Employee\PatientAdmissionController::class, 'index'])->name('patient-admissions');
             Route::get('patient-admissions/{patient_admission}', [Employee\PatientAdmissionController::class, 'show'])
@@ -559,7 +559,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         });
     });
 
-    Route::middleware('role:Admin|Doctor|Case Manager|Receptionist')->group(function () {
+    Route::middleware('role:Admin|Doctor|Case Manager|Receptionist|Nurse')->group(function () {
         Route::get('patient-admissions/{patient_admission}', [PatientAdmissionController::class, 'show'])
             ->name('patient-admissions.shosw')->where('patient_admission', '[0-9]+');
         Route::get('patient-admissions-show/{patient_admission}', [PatientAdmissionController::class, 'showModal'])
@@ -764,7 +764,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('bed-types', [BedTypeController::class, 'index'])->name('bed-types.index')->middleware('modules');
     });
 
-    Route::middleware('role:Admin|Nurse|Receptionist|Doctor|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Nurse|Receptionist|Doctor|Case Manager|Nurse')->group(function () {
         Route::get('patient-cases/{patient_case}', [PatientCaseController::class, 'show'])->where('patient_case',
             '[0-9]+')->name('patient_case_show');
         Route::get('patient-cases-show-modal/{patient_case}', [PatientCaseController::class, 'showModal'])->where('patient_case',
@@ -897,7 +897,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('employees-list', [EmployeePayrollController::class, 'getEmployeesList'])->name('employees.list');
     });
 
-    Route::middleware('role:Admin')->group(function () {
+    Route::middleware('role:Admin|Nurse')->group(function () {
         //        Route::resource('departments', 'DepartmentController');
         //        Route::post('departments/{department}/active-deactive', 'DepartmentController@activeDeactiveDepartment');
 

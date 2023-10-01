@@ -73,7 +73,7 @@ class LoginController extends Controller
             } elseif ($request->user()->hasRole(['Patient'])) {
                 $this->redirectTo = 'patient/my-cases';
             } elseif ($request->user()->hasRole(['Nurse'])) {
-                $this->redirectTo = 'bed-types';
+                $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Accountant'])) {
                 $this->redirectTo = 'accounts';
             } else {

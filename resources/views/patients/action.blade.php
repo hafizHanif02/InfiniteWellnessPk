@@ -1,4 +1,5 @@
 <div class="d-flex align-items-center">
+    @role('Admin')
     <a href="{{ route('patients.edit',$row->id)}}" title="{{__('messages.common.edit') }}"
        class="btn px-1 text-primary fs-3 ps-0">
         <i class="fa-solid fa-pen-to-square"></i>
@@ -7,4 +8,5 @@
        class="delete-patient-btn btn px-1 text-danger fs-3 pe-0" wire:key="{{$row->id}}">
         <i class="fa-solid fa-trash"></i>
     </a>
+    @endrole
 </div>
