@@ -703,8 +703,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
 
 
-        
-        // OPD GET FOR NURSE FORM 
+
+        // OPD GET FOR NURSE FORM
         Route::resource('nursing-form', NursingFormController::class);
         Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
 
@@ -713,7 +713,10 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::resource('pos-return', PosReturnController::class);
         Route::get('pos-return/print/{posreturn}', [PosReturnController::class,'print'])->name('pos-return.print');
 
-
+        // OPD GET FOR NURSE FORM
+        Route::resource('nursing-form', NursingFormController::class);
+        Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
+        
         // Label
         Route::resource('label', LabelController::class);
         Route::get('label/label-show/{posID}/{medicineId}',[LabelController::class,'LabelShow']);
