@@ -311,7 +311,7 @@
 
                                     <form id="Anthropometric" class="row g-3" method="POST" >
 @csrf
-
+<input type="hidden" value="{{ $data->id }}" name="patient_id">
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age (years)</label>
                                             <input type="number" name="age" value="25" class="form-control" id="age" placeholder="25">
@@ -1318,11 +1318,11 @@ console.log("totallllll", TotalCalories)
           var csrfToken = $('input[name="_token"]').val();
 
 
-          var apiUrl = "/patients/{{$data->id}}";
+        //   var apiUrl = "/patients/{{$data->id}}";
 
           $.ajax({
             type: "POST",
-            url: apiUrl,
+            url: 'dietitian-form.form.submit',
             data: formData,
             headers: {
               'X-CSRF-TOKEN': csrfToken
