@@ -260,7 +260,9 @@
             success: function(response) {
                 $("#opd_id").empty();
                 console.log(response);
+                let isOPDavailabel = false;
                 if (response.data.length !== 0) {
+                    isOPDavailabel =true;
                     $('#opd_id').append(
                         `<option selected disabled>Select OPD </option>`);
                     $.each(response.data, function(index, value) {
@@ -273,6 +275,7 @@
                     });
                 }
                 if (response.data2.length !== 0) {
+                    isOPDavailabel =true;
                     $.each(response.data2, function(index, value2) {
                         console.log(value2);
                         $("#opd_id").append(
@@ -283,7 +286,7 @@
                         );
                     });
                 }
-                else {
+                if(!isOPDavailabel) {
                     $("#opd_id").html(
                         `<option value="" class="text-danger" selected disabled>No any opd found!</option>`
                     );
