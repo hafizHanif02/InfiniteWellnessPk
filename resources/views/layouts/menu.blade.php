@@ -228,7 +228,7 @@ $frontOfficeMGT = getMenuLinks(\App\Models\User::MAIN_FRONT_OFFICE)
     </li>
 @endif
 
-{{-- Front settings --}}
+{{-- Front settings
 <li class="nav-item {{ Request::is('front-settings*','notice-boards*','testimonials*', 'front-cms-services*') ? 'active' : '' }}">
     <a class="nav-link  d-flex align-items-center py-3"
        href="{{ route('front.settings.index') }}">
@@ -240,7 +240,7 @@ $frontOfficeMGT = getMenuLinks(\App\Models\User::MAIN_FRONT_OFFICE)
         <span class="d-none">{{ __('messages.cms') }}</span>
         <span class="d-none">{{ __('messages.front_cms_services') }}</span>
     </a>
-</li>
+</li> --}}
 
 {{-- Hospital Charges --}}
 <?php
