@@ -63,6 +63,7 @@ class NursingFormController extends Controller
      */
     public function store(NursingFormRequest $request)
     {
+
         $nursingfrom = NursingForm::create($request->validated());
         foreach($request->medications as $medication){
             Medication::create([
@@ -95,19 +96,21 @@ class NursingFormController extends Controller
         //     'weight' => $request->weight,
         // ]);
 
-        return to_route('nursing-form.index')->with('success', 'Nurse Form created!');
+        return to_route('nursing.index')->with('success', 'Nurse Form created!');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\NursingForm  $nursingForm
-     * @return \Illuminate\Http\Response
-     */
-    public function show(NursingForm $nursingForm)
+
+    public function showForm(Request $request)
     {
-        //
+        $nurForm = NursingForm::where('id', $request->formID)->first();
+
+        return view('nursing_form.show',[
+            'patients' => Patient::with('user')->where('MR', $nurForm->patient_mr_number)->first(),
+            'nursing' => $nurForm,
+            'medication' => Medication::where('nursing_form_id', $request->formID)->get(),
+            'allergies' => Allergies::where('nursing_form_id', $request->formID)->get(),
+        ]);
     }
 
     /**

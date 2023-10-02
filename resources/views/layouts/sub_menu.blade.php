@@ -73,6 +73,98 @@
 </li>
 @endmodule
 @endrole
+@role('Pharmacist')
+
+@module('Bills',$modules)
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('bills*') ? 'active' : '' }}"
+       href="{{ route('bills.index') }}">
+        {{ __('messages.bills') }}
+    </a>
+</li> --}}
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('pos*') ? 'active' : '' }}"
+       href="/pos">
+        {{ __('messages.bill.pos') }}
+    </a>
+</li>
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*','pos-return*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('pos-return*') ? 'active' : '' }}"
+       href="{{ route('pos-return.index') }}">
+        POS Retrun
+    </a>
+</li>
+@endmodule
+
+
+@module('Items Categories',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('item-categories*') ? 'active' : '' }}"
+       href="{{ route('item-categories.index') }}">
+        {{ __('messages.items_categories') }}
+    </a>
+</li>
+@endmodule
+
+@module('Items',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('items*') ? 'active' : '' }}"
+       href="{{ route('items.index') }}">
+        {{ __('messages.items') }}
+    </a>
+</li>
+@endmodule
+
+@module('Item Stocks',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('item-stocks*') ? 'active' : '' }}"
+       href="{{ route('item.stock.index') }}">
+        {{ __('messages.items_stocks') }}
+    </a>
+</li>
+@endmodule
+
+@module('Issued Items',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('issued-items*') ? 'active' : '' }}"
+       href="{{ route('issued.item.index') }}">
+        {{ __('messages.issued_items') }}
+    </a>
+</li>
+ <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('new-stocks') ? 'active' : '' }}"
+       href="{{ route('new-stocks.index') }}" target="_blank">
+        {{ __('messages.transfer_request') }}
+    </a>
+</li>
+
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('new-stocks-report') ? 'active' : '' }}"
+       href="{{ route('new-stocks.report') }}">
+        {{ __('messages.transfer_report') }}
+    </a>
+</li>
+@endmodule
+
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
+       href="{{ route('posinv.index') }}">
+       POS Report
+    </a>
+</li>
+@endmodule
+
+@module('Expense',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('returnposreport*') ? 'active' : '' }}"
+       href="{{ route('returnposreport.index') }}">
+       POS Return Report
+    </a>
+</li>
+@endmodule
+
+@endrole
 @role('Admin|Accountant')
 @module('Employee Payrolls',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*')) ? 'd-none' : '' }}">

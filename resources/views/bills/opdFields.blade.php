@@ -3,7 +3,7 @@
     <div class="col-lg-3 col-md-4 col-sm-12 mb-5">
         {{ Form::label('patient_opd_id', 'Patient OPD ID'.(':'),['class'=>'form-label']) }}
         <span class="required"></span>
-        
+
         {{ Form::select('patient_opd_id', $opd, null, ['class' => 'form-select', 'id' => 'patientOPDId', 'placeholder' => 'Select OPD Id','data-control' => 'select2', 'required']) }}
     </div>
     {{ Form::hidden('patient_admission_id', null, ['id' => 'pAdmissionId']) }}
@@ -61,12 +61,12 @@
         {{ Form::label('admission_date', 'OBD Date'.(':'),['class'=>'form-label']) }}
         {{ Form::text('admission_date', null, ['class' => 'form-control', 'id' => 'opdDate', 'readonly']) }}
     </div>
-    
+
     <div class="col-lg-3 col-md-4 col-sm-12 mb-5">
         {{ Form::label('charges', 'Standard Charges'.(':'),['class'=>'form-label']) }}
         {{ Form::text('charges', null, ['class' => 'form-control', 'id' => 'opdCharge', 'readonly']) }}
     </div>
-    
+
 </div>
 
 <div class="com-sm-12">
@@ -115,7 +115,7 @@
                         {{ Form::text('item_name[]', null, ['class' => 'form-control itemName','required']) }}
                     </td>
                     <td class="table__qty">
-                        {{ Form::number('qty[]', null, ['class' => 'form-control qty quantity','required',]) }}
+                        {{ Form::number('qty[]', 1, ['class' => 'form-control qty quantity','required',]) }}
                     </td>
                     <td>
                         {{ Form::text('price[]', null, ['class' => 'form-control price-input price','required']) }}
@@ -161,7 +161,7 @@ input.onchange  = function() {
     var selectedText = input.value;
     let txt = input.options[input.selectedIndex].innerHTML;
     console.log('Selected Text:', selectedText);
-    
+
     $.ajax({
       url: '/bills/opd/getPatient',
       method: 'GET',
@@ -170,9 +170,9 @@ input.onchange  = function() {
         // Handle the successful response here
         let data = response;
         console.log('Response:', data);
-        
+
         console.log(data['first_name'] );
-        
+
             document.getElementById('billsPatientId').value = selectedText;
             document.getElementById('pAdmissionId').value = txt;
             document.getElementById('name').value = data['first_name'] + " " + data['last_name'];
@@ -183,12 +183,12 @@ input.onchange  = function() {
             document.getElementById('opdDate').value = data['created_at'];
             document.getElementById('opdCharge').value = data['charges'];
             document.getElementById('totalPrice').innerHTML = "Rs " + data['charges'];
-            
+
             document.getElementsByClassName('itemName')[0].value = "OPD";
-            document.getElementsByClassName('quantity')[0].value = "1";
+            // document.getElementsByClassName('quantity')[0].value = "1";
             document.getElementsByClassName('price')[0].value = data['charges'];
             document.getElementsByClassName('itemTotal')[0].innerHTML = data['charges'];
-        
+
       },
       error: function(xhr, status, error) {
         // Handle any errors that occurred during the request
@@ -196,5 +196,10 @@ input.onchange  = function() {
       }
     });
 };
-    
+
 </script>
+<style>
+    #billTbl tr > *:nth-child(3) {
+    /* display: none; */
+}
+</style>

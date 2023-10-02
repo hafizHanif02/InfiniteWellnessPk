@@ -4095,7 +4095,7 @@
                   n = t.length > 1 ? "." + t[1] : "",
                   i = /(\d+)(\d{3})/;
                 i.test(a);
-  
+
               )
                 a = a.replace(i, "$1,$2");
               return a + n;
@@ -4339,7 +4339,7 @@
                   n = t.length > 1 ? "." + t[1] : "",
                   i = /(\d+)(\d{3})/;
                 i.test(a);
-  
+
               )
                 a = a.replace(i, "$1,$2");
               return a + n;
@@ -16482,11 +16482,11 @@
                     return console.warn(
                       D`
           You are loading Turbo from a <script> element inside the <body> element. This is probably not what you meant to do!
-  
+
           Load your applicationâ€™s JavaScript bundle inside the <head> element instead. <script> elements in <body> are evaluated with each page change.
-  
+
           For more information, see: https://turbo.hotwired.dev/handbook/building#working-with-script-elements
-  
+
           â€”â€”
           Suppress this warning by adding a "data-turbo-suppress-warning" attribute to: %s
         `,
@@ -17526,7 +17526,7 @@
                               d = this.apply(this, u),
                               s = g;
                             s--;
-  
+
                           )
                             if (
                               ((i = u[s]), (r = c[s].parentRef) && i && i.unmap)
@@ -18874,7 +18874,7 @@
                             for (
                               d._.fromIndex = {}, d._.toIndex = {}, v = F;
                               v--;
-  
+
                             )
                               for (H = L[v], f = O; f--; )
                                 H === b[f] &&
@@ -18889,7 +18889,7 @@
                               f = F,
                               A = d.constructor.prototype.ctx;
                             f--;
-  
+
                           )
                             ($ = d.linkedCtxParam[f]) &&
                               ((H = L[f]),
@@ -33082,7 +33082,7 @@
                   t = (i = ua(e[r]).split("-")).length,
                     a = (a = ua(e[r + 1])) ? a.split("-") : null;
                   t > 0;
-  
+
                 ) {
                   if ((n = _a(i.slice(0, t).join("-")))) return n;
                   if (a && a.length >= t && ca(i, a) >= t - 1) break;
@@ -36520,4 +36520,3 @@
     );
     __webpack_exports__ = __webpack_require__.O(__webpack_exports__);
   })();
-  

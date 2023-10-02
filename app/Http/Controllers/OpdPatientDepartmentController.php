@@ -20,6 +20,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
+use App\Models\Appointment;
 
 /**
  * Class OpdPatientDepartmentController
@@ -120,17 +121,26 @@ class OpdPatientDepartmentController extends AppBaseController
     public function store(CreateOpdPatientDepartmentRequest $request)
     {
         $input = $request->all();
+        $doc = Doctor::where('id', $request->doctor_id)->first();
+
         $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
-        $this->opdPatientDepartmentRepository->store($input);
+        $patiendID = $this->opdPatientDepartmentRepository->store($input);
         $this->opdPatientDepartmentRepository->createNotification($input);
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.saved_successfully'));
 
+
+        $appointment = Appointment::create([
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'doctor_department_id' => $doc->department_id,
+            'opd_date' => $request->appointment_date,
+        ]);
         return redirect(route('opd.patient.index'));
     }
 
     public function dentalStore(Request $request){
         $input = $request->all();
-        // dd($input);
+        //dd($input);
         $data = [
 
             "currency_symbol" => $request->currency_symbol,
@@ -150,6 +160,15 @@ class OpdPatientDepartmentController extends AppBaseController
         ];
         // dd($data);
         DentalOpdPatientDepartment::insert($data);
+
+        $doc = Doctor::where('id', $request->doctor_id)->first();
+        $appointment = Appointment::create([
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'doctor_department_id' => $doc->department_id,
+            'opd_date' => $request->appointment_date,
+        ]);
+
         return redirect(route('dentalopd.patient.index'));
     }
 

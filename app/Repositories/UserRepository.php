@@ -181,7 +181,7 @@ class UserRepository extends BaseRepository
                 $user->sendEmailVerificationNotification();
                 $ownerId = $labTechnician->id;
                 $ownerType = LabTechnician::class;
-            }
+            }   
 
             $user->update(['owner_id' => $ownerId, 'owner_type' => $ownerType]);
 

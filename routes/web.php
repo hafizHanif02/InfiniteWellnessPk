@@ -541,7 +541,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('packages/{package}', [PackageController::class, 'show'])->where('package', '[0-9]+');
     });
 
-    Route::middleware('role:Admin|Patient|Nurse')->group(function () {
+    Route::middleware('role:Admin|Patient|Nurse|Pharmacist')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('patient-admissions', [Employee\PatientAdmissionController::class, 'index'])->name('patient-admissions');
             Route::get('patient-admissions/{patient_admission}', [Employee\PatientAdmissionController::class, 'show'])
@@ -655,7 +655,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('services/{service_id}/active-deactive', [ServiceController::class, 'activeDeActiveService']);
     });
 
-    Route::middleware('role:Admin|Accountant')->group(function () {
+    Route::middleware('role:Admin|Accountant|Pharmacist')->group(function () {
         Route::resource('accounts', AccountController::class)->parameters(['accounts' => 'account']);
         Route::get('accounts', [AccountController::class, 'index'])->name('accounts.index')->middleware('modules');
         Route::post('accounts/{account}/active-deactive', [AccountController::class, 'activeDeactiveAccount']);
@@ -704,19 +704,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
 
 
-        // OPD GET FOR NURSE FORM
-        Route::resource('nursing-form', NursingFormController::class);
-        Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
 
 
         // POS Return
         Route::resource('pos-return', PosReturnController::class);
         Route::get('pos-return/print/{posreturn}', [PosReturnController::class,'print'])->name('pos-return.print');
 
-        // OPD GET FOR NURSE FORM
-        Route::resource('nursing-form', NursingFormController::class);
-        Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
-        
         // Label
         Route::resource('label', LabelController::class);
         Route::get('label/label-show/{posID}/{medicineId}',[LabelController::class,'LabelShow']);
@@ -765,6 +758,16 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
         Route::resource('bed-types', BedTypeController::class)->parameters(['bed-types' => 'bedType']);
         Route::get('bed-types', [BedTypeController::class, 'index'])->name('bed-types.index')->middleware('modules');
+
+
+        // OPD GET FOR NURSE FORM
+        //Route::resource('nursing-form', NursingFormController::class);
+        Route::get('nursing-form', [NursingFormController::class, 'index'])->name('nursing.index');
+        Route::get('nursing-form/create', [NursingFormController::class, 'create'])->name('nursing-form.create');
+        Route::post('nursing-form/store', [NursingFormController::class, 'store'])->name('nursing-form.store');
+        Route::get('nursing-form/{formID}', [NursingFormController::class, 'showForm']);
+        Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
+
     });
 
     Route::middleware('role:Admin|Nurse|Receptionist|Doctor|Case Manager|Nurse')->group(function () {
@@ -900,7 +903,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('employees-list', [EmployeePayrollController::class, 'getEmployeesList'])->name('employees.list');
     });
 
-    Route::middleware('role:Admin|Nurse')->group(function () {
+    Route::middleware('role:Admin|Nurse|Pharmacist')->group(function () {
         //        Route::resource('departments', 'DepartmentController');
         //        Route::post('departments/{department}/active-deactive', 'DepartmentController@activeDeactiveDepartment');
 
@@ -1311,6 +1314,13 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 });
 
+Route::middleware('role:Admin')->group(function () {
+
+    Route::get('dietitian-form', [PatientController::class, 'dietitanFormList'])->name('dietitan.index');
+    Route::get('dietitian-form/{patientID}', [PatientController::class, 'dietitanShow'])->name('dietitan.show');
+    Route::post('dietitian-form/{patientID}', [PatientController::class, 'formSubmit'])->name('dietitian-form.form.submit');
+
+});
 Route::get('hms-logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 Route::get('qr-scan', function () {

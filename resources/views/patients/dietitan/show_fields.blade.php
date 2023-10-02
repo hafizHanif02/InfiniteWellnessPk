@@ -61,15 +61,15 @@
                 <a class="nav-link active p-0" data-bs-toggle="tab"
                    href="#PatientOverview">{{ __('messages.overview') }}</a>
             </li>
-            <li class="nav-item position-relative me-7 mb-3">
+            {{-- <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientCases">{{ __('messages.cases') }}</a>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientAdmissions">{{ __('messages.patient_admissions') }}</a>
             </li> --}}
-            <li class="nav-item position-relative me-7 mb-3">
+            {{-- <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#showPatientAppointments">{{ __('messages.appointments') }}</a>
             </li>
@@ -96,43 +96,12 @@
             <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#addonForms">Addon Forms</a>
-            </li>
-            {{-- <li class="nav-item position-relative me-7 mb-3">
+            </li> --}}
+            <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#nutritionassessment">Dietitian Assessment</a>
-            </li> --}}
+            </li>
             @endrole
-
-            @role('Doctor')
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link active p-0" data-bs-toggle="tab"
-                   href="#PatientOverview">{{ __('messages.overview') }}</a>
-            </li>
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#showPatientCases">{{ __('messages.cases') }}</a>
-            </li>
-
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#showPatientAppointments">{{ __('messages.appointments') }}</a>
-            </li>
-
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#showPatientDocument">{{ __('messages.documents') }}</a>
-            </li>
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#showPatientVaccinated">{{ __('messages.vaccinations') }}</a>
-            </li>
-            <li class="nav-item position-relative me-7 mb-3">
-                <a class="nav-link p-0" data-bs-toggle="tab"
-                   href="#addonForms">Addon Forms</a>
-            </li>
-            
-            @endrole
-
             @role('Nurse')
                 <li class="nav-item position-relative me-7 mb-3">
                     <a class="nav-link active p-0" data-bs-toggle="tab"
@@ -214,7 +183,7 @@
         </div>
 
     </div>
-    <div class="tab-pane fade" id="showPatientCases" role="tabpanel">
+    {{-- <div class="tab-pane fade" id="showPatientCases" role="tabpanel">
         <livewire:patient-case-table patientId="{{ $data->id }}"/>
     </div>
     <div class="tab-pane fade" id="showPatientAdmissions" role="tabpanel">
@@ -237,7 +206,7 @@
     </div>
     <div class="tab-pane fade" id="showPatientVaccinated" role="tabpanel">
         <livewire:patient-vaccination-detail-table patient-id="{{ $data->id }}"/>
-    </div>
+    </div> --}}
 
 
     <div class="tab-pane fade" id="addonForms" role="tabpanel">

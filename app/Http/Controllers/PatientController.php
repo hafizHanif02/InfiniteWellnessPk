@@ -65,6 +65,11 @@ class PatientController extends AppBaseController
         return view('patients.index', $data);
     }
 
+    public function dietitanFormList(){
+        $data['statusArr'] = Patient::STATUS_ARR;
+
+        return view('patients.dietitan.index', $data);
+    }
     /**
      * Show the form for creating a new Patient.
      *
@@ -169,6 +174,34 @@ class PatientController extends AppBaseController
         }
     }
 
+    public function dietitanShow($patientId)
+    {
+
+        $data = $this->patientRepository->getPatientAssociatedData($patientId);
+        if (! $data) {
+            return view('errors.404');
+        }
+        if (getLoggedinPatient() && checkRecordAccess($data->id)) {
+            return view('errors.404');
+        } else {
+            $advancedPaymentRepo = App::make(AdvancedPaymentRepository::class);
+            $patients = $advancedPaymentRepo->getPatients();
+            $user = Auth::user();
+            if ($user->hasRole('Doctor')) {
+                $vaccinationPatients = getPatientsList($user->owner_id);
+            } else {
+                $vaccinationPatients = Patient::getActivePatientNames();
+            }
+            $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();
+            natcasesort($vaccinations);
+
+            $forms = DB::table('form_type')->get();
+            $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
+
+            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm'));
+        }
+    }
+
     public function formSubmit(Request $request){
         // return "yes works";
         return $request;
@@ -253,7 +286,7 @@ class PatientController extends AppBaseController
     {
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
-        
+
         if($form_patientId){
             $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
@@ -1098,8 +1131,8 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating2', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating3', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating4', 'fieldValue' => ''],
-            
-          
+
+
         ];
 
         DB::table('form_data')->insert($data);

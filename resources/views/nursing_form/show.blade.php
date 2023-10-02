@@ -7,27 +7,20 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Nursing Assessment Form</h3>
-                <a href="{{ route('nursing.index') }}" class="btn btn-secondary">Back</a>
+                <a href="/nursing-form" class="btn btn-secondary">Back</a>
             </div>
+
             <form action="{{route('nursing-form.store') }}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="row mb-5 mt-5">
                         <div class="col-md-6">
                             <label for="patient_mr_number" class="form-label">MR #<sup class="text-danger">*</sup></label>
-                            <select class="form-control" name="patient_mr_number" id="patient_mr_number" required>
-                                <option value="" selected disabled>select mr number</option>
-                                @foreach ($patients as $patient)
-                                <option value="{{$patient->MR }}">{{$patient->MR }} ~ {{$patient->user->full_name }}</option>
-
-                                @endforeach
-                            </select>
+                            <input class="form-control" value="{{$patients->MR}} - {{$patients->user->first_name}} {{$patients->user->last_name}}" disabled/>
                         </div>
                         <div class="col-md-6">
                             <label for="opd_id" class="form-label">OPD<sup class="text-danger">*</sup></label>
-                            <select class="form-control" name="opd_id" id="opd_id" required>
-                                <option value="" selected disabled>select mr number first</option>
-                            </select>
+                            <input class="form-control" value="{{$nursing->opd_id}}" disabled/>
                         </div>
                     </div>
                 </div>
@@ -38,7 +31,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="blood_pressure" class="form-label">Blood Pressure<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="blood_pressure" id="blood_pressure" required class="form-control">
+                                <input class="form-control" value="{{$nursing->blood_pressure}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -49,7 +42,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="heart_rate" class="form-label">Heart Rate<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="heart_rate" id="heart_rate" required class="form-control">
+                                <input class="form-control" value="{{$nursing->heart_rate}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -60,7 +53,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="respiratory_rate" class="form-label">Respiratory Rate<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="respiratory_rate" id="respiratory_rate" required class="form-control">
+                                <input class="form-control" value="{{$nursing->respiratory_rate}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -73,7 +66,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="temperature" class="form-label">Temperature<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="temperature" id="temperature" required class="form-control">
+                                <input class="form-control" value="{{$nursing->temperature}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -84,7 +77,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="height" class="form-label">Height<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="height" id="height" required class="form-control">
+                                <input class="form-control" value="{{$nursing->height}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -95,7 +88,7 @@
                         <div class="col-md-3">
                             <div class="mb-5">
                                 <label for="weight" class="form-label">Weight<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="weight" id="weight" required class="form-control">
+                                <input class="form-control" value="{{$nursing->weight}}" disabled/>
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -108,35 +101,34 @@
                         <div class="col-md-6">
                             <div class="mb-5">
                                 <label for="pain_level" class="form-label">Pain Level (0-10)<sup class="text-danger">*</sup></label>
-                                <input type="text"  name="pain_level" id="pain_level" required class="form-control">
+                                <input class="form-control" value="{{$nursing->blood_pressure}}" disabled/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                         <h4>Current Medications:</h4>
+
                     <table class="table table-bordered">
                         <thead>
-                            <div class="row">
-                                <div class="col-md-2 mb-5 mt-5">
-                                    <button type="button" class="btn btn-primary" onclick="Addmore()" id="addmore-btn">Add More</button>
-                                </div>
-                            </div>
+
                             <tr>
                                 <td>Medication Name</td>
                                 <td>Dosage </td>
                                 <td>Frequency </td>
                                 <td>Prescribing Physician</td>
-                                <td>Action</td>
+
                             </tr>
                         </thead>
                         <tbody id="current_medications_table" >
-                            <tr>
-                                <td><input type="text" name="medications[0][medication_name]" class="form-control"></td>
-                                <td><input type="text" class="form-control" name="medications[0][dosage]"></td>
-                                <td><input type="text" class="form-control" name="medications[0][frequency]"></td>
-                                <td><input type="text" class="form-control" name="medications[0][prescribing_physician]"></td>
-                            </tr>
+                            @foreach ($medication as $med)
+                                <tr>
+                                    <td><input class="form-control" value="{{$med->medication_name}}" disabled/></td>
+                                    <td><input class="form-control" value="{{$med->dosage}}" disabled/></td>
+                                    <td><input class="form-control" value="{{$med->frequency}}" disabled/></td>
+                                    <td><input class="form-control" value="{{$med->prescribing_physician}}" disabled/></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -145,24 +137,23 @@
                         <h4>Allergies:</h4>
                     <table class="table table-bordered">
                         <thead>
-                            <div class="row text-end">
-                                <div class="col-md-2 mb-5 mt-5">
-                                    <button type="button" class="btn btn-primary" onclick="addmoreallergy()" id="addmore-btn">Add More</button>
-                                </div>
-                            </div>
+
                             <tr>
                                 <td>Allergen</td>
                                 <td>Reaction</td>
                                 <td>Severity</td>
-                                <td>Action</td>
+
                             </tr>
                         </thead>
                         <tbody id="allergies_table">
+                            @foreach ($allergies as $alle)
                             <tr>
-                                <td><input type="text" class="form-control" name="allergies[0][allergen]"></td>
-                                <td><input type="text" class="form-control" name="allergies[0][reaction]"></td>
-                                <td><input type="text" class="form-control" name="allergies[0][severity]"></td>
+                                <td><input class="form-control" value="{{$alle->allergen}}" disabled/></td>
+                                <td><input class="form-control" value="{{$alle->reaction}}" disabled/></td>
+                                <td><input class="form-control" value="{{$alle->severity}}" disabled/></td>
                             </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
 
@@ -171,28 +162,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="assessment_date" class="form-label">Assessment Date</label>
-                            <input type="date" name="assessment_date" id="assessment_date" class="form-control">
+                            <input class="form-control" value="{{$nursing->assessment_date}}" disabled/>
                         </div>
                         <div class="col-md-6">
                             <label for="nurse_name" class="form-label">Nurse's Name</label>
-                            <input type="text" placeholder="Enter Nurse's Name" name="nurse_name" id="nurse_name" class="form-control">
+                            <input class="form-control" value="{{$nursing->nurse_name}}" disabled/>
                         </div>
                     </div>
 
                     <div class="row mb-5 mt-5">
                         <div class="col-md-12">
                             <label for="signature" class="form-label">Signature</label>
-                            <input type="text" placeholder="Enter Signature" name="signature" id="signature" class="form-control">
+                            <input class="form-control" value="{{$nursing->signature}}" disabled/>
                         </div>
                     </div>
 
                     <div class="row text-center mb-5 mt-10">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-secondary">SUBMIT</button>
+                            <a href="/nursing-form" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
                 </div>
-                </form>
+
 
     </div>
 

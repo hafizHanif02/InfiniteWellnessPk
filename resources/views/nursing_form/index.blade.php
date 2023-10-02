@@ -26,16 +26,16 @@
                                 <td>{{ $nursing_from->patient_mr_number }}</td>
                                 <td>{{ $nursing_from->opd_id }}</td>
                                 <td class="d-flex justify-content-center gap-5">
-                                    <a href="{{ route('pos.show', $nursing_from->id) }}">
+                                    <a href="/nursing-form/{{$nursing_from->id}}">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('nursing-form.destroy',$nursing_from->id) }}" class="d-inline" method="post">
+                                    {{-- <form action="{{ route('nursing-form.destroy',$nursing_from->id) }}" class="d-inline" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-transparent border-0 text-danger"><i class="fa fa-trash"></i></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
-                                
+
                             </tr>
                         @empty
                             <tr class="text-center">

@@ -142,7 +142,7 @@ const billCalculateAndSetInvoiceAmount = () => {
         totalAmount += itemTotal;
     });
     totalAmount = parseFloat(totalAmount);
-    
+
     $('#totalPrice').text($('.currentCurrency').val() + addCommas(totalAmount.toFixed(2)));
 
     //set hidden input value
@@ -365,8 +365,8 @@ listenChange('#patientAdmissionId', function () {
             // complete: function (result) {
             //     screenUnLock();
             // },
-            
-            
+
+
         });
     }else {
         // screenUnLock();
