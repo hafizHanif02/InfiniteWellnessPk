@@ -767,6 +767,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('nursing-form/store', [NursingFormController::class, 'store'])->name('nursing-form.store');
         Route::get('nursing-form/{formID}', [NursingFormController::class, 'showForm']);
         Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
+        Route::get('get-nursing-data/{mrNumber}', [NursingFormController::class, 'getFormData']);
 
     });
 

@@ -113,6 +113,22 @@ class NursingFormController extends Controller
         ]);
     }
 
+    public function getFormData(Request $request)
+    {
+
+        $nurForm = NursingForm::where('patient_mr_number', $request->mrNumber)->latest()->first();
+
+        if($nurForm){
+            return [
+                'patients' => Patient::with('user')->where('MR', $nurForm->patient_mr_number)->first(),
+                'nursing' => $nurForm,
+                'medication' => Medication::where('nursing_form_id', $nurForm->id)->get(),
+                'allergies' => Allergies::where('nursing_form_id', $nurForm->id)->get(),
+            ];
+        }
+        return 0;
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
