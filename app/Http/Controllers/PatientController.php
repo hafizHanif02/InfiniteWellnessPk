@@ -2,43 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App;
-use App\Exports\PatientExport;
-use App\Http\Requests\CreatePatientRequest;
-use App\Http\Requests\UpdatePatientRequest;
-use App\Models\AdvancedPayment;
-use App\Models\Appointment;
-use App\Models\BedAssign;
+use Flash;
+use Exception;
 use App\Models\Bill;
+use App\Models\Invoice;
+use App\Models\Patient;
+use App\Models\BedAssign;
+use App\Models\Dietitian;
+use Illuminate\View\View;
+use App\Models\Appointment;
 use App\Models\BirthReport;
 use App\Models\DeathReport;
-use App\Models\InvestigationReport;
-use App\Models\Invoice;
-use App\Models\IpdPatientDepartment;
-use App\Models\OperationReport;
-use App\Models\Patient;
-use App\Models\PatientAdmission;
 use App\Models\PatientCase;
-use App\Models\Prescription;
 use App\Models\Vaccination;
-use App\Repositories\AdvancedPaymentRepository;
-use App\Repositories\PatientRepository;
-use DB;
-use Exception;
-use Flash;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
+use App\Exports\PatientExport;
 use Illuminate\Support\Carbon;
+use App\Models\AdvancedPayment;
+use App\Models\OperationReport;
+use App\Models\PatientAdmission;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Redirector;
+use App\Models\InvestigationReport;
+use App\Models\IpdPatientDepartment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\DietitianRequest;
+use App\Repositories\PatientRepository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\CreatePatientRequest;
+use App\Http\Requests\UpdatePatientRequest;
 use App\Repositories\PatientCaseRepository;
+use App\Repositories\AdvancedPaymentRepository;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PatientController extends AppBaseController
 {
@@ -202,9 +204,8 @@ class PatientController extends AppBaseController
         }
     }
 
-    public function formSubmit(Request $request){
-        // return "yes works";
-        return $request;
+    public function formSubmit(DietitianRequest $request){
+        Dietitian::create($request->validated());
     }
 
     /**
