@@ -143,45 +143,45 @@ class UserRepository extends BaseRepository
                     'department_id' => $doctorDepartment->id,
                     'specialist' => 'Bones',
                 ]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $doctor->id;
                 $ownerType = Doctor::class;
             } elseif ($input['department_id'] == 3) {
                 $patient = Patient::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $patient->id;
                 $ownerType = Patient::class;
             } elseif ($input['department_id'] == 4) {
                 $nurse = Nurse::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $nurse->id;
                 $ownerType = Nurse::class;
             } elseif ($input['department_id'] == 5) {
                 $receptionist = Receptionist::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $receptionist->id;
                 $ownerType = Receptionist::class;
             } elseif ($input['department_id'] == 6) {
                 $pharmacist = Pharmacist::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $pharmacist->id;
                 $ownerType = Pharmacist::class;
             } elseif ($input['department_id'] == 7) {
                 $accountant = Accountant::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $accountant->id;
                 $ownerType = Accountant::class;
             } elseif ($input['department_id'] == 8) {
                 $caseManager = CaseHandler::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $caseManager->id;
                 $ownerType = CaseHandler::class;
             } elseif ($input['department_id'] == 9) {
                 $labTechnician = LabTechnician::create(['user_id' => $user->id]);
-                $user->sendEmailVerificationNotification();
+                // $user->sendEmailVerificationNotification();
                 $ownerId = $labTechnician->id;
                 $ownerType = LabTechnician::class;
-            }   
+            }
 
             $user->update(['owner_id' => $ownerId, 'owner_type' => $ownerType]);
 
