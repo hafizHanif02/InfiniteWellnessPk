@@ -205,9 +205,7 @@ class PatientController extends AppBaseController
     }
 
     public function formSubmit(DietitianRequest $request){
-        
         Dietitian::create($request->validated());
-        
     }
 
     /**
