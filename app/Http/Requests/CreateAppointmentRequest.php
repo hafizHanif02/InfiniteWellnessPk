@@ -27,7 +27,7 @@ class CreateAppointmentRequest extends FormRequest
     {
         $doctorId = $this->request->get('doctor_id');
         $doctorDepartmentId = Doctor::whereId($doctorId)->first();
-        $this->request->add(['department_id' => $doctorDepartmentId->doctor_department_id]);
+        $this->request->add(['department_id' => $doctorDepartmentId->department_id]);
         if (getLoggedInUser()->hasRole('Patient')) {
             $this->request->add(['patient_id' => getLoggedInUser()->owner_id]);
         }
