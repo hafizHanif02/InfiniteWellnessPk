@@ -50,8 +50,12 @@ class DoctorOPDChargeTable extends LivewireTableComponent
                 ->view('doctor_opd_charges.templates.column.doctor')
                 ->sortable()
                 ->searchable(),
-            Column::make(__('messages.doctor_opd_charge.standard_charge'), 'standard_charge')
+                Column::make(__('messages.doctor_opd_charge.standard_charge'), 'standard_charge')
                 ->view('doctor_opd_charges.templates.column.standard_charge')
+                ->sortable()
+                ->searchable(),
+            Column::make('Follow Up Charges', 'followup_charge')
+                ->view('doctor_opd_charges.templates.column.followup_charge')
                 ->sortable()
                 ->searchable(),
             Column::make(__('messages.common.action'), 'id')
