@@ -175,7 +175,7 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated()+['open_quantity' => $request->total_quantity, 'total_quantity' => 0]);
+        $product->update($request->validated()+['open_quantity' => $request->total_quantity]);
 
         return to_route('inventory.products.index')->with('success', 'Product updated!');
     }
