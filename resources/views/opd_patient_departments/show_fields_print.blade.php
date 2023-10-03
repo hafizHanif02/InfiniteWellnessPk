@@ -140,6 +140,16 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
                             </div>
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
+                                       class="pb-2 fs-5 text-gray-600">Followup Charge</label>
+                                <span class="fs-5 text-gray-800">
+                                    {{ !empty($opdPatientDepartment->followup_charge) ?
+checkNumberFormat($opdPatientDepartment->followup_charge, strtoupper($opdPatientDepartment->currency_symbol ?? getCurrentCurrency()))
+:
+                                        __('messages.common.n/a') }}
+                                </span>
+                            </div>
+                            <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
+                                <label for="name"
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.is_old_patient').':' }}</label>
                                 <span class="fs-5 text-gray-800">{{ ($opdPatientDepartment->is_old_patient) ? __('messages.common.yes') : __('messages.common.no') }}</span>
                             </div>

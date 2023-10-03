@@ -75,6 +75,7 @@ class OpdPatientDepartment extends Model
         'is_old_patient',
         'doctor_id',
         'standard_charge',
+        'followup_charge',
         'payment_mode',
         'currency_symbol',
     ];
@@ -89,7 +90,8 @@ class OpdPatientDepartment extends Model
         'case_id' => 'required',
         'appointment_date' => 'required',
         'doctor_id' => 'required',
-        'standard_charge' => 'required',
+        'standard_charge' => 'nullable',
+        'followup_charge' => 'nullable',
         'payment_mode' => 'required',
         'weight' => 'numeric|max:200|nullable',
         'height' => 'numeric|max:7|nullable',

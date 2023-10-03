@@ -10,6 +10,7 @@ class DoctorOpdCharge extends Model
     public $fillable = [
         'doctor_id',
         'standard_charge',
+        'followup_charge',
         'currency_symbol',
     ];
 
@@ -17,12 +18,14 @@ class DoctorOpdCharge extends Model
         'id' => 'integer',
         'doctor_id' => 'integer',
         'standard_charge' => 'double',
+        'followup_charge' => 'double',
         'currency_symbol' => 'double',
     ];
 
     public static $rules = [
         'doctor_id' => 'required|unique:doctor_opd_charges,doctor_id',
         'standard_charge' => 'required',
+        'followup_charge' => 'required',
     ];
 
     public static $messages = [

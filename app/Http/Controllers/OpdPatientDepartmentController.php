@@ -123,7 +123,14 @@ class OpdPatientDepartmentController extends AppBaseController
         $input = $request->all();
         $doc = Doctor::where('id', $request->doctor_id)->first();
 
-        $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
+        if(!empty($input['standard_charge'])) {
+            $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
+        }
+        if(!empty($input['followup_charge'])) {
+            $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
+        }
+        // $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
+        // $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         $patiendID = $this->opdPatientDepartmentRepository->store($input);
         $this->opdPatientDepartmentRepository->createNotification($input);
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.saved_successfully'));

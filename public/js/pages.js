@@ -10272,11 +10272,21 @@
                   dataType: "json",
                   data: { id: $(this).val() },
                   success: function (e) {
+                  console.log(e);
+                  if($('#is_old_patient_checkbox')[0].checked){
+                    0 !== e.data.length
+                      ? $("#opdStandardCharge,#editOpdStandardCharge").val(
+                          e.data[0].followup_charge
+                        )
+                      : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                  }else {
                     0 !== e.data.length
                       ? $("#opdStandardCharge,#editOpdStandardCharge").val(
                           e.data[0].standard_charge
                         )
                       : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                  }
+                    
                   }
                 });
             });

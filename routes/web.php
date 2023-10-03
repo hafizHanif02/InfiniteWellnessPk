@@ -688,6 +688,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('bills', [BillController::class, 'index'])->name('bills.index')->middleware('modules');
         Route::post('bills/{bill}', [BillController::class, 'update']);
         Route::get('bills/{bill}/pdf', [BillController::class, 'convertToPdf'])->name('bills.pdf');
+        Route::get('bills/{bill}/print', [BillController::class, 'print'])->name('bills.print');
         Route::get('patient-admission-details',
             [BillController::class, 'getPatientAdmissionDetails'])->name('patient.admission.details');
         Route::get('bills/opd/create', [BillController::class, 'opdCreate']);
@@ -767,7 +768,6 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('nursing-form/store', [NursingFormController::class, 'store'])->name('nursing-form.store');
         Route::get('nursing-form/{formID}', [NursingFormController::class, 'showForm']);
         Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
-        Route::get('get-nursing-data/{mrNumber}', [NursingFormController::class, 'getFormData']);
 
     });
 
