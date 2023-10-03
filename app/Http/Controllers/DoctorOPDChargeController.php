@@ -52,6 +52,7 @@ class DoctorOPDChargeController extends AppBaseController
     {
         $input = $request->all();
         $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
+        $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         $this->doctorOPDChargeRepository->create($input);
 
         return $this->sendSuccess(__('messages.doctor_opd_charges').' '.__('messages.common.saved_successfully'));

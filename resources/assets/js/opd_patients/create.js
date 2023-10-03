@@ -83,6 +83,7 @@ listenChange('#opdDoctorId,#editOpdDoctorId', function () {
             dataType: 'json',
             data: {id: $(this).val()},
             success: function (data) {
+                
                 if (data.data.length !== 0) {
                     $('#opdStandardCharge,#editOpdStandardCharge').val(data.data[0].standard_charge);
                 } else {

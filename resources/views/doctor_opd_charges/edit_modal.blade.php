@@ -23,6 +23,11 @@
                         <span class="required"></span>
                         {{ Form::text('standard_charge', null, ['class' => 'form-control price-input ', 'required', 'onkeyup' => 'if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")', 'id' => 'editDoctorStandardCharge']) }}
                     </div>
+                    <div class="col-md-12 mt-3">
+                        {{ Form::label('followup_charge', __('messages.doctor_opd_charge.followup_charge').(':'), ['class' => 'form-label']) }}
+                        <span class="required"></span>
+                        {{ Form::text('followup_charge', null, ['class' => 'form-control price-input ', 'required', 'onkeyup' => 'if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,"")', 'id' => 'editDoctorStandardCharge']) }}
+                    </div>
                 </div>
             </div>
                     <div class="modal-footer pt-0">

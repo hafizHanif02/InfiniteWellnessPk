@@ -16,6 +16,7 @@ class DoctorOPDChargeRepository extends BaseRepository
     protected $fieldSearchable = [
         'doctor_id',
         'standard_charge',
+        'followup_charge',
     ];
 
     /**
