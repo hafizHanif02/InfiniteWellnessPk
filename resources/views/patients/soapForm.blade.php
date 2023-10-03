@@ -21,7 +21,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <li>
                         <label for="textAreaExample1">Chief complaint</label>
-                        <textarea class="form-control" id="textAreaExample1" rows="4" value="{{  $nursingData->patient != null ? $nursingData->patient->user->full_name : ''}}" placeholder="Chief complaint" name="Chiefcomplaint">
+                        <textarea class="form-control" id="textAreaExample1" rows="4" value="{{  ($nursingData=== null) ?'' : $nursingData->patient->user->full_name}}" placeholder="Chief complaint" name="Chiefcomplaint">
                             @foreach($formData as $item)
                                 @if($item->fieldName == 'Chiefcomplaint')
                                     {{trim($item->fieldValue)}}
