@@ -38,9 +38,9 @@
             <tr>
                 <th class="text-center">S. No</th>
                 <th class="text-center">Description</th>
-                <th class="text-center" >PACK SIZE</th>
+                <th class="text-center" >QTY</th>
                 <th class="text-center">PRICE</th>
-                <th class="text-center">PIECE PER PACK</th>
+                <th class="text-center">PACK SIZE</th>
                 <th class="text-center">LEAST UNIT</th>
                 <th class="text-center">TP WITH S.T</th>
                 <th class="text-center">GROSS AMT</th>
