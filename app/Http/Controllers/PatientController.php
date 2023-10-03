@@ -471,7 +471,7 @@ class PatientController extends AppBaseController
     {
         // return $patient;
         $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
-      $nursingData = NursingForm::where('patient_mr_number', $patientID)->first();
+      $nursingData = NursingForm::where('patient_mr_number', $patientID)->with(['patient.user','Allergies','Medication'])->first();
 
     //   return $nursingData;
 

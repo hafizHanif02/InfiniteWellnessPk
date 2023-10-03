@@ -4,6 +4,8 @@
 @endsection
 
 @section('content')
+
+{{dd($nursingData) }}
 <div class="container my-3">
         <form action="{{request()->url()}}" method="POST">
             @csrf
