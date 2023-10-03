@@ -1067,7 +1067,7 @@
 
 
                                     </form>
-                                    
+
                                     </tbody>
                                 </table>
 
@@ -1076,7 +1076,7 @@
                         <div style="display: flex;
                                 justify-content: center;" class="col-12">
                                     <button id="submitButton" style="
-                                    
+
                                     background: #851bff;
                                     color: white;
                                     border: 0px;

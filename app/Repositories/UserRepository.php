@@ -181,7 +181,19 @@ class UserRepository extends BaseRepository
                 // $user->sendEmailVerificationNotification();
                 $ownerId = $labTechnician->id;
                 $ownerType = LabTechnician::class;
+            }  elseif ($input['department_id'] == 10) {
+                $labTechnician = LabTechnician::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $labTechnician->id;
+                $ownerType = LabTechnician::class;
+            }  elseif ($input['department_id'] == 11) {
+                $labTechnician = LabTechnician::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $labTechnician->id;
+                $ownerType = LabTechnician::class;
             }
+
+
 
             $user->update(['owner_id' => $ownerId, 'owner_type' => $ownerType]);
 

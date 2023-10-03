@@ -210,7 +210,7 @@ class PatientController extends AppBaseController
 
     public function formSubmit(Request $request){
         //return $request->all();
-        
+
         // Dietitian::create($request->all());
         $patientIds = DB::table('dietitianassessment')->pluck('patient_id')->toArray();
 
@@ -230,7 +230,7 @@ class PatientController extends AppBaseController
                 'pastFluidIntake' => $request->pastFluidIntake ?? 0,
                 'foodAllergy' => $request->foodAllergy ?? 0,
                 'activityFactor' => $request->activityFactor ?? 0,
-                'Diabetes' => $request->Diabetes ?? 0,
+                'Diabetes' => $request->Diabetes,
                 'Hypertension' => $request->Hypertension ?? 0,
                 'Stroke' => $request->Stroke ?? 0,
                 'Cancer' => $request->Cancer ?? 0,
@@ -301,8 +301,8 @@ class PatientController extends AppBaseController
                 'time42' => $request->time42 ?? 0,
                 'week42' => $request->week42 ?? 0,
             ]);
-    
-        }else { 
+
+        }else {
             $insertedId = DB::table('dietitianassessment')->insertGetId([
             'patient_id' => $request->patient_id,
             'age' => $request->age,
@@ -386,7 +386,7 @@ class PatientController extends AppBaseController
             'time42' => $request->time42,
             'week42' => $request->week42,
         ]);
-        
+
 
         return response()->json(['message' => 'Success'], 200);
     }
