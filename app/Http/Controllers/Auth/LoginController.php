@@ -67,7 +67,6 @@ class LoginController extends Controller
             $this->redirectTo = 'dashboard';
         } else {
             if ($request->user()->hasRole(['Receptionist'])) {
-                $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Doctor', 'Case Manager', 'Lab Technician', 'Pharmacist'])) {
                 $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Patient'])) {

@@ -28,7 +28,7 @@ class RedirectIfAuthenticated
                     return redirect('notice-boards');
                 }
 
-                return redirect('/patient/my-cases');
+                return redirect('/dashboard');
 
                 // return redirect(RouteServiceProvider::HOME);
             }
