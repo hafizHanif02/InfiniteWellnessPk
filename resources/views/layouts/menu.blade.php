@@ -1545,4 +1545,8 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
         </a>
     </li>
     @endrole
+
+    @role('Admin')
+
+    @endrole
 @endif
