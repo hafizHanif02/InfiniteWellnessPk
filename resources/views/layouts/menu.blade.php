@@ -1141,6 +1141,14 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
     </li>
     @endmodule
 
+    <li class="nav-item  {{ Request::is('nursing-form*') ? 'active' : '' }}">
+        <a class="nav-link  d-flex align-items-center py-3"
+           href="{{ route('nursing.index') }}">
+                                                                                                            <span class="aside-menu-icon pe-3 pe-3"><i
+                                                                                                                        class="fa fa-user-nurse"></i></span>
+            <span class="aside-menu-title">Nursing Form </span>
+        </a>
+    </li>
     @endrole
 
     @role('Lab Technician')
@@ -1536,7 +1544,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">{{ __('Transfer Request') }}</span>
         </a>
     </li>
-    
+
     @endrole
 
     @role('Admin')
