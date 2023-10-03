@@ -199,7 +199,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('documents/{document}/update', [DocumentController::class, 'update']);
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Dietitian')->group(function () {
         // Routes for Patients Cases listing
         Route::prefix('patient')->group(function () {
             Route::get('my-cases', [Patient\PatientCaseController::class, 'index'])->name('patients.cases')->middleware('modules');
@@ -342,7 +342,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             [PathologyTestController::class, 'pathologyTestExport'])->name('pathology.tests.excel');
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Case Manager|Accountant')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Case Manager|Accountant|Dietitian')->group(function () {
         Route::get('patients/{patient}', [PatientController::class, 'show'])->where('patient',
             '[0-9]+')->name('patients.show');
         Route::post('patients/{patient}', [PatientController::class, 'formSubmit'])->name('patients.form.submit');
@@ -405,7 +405,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('patient-cases/{case_id}/active-deactive', [PatientCaseController::class, 'activeDeActiveStatus']);
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Nurse')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Nurse|Dietitian')->group(function () {
         Route::resource('charge-categories', ChargeCategoryController::class);
         Route::get('charge-categories',
             [ChargeCategoryController::class, 'index'])->name('charge-categories.index')->middleware('modules');
@@ -1315,7 +1315,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 });
 
-Route::middleware('role:Admin')->group(function () {
+Route::middleware('role:Admin|Dietitian')->group(function () {
 
     Route::get('dietitian-form', [PatientController::class, 'dietitanFormList'])->name('dietitan.index');
     Route::get('dietitian-form/{patientID}', [PatientController::class, 'dietitanShow'])->name('dietitan.show');
