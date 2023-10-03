@@ -15,11 +15,11 @@ class StockOutExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'Group',
+            // 'Group',
             'Generic Formula',
             'Category',
             'Manufacturer',
-            'Vendor',
+            // 'Vendor',
             'Code',
             'Product Name',
             'Package Detail',
@@ -44,11 +44,11 @@ class StockOutExport implements FromCollection, WithHeadings, WithMapping
     public function map($stockOut): array
     {
         return [
-            $stockOut->product->group->name,
+            // $stockOut->product->group->name,
             $stockOut->product->generic->formula,
             $stockOut->product->productCategory->name,
             $stockOut->product->manufacturer->company_name,
-            $stockOut->product->vendor->account_title,
+            // $stockOut->product->vendor->account_title,
             $stockOut->product->code,
             $stockOut->product->product_name,
             $stockOut->product->package_detail,
@@ -72,6 +72,6 @@ class StockOutExport implements FromCollection, WithHeadings, WithMapping
 
     public function collection()
     {
-        return TransferProduct::with(['product.group', 'product.generic', 'product.vendor', 'product.manufacturer', 'product.productCategory', 'transfer'])->get();
+        return TransferProduct::with(['product', 'product.generic', 'product.vendor', 'product.manufacturer', 'product.productCategory', 'transfer'])->get();
     }
 }

@@ -65,9 +65,23 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
                 'barcode' => $row['barcode'] ?? null,
             ]);
             $product->update([
-                'unit_trade' => $product->trade_price / ($product->pieces_per_pack * $product->number_of_pack),
-                'cost_price' => $product->trade_price - ($product->trade_price * $product->discount_trade_price / 100),
-                'total_quantity' => $product->number_of_pack * $product->pieces_per_pack,
+                'product_name' => $row['product_name'],
+                'dosage_id' => Dosage::where('name', $row['dosage'])->pluck('id')->first(),
+                'generic_id' => Generic::where('formula', $row['generic_formula'])->pluck('id')->first(),
+                'package_detail' => $row['package_detail'] ?? null,
+                'product_category_id' => ProductCategory::where('name', $row['product_category'])->pluck('id')->first(),
+                'manufacturer_id' => Manufacturer::where('company_name', $row['manufacturer'])->pluck('id')->first(),
+                'unit_of_measurement' => $row['unit_of_measurement'] == 'unit_quantity' ? 1 : 0,
+                'manufacturer_retail_price' => $row['manufacturer_retail_price'],
+                'number_of_pack' => $row['unit_of_measurement'] == 'unit_quantity' ? 1 : $row['number_of_pack'],
+                'pieces_per_pack' => $row['pieces_per_pack'],
+                'trade_price_percentage' => $row['trade_price_percentage'],
+                'unit_retail' => $row['number_of_pack'] * $row['pieces_per_pack'],
+                'fixed_discount' => $row['fixed_discount'] ?? 0,
+                'trade_price' => $row['manufacturer_retail_price'] - ($row['manufacturer_retail_price'] * $row['trade_price_percentage'] / 100),
+                'sale_tax_percentage' => $row['sale_tax_percentage'] ?? 0,
+                'discount_trade_price' => $row['discount_trade_price'] ?? 0,
+                'barcode' => $row['barcode'] ?? null,
             ]);
         }
     }
