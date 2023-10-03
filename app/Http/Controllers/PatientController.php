@@ -2,43 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App;
-use App\Exports\PatientExport;
-use App\Http\Requests\CreatePatientRequest;
-use App\Http\Requests\UpdatePatientRequest;
-use App\Models\AdvancedPayment;
-use App\Models\Appointment;
-use App\Models\BedAssign;
+use Flash;
+use Exception;
 use App\Models\Bill;
+use App\Models\Invoice;
+use App\Models\Patient;
+use App\Models\BedAssign;
+use App\Models\Dietitian;
+use Illuminate\View\View;
+use App\Models\Appointment;
 use App\Models\BirthReport;
 use App\Models\DeathReport;
-use App\Models\InvestigationReport;
-use App\Models\Invoice;
-use App\Models\IpdPatientDepartment;
-use App\Models\OperationReport;
-use App\Models\Patient;
-use App\Models\PatientAdmission;
+use App\Models\NursingForm;
 use App\Models\PatientCase;
-use App\Models\Prescription;
 use App\Models\Vaccination;
-use App\Repositories\AdvancedPaymentRepository;
-use App\Repositories\PatientRepository;
-use DB;
-use Exception;
-use Flash;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Prescription;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
+use App\Exports\PatientExport;
 use Illuminate\Support\Carbon;
+use App\Models\AdvancedPayment;
+use App\Models\OperationReport;
+use App\Models\PatientAdmission;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Redirector;
+use App\Models\InvestigationReport;
+use App\Models\IpdPatientDepartment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\DietitianRequest;
+use App\Repositories\PatientRepository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\CreatePatientRequest;
+use App\Http\Requests\UpdatePatientRequest;
 use App\Repositories\PatientCaseRepository;
+use App\Repositories\AdvancedPaymentRepository;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PatientController extends AppBaseController
 {
@@ -198,14 +201,196 @@ class PatientController extends AppBaseController
             $forms = DB::table('form_type')->get();
             $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
 
-            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm'));
+
+            $dietdata = DB::table('dietitianassessment')->where(['patient_id' => $patientId])->first();
+
+            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm','dietdata'));
         }
     }
 
     public function formSubmit(Request $request){
-        // return "yes works";
-        return $request;
+        //return $request->all();
+        
+        // Dietitian::create($request->all());
+        $patientIds = DB::table('dietitianassessment')->pluck('patient_id')->toArray();
+
+        if (in_array($request->patient_id, $patientIds)) {
+            // Patient ID already exists, so return a response indicating that it's a duplicate.
+            // return response()->json(['message' => 'Patient ID already exists'], 400); // You can use a 400 status code for a bad request or choose an appropriate status code.
+            dd($request);
+            $insertedId = DB::table('dietitianassessment')->update([
+                'patient_id' => $request->patient_id,
+                'age' => $request->age ?? 0,
+                'weight' => $request->weight ?? 0,
+                'height' => $request->height ?? 0,
+                'bmi' => $request->bmi ?? 0,
+                'ibw' => $request->ibw ?? 0,
+                'nutritionalStatusCategory' => $request->nutritionalStatusCategory ?? 0,
+                'pastDietaryPattern' => $request->pastDietaryPattern ?? 0,
+                'pastFluidIntake' => $request->pastFluidIntake ?? 0,
+                'foodAllergy' => $request->foodAllergy ?? 0,
+                'activityFactor' => $request->activityFactor ?? 0,
+                'Diabetes' => $request->Diabetes ?? 0,
+                'Hypertension' => $request->Hypertension ?? 0,
+                'Stroke' => $request->Stroke ?? 0,
+                'Cancer' => $request->Cancer ?? 0,
+                'arthritis' => $request->arthritis ?? 0,
+                'chronicKidneyDisease' => $request->chronicKidneyDisease ?? 0,
+                'copd' => $request->copd ?? 0,
+                'Thyroid' => $request->Thyroid ?? 0,
+                'Asthma' => $request->Asthma ?? 0,
+                'Alzheimer' => $request->Alzheimer ?? 0,
+                'cysticFibrosis' => $request->cysticFibrosis ?? 0,
+                'inflammatoryBowelDisease' => $request->inflammatoryBowelDisease ?? 0,
+                'osteoporosis' => $request->osteoporosis ?? 0,
+                'mentalIllness' => $request->mentalIllness ?? 0,
+                'polycysticOvarySyndrome' => $request->polycysticOvarySyndrome ?? 0,
+                'Depression' => $request->Depression ?? 0,
+                'multipleSclerosis' => $request->multipleSclerosis ?? 0,
+                'inputEmail3' => $request->inputEmail3 ?? 0,
+                'Breakfast' => $request->Breakfast ?? 0,
+                'Midmorning' => $request->Midmorning ?? 0,
+                'Lunch' => $request->Lunch ?? 0,
+                'Regimen' => $request->Regimen ?? 0,
+                'Breakfastpost' => $request->Breakfastpost ?? 0,
+                'Midmorningpost' => $request->Midmorningpost ?? 0,
+                'Lunchpost' => $request->Lunchpost ?? 0,
+                'Dinnerpost' => $request->Dinnerpost ?? 0,
+                'Regimenpost' => $request->Regimenpost ?? 0,
+                'Protein' => $request->Protein ?? 0,
+                'Carbohydrates' => $request->Carbohydrates ?? 0,
+                'Fat' => $request->Fat ?? 0,
+                'Fluid' => $request->Fluid ?? 0,
+                'Restriction' => $request->Restriction ?? 0,
+                'Proteincalories' => $request->Proteincalories ?? 0,
+                'Carbohydratescalories' => $request->Carbohydratescalories ?? 0,
+                'Fatcalories' => $request->Fatcalories ?? 0,
+                'ProteinNutrients' => $request->ProteinNutrients ?? 0,
+                'CarbohydratesNutrients' => $request->CarbohydratesNutrients ?? 0,
+                'FatNutrients' => $request->FatNutrients ?? 0,
+                'BasalEnergy' => $request->BasalEnergy ?? 0,
+                'TotalCalories' => $request->TotalCalories ?? 0,
+                'date1' => $request->date1 ?? 0,
+                'time1' => $request->time1 ?? 0,
+                'week1' => $request->week1 ?? 0,
+                'date2' => $request->date2 ?? 0,
+                'time2' => $request->time2 ?? 0,
+                'week2' => $request->week2 ?? 0,
+                'date3' => $request->date3 ?? 0,
+                'time3' => $request->time3 ?? 0,
+                'week3' => $request->week3 ?? 0,
+                'date4' => $request->date4 ?? 0,
+                'time4' => $request->time4 ?? 0,
+                'week4' => $request->week4 ?? 0,
+                'date21' => $request->date21 ?? 0,
+                'time21' => $request->time21 ?? 0,
+                'week21' => $request->week21 ?? 0,
+                'date22' => $request->date22 ?? 0,
+                'time22' => $request->time22 ?? 0,
+                'week22' => $request->week22 ?? 0,
+                'date33' => $request->date33 ?? 0,
+                'time33' => $request->time33 ?? 0,
+                'week33' => $request->week33 ?? 0,
+                'date31' => $request->date31 ?? 0,
+                'time31' => $request->time31 ?? 0,
+                'week31' => $request->week31 ?? 0,
+                'date88' => $request->date88 ?? 0,
+                'time88' => $request->time88 ?? 0,
+                'week88' => $request->week88 ?? 0,
+                'date42' => $request->date42 ?? 0,
+                'time42' => $request->time42 ?? 0,
+                'week42' => $request->week42 ?? 0,
+            ]);
+    
+        }else { 
+            $insertedId = DB::table('dietitianassessment')->insertGetId([
+            'patient_id' => $request->patient_id,
+            'age' => $request->age,
+            'weight' => $request->weight,
+            'height' => $request->height,
+            'bmi' => $request->bmi,
+            'ibw' => $request->ibw,
+            'nutritionalStatusCategory' => $request->nutritionalStatusCategory,
+            'pastDietaryPattern' => $request->pastDietaryPattern,
+            'pastFluidIntake' => $request->pastFluidIntake,
+            'foodAllergy' => $request->foodAllergy,
+            'activityFactor' => $request->activityFactor,
+            'Diabetes' => $request->Diabetes,
+            'Hypertension' => $request->Hypertension,
+            'Stroke' => $request->Stroke,
+            'Cancer' => $request->Cancer,
+            'arthritis' => $request->arthritis,
+            'chronicKidneyDisease' => $request->chronicKidneyDisease,
+            'copd' => $request->copd,
+            'Thyroid' => $request->Thyroid,
+            'Asthma' => $request->Asthma,
+            'Alzheimer' => $request->Alzheimer,
+            'cysticFibrosis' => $request->cysticFibrosis,
+            'inflammatoryBowelDisease' => $request->inflammatoryBowelDisease,
+            'osteoporosis' => $request->osteoporosis,
+            'mentalIllness' => $request->mentalIllness,
+            'polycysticOvarySyndrome' => $request->polycysticOvarySyndrome,
+            'Depression' => $request->Depression,
+            'multipleSclerosis' => $request->multipleSclerosis,
+            'inputEmail3' => $request->inputEmail3,
+            'Breakfast' => $request->Breakfast,
+            'Midmorning' => $request->Midmorning,
+            'Lunch' => $request->Lunch,
+            'Regimen' => $request->Regimen,
+            'Breakfastpost' => $request->Breakfastpost,
+            'Midmorningpost' => $request->Midmorningpost,
+            'Lunchpost' => $request->Lunchpost,
+            'Dinnerpost' => $request->Dinnerpost,
+            'Regimenpost' => $request->Regimenpost,
+            'Protein' => $request->Protein,
+            'Carbohydrates' => $request->Carbohydrates,
+            'Fat' => $request->Fat,
+            'Fluid' => $request->Fluid,
+            'Restriction' => $request->Restriction,
+            'Proteincalories' => $request->Proteincalories,
+            'Carbohydratescalories' => $request->Carbohydratescalories,
+            'Fatcalories' => $request->Fatcalories,
+            'ProteinNutrients' => $request->ProteinNutrients,
+            'CarbohydratesNutrients' => $request->CarbohydratesNutrients,
+            'FatNutrients' => $request->FatNutrients,
+            'BasalEnergy' => $request->BasalEnergy,
+            'TotalCalories' => $request->TotalCalories,
+            'date1' => $request->date1,
+            'time1' => $request->time1,
+            'week1' => $request->week1,
+            'date2' => $request->date2,
+            'time2' => $request->time2,
+            'week2' => $request->week2,
+            'date3' => $request->date3,
+            'time3' => $request->time3,
+            'week3' => $request->week3,
+            'date4' => $request->date4,
+            'time4' => $request->time4,
+            'week4' => $request->week4,
+            'date21' => $request->date21,
+            'time21' => $request->time21,
+            'week21' => $request->week21,
+            'date22' => $request->date22,
+            'time22' => $request->time22,
+            'week22' => $request->week22,
+            'date33' => $request->date33,
+            'time33' => $request->time33,
+            'week33' => $request->week33,
+            'date31' => $request->date31,
+            'time31' => $request->time31,
+            'week31' => $request->week31,
+            'date88' => $request->date88,
+            'time88' => $request->time88,
+            'week88' => $request->week88,
+            'date42' => $request->date42,
+            'time42' => $request->time42,
+            'week42' => $request->week42,
+        ]);
+        
+
+        return response()->json(['message' => 'Success'], 200);
     }
+}
 
     /**
      * Show the form for editing the specified Patient.
@@ -282,16 +467,22 @@ class PatientController extends AppBaseController
         return $this->sendSuccess(__('messages.common.status_updated_successfully'));
     }
 
-    public function showForm(Request $request)
+    public function showForm(Request $request, $patient)
     {
+        // return $patient;
+        $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
+      $nursingData = NursingForm::where('patient_mr_number', $patientID)->first();
+
+    //   return $nursingData;
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
 
         if($form_patientId){
             $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
+            // return $fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
-            return view('patients.'.$fileName, compact('formData'));
+            return view('patients.'.$fileName, compact('formData','nursingData'));
         }
 
 

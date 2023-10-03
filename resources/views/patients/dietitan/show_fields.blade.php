@@ -308,25 +308,26 @@
                     border-radius: 29px;
                     ">
 
-
-                                    <form id="Anthropometric" class="row g-3" method="POST" >
-@csrf
+{{-- {{dd($dietdata) }} --}}
+                                    <form id="form1" class="row g-3" method="POST" >
+                                    @csrf
+                                    <input type="hidden" name="patient_id" value="{{$data->id }}">
 
                                         <div class="col-md-6">
                                             <label for="age" class="form-label">Age (years)</label>
-                                            <input type="number" name="age" value="25" class="form-control" id="age" placeholder="25">
+                                            <input value="{{($dietdata === null)?'':$dietdata->age}}" placeholder="add your age" type="number" name="age"  class="form-control" id="age" >
                                         </div>
 
 
                                         <div class="col-md-6">
                                             <label for="weight" class="form-label">Weight (kg)</label>
-                                            <input type="number" name="weight" value="50" class="form-control" id="weight" placeholder="50">
+                                            <input type="number" name="weight" value="{{($dietdata === null)?'':$dietdata->weight}}" class="form-control" id="weight" placeholder="add you weight">
                                         </div>
 
 
                                         <div class="col-6">
                                             <label for="height" class="form-label">Height (cm)</label>
-                                            <input type="number" name="height" value="150" class="form-control" id="height" placeholder="5.2">
+                                            <input type="number" name="height" value="{{($dietdata === null)?'':$dietdata->height}}" class="form-control" id="height" placeholder="Add your height">
                                         </div>
 
                                         <div class="col-6"></div>
@@ -334,7 +335,7 @@
                                         <div class="col-md-3">
                                             <label for="bmi" class="form-label">Body Mass Index (BMI)</label>
                                             <div class="input-group">
-                                                <input disabled type="text" name="bmi" value="0" class="form-control" name="bmi" id="bmi" aria-describedby="button-addon2">
+                                                <input disabled type="text" name="bmi" value="{{($dietdata === null)?'':$dietdata->bmi}}" class="form-control" name="bmi" id="bmi" aria-describedby="button-addon2">
                                             </div>
                                         </div>
 
@@ -342,7 +343,7 @@
                                         <div class="col-md-3 ">
                                             <label for="ibw" class="form-label">Ideal Body Weight (IBW)</label>
                                             <div class="input-group">
-                                                <input disabled type="number" name="ibw" value="0" class="form-control" id="ibw" aria-describedby="button-addon2">
+                                                <input disabled type="number" name="ibw" value="{{($dietdata === null)?'':$dietdata->ibw}}" class="form-control" id="ibw" aria-describedby="button-addon2">
                                             </div>
                                         </div>
 
@@ -369,13 +370,13 @@
 
                                         <div class="col-md-3">
                                             <label for="pastFluidIntake" class="form-label">Past Fluid Intake</label>
-                                            <input type="number" name="pastFluidIntake" value="30" class="form-control" name="bmi" id="pastFluidIntake" placeholder="30">
+                                            <input type="number" name="pastFluidIntake" value="{{($dietdata === null)?'':$dietdata->pastFluidIntake}}" class="form-control" name="bmi" id="pastFluidIntake" placeholder="30">
                                         </div>
 
 
                                         <div class="col-md-3">
                                             <label for="foodAllergy" class="form-label">Previous Food Allergy (if any)</label>
-                                            <input type="number" name="foodAllergy" value="30" class="form-control" name="foodAllergy" id="foodAllergy" placeholder="30">
+                                            <input type="number" name="foodAllergy" value="{{($dietdata === null)?'':$dietdata->foodAllergy}}" class="form-control" name="foodAllergy" id="foodAllergy" placeholder="30">
                                         </div>
 
 
@@ -414,7 +415,7 @@
                     ">
 
 
-                                    <form id="Comorbidity" class="row g-3">
+                                    <form id="form2" class="row g-3">
 
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
@@ -423,55 +424,55 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-md-4">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Diabetes" value="Diabetes" id="diabetes">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Diabetes == 1) ? 'checked' : '') }}   name="Diabetes"  id="diabetes">
                                                 <label class="form-check-label" for="diabetes">
                                             Diabetes
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Hypertension" value="Hypertension" id="hypertension">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Hypertension == 1) ? 'checked' : '') }}  value="1" name="Hypertension" value="Hypertension" id="hypertension">
                                                 <label class="form-check-label" for="hypertension">
                                             Hypertension
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Stroke" value="Stroke" id="stroke">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Stroke == 1) ? 'checked' : '') }}  value="1" name="Stroke" value="Stroke" id="stroke">
                                                 <label class="form-check-label" for="stroke">
                                             Stroke
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Cancer" value="Cancer" id="cancer">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Cancer == 1) ? 'checked' : '') }}  value="1" name="Cancer" value="Cancer" id="cancer">
                                                 <label class="form-check-label" for="cancer">
                                             Cancer
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Arthritis" value="Arthritis" id="arthritis">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->arthritis == 1) ? 'checked' : '') }}  value="1" name="Arthritis" id="arthritis">
                                                 <label class="form-check-label" for="arthritis">
                                             Arthritis
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chronicKidneyDisease" value="chronicKidneyDisease" id="chronicKidneyDisease">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->chronicKidneyDisease == 1) ? 'checked' : '') }}  value="1" name="chronicKidneyDisease" value="chronicKidneyDisease" id="chronicKidneyDisease">
                                                 <label class="form-check-label" for="chronicKidneyDisease">
                                             Chronic Kidney Disease
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="copd" value="copd" id="copd">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->copd == 1) ? 'checked' : '') }}  value="1" name="copd" value="copd" id="copd">
                                                 <label class="form-check-label" for="copd">
                                             Chronic Obstructive Pulmonary Disease (COPD)
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Thyroid" value="Thyroid" id="thyroid">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Thyroid == 1) ? 'checked' : '') }}  value="1" name="Thyroid" value="Thyroid" id="thyroid">
                                                 <label class="form-check-label" for="thyroid">
                                             Thyroid
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Asthma" value="Asthma" id="asthma">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Asthma == 1) ? 'checked' : '') }}  value="1" name="Asthma" value="Asthma" id="asthma">
                                                 <label class="form-check-label" for="asthma">
                                             Asthma
                                         </label>
@@ -479,54 +480,54 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Alzheimer" value="Alzheimer" id="alzheimer">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Alzheimer == 1) ? 'checked' : '') }}  value="1" name="Alzheimer" value="Alzheimer" id="alzheimer">
                                                 <label class="form-check-label" for="alzheimer">
                                             Alzheimer's
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="cysticFibrosis" value="cysticFibrosis" id="cysticFibrosis">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->cysticFibrosis == 1) ? 'checked' : '') }}  value="1" name="cysticFibrosis" value="cysticFibrosis" id="cysticFibrosis">
                                                 <label class="form-check-label" for="cysticFibrosis">
                                             Cystic Fibrosis
 
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="inflammatoryBowelDisease" value="inflammatoryBowelDisease" id="inflammatoryBowelDisease">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->inflammatoryBowelDisease == 1) ? 'checked' : '') }}  value="1" name="inflammatoryBowelDisease" value="inflammatoryBowelDisease" id="inflammatoryBowelDisease">
                                                 <label class="form-check-label" for="inflammatoryBowelDisease">
                                             Inflammatory Bowel Disease
 
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="osteoporosis" value="osteoporosis" id="osteoporosis">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->osteoporosis == 1) ? 'checked' : '') }}  value="1" name="osteoporosis" value="osteoporosis" id="osteoporosis">
                                                 <label class="form-check-label" for="osteoporosis">
                                             Osteoporosis
 
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="mentalIllness" value="mentalIllness" id="mentalIllness">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->mentalIllness == 1) ? 'checked' : '') }}  value="1" name="mentalIllness" value="mentalIllness" id="mentalIllness">
                                                 <label class="form-check-label" for="mentalIllness">
                                             Any other Mental Illness
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="polycysticOvarySyndrome" value="polycysticOvarySyndrome" id="polycysticOvarySyndrome">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->polycysticOvarySyndrome == 1) ? 'checked' : '') }}  value="1" name="polycysticOvarySyndrome" value="polycysticOvarySyndrome" id="polycysticOvarySyndrome">
                                                 <label class="form-check-label" for="polycysticOvarySyndrome">
                                             Polycystic Ovary Syndrome
 
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="Depression" value="Depression" id="depression">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->Depression == 1) ? 'checked' : '') }}  value="1" name="Depression" value="Depression" id="depression">
                                                 <label class="form-check-label" for="depression">
                                             Depression
 
                                         </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="multipleSclerosis" name="multipleSclerosis" id="multipleSclerosis">
+                                                <input class="form-check-input" type="checkbox" {{ ($dietdata === null) ? '' : (($dietdata->multipleSclerosis == 1) ? 'checked' : '') }}  value="1" value="multipleSclerosis" name="multipleSclerosis" id="multipleSclerosis">
                                                 <label class="form-check-label" for="multipleSclerosis">
                                             Multiple Sclerosis
 
@@ -564,7 +565,7 @@
 
 
 
-                                    <form id="History" class="row g-3">
+                                    <form id="form3" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                     display: flex;">History</h2>
@@ -630,7 +631,7 @@
 
 
 
-                                    <form id="Intervention" class="row g-3">
+                                    <form id="form4" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                             display: flex;">Nutritional Intervention Plan</h2>
@@ -699,7 +700,7 @@
 
 
 
-                                    <form id="Nutritiona" class="row g-3">
+                                    <form id="form5" class="row g-3">
                                         <div class="col-md-12">
                                             <h2 style="    justify-content: center;
                                     display: flex;">Nutritional Requirement</h2>
@@ -822,7 +823,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- //! First table starts -->
+                                     <form id="form6" action="">   <!-- //! First table starts -->
 
                                         <tr>
                                             <td>
@@ -1065,7 +1066,8 @@
 
 
 
-
+                                    </form>
+                                    
                                     </tbody>
                                 </table>
 
@@ -1074,8 +1076,13 @@
                         <div style="display: flex;
                                 justify-content: center;" class="col-12">
                                     <button id="submitButton" style="
-                                    padding: 5px 20px 5px 20px;
-                                " type="submit" class="btn btn-primary">Save</button>
+                                    
+                                    background: #851bff;
+                                    color: white;
+                                    border: 0px;
+                                    border-radius: 7px;
+                                    padding: 10px 23px;
+                                " type="submit" class="">Save</button>
                                 </div>
                     </div>
                     <!-- Tabs content -->
@@ -1087,7 +1094,7 @@
         </div>
     </div>
 
-    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script> --}}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
@@ -1309,7 +1316,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 console.log("totallllll", TotalCalories)
 </script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         $("#submitButton").click(function() {
           var formData = $("#Anthropometric").serialize();
@@ -1339,13 +1346,12 @@ console.log("totallllll", TotalCalories)
         });
       });
 
-</script>
-<script>
-    <script>
+</script> --}}
+{{-- <script>
     $(document).ready(function() {
         $("#submitButton").click(function() {
             var formData = new FormData();
-
+            console.log($("#Anthropometric").FormData);
             formData.append('Anthropometric', $("#Anthropometric").serialize());
             formData.append('Comorbidity', $("#Comorbidity").serialize());
             formData.append('History', $("#History").serialize());
@@ -1379,6 +1385,43 @@ console.log("totallllll", TotalCalories)
             });
         });
     });
-</script>
+</script> --}}
+<script>
+    $(document).ready(function() {
+        $("#submitButton").click(function() {
+            var formData = new FormData();
 
-    </script>
+// Iterate through each form
+for (var i = 1; i <= 6; i++) {
+  var formId = 'form' + i;
+  var form = document.getElementById(formId);
+
+  // Append each form's data to the formData object
+  for (var j = 0; j < form.elements.length; j++) {
+    var element = form.elements[j];
+    if (element.name) {
+      formData.append(element.name, element.value);
+    }
+  }
+}
+var csrfToken = $('input[name="_token"]').val();
+            formData.append('_token', csrfToken);
+            $.ajax({
+                type: "POST",
+                url: "/patients/{{$data->id}}",
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                processData: false,
+                                contentType: false,
+                success: function(response) {
+                    console.log("Forms submitted successfully:", response);
+                },
+                error: function(error) {
+                    console.error("Error submitting the forms:", error);
+                }
+            });
+        });
+    });
+</script>
