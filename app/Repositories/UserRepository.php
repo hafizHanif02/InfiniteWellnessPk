@@ -28,6 +28,7 @@ use App\Models\Receptionist;
 use App\Models\Schedule;
 use App\Models\User;
 use App\Models\Dietitian;
+use App\Models\SupplyChain;
 use Auth;
 use Carbon\Carbon;
 use Exception;
