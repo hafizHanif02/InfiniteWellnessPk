@@ -20,6 +20,8 @@
     </div>
 @endsection
 @section('content')
+
+
     <div class="container-fluid">
         {{Form::hidden('advancedPaymentUrl',url('advanced-payments'),['id'=>'showPatientAdvancedPaymentUrl'])}}
         {{Form::hidden('advancePaymentCreateUrl',route('advanced-payments.store'),['id'=>'showPatientAdvancePaymentCreateUrl'])}}

@@ -130,7 +130,7 @@
                 <a class="nav-link p-0" data-bs-toggle="tab"
                    href="#addonForms">Addon Forms</a>
             </li>
-            
+
             @endrole
 
             @role('Nurse')
@@ -340,25 +340,26 @@
                     ">
 
 
+
                                     <form id="Anthropometric" class="row g-3" method="POST" >
 @csrf
 
-                                        <div class="col-md-6">
-                                            <label for="age" class="form-label">Age (years)</label>
-                                            <input type="number" name="age" value="25" class="form-control" id="age" placeholder="25">
-                                        </div>
+<div class="col-md-6">
+    <label for="age" class="form-label">Age (years)</label>
+    <input value="{{($dietdata === null)?'':$dietdata->age}}" placeholder="add your age"  type="number" name="age"  class="form-control" id="age" >
+</div>
 
 
-                                        <div class="col-md-6">
-                                            <label for="weight" class="form-label">Weight (kg)</label>
-                                            <input type="number" name="weight" value="50" class="form-control" id="weight" placeholder="50">
-                                        </div>
+<div class="col-md-6">
+    <label for="weight" class="form-label">Weight (kg)</label>
+    <input type="number" name="weight" value="{{($nursingData === null) ? '' : $nursingData->weight }}" class="form-control" id="weight" placeholder="add you weight">
+</div>
 
 
-                                        <div class="col-6">
-                                            <label for="height" class="form-label">Height (cm)</label>
-                                            <input type="number" name="height" value="150" class="form-control" id="height" placeholder="5.2">
-                                        </div>
+<div class="col-6">
+    <label for="height" class="form-label">Height (cm)</label>
+    <input type="number" name="height" value="{{($nursingData === null) ? '' : $nursingData->height }}" class="form-control" id="height" placeholder="Add your height">
+</div>
 
                                         <div class="col-6"></div>
 
