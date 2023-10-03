@@ -46,7 +46,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="datepicker2">Today's Date</label>
-                        <input type="text" name="datepicker2" class="form-control" id="datepicker2" 
+                        <input type="text" name="datepicker2" class="form-control" id="datepicker2"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'datepicker2')
                                     value="{{trim($item->fieldValue)}}"
@@ -236,7 +236,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck11">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck11" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck11" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck11' && $item->fieldValue == '1')
                                                 value="1"
@@ -251,7 +251,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck12">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck12" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck12" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck12' && $item->fieldValue == '1')
                                                 value="1"
@@ -266,7 +266,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck13">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck13" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck13" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck13' && $item->fieldValue == '1')
                                                 value="1"
@@ -291,7 +291,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck14">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck14" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck14" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck14' && $item->fieldValue == '1')
                                                 value="1"
@@ -306,7 +306,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck15">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck15" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck15" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck15' && $item->fieldValue == '1')
                                                 value="1"
@@ -321,7 +321,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck16">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck16" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck16" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck16' && $item->fieldValue == '1')
                                                 value="1"
@@ -343,7 +343,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck17">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck17" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck17" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck17' && $item->fieldValue == '1')
                                                 value="1"
@@ -358,7 +358,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck18">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck18" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck18" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck18' && $item->fieldValue == '1')
                                                 value="1"
@@ -373,7 +373,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck19">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck19" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck19" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck19' && $item->fieldValue == '1')
                                                 value="1"
@@ -395,7 +395,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck20">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck20" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck20" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck20' && $item->fieldValue == '1')
                                                 value="1"
@@ -410,7 +410,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck21">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck21" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck21" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck21' && $item->fieldValue == '1')
                                                 value="1"
@@ -425,7 +425,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck22">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck22" 
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck22"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck22' && $item->fieldValue == '1')
                                                 value="1"
@@ -447,7 +447,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck23">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck23" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck23" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck23' && $item->fieldValue == '1')
                                                 value="1"
@@ -462,7 +462,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck24">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck24" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck24" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck24' && $item->fieldValue == '1')
                                                 value="1"
@@ -477,7 +477,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck25">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck25" 
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck25"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck25' && $item->fieldValue == '1')
                                                 value="1"
@@ -662,7 +662,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck35">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck35" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck35" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck35' && $item->fieldValue == '1')
                                                 value="1"
@@ -677,7 +677,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck36">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck36" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck36" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck36' && $item->fieldValue == '1')
                                                 value="1"
@@ -692,7 +692,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck37">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck37" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck37" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck37' && $item->fieldValue == '1')
                                                 value="1"
@@ -717,7 +717,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck38">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck38" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck38" id="exampleCheck1"
                                       @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck38' && $item->fieldValue == '1')
                                                 value="1"
@@ -732,7 +732,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck39">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck39" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck39" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck39' && $item->fieldValue == '1')
                                                 value="1"
@@ -747,7 +747,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck40">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck40" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck40" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck40' && $item->fieldValue == '1')
                                                 value="1"
@@ -770,7 +770,7 @@
 
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck41">None</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck41" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck41" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck41' && $item->fieldValue == '1')
                                                 value="1"
@@ -785,7 +785,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck42">Once or Twice a Week</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck42" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck42" id="exampleCheck1"
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck42' && $item->fieldValue == '1')
                                                 value="1"
@@ -799,7 +799,7 @@
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck43">Everyday</label>
-                                    <input type="checkbox" class="form-check-input" name="exampleCheck43" id="exampleCheck1" 
+                                    <input type="checkbox" class="form-check-input" name="exampleCheck43" id="exampleCheck1"
                                      @foreach ($formData as $item)
                                         @if ($item->fieldName == 'exampleCheck43' && $item->fieldValue == '1')
                                                 value="1"
@@ -937,9 +937,9 @@
                         <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Do you currently follow
                             any of the following special diets or nutritional programs? (Check all that apply or skip if
                             not)</label>
-        
+
                         <div class="row">
-        
+
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">Vegetarian</label>
@@ -1000,10 +1000,10 @@
                                     @endforeach
                                     >
                                 </div>
-        
+
                             </div>
-        
-        
+
+
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="form-check">
                                         <label class="form-check-label" for="exampleCheck1">Low Fat</label>
@@ -1050,11 +1050,11 @@
                                     @endforeach
                                         >
                                     </div>
-        
+
                                     <div class="form-check">
                                         <label class="form-check-label" for="exampleCheck1">Other:</label>
                                         <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
-        
+
                                         <div class="d-flex justify-content-between" style=" width: 100%;">
                                             <input type="text" class="form-control " name="exampleCheck56" id="exampleInputFname"
                                                 aria-describedby="emailHelp" placeholder=""
@@ -1066,20 +1066,20 @@
                             @endforeach
                                                 >
                                         </div>
-        
-        
+
+
                                     </div>
-        
+
                                 </div>
-        
-        
-        
-                     
-        
+
+
+
+
+
                     </li>
                 </div>
             </div>
-            
+
             <br>
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -1116,7 +1116,7 @@
                                     @endforeach
                             >
                         </div>
-    
+
                     </li>
                 </div>
 
@@ -1137,7 +1137,7 @@
                                 @endif
                             @endforeach
                             >
-        
+
                     </li>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -1294,8 +1294,8 @@
                         </table>
                     </li>
                 </div>
-                
-                
+
+
                 </div>
             <br>
 
@@ -1305,8 +1305,8 @@
                     <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Current Medication/Supplements</label>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    
-                        
+
+
                         <br>
                         <br>
                         <table class="table table-bordered">
@@ -1321,365 +1321,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td><input type="text" name="medication_1" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_1')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_1" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_1')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
+                                    @foreach ($nursingData->Medication as $key => $medication)
+                                        <tr>
+                                            <th scope="row">1</th>
+                                        <td><input type="text" name="medication_1" class="form-control" value="{{ ($medication->medication_name === null)? '-':$medication->medication_name }}""></td>
+                                        <td><input type="text" name="dosage_1" class="form-control" value="{{ ($medication->dosage === null)?'-':$medication->dosage }}"></td>
                                         <td><input type="text" name="start_date_1" class="form-control"
+                                            @foreach($formData as $item)
+                                 @if($item->fieldName == 'start_date_$key')
+                                     value="{{trim($item->fieldValue)}}"
+                                     @break
+                                 @endif
+                             @endforeach
+                                         ></td>
+
+                                         <td><input type="text" name="reason_1" class="form-control"
                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_1')
+                                @if($item->fieldName == 'reason_$key')
                                     value="{{trim($item->fieldValue)}}"
                                     @break
                                 @endif
                             @endforeach
                                         ></td>
-                                        <td><input type="text" name="reason_1" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_1')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td><input type="text" name="medication_2" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_2')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_2" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_2')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_2" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_2')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_2" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_2')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td><input type="text" name="medication_3" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_3')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_3" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_3')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_3" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_3')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_3" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_3')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td><input type="text" name="medication_4" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_4')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_4" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_4')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_4" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_4')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_4" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_4')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td><input type="text" name="medication_5" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_5')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_5" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_5')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_5" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_5')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_5" class="form-control"
-                                           @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_5')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
+                                        </tr>
+                                        @endforeach
 
 
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td><input type="text" name="medication_6" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_6')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_6" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_6')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_6" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_6')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_6" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_6')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">7</th>
-                                        <td><input type="text" name="medication_7" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_7')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_7" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_7')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_7" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_7')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_7" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_7')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td><input type="text" name="medication_8" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_8')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_8" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_8')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_8" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_8')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_8" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_8')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">9</th>
-                                        <td><input type="text" name="medication_9" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_9')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_9" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_9')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_9" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_9')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_9" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_9')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">10</th>
-                                        <td><input type="text" name="medication_10" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'medication_10')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="dosage_10" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'dosage_10')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="start_date_10" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'start_date_10')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                        <td><input type="text" name="reason_10" class="form-control"
-                                            @foreach($formData as $item)
-                                @if($item->fieldName == 'reason_10')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach
-                                        ></td>
-                                    </tr>
                                     
                                     </tbody>
-                                    
+
                         </table>
-                    
+
                 </div>
- 
+
 
             </div>
 
@@ -1689,7 +1363,7 @@
                         <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">How often do you
                             experience the following:</label>
                         <br>
-        
+
                     </li>
 
                 </div>
@@ -2469,7 +2143,7 @@
                             <li>
                                 <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Stomach
                                     ulcers</label>
-                            
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">None</label>
                                     <input type="checkbox" name="Noneone" class="form-check-input" id="exampleCheck1"
@@ -2515,9 +2189,9 @@
                                     @endforeach
                                     >
                                 </div>
-                            
+
                                 <div class="form-check">
-                            
+
                                     <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                     <input type="checkbox" name="Monthlyone" class="form-check-input" id="exampleCheck1"
                                      @foreach ($formData as $item)
@@ -2532,14 +2206,14 @@
                                     @endforeach
                                     >
                                 </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                                 <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Vomiting
                                     or nausea</label>
-                            
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">None</label>
                                     <input type="checkbox" name="Nonetwo" class="form-check-input" id="exampleCheck1"
@@ -2549,7 +2223,7 @@
                                             checked
                                             @break
                                         @elseif($item->fieldName == 'Nonetwo' && $item->fieldValue == '0')
-                                            value="0" 
+                                            value="0"
                                             @break
                                         @endif
                                     @endforeach
@@ -2585,9 +2259,9 @@
                                     @endforeach
                                     >
                                 </div>
-                            
+
                                 <div class="form-check">
-                            
+
                                     <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                     <input type="checkbox" name="Monthlytwo" class="form-check-input" id="exampleCheck1"
                                      @foreach ($formData as $item)
@@ -2602,16 +2276,16 @@
                                     @endforeach
                                     >
                                 </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                                 <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Consume
                                     more than
                                     one caffeinated or
                                     alcoholic drink</label>
-                            
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">None</label>
                                     <input type="checkbox" name="Nonethree" class="form-check-input" id="exampleCheck1"
@@ -2657,9 +2331,9 @@
                                     @endforeach
                                     >
                                 </div>
-                            
+
                                 <div class="form-check">
-                            
+
                                     <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                     <input type="checkbox" name="Monthlythree" class="form-check-input" id="exampleCheck1"
                                      @foreach ($formData as $item)
@@ -2674,14 +2348,14 @@
                                     @endforeach
                                     >
                                 </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                                 <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Are you
                                     smoking?</label>
-                            
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">Yes</label>
                                     <input type="checkbox" name="Yesone" class="form-check-input" id="exampleCheck1"
@@ -2712,17 +2386,17 @@
                                     @endforeach
                                     >
                                 </div>
-                            
-                            
-                            
+
+
+
                             </li>
-                            
-                            
-                            
+
+
+
                             <li>
                                 <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Are you
                                     pregnant?</label>
-                            
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="exampleCheck1">Yes</label>
                                     <input type="checkbox" name="Yestwo" class="form-check-input" id="exampleCheck1"
@@ -2753,40 +2427,40 @@
                                     @endforeach
                                     >
                                 </div>
-                            
-                            
-                            
+
+
+
                             </li>
-                            
-                            
-                            
-                            
+
+
+
+
                             </div>
-                            
-                            
+
+
                             </div>
                             </div>
                             </div>
-                            
+
                             <!-- </div> -->
-                            
+
                             <br>
                             <!-- <div class="d-flex justify-content-between"> -->
-                            
+
                             <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            
+
                             <div class="d-flex justify-content-between" ">
-                            
+
                             <div>
                             <small>Possible Gut Flora
                             Imbalance</small>
-                            
+
                                 <li>
                                     <label class=" form-check-label" for="exampleCheck1" style="font-weight: 600;">
                             Abdominal pain/
                             discomfort</label>
-                            
+
                             <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" name="Nonefour" class="form-check-input" id="exampleCheck1"
@@ -2828,9 +2502,9 @@
                                     @endforeach
                             >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" name="Monthlyfour" class="form-check-input" id="exampleCheck1"
                              @foreach ($formData as $item)
@@ -2845,13 +2519,13 @@
                                     @endforeach
                             >
                             </div>
-                            
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1"
                                 style="font-weight: 600;">Bloating</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None5" class="form-check-input" id="exampleCheck1"
@@ -2897,9 +2571,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly5" class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -2914,13 +2588,13 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Abdominal
                                 dissension</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="Noneqwe" class="form-check-input" id="exampleCheck1"
@@ -2966,9 +2640,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthlysd" class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -2983,14 +2657,14 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1"
                                 style="font-weight: 600;">Diarrhea</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None7" class="form-check-input" id="exampleCheck1"
@@ -3036,9 +2710,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly7" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3053,13 +2727,13 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1"
                                 style="font-weight: 600;">Flatulence</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None8" class="form-check-input" id="exampleCheck1"
@@ -3105,9 +2779,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly8" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3122,16 +2796,16 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
-                            
-                            
+
+
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1"
                                 style="font-weight: 600;">Weakness</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None11" class="form-check-input" id="exampleCheck1"
@@ -3177,9 +2851,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly11" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3194,16 +2868,16 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
-                            
-                            
+
+
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1"
                                 style="font-weight: 600;">Fatigue</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None22" class="form-check-input" id="exampleCheck1"
@@ -3249,9 +2923,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly22" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3266,15 +2940,15 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
-                            
+
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Vitamin B12
                                 deficiency</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None33" class="form-check-input" id="exampleCheck1"
@@ -3320,9 +2994,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly33" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3337,14 +3011,14 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Iron
                                 deficiency</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None44" class="form-check-input" id="exampleCheck1"
@@ -3390,9 +3064,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly44" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3407,14 +3081,14 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Excess
                                 folate</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None55" class="form-check-input" id="exampleCheck1"
@@ -3460,9 +3134,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly55" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3477,23 +3151,23 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
                             </div>
-                            
+
                             </div>
-                            
+
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="d-flex justify-content-between">
                             <div>
                             <small>Possible Candida</small>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Chronic
                                 fatigue</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox" name="None66" class="form-check-input" id="exampleCheck1"
@@ -3539,9 +3213,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly66" class="form-check-input" id="exampleCheck1"
                                   @foreach ($formData as $item)
@@ -3556,13 +3230,13 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Brain
                                 fog</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"   name="None77" class="form-check-input" id="exampleCheck1"
@@ -3608,9 +3282,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox" name="Monthly77" class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3625,13 +3299,13 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Digestion
                                 problems</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"    name="None88"   class="form-check-input" id="exampleCheck1"
@@ -3677,9 +3351,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"  name="Monthly88"  class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3694,14 +3368,14 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Craving sweets
                                 or carbs</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"     name="None888"    class="form-check-input" id="exampleCheck1"
@@ -3747,9 +3421,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"   name="Monthly888"   class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3764,15 +3438,15 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Vaginal
                                 itching, discharge,
                                 or soreness</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"    name="None123"  class="form-check-input" id="exampleCheck1"
@@ -3818,9 +3492,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"  name="Monthly123" class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3835,16 +3509,16 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
 
 
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Pain during
                                 intercourse (Females)</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"    name="None1234"  class="form-check-input" id="exampleCheck1"
@@ -3890,9 +3564,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"  name="Monthly1234" class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3907,14 +3581,14 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Skin
                                 disorders, such as psoriasis or skin patches</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"     name="None124"   class="form-check-input" id="exampleCheck1"
@@ -3960,9 +3634,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"   name="Monthly124"  class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -3977,17 +3651,17 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
-                            
+
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Itching of the
                                 skin in
                                 lower abdominal or bra
                                 line</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"      name="None126"   class="form-check-input" id="exampleCheck1"
@@ -4033,9 +3707,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"    name="Monthly126"  class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -4050,16 +3724,16 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
+
                             <li>
                             <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Exposure to
                                 old carpet
                                 (older than 3 years) or
                                 moist environment</label>
-                            
+
                             <div class="form-check">
                                 <label class="form-check-label" for="exampleCheck1">None</label>
                                 <input type="checkbox"    name="None127"   class="form-check-input" id="exampleCheck1"
@@ -4105,9 +3779,9 @@
                                     @endforeach
                                 >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                                 <label class="form-check-label" for="exampleCheck1">Monthly</label>
                                 <input type="checkbox"  name="Monthly127"  class="form-check-input" id="exampleCheck1"
                                  @foreach ($formData as $item)
@@ -4122,40 +3796,40 @@
                                     @endforeach
                                 >
                             </div>
-                            
-                            
+
+
                             </li>
-                            
-                            
-                            
+
+
+
                             </div>
-                            
-                            
+
+
                             </div>
                             </div>
                             </div>
-                            
-                            
-                            
-                            
+
+
+
+
                             <br>
-                            
-                            
-                            
+
+
+
                             <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            
+
                             <div class="d-flex justify-content-between" >
-                            
+
                             <div>
                             <small>Possible Heavy Metals
                             Exposure & Environmental
                             Chemicals</small>
-                            
+
                                 <li>
                                     <label class=" form-check-label" for="exampleCheck1" style="font-weight: 600;">
                             Headaches</label>
-                            
+
                             <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" name="None788" class="form-check-input" id="exampleCheck1"
@@ -4201,9 +3875,9 @@
                                     @endforeach
                             >
                             </div>
-                            
+
                             <div class="form-check">
-                            
+
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" name="Monthly788" class="form-check-input" id="exampleCheck1"
                              @foreach ($formData as $item)
@@ -4218,7 +3892,7 @@
                                     @endforeach
                             >
                             </div>
-                            
+
                             </li>
 
 
@@ -4309,7 +3983,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                        > 
+                        >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
@@ -4839,7 +4513,7 @@
     </div>
 
 
-    
+
  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="d-flex justify-content-between">
             <div>
@@ -5343,7 +5017,7 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example5" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example5"
                                 @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example5' && $item->fieldValue == '1')
                                             value="1"
@@ -5369,7 +5043,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                        
+
                         >
 
                     </div>
@@ -5391,7 +5065,7 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example8" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example8"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example8' && $item->fieldValue == '1')
                                             value="1"
@@ -5414,7 +5088,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example9"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example9' && $item->fieldValue == '1')
                                             value="1"
@@ -5429,7 +5103,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example10" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example10"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example10' && $item->fieldValue == '1')
                                             value="1"
@@ -5461,7 +5135,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example12"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example12' && $item->fieldValue == '1')
                                             value="1"
@@ -5472,7 +5146,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                        
+
                         >
                     </div>
 
@@ -5488,7 +5162,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example13"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example13' && $item->fieldValue == '1')
                                             value="1"
@@ -5504,7 +5178,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example14"
-                        
+
 
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example14' && $item->fieldValue == '1')
@@ -5516,13 +5190,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                        
+
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example15"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example15' && $item->fieldValue == '1')
                                             value="1"
@@ -5539,8 +5213,8 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example16" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example16"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example16' && $item->fieldValue == '1')
                                             value="1"
@@ -5567,7 +5241,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example17"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example17' && $item->fieldValue == '1')
                                             value="1"
@@ -5583,7 +5257,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example18"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example18' && $item->fieldValue == '1')
                                             value="1"
@@ -5599,7 +5273,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example19"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example19' && $item->fieldValue == '1')
                                             value="1"
@@ -5617,7 +5291,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example20"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example20' && $item->fieldValue == '1')
                                             value="1"
@@ -5668,13 +5342,13 @@
                                         @endif
                                     @endforeach
 
-                        
+
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example23"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example23' && $item->fieldValue == '1')
                                             value="1"
@@ -5693,8 +5367,8 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example24"
-                        
-                        
+
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example24' && $item->fieldValue == '1')
                                             value="1"
@@ -5730,11 +5404,11 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 
             <div class="d-flex justify-content-between">
-                    
+
                             <div>
-                    <small>Possible Deficiency of 
+                    <small>Possible Deficiency of
                         Nutrients</small>
-        
+
                                 <li>
                                     <label class=" form-check-label" for="exampleCheck1" style="font-weight: 600;">
                 Irritability or depression</label>
@@ -5759,7 +5433,7 @@
                 <div class="form-check">
                     <label class="form-check-label" for="exampleCheck1">Daily</label>
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example26"
-                    
+
                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example26' && $item->fieldValue == '1')
                                             value="1"
@@ -5794,7 +5468,7 @@
 
                     <label class="form-check-label" for="exampleCheck1">Monthly</label>
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example28"
-                    
+
                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example28' && $item->fieldValue == '1')
                                             value="1"
@@ -5806,7 +5480,7 @@
                                         @endif
                                     @endforeach
 
-                    
+
                     >
                 </div>
 
@@ -5829,14 +5503,14 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
-                        
+
+
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example30"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example30' && $item->fieldValue == '1')
                                             value="1"
@@ -5851,7 +5525,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example31" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example31"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example31' && $item->fieldValue == '1')
                                             value="1"
@@ -5870,7 +5544,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example32"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example32' && $item->fieldValue == '1')
                                             value="1"
@@ -5892,7 +5566,7 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example33" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example33"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example33' && $item->fieldValue == '1')
                                             value="1"
@@ -5909,7 +5583,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example334"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example334' && $item->fieldValue == '1')
                                             value="1"
@@ -5943,7 +5617,7 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example35" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example35"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example35' && $item->fieldValue == '1')
                                             value="1"
@@ -5967,7 +5641,7 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example36" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example36"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example36' && $item->fieldValue == '1')
                                             value="1"
@@ -5984,7 +5658,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example37"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example37' && $item->fieldValue == '1')
                                             value="1"
@@ -6012,7 +5686,7 @@
                                         @endif
                                     @endforeach
 
-                         
+
                         >
                     </div>
 
@@ -6043,7 +5717,7 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input   type="checkbox" class="form-check-input" id="exampleCheck1" name="example40"                        
+                        <input   type="checkbox" class="form-check-input" id="exampleCheck1" name="example40"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example40' && $item->fieldValue == '1')
                                             value="1"
@@ -6058,7 +5732,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example41"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example41"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example41' && $item->fieldValue == '1')
                                             value="1"
@@ -6073,7 +5747,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example42"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example42"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example42' && $item->fieldValue == '1')
                                             value="1"
@@ -6090,7 +5764,7 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example43"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example43"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example43' && $item->fieldValue == '1')
                                             value="1"
@@ -6108,7 +5782,7 @@
                 </li>
 
 
- 
+
                 <li>
                     <label class="form-check-label" for="exampleCheck1" style="font-weight: 600;">Cracked or sore
                         lips</label>
@@ -6116,7 +5790,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example433"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example433' && $item->fieldValue == '1')
                                             value="1"
@@ -6149,7 +5823,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example45"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example45' && $item->fieldValue == '1')
                                             value="1"
@@ -6167,7 +5841,7 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example46"                          
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example46"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example46' && $item->fieldValue == '1')
                                             value="1"
@@ -6192,7 +5866,7 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Yes</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example47"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example47"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example47' && $item->fieldValue == '1')
                                             value="1"
@@ -6207,7 +5881,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">No</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example48"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example48"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example48' && $item->fieldValue == '1')
                                             value="1"
@@ -6246,7 +5920,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example50"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example50"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example50' && $item->fieldValue == '1')
                                             value="1"
@@ -6261,7 +5935,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example51"                         
+                        <input  type="checkbox" class="form-check-input" id="exampleCheck1" name="example51"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example51' && $item->fieldValue == '1')
                                             value="1"
@@ -6279,8 +5953,8 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example52"
-                        
-                                               
+
+
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example52' && $item->fieldValue == '1')
                                             value="1"
@@ -6305,7 +5979,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example53"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example53' && $item->fieldValue == '1')
                                             value="1"
@@ -6316,16 +5990,16 @@
                                             @break
                                         @endif
                                     @endforeach
-                        
-                        
+
+
 
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example54"
-                        
-                                                
+
+
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example54' && $item->fieldValue == '1')
                                             value="1"
@@ -6342,7 +6016,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example55"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example55' && $item->fieldValue == '1')
                                             value="1"
@@ -6353,8 +6027,8 @@
                                             @break
                                         @endif
                                     @endforeach
-                                                
-                        
+
+
 
                         >
                     </div>
@@ -6363,7 +6037,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example56"
-                        
+
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example56' && $item->fieldValue == '1')
                                             value="1"
@@ -6390,7 +6064,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example57"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example57' && $item->fieldValue == '1')
                                             value="1"
@@ -6401,15 +6075,15 @@
                                             @break
                                         @endif
                                     @endforeach
-                                                
-                        
+
+
 
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example58"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example58' && $item->fieldValue == '1')
                                             value="1"
@@ -6425,7 +6099,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example59"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example59' && $item->fieldValue == '1')
                                             value="1"
@@ -6436,7 +6110,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                                                
+
 
                         >
                     </div>
@@ -6445,7 +6119,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example60"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example60' && $item->fieldValue == '1')
                                             value="1"
@@ -6456,8 +6130,8 @@
                                             @break
                                         @endif
                                     @endforeach
-                                                
-                        
+
+
 
                         >
                     </div>
@@ -6481,7 +6155,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example61"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example61' && $item->fieldValue == '1')
                                             value="1"
@@ -6492,8 +6166,8 @@
                                             @break
                                         @endif
                                     @endforeach
-    
-    
+
+
 
 
 
@@ -6518,8 +6192,8 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example63"
-                        
-                                                
+
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example63' && $item->fieldValue == '1')
                                             value="1"
@@ -6539,7 +6213,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="example64"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example64' && $item->fieldValue == '1')
                                             value="1"
@@ -6580,8 +6254,8 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example66"
-                        
-                                               
+
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example66' && $item->fieldValue == '1')
                                             value="1"
@@ -6642,7 +6316,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example69"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example69' && $item->fieldValue == '1')
                                             value="1"
@@ -6675,7 +6349,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example71"
-                        
+
                                     @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example71' && $item->fieldValue == '1')
                                             value="1"
@@ -6695,8 +6369,8 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="example72"
-                        
-                                               
+
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'example72' && $item->fieldValue == '1')
                                             value="1"
@@ -6721,8 +6395,8 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="None7019"      
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="None7019"
+
 
 @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7019' && $item->fieldValue == '1')
@@ -6740,7 +6414,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Daily7019"      
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Daily7019"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7019' && $item->fieldValue == '1')
                                             value="1"
@@ -6757,7 +6431,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Weekly7019"      
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Weekly7019"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'weekly7019' && $item->fieldValue == '1')
                                             value="1"
@@ -6776,8 +6450,8 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7019"     
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7019"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7019' && $item->fieldValue == '1')
                                             value="1"
@@ -6789,8 +6463,8 @@
                                         @endif
                                     @endforeach
 
-                                                
-                        
+
+
 
                         >
                     </div>
@@ -6809,8 +6483,8 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7020"  
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7020"
+
 
 @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7020' && $item->fieldValue == '1')
@@ -6827,7 +6501,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="Daily7020" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="Daily7020"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7020' && $item->fieldValue == '1')
                                             value="1"
@@ -6839,16 +6513,16 @@
                                         @endif
                                     @endforeach
 
-                                                
-                    
+
+
 
 
                         >
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="Weekly7020" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="Weekly7020"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7020' && $item->fieldValue == '1')
                                             value="1"
@@ -6860,8 +6534,8 @@
                                         @endif
                                     @endforeach
 
-                                                
-                        
+
+
 
 
                         >
@@ -6871,7 +6545,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="Monthly7020"
-                        
+
 
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7020' && $item->fieldValue == '1')
@@ -6914,7 +6588,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7021"
-                        
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7021' && $item->fieldValue == '1')
                                             value="1"
@@ -6925,7 +6599,7 @@
                                             @break
                                         @endif
                                     @endforeach
-    
+
 
                         >
                     </div>
@@ -6951,7 +6625,7 @@
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7021"
-                    
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7021' && $item->fieldValue == '1')
                                             value="1"
@@ -6977,9 +6651,9 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7022" 
-                        
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7022"
+
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7022' && $item->fieldValue == '1')
                                             value="1"
@@ -6994,7 +6668,7 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7022" 
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7022"
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7022' && $item->fieldValue == '1')
                                             value="1"
@@ -7009,8 +6683,8 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7022" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7022"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7022' && $item->fieldValue == '1')
                                             value="1"
@@ -7027,8 +6701,8 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7022" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7022"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7022' && $item->fieldValue == '1')
                                             value="1"
@@ -7052,8 +6726,8 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Yes</label>
-                        <input type="checkbox"   name="Yes22770" class="form-check-input" id="exampleCheck1" 
-                        
+                        <input type="checkbox"   name="Yes22770" class="form-check-input" id="exampleCheck1"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Yes22770' && $item->fieldValue == '1')
                                             value="1"
@@ -7068,8 +6742,8 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">No</label>
-                        <input type="checkbox"    name="No22770" class="form-check-input" id="exampleCheck1" 
-                        
+                        <input type="checkbox"    name="No22770" class="form-check-input" id="exampleCheck1"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'No22770' && $item->fieldValue == '1')
                                             value="1"
@@ -7094,8 +6768,8 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Yes</label>
-                        <input type="checkbox" name="Yes9078" class="form-check-input" id="exampleCheck1" 
-                        
+                        <input type="checkbox" name="Yes9078" class="form-check-input" id="exampleCheck1"
+
 @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Yes9078' && $item->fieldValue == '1')
                                             value="1"
@@ -7109,8 +6783,8 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">No</label>
-                        <input type="checkbox" name="No9078" class="form-check-input" id="exampleCheck1" 
-                        
+                        <input type="checkbox" name="No9078" class="form-check-input" id="exampleCheck1"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'No9078' && $item->fieldValue == '1')
                                             value="1"
@@ -7134,8 +6808,8 @@
 
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">None</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7025" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7025"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7025' && $item->fieldValue == '1')
                                             value="1"
@@ -7150,8 +6824,8 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Daily</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7025" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7025"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7025' && $item->fieldValue == '1')
                                             value="1"
@@ -7166,8 +6840,8 @@
                     </div>
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Weekly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7025" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7025"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7025' && $item->fieldValue == '1')
                                             value="1"
@@ -7184,8 +6858,8 @@
                     <div class="form-check">
 
                         <label class="form-check-label" for="exampleCheck1">Monthly</label>
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7025" 
-                        
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7025"
+
                         @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7025' && $item->fieldValue == '1')
                                             value="1"
@@ -7214,10 +6888,10 @@
     </div>
     </div>
 
-  
+
 
     <br>
- 
+
 
     <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -7235,7 +6909,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7026"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7026' && $item->fieldValue == '1')
                                             value="1"
@@ -7246,13 +6920,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7026"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7026' && $item->fieldValue == '1')
                                             value="1"
@@ -7263,13 +6937,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7026"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7026' && $item->fieldValue == '1')
                                             value="1"
@@ -7280,7 +6954,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7288,7 +6962,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7026"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7026' && $item->fieldValue == '1')
                                             value="1"
@@ -7299,7 +6973,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7313,7 +6987,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7027"
-                            
+
 @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7027' && $item->fieldValue == '1')
                                             value="1"
@@ -7323,13 +6997,13 @@
                                             value="0"
                                             @break
                                         @endif
-                                    @endforeach                            
+                                    @endforeach
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7027"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7027' && $item->fieldValue == '1')
                                             value="1"
@@ -7340,13 +7014,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7027"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7027' && $item->fieldValue == '1')
                                             value="1"
@@ -7357,7 +7031,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7365,7 +7039,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7027"
-                            
+
                             @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7027' && $item->fieldValue == '1')
                                             value="1"
@@ -7376,7 +7050,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7392,7 +7066,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7028"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7028' && $item->fieldValue == '1')
                                             value="1"
@@ -7403,13 +7077,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7028"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7028' && $item->fieldValue == '1')
                                             value="1"
@@ -7420,13 +7094,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7028"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7028' && $item->fieldValue == '1')
                                             value="1"
@@ -7437,7 +7111,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7445,7 +7119,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7028"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7028' && $item->fieldValue == '1')
                                             value="1"
@@ -7456,7 +7130,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7470,7 +7144,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Yes</label>
                             <input type="checkbox"  name="Yes90645" class="form-check-input" id="exampleCheck1"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Yes90645' && $item->fieldValue == '1')
                                             value="1"
@@ -7481,13 +7155,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">No</label>
                             <input type="checkbox"   name="No90645" class="form-check-input" id="exampleCheck1"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'No90645' && $item->fieldValue == '1')
                                             value="1"
@@ -7498,7 +7172,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7513,7 +7187,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7029"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7029' && $item->fieldValue == '1')
                                             value="1"
@@ -7524,13 +7198,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7029"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7029' && $item->fieldValue == '1')
                                             value="1"
@@ -7541,13 +7215,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7029"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7029' && $item->fieldValue == '1')
                                             value="1"
@@ -7558,7 +7232,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7566,7 +7240,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7029"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7029' && $item->fieldValue == '1')
                                             value="1"
@@ -7577,7 +7251,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7594,7 +7268,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7030"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7030' && $item->fieldValue == '1')
                                             value="1"
@@ -7605,13 +7279,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7030"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7030' && $item->fieldValue == '1')
                                             value="1"
@@ -7622,15 +7296,15 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7030"
-                            
-                            
-                            
+
+
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7030' && $item->fieldValue == '1')
                                             value="1"
@@ -7643,7 +7317,7 @@
                                     @endforeach
 
 
-                            
+
                             >
                         </div>
 
@@ -7651,7 +7325,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7030"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7030' && $item->fieldValue == '1')
                                             value="1"
@@ -7662,7 +7336,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7679,7 +7353,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Yes</label>
                             <input type="checkbox"  name="Yes906875" class="form-check-input" id="exampleCheck1"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Yes906875' && $item->fieldValue == '1')
                                             value="1"
@@ -7690,13 +7364,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">No</label>
                             <input type="checkbox"   name="No906875" class="form-check-input" id="exampleCheck1"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'No906875' && $item->fieldValue == '1')
                                             value="1"
@@ -7707,7 +7381,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7722,7 +7396,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7031"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7031' && $item->fieldValue == '1')
                                             value="1"
@@ -7733,13 +7407,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7031"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7031' && $item->fieldValue == '1')
                                             value="1"
@@ -7750,13 +7424,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7031"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7031' && $item->fieldValue == '1')
                                             value="1"
@@ -7767,7 +7441,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7775,7 +7449,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7031"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7031' && $item->fieldValue == '1')
                                             value="1"
@@ -7786,7 +7460,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7800,7 +7474,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7032"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7032' && $item->fieldValue == '1')
                                             value="1"
@@ -7811,13 +7485,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7032"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7032' && $item->fieldValue == '1')
                                             value="1"
@@ -7828,13 +7502,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7032"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7032' && $item->fieldValue == '1')
                                             value="1"
@@ -7845,7 +7519,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7853,7 +7527,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7032"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7032' && $item->fieldValue == '1')
                                             value="1"
@@ -7864,7 +7538,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7879,7 +7553,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7033"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'None7033' && $item->fieldValue == '1')
                                             value="1"
@@ -7890,13 +7564,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7033"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Daily7033' && $item->fieldValue == '1')
                                             value="1"
@@ -7907,13 +7581,13 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7033"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Weekly7033' && $item->fieldValue == '1')
                                             value="1"
@@ -7924,7 +7598,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7932,7 +7606,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7033"
-                            
+
                              @foreach ($formData as $item)
                                         @if ($item->fieldName == 'Monthly7033' && $item->fieldValue == '1')
                                             value="1"
@@ -7943,7 +7617,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                            
+
                             >
                         </div>
 
@@ -7960,9 +7634,9 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Yes</label>
                             <input type="checkbox"  name="Yes906098" class="form-check-input" id="exampleCheck1"
-                            
-                             
-                            
+
+
+
 
 
                             @foreach ($formData as $item)
@@ -7977,13 +7651,13 @@
                                     @endforeach
 
 
-                            
+
                             >
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">No</label>
                             <input type="checkbox"   name="No906098" class="form-check-input" id="exampleCheck1"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8010,7 +7684,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7034"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8029,7 +7703,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7034"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8048,7 +7722,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7034"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8069,7 +7743,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7034"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8096,7 +7770,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Yes</label>
                             <input type="checkbox" name="Yes8799715" class="form-check-input" id="exampleCheck1"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8115,7 +7789,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">No</label>
                             <input type="checkbox"  name="No8799715" class="form-check-input" id="exampleCheck1"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8144,7 +7818,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7035"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8163,7 +7837,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7035"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8182,7 +7856,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7035"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8203,7 +7877,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7035"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8231,7 +7905,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">None</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"    name="None7036"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8250,7 +7924,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Daily</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"   name="Daily7036"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8269,7 +7943,7 @@
                         <div class="form-check">
                             <label class="form-check-label" for="exampleCheck1">Weekly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="Weekly7036"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8290,7 +7964,7 @@
 
                             <label class="form-check-label" for="exampleCheck1">Monthly</label>
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="Monthly7036"
-                            
+
 
 
                             @foreach ($formData as $item)
@@ -8587,8 +8261,8 @@
             </div>
 
         </div>
-      
-        
+
+
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="d-flex justify-content-between">
                 <div>
@@ -8855,7 +8529,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                                    
+
                             >
                         </div>
 
@@ -9760,7 +9434,7 @@
                                             @break
                                         @endif
                                     @endforeach
-                                    
+
                             >
                         </div>
                         <div class="form-check">
@@ -9880,7 +9554,7 @@
         </div>
     </div>
 
- 
+
 
     <br>
     <button type="submit" class="btn btn-primary">Submit</button>

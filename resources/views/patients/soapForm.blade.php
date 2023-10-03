@@ -5,7 +5,7 @@
 
 @section('content')
 
-{{dd($nursingData) }}
+{{--  {{dd($nursingData) }}  --}}
 <div class="container my-3">
         <form action="{{request()->url()}}" method="POST">
             @csrf
@@ -21,7 +21,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <li>
                         <label for="textAreaExample1">Chief complaint</label>
-                        <textarea class="form-control" id="textAreaExample1" rows="4" placeholder="Chief complaint" name="Chiefcomplaint">
+                        <textarea class="form-control" id="textAreaExample1" rows="4" value="{{ $nursingData->patient->user->full_name }}" placeholder="Chief complaint" name="Chiefcomplaint">
                             @foreach($formData as $item)
                                 @if($item->fieldName == 'Chiefcomplaint')
                                     {{trim($item->fieldValue)}}
@@ -315,7 +315,7 @@
                 </div>
 
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <br>
+                    {{--  <br>
                     <li>
                         <label for="textAreaExample12">Medications</label>
                         <textarea class="form-control" id="textAreaExample12" rows="4"
@@ -326,8 +326,33 @@
                                     @break
                                 @endif
                             @endforeach</textarea>
-                    </li>
+                    </li>  --}}
+                    <br>
+                    <li>
+                        <label for="textAreaExample12">Medications</label>
+                    <table class="table bordered">
+                        <thead>
+                            <tr>
+                                <td>Medication</td>
+                                <td>Dosage</td>
+                                <td>Frequency</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($nursingData)
+                            @foreach ($nursingData->Medication as $medication)
+                            <tr>
+                                <td>{{ ($medication->medication_name === null)?'-':$medication->medication_name }}</td>
+                                <td>{{ ($medication->dosage === null)?'-':$medication->dosage }}</td>
+                                <td>{{ ($medication->frequency === null)?'-':$medication->frequency }}</td>
+                            </tr>
+
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
+            </li>
 
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
@@ -1205,7 +1230,7 @@
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <label for="textAreaExample26">Are There Any Known Allergies</small>
-                        <!-- <input type="email" class="form-control " id="textAreaExample18" aria-describedby="emailHelp"
+                        {{--  <!-- <input type="email" class="form-control " id="textAreaExample18" aria-describedby="emailHelp"
                             placeholder=""> -->
                         <textarea class="form-control" id="textAreaExample26" rows="4" cols="200"
                             placeholder="Are there any known allergies or adverse reactions to medications, supplements, or other substances?" name="AreThereAnyKnownAllergies">
@@ -1214,7 +1239,28 @@
                                     {{trim($item->fieldValue)}}
                                     @break
                                 @endif
-                            @endforeach</textarea>
+                            @endforeach</textarea>  --}}
+                            <table class="table bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Allergies</td>
+                                        <td>Reaction</td>
+                                        <td>Severity</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($nursingData)
+                                    @foreach ($nursingData->Allergies as $Allergie)
+                                    <tr>
+                                        <td>{{ ($Allergie->allergen === null)?'-':$Allergie->allergen }}</td>
+                                        <td>{{ ($Allergie->reaction === null)?'-':$Allergie->reaction }}</td>
+                                        <td>{{ ($Allergie->severity === null)?'-':$Allergie->severity }}</td>
+                                    </tr>
+
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
 
                 </div>
 
