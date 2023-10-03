@@ -27,6 +27,7 @@ use App\Models\Prescription;
 use App\Models\Receptionist;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Models\Dietitian;
 use Auth;
 use Carbon\Carbon;
 use Exception;
@@ -181,7 +182,19 @@ class UserRepository extends BaseRepository
                 // $user->sendEmailVerificationNotification();
                 $ownerId = $labTechnician->id;
                 $ownerType = LabTechnician::class;
+            }  elseif ($input['department_id'] == 10) {
+                $dietitian = Dietitian::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $dietitian->id;
+                $ownerType = Dietitian::class;
+            }  elseif ($input['department_id'] == 11) {
+                $SupplyChain = SupplyChain::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $SupplyChain->id;
+                $ownerType = SupplyChain::class;
             }
+
+
 
             $user->update(['owner_id' => $ownerId, 'owner_type' => $ownerType]);
 
