@@ -67,17 +67,17 @@ class LoginController extends Controller
             $this->redirectTo = 'dashboard';
         } else {
             if ($request->user()->hasRole(['Receptionist'])) {
-                $this->redirectTo = 'appointments';
+                $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Doctor', 'Case Manager', 'Lab Technician', 'Pharmacist'])) {
-                $this->redirectTo = 'employee/doctor';
+                $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Patient'])) {
-                $this->redirectTo = 'patient/my-cases';
+                $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Nurse'])) {
                 $this->redirectTo = 'dashboard';
             } elseif ($request->user()->hasRole(['Accountant'])) {
-                $this->redirectTo = 'accounts';
+                $this->redirectTo = 'dashboard';
             } else {
-                $this->redirectTo = 'employee/notice-board';
+                $this->redirectTo = 'dashboard';
             }
         }
 
