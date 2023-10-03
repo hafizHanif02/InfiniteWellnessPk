@@ -44,9 +44,9 @@
                             <tr>
                                 <td>{{ $transferProduct->product->product_name }}</td>
                                 <td>{{ $transferProduct->total_piece }}</td>
-                                <td>{{ $transferProduct->price_per_unit }}</td>
+                                <td>{{ number_format($transferProduct->price_per_unit , 2, '.', '')}}</td>
                                 <td>{{ $transferProduct->unit_of_measurement == 1 ? 'Unit' : 'Box' }}</td>
-                                <td>{{ $transferProduct->amount }}</td>
+                                <td>{{ number_format($transferProduct->amount, 2, '.', '') }}</td>
                             </tr>
                         @empty
                             <tr class="text-center">
