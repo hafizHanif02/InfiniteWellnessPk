@@ -1,5 +1,4 @@
-<div class="dropdown">
-    @role('Admin|Dietitian|Receptionist')
+{{-- <div class="dropdown">
     <a href="#" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
        aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
         <i class="fas fa-chevron-down"></i>
@@ -14,6 +13,5 @@
                class="dropdown-item  px-5" target="_blank"  data-tirbo='false'>{{ __('messages.common.export_to_excel') }}</a>
         </li>
     </ul>
-    @endrole
-</div>
+</div> --}}
 
