@@ -904,7 +904,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('employees-list', [EmployeePayrollController::class, 'getEmployeesList'])->name('employees.list');
     });
 
-    Route::middleware('role:Admin|Nurse|Pharmacist|Doctor|Receptionist|Dietitian|Supply-Chain')->group(function () {
+    Route::middleware('role:Admin|Nurse|Pharmacist|Doctor|Receptionist|Dietitian|SupplyChain')->group(function () {
         //        Route::resource('departments', 'DepartmentController');
         //        Route::post('departments/{department}/active-deactive', 'DepartmentController@activeDeactiveDepartment');
 
