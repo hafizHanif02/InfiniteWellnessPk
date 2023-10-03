@@ -12,49 +12,48 @@
                         <td>{{ $transfer->id }}</td>
                     </tr>
                     <tr>
-                        <th>Supply Date</th>
+                        <th>Supply Date:</th>
                         <td>{{ $transfer->supply_date }}</td>
                     </tr>
                     <tr>
                         <th>Status:</th>
                         <td>{{ $transfer->status == null ? 'Pending' : (1 ? 'Approved' : 'Rejected') }}</td>
                     </tr>
-                    <tr>
-                        <th>Supply Date:</th>
-                        <td>{{ $transfer->supply_date }}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2" class="h2">PRODUCTS</th>
-                    </tr>
-                    @forelse ($transfer->transferProducts as $transferProduct)
+                </table>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header d-flex justify-content-center">
+                <h3>PRODUCTS</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered text-center table-hover">
+                    <thead class="table-dark">
                         <tr>
                             <th>Product</th>
-                            <td>{{ $transferProduct->product->product_name }}</td>
-                        </tr>
-                        <tr>
                             <th>Total Piece</th>
-                            <td>{{ $transferProduct->total_piece }}</td>
-                        </tr>
-                        <tr>
                             <th>Price Per Unit</th>
-                            <td>{{ $transferProduct->price_per_unit }}</td>
-                        </tr>
-                        <tr>
                             <th>Unit of Measurement</th>
-                            <td>{{ ($transferProduct->unit_of_measurement == 1)?'Unit':'Box' }}</td>
-                        </tr>
-                        <tr>
                             <th>Total Amount</th>
-                            <td>{{$transferProduct->amount}}</td>
                         </tr>
-                        <tr>
-                            <th colspan="2"></th>
-                        </tr>
-                    @empty
-                        <tr class="text-center">
-                            <td class="text-danger" colspan="2">No product found!</td>
-                        </tr>
-                    @endforelse
+                    </thead>
+                    <tbody>
+                        @forelse ($transfer->transferProducts as $transferProduct)
+                            <tr>
+                                <td>{{ $transferProduct->product->product_name }}</td>
+                                <td>{{ $transferProduct->total_piece }}</td>
+                                <td>{{ $transferProduct->price_per_unit }}</td>
+                                <td>{{ $transferProduct->unit_of_measurement == 1 ? 'Unit' : 'Box' }}</td>
+                                <td>{{ $transferProduct->amount }}</td>
+                            </tr>
+                        @empty
+                            <tr class="text-center">
+                                <td class="text-danger" colspan="2">No product found!</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
         </div>
