@@ -83,7 +83,7 @@ class BillTable extends LivewireTableComponent
                 ->view('bills.columns.amount')
                 ->sortable()
                 ->searchable(),
-            $actionButton,
+            // $actionButton,
         ];
     }
 
