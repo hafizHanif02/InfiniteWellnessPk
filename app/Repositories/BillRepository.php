@@ -158,6 +158,7 @@ class BillRepository extends BaseRepository
             $bill->billItems()->save($billItem);
         }
         $bill->amount = $totalAmount;
+        $bill->total_amount = $totalAmount - $bill->discount_amount;
         $bill->save();
 
         return $bill;

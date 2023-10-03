@@ -221,28 +221,47 @@ class BillController extends AppBaseController
     /**
      * @return \Illuminate\Http\Response
      */
+
     public function convertToPdf(Bill $bill)
     {
-        $bill->billItems;
-        $data = $this->billRepository->getSyncListForCreate($bill->id);
-        $data['bill'] = $bill;
-
-        if ($bill->patientAdmission) {
-            $admissionDate = Carbon::parse($bill->patientAdmission->admission_date);
-            $dischargeDate = Carbon::parse($bill->patientAdmission->discharge_date);
-            $bill->totalDays = $admissionDate->diffInDays($dischargeDate) + 1;
-        } else {
-
-            $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
-
-            $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
-            //$bill->doctor = $docData;
-
-            $bill->doctor = $docData->first_name.' '.$docData->last_name;
+        try {
+            $bill->billItems;
+            $data = $this->billRepository->getSyncListForCreate($bill->id);
+            $data['bill'] = $bill;
+        
+            if ($bill->patientAdmission) {
+                $admissionDate = Carbon::parse($bill->patientAdmission->admission_date);
+                $dischargeDate = Carbon::parse($bill->patientAdmission->discharge_date);
+                $bill->totalDays = $admissionDate->diffInDays($dischargeDate) + 1;
+            } else {
+                $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
+        
+                if ($docID->isEmpty()) {
+                    throw new \Exception("Doctor data not found");
+                }
+        
+                $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
+        
+                if (!$docData) {
+                    throw new \Exception("Doctor data not found");
+                }
+        
+                $bill->doctor = $docData->first_name.' '.$docData->last_name;
+            }
+        
+            return view('bills.bill_pdf',$data);
+            $pdf = PDF::loadView('bills.bill_pdf', $data);
+        
+            return $pdf->stream('bill.pdf');
+        } catch (\Exception $e) {
+            // Handle the exception here
+            return response()->json(['error' => $e->getMessage()], 500);
         }
+        
+    }
 
-        $pdf = PDF::loadView('bills.bill_pdf', $data);
-
-        return $pdf->stream('bill.pdf');
+    public function print(Bill $bill)
+    {
+        dd($bill);
     }
 }

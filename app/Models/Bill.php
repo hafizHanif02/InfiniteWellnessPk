@@ -21,6 +21,9 @@ class Bill extends Model
         'bill_date',
         'amount',
         'currency_symbol',
+        'payment_type',
+        'discount_amount',
+        'total_amount',
     ];
 
     protected $casts = [
@@ -31,6 +34,9 @@ class Bill extends Model
         'bill_id' => 'string',
         'bill_date' => 'datetime',
         'amount' => 'double',
+        'payment_type' => 'integer',
+        'discount_amount' => 'float',
+        'total_amount' => 'float',
     ];
 
     public static $rules = [
@@ -87,6 +93,9 @@ class Bill extends Model
                 'quantity' => $bill_item->qty ?? 'N/A',
                 'price' => $bill_item->price ?? 'N/A',
                 'total' => $bill_item->amount ?? 'N/A',
+                'payment_type' => $bill_item->payment_type ?? 'N/A',
+                'discount_amount' => $bill_item->discount_amount ?? 'N/A',
+                'total_amount' => $bill_item->total_amount ?? 'N/A',
             ];
         }
 
