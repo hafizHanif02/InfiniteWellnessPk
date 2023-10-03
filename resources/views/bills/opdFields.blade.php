@@ -66,12 +66,21 @@
         {{ Form::label('charges', 'Standard Charges'.(':'),['class'=>'form-label']) }}
         {{ Form::text('charges', null, ['class' => 'form-control', 'id' => 'opdCharge', 'readonly']) }}
     </div>
+    <div class="col-lg-3 col-md-4 col-sm-12 mb-5">
+        {{ Form::label('payment', 'Payment Type'.(':'),['class'=>'form-label']) }}
+            <select name="payment_type" class="form-control payment_type" required>
+                <option value="0">Cash</option>
+             <option value="1">Card</option>
+            </select>
+    </div>
 
 </div>
 
 <div class="com-sm-12">
     <div  class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end mb-4">
-        <button type="button" class="btn btn-primary text-star" id="addBillItem"> {{ __('messages.invoice.add') }}</button>
+        {{-- <button type="button" class="btn btn-primary text-star" id="addBillItem"> {{ __('messages.invoice.add') }}</button> --}}
+
+        <button type="button" id="add" onclick="Addmore()" class="btn btn-primary">Add</button>
     </div>
     <div class="table-responsive-sm" >
         <table class="table table-striped" id="billTbl">
@@ -79,15 +88,16 @@
             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                 <th class="text-center">#</th>
                 <th class="required">{{ __('messages.bill.item_name') }}</th>
-                <th class="required">{{ __('messages.bill.qty') }}</th>
+                {{-- <th class="required">{{ __('messages.bill.qty') }}</th> --}}
                 <th class="required">{{ __('messages.bill.price') }}</th>
+                {{-- <th class="text-right">Discount %</th> --}}
                 <th class="text-right">{{ __('messages.bill.amount') }}</th>
                 <th class="text-center">
                     {{ __('messages.common.action') }}
                 </th>
             </tr>
             </thead>
-            <tbody class="bill-item-container text-gray-600 fw-bold">
+            <tbody class="bill-item-container text-gray-600 fw-bold" id="tableBody">
             @if(isset($bill))
                 @foreach($bill->billItems as $billItem)
                     <tr>
@@ -95,13 +105,11 @@
                         <td class="table__item-desc">
                             {{ Form::text('item_name[]', $billItem->item_name, ['class' => 'form-control itemName','required']) }}
                         </td>
-                        <td class="table__qty">
-                            {{ Form::number('qty[]', $billItem->qty, ['class' => 'form-control qty quantity','required']) }}
-                        </td>
                         <td>
                             {{ Form::text('price[]', number_format($billItem->price), ['class' => 'form-control price-input price','required']) }}
                         </td>
-                        <td class="amount text-right itemTotal">{{ number_format($billItem->amount) }}
+                        <td class="amount text-right itemTotal">
+                            <input type="hidden" id="itemTotals" value="{{ number_format($billItem->amount) }}">{{ number_format($billItem->amount) }}
                         </td>
                         <td class="text-center">
                             <i class="fa fa-trash text-danger delete-bill-add-item pointer"></i>
@@ -109,21 +117,28 @@
                     </tr>
                 @endforeach
             @else
-                <tr>
+                <tr class="itemList">
                     <td class="text-center item-number">1</td>
                     <td class="table__item-desc">
                         {{ Form::text('item_name[]', null, ['class' => 'form-control itemName','required']) }}
-                    </td>
-                    <td class="table__qty">
-                        {{ Form::number('qty[]', 1, ['class' => 'form-control qty quantity','required',]) }}
-                    </td>
+                    </td> 
                     <td>
-                        {{ Form::text('price[]', null, ['class' => 'form-control price-input price','required']) }}
+                        {{-- {{ Form::text('price[]', null, ['class' => 'form-control price-input price','required', 'onkeypress' => 'calculateTotal()']) }} --}}
+                        <input name="price[]" type="text" class="form-control price" required onkeyup="calculateTotal()">
+
                     </td>
-                    <td class="amount text-right itemTotal">
+                     {{-- <td> --}}
+                        {{-- <input type="number" id="discount"   class="form-control"> --}}
+                        {{-- {{ Form::number('diccount', null, ['class' => 'form-control','required','id' => 'diccount']) }} --}}
+                     {{-- </td> --}}
+                    <td class="amount text-right itemTotal" id='amountTotal0' >
+                        0.00
                     </td>
                     <td class="text-center">
                         <i class="fa fa-trash text-danger delete-invoice-item pointer"></i>
+                    </td>
+                    <td class="table__qty">
+                        {{ Form::hidden('qty[]', 1, ['class' => 'form-control qty quantity','required',]) }}
                     </td>
                 </tr>
             @endif
@@ -134,10 +149,22 @@
         <table class="w-100">
             <tbody class="bill-item-footer">
             <tr>
-                <td class="form-label text-right">{{ __('messages.bill.total_amount').(':') }}</td>
+                <td class="text-right">
+                    <label class="form-label text-right" for="discount">Discount</label>
+                    <input name="discount_amount" type="text" class="form-control" id="discount" onkeyup="calculateTotal()">
+                    <input name="total_amount" type="hidden" id="total_amounts">
+
+                </td>
+                <td class="text-right">
+                    <label class="form-label text-right" for="discount">Total Amount</label>
+                    <input type="number" readonly step="any" class="form-control" class="form-control" id="totalPrices">
+                    <input type="hidden" readonly step="any" class="form-control" class="form-control" id="totalPrices2">
+                </td>
+                {{-- <td class="form-label text-right">{{ __('messages.bill.total_amount').(':') }}</td>
                 <td class="text-right">
                     <span id="totalPrice" class="price">{{ isset($bill) ? getCurrencySymbol() . '' . number_format($bill->amount,2) : getCurrencySymbol() . '' . 0 }}</span>
-                </td>
+                    <input type="hidden" id="totalPrices" >
+                </td> --}}
             </tr>
             </tbody>
         </table>
@@ -182,12 +209,38 @@ input.onchange  = function() {
             document.getElementById('billDoctorId').value = data['doctor']["first_name"] + " " + data['doctor']["last_name"];
             document.getElementById('opdDate').value = data['created_at'];
             document.getElementById('opdCharge').value = data['charges'];
-            document.getElementById('totalPrice').innerHTML = "Rs " + data['charges'];
+            // document.getElementById('totalPrice').innerHTML = "Rs " + data['charges'];
+            document.getElementById('totalPrices').value = data['charges'];
+            document.getElementById('totalPrices2').value = data['charges'];
 
+
+
+            document.getElementById('discount').addEventListener("keyup",()=>{
+
+            var diccount = document.getElementById('discount').value;
+            var totalPrices = document.getElementById('totalPrices2').value;
+            var discount_amount = (diccount*totalPrices)/100;
+            $('#totalPrices').val(totalPrices-discount_amount);
+            
+            // console.log(discount_amount);
+
+                // document.getElementsByClassName('itemTotal')[0].innerHTML = ;
+
+                // var totalAmount = document.getElementById('itemTotals').value;
+                // console.log('total amount '+totalAmount);
+
+                //   console.log(diccount);
+            })
+
+            
+            
             document.getElementsByClassName('itemName')[0].value = "OPD";
             // document.getElementsByClassName('quantity')[0].value = "1";
             document.getElementsByClassName('price')[0].value = data['charges'];
             document.getElementsByClassName('itemTotal')[0].innerHTML = data['charges'];
+            
+                
+
 
       },
       error: function(xhr, status, error) {
@@ -196,6 +249,70 @@ input.onchange  = function() {
       }
     });
 };
+
+
+// function discount(){
+   
+// }
+
+function calculateTotal(){
+    setTimeout(function(){
+
+
+
+    let itemTotal = document.getElementsByClassName('price');
+    let totalAmount = 0.00;
+    for(let i = 0; i < itemTotal.length; i++){
+        console.log(itemTotal[i].value);
+        totalAmount += parseFloat(itemTotal[i].value);
+    }
+
+    let dis = document.getElementById('discount');
+    let totalPrices = document.getElementById('totalPrices');
+    let total_amounts = document.getElementById('total_amounts');
+    
+    if(dis.value.length == 0){
+        dis.value = 0.00;
+    }
+    totalPrices.value = totalAmount-parseFloat(dis.value);
+    total_amounts.value = totalAmount-parseFloat(dis.value);
+}, 100); 
+}
+
+
+function Addmore() {
+            var tableRow = document.getElementsByClassName('itemList');
+            var a = tableRow.length;
+            $('.bill-item-container').append(`
+            <tr id="billrow${a}" class="itemList">
+                <td class="text-center item-number">${a + 1}</td>
+                    <td class="table__item-desc">
+                        {{ Form::text('item_name[]', null, ['class' => 'form-control itemName','required']) }}
+                    </td> 
+                    <td>
+                        
+                        <input name="price[]" type="text" class="form-control price" required onkeyup="calculateTotal()">
+                    </td>
+                    <td class="amount text-right itemTotal">
+                        0.00
+                    </td>
+                    <td class="text-center">
+                        <i class="fa fa-trash text-danger delete-invoice-item pointer" ></i>
+                    </td>
+                    <td class="table__qty">
+                        {{ Form::hidden('qty[]', 1, ['class' => 'form-control qty quantity','required',]) }}
+                    </td>
+            </tr>
+            `);
+            
+        }
+
+        
+
+
+
+
+
 
 </script>
 <style>

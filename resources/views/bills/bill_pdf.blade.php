@@ -18,6 +18,7 @@
     <tr>
         <td class="header-left">
             <div class="main-heading">{{ __('messages.bill.bill') }}</div>
+            <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
             <div class="invoice-number font-color-gray">Bill 
                 #{{ $bill->patient_admission_id }}</div>
         </td>
@@ -53,6 +54,12 @@
                             <tr>
                                 <td class="font-weight-bold">{{ __('messages.user.email') }}:</td>
                                 <td>{{ $bill->patient->user->email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">EMR #</td>
+                                <td>
+                                    {{$bill->patient->MR }}
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-weight-bold">{{ __('messages.bill.cell_no') }}:</td>
@@ -130,12 +137,18 @@
         <td>
             <table class="bill-footer">
                 <tr>
-                    <td class="font-weight-bold">{{ __('messages.bill.total_amount').(':') }}</td>
-                    <td>
-{{--                        {{ checkValidCurrency($bill->currecy_symbol ?? getCurrentCurrency()) ? moneyFormat($bill->amount, strtoupper($bill->currecy_symbol ?? getCurrentCurrency())) : number_format($bill->amount).''.($bill->currency_symbol ? getSymbols($bil->currency_symbol) : getCurrencySymbol()) }}--}}
-                        {{ checkNumberFormat($bill->amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
-                    </td>
+                    <td class="font-weight-bold">Amount:</td>
+                    <td>{{ checkNumberFormat($bill->amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}</td>
                 </tr>
+                <tr>
+                    <td class="font-weight-bold">Discount:</td>
+                    <td>{{ checkNumberFormat($bill->discount_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold">Total Amount:</td>
+                    <td>{{ checkNumberFormat($bill->total_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}</td>
+                </tr>
+                
             </table>
         </td>
     </tr>
