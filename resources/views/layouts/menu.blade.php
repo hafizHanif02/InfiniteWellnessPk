@@ -1108,6 +1108,18 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
         </li>
     @endif
 
+
+    {{-- dietitian-form --}}
+
+
+    <li class="nav-item  {{ Request::is('dietitian-form*') ? 'active' : '' }}">
+        <a class="nav-link  d-flex align-items-center py-3"
+           href="{{ route('dietitan.index') }}">
+            <span class="aside-menu-icon pe-3 pe-3"><i class="fas fa-tint"></i></span>
+            <span class="aside-menu-title">Dietitan Assessment</span>
+        </a>
+    </li>
+    
     @module('Notice Boards',$modules)
     <li class="nav-item  {{ Request::is('employee/notice-board*') ? 'active' : '' }}">
         <a class="nav-link  d-flex align-items-center py-3"
