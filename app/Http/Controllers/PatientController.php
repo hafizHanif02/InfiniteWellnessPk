@@ -173,7 +173,13 @@ class PatientController extends AppBaseController
             $forms = DB::table('form_type')->get();
             $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
 
-            return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm'));
+            $dietdata = DB::table('dietitianassessment')->where(['patient_id' => $patientId])->first();
+
+            $patientMR = Patient::where('id',$patientId)->pluck('MR')->first();
+
+            $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user','Allergies','Medication'])->first();
+
+            return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm','dietdata','nursingData'));
 
         }
     }
