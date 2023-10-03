@@ -173,7 +173,7 @@ class PatientController extends AppBaseController
             $forms = DB::table('form_type')->get();
             $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
 
-            $dietdata = DB::table('dietitianassessment')->where(['patient_id' => $patientId])->first();
+            $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
             $patientMR = Patient::where('id',$patientId)->pluck('MR')->first();
 
@@ -209,7 +209,7 @@ class PatientController extends AppBaseController
             $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
 
 
-            $dietdata = DB::table('dietitianassessment')->where(['patient_id' => $patientId])->first();
+            $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
             $patientMR = Patient::where('id',$patientId)->pluck('MR')->first();
 
@@ -226,13 +226,13 @@ class PatientController extends AppBaseController
         //return $request->all();
 
         // Dietitian::create($request->all());
-        $patientIds = DB::table('dietitianassessment')->pluck('patient_id')->toArray();
+        $patientIds = DB::table('dietitianAssessment')->pluck('patient_id')->toArray();
 
         if (in_array($request->patient_id, $patientIds)) {
             // Patient ID already exists, so return a response indicating that it's a duplicate.
             // return response()->json(['message' => 'Patient ID already exists'], 400); // You can use a 400 status code for a bad request or choose an appropriate status code.
             dd($request);
-            $insertedId = DB::table('dietitianassessment')->update([
+            $insertedId = DB::table('dietitianAssessment')->update([
                 'patient_id' => $request->patient_id,
                 'age' => $request->age ?? 0,
                 'weight' => $request->weight ?? 0,
@@ -317,7 +317,7 @@ class PatientController extends AppBaseController
             ]);
 
         }else {
-            $insertedId = DB::table('dietitianassessment')->insertGetId([
+            $insertedId = DB::table('dietitianAssessment')->insertGetId([
             'patient_id' => $request->patient_id,
             'age' => $request->age,
             'weight' => $request->weight,
