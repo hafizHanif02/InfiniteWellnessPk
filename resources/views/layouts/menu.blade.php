@@ -1536,14 +1536,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">{{ __('Transfer Request') }}</span>
         </a>
     </li>
-    <div class="mb-5"></div>
-    <li class="nav-item">
-        <a class="nav-link  d-flex align-items-center py-3"
-           href="{{ route('logs.index') }}">
-            <span class="aside-menu-icon pe-3 pe-3"><i class="fas fa-head-side-mask"></i></span>
-            <span class="aside-menu-title">{{ __('Logs') }}</span>
-        </a>
-    </li>
+    
     @endrole
 
     @role('Admin')
