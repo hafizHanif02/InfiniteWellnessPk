@@ -115,8 +115,8 @@ class NursingFormController extends Controller
 
     public function getFormData(Request $request)
     {
-
-        $nurForm = NursingForm::where('patient_mr_number', $request->mrNumber)->latest()->first();
+        $mrNum = Patient::where('id', $request->mrNumber)->first();
+        $nurForm = NursingForm::where('patient_mr_number', $mrNum->MR)->latest()->first();
 
         if($nurForm){
             return [
