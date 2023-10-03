@@ -287,7 +287,7 @@ class AppointmentRepository extends BaseRepository
     {
         try {
             $patient = Patient::with('patientUser')->where('id', $input['patient_id'])->first();
-            $doctor = Doctor::with('doctorUser')->where('id', $input['doctor_id'])->pluck('user_id', 'id')->first();
+            $doctor = Doctor::with('doctorUser')->where('id', $input['doctor_id'])->pluck('doctor_user_id', 'id')->first();
             $receptionists = Receptionist::pluck('user_id', 'id')->toArray();
             $userIds = [
                 $doctor => Notification::NOTIFICATION_FOR[Notification::DOCTOR],
