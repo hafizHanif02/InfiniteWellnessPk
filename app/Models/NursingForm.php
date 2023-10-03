@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Patient;
+use App\Models\Allergies;
+use App\Models\Medication;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NursingForm extends Model
 {
@@ -22,5 +27,20 @@ class NursingForm extends Model
         'nurse_name',
     ];
 
+
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class,'patient_mr_number','MR');
+    }
+
+    public function Allergies(): HasMany
+    {
+        return $this->hasMany(Allergies::class);
+    }
+
+    public function Medication(): HasMany
+    {
+        return $this->hasMany(Medication::class);
+    }
     
 }

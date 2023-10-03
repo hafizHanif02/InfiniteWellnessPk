@@ -11,10 +11,12 @@
 
         <form action="{{request()->url()}}" method="POST">
             @csrf
+      
+
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     <label for="exampleAccount">Mr #</label>
-                    <input class="form-control" required id="exampleAccount" placeholder="Your Answer" type="text"
+                    <input class="form-control" value="{{($nursingData === null) ? '' : $nursingData->patient_mr_number }}"  required id="exampleAccount" placeholder="Your Answer" type="text"
                         name="Mr"
                         @foreach ($formData as $item)
                                 @if ($item->fieldName == 'Mr')
@@ -382,7 +384,7 @@ No
         <h3 class="mb-0">DIGIN</h3>
     </div>
     <div class="form-control">
-        <input name="Digestion" type="checkbox"  
+        <input name="Digestion" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'Digestion' && $item->fieldValue == '1')
                     value="1"
@@ -396,7 +398,7 @@ No
         ><label>Digestion</label>
     </div>
     <div class="form-control">
-        <input name="IntestinalPermeability" type="checkbox"  
+        <input name="IntestinalPermeability" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'IntestinalPermeability' && $item->fieldValue == '1')
                     value="1"
@@ -419,12 +421,12 @@ No
                 @elseif($item->fieldName == 'GutMicrobione' && $item->fieldValue == '0')
                     value="0"
                     @break
-                @endif            
+                @endif
             @endforeach
         ><label>Gut Microbione</label>
     </div>
     <div class="form-control">
-        <input name="ImuneSystem" type="checkbox" 
+        <input name="ImuneSystem" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'ImuneSystem' && $item->fieldValue == '1')
                     value="1"
@@ -486,7 +488,7 @@ No
         ><label>Diabetes</label>
     </div>
     <div class="form-control">
-        <input name="Depression" type="checkbox" 
+        <input name="Depression" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'Depression' && $item->fieldValue == '1')
                     value="1"
@@ -500,7 +502,7 @@ No
         ><label>Depression</label>
     </div>
     <div class="form-control">
-        <input name="Anxiety" type="checkbox" 
+        <input name="Anxiety" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'Anxiety' && $item->fieldValue == '1')
                     value="1"
@@ -514,7 +516,7 @@ No
         ><label>Anxiety</label>
     </div>
     <div class="form-control">
-        <input name="Alziemer" type="checkbox"  
+        <input name="Alziemer" type="checkbox"
             @foreach ($formData as $item)
                 @if ($item->fieldName == 'Alziemer' && $item->fieldValue == '1')
                     value="1"
@@ -542,12 +544,12 @@ No
         ><label>Chronic Urticaria</label>
     </div>
     <div class="form-control">
-        <input name="Eczema" type="checkbox"    
-            
+        <input name="Eczema" type="checkbox"
+
 
             @foreach ($formData as $item)
-            
-            
+
+
                 @if ($item->fieldName == 'Eczema' && $item->fieldValue == '1')
                     value="1"
                     checked
