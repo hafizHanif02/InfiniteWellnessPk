@@ -64,7 +64,7 @@
                 <tr>
                     <th>S. No</th>
                     <th>Description</th>
-                    <th>PACK SIZE</th>
+                    <th>QTY</th>
                     <th>EXP Date</th>
                     <th>BATCH #</th>
                     <th>PRICE</th>

@@ -13,7 +13,7 @@
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('department_name', __('messages.appointment.doctor_department').':', ['class' => 'form-label']) }}
         <span class="required"></span>
-        {{ Form::select('department_id',$departments, null, ['class' => 'form-select','required','id' => 'appointmentDepartmentId','placeholder'=>'Select Department', 'data-control' => 'select2']) }}
+        {{ Form::select('doctor_department_id',$departments, null, ['class' => 'form-select','required','id' => 'appointmentDepartmentId','placeholder'=>'Select Department', 'data-control' => 'select2']) }}
     </div>
     <!-- Doctor Name Field -->
     <div class="form-group col-sm-6 mb-5">
