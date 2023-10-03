@@ -69,6 +69,7 @@ function renderDoctorOpdChargeData(id) {
                     $('#doctorOPDChargeId').val(result.data.id);
                     $('#editChargesDoctorId').val(result.data.doctor_id).trigger('change.select2');
                     $('#editDoctorStandardCharge').val(result.data.standard_charge);
+                    $('#editDoctorfollowupCharge').val(result.data.followup_charge);
                     $('.price-input').trigger('input');
                     $('#edit_doctor_opd_charges_modal').modal('show');
                 }

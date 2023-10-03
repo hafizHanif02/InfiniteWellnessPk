@@ -4884,6 +4884,7 @@
                         .val(e.data.doctor_id)
                         .trigger("change.select2"),
                       $("#editDoctorStandardCharge").val(e.data.standard_charge),
+                      $("#editDoctorfollowupCharge").val(e.data.followup_charge),
                       $(".price-input").trigger("input"),
                       $("#edit_doctor_opd_charges_modal").modal("show"));
                   },
