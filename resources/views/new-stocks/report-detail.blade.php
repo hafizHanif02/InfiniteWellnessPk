@@ -5,6 +5,7 @@
 @section('content')
     <div class="container-fluid mt-5">
         <div class="card">
+
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Transfer Report Detail</h3>
@@ -23,27 +24,34 @@
                         </tr>
                         <tr>
                             <th>Total Supply Quantity</th>
-                            <td>{{ $stockReport->total_supply_quantity }}</td>
+                            <td>{{ $stockReport->total_supply_quantity }}
+                            </td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <h3 class="m-5">Products</h3>
+                </div>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td colspan="2" class="text-center h1">Products</td>
+                            <th scope="col">Code</th>
+                            <th scope="col">QTY transfered</th>
+                            <th scope="col">Name</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         @forelse ($stockReport->transferProducts as $transferProduct)
                             <tr>
-                                <th>Code:</th>
                                 <td>{{ $transferProduct->product->id }}</td>
-                            </tr>
-                            <tr>
-                                <th>QTY transfered:</th>
                                 <td>{{ $transferProduct->total_piece }}</td>
-                            </tr>
-                            <tr>
-                                <th>Name:</th>
                                 <td>{{ $transferProduct->product->product_name }}</td>
                             </tr>
-                            <br><br>
                         @empty
-                            <td></td>
+                            <td>No products Found!</td>
                         @endforelse
                     </tbody>
                 </table>
