@@ -59,7 +59,7 @@
                 <tr>
                     <th>{{ $loop->iteration }}</th>
                     <th colspan="2">
-                        {{ $product->medicine->brand->name }} <br>
+                        {{ $product->medicine->name }} <br>
                         ({{ $product->medicine->generic_formula }})
                     </th>
                     <th colspan="2">{{ $product->product_quantity }}</th>
