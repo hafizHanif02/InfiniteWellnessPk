@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <div class="mt-5">
-                    <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-secondary mt-3">Reset</a>
+                    <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
                 </div>
             </div>
             <table class="table table-bordered text-center table-hover">

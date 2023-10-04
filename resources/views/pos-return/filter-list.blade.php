@@ -31,7 +31,7 @@
                     </select>
                 </div>
                 <div class="mt-5">
-                    <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-secondary mt-3">Reset</a>
+                    <a href="{{ route('returnposreport.index') }}" class="btn btn-secondary mt-3">Reset</a>
                 </div>
             </div>
             <table class="table table-bordered text-center table-hover">
@@ -71,7 +71,7 @@
 </div>
 @endsection
 
-   
+
     <script>
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
@@ -102,7 +102,7 @@
                                         <td>${value.pos.is_cash ? 'Cash':'Card'}</td>
                                         <td>${value.total_amount}</td>
                                     </tr>
-                                 `);
+                                    `);
                             });
                         } else {
                             $("#pos-list").append(`
@@ -114,6 +114,4 @@
                     }
                 });
             }
-
-           
     </script>
