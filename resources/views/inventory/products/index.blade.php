@@ -4,6 +4,17 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Products</h3>
+                    <div class="container">
+                        
+                        <form method="Get" role="search">
+                            <div class="search-container">
+                                  <input type="text" name="search_data" id="search_data" class="search_data form-control" value="{{$search_data}}" placeholder="Search...">
+                                  <button type="submit" class="search-button">
+                                    <i class="fa fa-search"  style="font-size:48px;color:rgb(1, 7, 41);"></i>
+                                  </button>
+                                </div>
+                        </form>
+                </div>
                     <div class="d-flex gap-5">
                         <div>
                             <a href="{{ asset('csv/Products.xlsx') }}" class="btn btn-danger" download>Download
@@ -34,6 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (count($products) > 0) 
                         @forelse ($products as $product)
                             <tr>
                                 <td scope="row" headers="serial_number">{{ $product->id }}</td>
@@ -60,10 +72,13 @@
                                 <td colspan="5" class="text-danger">No product found!</td>
                             </tr>
                         @endforelse
+                        @endif
                     </tbody>
                 </table>
                 <div>
-                    {{ $products->links() }}
+                    @if (count($products) > 0) 
+                    {!! $products->render() !!}
+                    @endif
                 </div>
             </div>
         </div>
@@ -72,11 +87,11 @@
         <script>
             $(document).ready(function() {
             // Capture the key press event on all input fields within the form
-              $('form').on('keypress', 'input', function(e) {
-                if (e.which === 13) { // 13 is the key code for "Enter"
-                  e.preventDefault(); // Prevent the default form submission
-                }
-              }); 
+            //   $('form').on('keypress', 'input', function(e) {
+            //     if (e.which === 13) { // 13 is the key code for "Enter"
+            //       e.preventDefault(); // Prevent the default form submission
+            //     }
+            //   }); 
         });
             $('input[name="products_csv"]').change(function() {
                 $('#csv-form').submit();
@@ -85,6 +100,52 @@
                 $(this).prop('disabled', true);
                 $('#delete-product-form'+productId).submit();
             };
+            
         </script>
     @endpush
 </x-layouts.app>
+<style>
+    .search-input {
+                        padding: 10px;
+                        border: 2px solid #ccc;
+                        border-radius: 25px;
+                        outline: none;
+                        width: 200px;
+                        transition: width 0.4s ease-in-out;
+                        font-size: 16px;
+                      }
+                      .search-container{
+                        display: flex;
+
+                      }
+                      
+                      /* Style for the search button */
+                      .search-button {
+                      
+                      
+                        background-color: transparent;
+                        font-size: 30px;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        z-index: 10;
+                      }
+                      .fa-search:before{
+                          font-size: 30px;
+                          /* position: relative;
+                          left:10px ;
+                          bottom:40px */
+                      }
+                      /* Style for the search icon */
+                      .search-button i {
+                        color: #d60b0b;
+                        font-size: 20px;
+
+                      }
+                      
+                      
+                      /* Transition effect for the search icon color */
+                      .search-input:focus + .search-button i{
+                        color: #a10505;
+                      }
+</style>

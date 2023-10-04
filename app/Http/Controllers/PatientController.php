@@ -231,7 +231,7 @@ class PatientController extends AppBaseController
         if (in_array($request->patient_id, $patientIds)) {
             // Patient ID already exists, so return a response indicating that it's a duplicate.
             // return response()->json(['message' => 'Patient ID already exists'], 400); // You can use a 400 status code for a bad request or choose an appropriate status code.
-            dd($request);
+            // dd($request);
             $insertedId = DB::table('dietitianAssessment')->update([
                 'patient_id' => $request->patient_id,
                 'age' => $request->age ?? 0,
@@ -265,6 +265,7 @@ class PatientController extends AppBaseController
                 'Breakfast' => $request->Breakfast ?? 0,
                 'Midmorning' => $request->Midmorning ?? 0,
                 'Lunch' => $request->Lunch ?? 0,
+                'Dinner' => $request->Dinner ?? 0,
                 'Regimen' => $request->Regimen ?? 0,
                 'Breakfastpost' => $request->Breakfastpost ?? 0,
                 'Midmorningpost' => $request->Midmorningpost ?? 0,
@@ -350,6 +351,7 @@ class PatientController extends AppBaseController
             'Breakfast' => $request->Breakfast,
             'Midmorning' => $request->Midmorning,
             'Lunch' => $request->Lunch,
+            'Dinner' => $request->Dinner,
             'Regimen' => $request->Regimen,
             'Breakfastpost' => $request->Breakfastpost,
             'Midmorningpost' => $request->Midmorningpost,
@@ -484,7 +486,8 @@ class PatientController extends AppBaseController
     public function showForm(Request $request, $patient)
     {
         // return $patient;
-        $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
+       $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
+       $patientData =  Patient::where('id',$patient)->with('user')->first();
       $nursingData = NursingForm::where('patient_mr_number', $patientID)->with(['patient.user','Allergies','Medication'])->first();
 
     //   return $nursingData;
@@ -496,7 +499,7 @@ class PatientController extends AppBaseController
             $fileName = $formFile->fileName;
             // return $fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
-            return view('patients.'.$fileName, compact('formData','nursingData'));
+            return view('patients.'.$fileName, compact('formData','nursingData','patientData'));
         }
 
 

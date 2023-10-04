@@ -24,10 +24,17 @@ use App\Http\Requests\Inventory\ProductRequest;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        if(isset($request->search_data)){
+            return view('inventory.products.index', [
+                'products' => Product::where('product_name', 'LIKE', '%' . $request->search_data . '%')->with('goodReceiveProducts')->paginate(5)->setPath(''),
+                'search_data' => $request->search_data
+            ]); 
+        }
         return view('inventory.products.index', [
             'products' => Product::with('goodReceiveProducts')->orderBy('product_name', 'asc')->latest()->paginate(10)->onEachSide(1),
+            'search_data' => ''
         ]);
     }
 
@@ -211,6 +218,10 @@ class ProductController extends Controller
         return response()->json([
             'data' => ''
         ]);
+    }
+
+    public function search(Request $request){
+        return $request->search_data;
     }
 
 }

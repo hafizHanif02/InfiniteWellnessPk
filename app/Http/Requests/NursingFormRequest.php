@@ -35,6 +35,7 @@ class NursingFormRequest extends FormRequest
         'pain_level'  => 'nullable',
         'assessment_date'  => 'nullable',
         'nurse_name'  => 'nullable',
+        'signature'  => 'nullable',
         ];
     }
 }

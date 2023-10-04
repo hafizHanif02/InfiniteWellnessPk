@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Inventory\Product;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
 use App\Http\Controllers\Inventory\DosageController;
 use App\Http\Controllers\Inventory\VendorController;
 use App\Http\Controllers\Inventory\GenericController;

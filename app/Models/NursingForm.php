@@ -25,6 +25,7 @@ class NursingForm extends Model
         'pain_level',
         'assessment_date',
         'nurse_name',
+        'signature'
     ];
 
 

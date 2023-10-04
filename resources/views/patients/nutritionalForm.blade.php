@@ -18,7 +18,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputFname">Full Name:</label>
-                        <input type="text" class="form-control " name="exampleInputFname" id="exampleInputFname" aria-describedby="emailHelp"
+                        <input type="text" readonly class="form-control" value="{{$patientData->user->full_name }}" name="exampleInputFname" id="exampleInputFname" aria-describedby="emailHelp"
                             placeholder=""
                              @foreach($formData as $item)
                                 @if($item->fieldName == 'exampleInputFname')
@@ -28,11 +28,10 @@
                             @endforeach >
                     </div>
                 </div>
-
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="datepicker">Date of Birth</label>
-                        <input type="text" class="form-control" name="datepicker" id="datepicker" @foreach($formData as $item)
+                        <input type="date" readonly class="form-control" name="datepicker" value="{{$patientData->user->dob }}" id="datepicker" @foreach($formData as $item)
                                 @if($item->fieldName == 'datepicker')
                                     value="{{trim($item->fieldValue)}}"
                                     @break
@@ -46,7 +45,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="datepicker2">Today's Date</label>
-                        <input type="text" name="datepicker2" class="form-control" id="datepicker2"
+                        <input type="text" readonly name="datepicker2"  value="{{date('Y-m-d');}}" class="form-control" id="datepicker2"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'datepicker2')
                                     value="{{trim($item->fieldValue)}}"
