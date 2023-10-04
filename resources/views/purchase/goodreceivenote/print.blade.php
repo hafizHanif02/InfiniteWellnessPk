@@ -89,7 +89,7 @@
                         <td>{{ ($grnproduct->deliver_qty == null)?'Wait For Approval': $grnproduct->deliver_qty}}</td>
                         <td>
                             {{ $grnproduct->item_amount}}</td>
-                        <td>{{ $grnproduct->saletax_percentage }} %</td>
+                        <td>{{ number_format($grnproduct->saletax_percentage, 2)  }} %</td>
                         <td>{{ $grnproduct->product->discount_trade_price }}.00 %</td>
                         <td>{{ $goodReceiveNote->advance_tax_percentage }}%</td>
                         <td>{{ $grnproduct->item_amount }}</td>
