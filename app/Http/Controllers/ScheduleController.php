@@ -43,7 +43,7 @@ class ScheduleController extends AppBaseController
     public function index()
     {
         if (getLoggedInUser()->hasRole('Doctor')) {
-            $checkDoctorId = Doctor::where('user_id', getLoggedInUserId())->first();
+            $checkDoctorId = Doctor::where('doctor_user_id', getLoggedInUserId())->first();
             $checkDoctorSchedule = Schedule::where('doctor_id', $checkDoctorId->id)->get();
 
             return view('schedules.index', compact('checkDoctorSchedule'));
