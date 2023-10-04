@@ -20,7 +20,7 @@ public function rules()
         'medicine_id' => ['required', 'exists:medicines,id'],
         'patient_id' => ['nullable', 'string', 'max:255'],
         'name' => ['required', 'exists:medicines,name'],
-        'brand_name' => ['required', 'exists:brands,name'],
+        'brand_name' => 'required',
         'brand_id' => ['required', 'exists:brands,id'],
         'quantity' => ['required', 'numeric'],
         'patient_name' => ['required','string'],

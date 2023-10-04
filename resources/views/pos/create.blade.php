@@ -34,30 +34,30 @@
                                 <input type="number" step="any"name="pos_id" id="pos_id" class="form-control"
                                     value="{{ ($pos_id ? $pos_id : 1210) + 1 }}" required readonly title="Invoice Number">
                             </div>
-                                <div class="col-md-6">
-                                    <label for="cashier_name">Cashier Name</label>
-                                    <input type="text" id="cashier_name" name="cashier_name" placeholder="Enter Cashier Name" class="form-control">
-                                    @error('cashier_name')
+                            <div class="col-md-6">
+                                <label for="cashier_name">Cashier Name</label>
+                                <input type="text" id="cashier_name" name="cashier_name" placeholder="Enter Cashier Name"
+                                    class="form-control">
+                                @error('cashier_name')
                                     <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3 mt-3">
-                            <div class="mb-3 col-md-12">
+                            <div class="mb-3 col-md-6">
                                 <div class="col-md-12">
                                     <label for="mr_number">MR No.</label>
                                     <select class="form-control" name="patient_mr_number" id="patient_mr_number">
                                         <option value="" selected disabled>Select Patient MR#</option>
                                         @foreach ($patients as $patient)
                                             <option data-patient_name="{{ $patient->user->full_name }}"
+                                                data-patient_number="{{ $patient->user->phone }}"
                                                 value="{{ $patient->MR }}">({{ $patient->MR }})
                                                 {{ $patient->user->full_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
                             <div class="col-md-6">
                                 <label for="prescription_id">Prescription</label>
                                 <select name="prescription_id" id="prescription_id" class="form-control">
@@ -67,11 +67,21 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="mb-3 row">
                             <div class="col-md-6">
                                 <label for="patient_name">Patient Name<sup class="text-danger">*</sup></label>
                                 <input type="text" name="patient_name" id="patient_name" class="form-control"
                                     placeholder="Enter Patient Name">
                                 @error('patient_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="patient_name">Patient Number<sup class="text-danger">*</sup></label>
+                                <input type="text" name="patient_number" id="patient_number" class="form-control"
+                                    placeholder="Enter Patient Number">
+                                @error('patient_number')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -81,7 +91,7 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col-md-6">
-                                <label for="doctor_name">Doctor Name</label>
+                                <label for="doctor_name" class="form-label">Doctor Name</label>
                                 <input type="text" name="doctor_name" id="doctor_name" class="form-control"
                                     placeholder="Enter Doctor Name">
                                 @error('doctor_name')
@@ -111,13 +121,14 @@
                             </div>
 
                             {{-- Model --}}
-                            <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                            <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
-                                            <button type="button" data-bs-toggle="modal"
-                                            data-bs-target="#advancesearch" class="btn-close"></button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#advancesearch"
+                                                class="btn-close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <input id="myInput" class="form-control" type="text"
@@ -146,7 +157,8 @@
                                                                 data-selling_price="{{ $medicine->selling_price }}"
                                                                 data-brand_name="{{ $medicine->brand->name }}"
                                                                 data-brand_id="{{ $medicine->brand->id }}"
-                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}">
+                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}"
+                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}">
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
@@ -242,7 +254,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('label.store') }}" id="labelsubmitform"  method="POST">
+                <form action="{{ route('label.store') }}" id="labelsubmitform" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row m-5">
@@ -263,8 +275,8 @@
                                     class="form-control">
                             </div>
                             <div class="mb-5">
-                                <label>Brand Name</label>
-                                <input type="text" name="brand_name" id="brand_name_label" readonly
+                                <label>Generic Formula</label>
+                                <input type="text" name="brand_name" id="generic_formula_label" readonly
                                     class="form-control">
                                 <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
                             </div>
@@ -334,7 +346,7 @@
 
             $('form').on('keypress', 'input', function(e) {
                 if (e.which === 13) { // 13 is the key code for "Enter"
-                e.preventDefault(); // Prevent the default form submission
+                    e.preventDefault(); // Prevent the default form submission
                 }
             });
 
@@ -344,8 +356,11 @@
                 var selectElement = document.getElementById('patient_mr_number');
                 var selectedOption = selectElement.options[selectElement.selectedIndex];
                 var patientName = selectedOption.getAttribute('data-patient_name');
+                var patientNumber = selectedOption.getAttribute('data-patient_number');
                 $('#patient_name').val(patientName);
                 $('#patient_name').attr('readonly', true);
+                $('#patient_number').val(patientNumber);
+                $('#patient_number').attr('readonly', true);
 
                 $.ajax({
                     type: "get",
@@ -399,7 +414,7 @@
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
-                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-totalPrice="${medicine.medicine.selling_price}"></td>
+                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}"></td>
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
@@ -407,12 +422,12 @@
                     <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                     <td>
-                        <input type="number"  step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="0" class="form-control"  name="products[${items}][discount_percentage]" >
+                        <input type="number" readonly step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="${medicine.medicine.product.fixed_discount}" class="form-control"  name="products[${items}][discount_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][discount_amount]" id="discount_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][discount_amounts2]" id="discount_amounts2${items}" class="form-control">
                         </td>
                     <td>
-                        <input type="number"  step="any"onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="${medicine.medicine.product.sale_tax_percentage}" class="form-control"  name="products[${items}][gst_percentage]" >
+                        <input type="number" readonly step="any"onkeyup="gstCalculation(${items})" id="gst_percentage${items}" value="${medicine.medicine.product.sale_tax_percentage}" class="form-control"  name="products[${items}][gst_percentage]" >
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
@@ -428,6 +443,52 @@
 
                     total += ((medicine.medicine.selling_price) * medicine.dosage);
                     gstCalculation(items);
+
+
+
+                    var Dosage = $('#dosage' + items).val();
+                    var selling_price = $('#selling_price' + items).val();
+                    var product_total_price_main = Dosage * selling_price;
+                    var discount_percentage = $('#discount_percentage' + items).val();
+                    var product_total_price = $('#product_total_prices2' + items).val();
+                    var discount_amount = (parseFloat((discount_percentage *
+                        product_total_price_main) / 100)).toFixed(2);
+                    var medicine__price = (parseFloat(product_total_price_main) - parseFloat(
+                        discount_amount)).toFixed(2);
+                    $('#product_total_price' + items).val(medicine__price);
+                    $('#product_total_prices2' + items).val(medicine__price);
+                    $('#discount_amount' + items).val(discount_amount);
+                    $('#discount_amounts2' + items).val(discount_amount);
+                    discountCalculationTotal();
+                    gstCalculation(items);
+
+                    function discountCalculationTotal() {
+                        var discount_amounts2 = 0;
+                        var amountwithouttax = 0;
+                        $("input[id^='discount_amounts2']").each(function() {
+                            if ($(this).val() != '') {
+                                discount_amounts2 += parseFloat($(this).val());
+                            }
+                        });
+                        $("input[id^='product_total_prices2']").each(function() {
+                            if ($(this).val() != '') {
+                                amountwithouttax += parseFloat($(this).val());
+
+                            }
+                        });
+                        var TotalAmount = $('#total_amounts2').val();
+                        var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
+                        var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
+                        var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
+                        $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
+                        $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
+                        $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
+                        $('#total_discount').val(discount_amounts2Tofixed);
+                    }
+
+
+
+
                 });
 
                 $("#total_amount").val(total.toFixed(2));
@@ -475,7 +536,7 @@
                             <select name="products[${a}][product_name]" class="form-control medicine-select" id="medicine${a}" onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ ($medicine->product != null)?$medicine->product->sale_tax_percentage:'' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
@@ -536,6 +597,7 @@
         function SelectMedicine(id) {
             const selectMedicine = document.getElementById('medicine' + id);
             const totalQuantitySpan = document.getElementById('total_quantity' + id);
+            const discountPercentage = document.getElementById('discount_percentage' + id);
 
             const sellingpriceTag = document.getElementById('selling_price' + id);
             var totalMedicineAmount = document.getElementById('product_total_price' + id);
@@ -547,6 +609,7 @@
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
+            const fixedDiscount = selectedOption.getAttribute('data-fixed_discount');
 
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
@@ -554,6 +617,7 @@
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
 
             totalQuantitySpan.value = totalQuantity;
+            discountPercentage.value = fixedDiscount;
             totalMedicineAmount.value = totalPrice;
             totalMedicineAmount2.value = totalPrice;
             medicineID.value = MedicineId;
@@ -585,7 +649,7 @@
                     TotalAmount += parseFloat($(this).val());
                 }
             });
-            $('#total_amount').val(parseFloat(TotalAmount)+1);
+            $('#total_amount').val(parseFloat(TotalAmount) + 1);
             $('#total_amounts2').val(TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
@@ -593,15 +657,15 @@
         }
 
         function discountCalculation(id) {
-            var Dosage = $('#dosage'+id).val();
+            var Dosage = $('#dosage' + id).val();
             var selling_price = $('#selling_price' + id).val();
-            var product_total_price_main = Dosage*selling_price;
-            var discount_percentage = $('#discount_percentage'+id).val();
-            var product_total_price = $('#product_total_prices2'+id).val();
-            var discount_amount  = (parseFloat((discount_percentage*product_total_price_main)/100)).toFixed(2);
+            var product_total_price_main = Dosage * selling_price;
+            var discount_percentage = $('#discount_percentage' + id).val();
+            var product_total_price = $('#product_total_prices2' + id).val();
+            var discount_amount = (parseFloat((discount_percentage * product_total_price_main) / 100)).toFixed(2);
             var medicine__price = (parseFloat(product_total_price_main) - parseFloat(discount_amount)).toFixed(2);
-            $('#product_total_price'+id).val(medicine__price);
-            $('#product_total_prices2'+id).val(medicine__price);
+            $('#product_total_price' + id).val(medicine__price);
+            $('#product_total_prices2' + id).val(medicine__price);
             $('#discount_amount' + id).val(discount_amount);
             $('#discount_amounts2' + id).val(discount_amount);
             discountCalculationTotal();
@@ -628,33 +692,36 @@
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-            $('#total_amount').val(parseFloat(amountwithouttaxToFixed)+1);
+            $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
 
 
         function gstCalculation(id) {
-            var Dosage = $('#dosage'+id).val();
+            var Dosage = $('#dosage' + id).val();
             var selling_price = $('#selling_price' + id).val();
-            var product_total_price_main = Dosage*selling_price;
-            var discount_percentage = $('#discount_percentage'+id).val();
+            var product_total_price_main = Dosage * selling_price;
+            var discount_percentage = $('#discount_percentage' + id).val();
             var total_quantity_amount = (parseFloat(Dosage) * parseFloat(selling_price)).toFixed(2);
-            var amountwithdiscount = (parseFloat(total_quantity_amount) - parseFloat((total_quantity_amount*discount_percentage)/100)).toFixed(2);
+            var amountwithdiscount = (parseFloat(total_quantity_amount) - parseFloat((total_quantity_amount *
+                discount_percentage) / 100)).toFixed(2);
             var gst_percentage = $('#gst_percentage' + id).val();
-            console.log("amount dis = "+selling_price)
-            console.log('GST AMOUNT='+id+' = '+((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage))
-            var gst_amount = (((amountwithdiscount)/((parseFloat(100)+parseFloat(gst_percentage)))*gst_percentage)).toFixed(2);
+            console.log("amount dis = " + selling_price)
+            console.log('GST AMOUNT=' + id + ' = ' + ((amountwithdiscount) / ((parseFloat(100) + parseFloat(
+                gst_percentage))) * gst_percentage))
+            var gst_amount = (((amountwithdiscount) / ((parseFloat(100) + parseFloat(gst_percentage))) * gst_percentage))
+                .toFixed(2);
             var amount_with_gst = (parseFloat(amountwithdiscount) + parseFloat(gst_amount)).toFixed(2);
 
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
             // $('#product_total_price' + id).val(amount_with_gst);
 
-        //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-        //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
-        //     var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
-        //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
+            //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
+            //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
+            //     var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
+            //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
             gstCalculationTotal();
         }
 
@@ -697,14 +764,14 @@
             const MedicineId = document.getElementById('medicine_id_label');
 
 
-            const BrandName = document.getElementById('brand_name_label');
+            const BrandName = document.getElementById('generic_formula_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const medicineName = selectedOption.getAttribute('data-medicine_name');
             const medicineIDValue = selectedOption.getAttribute('data-medicine_id');
-            const brandName = selectedOption.getAttribute('data-brand_name');
+            const brandName = selectedOption.getAttribute('data-generic_formula');
             const brandId = selectedOption.getAttribute('data-brand_id');
 
             (medicineLabel_Id, medicineIDValue);
@@ -731,11 +798,11 @@
             const selectMedicine = document.getElementById('medicine' + id);
             const MedicineName = document.getElementById('medicine_name_label');
             const MedicineIdTag = document.getElementById('medicine_id_label');
-            const BrandName = document.getElementById('brand_name_label');
+            const BrandName = document.getElementById('generic_formula_label');
             const BrandId = document.getElementById('brand_id_label');
             const medicineName = selectMedicine.getAttribute('data-medicine_name');
             const medicineId = selectMedicine.getAttribute('data-medicine_id');
-            const brandName = selectMedicine.getAttribute('data-brand_name');
+            const brandName = selectMedicine.getAttribute('data-generic_formula');
             const brandId = selectMedicine.getAttribute('data-brand_id');
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
@@ -774,6 +841,7 @@
             var total_quantity = $('#search_addbtn' + id).data('total_quantity');
             var selling_price = $('#search_addbtn' + id).data('selling_price');
             var gst = $('#search_addbtn' + id).data('gst');
+            var fixed_discount = $('#search_addbtn' + id).data('fixed_discount');
             console.log(product_id);
 
             $('#medicine-table-body').append(`
@@ -791,6 +859,7 @@
                         data-totalQuantity="${total_quantity}"
                         data-totalPrice="${selling_price}"
                         data-gst="${gst}"
+                        data-fixed_discount="${fixed_discount}"
                         >
                         </td>
                     <td><input class="form-control" type="text" readonly name="products[${a}][generic_formula]" id="generic_formula${a}" value="${generic_formula}"></td>
@@ -798,7 +867,7 @@
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
-                        <input class="form-control" type="number" step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                        <input class="form-control" type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                         <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>

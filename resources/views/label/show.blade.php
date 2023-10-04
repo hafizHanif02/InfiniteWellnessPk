@@ -15,7 +15,7 @@
                 <td>{{$label->name }}</td>
             </tr>
             <tr>
-                <th class="text-end">Brand</th> 
+                <th class="text-end">Generic Formula</th> 
                 <td>{{$label->brand_name }}</td>
             </tr>
             <tr>
