@@ -828,6 +828,8 @@
 
             $('#anchorlabel' + id).attr('href', url);
 
+            $("#exampleModal").modal('hide');
+
         }
 
         function addMedicine(id) {
