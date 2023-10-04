@@ -55,7 +55,7 @@ class ScheduleRepository extends BaseRepository
         /** @var Doctor $doctors */
         $query = Doctor::with('doctorUser');
         if ($user->hasRole('Doctor')) {
-            $query->where('user_id', $user->id);
+            $query->where('doctor_user_id', $user->id);
         }
         $doctors = $query->get()->where('doctorUser.status', '=', 1)->pluck('doctorUser.full_name', 'id')->sort();
         $data['doctors'] = $doctors;
