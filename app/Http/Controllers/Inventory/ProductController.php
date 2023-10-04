@@ -27,7 +27,7 @@ class ProductController extends Controller
     public function index(): View
     {
         return view('inventory.products.index', [
-            'products' => Product::with('goodReceiveProducts')->latest()->paginate(10)->onEachSide(1),
+            'products' => Product::with('goodReceiveProducts')->orderBy('product_name', 'asc')->latest()->paginate(10)->onEachSide(1),
         ]);
     }
 
