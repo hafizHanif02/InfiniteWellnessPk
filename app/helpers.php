@@ -1085,7 +1085,7 @@ function roles()
 function checkDoctorSchedule()
 {
     if (getLoggedInUser()->hasRole('Doctor')) {
-        $checkDoctorId = Doctor::where('user_id', getLoggedInUserId())->first();
+        $checkDoctorId = Doctor::where('doctor_user_id', getLoggedInUserId())->first();
 
         return Schedule::where('doctor_id', $checkDoctorId->id)->get();
     }
