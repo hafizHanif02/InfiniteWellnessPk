@@ -45,52 +45,12 @@
         </tbody>
     </table>
 
-
-
-
-
-    {{-- <table class="table-bordered " style="width: 368px;">
-        <tbody>
-            <tr>
-                <td style="width: 100px;">
-                    <img src="/images/8.png" width="100px" alt="">
-                </td>
-                <td colspan="6">
-                    <h3>Infinite Pharmacy Services</h3>
-                </td>
-            </tr>
-            <tr class="text-start">
-                <td>
-                    {{ $label->created_at }}
-                </td>
-            </tr>
-            <tr class="text-start">
-                <td>
-                    <b>{{ $label->quantity }} {{ $label->name }} </b>
-                </td>
-            </tr>
-            <tr class="text-start">
-                <td>{{ $label->direction_use }}</td>
-            </tr>
-            <tr class="text-start" style="font-size: 12px;">
-                <td>{{ $label->common_side_effect }}</td>
-            </tr>
-            <tr class="text-start">
-                <td>Take With OR After Meal</td>
-            </tr>
-            <tr>
-                <td>Take Regularly and Complete the Course</td>
-            </tr>
-            <tr class="text-start">
-                <td>Mr/Ms. {{ $label->patient_name }}</td>
-
-            </tr>
-        </tbody>
-    </table> --}}
 </div>
 
 <script>
-    window.print();
+    setTimeout(function() {
+        window.print();
+    }, 1000);
 </script>
 <style>
     * {
