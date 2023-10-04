@@ -109,7 +109,7 @@ class AppointmentTable extends LivewireTableComponent
                 $query = Appointment::query()->select('appointments.*')->with('patient', 'doctor', 'department');
             }
         } else {
-            $doctorId = Doctor::where('user_id', getLoggedInUserId())->first();
+            $doctorId = Doctor::where('doctor_user_id', getLoggedInUserId())->first();
             $query = Appointment::query()->select('appointments.*')->with('patient', 'doctor',
                 'department')->where('doctor_id', $doctorId->id);
         }
