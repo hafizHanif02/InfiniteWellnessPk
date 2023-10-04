@@ -164,20 +164,7 @@
             </tr>
             <tr>
                 <th colspan="12">
-                    -Products can be returned or exchanged within 24 hours of sale.
-                </th>
-            </tr>
-            <tr>
-                <th colspan="12">
-                    -For returns/exchange or claims original receipt is required.
-                </th>
-            </tr>
-            <tr>
-                <th colspan="12">
-                    -Refrigerated items, Medical devices without warranty.<br>
-                    Loose tablets/capsules, milk products, surgical items are neithe<br>
-                    refundable/exchangeable.
-    
+                   -No return, No exchange policy.
                 </th>
             </tr>
             <tr>

@@ -7,6 +7,8 @@ use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Http\Requests\LabelRequest;
 use App\Http\Controllers\Controller;
+use Picqer\Barcode\BarcodeGeneratorHTML;
+
 
 class LabelController extends Controller
 {
@@ -94,9 +96,19 @@ class LabelController extends Controller
     ]);
     }
     public function Labelprint($pos_id, $medicine_id){
+        $first_name = getLoggedInUser()->first_name;
+        $last_name = getLoggedInUser()->last_name;
+        $user_name = $first_name.' '.$last_name;
+
         $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
+        
+        $generatorHTML = new BarcodeGeneratorHTML();
+        $bill_no_barcode = $generatorHTML->getBarcode($label->pos_id, $generatorHTML::TYPE_CODE_128);
+        
         return view('label.print',[
             'label' => $label,
+            'user_name' => $user_name,
+            'bill_no_barcode' => $bill_no_barcode,
         ]);
     }
 }
