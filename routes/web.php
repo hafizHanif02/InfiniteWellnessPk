@@ -1195,6 +1195,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             Route::get('dentalOpds/{opdID}/print', [OpdPatientDepartmentController::class, 'dentalOpdPrint'])->name('dentalopd.patient.print');
             Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
             Route::post('dentalOpds', [OpdPatientDepartmentController::class, 'dentalStore'])->name('dentalopd.patient.store');
+            Route::post('dentalOpds/{opdId}/delete', [OpdPatientDepartmentController::class, 'dentalDelete'])->name('dentalopd.patient.delete');
 
 
         // OPD Diagnosis routes

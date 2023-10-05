@@ -265,4 +265,16 @@ class OpdPatientDepartmentController extends AppBaseController
 
         return $this->sendResponse($doctorOPDCharge, 'Doctor OPD Charge retrieved successfully.');
     }
+    public function dentalDelete(Request $request)
+    {
+        $opdPatientDepartment = DentalOpdPatientDepartment::where('id', $request->id)->first();
+
+        $opdPatientDepartment->delete();
+
+        Flash::success(('Dentel OPD Deleted Successfully'));
+
+        return redirect(route('dentalopd.patient.index'));
+        
+        
+    }
 }
