@@ -493,7 +493,7 @@ class PatientController extends AppBaseController
     //   return $nursingData;
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
-        $DietData = DB::Table('dietitianassessment')->where(['patient_id' => $patient])->first();
+        $DietData = DB::Table('dietitianAssessment')->where(['patient_id' => $patient])->first();
         if($form_patientId){
             $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
