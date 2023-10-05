@@ -243,10 +243,11 @@
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
-
+                    @role('Admin|Doctor|Nurse')
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Add New Form
                       </button>
+                      @endrole
                       <!--<div style="margin-top: 25px;display: flex;justify-content: space-between;flex-wrap: wrap;">-->
 
                     <div class="row" >
