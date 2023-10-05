@@ -181,7 +181,7 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox" 
+                        <input class="form-check-input" type="checkbox"
                             name="sedentaryLifestyle" id="sedentaryLifestyle"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'sedentaryLifestyle' && $item->fieldValue == '1')
@@ -301,7 +301,7 @@
                             <tr>
                                 <td>
                                     <input type="text" name="others2"  placeholder="Medication Name"
-                                        class="form-control" id="others2" 
+                                        class="form-control" id="others2"
                                         @foreach($formData as $item)
                                 @if($item->fieldName == 'others2')
                                     value="{{trim($item->fieldValue)}}"
@@ -381,7 +381,7 @@
                 <h1 class="mt-5 text-primary">Co-Morbids</h1>
 
 
-               
+
                     <h3 class="text-uppercase"> <u>Co-Morbids</u></h3>
 
                     <div class="col-md-3">
@@ -423,7 +423,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox" 
+                        <input class="form-check-input" type="checkbox"
                             name="ischemicHeartDisease" id="ischemicHeartDisease"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'ischemicHeartDisease' && $item->fieldValue == '1')
@@ -441,7 +441,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox" 
+                        <input class="form-check-input" type="checkbox"
                             name="depressionOrAnxiety" id="depressionOrAnxiety"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'depressionOrAnxiety' && $item->fieldValue == '1')
@@ -460,7 +460,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox" 
+                        <input class="form-check-input" type="checkbox"
                             name="alzheimersDisease" id="alzheimersDisease"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'alzheimersDisease' && $item->fieldValue == '1')
@@ -532,7 +532,7 @@
 
             <h1 class="mt-5 text-primary mb-5">Consultation</h1>
 
-           
+
                 <table class="table ">
                     <thead>
                         <tr>
@@ -569,7 +569,7 @@
                             <td>
                                 <select id="Energy1" name="Energy1" class=" form-select "
                                     aria-label="Default select example" >
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Energy1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -592,7 +592,7 @@
                             <td>
                                 <select id="Energy2" name="Energy2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Energy2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -616,7 +616,7 @@
                             <td>
                                 <select id="Energy3" name="Energy3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Energy3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -639,7 +639,7 @@
                             <td colspan="3 ">
                                 <select id="Energy4" name="Energy4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Energy4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -668,7 +668,7 @@
                             <td>
                                 <select id="Fatigue1" name="Fatigue1" class=" form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Fatigue1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -691,7 +691,7 @@
                             <td>
                                 <select id="Fatigue2" name="Fatigue2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Fatigue2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -715,7 +715,7 @@
                             <td>
                                 <select id="Fatigue3" name="Fatigue3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Fatigue3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -738,7 +738,7 @@
                             <td colspan="3 ">
                                 <select id="Fatigue4" name="Fatigue4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Fatigue4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -767,7 +767,7 @@
                             <td>
                                 <select id="Sleep1" name="Sleep1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Sleep1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -782,7 +782,7 @@
                             <td>
                             <select id="Sleep2" name="Sleep2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Sleep2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -798,7 +798,7 @@
                             <td>
                             <select id="Sleep3" name="Sleep3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Sleep3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -813,7 +813,7 @@
                             <td colspan="3 ">
                                 <select id="Sleep4" name="Sleep4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Sleep4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -834,7 +834,7 @@
                             <td>
                                 <select id="HairLoss1" name="HairLoss1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'HairLoss1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -849,7 +849,7 @@
                             <td>
                                 <select id="HairLoss2" name="HairLoss2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'HairLoss2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -865,7 +865,7 @@
                             <td>
                                 <select id="HairLoss3" name="HairLoss3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'HairLoss3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -880,7 +880,7 @@
                             <td colspan="3 ">
                                 <select id="HairLoss4" name="HairLoss4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'HairLoss4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -891,7 +891,7 @@
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
-                              
+
                             </td>
                         </tr>
                         <tr>
@@ -902,7 +902,7 @@
                             <td>
                                 <select id="Stress1" name="Stress1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Stress1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -917,7 +917,7 @@
                             <td>
                                 <select id="Stress2" name="Stress2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Stress2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -933,7 +933,7 @@
                             <td>
                                 <select id="Stress3" name="Stress3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Stress3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -948,7 +948,7 @@
                             <td colspan="3 ">
                                 <select id="Stress4" name="Stress4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Stress4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -969,7 +969,7 @@
                             <td>
                                 <select id="Concentration1" name="Concentration1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Concentration1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -984,7 +984,7 @@
                             <td>
                                 <select id="Concentration2" name="Concentration2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Concentration2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1000,7 +1000,7 @@
                             <td>
                                 <select id="Concentration3" name="Concentration3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Concentration3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1015,7 +1015,7 @@
                             <td colspan="3 ">
                                 <select id="Concentration4" name="Concentration4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Concentration4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1036,7 +1036,7 @@
                             <td>
                                 <select id="ChangeinWeight1" name="ChangeinWeight1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'ChangeinWeight1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1052,7 +1052,7 @@
                             <td>
                                 <select id="ChangeinWeight2" name="ChangeinWeight2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'ChangeinWeight2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1069,7 +1069,7 @@
                             <td>
                                 <select id="ChangeinWeight3" name="ChangeinWeight3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'ChangeinWeight3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1085,7 +1085,7 @@
                             <td colspan="3 ">
                                 <select id="ChangeinWeight4" name="ChangeinWeight4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'ChangeinWeight4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1107,7 +1107,7 @@
                             <td>
                                 <select id="SkinChanges1" name="SkinChanges1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'SkinChanges1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1124,7 +1124,7 @@
                             <td>
                                 <select id="SkinChanges2" name="SkinChanges2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'SkinChanges2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1142,7 +1142,7 @@
                             <td>
                                 <select id="SkinChanges3" name="SkinChanges3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'SkinChanges3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1159,7 +1159,7 @@
                             <td colspan="3 ">
                                 <select id="SkinChanges4 " name="SkinChanges4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'SkinChanges4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1205,7 +1205,7 @@
                             <td>
                                 <select id="Diarrhea1" name="Diarrhea1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Diarrhea1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1221,7 +1221,7 @@
                             <td>
                                 <select id="Diarrhea2" name="Diarrhea2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Diarrhea2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1238,7 +1238,7 @@
                             <td>
                                 <select id="Diarrhea3" name="Diarrhea3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Diarrhea3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1253,7 +1253,7 @@
                             <td colspan="3 ">
                                 <select id="Diarrhea4" name="Diarrhea4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Diarrhea4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1275,7 +1275,7 @@
                             <td>
                                 <select id="Constipation1" name="Constipation1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Constipation1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1291,7 +1291,7 @@
                             <td>
                                 <select id="Constipation2" name="Constipation2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Constipation2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1308,7 +1308,7 @@
                             <td>
                                 <select id="Constipation3" name="Constipation3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Constipation3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1324,7 +1324,7 @@
                             <td colspan="3 ">
                                 <select id="Constipation4" name="Constipation4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'AbdominalPain2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1346,7 +1346,7 @@
                             <td>
                                 <select id="AbdominalPain1" name="AbdominalPain1" class="form-select "
                                     aria-label="Default select example ">
-                                     <option 
+                                     <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'AbdominalPain1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1362,7 +1362,7 @@
                             <td>
                                 <select id="AbdominalPain2" name="AbdominalPain2" class="form-select "
                                     aria-label="Default select example ">
-                                     <option 
+                                     <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'AbdominalPain2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1379,7 +1379,7 @@
                             <td>
                                 <select id="AbdominalPain3" name="AbdominalPain3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'AbdominalPain3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1395,7 +1395,7 @@
                             <td colspan="3 ">
                                 <select id="AbdominalPain4" name="AbdominalPain4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'AbdominalPain4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1410,7 +1410,7 @@
                             </td>
                         </tr>
                         <tr>
-                          
+
                             <td>
                                 <p>Bloating</p>
                             </td>
@@ -1418,7 +1418,7 @@
                             <td>
                                 <select id="Bloating1" name="Bloating1" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Bloating1')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1426,7 +1426,7 @@
                                         @endif
                                     @endforeach
                                     </option>
-                                    
+
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                     <option value="Sometimes">Sometimes</option>
@@ -1435,7 +1435,7 @@
                             <td>
                                 <select id="Bloating2" name="Bloating2" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Bloating2')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1443,7 +1443,7 @@
                                         @endif
                                     @endforeach
                                     </option>
-                                   
+
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                     <option value="Sometimes">Sometimes</option>
@@ -1453,7 +1453,7 @@
                             <td>
                                 <select id="Bloating3" name="Bloating3" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Bloating3')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1461,7 +1461,7 @@
                                         @endif
                                     @endforeach
                                     </option>
-                                    
+
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                     <option value="Sometimes">Sometimes</option>
@@ -1470,7 +1470,7 @@
                             <td colspan="3 ">
                                 <select id="Bloating4" name="Bloating4" class="form-select "
                                     aria-label="Default select example ">
-                                    <option 
+                                    <option
                                     @foreach($formData as $item)
                                         @if($item->fieldName == 'Bloating4')
                                             value="{{trim($item->fieldValue)}}" selected>{{trim($item->fieldValue)}}
@@ -1488,7 +1488,9 @@
                     </tbody>
                 </table>
         </div>
+        @role('Admin|Doctor|Nurse')
         <button type="submit" class="btn btn-primary">Submit</button>
+        @endrole
     </form>
         </div>
     </div>

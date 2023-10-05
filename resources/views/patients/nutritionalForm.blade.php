@@ -1346,7 +1346,7 @@
                                         @endforeach
 
 
-                                    
+
                                     </tbody>
 
                         </table>
@@ -9556,7 +9556,9 @@
 
 
     <br>
+    @role('Admin|Doctor|Nurse')
     <button type="submit" class="btn btn-primary">Submit</button>
+    @endrole
     </form>
     </div>
 

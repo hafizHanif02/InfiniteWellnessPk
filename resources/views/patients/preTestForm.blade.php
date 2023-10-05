@@ -11,7 +11,7 @@
 
         <form action="{{request()->url()}}" method="POST">
             @csrf
-      
+
 
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
@@ -565,8 +565,9 @@ No
 
 
 
-
+@role('Admin|Doctor|Nurse')
 <input type="submit" class="btn btn-primary"  value="SAVE" />
+@endrole
 </div>
 
 
