@@ -572,7 +572,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">Dietitan Assessment</span>
         </a>
     </li>
-    
+
     @module('Doctors',$modules)
     <li class="nav-item  {{ Request::is('employee/doctor*','prescriptions*','schedules*','doctors*') ? 'active' : '' }}">
         <a class="nav-link  d-flex align-items-center py-3"
@@ -1591,6 +1591,28 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">Dietitan Assessment</span>
         </a>
     </li>
+
+    @module('Doctors',$modules)
+    <li class="nav-item {{ Request::is('employee/doctor*') ? 'active' : '' }}">
+        <a class="nav-link  d-flex align-items-center py-3"
+           href="{{ url('employee/doctor') }}">
+            <span class="aside-menu-icon pe-3 pe-3"><i class="fa fa-user-md"></i></span>
+            <span class="aside-menu-title">{{ __('messages.doctors') }}</span>
+        </a>
+    </li>
+    @endmodule
+
+    {{--Nursers--}}
+@module('Nurses',$modules)
+<li class="nav-item  {{ Request::is('nurses*') ? 'active' : '' }}">
+    <a class="nav-link  d-flex align-items-center py-3"
+       href="{{ route('nurses.index') }}">
+                                                                                                        <span class="aside-menu-icon pe-3 pe-3"><i
+                                                                                                                    class="fa fa-user-nurse"></i></span>
+        <span class="aside-menu-title">{{ __('messages.nurses') }}</span>
+    </a>
+</li>
+@endmodule
 
     <?php
     $patientDoctorCaseMgt = getMenuLinks(\App\Models\User::MAIN_PATIENT_CASE)
