@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 @section('title')
-    {{ __('messages.patients') }}
+Patient | Nutritional Health Survey
 @endsection
 
 @section('content')
@@ -1320,6 +1320,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if ($nursingData != null )
                                     @foreach ($nursingData->Medication as $key => $medication)
                                         <tr>
                                             <th scope="row">1</th>
@@ -1343,7 +1344,8 @@
                             @endforeach
                                         ></td>
                                         </tr>
-                                        @endforeach
+                                @endforeach
+                                @endif
 
 
 

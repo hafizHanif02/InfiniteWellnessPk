@@ -605,7 +605,6 @@
                                                 name="Depression" value="Depression" id="depression">
                                             <label class="form-check-label" for="depression">
                                                 Depression
-
                                             </label>
                                         </div>
                                         <div class="form-check">

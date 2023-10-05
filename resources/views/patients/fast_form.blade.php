@@ -23,14 +23,14 @@
 @csrf
                 <div class="row g-3">
                 <div class="hidden">
-                        <input type="text" name="formName" value="FAST FORM" disabled class="form-control" id="fastform"
+                        <input type="text" name="formName" value="FAST FORM" readonly class="form-control" id="fastform"
                         >
                     </div>
 
 
                     <div class="col-md-6">
                         <label for="mrNum" class="form-label">Mr #</label>
-                        <input type="text" name="mrNum"  disabled class="form-control" id="mrNum"
+                        <input type="text" name="mrNum" value="{{$patientData->MR }}"  readonly class="form-control" id="mrNum"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'mrNum')
                                     value="{{trim($item->fieldValue)}}"
@@ -41,7 +41,7 @@
 
                     <div class="col-md-6">
                         <label for="fullName" class="form-label">Full Name</label>
-                        <input type="text" name="fullName" disabled class="form-control" id="fullName"
+                        <input type="text" name="fullName" readonly value="{{$patientData->user->full_name }}" class="form-control" id="fullName"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'fullName')
                                     value="{{trim($item->fieldValue)}}"
@@ -49,10 +49,10 @@
                                 @endif
                             @endforeach>
                     </div>
-
+{{-- {{dd($nursingData) }} --}}
                     <div class="col-md-6">
                         <label for="height" class="form-label">Height</label>
-                        <input type="text" name="height" disabled class="form-control" id="height"
+                        <input type="text" name="height" value="{{($nursingData!=null)?(($nursingData->height!=null)?$nursingData->height:''):''}}"  readonly class="form-control" id="height"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'height')
                                     value="{{trim($item->fieldValue)}}"
@@ -63,7 +63,7 @@
 
                     <div class="col-md-6">
                         <label for="weight" class="form-label">Weight</label>
-                        <input type="text" name="weight" disabled class="form-control" id="weight"
+                        <input type="text" name="weight" value="{{($nursingData!=null)?(($nursingData->weight!=null)?$nursingData->weight:''):''}}" readonly class="form-control" id="weight"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'weight')
                                     value="{{trim($item->fieldValue)}}"
@@ -74,7 +74,7 @@
 
                     <div class="col-md-6">
                         <label for="bmi" class="form-label">Body Mass Index - BMI</label>
-                        <input type="text" name="bmi" disabled class="form-control" id="bmi"
+                        <input type="text" name="bmi" value="{{($DietData!=null)?(($DietData->bmi!=null)?$DietData->bmi:''):''}}"  readonly class="form-control" id="bmi"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'bmi')
                                     value="{{trim($item->fieldValue)}}"
@@ -85,7 +85,7 @@
 
                     <div class="col-md-6">
                         <label for="ibw" class="form-label">Ideal Body Weight – IBW</label>
-                        <input type="text" name="ibw"  disabled class="form-control" id="ibw"
+                        <input type="text" name="ibw" value="{{($DietData!=null)?(($DietData->ibw!=null)?$DietData->ibw:''):''}}"  readonly class="form-control" id="ibw"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'ibw')
                                     value="{{trim($item->fieldValue)}}"
@@ -105,10 +105,9 @@
 
                     <h3 class="text-uppercase"> <u> Nutritional History</u></h3>
 
-
                     <div class="col-md-6">
                         <label for="breakfast" class="form-label">Breakfast</label>
-                        <input type="text" name="breakfast" class="form-control" id="breakfast"
+                        <input type="text" name="breakfast"  value="{{($DietData!=null)?(($DietData->Breakfast!=null)?$DietData->Breakfast:''):''}}" class="form-control" id="breakfast"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'breakfast')
                                     value="{{trim($item->fieldValue)}}"
@@ -119,7 +118,7 @@
 
                     <div class="col-md-6">
                         <label for="lunch" class="form-label">Lunch</label>
-                        <input type="text" name="lunch"  class="form-control" id="lunch"
+                        <input type="text" name="lunch" value="{{($DietData!=null)?(($DietData->Lunch!=null)?$DietData->Lunch:''):''}}" class="form-control" id="lunch"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'lunch')
                                     value="{{trim($item->fieldValue)}}"
@@ -140,8 +139,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="dinner" class="form-label">Lunch</label>
-                        <input type="text" name="dinner"  class="form-control" id="dinner"
+                        <label for="dinner" class="form-label">Dinner</label>
+                        <input type="text" name="dinner" value="{{($DietData!=null)?(($DietData->Dinner!=null)?$DietData->Dinner:''):''}}"  class="form-control" id="dinner"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'dinner')
                                     value="{{trim($item->fieldValue)}}"

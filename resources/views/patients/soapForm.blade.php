@@ -99,7 +99,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Blood Pressure</label>
-                    <input type="text" class="form-control " id="exampleInput3" value="{{($nursingData === null) ? '' : $nursingData->blood_pressure}}" placeholder="patient blood pressure" name="BloodPressure"
+                    <input type="text" readonly class="form-control " id="exampleInput3" value="{{($nursingData === null) ? '' : $nursingData->blood_pressure}}" placeholder="patient blood pressure" name="BloodPressure"
                     @foreach($formData as $item)
                                 @if($item->fieldName == 'BloodPressure')
 
@@ -110,7 +110,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Heart Rate</label>
-                    <input type="text" class="form-control " id="exampleInput3" value="{{($nursingData === null) ? '' : $nursingData->heart_rate}}" placeholder="patient heart rate" name="HeartRate"
+                    <input type="text" readonly class="form-control " id="exampleInput3" value="{{($nursingData === null) ? '' : $nursingData->heart_rate}}" placeholder="patient heart rate" name="HeartRate"
                     @foreach($formData as $item)
                                 @if($item->fieldName == 'HeartRate')
                                     value="{{trim($item->fieldValue)}}"
@@ -122,7 +122,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Respiratory Rate</label>
-                    <input type="text" class="form-control " id="exampleInput3" placeholder="patient respiratory rate" value="{{($nursingData === null) ? '' : $nursingData->respiratory_rate }}" name="RespiratoryRate"
+                    <input type="text" readonly class="form-control " id="exampleInput3" placeholder="patient respiratory rate" value="{{($nursingData === null) ? '' : $nursingData->respiratory_rate }}" name="RespiratoryRate"
                      @foreach($formData as $item)
                                 @if($item->fieldName == 'RespiratoryRate')
                                     value="{{trim($item->fieldValue)}}"
@@ -134,7 +134,7 @@
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Temperature</label>
-                    <input type="text" class="form-control " id="exampleInput3" placeholder="patient temperature" value="{{($nursingData === null) ? '' : $nursingData->temperature }}" name="Temperature"
+                    <input type="text" readonly class="form-control " id="exampleInput3" placeholder="patient temperature" value="{{($nursingData === null) ? '' : $nursingData->temperature }}" name="Temperature"
                      @foreach($formData as $item)
                                 @if($item->fieldName == 'Temperature')
                                     value="{{trim($item->fieldValue)}}"
@@ -183,7 +183,7 @@
                 <div class="col-lx-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput4">Height</label>
-                    <input type="text" class="form-control " id="exampleInput4" value="{{($nursingData === null) ? '' : $nursingData->height }}" placeholder="patient height" name="Height"
+                    <input type="text" readonly class="form-control " id="exampleInput4" value="{{($nursingData === null) ? '' : $nursingData->height }}" placeholder="patient height" name="Height"
                      @foreach($formData as $item)
                                 @if($item->fieldName == 'Height')
                                     value="{{trim($item->fieldValue)}}"
@@ -195,7 +195,7 @@
                 <div class="col-lx-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput5">Weight</label>
-                    <input type="text" class="form-control " name="Weight" id="exampleInput5" value="{{($nursingData === null) ? '' : $nursingData->weight }}" placeholder="patient weight"
+                    <input type="text" readonly class="form-control " name="Weight" id="exampleInput5" value="{{($nursingData === null) ? '' : $nursingData->weight }}" placeholder="patient weight"
                      @foreach($formData as $item)
                                 @if($item->fieldName == 'Weight')
                                     value="{{trim($item->fieldValue)}}"
@@ -207,7 +207,7 @@
                 <div class="col-lx-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput6">Body Mass Index (BMI)</label>
-                    <input name="BodyMassIndex" type="text" class="form-control " id="exampleInput6"  placeholder="patient BMI"
+                    <input name="BodyMassIndex" readonly type="text" class="form-control " value="{{($DietData!=null)?(($DietData->bmi!=null)?$DietData->bmi:''):''}}" id="exampleInput6"  placeholder="patient BMI"
                      @foreach($formData as $item)
                                 @if($item->fieldName == 'BodyMassIndex')
                                     value="{{trim($item->fieldValue)}}"
@@ -431,7 +431,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputFname">Full Name</label>
-                        <input name="FullName" type="text" class="form-control " id="exampleInputFname" aria-describedby="emailHelp"
+                        <input name="FullName" readonly value="{{$patientData->user->full_name }}" type="text" class="form-control " id="exampleInputFname" aria-describedby="emailHelp"
                             placeholder=""
                                  @foreach($formData as $item)
                                 @if($item->fieldName == 'FullName')
@@ -445,7 +445,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="datepicker">Date of Birth</label>
-                        <input name="DateofBirth" type="text" class="form-control" id="datepicker"
+                        <input name="DateofBirth" type="text" readonly value="{{$patientData->user->dob }}" class="form-control" id="datepicker"
                           @foreach($formData as $item)
                                 @if($item->fieldName == 'DateofBirth')
                                     value="{{trim($item->fieldValue)}}"
@@ -455,41 +455,24 @@
                     </div>
 
                 </div>
-
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <label for="gender">Gender</label>
-
-                    <select class="form-select" id="gender" aria-label="Default select example" name="gendercheck">
-                        <option selected>                          @foreach($formData as $item)
-                                @if($item->fieldName == 'gendercheck')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach></option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        <option value="3">Others</option>
-                    </select>
+                    <input type="text" class="form-control" name="gendercheck" id="gender" readonly value="{{ ($patientData->user->gender == 0) ? 'Male' : (($patientData->user->gender == 1) ? 'Female' : 'Other') }}"
+                    >
                 </div>
-
+{{-- {{dd($patientData->user->email) }} --}}
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputPhone">Phone Number</label>
-                        <input name="PhoneNumber" type="number" class="form-control " id="exampleInputPhone" aria-describedby="emailHelp"
-                            placeholder=""
-                              @foreach($formData as $item)
-                                @if($item->fieldName == 'PhoneNumber')
-                                    value="{{trim($item->fieldValue)}}"
-                                    @break
-                                @endif
-                            @endforeach>
+                        <input name="PhoneNumber" type="text" class="form-control" readonly value="{{$patientData->user->phone}}" id="exampleInputPhone" aria-describedby="emailHelp"
+                            >
                     </div>
                 </div>
 
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputEmail">Email</label>
-                        <input name="Email" type="email" class="form-control " id="exampleInputEmail" aria-describedby="emailHelp"
+                        <input name="Email" type="email" class="form-control" readonly value="{{$patientData->user->email}}" id="exampleInputEmail" aria-describedby="emailHelp"
                             placeholder=""
                                @foreach($formData as $item)
                                 @if($item->fieldName == 'Email')
@@ -523,7 +506,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputFname2">Full Name</label>
-                        <input name="FullName2" type="text" class="form-control " id="exampleInputFname2" aria-describedby="emailHelp"
+                        <input name="FullName2"  type="text" class="form-control " id="exampleInputFname2" aria-describedby="emailHelp"
                             placeholder=""
                                       @foreach($formData as $item)
                                 @if($item->fieldName == 'FullName2')

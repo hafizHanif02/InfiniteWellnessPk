@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 @section('title')
-    {{ __('messages.patients') }}
+Patient | Pre-Test Form
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     <label for="exampleAccount">Mr #</label>
-                    <input class="form-control" value="{{($nursingData === null) ? '' : $nursingData->patient_mr_number }}"  required id="exampleAccount" placeholder="Your Answer" type="text"
+                    <input class="form-control" value="{{$patientData->MR }}" readonly  required id="exampleAccount" placeholder="Your Answer" type="text"
                         name="Mr"
                         @foreach ($formData as $item)
                                 @if ($item->fieldName == 'Mr')
@@ -27,7 +27,7 @@
 
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <label for="fullName">Full Name</label>
-                    <input class="form-control" id="fullName" placeholder="Your Answer" type="text" name="Fullname"
+                    <input class="form-control" id="fullName" placeholder="Your Answer" value="{{$patientData->user->full_name }}" readonly type="text" name="Fullname"
                         @foreach ($formData as $item)
                     @if ($item->fieldName == 'Fullname')
                         value="{{ trim($item->fieldValue) }}"
