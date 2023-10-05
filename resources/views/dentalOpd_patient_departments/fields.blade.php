@@ -215,7 +215,7 @@
     checkbox.addEventListener('change', function() {
         // Update the name attribute when the checkbox state changes
         updateInputFieldName(this.checked);
-
+        // addAmount(this);
     });
 
 

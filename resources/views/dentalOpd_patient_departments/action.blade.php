@@ -1,8 +1,14 @@
-<a href="/dentalOpds/{{$row->id}}/print" title="Print" "
+<a href="/dentalOpds/{{$row->id}}/print" title="Print" 
     class="btn px-1 text-info fs-3 ps-0">
      <i class="fa-solid fa-print"></i>
  </a>
- <form action="/dentalOpds/{{$row->id}}/delete" method="post" class="d-inline">
+
+{{-- <a href="javascript:void(0)" title="<?php echo __('messages.common.delete') ?>" data-id="{{$row->id}}"
+   class="deleteOpdPatientBtn btn px-1 text-danger fs-3 ps-0">
+    <i class="fa-solid fa-trash"></i>
+</a> --}}
+
+<form action="/dentalOpds/{{$row->id}}/delete" method="post" class="d-inline">
     @csrf
     <input type="hidden" name="id" value="{{$row->id}}">
 
