@@ -110,7 +110,7 @@
                     <a class="nav-link p-0" data-bs-toggle="tab" href="#nutritionassessment">Dietitian Assessment</a>
                 </li>
             @endrole
-            @role('Nurse')
+            @role('Nurse|Doctor')
                 <li class="nav-item position-relative me-7 mb-3">
                     <a class="nav-link active p-0" data-bs-toggle="tab"
                         href="#PatientOverview">{{ __('messages.overview') }}</a>
