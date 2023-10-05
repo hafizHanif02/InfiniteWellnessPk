@@ -1315,7 +1315,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 });
 
-Route::middleware('role:Admin|Dietitian')->group(function () {
+Route::middleware('role:Admin|Dietitian|Nurse')->group(function () {
 
     Route::get('dietitian-form', [PatientController::class, 'dietitanFormList'])->name('dietitan.index');
     Route::get('dietitian-form/{patientID}', [PatientController::class, 'dietitanShow'])->name('dietitan.show');
