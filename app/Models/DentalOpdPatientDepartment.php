@@ -29,6 +29,7 @@ class DentalOpdPatientDepartment extends Model
         'case_id',
         'is_old_patient',
         'standard_charge',
+        'followup_charge',
         'payment_mode',
         'currency_symbol',
     ];

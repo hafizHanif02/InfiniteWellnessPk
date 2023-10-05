@@ -74,7 +74,7 @@
         <div class="mb-5">
             <div class="mb-5">
                 <div class="form-group">
-                    {{ Form::label('standard_charge', __('messages.doctor_opd_charge.standard_charge').':', ['class' => 'form-label']) }}
+                    <label id="opdStandardChargeLabel" for="opdStandardCharge">Standard Charge</label>
                     <span class="required"></span>
                     <div class="input-group">
                         {{ Form::text('standard_charge', null , ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
@@ -98,7 +98,7 @@
             <div class="mb-5">
                 {{ Form::label('is_old_patient', __('messages.ipd_patient.is_old_patient').':', ['class' => 'form-label']) }}<br>
                 <div class="form-check form-switch">
-                    <input class="form-check-input w-35px h-20px" name="is_old_patient" type="checkbox" value="1">
+                    <input  id="is_old_patient_checkbox" class="form-check-input w-35px h-20px" name="is_old_patient" type="checkbox" value="1">
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">Total Amount</span>
         </div>
-        <input type="text" class="form-control" placeholder="0.00" name="standard_charge" id="totalAmount">
+        <input type="text" class="form-control" placeholder="0.00" id="totalAmount">
     </div>
 </div>
     <div>
@@ -162,6 +162,58 @@
 </div>
 
 <script>
+
+const checkbox = document.getElementById('is_old_patient_checkbox');
+const inputField = document.getElementById('opdStandardCharge');
+
+// Function to update the name attribute of the input field
+function updateInputFieldName(isChecked) {
+    if (isChecked) {
+        // Checkbox is checked, change the name attribute
+        inputField.setAttribute('name', 'followup_charge');
+        document.getElementById('opdStandardChargeLabel').innerHTML='Followup Charge';
+    } else {
+        // Checkbox is unchecked, change the name attribute back to its original value
+        inputField.setAttribute('name', 'standard_charge');
+        document.getElementById('opdStandardChargeLabel').innerHTML='Standard Charge';
+
+    }
+              
+                $.ajax({
+                  url: '/get-doctor-opd-charge',
+                  type: "get",
+                  dataType: "json",
+                  data: { id: $('#opdDoctorId')[0].value },
+                  success: function (e) {
+                    console.log(e);
+                    if($('#is_old_patient_checkbox')[0].checked){
+                        0 !== e.data.length
+                        ? $("#opdStandardCharge,#editOpdStandardCharge").val(
+                            e.data[0].followup_charge
+                            )
+                        : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                    }else {
+                        0 !== e.data.length
+                        ? $("#opdStandardCharge,#editOpdStandardCharge").val(
+                            e.data[0].standard_charge
+                            )
+                        : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                    }
+                    
+                  }});
+   
+}
+
+// Add an event listener to detect changes in the checkbox
+checkbox.addEventListener('change', function () {
+    // Update the name attribute when the checkbox state changes
+    updateInputFieldName(this.checked);
+  
+});
+
+
+
+
     let allServices = [];
     function addAmount(checkBox){
         //console.log(checkBox.value + " - " + checkBox.checked );

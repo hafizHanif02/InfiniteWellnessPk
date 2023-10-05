@@ -147,7 +147,8 @@ class OpdPatientDepartmentController extends AppBaseController
 
     public function dentalStore(Request $request){
         $input = $request->all();
-        //dd($input);
+        
+        // dd($input);
         $data = [
 
             "currency_symbol" => $request->currency_symbol,
@@ -164,6 +165,7 @@ class OpdPatientDepartmentController extends AppBaseController
             "notes" => $request->notes,
             "service_id" => $request->chargesList,
             "standard_charge" => $request->standard_charge,
+            "followup_charge" => $request->followup_charge,
         ];
         // dd($data);
         DentalOpdPatientDepartment::insert($data);
@@ -175,7 +177,7 @@ class OpdPatientDepartmentController extends AppBaseController
             'doctor_department_id' => $doc->department_id,
             'opd_date' => $request->appointment_date,
         ]);
-
+        Flash::success(('Dentel OPD Created Successfully'));
         return redirect(route('dentalopd.patient.index'));
     }
 
