@@ -87,6 +87,28 @@ class DentalOpdPatientTable extends LivewireTableComponent
                        ->orWhere('standard_charge', 'like', '%'. $searchTerm .'%');
                }))
                 ->sortable(),
+
+            Column::make('followup charge')
+                ->view('opd_patient_departments.columns.followup_charge')
+                ->searchable()
+                ->searchable(fn(Builder $query, $searchTerm) =>
+                $query->with('opd')->whereHas('opd', function (Builder $q) use ($searchTerm){
+                    $q->where('followup_charge', $searchTerm)
+                        ->orWhere('followup_charge', 'like', '%'. $searchTerm .'%');
+                })
+                )
+                ->sortable(),
+
+            Column::make('total amount')
+                ->view('opd_patient_departments.columns.total_amount')
+                ->searchable()
+                ->searchable(fn(Builder $query, $searchTerm) =>
+                $query->with('opd')->whereHas('opd', function (Builder $q) use ($searchTerm){
+                    $q->where('total_amount', $searchTerm)
+                        ->orWhere('total_amount', 'like', '%'. $searchTerm .'%');
+                })
+            ),
+
             Column::make(__('messages.ipd_payments.payment_mode'), 'payment_mode')
                 ->view('opd_patient_departments.columns.payment_mode')
                 ->searchable()
