@@ -112,14 +112,14 @@
             @endrole
             @role('Nurse')
                 <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link  p-0" data-bs-toggle="tab"
+                    <a class="nav-link active p-0" data-bs-toggle="tab"
                         href="#PatientOverview">{{ __('messages.overview') }}</a>
                 </li>
                 <li class="nav-item position-relative me-7 mb-3">
                     <a class="nav-link p-0" data-bs-toggle="tab" href="#showPatientCases">{{ __('messages.cases') }}</a>
                 </li>
                 <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link active p-0" data-bs-toggle="tab" href="#nutritionassessment">Dietitian Assessment</a>
+                    <a class="nav-link p-0" data-bs-toggle="tab" href="#nutritionassessment">Dietitian Assessment</a>
                 </li>
             @endrole
 
@@ -136,7 +136,7 @@
     </div>
 </div>
 <div class="tab-content" id="myPatientTabContent">
-    <div class="tab-pane fade show " id="PatientOverview" role="tabpanel">
+    <div class="tab-pane fade show active" id="PatientOverview" role="tabpanel">
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
@@ -292,7 +292,7 @@
         <div id="cardContainer"></div>
     </div>
 </div>
-<div class="tab-pane fade active" id="nutritionassessment" role="tabpanel">
+<div class="tab-pane fade" id="nutritionassessment" role="tabpanel">
 
     <div class="card mb-5 mb-xl-10">
         <div>
