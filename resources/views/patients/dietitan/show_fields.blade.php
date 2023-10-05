@@ -136,7 +136,7 @@
     </div>
 </div>
 <div class="tab-content" id="myPatientTabContent">
-    <div class="tab-pane fade show active" id="PatientOverview" role="tabpanel">
+    <div class="tab-pane fade show " id="PatientOverview" role="tabpanel">
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
@@ -292,7 +292,7 @@
         <div id="cardContainer"></div>
     </div>
 </div>
-<div class="tab-pane fade" id="nutritionassessment" role="tabpanel">
+<div class="tab-pane fade active" id="nutritionassessment" role="tabpanel">
 
     <div class="card mb-5 mb-xl-10">
         <div>
