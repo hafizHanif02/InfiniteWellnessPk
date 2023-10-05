@@ -743,7 +743,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
     });
 
-    Route::middleware('role:Admin|Nurse')->group(function () {
+    Route::middleware('role:Admin|Nurse|Doctors|Dietitian')->group(function () {
         Route::get('beds', [BedController::class, 'index'])->name('beds.index')->middleware('modules');
         Route::post('beds', [BedController::class, 'store'])->name('beds.store');
         Route::get('beds/create', [BedController::class, 'create'])->name('beds.create');
