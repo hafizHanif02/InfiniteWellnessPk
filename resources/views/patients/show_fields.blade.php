@@ -133,7 +133,7 @@
 
             @endrole
 
-            @role('Nurse')
+            @role('Nurse|Dietitian')
                 <li class="nav-item position-relative me-7 mb-3">
                     <a class="nav-link active p-0" data-bs-toggle="tab"
                     href="#PatientOverview">{{ __('messages.overview') }}</a>
@@ -146,20 +146,9 @@
                     <a class="nav-link p-0" data-bs-toggle="tab"
                        href="#addonForms">Addon Forms</a>
                 </li>
-    
-            @endrole
-
-            @role('Dietitian')
-                <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link active p-0" data-bs-toggle="tab"
-                    href="#PatientOverview">{{ __('messages.overview') }}</a>
-                </li>
-                <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link p-0" data-bs-toggle="tab"
-                    href="#showPatientCases">{{ __('messages.cases') }}</a>
-                </li>
 
             @endrole
+
         </ul>
     </div>
 </div>
