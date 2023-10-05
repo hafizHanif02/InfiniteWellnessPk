@@ -1592,15 +1592,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
         </a>
     </li>
 
-    @module('Doctors',$modules)
-    <li class="nav-item {{ Request::is('employee/doctor*') ? 'active' : '' }}">
-        <a class="nav-link  d-flex align-items-center py-3"
-           href="{{ url('employee/doctor') }}">
-            <span class="aside-menu-icon pe-3 pe-3"><i class="fa fa-user-md"></i></span>
-            <span class="aside-menu-title">{{ __('messages.doctors') }}</span>
-        </a>
-    </li>
-    @endmodule
+
 
     {{--Nursers--}}
 @module('Nurses',$modules)
