@@ -112,17 +112,14 @@
             @endrole
             @role('Nurse')
                 <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link active p-0" data-bs-toggle="tab"
+                    <a class="nav-link  p-0" data-bs-toggle="tab"
                         href="#PatientOverview">{{ __('messages.overview') }}</a>
                 </li>
                 <li class="nav-item position-relative me-7 mb-3">
                     <a class="nav-link p-0" data-bs-toggle="tab" href="#showPatientCases">{{ __('messages.cases') }}</a>
                 </li>
                 <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link p-0" data-bs-toggle="tab" href="#addonForms">Addon Forms</a>
-                </li>
-                <li class="nav-item position-relative me-7 mb-3">
-                    <a class="nav-link p-0" data-bs-toggle="tab" href="#nutritionassessment">Dietitian Assessment</a>
+                    <a class="nav-link active p-0" data-bs-toggle="tab" href="#nutritionassessment">Dietitian Assessment</a>
                 </li>
             @endrole
 
@@ -687,13 +684,13 @@
                                             name="Midmorning">
                                     </div>
 
-                                    
+
                                     <div class="col-md-6">
                                         <label for="Lunch" class="form-label"> Lunch:
                                         </label>
                                         <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Lunch != null) ? $dietdata->Lunch : '') }}" id="Lunch" name="Lunch">
                                     </div>
-                                    
+
                                     <div class="col-md-6">
                                         <label for="Midmorning2" class="form-label"> Dinner:
                                         </label>
