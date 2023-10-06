@@ -233,11 +233,29 @@
         // let amount = checkBox.getAttribute('data-amount');
         let amunnt = 0;
         let allCheckBox = document.getElementsByClassName('serviceAmount');
+        allServices = [];
         for (let i = 0; i < allCheckBox.length; i++) {
+            
             if (allCheckBox[i].checked) {
                 amunnt += parseFloat(allCheckBox[i].getAttribute('data-amount'));
-            }
+            
+                
+            let serviceName = allCheckBox[i].getAttribute('data-text');
+            allServices.push({
+                'id': allCheckBox[i].value,
+                'service': serviceName,
+                'amount': allCheckBox[i].getAttribute('data-amount')
+            });
+        
+            // allServices.forEach((e, key) => {
+            //     if (e.id == allCheckBox[i].value) {
+            //         allServices.splice(key, 1);
+            //     }
+            // });
         }
+        document.getElementById('charges').value = JSON.stringify(allServices);
+        }
+        console.log(allServices);
         console.log(amunnt);
         let amount = parseFloat(amunnt);
        
@@ -247,6 +265,7 @@
         
        
         document.getElementById('totalAmount').value = amount.toString();
+
         
         
     }
