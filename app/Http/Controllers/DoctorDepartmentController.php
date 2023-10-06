@@ -57,6 +57,7 @@ class DoctorDepartmentController extends AppBaseController
      */
     public function show(DoctorDepartment $doctorDepartment)
     {
+        // dd($doctorDepartment);
         $doctors = $doctorDepartment->doctors;
         $doctorDepartment = $this->doctorDepartmentRepository->find($doctorDepartment->id);
 

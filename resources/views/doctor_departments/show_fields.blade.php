@@ -31,6 +31,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="fs-5 m-0">{{ __('messages.doctors') }}</h1>
         </div>
+        {{-- {{dd($doctorDepartment->id) }} --}}
         <livewire:department-doctor-table doctorDepartmentId="{{$doctorDepartment->id}}"/>
     </div>
 </div>
