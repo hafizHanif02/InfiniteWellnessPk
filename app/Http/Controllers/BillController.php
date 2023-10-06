@@ -53,11 +53,15 @@ class BillController extends AppBaseController
         //return view('bills.create')->with($data);
 
         $dd = DB::table('opd_patient_departments')->get();
+        $dd2 = DB::table('dental_opd_patient_departments')->get();
         $db = [];
         foreach ($dd as $d) {
-            $db[$d->patient_id] = $d->opd_number;
+            $db[$d->opd_number] = $d->opd_number;
         }
-        //return $db;
+        foreach ($dd2 as $d) {
+            $db[$d->opd_number] = $d->opd_number;
+        }
+
         $data = $this->billRepository->getSyncList(false);
         $data['opd'] = $db;
 
@@ -82,15 +86,24 @@ class BillController extends AppBaseController
 
     public function opdGetPatient(Request $request)
     {
-
-        $patientData = DB::table('users')->where(['owner_id' => $request->patientID])->where('owner_type', 'LIKE', '%Patient%')->first();
-
         $docID = DB::table('opd_patient_departments')->where(['opd_number' => $request->opdID])->get();
+        if(count($docID) == 0){
+            $docID = DB::table('dental_opd_patient_departments')->where(['opd_number' => $request->opdID])->get();
+        }
+
+        $patientData = DB::table('users')->where(['owner_id' => $docID[0]->patient_id])->where('owner_type', 'LIKE', '%Patient%')->first();
+
+
 
         $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
         $patientData->doctor = $docData;
 
-        $patientData->charges = $docID[0]->standard_charge;
+        if($docID->is_old_patient){
+            $patientData->charges = $docID[0]->standard_charge;
+        }else{
+            $patientData->charges = $docID[0]->standard_charge;
+        }
+
 
         return $patientData;
     }
@@ -228,36 +241,36 @@ class BillController extends AppBaseController
             $bill->billItems;
             $data = $this->billRepository->getSyncListForCreate($bill->id);
             $data['bill'] = $bill;
-        
+
             if ($bill->patientAdmission) {
                 $admissionDate = Carbon::parse($bill->patientAdmission->admission_date);
                 $dischargeDate = Carbon::parse($bill->patientAdmission->discharge_date);
                 $bill->totalDays = $admissionDate->diffInDays($dischargeDate) + 1;
             } else {
                 $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
-        
+
                 if ($docID->isEmpty()) {
                     throw new \Exception("Doctor data not found");
                 }
-        
+
                 $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
-        
+
                 if (!$docData) {
                     throw new \Exception("Doctor data not found");
                 }
-        
+
                 $bill->doctor = $docData->first_name.' '.$docData->last_name;
             }
-        
+
             return view('bills.bill_pdf',$data);
             $pdf = PDF::loadView('bills.bill_pdf', $data);
-        
+
             return $pdf->stream('bill.pdf');
         } catch (\Exception $e) {
             // Handle the exception here
             return response()->json(['error' => $e->getMessage()], 500);
         }
-        
+
     }
 
     public function print(Bill $bill)
