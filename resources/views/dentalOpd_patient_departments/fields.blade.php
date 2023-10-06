@@ -77,7 +77,7 @@
                     <label id="opdStandardChargeLabel" for="opdStandardCharge">Standard Charge</label>
                     <span class="required"></span>
                     <div class="input-group">
-                        {{ Form::text('standard_charge', null, ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
+                        {{ Form::text('standard_charge', null, ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required','readonly']) }}
                         <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
                     </div>
                 </div>
