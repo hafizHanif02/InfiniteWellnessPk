@@ -1,11 +1,13 @@
 <div class="row gx-10 mb-5">
-    <div class="col-md-2">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('patient_id',__('messages.ipd_patient.patient_id').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
                 {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
-                {{ Form::select('patient_id', $data['patients'], null, ['class' => 'form-select', 'required', 'id' => 'editOpdPatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2']) }}
+                {{-- {{ Form::select('patient_id', $data['patients2'], null, ['class' => 'form-select', 'required', 'id' => 'editOpdPatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2']) }} --}}
+                <input type="text" readonly class="form-control" value="{{$opdPatientDepartment->patient->MR.' '.$opdPatientDepartment->patient->user->full_name}}">
+                <input type="hidden"  name="patient_id"  value="{{$opdPatientDepartment->patient_id}}">
             </div>
         </div>
     </div>
@@ -14,16 +16,19 @@
             <div class="mb-5">
                 {{ Form::label('case_id', __('messages.ipd_patient.case_id').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
-                {{ Form::select('case_id', [null], null, ['class' => 'form-select', 'required', 'id' => 'editOpdCaseId', 'disabled', 'data-control' => 'select2', 'placeholder' => 'Choose Case']) }}
-                {{ Form::hidden('patient_case_id', !empty($opdPatientDepartment->patientCase) ? $opdPatientDepartment->patientCase->case_id : '', ['class' => 'patientCaseId']) }}
+                {{-- {{ Form::select('case_id', [null], null, ['class' => 'form-select', 'required', 'id' => 'editOpdCaseId', 'disabled', 'data-control' => 'select2', 'placeholder' => 'Choose Case']) }}
+                {{ Form::hidden('patient_case_id', !empty($opdPatientDepartment->patientCase) ? $opdPatientDepartment->patientCase->case_id : '', ['class' => 'patientCaseId']) }} --}}
+                <input type="text" class="form-control" name="case_id" readonly value="{{$opdPatientDepartment->patientCase->case_id}}">
+                <input type="text" class="form-control" name="patient_case_id" readonly value="{{$opdPatientDepartment->patientCase->case_id}}">
             </div>
         </div>
     </div>
     <div class="col-md-2">
         <div class="mb-5">
             <div class="mb-5">
-                {{ Form::label('opd_number', __('messages.opd_patient.opd_number').':', ['class' => 'form-label']) }}
-                {{ Form::text('opd_number', null, ['class' => 'form-control', 'readonly']) }}
+                 {{ Form::label('opd_number', __('messages.opd_patient.opd_number').':', ['class' => 'form-label']) }}
+                {{--{{ Form::text('opd_number', null, ['class' => 'form-control', 'readonly']) }} --}}
+                <input type="text" readonly name="opd_number" value="{{$opdPatientDepartment->opd_number}}" class="form-control">
             </div>
         </div>
     </div>
@@ -31,7 +36,8 @@
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('height', __('messages.ipd_patient.height').':', ['class' => 'form-label']) }}
-                {{ Form::number('height', null, ['class' => 'form-control', 'max' => '7', 'step' => '.01']) }}
+                {{-- {{ Form::number('height', null, ['class' => 'form-control', 'max' => '7', 'step' => '.01']) }} --}}
+                <input type="number" name="height" step=".01" value="{{$opdPatientDepartment->height }}" class="form-control">
             </div>
         </div>
     </div>
@@ -39,7 +45,8 @@
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('weight', __('messages.ipd_patient.weight').':', ['class' => 'form-label']) }}
-                {{ Form::number('weight', null, ['class' => 'form-control', 'max' => '200', 'step' => '.01']) }}
+                {{-- {{ Form::number('weight', null, ['class' => 'form-control', 'max' => '200', 'step' => '.01']) }} --}}
+                <input type="number" name="weight" step=".01" value="{{$opdPatientDepartment->weight }}" class="form-control">
             </div>
         </div>
     </div>
@@ -47,7 +54,8 @@
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('bp', __('messages.ipd_patient.bp').':', ['class' => 'form-label']) }}
-                {{ Form::text('bp', null, ['class' => 'form-control']) }}
+                {{-- {{ Form::text('bp', null, ['class' => 'form-control']) }} --}}
+                <input type="number" name="bp" value="{{$opdPatientDepartment->bp }}" class="form-control">
             </div>
         </div>
     </div>

@@ -217,9 +217,11 @@ class OpdPatientDepartmentController extends AppBaseController
      */
     public function edit(OpdPatientDepartment $opdPatientDepartment)
     {
+        $patientData = $opdPatientDepartment->patient->user;
+        // dd($patientData);
         $data = $this->opdPatientDepartmentRepository->getAssociatedData();
 
-        return view('opd_patient_departments.edit', compact('data', 'opdPatientDepartment'));
+        return view('opd_patient_departments.edit', compact('data', 'opdPatientDepartment','patientData'));
     }
 
     /**

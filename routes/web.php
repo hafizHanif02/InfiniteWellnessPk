@@ -1181,8 +1181,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('opds/{opdID}/print', [OpdPatientDepartmentController::class, 'opdPrint'])->name('opd.patient.print');
         Route::get('opds/{opdPatientDepartment}',
             [OpdPatientDepartmentController::class, 'show'])->name('opd.patient.show');
-        Route::get('opds/{opdPatientDepartment}/edit',
-            [OpdPatientDepartmentController::class, 'edit'])->name('opd.patient.edit');
+        Route::get('opds/{opdPatientDepartment}/edit',[OpdPatientDepartmentController::class, 'edit'])->name('opd.patient.edit');
         Route::patch('opds/{opdPatientDepartment}',
             [OpdPatientDepartmentController::class, 'update'])->name('opd.patient.update');
         Route::delete('opds/{opdPatientDepartment}',
