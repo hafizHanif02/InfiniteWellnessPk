@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Str;
+use App\Models\Doctor;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
-use Str;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DentalOpdPatientDepartment extends Model
 {
@@ -19,6 +20,7 @@ class DentalOpdPatientDepartment extends Model
 
     public $fillable = [
         'patient_id',
+        'doctor_id',
         'opd_number',
         'height',
         'weight',
@@ -60,6 +62,12 @@ class DentalOpdPatientDepartment extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id');
+    }
+
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 
 

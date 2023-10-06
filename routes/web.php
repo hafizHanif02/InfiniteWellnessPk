@@ -1179,20 +1179,20 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('opds/create', [OpdPatientDepartmentController::class, 'create'])->name('opd.patient.create');
         Route::post('opds', [OpdPatientDepartmentController::class, 'store'])->name('opd.patient.store');
         Route::get('opds/{opdID}/print', [OpdPatientDepartmentController::class, 'opdPrint'])->name('opd.patient.print');
-        Route::get('opds/{opdPatientDepartment}',
-            [OpdPatientDepartmentController::class, 'show'])->name('opd.patient.show');
+        Route::get('opds/{opdPatientDepartment}',[OpdPatientDepartmentController::class, 'show'])->name('opd.patient.show');
         Route::get('opds/{opdPatientDepartment}/edit',[OpdPatientDepartmentController::class, 'edit'])->name('opd.patient.edit');
         Route::patch('opds/{opdPatientDepartment}',
-            [OpdPatientDepartmentController::class, 'update'])->name('opd.patient.update');
+        [OpdPatientDepartmentController::class, 'update'])->name('opd.patient.update');
         Route::delete('opds/{opdPatientDepartment}',
-            [OpdPatientDepartmentController::class, 'destroy'])->name('opd.patient.destroy');
+        [OpdPatientDepartmentController::class, 'destroy'])->name('opd.patient.destroy');
         Route::get('get-doctor-opd-charge',
-            [OpdPatientDepartmentController::class, 'getDoctorOPDCharge'])->name('getDoctor.OPDcharge');
-
-            // Dental OPD Patient routes
-            Route::get('dentalOpds',[OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
-            Route::get('dentalOpds/{opdID}/print', [OpdPatientDepartmentController::class, 'dentalOpdPrint'])->name('dentalopd.patient.print');
-            Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
+        [OpdPatientDepartmentController::class, 'getDoctorOPDCharge'])->name('getDoctor.OPDcharge');
+        
+        // Dental OPD Patient routes
+        Route::get('dentalOpds',[OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
+        Route::get('dentalOpds/{opdID}/print', [OpdPatientDepartmentController::class, 'dentalOpdPrint'])->name('dentalopd.patient.print');
+        Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
+        Route::get('dentalOpds/{opdPatientDepartment}',[OpdPatientDepartmentController::class, 'showdental'])->name('dentalOpds.patient.show');
             Route::post('dentalOpds', [OpdPatientDepartmentController::class, 'dentalStore'])->name('dentalopd.patient.store');
             Route::post('dentalOpds/{opdId}/delete', [OpdPatientDepartmentController::class, 'dentalDelete'])->name('dentalopd.patient.delete');
 

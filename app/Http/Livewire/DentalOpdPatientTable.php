@@ -51,7 +51,7 @@ class DentalOpdPatientTable extends LivewireTableComponent
     {
         return [
             Column::make(__('messages.opd_patient.opd_number'), 'opd_number')
-                ->view('opd_patient_departments.columns.opd_no')
+                ->view('opd_patient_departments.columns.opd_nodental')
                 ->sortable()
                 ->searchable(),
             //                ->searchable(fn(Builder $query, $searchTerm) =>

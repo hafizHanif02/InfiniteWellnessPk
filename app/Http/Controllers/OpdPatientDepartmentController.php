@@ -153,6 +153,7 @@ class OpdPatientDepartmentController extends AppBaseController
 
             "currency_symbol" => $request->currency_symbol,
             "patient_id" => $request->patient_id,
+            "doctor_id" => $request->doctor_id,
             "case_id" => $request->case_id,
             "opd_number" => $request->opd_number,
             "height" => $request->height,
@@ -168,7 +169,6 @@ class OpdPatientDepartmentController extends AppBaseController
             "followup_charge" => $request->followup_charge,
             "total_amount" => $request->total_amount,
         ];
-        // dd($data);
         DentalOpdPatientDepartment::insert($data);
 
         $doc = Doctor::where('id', $request->doctor_id)->first();
@@ -208,6 +208,14 @@ class OpdPatientDepartmentController extends AppBaseController
 
         //        $doctorsList = $this->opdPatientDepartmentRepository->getDoctorsList();
         return view('opd_patient_departments.show', compact('opdPatientDepartment', 'doctors'));
+    }
+
+    public function showdental(DentalOpdPatientDepartment $opdPatientDepartment)
+    {
+        $doctor = $opdPatientDepartment->doctor;
+
+        //        $doctorsList = $this->opdPatientDepartmentRepository->getDoctorsList();
+        return view('opd_patient_departments.showdental', compact('opdPatientDepartment'));
     }
 
     /**
