@@ -1,3 +1,4 @@
+@if(Auth::user()->hasRole('Admin'))
 <div id="edit_doctor_departments_modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -32,3 +33,4 @@
         </div>
     </div>
 </div>
+@endif

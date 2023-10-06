@@ -9,7 +9,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="mb-0">@yield('title')</h1>
             <div class="text-end mt-4 mt-md-0">
-                @if (!Auth::user()->hasRole('Doctor|Accountant|Case Manager|Nurse|Patient'))
+                @if (!Auth::user()->hasRole('Doctor|Accountant|Case Manager|Nurse|Patient|DoctorDietitian'))
                     <a href="{{ route('patients.edit',['patient' => $data->id]) }}"
                        class="btn btn-primary me-2">{{ __('messages.common.edit') }}</a>
                 @endif

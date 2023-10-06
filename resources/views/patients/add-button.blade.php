@@ -1,5 +1,5 @@
 <div class="dropdown">
-    @role('Admin|Doctor|Receptionist')
+    @role('Admin|Doctor|Receptionist|DoctorDietitian')
     <a href="#" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
        aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
         <i class="fas fa-chevron-down"></i>

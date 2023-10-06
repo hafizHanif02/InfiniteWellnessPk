@@ -103,7 +103,7 @@
             </li> --}}
             @endrole
 
-            @role('Doctor')
+            @role('Doctor|DoctorDietitian')
             <li class="nav-item position-relative me-7 mb-3">
                 <a class="nav-link active p-0" data-bs-toggle="tab"
                    href="#PatientOverview">{{ __('messages.overview') }}</a>
@@ -243,7 +243,7 @@
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
-                    @role('Admin|Doctor|Nurse')
+                    @role('Admin|Doctor|Nurse|DoctorDietitian')
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Add New Form
                       </button>

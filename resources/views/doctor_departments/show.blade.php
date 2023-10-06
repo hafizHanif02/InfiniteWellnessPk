@@ -9,7 +9,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="mb-0">{{__('messages.doctor_department.doctor_department_details')}}</h1>
             <div class="text-end mt-4 mt-md-0">
-                @if (!Auth::user()->hasRole('Doctor|Patient|Receptionist'))
+                @if (!Auth::user()->hasRole('Doctor|Patient|Receptionist|DoctorDietitian'))
                     <a class="btn btn-primary me-2 doctor-department-edit-btn"
                        data-id="{{ $doctorDepartment->id }}">{{ __('messages.common.edit') }}</a>
                 @endif

@@ -255,7 +255,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 
     // excel export routes.
-    Route::middleware('role:Patient|Doctor|Receptionist')->group(function () {
+    Route::middleware('role:Patient|Doctor|Receptionist|DoctorDietitian')->group(function () {
         Route::get('export-appointments', [AppointmentController::class, 'appointmentExport'])->name('appointments.excel');
     });
 
