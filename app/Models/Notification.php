@@ -89,6 +89,8 @@ class Notification extends Model
 
     const SupplyChain = 'SupplyChain';
 
+    const DoctorDietitian = 'DoctorDietitian';
+
     const NOTIFICATION_FOR = [
         self::ADMIN => 1,
         self::DOCTOR => 2,
@@ -101,6 +103,7 @@ class Notification extends Model
         self::LAB_TECHNICIAN => 9,
         self::DIETITIAN => 10,
         self::SupplyChain => 11,
+        self::DoctorDietitian => 12,
     ];
 
     const NOTIFICATION_TYPE = [

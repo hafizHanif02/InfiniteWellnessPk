@@ -114,7 +114,7 @@ class UserController extends AppBaseController
     public function create()
     {
         $isEdit = false;
-        $role = Department::orderBy('name')->pluck('name', 'id')->toArray();     
+        $role = Department::orderBy('name')->pluck('name', 'id')->toArray();
         $doctorDepartments = DoctorDepartment::pluck('title', 'id')->toArray();
 
         return view('users.create', compact('isEdit', 'role', 'doctorDepartments'));

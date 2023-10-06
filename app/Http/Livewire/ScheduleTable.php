@@ -70,6 +70,9 @@ class ScheduleTable extends LivewireTableComponent
         if ($user->hasRole('Doctor')) {
             $query->where('doctor_id', $user->owner_id);
         }
+        // elseif($user->hasRole('DoctorDietitian')){
+        //     $query->where('doctor_id', $user->owner_id);
+        // }
 
         return $query;
     }
