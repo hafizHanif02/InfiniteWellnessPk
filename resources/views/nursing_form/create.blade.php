@@ -104,6 +104,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="mb-5">
+                            <label for="bmi" class="form-label">BMI<sup class="text-danger">*</sup></label>
+                            <input disabled type="text"  name="bmi" id="bmi" class="form-control">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-5">
@@ -297,5 +303,47 @@
 });
 
     </script>
+<script>
+    const heightInput = document.getElementById("height"); //height k inoput ki id
+const weightInput = document.getElementById("weight"); //weigh k input ki id 
+const bmiInput = document.getElementById("bmi"); // yhn p jonsi jagah p value show karani h whn ki id dedooo
 
+heightInput.addEventListener("input", calculateBMI);
+weightInput.addEventListener("input", calculateBMI);
+
+// Function to calculate BMI
+function calculateBMI() {
+    const weightKg = parseFloat(weightInput.value);
+    const heightCm = parseFloat(heightInput.value);
+
+    // Convert height to meters (1 meter = 100 cm)
+    const heightM = heightCm / 100;
+
+    // Calculate BMI
+    const bmi = (weightKg / (heightM * heightM)).toFixed(2);
+
+    // Update the BMI input field
+    bmiInput.value = isNaN(bmi) ? "" : bmi;
+
+    // Determine BMI category based on the calculated BMI
+    let bmiCategory = "";
+
+    if (bmi < 18.5) {
+        bmiCategory = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 23) {
+        bmiCategory = "Normal";
+    } else if (bmi >= 23 && bmi < 27) {
+        bmiCategory = "Overweight";
+    } else if (bmi >= 27) {
+        bmiCategory = "Obese";
+    }
+
+    // Add the BMI category to the BMI input field
+    if (bmiCategory) {
+        bmiInput.value += " (" + bmiCategory + ")";
+    }
+}
+
+
+    </script>
 @endsection
