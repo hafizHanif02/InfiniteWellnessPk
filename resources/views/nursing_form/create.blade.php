@@ -145,7 +145,7 @@
                         <h4>Allergies:</h4>
                     <table class="table table-bordered">
                         <thead>
-                            <div class="row text-end">
+                            <div class="row ">
                                 <div class="col-md-2 mb-5 mt-5">
                                     <button type="button" class="btn btn-primary" onclick="addmoreallergy()" id="addmore-btn">Add More</button>
                                 </div>
