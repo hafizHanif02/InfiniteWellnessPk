@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="d-flex flex-column">
         @include('flash::message')
-        @role('Admin|Nurse|Doctor|Receptionist')
+        @role('Admin|Nurse|Receptionist')
         <div class="col-md-12 mb-5 text-end">
             <a href="{{ route('nursing-form.create') }}" target="_blank"><button class="btn btn-primary">Add New Nursing Form</button></a>
         </div>
