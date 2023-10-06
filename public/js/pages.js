@@ -10280,16 +10280,19 @@
                           e.data[0].followup_charge
                         )
                       : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                addAmount();
                   }else {
                     0 !== e.data.length
                       ? $("#opdStandardCharge,#editOpdStandardCharge").val(
                           e.data[0].standard_charge
                         )
                       : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                addAmount();
                   }
                     
                   }
                 });
+
             });
         },
         566: () => {

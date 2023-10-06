@@ -99,7 +99,7 @@
                 {{ Form::label('is_old_patient', __('messages.ipd_patient.is_old_patient') . ':', ['class' => 'form-label']) }}<br>
                 <div class="form-check form-switch">
                     <input id="is_old_patient_checkbox" class="form-check-input w-35px h-20px" name="is_old_patient"
-                        type="checkbox" value="1">
+                        type="checkbox" value="1" >
                 </div>
             </div>
         </div>
@@ -128,9 +128,9 @@
                 <div class="mb-5">
                     <div class="input-group d-flex flex-nowrap">
                         <div class="input-group-text">
-                            <input data-amount="{{ $services->standard_charge }}" data-text="{{ $services->code }}"
+                            <input class='serviceAmount' data-amount="{{ $services->standard_charge }}" data-text="{{ $services->code }}"
                                 type="checkbox" value="{{ $services->id }}"
-                                aria-label="Checkbox for following text input" onclick="addAmount(this)">
+                                aria-label="Checkbox for following text input" onclick="addAmount()">
                         </div>
                         <div class="input-group-append" style="width: 80%;">
                             <span class="input-group-text bg-white font-weight-bold"
@@ -191,23 +191,28 @@
                 id: $('#opdDoctorId')[0].value
             },
             success: function(e) {
-                console.log(e);
+                
                 if ($('#is_old_patient_checkbox')[0].checked) {
                     0 !== e.data.length ?
                         $("#opdStandardCharge,#editOpdStandardCharge").val(
                             e.data[0].followup_charge
                         ) :
                         $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                        addAmount();
                 } else {
                     0 !== e.data.length ?
                         $("#opdStandardCharge,#editOpdStandardCharge").val(
                             e.data[0].standard_charge
                         ) :
                         $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                        addAmount();
                 }
 
+                
             }
         });
+
+       
 
     }
 
@@ -215,54 +220,34 @@
     checkbox.addEventListener('change', function() {
         // Update the name attribute when the checkbox state changes
         updateInputFieldName(this.checked);
-        // addAmount(this);
+        
+
     });
 
 
     let allServices = [];
     let docFeeAdded = false;
 
-    function addAmount(checkBox) {
-        let amount = checkBox.getAttribute('data-amount');
-        let docFee = document.getElementById('opdStandardCharge').value;
-        docFee = parseFloat(docFee);
-
-        if (checkBox.checked) {
-            let serviceName = checkBox.getAttribute('data-text');
-            allServices.push({
-                'id': checkBox.value,
-                'service': serviceName,
-                'amount': amount
-            });
-            let oldAmount = document.getElementById('totalAmount').value;
-            if (!oldAmount) {
-                oldAmount = 0;
+    function addAmount() {
+        
+        // let amount = checkBox.getAttribute('data-amount');
+        let amunnt = 0;
+        let allCheckBox = document.getElementsByClassName('serviceAmount');
+        for (let i = 0; i < allCheckBox.length; i++) {
+            if (allCheckBox[i].checked) {
+                amunnt += parseFloat(allCheckBox[i].getAttribute('data-amount'));
             }
-            oldAmount = parseFloat(oldAmount);
-            amount = parseFloat(amount);
-            document.getElementById('totalAmount').value = (oldAmount + amount).toFixed(2);
-
-            if (!docFeeAdded) {
-                // Add doc_fee only if it hasn't been added before
-                document.getElementById('totalAmount').value = (parseFloat(document.getElementById('totalAmount')
-                    .value) + docFee).toFixed(2);
-                docFeeAdded = true;
-            }
-        } else {
-            let oldAmount = document.getElementById('totalAmount').value;
-            if (!oldAmount) {
-                oldAmount = 0;
-            }
-            oldAmount = parseFloat(oldAmount);
-            amount = parseFloat(amount);
-            document.getElementById('totalAmount').value = (oldAmount - amount).toFixed(2);
-
-            allServices.forEach((e, key) => {
-                if (e.id == checkBox.value) {
-                    allServices.splice(key, 1);
-                }
-            });
         }
-        document.getElementById('charges').value = JSON.stringify(allServices);
+        console.log(amunnt);
+        let amount = parseFloat(amunnt);
+       
+        if(($('#opdStandardCharge').val()).length > 0){
+            amount += parseFloat($('#opdStandardCharge').val());
+        }
+        
+       
+        document.getElementById('totalAmount').value = amount.toString();
+        
+        
     }
 </script>
