@@ -24,6 +24,6 @@ class DoctorDepartment extends Model
 
     public function doctors(): HasMany
     {
-        return $this->hasMany(Doctor::class,'department_id');
+        return $this->hasMany(Doctor::class);
     }
 }

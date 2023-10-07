@@ -62,7 +62,7 @@ class Doctor extends Model
 
     public function doctorUser(): BelongsTo
     {
-        return $this->belongsTo(User::class,'doctor_user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function user(): BelongsTo
@@ -77,7 +77,7 @@ class Doctor extends Model
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(DoctorDepartment::class, 'department_id');
+        return $this->belongsTo(DoctorDepartment::class);
     }
 
     public function cases(): HasMany

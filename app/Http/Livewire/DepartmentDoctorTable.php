@@ -35,7 +35,7 @@ class DepartmentDoctorTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.case.doctor'), 'doctor_user_id')
+            Column::make(__('messages.case.doctor'), 'user_id')
                 ->hideIf('id'),
             Column::make(__('messages.case.doctor'), 'id')
                 ->view('doctors.templates.columns.name')
@@ -57,7 +57,7 @@ class DepartmentDoctorTable extends LivewireTableComponent
     public function builder(): Builder
     {
         /** @var Doctor $query */
-        $query = Doctor::with('doctorUser')->where('doctors.department_id', $this->doctorDepartmentId);
+        $query = Doctor::with('doctorUser')->where('doctor_department_id', $this->doctorDepartmentId);
 
         return $query;
     }
