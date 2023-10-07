@@ -1190,6 +1190,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         
         // Dental OPD Patient routes
         Route::get('dentalOpds',[OpdPatientDepartmentController::class, 'dentalIndex'])->name('dentalopd.patient.index');
+        Route::get('dentalOpds/show/{opdPatientDepartment}',[OpdPatientDepartmentController::class, 'showdental'])->name('dentalOpds.patient.show');
         Route::get('dentalOpds/{opdID}/print', [OpdPatientDepartmentController::class, 'dentalOpdPrint'])->name('dentalopd.patient.print');
         Route::get('dentalOpds/create', [OpdPatientDepartmentController::class, 'dentalCreate'])->name('dentalopd.patient.create');
         Route::get('dentalOpds/{opdPatientDepartment}',[OpdPatientDepartmentController::class, 'showdental'])->name('dentalOpds.patient.showdoctor-departments');

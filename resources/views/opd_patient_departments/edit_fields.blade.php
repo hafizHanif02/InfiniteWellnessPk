@@ -18,8 +18,9 @@
                 <span class="required"></span>
                 {{-- {{ Form::select('case_id', [null], null, ['class' => 'form-select', 'required', 'id' => 'editOpdCaseId', 'disabled', 'data-control' => 'select2', 'placeholder' => 'Choose Case']) }}
                 {{ Form::hidden('patient_case_id', !empty($opdPatientDepartment->patientCase) ? $opdPatientDepartment->patientCase->case_id : '', ['class' => 'patientCaseId']) }} --}}
-                <input type="text" class="form-control" name="case_id" readonly value="{{$opdPatientDepartment->patientCase->case_id}}">
-                <input type="text" class="form-control" name="patient_case_id" readonly value="{{$opdPatientDepartment->patientCase->case_id}}">
+                <input type="text" class="form-control" readonly value="{{$opdPatientDepartment->patientCase->case_id}}">
+                <input type="hidden" class="form-control" name="case_id" readonly value="{{$opdPatientDepartment->case_id}}">
+                <input type="hidden" class="form-control" name="patient_case_id" readonly value="{{$opdPatientDepartment->case_id}}">
             </div>
         </div>
     </div>
@@ -73,7 +74,8 @@
             <div class="mb-5">
                 {{ Form::label('doctor_id',__('messages.ipd_patient.doctor_id').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
-                {{ Form::select('doctor_id', $data['doctors'], null, ['class' => 'form-select', 'required', 'id' => 'editOpdDoctorId', 'placeholder' => 'Select Doctor', 'data-control' => 'select2']) }}
+                {{ Form::select('doctor_id', $data['doctors'], null, ['class' => 'form-select','value' => $opdPatientDepartment->doctor->id, 'required', 'id' => 'editOpdDoctorId', 'placeholder' => 'Select Doctor', 'data-control' => 'select2','disabled']) }}
+                <input type="hidden" name="doctor_id" value="{{ $opdPatientDepartment->doctor->id }}">
             </div>
         </div>
     </div>

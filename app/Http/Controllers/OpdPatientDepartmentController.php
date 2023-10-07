@@ -240,6 +240,12 @@ class OpdPatientDepartmentController extends AppBaseController
     public function update(OpdPatientDepartment $opdPatientDepartment, UpdateOpdPatientDepartmentRequest $request)
     {
         $input = $request->all();
+        if(!empty($input['standard_charge'])) {
+            $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
+        }
+        if(!empty($input['followup_charge'])) {
+            $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
+        }
         $this->opdPatientDepartmentRepository->updateOpdPatientDepartment($input, $opdPatientDepartment);
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.updated_successfully'));
 
