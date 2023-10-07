@@ -59,6 +59,7 @@ class DoctorDepartmentController extends AppBaseController
     {
         // dd($doctorDepartment);
         $doctors = $doctorDepartment->doctors;
+
         $doctorDepartment = $this->doctorDepartmentRepository->find($doctorDepartment->id);
 
         if (empty($doctorDepartment)) {

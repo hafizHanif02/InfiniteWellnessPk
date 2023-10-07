@@ -949,7 +949,7 @@
 </li>
 @endmodule
 @endrole
-@role('Doctor|DoctorDietitian')
+@role('Doctor')
 @module('Doctors',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('employee/doctor*','prescriptions*','schedules*','doctors*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('employee/doctor*') ? 'active' : '' }}" href="{{ url('employee/doctor') }}">

@@ -199,11 +199,7 @@ class PatientController extends AppBaseController
             $user = Auth::user();
             if ($user->hasRole('Doctor')) {
                 $vaccinationPatients = getPatientsList($user->owner_id);
-            }
-            elseif ($user->hasRole('DoctorDietitian')) {
-                $vaccinationPatients = getPatientsList($user->owner_id);
-            }
-             else {
+            } else {
                 $vaccinationPatients = Patient::getActivePatientNames();
             }
             $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();

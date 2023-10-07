@@ -193,7 +193,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         });
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor')->group(function () {
         Route::resource('documents', DocumentController::class);
         Route::get('documents', [DocumentController::class, 'index'])->name('documents.index')->middleware('modules');
         Route::post('documents/{document}/update', [DocumentController::class, 'update']);
@@ -260,7 +260,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 
     // excel export routes.
-    Route::middleware('role:Doctor|DoctorDietitian')->group(function () {
+    Route::middleware('role:Doctor')->group(function () {
         Route::prefix('doctor')->group(function () {
             Route::get('export-schedules', [ScheduleController::class, 'schedulesExport'])->name('schedules.excel');
         });
@@ -342,7 +342,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             [PathologyTestController::class, 'pathologyTestExport'])->name('pathology.tests.excel');
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Case Manager|Accountant|Dietitian|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Case Manager|Accountant|Dietitian')->group(function () {
         Route::get('patients/{patient}', [PatientController::class, 'show'])->where('patient',
             '[0-9]+')->name('patients.show');
         Route::post('patients/{patient}', [PatientController::class, 'formSubmit'])->name('patients.form.submit');
@@ -351,11 +351,11 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('patient/{patient?}', [PatientController::class, 'getBirthDate'])->name('patients.birthDate');
     });
 
-    Route::middleware('role:Admin|Doctor|Receptionist|Accountant|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Doctor|Receptionist|Accountant')->group(function () {
         Route::get('doctors/{doctor}', [DoctorController::class, 'show'])->where('doctor', '[0-9]+')->name('doctors_show');
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse')->group(function () {
         Route::resource('appointments', AppointmentController::class);
         Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index')->middleware('modules');
         Route::post('appointments/{appointment}', [AppointmentController::class, 'update']);
@@ -387,7 +387,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('beds/{bed}', [BedController::class, 'show'])->where('bed', '[0-9]+');
     });
 
-    Route::middleware('role:Admin|Doctor|Receptionist|Patient|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Doctor|Receptionist|Patient')->group(function () {
         Route::get('doctor-departments/{doctorDepartment}', [DoctorDepartmentController::class, 'show'])
             ->where('doctorDepartment', '[0-9]+');
     });
@@ -405,7 +405,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('patient-cases/{case_id}/active-deactive', [PatientCaseController::class, 'activeDeActiveStatus']);
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Nurse|Dietitian|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Nurse|Dietitian')->group(function () {
         Route::resource('charge-categories', ChargeCategoryController::class);
         Route::get('charge-categories',
             [ChargeCategoryController::class, 'index'])->name('charge-categories.index')->middleware('modules');
@@ -499,7 +499,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('export-case-handlers', [CaseHandlerController::class, 'caseHandlerExport'])->name('case.handler.excel');
     });
 
-    Route::middleware('role:Admin|Doctor|Lab Technician|Pharmacist|Case Manager|Accountant|Receptionist|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Doctor|Lab Technician|Pharmacist|Case Manager|Accountant|Receptionist')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('doctor', [Employee\DoctorController::class, 'index'])->name('doctor');
             Route::get('doctor/{id}', [Employee\DoctorController::class, 'show'])->name('doctor.show');
@@ -575,7 +575,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('patient-admissions/{id}/active-deactive', [PatientAdmissionController::class, 'activeDeactiveStatus']);
     });
 
-    Route::middleware('role:Admin|Doctor|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Doctor')->group(function () {
         Route::resource('document-types', DocumentTypeController::class)->parameters(['document-types' => 'documentType']);
         Route::get('document-types',
             [DocumentTypeController::class, 'index'])->name('document-types.index')->middleware('modules');
@@ -743,7 +743,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
     });
 
-    Route::middleware('role:Admin|Nurse|Doctor|Dietitian|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Nurse|Doctor|Dietitian')->group(function () {
         Route::get('beds', [BedController::class, 'index'])->name('beds.index')->middleware('modules');
         Route::post('beds', [BedController::class, 'store'])->name('beds.store');
         Route::get('beds/create', [BedController::class, 'create'])->name('beds.create');
@@ -800,7 +800,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('export-ambulances', [AmbulanceController::class, 'ambulanceExport'])->name('ambulance.excel');
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Accountant|Pharmacist|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Accountant|Pharmacist')->group(function () {
         //Sms Rout
         Route::get('sms', [SmsController::class, 'index'])->name('sms.index')->middleware('modules');
         Route::post('sms', [SmsController::class, 'store'])->name('sms.store');
@@ -904,7 +904,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('employees-list', [EmployeePayrollController::class, 'getEmployeesList'])->name('employees.list');
     });
 
-    Route::middleware('role:Admin|Nurse|Pharmacist|Doctor|Receptionist|Dietitian|SupplyChain|Supply-Chain|Accountant|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Nurse|Pharmacist|Doctor|Receptionist|Dietitian|SupplyChain|Supply-Chain|Accountant')->group(function () {
         //        Route::resource('departments', 'DepartmentController');
         //        Route::post('departments/{department}/active-deactive', 'DepartmentController@activeDeactiveDepartment');
 
@@ -1084,7 +1084,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             [DiagnosisCategoryController::class, 'edit'])->name('diagnosis.category.edit');
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Accountant|Case Manager|Nurse|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Accountant|Case Manager|Nurse')->group(function () {
         Route::get('document-download/{document}', [DocumentController::class, 'downloadMedia']);
     });
 
@@ -1099,7 +1099,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('investigation-download/{investigationReport}', [InvestigationReportController::class, 'downloadMedia']);
     });
 
-    Route::middleware('role:Admin|Doctor|Receptionist|DoctorDietitian')->group(function () {
+    Route::middleware('role:Admin|Doctor|Receptionist')->group(function () {
         // IPD Patient routes
         Route::get('ipds',
             [IpdPatientDepartmentController::class, 'index'])->name('ipd.patient.index')->middleware('modules');
@@ -1315,7 +1315,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 });
 
-Route::middleware('role:Admin|Dietitian|Nurse|Doctor|DoctorDietitian')->group(function () {
+Route::middleware('role:Admin|Dietitian|Nurse|Doctor')->group(function () {
 
     Route::get('dietitian-form', [PatientController::class, 'dietitanFormList'])->name('dietitan.index');
     Route::get('dietitian-form/{patientID}', [PatientController::class, 'dietitanShow'])->name('dietitan.show');
