@@ -47,11 +47,11 @@
                     @include('flash::message')
                 </div>
             </div>
-            @include('dentalopd_patient_departments.show_fields')
+            @include('dentalOpd_patient_departments.show_fields')
             @include('dentalopd_diagnoses.add_modal')
             @include('dentalopd_diagnoses.edit_modal')
             @include('dentalopd_diagnoses.templates.templates')
-            @include('dentalopd_patient_departments.templates.templates')
+            @include('dentalOpd_patient_departments.templates.templates')
             @include('dentalopd_timelines.add_modal')
             @include('dentalopd_timelines.edit_modal')
         </div>
