@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateOpdPatientDepartmentRequest;
-use App\Http\Requests\UpdateOpdPatientDepartmentRequest;
-use App\Models\DoctorOpdCharge;
-use App\Models\OpdPatientDepartment;
-use App\Models\User;
-use App\Models\Doctor;
-use App\Models\Charge;
-use App\Models\ChargeCategory;
-use App\Models\DentalOpdPatientDepartment;
-use App\Repositories\OpdPatientDepartmentRepository;
-use Exception;
 use Flash;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
+use Exception;
+use App\Models\User;
+use App\Models\Charge;
+use App\Models\Doctor;
 use Illuminate\View\View;
 use App\Models\Appointment;
+use Illuminate\Http\Request;
+use App\Models\ChargeCategory;
+use App\Models\DoctorOpdCharge;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\DB;
+use App\Models\OpdPatientDepartment;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Response;
+use App\Models\DentalOpdPatientDepartment;
+use App\Repositories\OpdPatientDepartmentRepository;
+use App\Http\Requests\CreateOpdPatientDepartmentRequest;
+use App\Http\Requests\UpdateOpdPatientDepartmentRequest;
 
 /**
  * Class OpdPatientDepartmentController
@@ -51,11 +53,7 @@ class OpdPatientDepartmentController extends AppBaseController
     public function dentalIndex(){
         return view('dentalOpd_patient_departments.index');
     }
-    /**
-     * Show the form for creating a new OpdPatientDepartment.
-     *
-     * @return Factory|View
-     */
+
     public function create(Request $request)
     {
         $data = $this->opdPatientDepartmentRepository->getAssociatedData();
@@ -77,7 +75,7 @@ class OpdPatientDepartmentController extends AppBaseController
         $data['revisit'] = ($request->get('revisit')) ? $request->get('revisit') : 0;
         if ($data['revisit']) {
             $id = $data['revisit'];
-            $data['last_visit'] = OpdPatientDepartment::findOrFail($id);
+            $data['last_visit'] = DentalOpdPatientDepartment::findOrFail($id);
         }
 
         foreach ($data['patients2'] as $key => $value) {
@@ -150,7 +148,6 @@ class OpdPatientDepartmentController extends AppBaseController
         
         // dd($input);
         $data = [
-
             "currency_symbol" => $request->currency_symbol,
             "patient_id" => $request->patient_id,
             "doctor_id" => $request->doctor_id,
@@ -295,5 +292,33 @@ class OpdPatientDepartmentController extends AppBaseController
         return redirect(route('dentalopd.patient.index'));
         
         
+    }
+
+
+    public function adddiagnosis(Request $request){
+        DB::table('dental_opd_diagnoses')->insert([
+            'opd_patient_department_id' => $request->opd_patient_department_id,
+            'report_type' => $request->report_type,
+            'report_date' => $request->report_date,
+            'description' => $request->description,
+        ]);
+        // Flash::success(('Diagnosis Added Successfully'));
+        // return redirect(route('dentalopd.patient.index'));
+
+    }
+
+    public function addtimelines(Request $request){
+        DB::table('dental_opd_timelines')->insert([
+            'opd_patient_department_id' => $request->opd_patient_department_id,
+            'title' => $request->title,
+            'date' => $request->date,
+            'description' => $request->description,
+            'visible_to_person' => $request->visible_to_person,
+        ]);
+        $javascript = '<script>location.reload();</script>';
+        // Flash::success(('Timelines Added Successfully'));
+        // return Response::make($javascript);
+        // return redirect(route('dentalopd.patient.index'));
+
     }
 }

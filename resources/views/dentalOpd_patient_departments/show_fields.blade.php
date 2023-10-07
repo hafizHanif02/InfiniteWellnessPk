@@ -170,7 +170,7 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
                 </div>
             </div>
             <div class="tab-pane fade" id="opdVisits" role="tabpanel" aria-labelledby="opdVisitTab">
-                <a href="{{ route('opd.patient.create').'?revisit='.$opdPatientDepartment->id }}"
+                <a href="{{ route('dentalopd.patient.create').'?revisit='.$opdPatientDepartment->id }}"
                    class="btn btn-primary float-end">
                     {{ __('messages.opd_patient.revisits') }}
                 </a>
@@ -183,7 +183,7 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
                    data-bs-target="#add_opd_diagnoses_modal">
                     {{ __('messages.ipd_patient_diagnosis.new_ipd_diagnosis') }}
                 </a>
-                <livewire:opd-diagnoses-table opdDiagnoses="{{$opdPatientDepartment->id}}"/>
+                <livewire:dental-opd-diagnoses-table opdDiagnoses="{{$opdPatientDepartment->id}}"/>
             </div>
             <div class="tab-pane fade" id="opdPatientsTimelines" role="tabpanel"
                  aria-labelledby="opdPatientsTimelinesTab">

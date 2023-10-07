@@ -47,13 +47,13 @@
                     @include('flash::message')
                 </div>
             </div>
-            @include('opd_patient_departments.show_fields')
-            @include('opd_diagnoses.add_modal')
-            @include('opd_diagnoses.edit_modal')
-            @include('opd_diagnoses.templates.templates')
-            @include('opd_patient_departments.templates.templates')
-            @include('opd_timelines.add_modal')
-            @include('opd_timelines.edit_modal')
+            @include('dentalopd_patient_departments.show_fields')
+            @include('dentalopd_diagnoses.add_modal')
+            @include('dentalopd_diagnoses.edit_modal')
+            @include('dentalopd_diagnoses.templates.templates')
+            @include('dentalopd_patient_departments.templates.templates')
+            @include('dentalopd_timelines.add_modal')
+            @include('dentalopd_timelines.edit_modal')
         </div>
     </div>
 @endsection
