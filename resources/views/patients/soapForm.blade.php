@@ -1316,7 +1316,7 @@
 
             </div>
 
-            @role('Admin|Doctor|Nurse|DoctorDietitian')
+            @role('Admin|Doctor|Nurse')
 <input class="btn btn-primary" type="submit" value="SAVE" />
 @endrole
 

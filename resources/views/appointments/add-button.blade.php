@@ -10,12 +10,6 @@
            class="btn btn-primary">{{ __('messages.common.export_to_excel') }}</a>
     </div>
 @endif
-@if (Auth::user()->hasRole('DoctorDietitian'))
-<div class="d-flex align-items-center py-1">
-    <a data-turbo="false" href="{{ route('appointments.excel') }}"
-       class="btn btn-primary">{{ __('messages.common.export_to_excel') }}</a>
-</div>
-@endif
 @if (Auth::user()->hasRole('Patient|Receptionist'))
     <div class="dropdown pt-1">
         <a href="#" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"

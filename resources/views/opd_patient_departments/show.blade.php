@@ -29,7 +29,7 @@
                 {{Form::hidden('downloadDiagnosisDocumentUrl',url('opd-diagnosis-download'),['id'=>'showOpdDownloadDiagnosisDocumentUrl'])}}
                 {{Form::hidden('opdTimelineCreateUrl',route('opd.timelines.store'),['id'=>'showOpdTimelineCreateUrl'])}}
                 {{Form::hidden('opdTimelinesUrl',route('opd.timelines.index'),['id'=>'showOpdTimelinesUrl'])}}
-                {{-- {{Form::hidden('opdPatientCaseDate',$opdPatientDepartment->patientCase->date,['id'=>'showOpdPatientCaseDate'])}} --}}
+                {{Form::hidden('opdPatientCaseDate',$opdPatientDepartment->patientCase->date,['id'=>'showOpdPatientCaseDate'])}}
                 {{Form::hidden('id',$opdPatientDepartment->id,['id'=>'showOpdId'])}}
                 {{Form::hidden('appointmentDate',$opdPatientDepartment->appointment_date,['id'=>'showOpdAppointmentDate'])}}
                 {{Form::hidden('opdPatients',__('messages.opd_patient.opd_patient'),['id'=>'opdPatients'])}}
