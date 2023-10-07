@@ -573,6 +573,8 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
         </a>
     </li>
 
+
+
     @module('Doctors',$modules)
     <li class="nav-item  {{ Request::is('employee/doctor*','prescriptions*','schedules*','doctors*') ? 'active' : '' }}">
         <a class="nav-link  d-flex align-items-center py-3"
@@ -616,6 +618,19 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             </a>
         </li>
     @endif
+    {{-- Dental OPDS --}}
+    <li class="nav-item  {{ Request::is('dentalOpds*') ? 'active' : '' }}">
+        <a class="nav-link  d-flex align-items-center py-3"
+           href="{{ route('dentalopd.patient.index') }}"
+           title="{{ __('messages.ipd_opd') }}">
+        <span class="aside-menu-icon pe-3 pe-3">
+            <i class="fas fa-notes-medical"></i>
+        </span>
+            <span class="aside-menu-title">Dental OPD</span>
+            <span class="d-none">{{__('messages.ipd_patients')}}</span>
+            <span class="d-none">{{__('messages.opd_patients')}}</span>
+        </a>
+    </li>
 
 {{--Nursers--}}
 @module('Nurses',$modules)

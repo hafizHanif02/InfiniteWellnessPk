@@ -11,44 +11,28 @@ use Exception;
 use Hash;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
-/**
- * Class DoctorRepository
- *
- * @version February 13, 2020, 8:55 am UTC
- */
+
 class DoctorRepository extends BaseRepository
 {
-    /**
-     * @var array
-     */
+    
     protected $fieldSearchable = [
         'doctor_user_id',
         'specialist',
     ];
 
-    /**
-     * Return searchable fields
-     *
-     * @return array
-     */
+   
     public function getFieldsSearchable()
     {
         return $this->fieldSearchable;
     }
 
-    /**
-     * Configure the Model
-     **/
+    
     public function model()
     {
         return Doctor::class;
     }
 
-    /**
-     * @param  array  $input
-     * @param  bool  $mail
-     * @return bool
-     */
+    
     public function store($input, $mail = false)
     {
         try {
@@ -87,11 +71,7 @@ class DoctorRepository extends BaseRepository
         return true;
     }
 
-    /**
-     * @param  array  $doctor
-     * @param  array  $input
-     * @return bool
-     */
+    
     public function update($doctor, $input)
     {
         try {
@@ -105,7 +85,7 @@ class DoctorRepository extends BaseRepository
                 $mediaId = updateProfileImage($user, $input['image']);
             }
 
-            /** @var Doctor $doctor */
+            
             $input['phone'] = preparePhoneNumber($input, 'phone');
             $input['dob'] = (! empty($input['dob'])) ? $input['dob'] : null;
             $doctor->doctorUser->update($input);
@@ -130,22 +110,17 @@ class DoctorRepository extends BaseRepository
         }
     }
 
-    /**
-     * @return Doctor
-     */
+    
     public function getDoctors()
     {
-        /** @var Doctor $doctors */
+        
         $doctors = Doctor::with('doctorUser')->get()->where('doctorUser.status', '=', 1)->pluck('doctorUser.full_name',
             'id')->sort();
 
         return $doctors;
     }
 
-    /**
-     * @param  int  $doctorId
-     * @return mixed
-     */
+    
     public function getDoctorAssociatedData($doctorId)
     {
         $data['doctorData'] = Doctor::with([
