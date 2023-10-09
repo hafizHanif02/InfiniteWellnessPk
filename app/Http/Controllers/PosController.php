@@ -8,12 +8,15 @@ use App\Models\Patient;
 use App\Models\Medicine;
 use App\Models\PosReturn;
 use Illuminate\View\View;
+use App\Exports\PosExport;
 use Laracasts\Flash\Flash;
 use App\Models\Pos_Product;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Http\Requests\PosRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
@@ -222,6 +225,11 @@ class PosController extends Controller
             // 'data' => PosReturn::with('pos')->whereHas('pos', function ($query) {$query->where('is_cash', 1);})->latest()->get(),
             'data' => PosReturn::with('pos')->filter($request)->latest()->get(),
         ]);
+    }
+
+
+    public function printReport() {
+        return Excel::download(new PosExport, 'Pos-Report.xlsx');
     }
 
 }

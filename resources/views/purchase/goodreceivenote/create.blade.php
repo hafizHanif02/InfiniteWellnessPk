@@ -241,10 +241,10 @@
                                                     <input type="number"  class="form-control"  id="totalquantity${requistionProduct.id}" value="${requistionProduct.total_piece}" readonly>
                                                 </td>
                                                 <td>
-                                                    ${requistionProduct.product.least_unit == 1 ? `<input type="number" id="changequantity${requistionProduct.id}"  value="${requistionProduct.total_piece}" class="form-control" readonly>` : `<input type="number" id="changequantity${requistionProduct.id}"  value="${requistionProduct.total_piece}" class="form-control" readonly>`  }
+                                                    ${requistionProduct.product.least_unit == 1 ? `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>` : `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>`  }
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="products[${items}][deliver_qty]"  id="minusquantity${requistionProduct.id}"  max="${requistionProduct.product.least_unit == 1 ? `${requistionProduct.total_piece}` : `${requistionProduct.total_piece}` }" onkeyup="changeQuantity(${requistionProduct.id})"   class="form-control" >
+                                                    <input type="number" min="0" name="products[${items}][deliver_qty]" value=1 id="minusquantity${requistionProduct.id}"  max="${requistionProduct.product.least_unit == 1 ? `${requistionProduct.total_piece}` : `${requistionProduct.total_piece}` }" onkeyup="changeQuantity(${requistionProduct.id})"   class="form-control" >
                                                 </td>
                                                 <td>
                                                     <input type="number" min="0" name="products[${items}][discount]" onkeyup="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >

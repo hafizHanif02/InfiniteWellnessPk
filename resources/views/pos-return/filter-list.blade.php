@@ -32,6 +32,7 @@
                 </div>
                 <div class="mt-5">
                     <a href="{{ route('returnposreport.index') }}" class="btn btn-secondary mt-3">Reset</a>
+                    <a href="{{ route('posinv.export') }}" class="btn btn-secondary mt-3">Export To Excel</a>
                 </div>
             </div>
             <table class="table table-bordered text-center table-hover">

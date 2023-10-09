@@ -36,6 +36,7 @@
                 </div>
                 <div class="mt-5">
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
+                    <a href="{{ route('posinv.export') }}" class="btn btn-primary mt-3">Export To Excel</a>
                 </div>
             </div>
             <table class="table table-bordered text-center table-hover">
@@ -56,7 +57,7 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{($ps->is_cash == 0)?'Card':'Cash' }}</td>
-                            <td>{{ $ps->total_amount }}</td>
+                            <td >{{ $ps->total_amount }}</td>
                         </tr>
                     @empty
                         <tr class="text-center">

@@ -47,25 +47,24 @@
             </tr>
             <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
                 <th>#</th>
-                <th colspan="2">Brand</th>
+                <th colspan="5" class="text-start">Brand</th>
                 <th colspan="2">Qty</th>
                 <th colspan="2">M.R.P</th>
-                <th colspan="2">GST</th>
-                <th colspan="2">Disc</th>
+                <th colspan="1">GST</th>
+                <th colspan="1">Disc</th>
                 <th>Total</th>
             </tr>
     
             @foreach ($pos->PosProduct as $product)
                 <tr>
                     <th>{{ $loop->iteration }}</th>
-                    <th colspan="2">
+                    <th class="text-start" colspan="5">
                         {{ $product->medicine->name }} <br>
-                        ({{ $product->medicine->generic_formula }})
                     </th>
                     <th colspan="2">{{ $product->product_quantity }}</th>
                     <th colspan="2">{{ $product->mrp_perunit }}</th>
-                    <th colspan="2">{{ $product->gst_percentage }}</th>
-                    <th colspan="2">{{ $product->discount_percentage }}</th>
+                    <th colspan="1">{{ $product->gst_percentage }}</th>
+                    <th colspan="1">{{ $product->discount_percentage }}</th>
                     <th>{{ $product->product_total_price }}</th>
                 </tr>
             @endforeach
