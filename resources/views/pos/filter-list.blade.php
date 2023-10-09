@@ -38,6 +38,11 @@
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
                     <a href="{{ route('posinv.export') }}" class="btn btn-primary mt-3">Export To Excel</a>
                 </div>
+                <div class="mt-5">
+                    <button onclick="gettotal()" class="btn btn-primary mt-3">
+                        Get Total
+                    </button>
+                </div>
             </div>
             <table class="table table-bordered text-center table-hover">
                 <thead class="table-dark">
@@ -48,6 +53,7 @@
                         <td>Method</td>
                         <td>Amount</td>
                     </tr>
+                   
                 </thead>
                 <tbody id="pos-list">
 
@@ -57,7 +63,14 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{($ps->is_cash == 0)?'Card':'Cash' }}</td>
+<<<<<<< Updated upstream
                             <td >{{ $ps->total_amount }}</td>
+=======
+                            <td class="totalamount">
+                                {{ $ps->total_amount }}
+                            <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
+                            </td>
+>>>>>>> Stashed changes
                         </tr>
                     @empty
                         <tr class="text-center">
@@ -66,6 +79,20 @@
                     @endforelse
                 </tbody>
             </table>
+            <table class="table table-bordered">
+               <tbody>
+                <tr>
+                    <td ></td>
+                 <td class="text-start">Total Revenue</td>
+                
+                 <td class="text-start totalrevenuetd" >
+                        {{-- <span class="totalrevenuetd"></span> --}}
+                        {{-- <input type="hidden" class="form-control" id="totalrevenue"> --}}
+                    </td>
+                   
+                </tr>
+               </tbody>
+            </table>
             <div>
                 {{-- {{ $purchaseOrders->links() }} --}}
             </div>
@@ -73,10 +100,8 @@
     </div>
 </div>
 @endsection
-
-
-
     <script>
+        
 
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
@@ -104,7 +129,11 @@
                                         <td>${value.id}</td>
                                         <td>${value.patient_name}</td>
                                         <td>${value.is_cash? 'Cash':'Card' }</td>
-                                        <td>${value.total_amount}</td>
+                                        <td class="totalamount">
+                                            ${value.total_amount}
+                            <input type="hidden" value="${value.total_amount}" class="totalamount" id="totalamount" >
+                                            
+                                            </td>
                                     </tr>
                                  `);
                             });
@@ -115,15 +144,37 @@
                             </tr>
                             `);
                         }
-                    }
+                        }
                 });
 
             }
 
-
-
         function runthis(){
             console.log("sadfsfsdfsadfsadfsfdsf");
         }
+
+
+        function gettotal(){
+            // console.log('kjhjkhjkhkh');
+            var totalAmount = 0;
+            $("[id^='totalamount']").each(function() {
+                if ($(this).val() != '') {
+                    totalAmount += parseFloat($(this).val());
+                    // console.log(totalAmount);
+                }
+            }); 
+            $('#totalrevenue').val(totalAmount);
+            $(".totalrevenuetd").text(totalAmount.toFixed(2));
+
+            // console.log("Total Amount:", totalAmount);
+            $("#totalrevenue").text(totalAmount.toFixed(2));
+        }
+        
+ 
+
     </script>
+
+
+
+
 
