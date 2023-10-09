@@ -63,14 +63,10 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{($ps->is_cash == 0)?'Card':'Cash' }}</td>
-<<<<<<< Updated upstream
-                            <td >{{ $ps->total_amount }}</td>
-=======
                             <td class="totalamount">
                                 {{ $ps->total_amount }}
                             <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
                             </td>
->>>>>>> Stashed changes
                         </tr>
                     @empty
                         <tr class="text-center">
