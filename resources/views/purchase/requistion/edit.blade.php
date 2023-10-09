@@ -96,14 +96,13 @@
                                         <input type="number" step="any" id="price_per_unit{{$loop->iteration}}2" name="products[{{$loop->iteration}}][price_per_unit2]" value="{{$requistionProduct->price_per_unit }}" onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" class="form-control">    
                                     </td>
                                     <td>
-                                        <input type="number"  min="1" name="products[{{$loop->iteration}}][total_piece]" onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" value="{{$requistionProduct->total_piece}}" class="form-control">
+                                        <input type="number"  min="1" name="products[{{$loop->iteration}}][total_piece]" {{ ($requistionProduct->limit == 1)?'':'readonly' }}  onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" value="{{$requistionProduct->total_piece}}" class="form-control">
                                     </td>
                                     <td>
-                                        
                                         <input type="number" id="previouse_price{{$requistionProduct->product->id}}"  value="{{$requistionProduct->product->cost_price}}" class="form-control" readonly>    
                                     </td>
                                     <td>
-                                        <input type="number" name="products[{{$loop->iteration}}][total_pack]" value="{{$requistionProduct->total_piece /$requistionProduct->product->pieces_per_pack }}"  class="form-control" readonly>    
+                                        <input type="number" name="products[{{$loop->iteration}}][total_pack]" {{ ($requistionProduct->limit == 0)?'':'readonly' }} value="{{$requistionProduct->total_piece /$requistionProduct->product->pieces_per_pack }}"  class="form-control">    
                                     </td>
                                     <td>
                                         <input type="number" step="any" name="products[{{$loop->iteration}}][discount_percentage]" onkeyup="discountPerc({{$requistionProduct->product->id}})"  id="discount_percentage{{$requistionProduct->product->id}}" value="{{$requistionProduct->discount_percentage}}" class="form-control" >
