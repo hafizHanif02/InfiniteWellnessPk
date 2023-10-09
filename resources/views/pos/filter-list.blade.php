@@ -38,11 +38,11 @@
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
                     <a href="{{ route('posinv.export') }}" class="btn btn-primary mt-3">Export To Excel</a>
                 </div>
-                <div class="mt-5">
+                {{-- <div class="mt-5">
                     <button onclick="gettotal()" class="btn btn-primary mt-3">
                         Get Total
                     </button>
-                </div>
+                </div> --}}
             </div>
             <table class="table table-bordered text-center table-hover">
                 <thead class="table-dark">
@@ -95,10 +95,26 @@
         </div>
     </div>
 </div>
+<script>
+     $(document).ready(function() {
+        var totalAmount = 0;
+            $("[id^='totalamount']").each(function() {
+                if ($(this).val() != '') {
+                    totalAmount += parseFloat($(this).val());
+               
+                }
+            }); 
+            $('#totalrevenue').val(totalAmount);
+            $(".totalrevenuetd").text(totalAmount.toFixed(2));
+
+            
+            $("#totalrevenue").text(totalAmount.toFixed(2));         
+            });
+</script>
 @endsection
     <script>
         
-
+           
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
 
@@ -133,12 +149,14 @@
                                     </tr>
                                  `);
                             });
+                            window.location.reload();
                         } else {
                             $("#pos-list").append(`
                             <tr class="text-center">
                                 <td colspan="6" class="text-danger">No POS found!</td>
                             </tr>
                             `);
+                            window.location.reload();
                         }
                         }
                 });
@@ -150,23 +168,12 @@
         }
 
 
-        function gettotal(){
-            // console.log('kjhjkhjkhkh');
-            var totalAmount = 0;
-            $("[id^='totalamount']").each(function() {
-                if ($(this).val() != '') {
-                    totalAmount += parseFloat($(this).val());
-                    // console.log(totalAmount);
-                }
-            }); 
-            $('#totalrevenue').val(totalAmount);
-            $(".totalrevenuetd").text(totalAmount.toFixed(2));
-
-            // console.log("Total Amount:", totalAmount);
-            $("#totalrevenue").text(totalAmount.toFixed(2));
-        }
+        // function gettotal(){
+          
+         
+        // }
         
- 
+       
 
     </script>
 
