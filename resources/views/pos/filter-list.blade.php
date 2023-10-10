@@ -156,17 +156,11 @@
             function ExportToExcel(type, fn, dl) {
                 var elt = document.getElementById('tbl_exporttable_to_xls');
                 var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-
-                // Generate the current date in the "day-month-year" format
                 var currentDate = new Date();
                 var day = currentDate.getDate().toString().padStart(2, '0');
                 var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-                var year = currentDate.getFullYear();
-
-                // Combine the date components with hyphens
+                var year = currentDate.getFullYear();         
                 var formattedDate = day + '-' + month + '-' + year;
-
-                // Append the formatted date to the file name
                 var fileName = 'POS-Report (' + formattedDate + ').xlsx';
 
                 return dl ?
