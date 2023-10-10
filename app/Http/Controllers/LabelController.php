@@ -90,6 +90,7 @@ class LabelController extends Controller
     }
     public function LabelShow($pos_id, $medicine_id)
     {
+        return $pos_id;
         $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
         return view('label.show', [
         'label' => $label,
@@ -101,10 +102,10 @@ class LabelController extends Controller
         $user_name = $first_name.' '.$last_name;
 
         $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
-        
+
         $generatorHTML = new BarcodeGeneratorHTML();
         $bill_no_barcode = $generatorHTML->getBarcode($label->pos_id, $generatorHTML::TYPE_CODE_128);
-        
+
         return view('label.print',[
             'label' => $label,
             'user_name' => $user_name,
