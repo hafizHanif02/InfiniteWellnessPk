@@ -49,7 +49,7 @@
                 <tr class="text-center-data">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $requistionProduct->product->product_name }}</td>
-                    <td>{{ $requistionProduct->total_piece }}</td>
+                    <td>{{ number_format($requistionProduct->total_piece,2,'.') }}</td>
                     <td>{{ $requistionProduct->total_amount / $requistionProduct->total_piece }}</td>
                     <td>{{ $requistionProduct->discount_percentage }}%</td>
                     <td>{{ ($requistionProduct->sale_tax == 0)?'-':$requistionProduct->sale_tax.'%' }}</td>
