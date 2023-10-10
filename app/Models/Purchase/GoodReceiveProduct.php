@@ -37,8 +37,8 @@ class GoodReceiveProduct extends Model
         return $this->belongsTo(GoodReceiveNote::class);
     }
 
-    public function requistionProducts(): HasOne
+    public function requistionProduct(): BelongsTo
     {
-        return $this->hasOne(RequistionProduct::class,'product_id','product_id');
+        return $this->belongsTo(RequistionProduct::class,'product_id','product_id');
     }
 }

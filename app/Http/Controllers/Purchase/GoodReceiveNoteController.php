@@ -88,13 +88,14 @@ class GoodReceiveNoteController extends Controller
     public function edit($goodReceiveNote): View
     {
         return view('purchase.goodreceivenote.edit', [
-            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts', 'goodReceiveProducts.product','goodReceiveProducts.requistionProducts'])->first(),
+            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['goodReceiveProducts.product','goodReceiveProducts.requistionProduct'])->first(),
             'vendors' => Vendor::orderBy('contact_person')->get(),
         ]);
     }
 
     public function update(GoodReceiveNoteRequest $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
+        
         $goodReceiveNote->update([
             'invoice_number' => $request->invoice_number,
             'remark' => $request->remark,
@@ -106,17 +107,18 @@ class GoodReceiveNoteController extends Controller
             'advance_tax_percentage' => $request->advance_tax_percentage,
             'sale_tax_percentage' => $request->sale_tax_percentage,
         ]);
-        $goodReceiveNote->goodReceiveProducts()->delete();
+        
         foreach ($request->products as $product) {
-            GoodReceiveProduct::create([
-                'good_receive_note_id' => $goodReceiveNote->id,
-                'product_id' => $product['id'],
+            $product_id = $product['id'];
+            GoodReceiveProduct::where(['product_id'=>$product_id],['good_receive_note_id'=>$goodReceiveNote->id])->update([
                 'deliver_qty' => $product['deliver_qty'],
                 'bonus' => $product['bonus'] ?? null,
                 'expiry_date' => $product['expiry_date'],
                 'item_amount' => $product['totalprice2'],
                 'batch_number' => $product['batch_no'],
                 'discount' => $product['discount'],
+                'saletax_percentage' => $product['saletax_percentage'],
+                'saletax_amount' => $product['saletax_amount'],
             ]);
         }
 
