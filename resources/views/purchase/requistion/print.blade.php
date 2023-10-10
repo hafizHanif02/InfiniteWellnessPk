@@ -53,7 +53,7 @@
                     <td>{{ number_format($requistionProduct->total_amount / $requistionProduct->total_piece,2,'.') }}</td>
                     <td>{{ number_format($requistionProduct->discount_percentage,2,'.') }}%</td>
                     <td>{{ ($requistionProduct->sale_tax == 0)?'-':$requistionProduct->sale_tax.'%' }}</td>
-                    <td>{{ $requistionProduct->total_amount }}</td>
+                    <td>{{ number_format($requistionProduct->total_amount,2,'.') }}</td>
                     @if($last_purchase)
                     @foreach ($last_purchase->goodReceiveProducts as $goodReceiveProducts)
                     @if ($requistionProduct->product->id == $goodReceiveProducts->product_id)
