@@ -17,19 +17,19 @@
             </center>
     
             <tr style="border-top: 1px solid rgb(29, 29, 29);" class="text-start">
-                <th colspan="3">Cashier :</th>
+                <th colspan="3" class="text-start">Cashier :</th>
                 <th colspan="5">{{ $pos->cashier_name }}</th>
             </tr>
             <tr class="text-start">
-                <th colspan="3">INV #</th>
+                <th colspan="3" class="text-start">INVOICE #</th>
                 <th colspan="5">{{ $pos->id }}</th>
             </tr>
-            <tr class="text-start">
-                <th colspan="3">Name</th>
+            <tr class="text-start" >
+                <th colspan="3" class="text-start">Name</th>
                 <th colspan="5">{{ $pos->patient_name }}</th>
             </tr>
             <tr class="text-start">
-                <th colspan="3">EMR #</th>
+                <th colspan="3" class="text-start">EMR #</th>
                 @if (isset($mr_barcode))
                 <th colspan="5">
                     {!! $mr_barcode !!}
@@ -38,15 +38,18 @@
                 @endif
             </tr>
             <tr class="text-start">
-                <th colspan="3">Date</th>
+                <th colspan="3" class="text-start">Date</th>
                 <th colspan="6">{{ $pos->created_at }}</th>
             </tr>
             <tr class="text-start">
-                <th colspan="3">Contact #</th>
-                <th colspan="5">034124782147</th>
+                <th colspan="3" class="text-start">Contact #</th>
+                <th colspan="5" style="text-align: left margin-left:20px;">034124782147</th>
+
+
+
             </tr>
             <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
-                <th>#</th>
+                <th class="text-start">#</th>
                 <th colspan="5" class="text-start">Product</th>
                 <th colspan="2">Qty</th>
                 <th colspan="2">M.R.P</th>
@@ -57,7 +60,7 @@
     
             @foreach ($pos->PosProduct as $product)
                 <tr>
-                    <th>{{ $loop->iteration }}</th>
+                    <th class="text-start">{{ $loop->iteration }}</th>
                     <th class="text-start" colspan="5">
                         {{ $product->medicine->name }} <br>
                     </th>
@@ -84,23 +87,23 @@
     
     
             <tr>
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     TOTAL AMOUNT Exclusive of Sales Tax :
                 </th>
-                <th style="text-align: end !important;" colspan="3">
+                <th class="text-start" colspan="3">
                     {{ $pos->total_amount_ex_saletax }}
                 </th>
             </tr>
             <tr>
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     Total Discount :
                 </th>
-                <th style="text-align: end !important;" colspan="3">
+                <th class="text-start" colspan="3">
                     {{ $pos->total_discount }}
                 </th>
             </tr>
             <tr>
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     Total Sales Tax :
                 </th>
                 <th style="text-align: end !important;" colspan="3">
@@ -108,26 +111,26 @@
                 </th>
             </tr>
             <tr>
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     Net Total Inclusive of Sales Tax :
                 </th>
-                <th style="text-align: end !important;" colspan="3">
+                <th class="text-start" colspan="3">
                     {{ $pos->total_amount_inc_saletax }}
                 </th>
             </tr>
             <tr>
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     FBR POS FEE :
                 </th>
-                <th style="text-align: end !important;" colspan="3">
+                <th class="text-start" colspan="3">
                     1.00
                 </th>
             </tr>
             <tr style="border-bottom: 1px solid rgb(29, 29, 29);">
-                <th style="text-align: start !important;" colspan="9">
+                <th class="text-start" colspan="9">
                     GRAND TOTAL :
                 </th>
-                <th style="text-align: end !important;" colspan="3">
+                <th class="text-start" colspan="3">
                     {{ $pos->total_amount + 1 }}
                 </th>
             </tr>
@@ -135,7 +138,7 @@
     
             @if ($pos->is_cash == 0)
             <tr>
-                <th colspan="8" style="padding: 0px !important; background-color:black;color:white;">Payment
+                <th class="text-start" colspan="8" style="padding: 0px !important; background-color:black;color:white;">Payment
                     Method</th>
                 <th style="padding-top: 10px !important;" colspan="4">Card</th>
             </tr>
@@ -143,7 +146,7 @@
 
         @if ($pos->is_cash == 1)
             <tr>
-                <th colspan="8" style="padding-top: 10px !important; background-color:black;color:white;">Payment
+                <th class="text-start" colspan="8" style="padding-top: 10px !important; background-color:black;color:white;" >Payment
                     Method</th>
                 <th style="padding-top: 10px !important;" colspan="4">Cash</th>
             </tr>
@@ -151,42 +154,42 @@
     
     
             <tr>
-                <th style="padding-top: 20px !important;" colspan="12">
+                <th style="padding-top: 20px !important;" class="text-start" colspan="12">
                     -Prices are inclusive of sales tax where applicable.
                 </th>
             </tr>
             <tr>
-                <th colspan="12">
+                <th class="text-start" colspan="12">
                     -Please check and varify your medicines, expiry dates and balance cash before leaving the counter to
                     avoid inconvenience of claim later.
                 </th>
             </tr>
             <tr>
-                <th colspan="12">
+                <th class="text-start" colspan="12">
                    -No return, No exchange policy.
                 </th>
             </tr>
             <tr>
-                <th colspan="12">
+                <th class="text-start" colspan="12">
                     -Customer data may be utilized for sharing promotions, offers, <br>
                     market research and analysis.
                 </th>
             </tr>
             <tr>
-                <th colspan="12">
+                <th class="text-start" colspan="12">
                     -Terms and conditions apply.
                 </th>
             </tr>
 
             <tr>
                 <th colspan="4"></th>
-                <th colspan="2">{!! $invoice_barcode !!}</th> 
+                <th  colspan="2">{!! $invoice_barcode !!}</th> 
                 <th colspan="6"></th>
             </tr>
             <tr>
-                <th colspan="4"></th>
-                <th colspan="2">{{ $pos->id }}</th> 
-                <th colspan="6"></th>
+                
+                <th class="text-start" colspan="2">{{ $pos->id }}</th> 
+                
             </tr>
     
         </thead>
