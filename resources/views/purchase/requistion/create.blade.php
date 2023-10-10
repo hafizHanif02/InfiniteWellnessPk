@@ -141,13 +141,14 @@
                 $('#manufacturer_id, #product_id').select2();
             $('form').on('keypress', 'input', function(e) {
                 if (e.which === 13) {
-                e.preventDefault(); 
+                e.preventDefault();
                 }
             });
             });
             $("#add-btn").click(function(e) {
                 e.preventDefault();
                 addProduct();
+                $("#product_id").empty();
             });
             // $('#manufacturer_id').change(function() {
             //     $("#add-products").empty();
