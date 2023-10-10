@@ -85,10 +85,10 @@ class GoodReceiveNoteController extends Controller
         ]);
     }
 
-    public function edit(GoodReceiveNote $goodReceiveNote): View
+    public function edit($goodReceiveNote): View
     {
         return view('purchase.goodreceivenote.edit', [
-            'goodReceiveNote' => $goodReceiveNote->load(['requistion.vendor', 'goodReceiveProducts.product']),
+            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts', 'goodReceiveProducts.product','goodReceiveProducts.requistionProducts'])->first(),
             'vendors' => Vendor::orderBy('contact_person')->get(),
         ]);
     }

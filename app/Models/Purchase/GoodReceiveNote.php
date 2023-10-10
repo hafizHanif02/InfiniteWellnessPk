@@ -35,7 +35,7 @@ class GoodReceiveNote extends Model
 
     public function requistion(): BelongsTo
     {
-        return $this->belongsTo(Requistion::class);
+        return $this->belongsTo(Requistion::class,'requistion_id');
     }
 
     public function goodReceiveProducts(): HasMany

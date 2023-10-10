@@ -91,23 +91,25 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="bg-dark">
-                                    <tr class="text-white">
+                                    <tr>
                                         <td style="min-width: 100px"></td>
                                         <td style="min-width: 200px">Product</td>
-                                        <td style="min-width: 200px">Description</td>
-                                        <td style="min-width: 200px">Packing</td>
-                                        <td style="min-width: 200px">Limit</td>
-                                        <td style="min-width: 150px">Qty</td>
-                                        <td style="min-width: 150px">Dis%</td>
-                                        <td style="min-width: 150px">Dis Amt</td>
+                                        <td style="min-width: 200px">Demand Total Piece</td>
+                                        <td style="min-width: 200px">Reamining Total Piece</td>
+                                        <td style="min-width: 200px">Deliver Total Piece (Pcs)</td>
+                                        <td style="min-width: 150px">Discount %</td>
+                                        <td style="min-width: 150px">SaleTax %</td>
+                                        <td style="min-width: 150px">SaleTax Amount</td>
                                         <td style="min-width: 150px">Bonus</td>
-                                        <td style="min-width: 150px">Pcs Qty</td>
-                                        <td style="min-width: 150px">Pur Rate</td>
-                                        <td style="min-width: 150px">S Tax</td>
+                                        <td style="min-width: 150px">Exp Date</td>
+                                        <td style="min-width: 150px">Batch No.</td>
+                                        <td style="min-width: 150px">Price Per Unit</td>
                                         <td style="min-width: 150px">Amount</td>
+
                                     </tr>
                                 </thead>
                                 <tbody id="add-products">
+                                    
                                     @forelse ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct)
                                         <tr id="{{ $goodReceiveProduct->product_id }}">
                                             <td>
@@ -123,7 +125,7 @@
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $goodReceiveProduct->product->package_detail }}"
+                                                    value=""
                                                     id="package_detail{{ $goodReceiveProduct->id }}" readonly>
                                             </td>
                                             <td>
@@ -178,6 +180,61 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-7">
+                                <label for="totalcostwithtax" class="form-label">Total Amount</label>
+                                <input type="number" readonly id="totalcostwithtax" placeholder="Total Amount"
+                                    name="total_amount" class="form-control">
+                                @error('totalcostwithtax')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <label for="total_discount_amount" class="form-label">Total Discount Amount</label>
+                                <input type="number" readonly id="total_discount_amount" placeholder="Total Amount"
+                                    name="total_discount_amount" class="form-control" value="0">
+                                @error('total_discount_amount')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex flex-column justify-content-end">
+                        <div class="row mb-3 mt-3">
+                            <div class="col-md-7">
+                                <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
+                                <input type="number" min="0" max="100" id="advance_tax_percentage"
+                                    onkeyup="advanceTax()" placeholder="Advance Tax Percentage"
+                                    name="advance_tax_percentage" class="form-control" value="0">
+                                @error('advance_tax_percentage')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <label for="advance_tax_percentage_amount" class="form-label">Advanced Tax
+                                    Amount</label>
+                                <input type="number" id="advance_tax_percentage_amount"
+                                    placeholder="Advance Tax Amount" readonly name="advance_tax_amount"
+                                    class="form-control" value="0">
+                                @error('advance_tax_amount')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="net_total_amountcost" class="form-label">Net Total Amount <sup
+                                    class="text-danger">*</sup></label>
+                            <input type="number" id="net_total_amountcosts2" placeholder="Net Total Amount"
+                                name="net_total_amount" readonly class="form-control">
+                            <input type="hidden" id="net_total_amountcosts2">
+                            <input type="hidden" id="net_total_amountcosts3">
+
+                            @error('net_total_amountcost')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">

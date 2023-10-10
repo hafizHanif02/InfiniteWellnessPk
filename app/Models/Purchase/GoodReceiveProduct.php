@@ -3,9 +3,12 @@
 namespace App\Models\Purchase;
 
 use App\Models\Inventory\Product;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Purchase\RequistionProduct;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class GoodReceiveProduct extends Model
 {
@@ -32,5 +35,10 @@ class GoodReceiveProduct extends Model
     public function goodReceiveNote(): BelongsTo
     {
         return $this->belongsTo(GoodReceiveNote::class);
+    }
+
+    public function requistionProducts(): HasOne
+    {
+        return $this->hasOne(RequistionProduct::class,'product_id','product_id');
     }
 }
