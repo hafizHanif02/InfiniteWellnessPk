@@ -736,7 +736,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
         //posinv
         Route::get('reportpos', [PosController::class, 'posfilterlistindex'])->name('posinv.index');
-        Route::get('reportpos-print', [PosController::class, 'printReport'])->name('posinv.export');
+        // Route::get('reportpos-print', [PosController::class, 'printReport'])->name('posinv.export');
         Route::get('reportpos/filter', [PosController::class, 'posfilterlistajax'])->name('posinv.filter');
 
         //posreturninv

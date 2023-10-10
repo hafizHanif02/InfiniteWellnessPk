@@ -7,6 +7,7 @@
 
 
 @section('content')
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 <div class="container-fluid mt-5">
     <div class="card">
         <div class="card-header">
@@ -36,15 +37,11 @@
                 </div>
                 <div class="mt-5">
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
-                    <a href="{{ route('posinv.export') }}" class="btn btn-primary mt-3">Export To Excel</a>
+                    {{-- <a  class="btn btn-primary mt-3">Export To Excel</a> --}}
+                    <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
                 </div>
-                {{-- <div class="mt-5">
-                    <button onclick="gettotal()" class="btn btn-primary mt-3">
-                        Get Total
-                    </button>
-                </div> --}}
             </div>
-            <table class="table table-bordered text-center table-hover">
+            <table class="table table-bordered text-center table-hover" id="tbl_exporttable_to_xls">
                 <thead class="table-dark">
                     <tr>
                         <td>POS date</td>
@@ -74,47 +71,41 @@
                         </tr>
                     @endforelse
                 </tbody>
+                <tbody>
+                    <tr>
+                     {{-- <td></td>
+                     <td></td> --}}
+                     <td colspan="3"></td>
+                     <td class="text-start bg-dark text-white">Total Revenue</td>
+                     <td class="text-start bg-dark text-white totalrevenuetd" ></td>   
+                    </tr>
+                   </tbody>
             </table>
-            <table class="table table-bordered">
-               <tbody>
-                <tr>
-                    <td ></td>
-                 <td class="text-start">Total Revenue</td>
-                
-                 <td class="text-start totalrevenuetd" >
-                        {{-- <span class="totalrevenuetd"></span> --}}
-                        {{-- <input type="hidden" class="form-control" id="totalrevenue"> --}}
-                    </td>
-                   
-                </tr>
-               </tbody>
-            </table>
+           
             <div>
                 {{-- {{ $purchaseOrders->links() }} --}}
             </div>
         </div>
     </div>
 </div>
+
 <script>
      $(document).ready(function() {
         var totalAmount = 0;
             $("[id^='totalamount']").each(function() {
                 if ($(this).val() != '') {
-                    totalAmount += parseFloat($(this).val());
-               
+                    totalAmount += parseFloat($(this).val());   
                 }
             }); 
             $('#totalrevenue').val(totalAmount);
             $(".totalrevenuetd").text(totalAmount.toFixed(2));
 
             
-            $("#totalrevenue").text(totalAmount.toFixed(2));         
+            $("#totalrevenue").text(totalAmount.toFixed(2));   
             });
 </script>
 @endsection
     <script>
-        
-           
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
 
@@ -162,18 +153,26 @@
                 });
 
             }
+            function ExportToExcel(type, fn, dl) {
+                var elt = document.getElementById('tbl_exporttable_to_xls');
+                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
 
-        function runthis(){
-            console.log("sadfsfsdfsadfsadfsfdsf");
-        }
+                // Generate the current date in the "day-month-year" format
+                var currentDate = new Date();
+                var day = currentDate.getDate().toString().padStart(2, '0');
+                var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                var year = currentDate.getFullYear();
 
+                // Combine the date components with hyphens
+                var formattedDate = day + '-' + month + '-' + year;
 
-        // function gettotal(){
-          
-         
-        // }
-        
-       
+                // Append the formatted date to the file name
+                var fileName = 'POS-Report (' + formattedDate + ').xlsx';
+
+                return dl ?
+                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                    XLSX.writeFile(wb, fn || fileName);
+            }
 
     </script>
 
