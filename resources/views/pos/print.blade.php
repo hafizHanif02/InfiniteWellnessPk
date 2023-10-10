@@ -47,7 +47,7 @@
             </tr>
             <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
                 <th>#</th>
-                <th colspan="5" class="text-start">Brand</th>
+                <th colspan="5" class="text-start">Product</th>
                 <th colspan="2">Qty</th>
                 <th colspan="2">M.R.P</th>
                 <th colspan="1">GST</th>

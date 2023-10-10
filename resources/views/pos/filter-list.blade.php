@@ -37,7 +37,6 @@
                 </div>
                 <div class="mt-5">
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
-                    {{-- <a  class="btn btn-primary mt-3">Export To Excel</a> --}}
                     <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
                 </div>
             </div>
