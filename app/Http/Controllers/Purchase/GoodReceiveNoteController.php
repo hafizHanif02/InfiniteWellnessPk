@@ -106,6 +106,7 @@ class GoodReceiveNoteController extends Controller
             'net_total_amount' => $request->net_total_amount,
             'advance_tax_percentage' => $request->advance_tax_percentage,
             'sale_tax_percentage' => $request->sale_tax_percentage,
+            'advance_tax_amount' => $request->sale_tax_percentage,
         ]);
         
         foreach ($request->products as $product) {

@@ -123,32 +123,32 @@
                                         </td>
 
                                         <td>
-                                            <input type="number"  class="form-control"  id="totalquantity{{($goodReceiveProduct->requistionProduct->id)}}" value="{{($goodReceiveProduct->requistionProduct->total_piece)}}" readonly>
+                                            <input type="number"  class="form-control"  id="totalquantity{{$loop->iteration}}" value="{{($goodReceiveProduct->requistionProduct->total_piece)}}" readonly>
                                         </td>
                                         <td>
                                             {{-- ${requistionProduct.product.least_unit == 1 ? `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>` : `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>`  } --}}
                                             @if ($goodReceiveProduct->product->least_unit == 1)
-                                            <input type="number" id="changequantity{{($goodReceiveProduct->requistionProduct->id)}}"  value="{{$goodReceiveProduct->requistionProduct->total_piece - $goodReceiveProduct->deliver_qty}}" class="form-control" readonly>
+                                            <input type="number" id="changequantity{{$loop->iteration}}"  value="{{$goodReceiveProduct->requistionProduct->total_piece - $goodReceiveProduct->deliver_qty}}" class="form-control" readonly>
                                             @else
-                                            <input type="number" id="changequantity{{($goodReceiveProduct->requistionProduct->id)}}"  value="{{$goodReceiveProduct->requistionProduct->total_piece - $goodReceiveProduct->deliver_qty}}" class="form-control" readonly>
+                                            <input type="number" id="changequantity{{$loop->iteration}}"  value="{{$goodReceiveProduct->requistionProduct->total_piece - $goodReceiveProduct->deliver_qty}}" class="form-control" readonly>
                                             @endif
                                         
                                         </td>
                                         <td>
-                                            <input type="number" min="0" name="products[{{$loop->iteration}}][deliver_qty]" value={{ $goodReceiveProduct->deliver_qty }} id="minusquantity{{($goodReceiveProduct->requistionProduct->id)}}"   onkeyup="changeQuantity({{($goodReceiveProduct->requistionProduct->id)}})"   class="form-control" >
+                                            <input type="number" min="0" name="products[{{$loop->iteration}}][deliver_qty]" value={{ $goodReceiveProduct->deliver_qty }} id="minusquantity{{$loop->iteration}}"   onkeyup="changeQuantity({{$loop->iteration}})"   class="form-control" >
                                         </td>
                                         <td>
-                                            <input type="number" min="0" name="products[{{$loop->iteration}}][discount]" onkeyup="discountPerc({{($goodReceiveProduct->requistionProduct->id)}})"  id="discount{{($goodReceiveProduct->requistionProduct->id)}}" value="{{ $goodReceiveProduct->discount }}" class="form-control" >
-                                            <input type="hidden" readonly  name="products[{{$loop->iteration}}][discount_amount]"   id="discount_amount{{($goodReceiveProduct->requistionProduct->id)}}" value="{{ $goodReceiveProduct->discount }}" class="form-control" >
+                                            <input type="number" min="0" name="products[{{$loop->iteration}}][discount]" onkeyup="discountPerc({{$loop->iteration}})"  id="discount{{$loop->iteration}}" value="{{ $goodReceiveProduct->discount }}" class="form-control" >
+                                            <input type="hidden" readonly  name="products[{{$loop->iteration}}][discount_amount]"   id="discount_amount{{$loop->iteration}}" value="{{ $goodReceiveProduct->discount }}" class="form-control" >
                                         </td>
                                         <td>
-                                            <input type="number" min="0" name="products[{{$loop->iteration}}][saletax_percentage]" onkeyup="saletaxPerc({{$goodReceiveProduct->id}})"  id="saletax{{($goodReceiveProduct->requistionProduct->id)}}" value="{{ $goodReceiveProduct->saletax_percentage }}" class="form-control" >
+                                            <input type="number" min="0" name="products[{{$loop->iteration}}][saletax_percentage]" onkeyup="saletaxPerc({{$loop->iteration}})"  id="saletax{{$loop->iteration}}" value="{{ $goodReceiveProduct->saletax_percentage }}" class="form-control" >
                                         </td>
                                         <td>
-                                            <input type="number" readonly  name="products[{{$loop->iteration}}][saletax_amount]"   id="saletax_amount{{($goodReceiveProduct->requistionProduct->id)}}" value="{{ $goodReceiveProduct->saletax_amount }}" class="form-control" >
+                                            <input type="number" readonly  name="products[{{$loop->iteration}}][saletax_amount]"   id="saletax_amount{{$loop->iteration}}" value="{{ $goodReceiveProduct->saletax_amount }}" class="form-control" >
                                         </td>
                                         <td>
-                                            <input type="number" name="products[{{$loop->iteration}}][item_bonus]" value="{{ $goodReceiveProduct->bonus }}" min="0" class="form-control" >
+                                            <input type="number" name="products[{{$loop->iteration}}][bonus]" value="{{ $goodReceiveProduct->bonus }}" min="0" class="form-control" >
                                         </td>
                                         <td>
                                             <input type="date" name="products[{{$loop->iteration}}][expiry_date]" value="{{ $goodReceiveProduct->expiry_date }}"  class="form-control" >
@@ -157,19 +157,19 @@
                                             <input type="text" name="products[{{$loop->iteration}}][batch_no]" value="{{ $goodReceiveProduct->batch_number }}" class="form-control" >
                                         </td>
                                         <td>
-                                            <input type="number" id="price_per_unit{{($goodReceiveProduct->requistionProduct->id)}}" name="products[{{$loop->iteration}}][totalprice2]" value="{{($goodReceiveProduct->requistionProduct->price_per_unit)}}" class="form-control" readonly>
+                                            <input type="number" id="price_per_unit{{$loop->iteration}}" name="products[{{$loop->iteration}}][totalprice2]" value="{{($goodReceiveProduct->requistionProduct->price_per_unit)}}" class="form-control" readonly>
                                         </td>
 
                                         <td>
-                                            <input type="number" id="totalprice2{{($goodReceiveProduct->requistionProduct->id)}}" name="products[{{$loop->iteration}}][totalprice]" value="{{($goodReceiveProduct->requistionProduct->total_amount/$goodReceiveProduct->requistionProduct->total_piece)}}" class="form-control" readonly>
-                                            <input type="hidden" id="totalpricefordiscount{{($goodReceiveProduct->requistionProduct->id)}}" name="products[{{$loop->iteration}}][totalpricefordiscount]" value="{{($goodReceiveProduct->requistionProduct->total_amount/$goodReceiveProduct->requistionProduct->total_piece)}}" class="form-control" readonly>
+                                            <input type="number" id="totalprice2{{$loop->iteration}}" name="products[{{$loop->iteration}}][totalprice]" value="{{($goodReceiveProduct->requistionProduct->total_amount/$goodReceiveProduct->requistionProduct->total_piece)}}" class="form-control" readonly>
+                                            <input type="hidden" id="totalpricefordiscount{{$loop->iteration}}" name="products[{{$loop->iteration}}][totalpricefordiscount]" value="{{($goodReceiveProduct->requistionProduct->total_amount/$goodReceiveProduct->requistionProduct->total_piece)}}" class="form-control" readonly>
                                         </td>
                                     </tr>
 
                                             <input type="hidden" class="form-control" value="{{($goodReceiveProduct->requistionProduct->disc)}}" readonly>
                                             <input type="hidden" value="{{($goodReceiveProduct->requistionProduct->sale_tax_percentage)}}" class="form-control" readonly>
                                             <input type="hidden" class="form-control" value="{{($goodReceiveProduct->requistionProduct->disc_amount) }}" readonly>
-                                            <input type="hidden" id="price_per_unit{{($goodReceiveProduct->requistionProduct->id)}}" value="{{($goodReceiveProduct->requistionProduct->price_per_unit)}}">
+                                            <input type="hidden" id="price_per_unit{{$loop->iteration}}" value="{{($goodReceiveProduct->requistionProduct->price_per_unit)}}">
                                     @empty
                                         <tr class="text-center">
                                             <td colspan="13" class="text-danger">No product found!</td>
@@ -214,6 +214,7 @@
                                 <label for="advance_tax_percentage_amount" class="form-label">Advanced Tax
                                     Amount</label>
                                 <input type="number" id="advance_tax_percentage_amount"
+                                name="advance_tax_amount"
                                     placeholder="Advance Tax Amount" readonly name="advance_tax_amount"
                                     class="form-control" value="{{ $goodReceiveNote->advance_tax_amount }}">
                                 @error('advance_tax_amount')
@@ -244,8 +245,10 @@
         </div>
     </div>
     @push('scripts')
+    <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
+    </script>
 
-        <script>
+        <script nonce="{{ csp_nonce() }}">
         
         function changeQuantity(id) {
                 var quantity = $("#minusquantity" + id).val();
@@ -259,11 +262,10 @@
 
 
             function saletaxPerc(id){
-                var Saletax_amount = 0 ;
                 var Saletax_percentage = $('#saletax' + id).val();
                 var total_cost_per_product = $('#totalprice2' + id).val();
-                 Saletax_amount = (Saletax_percentage * total_cost_per_product) / 100;
-                console.log(Saletax_amount, total_cost_per_product);
+                var Saletax_amount = (Saletax_percentage * total_cost_per_product) / 100;
+                console.log('TOTAL DATA',id,Saletax_amount, total_cost_per_product);
                 $('#saletax_amount' + id).val(Saletax_amount.toFixed(2));
 
 
@@ -302,18 +304,24 @@
 
 
             function advanceTax() {
+                var totalAmount = parseFloat($('#totalcostwithtax').val());
+                var totaldiscountamount = parseFloat($('#total_discount_amount').val());
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
-                var SaleTaxPercPerc = $('#sale_tax_percentage').val();
+                // var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
 
-                var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
+                var totalamountwithdiscount = (totalAmount - totaldiscountamount).toFixed(2);
+                var advanceTaxAmount = (parseFloat((advancetaxperc * totalamountwithdiscount) / 100)).toFixed(2);
+
+                var totalAdvancewithTaxAmount = parseFloat(totalamountwithdiscount) + parseFloat(advanceTaxAmount);
+
+
                 $('#advance_tax_percentage_amount').val(advanceTaxAmount);
 
                 // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
                 // $('#sales_taxamount').val(salesTaxAmount);
 
-                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
-                $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
+                var amountwithtax = (parseFloat(totalAmount) + parseFloat(advanceTaxAmount));
+                $('#net_total_amountcosts2').val(totalAdvancewithTaxAmount.toFixed(2));
             }
 
 
@@ -341,6 +349,7 @@
                 var amountwithdiscount = totalPrice - discount_amount;
                 $('#totalprice2' + id).val(amountwithdiscount.toFixed(2));
                 discountTotal();
+                advanceTax();
             }
 
             function discountTotal() {
