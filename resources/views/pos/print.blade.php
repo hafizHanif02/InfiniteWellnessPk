@@ -15,7 +15,7 @@
                     <p>Plot No.35/135. CP & Berar Cooperative Housing Society, PECHS, Block 7/8, Karachi East.</p>
                 </div>
             </center>
-    
+
             <tr style="border-top: 1px solid rgb(29, 29, 29);" class="text-start">
                 <th colspan="3" class="text-start">Cashier :</th>
                 <th colspan="5">{{ $pos->cashier_name }}</th>
@@ -57,7 +57,7 @@
                 <th colspan="1">Disc</th>
                 <th>Total</th>
             </tr>
-    
+
             @foreach ($pos->PosProduct as $product)
                 <tr>
                     <th class="text-start">{{ $loop->iteration }}</th>
@@ -79,13 +79,13 @@
                     style="background-color:#ff8b61;color:black; border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
                     Proceed To Transaction</th>
             </tr>
-    
+
             <tr>
                 <th colspan="16"></th>
                 <th colspan="16"></th>
             </tr>
-    
-    
+
+
             <tr>
                 <th class="text-start" colspan="9">
                     TOTAL AMOUNT Exclusive of Sales Tax :
@@ -131,11 +131,11 @@
                     GRAND TOTAL :
                 </th>
                 <th class="text-start" colspan="3">
-                    {{ $pos->total_amount + 1 }}
+                    {{ $pos->total_amount }}
                 </th>
             </tr>
-    
-    
+
+
             @if ($pos->is_cash == 0)
             <tr>
                 <th class="text-start" colspan="8" style="padding: 0px !important; background-color:black;color:white;">Payment
@@ -151,8 +151,8 @@
                 <th style="padding-top: 10px !important;" colspan="4">Cash</th>
             </tr>
         @endif
-    
-    
+
+
             <tr>
                 <th style="padding-top: 20px !important;" class="text-start" colspan="12">
                     -Prices are inclusive of sales tax where applicable.
@@ -183,15 +183,15 @@
 
             <tr>
                 <th colspan="4"></th>
-                <th  colspan="2">{!! $invoice_barcode !!}</th> 
+                <th  colspan="2">{!! $invoice_barcode !!}</th>
                 <th colspan="6"></th>
             </tr>
             <tr>
-                
-                <th class="text-start" colspan="2">{{ $pos->id }}</th> 
-                
+
+                <th class="text-start" colspan="2">{{ $pos->id }}</th>
+
             </tr>
-    
+
         </thead>
     </table>
     {{-- </x-layouts.print> --}}
@@ -200,12 +200,12 @@
             padding-left: 40px;
             padding-right: 40px;
         }
-    
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
-    
+
         table tr,
         table td,
         table th {
@@ -213,15 +213,15 @@
             border: none;
             margin: 10px !important;
         }
-    
+
         table th,
         table td {
             /* border: 1px solid black; */
             border: none;
-    
-    
+
+
         }
-    
+
         .text-start {
             text-align: start;
         }
