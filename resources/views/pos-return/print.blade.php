@@ -78,15 +78,21 @@
         table tr,
         table td,
         table th {
-            border: 1px solid black;
+            /* border: 1px solid black; */
+            border: none;
+            margin: 10px !important;
         }
-
+        
         table th,
         table td {
-            border: 1px solid black;
+            /* border: 1px solid black; */
+            border: none;
+        }
+        .text-start {
+            text-align: start;
         }
     </style>
-</x-layouts.print>
+{{-- </x-layouts.print> --}}
 
 <script>
     // document.addEventListener('DOMContentLoaded', function() {
