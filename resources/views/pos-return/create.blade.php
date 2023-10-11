@@ -74,6 +74,7 @@
                                         <th class="col" >Dosage</th>
                                         <th class="col" >MRP Per Unit</th>
                                         <th class="col" >Return Quantity</th>
+                                        <th class="col" >Discount</th>
                                         <th class="col" >Return Cost</th>
                                         <th></th>
                                     </thead>
@@ -123,9 +124,12 @@
                     <td><input type="number" class="form-control" value="${medicine.product_quantity}" readonly ></td>
                     <td><input type="number"  class="form-control" value="${medicine.medicine.selling_price}" id="mrp_perunit${items}" readonly ></td>
                     <td><input type="number"  class="form-control" id="return_quantity${items}" value="0" max=${medicine.product_quantity} onkeyup="chnagequantity(${items})" name="products[${items}][return_quantity]" ></td>
+                    <td><input type="number"  class="form-control" id="discount_percentage${items}" value="${medicine.discount_percentage}" name="products[${items}][discount_percentage]" readonly ></td>
                     <td><input type="number"  class="form-control" value="0"  id="product_total_price${items}" name="products[${items}][product_total_price]" readonly >
                         <input type="hidden"  class="form-control" value="0"  id="product_total_price2${items}" name="products[${items}][product_total_price2]" readonly >
-                    </td>
+                        <input type="hidden"  class="form-control" value="${medicine.product_total_price}"  id="total_cost${items}" name="products[${items}][total_cost]" readonly >
+
+                       </td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
@@ -138,7 +142,9 @@
         function chnagequantity(id){
             var return_quantity = $('#return_quantity'+id).val();
             var price_per_unit = $('#mrp_perunit'+id).val();
-            var ReturnAmount = return_quantity * price_per_unit;
+            var total_cost = $('#total_cost'+id).val();
+            var ReturnAmount = return_quantity * total_cost;
+            // var ReturnAmount = return_quantity * price_per_unit;
             $('#product_total_price'+id).val(ReturnAmount);
             $('#product_total_price2'+id).val(ReturnAmount);
             totalAmount();

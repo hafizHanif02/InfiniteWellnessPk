@@ -72,8 +72,8 @@ class PosReturnController extends Controller
 
         }
         Flash::message('POS Returned!');
-
-        return to_route('pos-return.index');
+        // dd($posReturn->id);
+        return to_route('pos-return.print',$posReturn->id);
     }
 
     /**
