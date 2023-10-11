@@ -1487,7 +1487,7 @@
                     </tbody>
                 </table>
         </div>
-        @role('Admin|Doctor|Nurse')
+        @role('Admin|Doctor')
         <button type="submit" class="btn btn-primary">Submit</button>
         @endrole
     </form>

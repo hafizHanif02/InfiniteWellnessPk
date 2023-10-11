@@ -565,7 +565,7 @@ No
 
 
 
-@role('Admin|Doctor|Nurse')
+@role('Admin|Doctor')
 <input type="submit" class="btn btn-primary"  value="SAVE" />
 @endrole
 </div>
