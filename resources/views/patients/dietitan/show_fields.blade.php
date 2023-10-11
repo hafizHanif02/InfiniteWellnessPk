@@ -1228,7 +1228,7 @@
                     <div style="display: flex;
                                 justify-content: center;"
                         class="col-12">
-
+                    @role('Admin|Dietitian')
                         <button id="submitButton"
                             style="
 
@@ -1239,7 +1239,7 @@
                                     padding: 10px 23px;
                                 "
                             type="submit" class="">Save</button>
-                            
+                    @endrole
                     </div>
                 </div>
                 <!-- Tabs content -->
