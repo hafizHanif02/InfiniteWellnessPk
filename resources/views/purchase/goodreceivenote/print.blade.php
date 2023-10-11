@@ -64,11 +64,11 @@
                 <tr>
                     <th>S. No</th>
                     <th>Description</th>
-                    <th>QTY</th>
+                    <th>Pack Size</th>
                     <th>EXP Date</th>
                     <th>BATCH #</th>
                     <th>PRICE</th>
-                    <th>RECIVED OTY</th>
+                    <th>RECIVED QTY</th>
                     <th>UNIT PRICE</th>
                     <th>SALE TAX %</th>
                     <th>DIS ON TP</th>
@@ -152,8 +152,8 @@
             border-collapse: collapse;
             border: 1px solid black;
         }
-        
-        
+
+
         .text-center-data{
             text-align: center;
         }
