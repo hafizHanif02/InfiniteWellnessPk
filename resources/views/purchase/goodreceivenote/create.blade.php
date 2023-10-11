@@ -88,7 +88,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <td style="min-width: 100px"></td>
-                                        <td style="min-width: 200px">Product</td>
+                                        <td style="min-width: 400px">Product</td>
                                         <td style="min-width: 200px">Demand Total Piece</td>
                                         <td style="min-width: 200px">Reamining Total Piece</td>
                                         <td style="min-width: 200px">Deliver Total Piece (Pcs)</td>
@@ -304,7 +304,7 @@
             function saletaxPerc(id){
                 var Saletax_amount = 0 ;
                 var Saletax_percentage = $('#saletax' + id).val();
-                var total_cost_per_product = $('#totalprice2' + id).val();
+                var total_cost_per_product = $('#totalpricefordiscount' + id).val();
                  Saletax_amount = (Saletax_percentage * total_cost_per_product) / 100;
                 console.log(Saletax_amount, total_cost_per_product);
                 $('#saletax_amount' + id).val(Saletax_amount.toFixed(2));
@@ -344,20 +344,20 @@
 
 
 
-            function advanceTax() {
-                var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
-                var SaleTaxPercPerc = $('#sale_tax_percentage').val();
+            // function advanceTax() {
+            //     var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
+            //     var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
+            //     var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
-                var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
-                $('#advance_tax_percentage_amount').val(advanceTaxAmount);
+            //     var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
+            //     $('#advance_tax_percentage_amount').val(advanceTaxAmount);
 
-                // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
-                // $('#sales_taxamount').val(salesTaxAmount);
+            //     // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
+            //     // $('#sales_taxamount').val(salesTaxAmount);
 
-                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
-                $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
-            }
+            //     var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
+            //     $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
+            // }
 
 
             function saleTax() {
@@ -383,6 +383,7 @@
                 $('#discount_amount' + id).val(discount_amount)
                 var amountwithdiscount = totalPrice - discount_amount;
                 $('#totalprice2' + id).val(amountwithdiscount.toFixed(2));
+                $('#totalpricefordiscount' + id).val(amountwithdiscount.toFixed(2));
                 discountTotal();
             }
 

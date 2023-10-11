@@ -173,36 +173,25 @@
                             </div>
                         </div>
                     </div> --}}
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="mb-5">
-                                <label for="unit_of_measurement" class="form-label">Unit Of Measurement <sup
-                                        class="text-danger">*</sup></label>
-                                <select type="text" onchange="unit_of_measurement()" name="unit_of_measurement" id="unit_of_measurement"
+                    {{-- <div class="row"> --}}
+                        {{-- <div class="col-md-9">
+                            <div class="mb-5"> --}}
+
+                                <input type="hidden" value="1" onchange="unit_of_measurement()" name="unit_of_measurement" id="unit_of_measurement"
                                     class="form-control @error('unit_of_measurement') is-invalid @enderror" title="Unit of measurement">
                                     {{-- <option value="" selected disabled>Select Unit</option> --}}
-                                    <option value="1" {{ old('unit_of_measurement') == '1' ? 'selected' : '' }}>Unit Qty
-                                    </option>
-                                    <option value="0" {{ old('unit_of_measurement') == '0' ? 'selected' : '' }}>Box Qty
-                                    </option>
-                                </select>
-                                @error('unit_of_measurement')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="number_of_pack" class="form-label">Number of Pack<sup
-                                    class="text-danger">*</sup></label>
-                            <input type="number" readonly value="1" onkeyup="calculation()" name="number_of_pack" id="number_of_pack"
+                            {{-- </div>
+                        </div> --}}
+                        {{-- <div class="col-md-3"> --}}
+                            {{-- <label for="number_of_pack" class="form-label">Number of Pack<sup
+                                    class="text-danger">*</sup></label> --}}
+                            <input type="hidden" readonly value="1" onkeyup="calculation()" name="number_of_pack" id="number_of_pack"
                                 class="form-control @error('number_of_pack') is-invalid @enderror"
                                 placeholder="Select Unit Of Measurement First" value="{{ old('number_of_pack') }}"
                                 title="Number of packet">
-                            @error('number_of_pack')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
+                            
+                        {{-- </div> --}}
+                    {{-- </div> --}}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-5">

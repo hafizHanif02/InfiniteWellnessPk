@@ -208,14 +208,14 @@
                                         </td>
                                         <td>
                                             <input type="hidden" step="any" id="price_per_unit${index}" name="products[${index}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
-                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
+                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="${value.unit_trade}" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" value="1" min="1" name="products[${index}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
                                         </td>
                                         <td>
 
-                                            <input type="number" id="previouse_price${value.id}"  value="${value.cost_price}" class="form-control" readonly>
+                                            <input type="number" id="previouse_price${value.id}"  value="${value.unit_trade}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>
@@ -225,21 +225,25 @@
                                             <input type="hidden" id="discount_amount2${value.id}">
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${index}][total_amount]" value="${value.cost_price}" id="total_amount${value.id}" class="form-control" readonly>
+                                            <input type="number" name="products[${index}][total_amount]" value="${value.unit_trade}" id="total_amount${value.id}" class="form-control" readonly>
                                             <input type="hidden" name="products[${index}][total_amounts2]" value="${value.cost_price}" id="total_amounts2${value.id}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
+                                            <input type="hidden" id="cost_price${value.id}" value="${value.cost_price}">
+                                            <input type="hidden" id="unit_trade${value.id}" value="${value.unit_trade}">
                                         </td>
-
                                         <input type="hidden" id="discountamount${value.id}" name="products[${index}][pieces_per_pack]" value="${value.pieces_per_pack }">
                                         <input type="hidden" id="pieces_per_pack${value.id}" name="pieces_per_pack" value="${value.pieces_per_pack }">
                                         <input type="hidden" id="previouse_pricess${value.id}" value="${value.cost_price}">
+                                        <input type="hidden" id="cost_price${value.id}" value="${value.cost_price}">
+                                        <input type="hidden" id="unit_trade${value.id}" value="${value.unit_trade}">
                                         <input type="hidden" id="discountamount${value.id}" name="products[${index}][disc_amount]" value="${(value.discount_trade_price * value.cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${index}" value="${value.trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${index}" name="products[${index}][total_peice_per_pack]" value="${value.pieces_per_pack}">
                                         <input type="hidden" id="mainqunatityvalue${index}" name="products[${index}][mainqunatityvalue]" >
                                     </tr>
+                                    
                                 `);
                             });
                         }
@@ -252,11 +256,11 @@
             }
 
             function changeType(id, items) {
-
                 var previouse_price = $("#previouse_pricess" + id).val();
+                var costPrice = $('#cost_price'+id).val();
+                var unitPrice = $('#unit_trade'+id).val();
+                console.log('COST PRICE'+costPrice+ ' UNIT PRICE'+unitPrice)
                 var pieces_per_pack = $("#pieces_per_pack" + id).val();
-                console.log(previouse_price, pieces_per_pack);
-                // console.log(pieces_per_pack);
                 var limit = $("#selectLimit" + items).val();
                 var amount = $("#" + id + " input[name='products[" + items + "][total_amount]']").val();
                 var TotalPeice = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
@@ -264,21 +268,24 @@
                 var TotalPack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
                 if (limit == 1) {
                     // UNIT
-                    $('#price_per_unit'+items).val(0);
-                    $('#previouse_price'+id).val(previouse_price);
+                    $('#price_per_unit'+items).val(unitPrice);
+                    $('#price_per_unit'+items+'2').val(unitPrice);
+                    $("#previouse_price"+id).val(unitPrice);
                     // $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
                     $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
                         'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
+                    $("#" + id + " input[name='products[" + items + "][total_amount]']").val(unitPrice)
                 } else if (limit == 0) {
                     // BOX
-                    var pprice = pieces_per_pack * previouse_price;
-                    console.log(pprice);
-                    $("#previouse_price"+id).val(pprice);
-
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(0);
+                    $('#price_per_unit'+items).val(costPrice);
+                    $("#previouse_price"+id).val(costPrice);
+                    // var pprice = pieces_per_pack * previouse_price;
+                    // console.log(pprice);
+                    $("#" + id + " input[name='products[" + items + "][total_amount]']").val(costPrice)
+                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(costPrice);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
-                        'changeQuantityPerPack(' + id + ',' + items + ')').val(0);
+                        'changeQuantityPerPack(' + id + ',' + items + ')').val(costPrice);
 
                     $("#" + id + " input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('onkeyup',
                         'changeQuantityPerPack(' + id + ',' + items + ')');
@@ -289,7 +296,6 @@
                 }
             }
             function changeQuantityPerUnit(id, items, limit = null) {
-
                 var quantity = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
                 var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
                 $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
