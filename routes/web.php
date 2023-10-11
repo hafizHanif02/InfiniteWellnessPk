@@ -742,6 +742,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         //posreturninv
         Route::get('returnposreport', [PosController::class, 'posreturnfilterlistdata'])->name('returnposreport.index');
         Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
+        Route::get('returnposreport/daily-report', [PosController::class, 'posdailyreport'])->name('returnposreport.daily');
     });
 
     Route::middleware('role:Admin|Nurse|Doctor|Dietitian')->group(function () {

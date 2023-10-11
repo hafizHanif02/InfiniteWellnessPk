@@ -199,7 +199,7 @@ class PosController extends Controller
 
     public function posfilterlistindex(Request $request)
     {
-
+  
     return view('pos.filter-list', [
         'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
     ]);
@@ -214,19 +214,34 @@ class PosController extends Controller
 
     public function posreturnfilterlistdata(Request $request)
     {
-
+        
         return view('pos-return.filter-list', [
             'pos' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
         ]);
     }
     public function posfilterlistdata(Request $request): JsonResponse
     {
+      
         return response()->json([
             // 'data' => PosReturn::with('pos')->whereHas('pos', function ($query) {$query->where('is_cash', 1);})->latest()->get(),
             'data' => PosReturn::with('pos')->filter($request)->latest()->get(),
         ]);
     }
-
+    public function posdailyreport(Request $request)
+    {
+ 
+    //   $ab= Pos::filter($request)->latest()->paginate(10)->onEachSide(1);
+    //   echo"<pre>";
+    //     print_r($ab);
+    //     exit;
+    //     $posReturnData = posreturnfilterlistdata($request)->getData();
+    
+        return view('pos-return.daily-report', [
+            'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
+            'posreturns' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
+        ]);
+    }
+    
 
     public function printReport() {
         return Excel::download(new PosExport, 'Pos-Report.xlsx');
