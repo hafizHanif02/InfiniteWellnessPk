@@ -243,7 +243,7 @@
         <div class="card mb-5 mb-xl-10">
             <div>
                 <div class="card-body  border-top p-9">
-                    @role('Admin|Doctor|Nurse')
+                    @role('Admin|Doctor')
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Add New Form
                       </button>
