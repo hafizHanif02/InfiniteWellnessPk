@@ -161,6 +161,12 @@ class NewStockController extends Controller
             'stockReport' => $transfer->load(['transferProducts.product.dosage', 'transferProducts.product.generic', 'transferProducts.product.vendor', 'transferProducts.product.manufacturer', 'transferProducts.product.productCategory']),
         ]);
     }
+    public function print(Transfer $transfer): View
+    {
+        return view('new-stocks.print', [
+            'stockReport' => $transfer->load(['transferProducts.product.dosage', 'transferProducts.product.generic', 'transferProducts.product.vendor', 'transferProducts.product.manufacturer', 'transferProducts.product.productCategory']),
+        ]);
+    }
 
     public function exportTransferReport()
     {

@@ -1036,6 +1036,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         // Route::get('new-stocks/view/{transferID}', [NewStockController::class, 'index'])->name('new-stocks.index');
         Route::get('new-stocks-report', [NewStockController::class, 'report'])->name('new-stocks.report');
         Route::get('new-stocks-report/{transfer}', [NewStockController::class, 'show'])->name('new-stocks.report.show');
+        Route::get('new-stocks-report-print/{transfer}', [NewStockController::class, 'print'])->name('new-stocks.report.print');
         Route::get('transfer-report/export', [NewStockController::class, 'exportTransferReport'])->name('transfer-report.export');
         Route::put('new-stocks/{transfer}', [NewStockController::class, 'updateStatus'])->name('new-stocks.update-status');
     });
