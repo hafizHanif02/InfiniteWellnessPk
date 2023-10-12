@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    POS Return
+    POS Daily Report
 @endsection
 @section('content')
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -8,7 +8,7 @@
 <div class="container-fluid mt-5">
     <div class="card">
         <div class="card-header">
-            <h3>Point Of Sale Return List</h3>
+            <h3>Point Of Sale Daily List</h3>
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-center gap-5 mb-5">
@@ -28,8 +28,8 @@
                     <label for="is_cash" class="form-label">Payment Method</label>
                     <select class="form-control" name="is_cash" id="is_cash" onchange="updateQueryString('is_cash',this.value)">
                         <option value="" selected disabled>Select Pay Method</option>
-                        <option value="1">Cash</option>
-                        <option value="0">Card</option>
+                        <option @if(request('is_cash') == '0') selected @endif value="0">Cash</option>
+                        <option @if(request('is_cash') == '1') selected @endif value="1">Card</option>
                     </select>
                 </div>
                 <div class="mt-5">
@@ -45,6 +45,7 @@
                         <td>POS No.</td>
                         <td>Patient Name</td>
                         <td>Method</td>
+                        <td>Type</td>
                         <td>Total Amount</td>
                     </tr>
                 </thead>
@@ -56,6 +57,7 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{$ps->is_cash ?'Card':'Cash' }}</td>
+                            <td>Pos Sale</td>
                             <td>{{ $ps->total_amount }}
                                 <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
                             </td>
@@ -74,19 +76,20 @@
                             <td>{{ $posreturn->id }}</td>
                             <td>{{ $posreturn->pos->patient_name }}</td>
                             <td>{{$posreturn->pos->is_cash ?'Card':'Cash' }}</td>
+                            <td>Pos Return Sale</td>
                             <td>-{{ $posreturn->total_amount }}
                                 <input type="hidden" value="{{ $posreturn->total_amount }}" class="totalamountdetect" id="totalamountdetect" >
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td colspan="8" class="text-danger">No POS Return found!</td>
+                            <td colspan="9" class="text-danger">No POS Return found!</td>
                         </tr>
                     @endforelse
                 </tbody>
                 <tbody>
                     <tr>
-                     <td colspan="3"></td>
+                     <td colspan="4"></td>
                      <td class="text-start bg-dark text-white">Total Revenue</td>
                      <td class="text-start bg-dark text-white totalrevenuetd" ></td>   
                     </tr>
@@ -139,62 +142,9 @@
                 }
 
                 var newUrl = window.location.pathname + '?' + searchParams.toString();
+                
                 history.pushState({}, '', newUrl);
-                $.ajax({
-                    type: "get",
-                    url: "/returnposreport/daily-report/filter/?" + searchParams.toString(),
-                    dataType: "json",
-                    success: function(response) {
-                        $("#pos-list").empty();
-                        if (response.data.length > 0) {
-                            $.each(response.data, function(index, value) {
-                                // console.log(value);
-                                $("#pos-list").append(`
-                                    <tr>
-                                        <td>${value.created_at.substring(0,10)}</td>
-                                        <td>${value.id}</td>
-                                        <td>${value.pos.id}</td>
-                                        <td>${value.pos.patient_name}</td>
-                                        <td>${value.pos.is_cash ? 'Cash':'Card'}</td>
-                                        <td>${value.total_amount}</td>
-                                    </tr>
-                                    `);
-                            });
-                            // window.location.reload();
-                        } else {
-                            $("#pos-list").append(`
-                            <tr class="text-center">
-                                <td colspan="6" class="text-danger">No pos  found!</td>
-                            </tr>
-                            `);
-                            // window.location.reload();
-                        }
-
-                        if (response.data2.length > 0) {
-                            // console.log(response);
-                            $.each(response.data2, function(index, value) {
-                                $("#pos-list").append(`
-                                    <tr>
-                                        <td>${value.created_at.substring(0,10)}</td>
-                                        <td>${value.id}</td>
-                                        <td>${value.posreturn.pos.id}</td>
-                                        <td>${value.posreturn.pos.patient_name}</td>
-                                        <td>${value.posreturn.pos.is_cash ? 'Cash':'Card'}</td>
-                                        <td>${value.posreturn.total_amount}</td>
-                                    </tr>
-                                    `);
-                            });
-                            // window.location.reload();
-                        } else {
-                            $("#pos-list").append(`
-                            <tr class="text-center">
-                                <td colspan="6" class="text-danger">No pos return order found!</td>
-                            </tr>
-                            `);
-                            // window.location.reload();
-                        }
-                    }
-                });
+                window.location.reload();
             }
             function ExportToExcel(type, fn, dl) {
                 var elt = document.getElementById('tbl_exporttable_to_xls');

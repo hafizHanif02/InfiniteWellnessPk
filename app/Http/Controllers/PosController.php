@@ -199,7 +199,7 @@ class PosController extends Controller
 
     public function posfilterlistindex(Request $request)
     {
-  
+        
     return view('pos.filter-list', [
         'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
     ]);
@@ -239,14 +239,7 @@ class PosController extends Controller
         ]);
     }
     
-    public function posdailyreportfilter(Request $request): JsonResponse
-    {
-      
-        return response()->json([
-            'data' => Pos::filter($request)->latest()->get(),
-            'data2' => PosReturn::with('pos')->filter($request)->latest()->get(),
-        ]);
-    }
+    
 
     public function printReport() {
         return Excel::download(new PosExport, 'Pos-Report.xlsx');
