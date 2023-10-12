@@ -30,9 +30,15 @@
             <tr>
                 <th class="no-border">MANUFACTURER:</th>
                 <th class="text-start no-border" colspan="9">
-                    @foreach ($requistion->requistionProducts as $requistionProduct)
+                    {{-- @foreach ($requistion->requistionProducts as $requistionProduct)
                         {{ $requistionProduct->product->manufacturer->company_name }}
-                    @endforeach
+                    @endforeach --}} 
+                    @if (isset($requistion->manufacturer->company_name))
+                    {{ $requistion->manufacturer->company_name }}
+                    @else
+                    -
+                    @endif
+
                 </th>
             </tr>
             <tr>

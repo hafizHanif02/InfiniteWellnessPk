@@ -3,6 +3,7 @@
 namespace App\Models\Purchase;
 
 use App\Models\Inventory\Vendor;
+use App\Models\Inventory\Manufacturer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +16,7 @@ class Requistion extends Model
 
     protected $fillable = [
         'vendor_id',
+        'manufacturer_id',
         'remarks',
         'delivery_date',
         'is_approved',
@@ -41,6 +43,10 @@ class Requistion extends Model
     public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+    public function Manufacturer(): BelongsTo
+    {
+        return $this->belongsTo(Manufacturer::class);
     }
 
     public function requistionProducts(): HasMany

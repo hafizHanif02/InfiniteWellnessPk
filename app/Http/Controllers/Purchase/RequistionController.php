@@ -108,6 +108,7 @@ class RequistionController extends Controller
         
         $requistion = Requistion::create([
             'vendor_id' => $request->vendor_id,
+            'manufacturer_id' => $request->manufacturer_id,
             'remarks' => $request->remarks,
             'delivery_date' => now(),
             'discount_amount' => $request->discount_amount

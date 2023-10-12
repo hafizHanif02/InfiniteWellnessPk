@@ -22,6 +22,10 @@
                             <td>{{ $requistion->vendor->account_title }}</td>
                         </tr>
                         <tr>
+                            <th>Manufacturer</th>
+                            <td>{{ $requistion->manufacturer->company_name ?? '-' }}</td>
+                        </tr>
+                        <tr>
                             <th>Remarks</th>
                             <td>{{ $requistion->remarks ?? '-' }}</td>
                         </tr>
