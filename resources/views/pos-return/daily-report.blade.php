@@ -57,7 +57,7 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{$ps->is_cash ?'Card':'Cash' }}</td>
-                            <td>Pos Sale</td>
+                            <td>Sale</td>
                             <td>{{ $ps->total_amount }}
                                 <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
                             </td>
@@ -76,7 +76,7 @@
                             <td>{{ $posreturn->id }}</td>
                             <td>{{ $posreturn->pos->patient_name }}</td>
                             <td>{{$posreturn->pos->is_cash ?'Card':'Cash' }}</td>
-                            <td>Pos Return Sale</td>
+                            <td>Return Sale</td>
                             <td>-{{ $posreturn->total_amount }}
                                 <input type="hidden" value="{{ $posreturn->total_amount }}" class="totalamountdetect" id="totalamountdetect" >
                             </td>
