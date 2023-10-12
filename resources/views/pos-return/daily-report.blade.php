@@ -142,13 +142,13 @@
                 history.pushState({}, '', newUrl);
                 $.ajax({
                     type: "get",
-                    url: "/returnposreport/filter/?" + searchParams.toString(),
+                    url: "/returnposreport/daily-report/filter/?" + searchParams.toString(),
                     dataType: "json",
                     success: function(response) {
                         $("#pos-list").empty();
                         if (response.data.length > 0) {
                             $.each(response.data, function(index, value) {
-                                console.log(value);
+                                // console.log(value);
                                 $("#pos-list").append(`
                                     <tr>
                                         <td>${value.created_at.substring(0,10)}</td>
@@ -160,14 +160,38 @@
                                     </tr>
                                     `);
                             });
-                            window.location.reload();
+                            // window.location.reload();
                         } else {
                             $("#pos-list").append(`
                             <tr class="text-center">
-                                <td colspan="6" class="text-danger">No purchase order found!</td>
+                                <td colspan="6" class="text-danger">No pos  found!</td>
                             </tr>
                             `);
-                            window.location.reload();
+                            // window.location.reload();
+                        }
+
+                        if (response.data2.length > 0) {
+                            // console.log(response);
+                            $.each(response.data2, function(index, value) {
+                                $("#pos-list").append(`
+                                    <tr>
+                                        <td>${value.created_at.substring(0,10)}</td>
+                                        <td>${value.id}</td>
+                                        <td>${value.posreturn.pos.id}</td>
+                                        <td>${value.posreturn.pos.patient_name}</td>
+                                        <td>${value.posreturn.pos.is_cash ? 'Cash':'Card'}</td>
+                                        <td>${value.posreturn.total_amount}</td>
+                                    </tr>
+                                    `);
+                            });
+                            // window.location.reload();
+                        } else {
+                            $("#pos-list").append(`
+                            <tr class="text-center">
+                                <td colspan="6" class="text-danger">No pos return order found!</td>
+                            </tr>
+                            `);
+                            // window.location.reload();
                         }
                     }
                 });

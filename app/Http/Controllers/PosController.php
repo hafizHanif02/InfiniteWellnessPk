@@ -230,11 +230,8 @@ class PosController extends Controller
     public function posdailyreport(Request $request)
     {
  
-    //   $ab= Pos::filter($request)->latest()->paginate(10)->onEachSide(1);
-    //   echo"<pre>";
-    //     print_r($ab);
-    //     exit;
-    //     $posReturnData = posreturnfilterlistdata($request)->getData();
+        $posData = Pos::filter($request)->latest()->paginate(10)->onEachSide(1);
+        $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
     
         return view('pos-return.daily-report', [
             'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
@@ -242,6 +239,14 @@ class PosController extends Controller
         ]);
     }
     
+    public function posdailyreportfilter(Request $request): JsonResponse
+    {
+      
+        return response()->json([
+            'data' => Pos::filter($request)->latest()->get(),
+            'data2' => PosReturn::with('pos')->filter($request)->latest()->get(),
+        ]);
+    }
 
     public function printReport() {
         return Excel::download(new PosExport, 'Pos-Report.xlsx');
