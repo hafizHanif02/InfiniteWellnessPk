@@ -25,6 +25,7 @@ class GoodReceiveNoteController extends Controller
 
     public function create(): View
     {
+        return "Asdfsdf";
         return view('purchase.goodreceivenote.create', [
             'id' => GoodReceiveNote::latest()->pluck('id')->first(),
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
@@ -95,7 +96,7 @@ class GoodReceiveNoteController extends Controller
 
     public function update(GoodReceiveNoteRequest $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
-        
+
         $goodReceiveNote->update([
             'invoice_number' => $request->invoice_number,
             'remark' => $request->remark,
@@ -108,7 +109,7 @@ class GoodReceiveNoteController extends Controller
             'sale_tax_percentage' => $request->sale_tax_percentage,
             'advance_tax_amount' => $request->sale_tax_percentage,
         ]);
-        
+
         foreach ($request->products as $product) {
             $product_id = $product['id'];
             GoodReceiveProduct::where(['product_id'=>$product_id],['good_receive_note_id'=>$goodReceiveNote->id])->update([
@@ -135,7 +136,7 @@ class GoodReceiveNoteController extends Controller
 
     public function print($goodReceiveNote): View
     {
-        
+
         // $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('product')->get();
 
         // $totalproductamount = 0;
