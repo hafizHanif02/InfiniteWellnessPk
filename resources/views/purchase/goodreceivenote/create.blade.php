@@ -266,7 +266,7 @@
                                                     <input type="text" name="products[${items}][batch_no]" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprices2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
+                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
                                                 </td>
 
                                                 <td>
@@ -304,10 +304,10 @@
 
 
             function saletaxPerc(id){
-                // Total Calculation 
+                // Total Calculation
                 var priceperunit = $('#price_per_unit'+id).val();
                 var InputQty = $('#minusquantity'+id).val();
-                
+
                 var totalAmount = priceperunit*InputQty;
 
                 console.log(totalAmount);
@@ -324,8 +324,8 @@
 
                 $('#saletax_amount'+id).val(SaleAmount.toFixed(2));
 
-                var TotalAmountwithSaleForNet = SaleAmount + AmountwithDiscount; 
-                var TotalAmountwithSaleFortotal = totalAmount + SaleAmount; 
+                var TotalAmountwithSaleForNet = SaleAmount + AmountwithDiscount;
+                var TotalAmountwithSaleFortotal = totalAmount + SaleAmount;
 
                 $('#totalprices2'+id).val(TotalAmountwithSaleForNet.toFixed(2));
                 $('#totalpricefordiscount'+id).val(TotalAmountwithSaleFortotal.toFixed(2));
@@ -337,12 +337,12 @@
                 var totalAmountForNet = 0;
                 var totalAmountForTaxOnly = 0;
                 $("input[id^='totalprices2']").each(function() {
-                    
+
                     totalAmountForNet += parseFloat($(this).val());
 
                 });
                 $("input[id^='totalpricefordiscount']").each(function() {
-                    
+
                     totalAmountForTaxOnly += parseFloat($(this).val());
 
                 });
@@ -360,9 +360,9 @@
                 $('#save-goodreceivenote-form').submit();
             });
 
-            
 
-            
+
+
 
 
 
