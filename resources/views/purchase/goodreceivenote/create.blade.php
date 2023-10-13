@@ -257,7 +257,7 @@
                                                     <input type="number" readonly  name="products[${items}][saletax_amount]"   id="saletax_amount${requistionProduct.id}" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="products[${items}][item_bonus]" value="0" min="0" class="form-control" >
+                                                    <input type="number" name="products[${items}][bonus]" value="0" min="0" class="form-control" >
                                                 </td>
                                                 <td>
                                                     <input type="date" name="products[${items}][expiry_date]"  class="form-control" >

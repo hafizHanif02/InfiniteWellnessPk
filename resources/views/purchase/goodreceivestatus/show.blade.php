@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <th>Bonus</th>
-                                <td>{{ ($goodReceiveNoteProduct->item_bonus)?? 0}}</td>
+                                <td>{{ ($goodReceiveNoteProduct->bonus)?? 0}}</td>
                             </tr>
                             <tr>
                                 <th>Piece Quantity</th>

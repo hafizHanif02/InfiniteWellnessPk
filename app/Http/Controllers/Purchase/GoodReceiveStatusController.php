@@ -20,19 +20,31 @@ class GoodReceiveStatusController extends Controller
     public function show(GoodReceiveNote $goodReceiveNote): View
     {
         return view('purchase.goodreceivestatus.show', [
-            'goodReceiveNote' => $goodReceiveNote->load(['goodReceiveProducts.product','requistion.vendor']),
+            'goodReceiveNote' => $goodReceiveNote->load(['goodReceiveProducts.product', 'requistion.vendor']),
         ]);
     }
 
     public function status(Request $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
         if ($request->status == 1) {
+            // dd($goodReceiveNote->goodReceiveProducts);
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
-                $unit_trade = (($goodReceiveProduct->product->trade_price_percentage*$goodReceiveProduct->item_amount)/100)+$goodReceiveProduct->item_amount;
-                $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
+                $unit_trade = (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100) + $goodReceiveProduct->item_amount;
+
+                if ($goodReceiveProduct->bonus != NULL) {
+                    // $goodReceiveProduct->product->incrementEach([
+                    //     'total_quantity', $goodReceiveProduct->deliver_qty,
+                    //     'total_quantity', $goodReceiveProduct->bonus,
+                    // ]);
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->bonus);
+
+                }else{
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty,);
+                }
+
                 $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
                 $goodReceiveProduct->product->update(['unit_trade' => $unit_trade]);
-
             }
         }
         $goodReceiveNote->update([
