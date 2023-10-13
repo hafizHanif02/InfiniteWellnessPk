@@ -11,7 +11,8 @@
                     <h3>Transfer Report Detail</h3>
                     <div>
                         @if ($stockReport->count() > 0)
-                            <a href="{{ url('new-stocks-report-print') }}/{{ $stockReport->id }}" target="_blank" class="btn btn-primary me-5">Print</a>
+                            <a href="{{ url('new-stocks-report-print') }}/{{ $stockReport->id }}" target="_blank"
+                                class="btn btn-primary me-5">Print</a>
                         @endif
                         <a href="{{ route('new-stocks.report') }}" class="btn btn-secondary">Back</a>
                     </div>
@@ -39,16 +40,16 @@
                     <thead>
                         <tr>
                             <th scope="col">Code</th>
-                            <th scope="col">QTY transfered</th>
                             <th scope="col">Name</th>
+                            <th scope="col">QTY transfered</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($stockReport->transferProducts as $transferProduct)
                             <tr>
                                 <td>{{ $transferProduct->product->id }}</td>
-                                <td>{{ $transferProduct->total_piece }}</td>
                                 <td>{{ $transferProduct->product->product_name }}</td>
+                                <td>{{ $transferProduct->total_piece }}</td>
                             </tr>
                         @empty
                             <td>No products Found!</td>

@@ -31,8 +31,13 @@
                         </div>
                         <div class="col-md-4">
                             <label for="manufacturer" class="form-label">Manufacturer</label>
-                            <input type="text" name="manufacturer" class="form-control" value="{{ $requistion->vendor->manufacturer->company_name }}" id="manufacturer" disabled
-                                title="Manufacturer">
+                            @if (isset($requistion->manufacturer->company_name))
+                            <input type="text" name="manufacturer" class="form-control" value="{{ $requistion->manufacturer->company_name }}" id="manufacturer" disabled
+                            title="Manufacturer">
+                            @else
+                            <input type="text" name="manufacturer" class="form-control" value="" id="manufacturer" disabled
+                            title="Manufacturer">
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-5">

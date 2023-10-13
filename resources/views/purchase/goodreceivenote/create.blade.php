@@ -266,11 +266,11 @@
                                                     <input type="text" name="products[${items}][batch_no]" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
+                                                    <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprices2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
                                                 </td>
 
                                                 <td>
-                                                    <input type="number" id="totalprice2${requistionProduct.id}" name="products[${items}][totalprice]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
+                                                    <input type="number" id="totalprices2${requistionProduct.id}" name="products[${items}][totalprice]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
                                                     <input type="hidden" id="totalpricefordiscount${requistionProduct.id}" name="products[${items}][totalpricefordiscount]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
                                                 </td>
                                             </tr>
@@ -294,43 +294,65 @@
                 var quantity = $("#minusquantity" + id).val();
                 var totalquantity = $("#totalquantity" + id).val();
                 var amount = $("#price_per_unit" + id).val();
-                $('#totalprice2' + id).val(((amount) * (quantity)).toFixed(2));
+                $('#totalprices2' + id).val(((amount) * (quantity)).toFixed(2));
                 $('#totalpricefordiscount' + id).val((amount) * (quantity));
                 $('#changequantity' + id).val(totalquantity - (quantity));
                 calculateTotalAmount();
+                saletaxPerc(id);
+                discountPerc(id);
             }
 
 
             function saletaxPerc(id){
-                var Saletax_amount = 0 ;
-                var Saletax_percentage = $('#saletax' + id).val();
-                var total_cost_per_product = $('#totalpricefordiscount' + id).val();
-                 Saletax_amount = (Saletax_percentage * total_cost_per_product) / 100;
-                console.log(Saletax_amount, total_cost_per_product);
-                $('#saletax_amount' + id).val(Saletax_amount.toFixed(2));
+                // Total Calculation 
+                var priceperunit = $('#price_per_unit'+id).val();
+                var InputQty = $('#minusquantity'+id).val();
+                
+                var totalAmount = priceperunit*InputQty;
 
+                console.log(totalAmount);
 
-                var amount = $('#totalpricefordiscount'+id).val();
+                // Discount Calculation
+                var discountPerc = $('#discount'+id).val();
+                var DiscountAmount = ((discountPerc * totalAmount)/100);
 
-                var amountwithtax = (parseFloat(amount) + parseFloat(Saletax_amount));
-                $('#totalprice2'+id).val((parseFloat(amount) + parseFloat(Saletax_amount)).toFixed(2));
+                var AmountwithDiscount = totalAmount - DiscountAmount;
+
+                // SaleTax Calculation
+                var saleTaxpercentage = $('#saletax'+id).val();
+                var SaleAmount = ((AmountwithDiscount * saleTaxpercentage)/100);
+
+                $('#saletax_amount'+id).val(SaleAmount.toFixed(2));
+
+                var TotalAmountwithSaleForNet = SaleAmount + AmountwithDiscount; 
+                var TotalAmountwithSaleFortotal = totalAmount + SaleAmount; 
+
+                $('#totalprices2'+id).val(TotalAmountwithSaleForNet.toFixed(2));
+                $('#totalpricefordiscount'+id).val(TotalAmountwithSaleFortotal.toFixed(2));
+
                 calculateTotalAmount();
             }
 
             function calculateTotalAmount() {
-                var totalAmount = 0;
-                $("input[id^='totalprice2']").each(function() {
+                var totalAmountForNet = 0;
+                var totalAmountForTaxOnly = 0;
+                $("input[id^='totalprices2']").each(function() {
                     
-                    totalAmount += parseFloat($(this).val());
+                    totalAmountForNet += parseFloat($(this).val());
 
                 });
-                $("#total_amountcost").val(totalAmount);
-                $('#net_total_amountcost').val(totalAmount);
-                $("#totalcostwithtax").val(totalAmount.toFixed(2));
+                $("input[id^='totalpricefordiscount']").each(function() {
+                    
+                    totalAmountForTaxOnly += parseFloat($(this).val());
+
+                });
+                $("#totalcostwithtax").val(totalAmountForTaxOnly.toFixed(2));
+                $('#net_total_amountcosts2').val(totalAmountForNet.toFixed(2));
+                // $("#totalcostwithtax").val(totalAmount.toFixed(2));
 
                 // console.log(totalAmount);
 
-                discountTotal();
+                // discountTotal();
             }
 
             $('#save-goodreceivenote-button').on('click', function() {
@@ -344,69 +366,60 @@
 
 
 
-            // function advanceTax() {
-            //     var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-            //     var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
+            function advanceTax() {
+                var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
+                var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
+                var SaleTaxPercPerc = $('#sale_tax_percentage').val();
+
+                var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
+                $('#advance_tax_percentage_amount').val(advanceTaxAmount);
+
+                // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
+                // $('#sales_taxamount').val(salesTaxAmount);
+
+                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
+                $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
+            }
+
+
+            // function saleTax() {
             //     var SaleTaxPercPerc = $('#sale_tax_percentage').val();
+            //     var NetTotalAmountWithAdvTax = $('#net_total_amountcost2').val();
 
-            //     var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
-            //     $('#advance_tax_percentage_amount').val(advanceTaxAmount);
-
-            //     // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
-            //     // $('#sales_taxamount').val(salesTaxAmount);
-
-            //     var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
-            //     $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
-            // }
-
-
-            function saleTax() {
-                // var SaleTaxPercPerc = $('#sale_tax_percentage').val();
-                // var NetTotalAmountWithAdvTax = $('#net_total_amountcost2').val();
-
-                // var peramountsales = (parseFloat((SaleTaxPercPerc * totalcostwithtax) / 100)).toFixed(2);
-                // $('#sales_taxamount').val(peramountsales);
-                // var amountwithtaxsale = (parseFloat(NetTotalAmountWithAdvTax) + parseFloat(peramountsales));
-                // var amountwithtaxsaleTwoDigit = amountwithtaxsale.toFixed(2);
-                // $('#net_total_amountcost').val(amountwithtaxsaleTwoDigit);
-            };
+            //     var peramountsales = (parseFloat((SaleTaxPercPerc * totalcostwithtax) / 100)).toFixed(2);
+            //     $('#sales_taxamount').val(peramountsales);
+            //     var amountwithtaxsale = (parseFloat(NetTotalAmountWithAdvTax) + parseFloat(peramountsales));
+            //     var amountwithtaxsaleTwoDigit = amountwithtaxsale.toFixed(2);
+            //     $('#net_total_amountcost').val(amountwithtaxsaleTwoDigit);
+            // };
 
             function discountPerc(id) {
-
                 var minusquantity = $('#minusquantity' + id).val();
                 var amount = $("#price_per_unit" + id).val();
                 var totalPrice = minusquantity * amount;
                 var discountPer = $('#discount' + id).val();
-                var numdiscountPer = Number(discountPer);
-                // var total_cost_per_product = $('#totalprice2' + id).val();
-                var discount_amount = (numdiscountPer * totalPrice) / 100;
+                var discount_amount = ((discountPer * totalPrice) / 100).toFixed(2);
                 $('#discount_amount' + id).val(discount_amount)
                 var amountwithdiscount = totalPrice - discount_amount;
-                $('#totalprice2' + id).val(amountwithdiscount.toFixed(2));
-                $('#totalpricefordiscount' + id).val(amountwithdiscount.toFixed(2));
+                $('#totalprices2' + id).val(amountwithdiscount.toFixed(2));
                 discountTotal();
+                saletaxPerc(id);
             }
 
             function discountTotal() {
                 var discount = 0;
-                var discountnum = Number(discount);
                 $("input[id^='discount_amount']").each(function() {
                     if ($(this).val() != '') {
-                        discountnum += parseFloat($(this).val());
+                        discount += parseFloat($(this).val());
                     }
                 });
-                $('#total_discount_amount').val(discountnum.toFixed(2));
+                $('#total_discount_amount').val(discount.toFixed(2));
                 var total_amount = $('#totalcostwithtax').val();
-                var testNum = Number(total_amount);
-                var amountwithdisc = Number(testNum - discountnum);
-                var Totalamountwithdisc = amountwithdisc.toFixed(2).toString();
-                console.log(amountwithdisc);
-
-
+                var amountwithdisc = (total_amount - discount);
+                var Totalamountwithdisc = amountwithdisc.toFixed(2);
                 $('#net_total_amountcost').val(Totalamountwithdisc);
                 $('#net_total_amountcosts2').val(Totalamountwithdisc);
                 $('#net_total_amountcosts3').val(Totalamountwithdisc);
-                advanceTax();
             }
         </script>
     @endpush

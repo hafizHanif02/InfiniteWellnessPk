@@ -27,20 +27,20 @@
     <thead>
         <tr>
             <th colspan="4">Code</th>
-            <th colspan="4">QTY transfered</th>
             <th colspan="4">Name</th>
+            <th colspan="4">QTY transfered</th>
         </tr>
     </thead>
     <tbody>
         @forelse ($stockReport->transferProducts as $transferProduct)
             <tr>
                 <th colspan="4">{{ $transferProduct->product->id }}</th>
-                <th colspan="4">{{ $transferProduct->total_piece }}</th>
                 <th colspan="4">{{ $transferProduct->product->product_name }}</th>
+                <th colspan="4">{{ $transferProduct->total_piece }}</th>
             </tr>
         @empty
             <tr>
-                <th colspan="5">No products Found!</th>
+                <th colspan="12">No products Found!</th>
             </tr>
         @endforelse
     </tbody>
@@ -67,7 +67,7 @@
     }
 </style>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {   
+    document.addEventListener("DOMContentLoaded", function() {
         window.print();
     });
 </script>
