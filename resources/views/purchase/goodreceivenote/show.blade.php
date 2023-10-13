@@ -79,7 +79,7 @@
                             </tr>
                             <tr>
                                 <th>Bonus</th>
-                                <td>{{ ($goodReceiveNoteProduct->item_bonus)?? 0}}</td>
+                                <td>{{ ($goodReceiveNoteProduct->bonus)?? 0}}</td>
                             </tr>
                             <tr>
                                 <th>Piece Quantity</th>
@@ -92,7 +92,7 @@
                             <tr>
                                 
                                 <th>Sale Tax</th>
-                                <td>{{ $goodReceiveNoteProduct->sale_tax_percentage ?? '-' }}</td>
+                                <td>{{ $goodReceiveNoteProduct->goodReceiveNote->sale_tax_percentage ?? '-' }}</td>
                             </tr>
                             <tr>
                                 <th>Total Amount</th>
