@@ -60,7 +60,7 @@
                     <td>{{$last_purchase->date}}</td>
                     <td>{{$goodReceiveProducts->deliver_qty}}</td>
                     <td>{{$goodReceiveProducts->item_amount}}</td>
-                    <td>{{$goodReceiveProducts->discount}}</td>
+                    <td>{{$goodReceiveProducts->discount_percentage}}</td>
                     <td>{{$openQuantity->deliver_qty}}</td>
                     <td>{{($requistionProduct->consume== 0)?'-':$requistionProduct->consume}}</td>
                     <td>{{$goodReceiveProducts->product->total_quantity }}</td>

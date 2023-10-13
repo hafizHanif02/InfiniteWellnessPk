@@ -67,6 +67,7 @@
                     <td class="text-center">{{ ($requistionproduct->limit == 0)?'Pack':'Piece' }}</td>
                     <td class="text-center">{{ $requistionproduct->price_per_unit }}</td>
                     <td class="text-center">{{ $requistionproduct->total_amount}}</td>
+                    {{-- {{dd($requistionproduct)}} --}}
                     <td class="text-center">{{ number_format($requistionproduct->discount_percentage, 2, '.', '') }} %</td>
                     <td class="text-center">{{ ($requistionproduct->product->sale_tax != null)?$requistionproduct->product->sale_tax.'%':'-' }} </td>
                     <td class="text-center" class="text-center">{{ $requistionproduct->total_amount }}</td>
@@ -81,6 +82,7 @@
             </tr>
             <tr>
                 <th>Dis Amount</th>
+                
                 <th>{{ number_format($requistion->discount_amount, 2, '.', '')}}</th>
                 <th>{{ number_format($requistion->discount_amount, 2, '.', '')}}</th>
             </tr>

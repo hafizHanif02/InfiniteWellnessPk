@@ -3,7 +3,7 @@
          <div class="card">
              <div class="card-body">
                  <div class="d-flex justify-content-between">
-                     <h3>Purchase Requistion</h3>
+                     <h3>Purchase Requistion </h3>
                      <div class="d-flex gap-5">
                         <div>
                             <a href="{{ asset('csv/Purchase/Requistions.xlsx') }}" class="btn btn-danger" download>Download
