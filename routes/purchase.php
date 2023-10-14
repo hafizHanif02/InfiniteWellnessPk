@@ -37,6 +37,11 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
     Route::get('good-receive-statuses/{goodReceiveNote}', [GoodReceiveStatusController::class, 'show'])->name('good-receive-statuses.show');
     Route::patch('good-receive-statuses/{goodReceiveNote}', [GoodReceiveStatusController::class, 'status'])->name('good-receive-statuses.status');
 
+
+
+    // Validation Route
+    Route::post('/validate-goodreceivenote', [GoodReceiveNoteController::class, 'validateGoodReceiveNote']);
+
     Route::resource('purchaseorderlist', PurchaseOrderListController::class);
     Route::get('purchase-order-list/filter', [PurchaseOrderListController::class, 'filter'])->name('purchaseorder.list.filter');
 
