@@ -13,6 +13,7 @@ use Laracasts\Flash\Flash;
 use App\Models\Pos_Product;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
+use App\Models\PosProductReturn;
 use App\Http\Requests\PosRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -37,12 +38,11 @@ class PosController extends Controller
             'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
-
     }
 
     public function store(PosRequest $request): RedirectResponse
     {
-        
+
         $userId = auth()->user()->id;
         // echo $userId;
         //  exit;
@@ -64,8 +64,6 @@ class PosController extends Controller
                 'product_total_price' => $product['product_total_price'],
                 'user_id' => $userId,
             ]);
-
-
         }
 
         Flash::message('POS created!');
@@ -75,7 +73,7 @@ class PosController extends Controller
 
     public function ProceedToPayPage($pos)
     {
-        $pos = Pos::where('id', $pos)->with(['PosProduct.medicine','prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
+        $pos = Pos::where('id', $pos)->with(['PosProduct.medicine', 'prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
 
         return view('pos.proceed_to_pay', [
             'pos' => $pos,
@@ -86,10 +84,9 @@ class PosController extends Controller
     {
 
         $posData = Pos::where('id', $pos)->with(['PosProduct'])->first();
-        return view('pos.paymet',[
+        return view('pos.paymet', [
             'pos' => $posData,
         ]);
-
     }
 
     // public function EnterMethod(Request $reqeust, $pos){
@@ -110,7 +107,7 @@ class PosController extends Controller
 
     public function Payment(Request $reqeust, $pos)
     {
-        $Pos_Product = Pos_Product::where('pos_id',$pos)->get();
+        $Pos_Product = Pos_Product::where('pos_id', $pos)->get();
 
 
         Pos::where('id', $pos)->update([
@@ -121,23 +118,23 @@ class PosController extends Controller
 
         ]);
 
-        foreach($Pos_Product as $PosProduct){
-            Medicine::where('id',$PosProduct->medicine_id)->decrementEach([
+        foreach ($Pos_Product as $PosProduct) {
+            Medicine::where('id', $PosProduct->medicine_id)->decrementEach([
                 'total_quantity' => $PosProduct->product_quantity
             ]);
         }
         Flash::message('POS Payed!');
 
-        return to_route('pos.print',$pos);
+        return to_route('pos.print', $pos);
     }
 
     public function prescription(Request $request)
     {
-        $getPatientID = Patient::where(['MR'=> $request->patient_mr_number])->get();
+        $getPatientID = Patient::where(['MR' => $request->patient_mr_number])->get();
 
-        if(count($getPatientID) > 0){
+        if (count($getPatientID) > 0) {
             return response()->json([
-                'data' => Prescription::where('patient_id',$getPatientID[0]->id)->with('patient.user','getMedicine.medicine.product','doctor.user')->get(),
+                'data' => Prescription::where('patient_id', $getPatientID[0]->id)->with('patient.user', 'getMedicine.medicine.product', 'doctor.user')->get(),
             ]);
         }
 
@@ -146,16 +143,17 @@ class PosController extends Controller
             'data' => ''
         ]);
     }
-    public function Print($pos){
+    public function Print($pos)
+    {
         $posData = Pos::where('id', $pos)->with(['PosProduct.medicine.brand'])->first();
         $generatorHTML = new BarcodeGeneratorHTML();
-        if($posData->patient_mr_number != null){
+        if ($posData->patient_mr_number != null) {
             $mr_barcode = $generatorHTML->getBarcode($posData->patient_mr_number, $generatorHTML::TYPE_CODE_128);
-        }else{
+        } else {
             $mr_barcode = null;
         }
         $invoice_barcode = $generatorHTML->getBarcode($posData->id, $generatorHTML::TYPE_CODE_128);
-        return view('pos.print',[
+        return view('pos.print', [
             'pos' => $posData,
             'mr_barcode' => $mr_barcode,
             'invoice_barcode' => $invoice_barcode,
@@ -167,7 +165,7 @@ class PosController extends Controller
 
     public function show($id)
     {
-        $pos = Pos::where('id', $id)->with(['PosProduct.medicine','prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
+        $pos = Pos::where('id', $id)->with(['PosProduct.medicine', 'prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
 
         return view('pos.show', [
             'pos' => $pos,
@@ -199,10 +197,10 @@ class PosController extends Controller
 
     public function posfilterlistindex(Request $request)
     {
-        
-    return view('pos.filter-list', [
-        'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
-    ]);
+
+        return view('pos.filter-list', [
+            'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
+        ]);
     }
     public function posfilterlistajax(Request $request): JsonResponse
     {
@@ -214,14 +212,14 @@ class PosController extends Controller
 
     public function posreturnfilterlistdata(Request $request)
     {
-        
+
         return view('pos-return.filter-list', [
             'pos' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
         ]);
     }
     public function posfilterlistdata(Request $request): JsonResponse
     {
-      
+
         return response()->json([
             // 'data' => PosReturn::with('pos')->whereHas('pos', function ($query) {$query->where('is_cash', 1);})->latest()->get(),
             'data' => PosReturn::with('pos')->filter($request)->latest()->get(),
@@ -229,20 +227,45 @@ class PosController extends Controller
     }
     public function posdailyreport(Request $request)
     {
- 
+
         $posData = Pos::filter($request)->latest()->paginate(10)->onEachSide(1);
         $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
-    
+
         return view('pos-return.daily-report', [
             'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
             'posreturns' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
         ]);
     }
-    
-    
 
-    public function printReport() {
+
+
+    public function printReport()
+    {
         return Excel::download(new PosExport, 'Pos-Report.xlsx');
     }
 
+    public function itemReport()
+    {
+        $posid = Pos_Product::pluck('pos_id');
+
+        // Calculate the total quantity and total price from returns
+        $posReturnQuantity = PosProductReturn::whereIn('pos_id', $posid)
+            ->selectRaw('product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
+            ->groupBy('product_name')
+            ->get();
+
+        // Calculate the total quantity from Pos_Product
+        $poses = Pos_Product::whereIn('pos_id', $posid)
+            ->selectRaw('product_name as productName, SUM(product_quantity) as productQty')
+            ->groupBy('product_name')
+            ->get();
+
+        $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
+
+        return view('item-report.index', [
+            'poses' => $poses,
+            'posReturns' => $posReturns,
+            'posReturnQuantity' => $posReturnQuantity,
+        ]);
+    }
 }

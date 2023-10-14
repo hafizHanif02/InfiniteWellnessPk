@@ -144,6 +144,7 @@
         {{ __('messages.transfer_report') }}
     </a>
 </li>
+
 @endmodule
 
 @module('Expense',$modules)
@@ -796,6 +797,13 @@
     <a class="nav-link p-0 {{ Request::is('new-stocks-report') ? 'active' : '' }}"
        href="{{ route('new-stocks.report') }}">
         {{ __('messages.transfer_report') }}
+    </a>
+</li>
+
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('new-stocks-report') ? 'active' : '' }}"
+       href="{{ route('itemReport.index') }}">
+       Item Report
     </a>
 </li>
 @endmodule
