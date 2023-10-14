@@ -14,7 +14,6 @@ class PosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'prescription_id' => ['nullable', 'exists:prescriptions,id'],
             'total_amount' => ['required', 'numeric'],
             'pos_fees' => ['required', 'numeric'],
             'total_discount'=> ['nullable','numeric'],
