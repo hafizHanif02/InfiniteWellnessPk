@@ -7,8 +7,8 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Add Good Receive Note</h3>
-                
-                
+
+
                 <a href="{{ route('purchase.good_receive_note.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">
@@ -134,7 +134,7 @@
                         <div class="row mb-3 mt-3">
                             <div class="col-md-7">
                                 <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
-                                <input type="number" min="0" max="100" id="advance_tax_percentage"
+                                <input type="number" min="0" id="advance_tax_percentage"
                                     onkeyup="advanceTax()" placeholder="Advance Tax Percentage"
                                     name="advance_tax_percentage" class="form-control" value="0">
                                 @error('advance_tax_percentage')
@@ -174,7 +174,7 @@
                             <button type="submit" id="save-goodreceivenote-button-check" class="btn btn-primary ms-3">Save</button>
                             {{-- <button type="button" id="save-goodreceivenote-button-check" class="btn btn-secondary ms-3">Check</button> --}}
                         {{-- </div> --}}
-                        
+
                     </div>
                 </form>
             </div>
@@ -369,13 +369,13 @@
             });
 
 
-            
+
             // $('#save-goodreceivenote-button-check').on('click', function() {
             //     // console.log('Add');
             //     // $(this).prop('disabled', true);
             //     // $('#save-goodreceivenote-form').submit();
 
-                
+
 
             // });
 
@@ -456,7 +456,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 console.log('Response:', response);
-                if (response.valid) { 
+                if (response.valid) {
                     console.log('Before form submission');
                     $('#save-goodreceivenote-form')[0].submit();
                     console.log('After form submission');
@@ -468,7 +468,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 // $('#validation-message').html(xhr.responseJSON.message);
-                
+
                 $('.wrapper').append(
                     ` <div class="alert alert-danger">
                         <div>
@@ -484,7 +484,7 @@ $(document).ready(function() {
                             background: white;
                             width: 290px;
                             padding: 40px;
-                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
                             top: 10px;
                             right: 10px;
                         }
@@ -508,6 +508,6 @@ $(document).ready(function() {
     });
 });
         </script>
-     
+
     @endpush
 </x-layouts.app>
