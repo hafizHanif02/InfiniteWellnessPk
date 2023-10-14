@@ -33,7 +33,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
             'products.*' => ['required'],
             'products.*.expiry_date' => ['required', 'date'],
-            'products.*.batch_no' => ['required', 'integer', 'min:0'],
+            'products.*.batch_no' => ['required', 'min:0'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
             'products.*.bonus' => ['nullable', 'integer', 'min:0'],

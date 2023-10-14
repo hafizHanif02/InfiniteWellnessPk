@@ -95,7 +95,7 @@ class GoodReceiveNoteController extends Controller
 
     public function update(GoodReceiveNoteRequest $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
-        
+
         $goodReceiveNote->update([
             'invoice_number' => $request->invoice_number,
             'remark' => $request->remark,
@@ -108,7 +108,7 @@ class GoodReceiveNoteController extends Controller
             'sale_tax_percentage' => $request->sale_tax_percentage,
             'advance_tax_amount' => $request->sale_tax_percentage,
         ]);
-        
+
         foreach ($request->products as $product) {
             $product_id = $product['id'];
             GoodReceiveProduct::where(['product_id'=>$product_id],['good_receive_note_id'=>$goodReceiveNote->id])->update([
@@ -135,7 +135,7 @@ class GoodReceiveNoteController extends Controller
 
     public function print($goodReceiveNote): View
     {
-        
+
         // $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('product')->get();
 
         // $totalproductamount = 0;
@@ -160,7 +160,7 @@ class GoodReceiveNoteController extends Controller
             'total_amount.numeric' => 'The total amount must be a number.',
             'total_amount.min' => 'The total amount must be at least :min.',
         ];
-    
+
         $validatedData = $request->validate([
             'requistion_id' => ['required', 'exists:requistions,id'],
             'remark' => ['nullable', 'string', 'max:255'],
@@ -176,13 +176,13 @@ class GoodReceiveNoteController extends Controller
             'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
             'products.*.bonus' => ['nullable', 'integer', 'min:0'],
             'products.*.expiry_date' => ['required', 'date'],
-            'products.*.batch_no' => ['required', 'integer', 'min:0'],
+            'products.*.batch_no' => ['required', 'min:0'],
             'products.*.totalprice2' => ['required', 'numeric', 'min:0'],
             'products.*.discount' => ['nullable', 'numeric', 'min:0'],
             'products.*.saletax_percentage' => ['nullable', 'numeric'],
             'products.*.saletax_amount' => ['nullable', 'numeric'],
         ], $customMessages);
-    
+
         // Validation succeeded
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
