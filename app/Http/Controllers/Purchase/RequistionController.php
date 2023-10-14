@@ -210,4 +210,29 @@ class RequistionController extends Controller
             'openQuantity' => $openQuantity,
         ]);
     }
+
+    public function validateRequistion(Request $request){
+        
+        $customMessages = [
+            'vendor_id.required' => 'Select at least one vendor',
+            'products.required' => 'At least one product is required',
+        ];
+        
+        $validatedData = $request->validate([
+            'vendor_id' => ['required', 'exists:vendors,id'],
+            'remarks' => ['nullable', 'string', 'max:255'],
+            'delivery_date' => ['nullable', 'date'],
+            'products' => ['required'], // Check if the "products" array is required.
+            'products.*.id' => ['required', 'exists:products,id'],
+            'products.*.limit' => ['required', 'integer', 'min:0'],
+            'products.*.price_per_unit' => ['required', 'numeric', 'min:0'],
+            'products.*.total_piece' => ['required', 'numeric', 'min:1'],
+            'products.*.total_amount' => ['required', 'numeric', 'min:0'],
+        ], $customMessages);
+        
+            // Validation succeeded
+            return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+        
+
+    }
 }

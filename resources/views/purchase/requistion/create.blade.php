@@ -15,7 +15,7 @@
                 <a href="{{ route('purchase.requistions.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">
-                <form action="{{ route('purchase.requistions.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('purchase.requistions.store') }}" method="POST" id="save-requistion-form" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-5">
                         <div class="col-md-4">
@@ -417,6 +417,70 @@
                     }
                 });
             });
+        
+            $(document).ready(function() {
+    $('#save-requistion-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Perform your AJAX request here
+        $.ajax({
+            url: '/purchase/validate-requistions',
+            type: 'post',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                console.log('Response:', response);
+                if (response.valid) { 
+                    console.log('Before form submission');
+                    $('#save-requistion-form')[0].submit();
+                    console.log('After form submission');
+                } else {
+                    $('#validation-message').text(response.message);
+                    $('#validation-message').show();
+                }
+
+            },
+            error: function(xhr, status, error) {
+                // $('#validation-message').html(xhr.responseJSON.message);
+                
+                $('.wrapper').append(
+                    ` <div class="alert alert-danger">
+                        <div>
+                            <div class="d-flex">
+                                <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .alert{
+                            position: absolute;
+                            background: white;
+                            width: 290px;
+                            padding: 40px;
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            top: 10px;
+                            right: 10px;
+                        }
+                        .icon-sm {
+                            font-size: 106px !important;
+                        }
+                        .validationError{
+                            font-weight:900;
+                            color:#2f2f2f;
+                            letter-spacing:2px;
+                        }
+                    </style>
+                    `
+        );
+                $('.alert').delay(5000).slideUp(300)
+                $('.alert').delay(50000).slideUp(300, function() {
+                    $('.alert').attr('style', 'display:none')
+                })
+    }
+        });
+    });
+});
         </script>
     @endpush
 </x-layouts.app>
