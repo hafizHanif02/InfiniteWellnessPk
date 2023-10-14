@@ -15,7 +15,7 @@ class TransferRequest extends FormRequest
     {
         return [
             'supply_date' => ['required', 'date'],
-            'products.*' => ['required'],
+            'products' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
             'products.*.price_per_unit' => ['required', 'numeric'],

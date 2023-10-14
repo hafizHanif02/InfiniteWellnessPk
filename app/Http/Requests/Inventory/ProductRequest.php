@@ -11,14 +11,14 @@ class ProductRequest extends FormRequest
         return true;
     }
 
-    public function prepareForValidation(): void
-    {
-        $this->trade_price = $this->manufacturer_retail_price - ($this->manufacturer_retail_price * $this->trade_price_percentage / 100);
-        $this->unit_retail = $this->number_of_pack * $this->pieces_per_pack;
-        $this->unit_trade = $this->trade_price / ($this->pieces_per_pack * $this->number_of_pack);
-        $this->cost_price = $this->trade_price - ($this->trade_price * $this->discount_trade_price / 100);
-        $this->total_quantity = $this->number_of_pack * $this->pieces_per_pack;
-    }
+    // public function prepareForValidation(): void
+    // {
+    //     $this->trade_price = $this->manufacturer_retail_price - ($this->manufacturer_retail_price * $this->trade_price_percentage / 100);
+    //     $this->unit_retail = $this->number_of_pack * $this->pieces_per_pack;
+    //     $this->unit_trade = $this->trade_price / ($this->pieces_per_pack * $this->number_of_pack);
+    //     $this->cost_price = $this->trade_price - ($this->trade_price * $this->discount_trade_price / 100);
+    //     $this->total_quantity = $this->number_of_pack * $this->pieces_per_pack;
+    // }
 
     public function rules(): array
     {

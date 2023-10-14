@@ -15,7 +15,7 @@ class PurchaseReturnRequest extends FormRequest
     {
         return [
             'good_receive_note_id' => ['required', 'exists:good_receive_notes,id'],
-            'products.*' => 'required',
+            'products' => 'required',
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.quantity' => ['required', 'integer', 'min:0'],
             'products.*.price' => ['required', 'numeric', 'min:0'],

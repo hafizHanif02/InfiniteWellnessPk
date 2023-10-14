@@ -41,35 +41,25 @@ class PosController extends Controller
     }
 
     public function store(PosRequest $request): RedirectResponse
-    {
+{
+    $userId = auth()->user()->id;
 
-        $userId = auth()->user()->id;
-        // echo $userId;
-        //  exit;
+    $request->validate([
+        'products' => 'required|array', 
+        'products.*.medicine_id' => 'required|exists:medicines,id',
+    ]);
 
-        $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
+    // Create POS and associated products
+    $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
 
-        foreach ($request->products as $product) {
-
-            Pos_Product::create([
-                'pos_id' => $pos->id,
-                'medicine_id' => $product['medicine_id'],
-                'product_name' => $product['product_name'],
-                'product_quantity' => $product['product_quantity'],
-                'mrp_perunit' => $product['mrp_perunit'],
-                'gst_percentage' => $product['gst_percentage'],
-                'gst_amount' => $product['gst_amount'],
-                'discount_percentage' => $product['discount_percentage'],
-                'discount_amount' => $product['discount_amount'],
-                'product_total_price' => $product['product_total_price'],
-                'user_id' => $userId,
-            ]);
-        }
-
-        Flash::message('POS created!');
-
-        return to_route('pos.proceed-to-pay-page', $pos);
+    foreach ($request->input('products') as $productData) {
+        Pos_Product::create(array_merge($productData, ['pos_id' => $pos->id, 'user_id' => $userId]));
     }
+
+    Flash::message('POS created!');
+
+    return redirect()->route('pos.proceed-to-pay-page', ['pos' => $pos]);
+}
 
     public function ProceedToPayPage($pos)
     {
