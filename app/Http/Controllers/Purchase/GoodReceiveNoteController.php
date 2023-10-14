@@ -149,4 +149,42 @@ class GoodReceiveNoteController extends Controller
             // 'totalproductamount' => $totalproductamount,
         ]);
     }
+
+    public function validateGoodReceiveNote(Request $request)
+    {
+        $customMessages = [
+            'requistion_id.required' => 'The Requisition is required.',
+            'requistion_id.exists' => 'The Requisition does not exist in the database.',
+            'date.required' => 'The date is required.',
+            'total_amount.required' => 'The total amount is required.',
+            'total_amount.numeric' => 'The total amount must be a number.',
+            'total_amount.min' => 'The total amount must be at least :min.',
+        ];
+    
+        $validatedData = $request->validate([
+            'requistion_id' => ['required', 'exists:requistions,id'],
+            'remark' => ['nullable', 'string', 'max:255'],
+            'date' => ['required', 'date'],
+            'total_amount' => ['required', 'numeric', 'min:0'],
+            'total_discount_amount' => ['nullable', 'numeric', 'min:0'],
+            'net_total_amount' => ['required', 'numeric', 'min:0'],
+            'advance_tax_percentage' => ['nullable', 'numeric', 'min:0'],
+            'advance_tax_amount' => ['nullable', 'numeric', 'min:0'],
+            'sale_tax_percentage' => ['nullable', 'numeric', 'min:0'],
+            'products.*' => ['required'],
+            'products.*.id' => ['required', 'exists:products,id'],
+            'products.*.deliver_qty' => ['required', 'integer', 'min:0'],
+            'products.*.bonus' => ['nullable', 'integer', 'min:0'],
+            'products.*.expiry_date' => ['required', 'date'],
+            'products.*.batch_no' => ['required', 'integer', 'min:0'],
+            'products.*.totalprice2' => ['required', 'numeric', 'min:0'],
+            'products.*.discount' => ['nullable', 'numeric', 'min:0'],
+            'products.*.saletax_percentage' => ['nullable', 'numeric'],
+            'products.*.saletax_amount' => ['nullable', 'numeric'],
+        ], $customMessages);
+    
+        // Validation succeeded
+        return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+    }
+
 }

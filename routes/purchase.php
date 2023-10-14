@@ -16,6 +16,7 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
     Route::get('requistions/products/list', [RequistionController::class, 'products'])->name('requistions.products');
     Route::post('requistions/product', [RequistionController::class, 'productDetails'])->name('requistions.product.show');
     Route::post('requistions/import-excel', [RequistionController::class, 'importExcel'])->name('requistions.import-excel');
+    Route::post('/validate-requistions', [RequistionController::class, 'validateRequistion']);
     Route::post('requistions/document/import', [RequistionController::class, 'importDocument'])->name('requistions.import-document');
     // Purchase Requistion Print
     Route::get('requistions/print/{requistion}', [RequistionController::class, 'print'])->name('requistions.print');
@@ -36,6 +37,11 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
     Route::get('good-receive-statuses', [GoodReceiveStatusController::class, 'index'])->name('good-receive-statuses.index');
     Route::get('good-receive-statuses/{goodReceiveNote}', [GoodReceiveStatusController::class, 'show'])->name('good-receive-statuses.show');
     Route::patch('good-receive-statuses/{goodReceiveNote}', [GoodReceiveStatusController::class, 'status'])->name('good-receive-statuses.status');
+
+
+
+    // Validation Route
+    Route::post('/validate-goodreceivenote', [GoodReceiveNoteController::class, 'validateGoodReceiveNote']);
 
     Route::resource('purchaseorderlist', PurchaseOrderListController::class);
     Route::get('purchase-order-list/filter', [PurchaseOrderListController::class, 'filter'])->name('purchaseorder.list.filter');

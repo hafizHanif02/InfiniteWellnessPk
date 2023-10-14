@@ -7,6 +7,8 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Add Good Receive Note</h3>
+                
+                
                 <a href="{{ route('purchase.good_receive_note.index') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">
@@ -165,8 +167,14 @@
                     </div>
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{{ route('purchase.good_receive_note.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-goodreceivenote-button"
-                            class="btn btn-primary ms-3">Save</button>
+                        {{-- <button type="button" id="save-goodreceivenote-button"
+                            class="btn btn-primary ms-3">Save</button> --}}
+                        <!-- Add this button and message div to your HTML form -->
+                        {{-- <div class="row d-flex justify-content-end"> --}}
+                            <button type="submit" id="save-goodreceivenote-button-check" class="btn btn-primary ms-3">Save</button>
+                            {{-- <button type="button" id="save-goodreceivenote-button-check" class="btn btn-secondary ms-3">Check</button> --}}
+                        {{-- </div> --}}
+                        
                     </div>
                 </form>
             </div>
@@ -361,6 +369,20 @@
             });
 
 
+            
+            // $('#save-goodreceivenote-button-check').on('click', function() {
+            //     // console.log('Add');
+            //     // $(this).prop('disabled', true);
+            //     // $('#save-goodreceivenote-form').submit();
+
+                
+
+            // });
+
+
+
+
+
 
 
 
@@ -421,6 +443,71 @@
                 $('#net_total_amountcosts2').val(Totalamountwithdisc);
                 $('#net_total_amountcosts3').val(Totalamountwithdisc);
             }
+
+$(document).ready(function() {
+    $('#save-goodreceivenote-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        // Perform your AJAX request here
+        $.ajax({
+            url: '/purchase/validate-goodreceivenote',
+            type: 'post',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                console.log('Response:', response);
+                if (response.valid) { 
+                    console.log('Before form submission');
+                    $('#save-goodreceivenote-form')[0].submit();
+                    console.log('After form submission');
+                } else {
+                    $('#validation-message').text(response.message);
+                    $('#validation-message').show();
+                }
+
+            },
+            error: function(xhr, status, error) {
+                // $('#validation-message').html(xhr.responseJSON.message);
+                
+                $('.wrapper').append(
+                    ` <div class="alert alert-danger">
+                        <div>
+                            <div class="d-flex">
+                                <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .alert{
+                            position: absolute;
+                            background: white;
+                            width: 290px;
+                            padding: 40px;
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            top: 10px;
+                            right: 10px;
+                        }
+                        .icon-sm {
+                            font-size: 106px !important;
+                        }
+                        .validationError{
+                            font-weight:900;
+                            color:#2f2f2f;
+                            letter-spacing:2px;
+                        }
+                    </style>
+                    `
+        );
+                $('.alert').delay(5000).slideUp(300)
+                $('.alert').delay(50000).slideUp(300, function() {
+                    $('.alert').attr('style', 'display:none')
+                })
+    }
+        });
+    });
+});
         </script>
+     
     @endpush
 </x-layouts.app>
