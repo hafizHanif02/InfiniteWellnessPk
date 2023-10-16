@@ -28,8 +28,8 @@
                     <label for="is_cash" class="form-label">Payment Method</label>
                     <select class="form-control" name="is_cash" id="is_cash" onchange="updateQueryString('is_cash',this.value)">
                         <option value="" selected disabled>Select Pay Method</option>
-                        <option @if(request('is_cash') == '0') selected @endif value="0">Cash</option>
-                        <option @if(request('is_cash') == '1') selected @endif value="1">Card</option>
+                        <option @if(request('is_cash') == '1') selected @endif value="1">Cash</option>
+                        <option @if(request('is_cash') == '0') selected @endif value="0">Card</option>
                     </select>
                 </div>
                 <div class="mt-5">
@@ -56,7 +56,7 @@
                             <td>{{ $ps->created_at->format('Y-m-d') }}</td>
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
-                            <td>{{$ps->is_cash ?'Card':'Cash' }}</td>
+                            <td>{{$ps->is_cash ?'Cash':'Card' }}</td>
                             <td>Sale</td>
                             <td>{{ $ps->total_amount }}
                                 <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
@@ -75,7 +75,7 @@
                             <td>{{ $posreturn->created_at->format('Y-m-d') }}</td>
                             <td>{{ $posreturn->id }}</td>
                             <td>{{ $posreturn->pos->patient_name }}</td>
-                            <td>{{$posreturn->pos->is_cash ?'Card':'Cash' }}</td>
+                            <td>{{$posreturn->pos->is_cash ?'Cash':'Card' }}</td>
                             <td>Return Sale</td>
                             <td>-{{ $posreturn->total_amount }}
                                 <input type="hidden" value="{{ $posreturn->total_amount }}" class="totalamountdetect" id="totalamountdetect" >
