@@ -83,6 +83,7 @@ use App\Http\Controllers\PathologyTestController;
 use App\Http\Controllers\PaymentReportController;
 use App\Http\Controllers\RadiologyTestController;
 use App\Http\Controllers\ChargeCategoryController;
+use App\Http\Controllers\Shift\TransferController;
 use App\Http\Controllers\AdvancedPaymentController;
 use App\Http\Controllers\CurrencySettingController;
 use App\Http\Controllers\DoctorOPDChargeController;
@@ -1043,6 +1044,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('new-stocks-report-print/{transfer}', [NewStockController::class, 'print'])->name('new-stocks.report.print');
         Route::get('transfer-report/export', [NewStockController::class, 'exportTransferReport'])->name('transfer-report.export');
         Route::put('new-stocks/{transfer}', [NewStockController::class, 'updateStatus'])->name('new-stocks.update-status');
+        Route::get('/retransfer/{trnasferId}', [TransferController::class, 'retransfer']);
+
     });
 
     Route::middleware('role:Admin|Patient')->group(function () {

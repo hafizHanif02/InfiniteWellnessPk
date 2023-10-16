@@ -30,9 +30,13 @@ class NewStockController extends Controller
 
         
         if ($request->status == 1) {
+            
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
             foreach ($transfer->transferProducts as $transferProduct) {
-                // dd($transferProduct);
+            Product::where('id', $transferProduct->product_id)->decrement(
+                'total_quantity', $transferProduct->total_piece);
+
+        
                 $itemCategory = ItemCategory::firstOrCreate([
                     'name' => $transferProduct->product->productCategory->name,
                 ]);
@@ -138,12 +142,7 @@ class NewStockController extends Controller
         $transfer->update([
             'status' => $request->status,
         ]);
-        foreach ($transfer->transferProducts as $transferProduct){
-            // dd($transferProduct);
-            Product::where('id',$transferProduct->product_id)->incrementEach([
-                'total_quantity' => $transferProduct->total_piece
-            ]);
-        }
+        
 
         return back();
     }

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Shift;
 
-use App\Exports\StockOutExport;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Shift\TransferRequest;
-use App\Models\Inventory\Product;
-use App\Models\Shift\Transfer;
-use App\Models\Shift\TransferProduct;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\Shift\Transfer;
+use App\Exports\StockOutExport;
+use App\Models\Inventory\Product;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use App\Models\Shift\TransferProduct;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Shift\TransferRequest;
 
 class TransferController extends Controller
 {
@@ -31,6 +32,7 @@ class TransferController extends Controller
         return view('shift.transfer.create', [
             'products' => Product::orderBy('product_name')->get(),
             'transfer_id' => Transfer::latest()->pluck('id')->first(),
+            'transfers' => Transfer::with('transferProducts.product')->get(),
         ]);
     }
 
@@ -58,7 +60,6 @@ class TransferController extends Controller
                 'amount' => $product['amount']
             ]);
 
-            $transferProduct->product->decrement('total_quantity', $product['total_piece']);
         }
 
         return to_route('shift.transfers.index')->with('success', 'Transfer created!');
@@ -69,6 +70,19 @@ class TransferController extends Controller
         return view('shift.transfer.show', [
             'transfer' => $transfer->load('transferProducts.product'),
         ]);
+    }
+
+    public function retransfer($transferId)
+    {
+        
+         $transferProduct = TransferProduct::where('transfer_id',$transferId)->with('product')->get();
+
+         if (!$transferProduct) {
+             return response()->json(['message' => 'Transfer not found'], 404);
+         }
+        //  dd($transferProduct);
+ 
+         return response()->json($transferProduct);
     }
 
 }
