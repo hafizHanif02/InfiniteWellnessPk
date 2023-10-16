@@ -74,10 +74,10 @@ class MedicineTable extends LivewireTableComponent
                 ->view('medicines.templates.columns.selling_price')
                 ->searchable()
                 ->sortable(),
-            Column::make(__('messages.medicine.buying_price'), 'buying_price')
-                ->view('medicines.templates.columns.buying_price')
-                ->searchable()
-                ->sortable(),
+            // Column::make(__('messages.medicine.buying_price'), 'buying_price')
+            //     ->view('medicines.templates.columns.buying_price')
+            //     ->searchable()
+            //     ->sortable(),
             Column::make(__('Total Stock'), 'total_quantity')
                 ->view('medicines.templates.columns.total_quantity')
                 ->searchable()
