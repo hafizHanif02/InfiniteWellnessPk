@@ -241,13 +241,13 @@ class PosController extends Controller
         // Calculate the total quantity and total price from returns
         $posReturnQuantity = PosProductReturn::whereIn('pos_id', $posid)
             ->selectRaw('product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
-            ->groupBy('product_name')
+            ->groupBy('medicine_id')
             ->get();
 
         // Calculate the total quantity from Pos_Product
         $poses = Pos_Product::whereIn('pos_id', $posid)
             ->selectRaw('product_name as productName, SUM(product_quantity) as productQty')
-            ->groupBy('product_name')
+            ->groupBy('medicine_id')
             ->get();
 
         $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
