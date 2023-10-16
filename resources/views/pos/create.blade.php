@@ -533,10 +533,10 @@
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
-                            <select name="products[${a}][product_name]" class="form-control medicine-select" id="medicine${a}" onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
+                            <select name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value=" {{ $medicine->id }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
@@ -596,6 +596,7 @@
 
         function SelectMedicine(id) {
             const selectMedicine = document.getElementById('medicine' + id);
+            // console.log(selectMedicine);
             const totalQuantitySpan = document.getElementById('total_quantity' + id);
             const discountPercentage = document.getElementById('discount_percentage' + id);
 
@@ -604,6 +605,8 @@
             var totalMedicineAmount2 = document.getElementById('product_total_prices2' + id);
             var gst_perc_tag = document.getElementById('gst_percentage' + id);
             var medicineID = document.getElementById('medicineID' + id);
+            var medicineName = document.getElementsByClassName('medicine_name' + id);
+            
             var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
@@ -613,6 +616,8 @@
 
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
+            const MedicineNameData = selectedOption.getAttribute('data-medicine_name');
+
             const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
 
@@ -620,6 +625,7 @@
             discountPercentage.value = fixedDiscount;
             totalMedicineAmount.value = totalPrice;
             totalMedicineAmount2.value = totalPrice;
+            medicineName.value = MedicineNameData;
             medicineID.value = MedicineId;
             gst_perc_tag.value = gstpercentage;
 
