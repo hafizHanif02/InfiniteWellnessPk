@@ -134,7 +134,7 @@
                         <div class="row mb-3 mt-3">
                             <div class="col-md-7">
                                 <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
-                                <input type="number" min="0" id="advance_tax_percentage"
+                                <input type="number" id="advance_tax_percentage"
                                     onkeyup="advanceTax()" placeholder="Advance Tax Percentage"
                                     name="advance_tax_percentage" class="form-control" value="0">
                                 @error('advance_tax_percentage')
