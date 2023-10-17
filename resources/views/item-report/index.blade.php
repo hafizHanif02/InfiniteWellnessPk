@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Item Report
+    POS Item Report
 @endsection
 @section('content')
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -10,8 +10,8 @@
                 @include('flash::message')
                 <div class="table-responsive">
                     <div class="card-header">
-                        <h3>Item Report</h3>
-                        <a href="{{ route('itemReport.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
+                        <h3>POS Item Report</h3>
+                        <a href="{{ route('posItemReport.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
                             target="_blank" class="btn btn-primary mt-3">Print</a>
                     </div>
                     <div class="card-body">
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="mt-5">
-                                <a href="{{ route('itemReport.index') }}" class="btn btn-secondary mt-3">Reset</a>
+                                <a href="{{ route('posItemReport.index') }}" class="btn btn-secondary mt-3">Reset</a>
                                 <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to
                                     Excel</button>
 

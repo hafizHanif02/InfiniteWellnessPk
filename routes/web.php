@@ -704,9 +704,6 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
 
-        Route::get('item-report', [PosController::class, 'itemReport'])->name('itemReport.index');
-        Route::get('item-report-print', [PosController::class, 'itemReportPrint'])->name('itemReport.print');
-
 
 
 
@@ -1045,6 +1042,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('transfer-report/export', [NewStockController::class, 'exportTransferReport'])->name('transfer-report.export');
         Route::put('new-stocks/{transfer}', [NewStockController::class, 'updateStatus'])->name('new-stocks.update-status');
         Route::get('/retransfer/{trnasferId}', [TransferController::class, 'retransfer']);
+
+        Route::get('item-report-pos', [PosController::class, 'posItemReport'])->name('posItemReport.index');
+        Route::get('pos-item-report-print', [PosController::class, 'posItemReportPrint'])->name('posItemReport.print');
 
     });
 

@@ -801,9 +801,9 @@
 </li>
 
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
-    <a class="nav-link p-0 {{ Request::is('item-report') ? 'active' : '' }}"
-       href="{{ route('itemReport.index') }}">
-       Item Report
+    <a class="nav-link p-0 {{ Request::is('item-report-pos') ? 'active' : '' }}"
+       href="{{ route('posItemReport.index') }}">
+       POS Item Report
     </a>
 </li>
 @endmodule

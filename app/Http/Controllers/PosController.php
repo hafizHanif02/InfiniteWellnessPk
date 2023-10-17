@@ -238,7 +238,7 @@ class PosController extends Controller
     }
 
     
-    public function itemReport(Request $request)
+    public function posItemReport(Request $request)
     {
         $posid = Pos_Product::pluck('pos_id');
 
@@ -280,7 +280,7 @@ class PosController extends Controller
     }
 
 
-    public function itemReportPrint(Request $request)
+    public function posItemReportPrint(Request $request)
     {
         $posid = Pos_Product::pluck('pos_id');
 
