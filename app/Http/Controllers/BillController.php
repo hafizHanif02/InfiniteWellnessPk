@@ -159,7 +159,7 @@ class BillController extends AppBaseController
         } else {
 
             $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
-            dd($bill);
+            // dd($bill);
 
             $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
             //$bill->doctor = $docData;
