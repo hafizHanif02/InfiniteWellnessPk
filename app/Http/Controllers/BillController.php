@@ -56,10 +56,10 @@ class BillController extends AppBaseController
         $dd2 = DB::table('dental_opd_patient_departments')->get();
         $db = [];
         foreach ($dd as $d) {
-            $db[$d->opd_number] = $d->opd_number;
+            $db[$d->patient_id] = $d->opd_number;
         }
         foreach ($dd2 as $d) {
-            $db[$d->opd_number] = $d->opd_number;
+            $db[$d->patient_id] = $d->opd_number;
         }
 
         $data = $this->billRepository->getSyncList(false);
@@ -116,6 +116,7 @@ class BillController extends AppBaseController
      */
     public function store(CreateBillRequest $request)
     {
+
 
         try {
             DB::beginTransaction();
