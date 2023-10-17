@@ -200,7 +200,7 @@ input.onchange  = function() {
 
         console.log(data['first_name'] );
 
-            document.getElementById('billsPatientId').value = selectedText;
+            document.getElementById('billsPatientId').value = data.id;
             document.getElementById('pAdmissionId').value = txt;
             document.getElementById('name').value = data['first_name'] + " " + data['last_name'];
             document.getElementById('userEmail').value = data['email'];

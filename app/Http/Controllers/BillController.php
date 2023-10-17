@@ -90,17 +90,16 @@ class BillController extends AppBaseController
         if(count($docID) == 0){
             $docID = DB::table('dental_opd_patient_departments')->where(['opd_number' => $request->opdID])->get();
         }
-
+        
         $patientData = DB::table('users')->where(['owner_id' => $docID[0]->patient_id])->where('owner_type', 'LIKE', '%Patient%')->first();
-
-
-
+        
         $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
         $patientData->doctor = $docData;
-
-        if($docID->is_old_patient){
+        
+        if($docID[0]->is_old_patient){
             $patientData->charges = $docID[0]->standard_charge;
-        }else{
+        }
+        else{
             $patientData->charges = $docID[0]->standard_charge;
         }
 
@@ -160,6 +159,7 @@ class BillController extends AppBaseController
         } else {
 
             $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
+            dd($bill);
 
             $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
             //$bill->doctor = $docData;
