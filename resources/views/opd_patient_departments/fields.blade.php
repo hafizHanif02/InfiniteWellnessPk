@@ -1,4 +1,3 @@
-{{-- Backup File --}}
 {{ Form::hidden('revisit', (isset($data['last_visit'])) ? $data['last_visit']->id : null) }}
 {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
 <div class="row gx-10 mb-5">

@@ -56,7 +56,6 @@ class OpdPatientDepartmentController extends AppBaseController
 
     public function create(Request $request)
     {
-        // $departments = $this->appointmentRepository->getDoctorDepartments();
         $data = $this->opdPatientDepartmentRepository->getAssociatedData();
         $data['revisit'] = ($request->get('revisit')) ? $request->get('revisit') : 0;
         if ($data['revisit']) {

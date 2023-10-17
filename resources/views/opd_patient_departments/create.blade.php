@@ -24,8 +24,7 @@
                 {{Form::hidden('doctorOpdChargeUrl',route('getDoctor.OPDcharge'),['id'=>'createDoctorOpdChargeUrl','class'=>'doctorOpdChargeUrl'])}}
                 {{Form::hidden('isEdit',false,['class'=>'isEdit'])}}
                 {{Form::hidden('lastVisit',(isset($data['last_visit'])) ? $data['last_visit']->patient_id : false,['id'=>'createOpdLastVisit','class'=>'lastVisit'])}}
-                {{ Form::hidden('getBookingSlot', route('get.booking.slot'), ['class' => 'getBookingSlot']) }}
-                
+
                 <div class="card-body">
                     {{ Form::open(['route' => ['opd.patient.store'], 'method'=>'post', 'id' => 'createOpdPatientForm']) }}
                     @include('opd_patient_departments.fields')
@@ -33,7 +32,6 @@
                 </div>
             </div>
         </div>
-        @include('appointments.templates.appointment_slot')
     </div>
 @endsection
 @section('page_scripts')
