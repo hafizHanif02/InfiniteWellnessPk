@@ -10,7 +10,7 @@ use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
