@@ -56,9 +56,8 @@
                 <tr>
                     <th class="text-start no-border">MANUFACTURER:</th>
                     <th class="text-start no-border" colspan="11">
-                        @foreach ($goodReceiveNote->requistion->requistionProducts as $requistionProduct)
-                            {{ $requistionProduct->product->manufacturer->company_name }}
-                        @endforeach
+                        {{$grnManufactureName}}
+                        
                     </th>
                 </tr>
                 <tr>

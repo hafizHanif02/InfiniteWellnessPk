@@ -10,6 +10,7 @@ use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
+
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
@@ -142,9 +143,13 @@ class GoodReceiveNoteController extends Controller
         // foreach ($goodreceiveproduct as $product) {
         //     $totalproductamount += $product->item_amount;
         // }
-
+        //requistion_id
+        $grn = GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first();
+        $rec = Requistion::where('id', $grn->requistion_id)->first();
+        $manuFacname = DB::table('manufacturers')->where('id', $rec->manufacturer_id )->first();
         return view('purchase.goodreceivenote.print', [
-            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first(),
+            'goodReceiveNote' => $grn,
+            'grnManufactureName' => $manuFacname->company_name,
             // 'goodreceiveproduct' => $goodreceiveproduct,
             // 'totalproductamount' => $totalproductamount,
         ]);
