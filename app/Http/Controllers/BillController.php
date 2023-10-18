@@ -168,7 +168,7 @@ class BillController extends AppBaseController
             }else{
                 $docData = null;
             }
-            
+
             //$bill->doctor = $docData;
 
         }
@@ -262,7 +262,8 @@ class BillController extends AppBaseController
                 $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
 
                 if (!$docData) {
-                    throw new \Exception("Doctor data not found");
+                    // throw new \Exception("Doctor data not found");
+                    $docData = "Doctor Not Found!";
                 }
 
                 $bill->doctor = $docData->first_name.' '.$docData->last_name;
@@ -274,7 +275,10 @@ class BillController extends AppBaseController
             return $pdf->stream('bill.pdf');
         } catch (\Exception $e) {
             // Handle the exception here
-            return response()->json(['error' => $e->getMessage()], 500);
+            $docData = "Doctor Not Found!";
+            return view('bills.bill_pdf',$data);
+
+            // return response()->json(['error' => $e->getMessage()], 500);
         }
 
     }
