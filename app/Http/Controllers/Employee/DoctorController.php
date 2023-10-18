@@ -24,7 +24,7 @@ class DoctorController extends Controller
      * @throws Exception
      */
     public function index(Request $request)
-    {
+    {       
         if ($request->ajax()) {
             return Datatables::of((new DoctorDataTable())->get())
                 ->addColumn(User::IMG_COLUMN, function (Doctor $doctor) {
