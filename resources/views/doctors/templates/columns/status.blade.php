@@ -1,6 +1,6 @@
 @if(Auth::user()->hasRole('Patient|Doctor|Case Manager|Nurse|Receptionist|Lab Technician|Pharmacist'))
     @if(Auth::user()->hasRole('Doctor'))
-    @if($row->status)
+    @if($row->doctorUser->status)
     
             <span class="badge bg-light-success">{{__('messages.common.active')}} </span>
         @else
