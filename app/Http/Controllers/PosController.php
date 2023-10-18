@@ -167,14 +167,29 @@ class PosController extends Controller
 
     public function edit($id)
     {
-        //
+        return view('pos.edit', [
+            'pos' => Pos::find($id),
+            'pos_products' => pos_product::where('pos_id', $id),
+            'medicines' => Medicine::with('product')->get(),
+            'patients' => Patient::with('user')->get(),
+            'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
+        ]);
     }
 
 
 
-    public function update(Request $request, $id)
+    public function update(PosRequest $request, $id)
     {
-        //
+        Pos::find($id)->update($request->all());
+        Pos_Product::where('pos_id', $id)->delete();
+        foreach ($request->input('products') as $productData) {
+            Pos_Product::create(array_merge($productData, ['pos_id' => $id]));
+        }
+
+        Flash::message('POS Updated!');  
+        // return to_route('pos.index');
+        return redirect()->route('pos.index');
+
     }
 
     public function destroy($id)
@@ -238,7 +253,7 @@ class PosController extends Controller
     }
 
     
-    public function itemReport(Request $request)
+    public function posItemReport(Request $request)
     {
         $posid = Pos_Product::pluck('pos_id');
 
@@ -280,7 +295,7 @@ class PosController extends Controller
     }
 
 
-    public function itemReportPrint(Request $request)
+    public function posItemReportPrint(Request $request)
     {
         $posid = Pos_Product::pluck('pos_id');
 

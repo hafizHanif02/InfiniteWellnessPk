@@ -10274,21 +10274,43 @@
                   data: { id: $(this).val() },
                   success: function (e) {
                   console.log(e);
-                  if($('#is_old_patient_checkbox')[0].checked){
-                    0 !== e.data.length
-                      ? $("#opdStandardCharge,#editOpdStandardCharge").val(
-                          e.data[0].followup_charge
-                        )
-                      : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                //   if($('#is_old_patient_checkbox')[0].checked){
+                //     0 !== e.data.length
+                //       ? $("#opdStandardCharge,#editOpdStandardCharge").val(
+                //           e.data[0].followup_charge
+                //         );
+                //         $('#doctor_id_for_schedule').val(
+
+                //         )
+                //       : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                // addAmount();
+                //   }else {
+                //     0 !== e.data.length
+                //       ? $("#opdStandardCharge,#editOpdStandardCharge").val(
+                //           e.data[0].standard_charge
+                //         )
+                //       : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+                // addAmount();
+                //   }
+                  if ($('#is_old_patient_checkbox')[0].checked) {
+                    if (e.data.length !== 0) {
+                        $("#opdStandardCharge, #editOpdStandardCharge").val(e.data[0].followup_charge);
+                        $("#doctor_id_for_schedule").val(e.data[0].doctor.id);
+                    } else {
+                        $("#opdStandardCharge, #editOpdStandardCharge").val(0);
+                    }
                 addAmount();
-                  }else {
-                    0 !== e.data.length
-                      ? $("#opdStandardCharge,#editOpdStandardCharge").val(
-                          e.data[0].standard_charge
-                        )
-                      : $("#opdStandardCharge,#editOpdStandardCharge").val(0);
+
+                } else {
+                    if (e.data.length !== 0) {
+                        $("#opdStandardCharge, #editOpdStandardCharge").val(e.data[0].standard_charge);
+                        $("#doctor_id_for_schedule").val(e.data[0].doctor.id);
+                    } else {
+                        $("#opdStandardCharge, #editOpdStandardCharge").val(0);
+                    }
                 addAmount();
-                  }
+
+                }
                     
                   }
                 });

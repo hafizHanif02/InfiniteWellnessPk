@@ -699,13 +699,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::resource('pos', PosController::class);
         Route::get('pos/proceed-to-pay-page/{pos}', [PosController::class, 'ProceedToPayPage'])->name('pos.proceed-to-pay-page');
         Route::post('pos/updatetocheckout/{pos}', [PosController::class, 'ProceedToPay'])->name('pos.updatetocheckout');
+        Route::post('pos/update/{pos}', [PosController::class, 'update'])->name('pos.update');
         Route::get('pos/enter-paymethod/{pos}', [PosController::class, 'EnterPayMethod'])->name('pos.enter-paymethod');
         Route::post('pos/paid/{pos}', [PosController::class, 'Payment'])->name('pos.paid');
         Route::get('pos/print/{pos}', [PosController::class, 'Print'])->name('pos.print');
         Route::get('/pos/prescription/list', [PosController::class, 'prescription'])->name('pos.prescription.list');
 
-        Route::get('item-report', [PosController::class, 'itemReport'])->name('itemReport.index');
-        Route::get('item-report-print', [PosController::class, 'itemReportPrint'])->name('itemReport.print');
 
 
 
@@ -1045,6 +1044,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('transfer-report/export', [NewStockController::class, 'exportTransferReport'])->name('transfer-report.export');
         Route::put('new-stocks/{transfer}', [NewStockController::class, 'updateStatus'])->name('new-stocks.update-status');
         Route::get('/retransfer/{trnasferId}', [TransferController::class, 'retransfer']);
+
+        Route::get('item-report-pos', [PosController::class, 'posItemReport'])->name('posItemReport.index');
+        Route::get('pos-item-report-print', [PosController::class, 'posItemReportPrint'])->name('posItemReport.print');
 
     });
 

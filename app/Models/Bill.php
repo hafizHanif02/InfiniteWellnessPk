@@ -30,7 +30,7 @@ class Bill extends Model
         'id' => 'integer',
         'patient_admission_id' => 'string',
         'currency_symbol' => 'string',
-        'patient_id' => 'integer',
+        'patient_id' => 'string',
         'bill_id' => 'string',
         'bill_date' => 'datetime',
         'amount' => 'double',
