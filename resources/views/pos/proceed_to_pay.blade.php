@@ -94,7 +94,7 @@
                 </table>
                 <div class="row text-center">
                     <div class="mb-5">
-                        <button type="submit" class="btn btn-primary">Proceede To Checkout</button>
+                        <button type="submit" class="btn btn-primary">Proceed To Checkout</button>
                     </div>
                 </div>
             </div>

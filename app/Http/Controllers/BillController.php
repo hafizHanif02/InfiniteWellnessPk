@@ -161,11 +161,14 @@ class BillController extends AppBaseController
 
             $docID = DB::table('opd_patient_departments')->where(['opd_number' => $bill->patient_admission_id])->get();
             // dd($bill);
-
-            $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
+            if (isset($docID[0])) {
+                $docData = DB::table('users')->where(['owner_id' => $docID[0]->doctor_id])->where('owner_type', 'LIKE', '%Doctor%')->first();
+                $bill->doctor = $docData->first_name.' '.$docData->last_name;
+            }else{
+                $docData = null;
+            }
             //$bill->doctor = $docData;
 
-            $bill->doctor = $docData->first_name.' '.$docData->last_name;
         }
 
         return view('bills.show')->with('bill', $bill);
