@@ -38,6 +38,12 @@
                         <br>
                         <span class="font-weight-bold patient-detail-heading">{{ __('messages.bill.bill_date') }}:</span>
                         {{ \Carbon\Carbon::parse($bill->bill_date)->format('jS M,Y g:i A') }}
+                        <table class="patient-detail-two">
+                            <tr>
+                                <td class="font-weight-bold">{{ __('messages.investigation_report.doctor') }}:</td>
+                                <td>{{ $bill->patientAdmission ? $bill->patientAdmission->doctor->doctorUser->full_name : $bill->doctor  }}</td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -76,21 +82,7 @@
                         </table>
                     </td>
                     <td>
-                        <table class="patient-detail-two">
-                            <tr>
-                                <td class="font-weight-bold">{{ __('messages.investigation_report.doctor') }}:</td>
-                                <td>{{ $bill->patientAdmission ? $bill->patientAdmission->doctor->doctorUser->full_name : $bill->doctor  }}</td>
-                            </tr>
 
-                            {{--                            <tr>--}}
-                            {{--                                <td class="font-weight-bold">{{ __('messages.bill.total_days') }}</td>--}}
-                            {{--                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y') : '' }}</td>--}}
-                            {{--                            </tr>--}}
-                            {{-- <tr>
-                                <td class="font-weight-bold">{{ __('messages.bill.policy_no') }}:</td>
-                                <td>{{ !empty($bill->patientAdmission->policy_no)  ? $bill->patientAdmission->policy_no : 'N/A' }}</td>
-                            </tr> --}}
-                        </table>
                     </td>
                 </tr>
                 <tr>
