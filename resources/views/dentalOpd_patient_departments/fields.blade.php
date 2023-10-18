@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2">
+    {{-- <div class="col-md-2">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('height', __('messages.ipd_patient.height') . ':', ['class' => 'form-label']) }}
@@ -51,7 +51,7 @@
                 {{ Form::number('bp', isset($data['last_visit']) ? $data['last_visit']->bp : null, ['class' => 'form-control']) }}
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">

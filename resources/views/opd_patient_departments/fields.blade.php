@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2">
+    {{-- <div class="col-md-2">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('height', __('messages.ipd_patient.height').':', ['class' => 'form-label']) }}
@@ -51,13 +51,13 @@
                 {{ Form::number('bp', (isset($data['last_visit'])) ? $data['last_visit']->bp : null, ['class' => 'form-control']) }}
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('appointment_date', __('messages.opd_patient.appointment_date').':', ['class' => 'form-label']) }}
                 <span class="required"></span>
-                {{ Form::text('appointment_date', null, ['class' => (getLoggedInUser()->thememode ? 'bg-light form-control' : 'bg-white form-control'),'id' => 'opdAppointmentDate','autocomplete' => 'off', 'required']) }}
+                {{ Form::text('appointment_date', null, ['class' => (getLoggedInUser()->thememode ? 'bg-light form-control' : 'bg-white form-control'),'id' => 'opdAppointmentDate','autocomplete' => 'off', 'required','onchange' => 'fetchDoctorSchedule()']) }}
             </div>
         </div>
     </div>
@@ -80,6 +80,7 @@
                         {{ Form::text('standard_charge', null , ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
                         <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
                     </div>
+                    {{ Form::hidden('doctor_id_for_schedule', null, ['class' => 'form-control price-input', 'id' => 'doctor_id_for_schedule', 'required']) }}
                 </div>
             </div>
         </div>
@@ -118,7 +119,25 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+</div>
+<div class="form-group col-sm-6 mb-5">
+    <div class="doctor-schedule" style="display: none">
+        <i class="fas fa-calendar-alt"></i>
+        <span class="day-name"></span>
+        <span class="schedule-time"></span>
+    </div>
+    <strong class="error-message" style="display: none"></strong>
+    <div class="slot-heading">
+        <h3 class="available-slot-heading"
+                style="display: none">{{ __('messages.appointment.available_slot').':' }}</h3>
+    </div>
+    <div class="row">
+        <div class="available-slot form-group col-sm-12">
+        </div>
+    </div>
+    <div align="right" style="display: none">
+        <span><i class="fa fa-circle color-information" aria-hidden="true"> </i> {{ __('messages.appointment.no_available') }}</span>
     </div>
 </div>
 <div class="d-flex justify-content-end">
@@ -172,6 +191,31 @@ function updateInputFieldName(isChecked) {
                   }});
    
 }
+
+
+function fetchDoctorSchedule() {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const selectedDate = new Date($('#opdAppointmentDate').val());
+    const dayName = daysOfWeek[selectedDate.getDay()];
+
+    $.ajax({
+    url: '/doctor-schedule-list',
+    type: 'get',
+    dataType: 'json',
+    data: {
+        doctor_id: $('#doctor_id_for_schedule').val(),
+        day_name: dayName // Get the day name from the selected date
+    },
+    success: function(data) {
+        console.log(data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        // Handle errors
+    }
+});
+
+}
+
 
 // Add an event listener to detect changes in the checkbox
 checkbox.addEventListener('change', function () {

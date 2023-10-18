@@ -277,7 +277,7 @@ class OpdPatientDepartmentController extends AppBaseController
      */
     public function getDoctorOPDCharge(Request $request)
     {
-        $doctorOPDCharge = DoctorOpdCharge::whereDoctorId($request->get('id'))->get();
+        $doctorOPDCharge = DoctorOpdCharge::whereDoctorId($request->get('id'))->with('doctor')->get();
 
         return $this->sendResponse($doctorOPDCharge, 'Doctor OPD Charge retrieved successfully.');
     }
