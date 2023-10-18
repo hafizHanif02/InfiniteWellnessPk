@@ -508,7 +508,7 @@ class PatientController extends AppBaseController
 
     public function submitForm(Request $request)
     {
-        // return $request;
+        // dd($request);
         $reqArray = $request->all();
         foreach ($reqArray as $fieldName => $fieldValue) {
             if ($fieldValue != null) {

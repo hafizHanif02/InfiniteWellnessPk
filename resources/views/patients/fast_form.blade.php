@@ -180,7 +180,7 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox"
+                        <input class="form-check-input" type="checkbox" 
                             name="sedentaryLifestyle" id="sedentaryLifestyle"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'sedentaryLifestyle' && $item->fieldValue == '1')
@@ -199,7 +199,7 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox" name="lightActivity"
+                        <input class="form-check-input" type="checkbox"  name="lightActivity"
                             id="lightActivity"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'lightActivity' && $item->fieldValue == '1')
@@ -218,7 +218,7 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox" name="RegularExercise"
+                        <input class="form-check-input" type="checkbox"  name="RegularExercise"
                             id="RegularExercise"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'RegularExercise' && $item->fieldValue == '1')
@@ -237,7 +237,7 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox"  name="yoga" id="yoga"
+                        <input class="form-check-input" type="checkbox"   name="yoga" id="yoga"
                         @foreach ($formData as $item)
                 @if ($item->fieldName == 'yoga' && $item->fieldValue == '1')
                     value="1"
@@ -256,18 +256,18 @@
 
                     <div class="col-md-3">
 
-                        <input class="form-check-input" type="checkbox"  name="meditation"
+                        <input class="form-check-input" type="checkbox"   name="meditation"
                             id="meditation"
                             @foreach ($formData as $item)
-                @if ($item->fieldName == 'meditation' && $item->fieldValue == '1')
-                    value="1"
-                    checked
-                    @break
-                @elseif($item->fieldName == 'meditation' && $item->fieldValue == '0')
-                    value="0"
-                    @break
-                @endif
-            @endforeach>
+                                @if ($item->fieldName == 'meditation' && $item->fieldValue == '1')
+                                    value="1"
+                                    checked
+                                    @break
+                                @elseif($item->fieldName == 'meditation' && $item->fieldValue == '0')
+                                    value="0"
+                                    @break
+                                @endif
+                            @endforeach>
                         <label class="form-check-label" for="meditation">
                             Meditation
                         </label>
@@ -384,7 +384,7 @@
                     <h3 class="text-uppercase"> <u>Co-Morbids</u></h3>
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"  name="hypertension"
+                        <input class="form-check-input" type="checkbox"   name="hypertension"
                             id="hypertension"
                             @foreach ($formData as $item)
                                 @if ($item->fieldName == 'hypertension' && $item->fieldValue == '1')
@@ -403,7 +403,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"  name="diabetesMiletus"
+                        <input class="form-check-input" type="checkbox"   name="diabetesMiletus"
                             id="diabetesMiletus"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'diabetesMiletus' && $item->fieldValue == '1')
@@ -422,7 +422,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"
+                        <input class="form-check-input" type="checkbox" 
                             name="ischemicHeartDisease" id="ischemicHeartDisease"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'ischemicHeartDisease' && $item->fieldValue == '1')
@@ -440,7 +440,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"
+                        <input class="form-check-input" type="checkbox" 
                             name="depressionOrAnxiety" id="depressionOrAnxiety"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'depressionOrAnxiety' && $item->fieldValue == '1')
@@ -459,7 +459,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"
+                        <input class="form-check-input" type="checkbox" 
                             name="alzheimersDisease" id="alzheimersDisease"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'alzheimersDisease' && $item->fieldValue == '1')
@@ -478,7 +478,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"  name="chronicUrticaria"
+                        <input class="form-check-input" type="checkbox"   name="chronicUrticaria"
                             id="chronicUrticaria"
                             @foreach ($formData as $item)
                 @if ($item->fieldName == 'chronicUrticaria' && $item->fieldValue == '1')
@@ -497,7 +497,7 @@
 
 
                     <div class="col-md-3">
-                        <input class="form-check-input" type="checkbox"  name="eczema" id="eczema"
+                        <input class="form-check-input" type="checkbox"   name="eczema" id="eczema"
                         @foreach ($formData as $item)
                 @if ($item->fieldName == 'eczema' && $item->fieldValue == '1')
                     value="1"
@@ -1493,4 +1493,28 @@
     </form>
         </div>
     </div>
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+          var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+          checkboxes.forEach(function(checkbox) {
+            var hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = checkbox.name;
+            checkbox.parentNode.insertBefore(hiddenInput, checkbox);
+    
+            checkbox.addEventListener("change", function() {
+              if (this.checked) {
+                this.value = "1";
+                hiddenInput.value = "1";
+                console.log(this.name + ": " + this.value);
+              } else {
+                this.value = "0";
+                hiddenInput.value = "0";
+                console.log(this.name + ": " + this.value);
+              }
+            });
+          });
+        });
+    </script>
     @endsection
