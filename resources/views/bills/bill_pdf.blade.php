@@ -76,7 +76,7 @@
                             </tr>
                             <tr>
                                 <td class="font-weight-bold">{{ __('messages.user.dob') }}:</td>
-                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y g:i A') : 'N/A' }}</td>
+                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob) : 'N/A' }}</td>
                             </tr>
                         </table>
                     </td>
