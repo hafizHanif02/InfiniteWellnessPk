@@ -256,24 +256,24 @@
                             <div class="col-md-6">
                                 <label for="total_saletax">Total Sale Tax</label>
                                 <input type="number" step="any"class="form-control" id="total_saletax"
-                                    name="total_saletax" readonly value="{{ $pos->total_saletax }}">
+                                    name="total_saletax" readonly value="">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_discount">Total Discount</label>
                                 <input type="number" step="any"class="form-control" id="total_discount"
-                                    name="total_discount" readonly value="{{ $pos->total_discount }}">
+                                    name="total_discount" readonly value="">
                             </div>
                         </div>
                         <div class="row mb-5 mt-5">
                             <div class="col-md-6">
                                 <label for="total_amount_ex_saletax">Total Amount Exclusive Sale Tax</label>
                                 <input type="number" step="any"class="form-control" id="total_amount_ex_saletax"
-                                    name="total_amount_ex_saletax" readonly value="{{ $pos->total_amount_ex_saletax }}">
+                                    name="total_amount_ex_saletax" readonly value="">
                             </div>
                             <div class="col-md-6">
                                 <label for="total_amount_inc_saletax">Total Amount Inclusive Sale Tax</label>
                                 <input type="number" step="any"class="form-control" id="total_amount_inc_saletax"
-                                    name="total_amount_inc_saletax" readonly value="{{ $pos->total_amount_inc_saletax }}">
+                                    name="total_amount_inc_saletax" readonly value="">
                             </div>
                         </div>
 
@@ -287,7 +287,7 @@
                             <div class="col-md-6">
                                 <label for="total_amount">Grand Total Amount</label>
                                 <input type="number" step="any"class="form-control" id="total_amount"
-                                    name="total_amount" readonly value="{{ $pos->total_amount }}" placeholder="Total Price">
+                                    name="total_amount" readonly value="" placeholder="Total Price">
                                 <input type="hidden" id="total_amounts2">
                             </div>
                         </div>
