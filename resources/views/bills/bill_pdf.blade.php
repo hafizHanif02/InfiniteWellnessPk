@@ -86,10 +86,10 @@
                             {{--                                <td class="font-weight-bold">{{ __('messages.bill.total_days') }}</td>--}}
                             {{--                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y') : '' }}</td>--}}
                             {{--                            </tr>--}}
-                            <tr>
+                            {{-- <tr>
                                 <td class="font-weight-bold">{{ __('messages.bill.policy_no') }}:</td>
                                 <td>{{ !empty($bill->patientAdmission->policy_no)  ? $bill->patientAdmission->policy_no : 'N/A' }}</td>
-                            </tr>
+                            </tr> --}}
                         </table>
                     </td>
                 </tr>
@@ -104,7 +104,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{ __('messages.bill.item_name') }}</th>
+                    <th>Description</th>
                     {{-- <th class="number-align">{{ __('messages.bill.qty') }}</th> --}}
                     <th class="number-align">{{ __('messages.bill.price') }} (<b>{{getCurrencySymbol()}}</b>)
                     </th>
