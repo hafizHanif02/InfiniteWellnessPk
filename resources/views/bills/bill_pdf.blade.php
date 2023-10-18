@@ -38,14 +38,13 @@
                         <br>
                         <span class="font-weight-bold patient-detail-heading">{{ __('messages.bill.bill_date') }}:</span>
                         {{ \Carbon\Carbon::parse($bill->bill_date)->format('jS M,Y g:i A') }}
-                        <table class="patient-detail-two">
-                            <tr>
-                                <td class="font-weight-bold">{{ __('messages.investigation_report.doctor') }}:</td>
-                                <td>{{ $bill->patientAdmission ? $bill->patientAdmission->doctor->doctorUser->full_name : $bill->doctor  }}</td>
-                            </tr>
-                        </table>
+                        <br>
+                        <span class="font-weight-bold patient-detail-heading">{{ __('messages.investigation_report.doctor') }}:</span>
+                        {{ $bill->patientAdmission ? $bill->patientAdmission->doctor->doctorUser->full_name : $bill->doctor  }}
                     </td>
                 </tr>
+            </table>
+            <table>
                 <tr>
                     <td colspan="2"
                         class="font-weight-bold patient-detail-heading">{{ __('messages.patient.patient_details') }}</td>
