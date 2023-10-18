@@ -55,7 +55,7 @@ class MedicineTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make(__('messages.medicine.medicine'), 'name')
+            Column::make('Item', 'name')
                 ->view('medicines.templates.columns.name')
                 ->searchable()
                 ->sortable(),
@@ -67,7 +67,7 @@ class MedicineTable extends LivewireTableComponent
                 ->view('medicines.templates.columns.dosage_form')
                 ->searchable()
                 ->sortable(),
-            Column::make(__('messages.medicine.brand'), 'brand.name')
+            Column::make('Manufacture', 'brand.name')
                 ->searchable()
                 ->sortable(),
             Column::make(__('messages.medicine.selling_price'), 'selling_price')
