@@ -19,7 +19,7 @@
         <td class="header-left">
             <div class="main-heading">{{ __('messages.bill.bill') }}</div>
             <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
-            <div class="invoice-number font-color-gray">Bill 
+            <div class="invoice-number font-color-gray">Bill
                 #{{ $bill->patient_admission_id }}</div>
         </td>
         <td class="header-right">
@@ -81,7 +81,7 @@
                                 <td class="font-weight-bold">{{ __('messages.investigation_report.doctor') }}:</td>
                                 <td>{{ $bill->patientAdmission ? $bill->patientAdmission->doctor->doctorUser->full_name : $bill->doctor  }}</td>
                             </tr>
-                            
+
                             {{--                            <tr>--}}
                             {{--                                <td class="font-weight-bold">{{ __('messages.bill.total_days') }}</td>--}}
                             {{--                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y') : '' }}</td>--}}
@@ -105,7 +105,7 @@
                 <tr>
                     <th>#</th>
                     <th>{{ __('messages.bill.item_name') }}</th>
-                    <th class="number-align">{{ __('messages.bill.qty') }}</th>
+                    {{-- <th class="number-align">{{ __('messages.bill.qty') }}</th> --}}
                     <th class="number-align">{{ __('messages.bill.price') }} (<b>{{getCurrencySymbol()}}</b>)
                     </th>
                     <th class="number-align">{{ __('messages.bill.amount') }} (<b>{{getCurrencySymbol()}}</b>)
@@ -118,7 +118,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $item->item_name }}</td>
-                            <td class="number-align">{{ $item->qty }}</td>
+                            {{-- <td class="number-align">{{ $item->qty }}</td> --}}
                             <td class="number-align">
                                 {{ checkNumberFormat($item->price, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
                             </td>
@@ -148,7 +148,7 @@
                     <td class="font-weight-bold">Total Amount:</td>
                     <td>{{ checkNumberFormat($bill->total_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}</td>
                 </tr>
-                
+
             </table>
         </td>
     </tr>
