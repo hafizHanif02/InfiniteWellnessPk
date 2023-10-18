@@ -118,16 +118,16 @@
                 {{-- {{dd($prescription) }} --}}
                     @foreach($prescription->getMedicine as $medicine)
                                 <tr>
-                                    <td class="py-4 border-bottom-0">{{ $medicine->medicine->name }}</td>
+                                    <td class="py-4 border-bottom-0">{{ ($medicine->medicine === null)?'Medicine Not Found':$medicine->medicine->name }}</td>
                                     <td class="py-4 border-bottom-0">
-                                        {{ $medicine->dosage }}
+                                        {{ ($medicine->dosage === null)?'Not Available':$medicine->dosage }}
                                         @if($medicine->time == 0)
                                             ({{ __('messages.prescription.after_meal') }})
                                         @else
                                             ({{  __('messages.prescription.before_meal')}}) 
                                         @endif
                                     </td>
-                                    <td class="py-4 border-bottom-0">{{ $medicine->day }} Day</td>
+                                    <td class="py-4 border-bottom-0">{{ ($medicine->day === null)?'Not Available':$medicine->day }} Day</td>
                                 </tr>
                     @endforeach
                 @endif
