@@ -186,7 +186,7 @@
                                         <th class="col" style="min-width: 200px">Comment</th> --}}
                                         <th class="col" style="min-width: 130px">Amount</th>
                                         <th class="col" style="min-width: 130px">Generate Label</th>
-                                        <th class="col" style="min-width: 130px">View Label</th>
+                                        {{-- <th class="col" style="min-width: 130px">View Label</th> --}}
                                         <th></th>
                                         <th></th>
                                     </thead>
@@ -437,7 +437,6 @@
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
                     <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
-                    <td><button type="button" id="labelprintbtn${items}" disabled class="btn btn-success" id="labelshow${items}"><a id="anchorlabel${items}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -573,7 +572,7 @@
                                 Add Label
                             </button>
                         </td>
-                        <td><button type="button" id="labelprintbtn${a}" disabled class="btn btn-success" id="labelshow${a}"><a id="anchorlabel${a}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
+                       
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
@@ -902,7 +901,7 @@
                                 Add Label
                             </button>
                         </td>
-                        <td><button type="button" id="labelprintbtn${a}" disabled class="btn btn-success" id="labelshow${a}"><a id="anchorlabel${a}" target="_blank"  style="text-decoration:none;color:white;""><i class="fa fa-eye"></i>View</button></a></td>
+                        
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
