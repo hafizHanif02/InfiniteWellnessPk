@@ -179,8 +179,8 @@
                                         <th class="col" style="min-width: 200px">Quantity</th>
                                         <th class="col" style="min-width: 200px">Discount Percentage</th>
                                         <th class="col" style="min-width: 200px">GST %</th>
-                                        <th class="col" style="min-width: 200px">Time</th>
-                                        <th class="col" style="min-width: 200px">Comment</th>
+                                        {{-- <th class="col" style="min-width: 200px">Time</th>
+                                        <th class="col" style="min-width: 200px">Comment</th> --}}
                                         <th class="col" style="min-width: 200px">Price</th>
                                         <th class="col" style="min-width: 200px">Generate Label</th>
                                         <th class="col" style="min-width: 200px">View Label</th>
@@ -222,12 +222,12 @@
                                                 <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly  name="products[{{ $loop->iteration }}][gst_amount]" id="gst_amount{{ $loop->iteration }}" class="form-control">
                                                 <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly  name="products[{{ $loop->iteration }}][gst_amount]" id="gst_amounts2{{ $loop->iteration }}" class="form-control">
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
                                             </td>
                                             <td>
                                                 {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1,'value'=> $posProduct->comment]) }}
-                                            </td>
+                                            </td> --}}
                                             <td>
                                                 <input type="number"  step="any"value="{{ $posProduct->product_total_price }}" name="products[{{ $loop->iteration }}][product_total_price]" id="product_total_price{{ $loop->iteration }}" readonly class="form-control">
                                                 <input type="hidden" value="0" id="product_total_prices2{{ $loop->iteration }}" readonly class="form-control">
@@ -487,8 +487,7 @@
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
-                    <td><input type="text" class="form-control" readonly value="${medicine.time == 0 ? 'Before Meal' : 'After Meal'}" placeholder="Before/After Meal"></td>
-                    <td><input type="text" class="form-control" readonly value="${medicine.comment}" placeholder="Comment"></td>
+                   
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
                     <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
@@ -621,12 +620,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
-                        <td>
-                            {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
-                        </td>
-                        <td>
-                            {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1]) }}
-                        </td>
+                        
                         <td>
                             <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
@@ -941,12 +935,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
-                    <td>
-                        {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
-                        </td>
-                        <td>
-                            {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1]) }}
-                        </td>
+                    
                         <td>
                             <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
