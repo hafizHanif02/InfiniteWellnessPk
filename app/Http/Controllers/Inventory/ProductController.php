@@ -278,6 +278,51 @@ public function productsReport(Request $request)
     return view('inventory.product_report.index', ['products' => $products]);
 }
 
+public function productsReportPrint(Request $request)
+{ 
+    // return view('inventory.product_report.print');
+    // exit;
+    $productsQuery = Product::select(['products.id', 'product_name', 'open_quantity']);
+
+    if ($request->date_from || $request->date_to) {
+        $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
+            ->leftJoin('transfer_products', 'products.id', '=', 'transfer_products.product_id')
+            ->groupBy('products.id', 'product_name', 'open_quantity');
+
+        if ($request->date_from) {
+            $productsQuery->where('good_receive_products.created_at', '>=', $request->date_from);
+        }
+
+        if ($request->date_to) {
+            $productsQuery->where('good_receive_products.created_at', '<=', $request->date_to);
+        }
+
+        if ($request->date_from) {
+            $productsQuery->where('transfer_products.created_at', '>=', $request->date_from);
+        }
+
+        if ($request->date_to) {
+            $productsQuery->where('transfer_products.created_at', '<=', $request->date_to);
+        }
+    }
+
+    $products = $productsQuery->get();
+
+    foreach ($products as $product) {
+        $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
+        $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
+
+        $product->stock_in = $stock_in;
+        $product->stock_out = $stock_out;
+
+        $stock_current = $stock_in - $stock_out;
+        $product->stock_current = $stock_current;
+
+        $product->open_quantity = $stock_current - $stock_out + $stock_in;
+    }
+
+    return view('inventory.product_report.print', ['products' => $products]);
+}
    
     
 }

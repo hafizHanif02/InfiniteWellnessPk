@@ -26,6 +26,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::post('products/vendors/store', [ProductController::class, 'storeVendor'])->name('products.vendors.store');
     Route::post('products/import-excel', [ProductController::class, 'importExcel'])->name('products.import-excel');
     Route::get('report_products', [ProductController::class, 'productsReport'])->name('products.products_report');
+    // Route::get('report_products/print', [ProductController::class, 'productsReportPrint'])->name('products_report.print');
 
 
     // Product Categories

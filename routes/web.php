@@ -1047,7 +1047,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
         Route::get('item-report-pos', [PosController::class, 'posItemReport'])->name('posItemReport.index');
         Route::get('pos-item-report-print', [PosController::class, 'posItemReportPrint'])->name('posItemReport.print');
-
+        Route::get('report_products/print', [ProductController::class, 'productsReportPrint'])->name('products_report.print');
     });
 
     Route::middleware('role:Admin|Patient')->group(function () {

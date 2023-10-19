@@ -21,6 +21,9 @@
                         <a href="{{ route('inventory.products.products_report') }}"
                             class="btn btn-secondary mt-3">Reset</a>
                             <button class="btn btn-primary mt-3" style="" onclick="ExportToExcel('xlsx')">Export to Excel</button>
+                            <a href="{{ route('products_report.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
+                                target="_blank" class="btn btn-primary mt-3">Print</a>        
+                             
                     </div>
                 </div>
 
