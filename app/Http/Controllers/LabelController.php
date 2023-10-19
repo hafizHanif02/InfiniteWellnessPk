@@ -40,7 +40,7 @@ class LabelController extends Controller
      */
     public function store(LabelRequest $request)
 {
-    // dd($request->pos_id);
+    // dd($request);
     Label::create($request->validated());
 
     // return redirect()->route('label.print', [$request->pos_id, $request->medicine_id]);
@@ -101,7 +101,6 @@ class LabelController extends Controller
     ]);
     }
     public function Labelprint($pos_id, $medicine_id){
-        // dd($pos_id);
         $first_name = getLoggedInUser()->first_name;
         $last_name = getLoggedInUser()->last_name;
         $user_name = $first_name.' '.$last_name;

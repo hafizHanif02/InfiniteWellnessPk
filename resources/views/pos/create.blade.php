@@ -175,7 +175,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
-                                        <th class="col" style="min-width: 200px">Product</th>
+                                        <th class="col" style="min-width: 100px; max-width: 100px;">Product</th>
                                         {{-- <th class="col" style="min-width: 200px">Generic Formula</th> --}}
                                         <th class="col" style="min-width: 130px">Qty OH</th>
                                         <th class="col" style="min-width: 130px">MRP Per Unit</th>
@@ -274,12 +274,12 @@
                                 <input type="hidden" name="medicine_id" id="medicine_id_label" readonly
                                     class="form-control">
                             </div>
-                            <div class="mb-5">
+                            {{-- <div class="mb-5">
                                 <label>Generic Formula</label>
                                 <input type="text" name="brand_name" id="generic_formula_label" readonly
                                     class="form-control">
                                 <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="mb-5">
                                 <label>Total Quantity</label>
                                 <input type="text" name="quantity" id="quantity_label" readonly class="form-control">
@@ -436,7 +436,7 @@
 
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
-                    <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
+                    <td><button type="button"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -533,7 +533,7 @@
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
-                            <select name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
+                            <select style="min-width: 120px; max-width: 120px;" name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
                                     <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
@@ -569,10 +569,9 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Add Label
+                                <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
-                       
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
@@ -600,7 +599,7 @@
             var medicineID = document.getElementById('medicineID' + id);
             var medicineName = document.getElementsByClassName('medicine_name' + id);
             
-            var genericformulatag = document.getElementById('generic_formula' + id);
+            // var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
@@ -611,7 +610,7 @@
             const MedicineId = selectedOption.getAttribute('data-Id');
             const MedicineNameData = selectedOption.getAttribute('data-medicine_name');
 
-            const GenericFormula = selectedOption.getAttribute('data-generic_formula');
+            // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
 
             totalQuantitySpan.value = totalQuantity;
@@ -623,7 +622,7 @@
             gst_perc_tag.value = gstpercentage;
 
             sellingpriceTag.value = sellingPriceValue;
-            genericformulatag.value = GenericFormula;
+            // genericformulatag.value = GenericFormula;
 
         }
 
@@ -828,21 +827,11 @@
 
 
         function AlertLabel(id) {
-            // window.new();
+            $("#exampleModal").modal('hide');
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
             window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
-            $('#labelprintbtn' + id).removeAttr('disabled');
-            var pos_id = $('#pos_id').val();
-            var medicine_id = $('#medicineID' + id).val();
-            console.log('Medicine = ' + medicine_id);
-
-            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
-
-            $('#anchorlabel' + id).attr('href', url);
-
-            $("#exampleModal").modal('hide');
 
         }
 
@@ -898,7 +887,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Add Label
+                                <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
                         

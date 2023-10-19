@@ -15,9 +15,13 @@
             </tr>
             <tr>
                 <td>Bill No:</td>
-     {{-- {{ dd({!! $bill_no_barcode !!}) }} --}}
 
-                <td colspan="5">{!! $bill_no_barcode !!}</td>
+                <td colspan="5">
+                    {!! $bill_no_barcode !!}
+                    <!-- Other HTML content -->
+                    {{-- {{ $bill_no_barcode }} --}}
+                    <!-- Other HTML content -->
+                </td>
             </tr>
             <tr>
                 <td>Name:</td>
@@ -55,11 +59,11 @@
     }, 1000);
 </script>
 <style>
-    * {
+    body {
         font-family: arial;
         margin: 2px;
         padding: 2px;
-    }
+    } 
 
     .table-bordered {
         border-radius: 8px;
@@ -71,8 +75,7 @@
         width: 600px;
     }
 
-    .table-bordered th,
-    .table-bordered td {}
+
 
     .table-bordered tr {
         border: 0px;
@@ -90,5 +93,5 @@
     .text-start {
 
         text-align: left;
-    }
+    } */
 </style>
