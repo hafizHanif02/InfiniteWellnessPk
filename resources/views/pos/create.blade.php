@@ -176,15 +176,15 @@
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
                                         <th class="col" style="min-width: 200px">Product</th>
-                                        <th class="col" style="min-width: 200px">Generic Formula</th>
-                                        <th class="col" style="min-width: 200px">Rmaining Quantity</th>
-                                        <th class="col" style="min-width: 200px">MRP Per Unit</th>
-                                        <th class="col" style="min-width: 200px">Quantity</th>
-                                        <th class="col" style="min-width: 200px">Discount Percentage</th>
-                                        <th class="col" style="min-width: 200px">GST %</th>
+                                        {{-- <th class="col" style="min-width: 200px">Generic Formula</th> --}}
+                                        <th class="col" style="min-width: 130px">Qty OH</th>
+                                        <th class="col" style="min-width: 130px">MRP Per Unit</th>
+                                        <th class="col" style="min-width: 130px">Qty</th>
+                                        <th class="col" style="min-width: 130px">DST %</th>
+                                        <th class="col" style="min-width: 130px">GST %</th>
                                         {{-- <th class="col" style="min-width: 200px">Time</th>
                                         <th class="col" style="min-width: 200px">Comment</th> --}}
-                                        <th class="col" style="min-width: 200px">Price</th>
+                                        <th class="col" style="min-width: 130px">Price</th>
                                         <th class="col" style="min-width: 200px">Generate Label</th>
                                         <th class="col" style="min-width: 200px">View Label</th>
                                         <th></th>
@@ -415,7 +415,7 @@
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}"></td>
-                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]""></td>
+                    
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
                         </td>
@@ -542,9 +542,7 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td>
-                            <input type="text" readonly  name="products[${a}][generic_formula]" id="generic_formula${a}" class="form-control">
-                        </td>
+                       
                         <td>
                             <input type="number"  step="any"readonly value="0"  id="total_quantity${a}" class="form-control">
                         </td>
@@ -865,7 +863,7 @@
                         data-fixed_discount="${fixed_discount}"
                         >
                         </td>
-                    <td><input class="form-control" type="text" readonly name="products[${a}][generic_formula]" id="generic_formula${a}" value="${generic_formula}"></td>
+                    
                     <td><input id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
