@@ -303,8 +303,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="save_label1" class="btn btn-primary"> <a target="_blank"></a> Save changes</button>
-                        {{-- <button type="submit" id="save_label" class="btn btn-primary">Save changes</button> --}}
+                        <button type="submit" id="save_label" class="btn btn-primary">Save changes</button>
+                        {{-- <button type="submit" id="save_label1" class="btn btn-primary"> <a id="anchorlabel1" target="_blank"></a> Save changes</button> --}}
                     </div>
                 </form>
             </div>
@@ -817,18 +817,23 @@
             BrandId.value = brandId;
         }
 
-        $("#save_label1").(click,function() {
-            // e.preventDefault();
-            // $('#labelsubmitform').submit();
-            $pos_id = $('#pos_id_label').val();
-            $medicine_id = $('#medicine_id_label').val();
-            $brand_id = $('#brand_id_label').val();
-            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
-            $('#anchorlabel1').attr('href', url);
-        });
+        // $("#save_label1").click(function() {
+        //     // e.preventDefault();
+        //     $('#labelsubmitform').submit();
+        //     var pos_id = $('#pos_id_label').val();
+        //     var medicine_id = $('#medicine_id_label').val();
+        //     var brand_id = $('#brand_id_label').val();
+        //     var url1 = '/label/label-show/' + pos_id + '/' + medicine_id;
+        //     $('#anchorlabel1').attr('href', url1);
+        // });
+
 
         function AlertLabel(id) {
+            // window.new();
+            var pos_id = $('#pos_id_label').val();
+            var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
+            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
             $('#labelprintbtn' + id).removeAttr('disabled');
             var pos_id = $('#pos_id').val();
             var medicine_id = $('#medicineID' + id).val();

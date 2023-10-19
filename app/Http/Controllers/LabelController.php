@@ -40,8 +40,10 @@ class LabelController extends Controller
      */
     public function store(LabelRequest $request)
 {
+    // dd($request);
     Label::create($request->validated());
-    // return redirect()->route('label.print');
+
+    // return redirect()->route('label.print', [$request->pos_id, $request->medicine_id]);
 
 }
 
