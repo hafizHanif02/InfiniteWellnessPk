@@ -139,6 +139,9 @@
 
         const json = XLSX.utils.sheet_to_json(sheet);
 
+        if(json){
+
+        }
         var products = `<?php echo json_encode($products) ?>`;
 
         products = JSON.parse(products);
@@ -150,7 +153,7 @@
 
         $(json).each(function(e) {
                 for(var i = 0;i<products.length; i++){
-                    if(products[i].id == json[e].code){
+                    if(products[i].id == json[e].code && products[i].total_quantity > 0 ){
                         var items = $("tbody tr").length;
                             $("#add-products").append(`
                                     <tr id="${products[i].id}">
@@ -172,13 +175,13 @@
                                             <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" value="${json[i].quantity}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                            <input type="number" value="${json[e].quantity}" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${i}][amount]" value="${products[i].unit_trade}" class="form-control" readonly>
+                                            <input type="number" name="products[${i}][amount]" id="importamount${i}" value="${products[i].unit_trade}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${products[i].id})" class="text-danger fa fa-trash"></i>
@@ -186,21 +189,31 @@
 
                                         <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][pieces_per_pack]" value="${products[i].pieces_per_pack }">
                                         <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][price_per_unit_unitonly]" value="${products[i].unit_trade }">
+                                        <input type="hidden" id="forimportunitprice${i}"  value="${products[i].unit_trade }">
                                         <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][disc_amount]" value="${(products[i].discount_trade_price * products[i].cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${products[i].id}" value="${products[i].trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${i}" name="products[${i}][total_peice_per_pack]" value="${products[i].pieces_per_pack}">
                                         <input type="hidden" id="mainqunatityvalue${i}" name="products[${i}][mainqunatityvalue]" >
-                                `);
+                                `
+                                );
+                                calculation(i);
                         break;
                     }
+                   
                 }
         });
 
         
 
+
     };
 
       reader.readAsArrayBuffer(file);
+    }
+    function calculation(i){
+        var totalPeice = $('#totalpeice'+i).val();
+        var unitprice = $('#forimportunitprice'+i).val();
+        $('#importamount'+i).val(totalPeice*unitprice);
     }
   </script>
     @push('scripts')
@@ -337,7 +350,7 @@
             }
 
             $('#save-transfer-button').on('click', function() {
-                $(this).prop('disabled', true);
+                // $(this).prop('disabled', true);
                 $('#save-transfer-form').submit();
             });
 
@@ -403,6 +416,70 @@
         console.log('asdfsdf');
                 $('#csv-form').submit();
             });
+        
+            $(document).ready(function() {
+    $('#save-transfer-form').on('submit', function(e) {
+        e.preventDefault();
+
+        
+        $.ajax({
+            url: '/shift/validate-transfer',
+            type: 'post',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                console.log('Response:', response);
+                if (response.valid) { 
+                    console.log('Before form submission');
+                    $('#save-transfer-form')[0].submit();
+                    console.log('After form submission');
+                } else {
+                    $('#validation-message').text(response.message);
+                    $('#validation-message').show();
+                }
+
+            },
+            error: function(xhr, status, error) {
+                // $('#validation-message').html(xhr.responseJSON.message);
+                
+                $('.wrapper').append(
+                    ` <div class="alert alert-danger">
+                        <div>
+                            <div class="d-flex">
+                                <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .alert{
+                            position: absolute;
+                            background: white;
+                            width: 290px;
+                            padding: 40px;
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            top: 10px;
+                            right: 10px;
+                        }
+                        .icon-sm {
+                            font-size: 106px !important;
+                        }
+                        .validationError{
+                            font-weight:900;
+                            color:#2f2f2f;
+                            letter-spacing:2px;
+                        }
+                    </style>
+                    `
+        );
+                $('.alert').delay(5000).slideUp(300)
+                $('.alert').delay(50000).slideUp(300, function() {
+                    $('.alert').attr('style', 'display:none')
+                })
+    }
+        });
+    });
+});
         </script>
     @endpush
 </x-layouts.app>

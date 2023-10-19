@@ -46,6 +46,30 @@ class TransferController extends Controller
         ]);
     }
 
+    public function validateTransfer(Request $request){
+        
+        $customMessages = [
+            'products.required' => 'At least one product is required',
+            'products.*.total_piece' => 'At least one product quantity is required',
+        ];
+        
+        $validatedData = $request->validate([
+            'supply_date' => ['required', 'date'],
+            'products' => ['required'],
+            'products.*.id' => ['required', 'exists:products,id'],
+            'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+            'products.*.price_per_unit' => ['required', 'numeric'],
+            'products.*.total_piece' => ['required', 'integer','min:1'],
+            'products.*.total_pack' => ['required', 'integer'],
+            'products.*.amount' => ['required', 'numeric'],
+        ], $customMessages);
+        
+            // Validation succeeded
+            return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+        
+
+    }
+
     public function products(Product $product): JsonResponse
     {
         return response()->json([

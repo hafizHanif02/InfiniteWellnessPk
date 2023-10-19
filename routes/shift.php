@@ -16,4 +16,7 @@ Route::prefix('shift')->as('shift.')->middleware(['auth'])->group(function () {
     Route::get('stock-in', [StockReportController::class, 'stockInReport'])->name('stock-in.index');
     Route::get('stock-in/export', [StockReportController::class, 'exportStockInReport'])->name('stock-in.export');
 
+    Route::post('/validate-transfer', [TransferController::class, 'validateTransfer']);
+
+
 });
