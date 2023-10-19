@@ -139,9 +139,7 @@
 
         const json = XLSX.utils.sheet_to_json(sheet);
 
-        if(json){
 
-        }
         var products = `<?php echo json_encode($products) ?>`;
 
         products = JSON.parse(products);
@@ -149,12 +147,18 @@
 
         var BreakException = {};
 
-      
+        var isValid = true;
 
-        $(json).each(function(e) {
+        $(json).each(function(e, key) {
+            console.log(key.code);
                 for(var i = 0;i<products.length; i++){
-                    if(products[i].id == json[e].code && products[i].total_quantity > 0 ){
-                        var items = $("tbody tr").length;
+                    // if(key.code == products[i].id){
+                    //     console.log(key.code + ' == ' + products[i].id + ' => ' + products[i].total_quantity);
+                    // }
+                    
+                    if(products[i].id == key.code ){
+                        if(key.quantity > 0){
+                            var items = $("tbody tr").length;
                             $("#add-products").append(`
                                     <tr id="${products[i].id}">
                                         <input type="hidden" name="products[${i}][id]" value="${products[i].id}">
@@ -175,7 +179,7 @@
                                             <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" value="${json[e].quantity}" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                            <input type="number" value="${key.quantity}" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>
@@ -194,14 +198,27 @@
                                         <input type="hidden" id="tradeprice${products[i].id}" value="${products[i].trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${i}" name="products[${i}][total_peice_per_pack]" value="${products[i].pieces_per_pack}">
                                         <input type="hidden" id="mainqunatityvalue${i}" name="products[${i}][mainqunatityvalue]" >
-                                `
-                                );
+                                ` );
                                 calculation(i);
-                        break;
+                                break;
+                                    }else {
+                                        alert(`The following Item Code (${key.code}) has quantity is zero or less`);
+                                    }
+                        
+                                
+                        
+                    }else {
+                        if(i == (products.length- 1 )){
+                            isValid = false;
+                        }
+                        
                     }
-                   
                 }
         });
+
+        if (!isValid) {
+            alert('Not A Valid Excel Action');
+        }
 
         
 
