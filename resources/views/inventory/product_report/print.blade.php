@@ -12,7 +12,7 @@
 
 <table border="1">
     <thead>
-        {{-- {{ dd($poses[0]->medicine_id) }} --}}
+        {{-- this route in web.php (products_report.print)--}}
         <tr>
             <th>#</th>
             <th>Name</th>

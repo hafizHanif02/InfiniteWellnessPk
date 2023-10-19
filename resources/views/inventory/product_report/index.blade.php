@@ -8,13 +8,15 @@
                     <div class="d-flex gap-5">
                         <div>
                             <label for="date_from" class="form-label">Date From</label>
-                            <input type="date" value="{{ request('date_from') }}" class="form-control" name="date_from"
-                                id="date_from" onchange="updateQueryString('date_from',this.value)">
+                            <input type="date" value="{{ request('date_from', date('Y-m-d')) }}"
+                                class="form-control" name="date_from" id="date_from"
+                                onchange="updateQueryString('date_from', this.value)">
                         </div>
                         <div>
                             <label for="date_to" class="form-label">Date To</label>
-                            <input type="date" value="{{ request('date_to') }}" class="form-control" name="date_to"
-                                id="date_to" onchange="updateQueryString('date_to',this.value)">
+                            <input type="date" value="{{ request('date_to', date('Y-m-d')) }}"
+                                class="form-control" name="date_to" id="date_to"
+                                onchange="updateQueryString('date_to', this.value)">
                         </div>
                     </div>
                     <div class="d-flex gap-5 mt-5">
