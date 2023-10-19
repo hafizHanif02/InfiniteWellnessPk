@@ -14,12 +14,14 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\OpdPatientDepartment;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Inventory\Manufacturer;
 use App\Imports\Inventory\ProductImport;
 use App\Models\Inventory\ProductCategory;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DentalOpdPatientDepartment;
+use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Inventory\ProductRequest;
 
 class ProductController extends Controller
@@ -224,4 +226,48 @@ class ProductController extends Controller
         return $request->search_data;
     }
 
+    public function productsReport(Request $request)
+    {
+        $productsQuery = Product::select(['products.id', 'product_name', 'open_quantity']);
+    
+        if ($request->date_from || $request->date_to) {
+            $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
+                ->leftJoin('transfer_products', 'products.id', '=', 'transfer_products.product_id')
+                ->groupBy('products.id', 'product_name', 'open_quantity');
+    
+            if ($request->date_from) {
+                $productsQuery->where('good_receive_products.created_at', '>=', $request->date_from);
+            }
+    
+            if ($request->date_to) {
+                $productsQuery->where('good_receive_products.created_at', '<=', $request->date_to);
+            }
+    
+            if ($request->date_from) {
+                $productsQuery->where('transfer_products.created_at', '>=', $request->date_from);
+            }
+    
+            if ($request->date_to) {
+                $productsQuery->where('transfer_products.created_at', '<=', $request->date_to);
+            }
+        }
+    
+        $products = $productsQuery->get();
+    
+        foreach ($products as $product) {
+            $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
+            $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
+    
+            $product->stock_in = $stock_in;
+            $product->stock_out = $stock_out;
+    
+            $stock_current = $stock_in - $stock_out;
+            $product->stock_current = $stock_current;
+    
+            $product->open_quantity = $stock_current - $stock_out + $stock_in;
+        }
+    
+        return view('inventory.product_report.index', ['products' => $products]);
+    }
+    
 }
