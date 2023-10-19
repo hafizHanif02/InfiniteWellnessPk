@@ -151,7 +151,46 @@
         $(json).each(function(e) {
                 for(var i = 0;i<products.length; i++){
                     if(products[i].id == json[e].code){
-                        
+                        var items = $("tbody tr").length;
+                            $("#add-products").append(`
+                                    <tr id="${products[i].id}">
+                                        <input type="hidden" name="products[${i}][id]" value="${products[i].id}">
+                                        <td>
+                                            <input type="text" class="form-control" value="${products[i].product_name}" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="products[${i}][total_quantity]" class="form-control" value="${products[i].total_quantity}" readonly>
+                                        </td>
+                                        <td>
+                                            <select id="selectunit_of_measurement${i}" onchange="changeType(${products[i].id},${i})" name="products[${i}][unit_of_measurement]" class="form-control" required>
+                                                <option value="1" selected >Unit Qty</option>
+                                                <option value="0">Box Qty</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit]" value="${products[i].unit_trade}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" value="${json[i].quantity}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="products[${i}][amount]" value="${products[i].unit_trade}" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <i onclick="removeRaw(${products[i].id})" class="text-danger fa fa-trash"></i>
+                                        </td>
+
+                                        <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][pieces_per_pack]" value="${products[i].pieces_per_pack }">
+                                        <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][price_per_unit_unitonly]" value="${products[i].unit_trade }">
+                                        <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][disc_amount]" value="${(products[i].discount_trade_price * products[i].cost_price)/100 }">
+                                        <input type="hidden" id="tradeprice${products[i].id}" value="${products[i].trade_price}">
+                                        <input type="hidden" id="total_peice_per_pack${i}" name="products[${i}][total_peice_per_pack]" value="${products[i].pieces_per_pack}">
+                                        <input type="hidden" id="mainqunatityvalue${i}" name="products[${i}][mainqunatityvalue]" >
+                                `);
                         break;
                     }
                 }
