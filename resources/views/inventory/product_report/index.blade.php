@@ -17,82 +17,50 @@
                                 id="date_to" onchange="updateQueryString('date_to',this.value)">
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="d-flex gap-5 mt-5">
                         <a href="{{ route('inventory.products.products_report') }}"
                             class="btn btn-secondary mt-3">Reset</a>
+                            <button class="btn btn-primary mt-3" style="" onclick="ExportToExcel('xlsx')">Export to Excel</button>
                     </div>
                 </div>
 
 
-                {{-- <div class="d-flex justify-content-between">
-                    <table class="table table-bordered text-center table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <td scope="col" id="serial_number">#</td>
-                                <td scope="col" id="name">Name</td>
-                                <td scope="col" id="name">Open Qty</td>
-                                <td scope="col" id="name">Current Qty</td>
-                                <td scope="col" id="name">StockIn</td>
-                                <td scope="col" id="name">StockOut</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($products as $product)
-                                <tr>
-                                    <td scope="row" headers="serial_number">{{ $product->id }}</td>
-                                    <td headers="name">{{ $product->product_name }}</td>
-                                    <td headers="name">{{ $product->open_quantity }}</td>
-                                    <td headers="name">{{ $product->stock_current }}</td>
-                                    <td headers="name">{{ $product->stock_in }}</td>
-                                    <td headers="name">{{ $product->stock_out }}</td>
-                                </tr>
-                            @endforeach
-                            @if ($products->count() == 0)
-                                <tr class="text-center">
-                                    <td colspan="5" class="text-danger">No products found!</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div> --}}
-
-
                 <div class="table-wrap d-flex justify-content-between">
-                    <table class="sortable table table-bordered">
+                    <table class="sortable table table-bordered" id="tbl_exporttable_to_xls">
                         <thead class="table-dark">
                             <tr>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         #
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </th>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         Name
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </th>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         Open Qty
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </th>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         Current Qty
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </th>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         StockIn
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </th>
                                 <th>
-                                    <button>
+                                    <button class="button">
                                         StockOut
                                         <span aria-hidden="true"></span>
                                     </button>
@@ -121,6 +89,7 @@
 
             </div>
         </div>
+        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
         <script>
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
@@ -305,11 +274,27 @@
                     new SortableTable(sortableTables[i]);
                 }
             });
+
+
+            function ExportToExcel(type, fn, dl) {
+                var elt = document.getElementById('tbl_exporttable_to_xls');
+                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                var currentDate = new Date();
+                var day = currentDate.getDate().toString().padStart(2, '0');
+                var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                var year = currentDate.getFullYear();         
+                var formattedDate = day + '-' + month + '-' + year;
+                var fileName = 'POS-Report (' + formattedDate + ').xlsx';
+
+                return dl ?
+                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                    XLSX.writeFile(wb, fn || fileName);
+            }
         </script>
 </x-layouts.app>
 
 <style>
-    button {
+    .button {
         border: none !important;
         outline: none !important;
         background: transparent !important;
