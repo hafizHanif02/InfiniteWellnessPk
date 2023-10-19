@@ -437,7 +437,7 @@
 
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
-                    <td><button type="button"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
+                    <td><button type="button" class="btn btn-primary"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -832,7 +832,7 @@
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
-            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
+            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_top');
 
         }
 

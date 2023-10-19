@@ -52,9 +52,14 @@
     </table>
 
 </div>
-
 <script>
-    setTimeout(function() {
+    if (!sessionStorage.getItem('pageReloaded')) {
+        sessionStorage.setItem('pageReloaded', 'true');
+        window.location.reload();
+    }
+</script>
+<script>
+    setTimeout(function() {    
         window.print();
     }, 1000);
 </script>
@@ -95,3 +100,4 @@
         text-align: left;
     } */
 </style>
+
