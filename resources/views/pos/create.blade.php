@@ -184,9 +184,9 @@
                                         <th class="col" style="min-width: 130px">GST %</th>
                                         {{-- <th class="col" style="min-width: 200px">Time</th>
                                         <th class="col" style="min-width: 200px">Comment</th> --}}
-                                        <th class="col" style="min-width: 130px">Price</th>
-                                        <th class="col" style="min-width: 200px">Generate Label</th>
-                                        <th class="col" style="min-width: 200px">View Label</th>
+                                        <th class="col" style="min-width: 130px">Amount</th>
+                                        <th class="col" style="min-width: 130px">Generate Label</th>
+                                        <th class="col" style="min-width: 130px">View Label</th>
                                         <th></th>
                                         <th></th>
                                     </thead>
