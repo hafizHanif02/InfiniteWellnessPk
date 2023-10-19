@@ -192,12 +192,12 @@
                                             <td>
                                                 <input type="hidden" id="medicineID{{ $loop->iteration }}" value="{{ $posProduct->medicine_id }}" name="products[{{ $loop->iteration }}][medicine_id]">
                                                 <select name="products[{{ $loop->iteration }}][product_name]" class="form-control  medicine-select medicine_name{{ $loop->iteration }}" id="medicine{{ $loop->iteration }}"  onchange="SelectMedicine({{ $loop->iteration }})" class="form-select prescriptionMedicineId">
-                                                    <option value="{{ $posProduct->medicine->name }}" selected>{{ $posProduct->medicine->name }}</option>
-                                                    {{-- @foreach ($medicines as $medicine)
+                                                    {{-- <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option> --}}
+                                                    @foreach ($medicines as $medicine)
                                                         <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                                             <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                                         </option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             {{-- <td>
@@ -234,7 +234,7 @@
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" onclick="Addlabel({{ $loop->iteration }})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    Add Label
+                                                    <i class="fa-solid fa-plus"></i> Label
                                                 </button>
                                             </td>
                                             {{-- <td><button type="button" id="labelprintbtn{{ $loop->iteration }}" disabled class="btn btn-success" id="labelshow{{ $loop->iteration }}"><a id="anchorlabel{{ $loop->iteration }}" target="_blank"  style="text-decoration:none;color:white;"><i class="fa fa-eye"></i>View</button></a></td> --}}
@@ -330,12 +330,12 @@
                                 <input type="hidden" name="medicine_id" id="medicine_id_label" readonly
                                     class="form-control">
                             </div>
-                            <div class="mb-5">
+                            {{-- <div class="mb-5">
                                 <label>Generic Formula</label>
                                 <input type="text" name="brand_name" id="generic_formula_label" readonly
                                     class="form-control">
                                 <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
-                            </div>
+                            </div> --}}
                             <div class="mb-5">
                                 <label>Total Quantity</label>
                                 <input type="text" name="quantity" id="quantity_label" readonly class="form-control">
@@ -377,6 +377,7 @@
 
         function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
+            $('#possubmitform').submit();
         }
 
         function preventSubmit(event) {
@@ -490,7 +491,7 @@
                    
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
-                    <td><button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Label</button></td>
+                    <td><button type="button"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
                    
                     <td></td>
                 </tr>`;
@@ -625,7 +626,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Add Label
+                                <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
                        
@@ -656,7 +657,7 @@
             var medicineID = document.getElementById('medicineID' + id);
             var medicineName = document.getElementsByClassName('medicine_name' + id);
             
-            var genericformulatag = document.getElementById('generic_formula' + id);
+            // var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
@@ -667,7 +668,7 @@
             const MedicineId = selectedOption.getAttribute('data-Id');
             const MedicineNameData = selectedOption.getAttribute('data-medicine_name');
 
-            const GenericFormula = selectedOption.getAttribute('data-generic_formula');
+            // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
 
             totalQuantitySpan.value = totalQuantity;
@@ -872,18 +873,27 @@
             BrandId.value = brandId;
         }
 
+        // function AlertLabel(id) {
+        //     window.alert('Your Product Label Has been Generated');
+        //     $('#labelprintbtn' + id).removeAttr('disabled');
+        //     var pos_id = $('#pos_id').val();
+        //     var medicine_id = $('#medicineID' + id).val();
+        //     console.log('Medicine = ' + medicine_id);
+
+        //     var url = '/label/label-show/' + pos_id + '/' + medicine_id;
+
+        //     $('#anchorlabel' + id).attr('href', url);
+
+        //     $("#exampleModal").modal('hide');
+
+        // }
+
         function AlertLabel(id) {
-            window.alert('Your Product Label Has been Generated');
-            $('#labelprintbtn' + id).removeAttr('disabled');
-            var pos_id = $('#pos_id').val();
-            var medicine_id = $('#medicineID' + id).val();
-            console.log('Medicine = ' + medicine_id);
-
-            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
-
-            $('#anchorlabel' + id).attr('href', url);
-
             $("#exampleModal").modal('hide');
+            var pos_id = $('#pos_id_label').val();
+            var medicine_id = $('#medicineID' + id).val();
+            window.alert('Your Product Label Has been Generated');
+            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
 
         }
 
@@ -940,7 +950,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Add Label
+                                <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
                        
