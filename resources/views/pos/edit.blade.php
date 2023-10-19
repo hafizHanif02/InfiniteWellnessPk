@@ -192,12 +192,12 @@
                                             <td>
                                                 <input type="hidden" id="medicineID{{ $loop->iteration }}" value="{{ $posProduct->medicine_id }}" name="products[{{ $loop->iteration }}][medicine_id]">
                                                 <select name="products[{{ $loop->iteration }}][product_name]" class="form-control  medicine-select medicine_name{{ $loop->iteration }}" id="medicine{{ $loop->iteration }}"  onchange="SelectMedicine({{ $loop->iteration }})" class="form-select prescriptionMedicineId">
-                                                    <option value="{{ $posProduct->medicine->name }}" selected>{{ $posProduct->medicine->name }}</option>
-                                                    {{-- @foreach ($medicines as $medicine)
+                                                    {{-- <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option> --}}
+                                                    @foreach ($medicines as $medicine)
                                                         <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                                             <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                                         </option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             {{-- <td>
