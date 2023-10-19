@@ -41,6 +41,7 @@ class LabelController extends Controller
     public function store(LabelRequest $request)
 {
     Label::create($request->validated());
+    // return redirect()->route('label.print');
 
 }
 

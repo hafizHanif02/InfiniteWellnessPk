@@ -78,7 +78,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="patient_name">Patient Number<sup class="text-danger">*</sup></label>
+                                <label for="patient_name">Contact Number<sup class="text-danger">*</sup></label>
                                 <input type="text" name="patient_number" id="patient_number" class="form-control"
                                     placeholder="Enter Patient Number">
                                 @error('patient_number')
@@ -303,7 +303,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="save_label" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="save_label1" class="btn btn-primary"> <a target="_blank"></a> Save changes</button>
+                        {{-- <button type="submit" id="save_label" class="btn btn-primary">Save changes</button> --}}
                     </div>
                 </form>
             </div>
@@ -815,6 +816,16 @@
             BrandName.value = brandName;
             BrandId.value = brandId;
         }
+
+        $("#save_label1").(click,function() {
+            // e.preventDefault();
+            // $('#labelsubmitform').submit();
+            $pos_id = $('#pos_id_label').val();
+            $medicine_id = $('#medicine_id_label').val();
+            $brand_id = $('#brand_id_label').val();
+            var url = '/label/label-show/' + pos_id + '/' + medicine_id;
+            $('#anchorlabel1').attr('href', url);
+        });
 
         function AlertLabel(id) {
             window.alert('Your Product Label Has been Generated');

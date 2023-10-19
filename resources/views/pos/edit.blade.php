@@ -75,7 +75,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="patient_name">Patient Number<sup class="text-danger">*</sup></label>
+                                <label for="patient_name">Contact Number<sup class="text-danger">*</sup></label>
                                 <input type="text" name="patient_number" readonly value="{{ $pos->patient_number }}" id="patient_number" class="form-control"
                                     placeholder="Enter Patient Number">
                                 @error('patient_number')
