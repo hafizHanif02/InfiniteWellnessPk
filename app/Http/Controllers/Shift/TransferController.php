@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
 use App\Exports\StockOutExport;
 use App\Models\Inventory\Product;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
+use App\Imports\Inventory\ProductImport;
 use App\Http\Requests\Shift\TransferRequest;
 
 class TransferController extends Controller
@@ -20,6 +22,14 @@ class TransferController extends Controller
         return view('shift.transfer.index', [
             'transfers' => Transfer::latest()->paginate(10)->onEachSide(1),
         ]);
+    }
+
+    public function importExcel(Request $request)
+    {
+        return "testing";
+        Excel::import(new TransferProductImport, storage_path('app/public/'.request()->file('transfer-products_csv')->store('transfer-products-excel-files', 'public')));
+
+        return back()->with('success', 'Imported successfully!');
     }
 
     public function printReport()

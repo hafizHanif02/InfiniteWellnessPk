@@ -39,6 +39,12 @@ class ProductController extends Controller
             'search_data' => ''
         ]);
     }
+    public function exportToExcel(){
+        $product = Product::get();
+        return view('inventory.products.export',[
+            'porducts' => $product
+        ]);
+    }
 
     public function importExcel(Request $request): RedirectResponse
     {

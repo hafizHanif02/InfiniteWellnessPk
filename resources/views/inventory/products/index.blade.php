@@ -16,6 +16,7 @@
                         </form>
                 </div>
                     <div class="d-flex gap-5">
+                        <a href="{{route('inventory.export-to-excel') }}" target="_blank"><button class="btn btn-primary">Export All Product</button></a>
                         <div>
                             <a href="{{ asset('csv/Products.xlsx') }}" class="btn btn-danger" download>Download
                                 sample</a>

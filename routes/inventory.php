@@ -14,6 +14,9 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
 
     // Products
     Route::resource('products', ProductController::class);
+    Route::get('/export-to-excel', [ProductController::class,'exportToExcel'])->name('export-to-excel')->middleware('web');
+
+    // Route::post('/export-to-excel', [ProductController::class,'exportToExcel'])->name('export.to.excel');
     Route::post('products/product-categories/store', [ProductController::class, 'storeProductCategory'])->name('products.product-categories.store');
     Route::post('products/dosage/store', [ProductController::class, 'storeDosage'])->name('products.dosages.store');
     Route::post('products/manufactures/store', [ProductController::class, 'storeManufacturer'])->name('products.manufacturers.store');

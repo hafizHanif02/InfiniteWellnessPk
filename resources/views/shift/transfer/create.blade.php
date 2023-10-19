@@ -29,6 +29,22 @@
                                 title="Supply date">
                         </div>
                     </div>
+                    {{-- <div class="row">
+                        <div class="col-md-12">
+                            <label for="import-product" class="font-label mt-5 mb-2">Import Product</label>
+                            <input type="file" id="import-product" name="import-product" class="form-control mb-5" placeholder="Import Product">
+                        </div>
+                    </div> --}}
+                    {{-- <form id="csv-form" action="{{route('shift.import-excel') }}" method="post"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <label for="import-product" class="font-label mt-5 mb-2">Import Product</label>
+                    <input type="file" id="import-product" name="import-product" class="form-control mb-5" placeholder="Import Product">
+                    <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                        style="display: none;">button</button>
+                    </form> --}}
+                    <label for="import-product" class="font-label mt-5 mb-2">Import Product</label>
+                    <input type="file" id="upload" class="form-control" />
                     <div class="row mb-5 mt-5">
                         <div class="col-md-12">
                             <label for="re_transfer_id" class="form-label">Re Transfer</label>
@@ -95,6 +111,59 @@
             </div>
         </div>
     </div>
+    <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Excel to JSON Conversion</title>
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script>
+    document.getElementById('upload').addEventListener('change', handleFile, false);
+
+    function handleFile(e) {
+      const files = e.target.files;
+      if (!files || files.length === 0) return;
+
+      const file = files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+
+        const json = XLSX.utils.sheet_to_json(sheet);
+
+        var products = `<?php echo json_encode($products) ?>`;
+
+        products = JSON.parse(products);
+
+
+        var BreakException = {};
+
+      
+
+        $(json).each(function(e) {
+                for(var i = 0;i<products.length; i++){
+                    if(products[i].id == json[e].code){
+                        
+                        break;
+                    }
+                }
+        });
+
+        
+
+    };
+
+      reader.readAsArrayBuffer(file);
+    }
+  </script>
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
@@ -291,6 +360,10 @@
             });
         });
     });  
+    $('input[name="import-product"]').change(function() {
+        console.log('asdfsdf');
+                $('#csv-form').submit();
+            });
         </script>
     @endpush
 </x-layouts.app>
