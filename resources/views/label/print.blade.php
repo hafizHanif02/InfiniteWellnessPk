@@ -15,6 +15,8 @@
             </tr>
             <tr>
                 <td>Bill No:</td>
+     {{-- {{ dd({!! $bill_no_barcode !!}) }} --}}
+
                 <td colspan="5">{!! $bill_no_barcode !!}</td>
             </tr>
             <tr>
