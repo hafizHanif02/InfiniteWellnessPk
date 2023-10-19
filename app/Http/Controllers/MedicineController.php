@@ -129,7 +129,11 @@ class MedicineController extends AppBaseController
      */
     public function medicineExport()
     {
-        return Excel::download(new MedicineExport, 'medicines-'.time().'.xlsx');
+        // return Excel::download(new MedicineExport, 'medicines-'.time().'.xlsx');
+        $medicines = Medicine::with('brand')->get();
+        return view('medicines.export',[
+            'medicines' => $medicines
+        ]);
     }
 
     /**

@@ -150,7 +150,7 @@
         var isValid = true;
 
         $(json).each(function(e, key) {
-            console.log(key.code);
+            // console.log(key.code);
                 for(var i = 0;i<products.length; i++){
                     // if(key.code == products[i].id){
                     //     console.log(key.code + ' == ' + products[i].id + ' => ' + products[i].total_quantity);

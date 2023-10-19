@@ -308,7 +308,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 
     // excel export routes.
-    Route::middleware('role:Pharmacist')->group(function () {
+    Route::middleware('role:Pharmacist|Admin')->group(function () {
         Route::prefix('pharmacist')->group(function () {
             Route::get('export-brands', [BrandController::class, 'brandExport'])->name('brands.excel');
             Route::get('export-medicines', [MedicineController::class, 'medicineExport'])->name('medicines.excel');

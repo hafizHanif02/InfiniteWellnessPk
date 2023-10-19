@@ -55,6 +55,10 @@ class MedicineTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
+            Column::make('Item Code', 'id')
+            ->view('medicines.templates.columns.code')
+            ->searchable()
+            ->sortable(),
             Column::make('Item', 'name')
                 ->view('medicines.templates.columns.name')
                 ->searchable()
