@@ -25,7 +25,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::get('/form/opd/list', [ProductController::class, 'opd'])->name('opd');
     Route::post('products/vendors/store', [ProductController::class, 'storeVendor'])->name('products.vendors.store');
     Route::post('products/import-excel', [ProductController::class, 'importExcel'])->name('products.import-excel');
-    Route::get('products_report', [ProductController::class, 'productsReport'])->name('products.products_report');
+    Route::get('report_products', [ProductController::class, 'productsReport'])->name('products.products_report');
 
 
     // Product Categories
