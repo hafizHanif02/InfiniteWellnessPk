@@ -832,8 +832,14 @@
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
-            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_top');
+            // /lable/label-print/${pos_id}/${medicine_id}
+            sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
+            
 
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         function addMedicine(id) {

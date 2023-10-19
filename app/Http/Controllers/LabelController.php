@@ -41,7 +41,18 @@ class LabelController extends Controller
     public function store(LabelRequest $request)
 {
     // dd($request);
+    $label_ids = Label::pluck('pos_id', 'medicine_id');
+
+$posId = $label_ids->get($request->medicine_id);
+
+if ($posId !== null && $posId == $request->pos_id) {
+    // If the record exists with the given 'medicine_id' and 'pos_id' matches, update it with the validated data
+    Label::where('pos_id', $posId)->where('medicine_id', $request->medicine_id)->update($request->validated());
+} else {
+    // If the record doesn't exist or 'pos_id' doesn't match, create a new one with the validated data
     Label::create($request->validated());
+}
+
 
     // return redirect()->route('label.print', [$request->pos_id, $request->medicine_id]);
 
