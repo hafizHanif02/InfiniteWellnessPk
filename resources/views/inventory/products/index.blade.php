@@ -8,7 +8,7 @@
                         
                         <form method="Get" role="search">
                             <div class="search-container">
-                                  <input type="text" name="search_data" id="search_data" class="search_data form-control" value="{{$search_data}}" placeholder="Search...">
+                                  <input type="text" name="search_data" id="search_data" class="search_data form-control" value="{{$search_data}}" placeholder="Search by Name or ID ...">
                                   <button type="submit" class="search-button">
                                     <i class="fa fa-search"  style="font-size:48px;color:rgb(1, 7, 41);"></i>
                                   </button>
