@@ -158,7 +158,10 @@
                                                                 data-brand_name="{{ $medicine->brand->name }}"
                                                                 data-brand_id="{{ $medicine->brand->id }}"
                                                                 data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}">
+                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}"
+                                                                data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
+                                                                data-common_side_effect="{{$medicine->product->common_side_effect}}"
+                                                                >
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
@@ -291,12 +294,12 @@
                             </div>
                             <div class="mb-5">
                                 <label>Dricetion Of Use </label>
-                                <input type="text" name="direction_use" id="direction_use_label"
+                                <input type="text" name="direction_use" readonly id="direction_use_label"
                                     class="form-control">
                             </div>
                             <div class="mb-5">
                                 <label>Common Side Effect</label>
-                                <input type="text" name="common_side_effect" id="common_side_effect_label"
+                                <input type="text" name="common_side_effect" readonly id="common_side_effect_label"
                                     class="form-control">
                             </div>
                         </div>
@@ -416,7 +419,7 @@
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
-                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}"></td>
+                    <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}" data-dricetion_of_use="${medicine.medicine.product.dricetion_of_use}" data-common_side_effect="${medicine.medicine.product.common_side_effect}"></td>
                     
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
@@ -812,10 +815,16 @@
             const MedicineIdTag = document.getElementById('medicine_id_label');
             const BrandName = document.getElementById('generic_formula_label');
             const BrandId = document.getElementById('brand_id_label');
+            const direction_use_tag = document.getElementById('direction_use_label');
+            const common_side_effect_tag = document.getElementById('common_side_effect_label');
+            const dricetion_of_use_tag = document.getElementById('direction_use_label');
+
             const medicineName = selectMedicine.getAttribute('data-medicine_name');
             const medicineId = selectMedicine.getAttribute('data-medicine_id');
             const brandName = selectMedicine.getAttribute('data-generic_formula');
             const brandId = selectMedicine.getAttribute('data-brand_id');
+            const dricetion_of_use_value = selectMedicine.getAttribute('data-dricetion_of_use');
+            const common_side_effect_value = selectMedicine.getAttribute('data-common_side_effect');
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
@@ -825,8 +834,10 @@
 
             MedicineName.value = medicineName;
             MedicineIdTag.value = medicineId;
-            BrandName.value = brandName;
-            BrandId.value = brandId;
+            // BrandName.value = brandName;
+            // BrandId.value = brandId;
+            common_side_effect_tag.value = common_side_effect_value;
+            dricetion_of_use_tag.value = dricetion_of_use_value;
         }
 
         // $("#save_label1").click(function() {
@@ -867,7 +878,9 @@
             var selling_price = $('#search_addbtn' + id).data('selling_price');
             var gst = $('#search_addbtn' + id).data('gst');
             var fixed_discount = $('#search_addbtn' + id).data('fixed_discount');
-            console.log(product_id);
+            var common_side_effect = $('#search_addbtn' + id).data('common_side_effect');
+            var dricetion_of_use = $('#search_addbtn' + id).data('dricetion_of_use');
+            // console.log(common_side_effect, dricetion_of_use);
 
             $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
@@ -885,6 +898,8 @@
                         data-totalPrice="${selling_price}"
                         data-gst="${gst}"
                         data-fixed_discount="${fixed_discount}"
+                        data-common_side_effect="${common_side_effect}"
+                        data-dricetion_of_use="${dricetion_of_use}"
                         >
                         </td>
                     
