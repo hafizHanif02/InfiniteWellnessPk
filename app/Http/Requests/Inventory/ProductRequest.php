@@ -29,6 +29,8 @@ class ProductRequest extends FormRequest
             'vendor_id' => ['nullable', 'exists:vendors,id'],
             'generic_id' => ['required', 'exists:generics,id'],
             'package_detail' => ['nullable', 'string', 'max:255'],
+            'dricetion_of_use' => ['nullable', 'string', 'max:255'],
+            'common_side_effect' => ['nullable', 'string', 'max:255'],
             'product_category_id' => ['required', 'exists:product_categories,id'],
             'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
             'manufacturer_retail_price' => ['required', 'numeric', 'min:0'],

@@ -22,6 +22,8 @@ class Product extends Model
         'manufacturer_id',
         'vendor_id',
         'unit_of_measurement',
+        'dricetion_of_use',
+        'common_side_effect',
         'manufacturer_retail_price',
         'number_of_pack',
         'pieces_per_pack',

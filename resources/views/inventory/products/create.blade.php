@@ -57,6 +57,26 @@
                         @enderror
                     </div>
                     <div class="mb-5">
+                        <label for="dricetion_of_use" class="form-label">Dricetion Of Use<sup
+                                class="text-danger">*</sup></label>
+                        <input type="text" name="dricetion_of_use" id="dricetion_of_use"
+                            class="form-control @error('dricetion_of_use') is-invalid @enderror"
+                            placeholder="Enter Dricetion Of Use" value="{{ old('dricetion_of_use') }}" title="dricetion_of_use">
+                        @error('dricetion_of_use')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-5">
+                        <label for="common_side_effect" class="form-label">Common Side Effect<sup
+                                class="text-danger">*</sup></label>
+                        <input type="text" name="common_side_effect" id="common_side_effect"
+                            class="form-control @error('common_side_effect') is-invalid @enderror"
+                            placeholder="Enter Common Side Effect" value="{{ old('common_side_effect') }}" title="common_side_effect">
+                        @error('common_side_effect')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-5">
                         <label for="generic_id" class="form-label">Generic Formula <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">

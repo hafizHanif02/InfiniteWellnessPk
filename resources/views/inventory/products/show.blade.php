@@ -16,6 +16,14 @@
                         <td>{{$product->product_name }}</td>
                     </tr>
                     <tr>
+                        <th>Dricetion Of Use:</th>
+                        <td>{{$product->dricetion_of_use }}</td>
+                    </tr>
+                    <tr>
+                        <th>Common Side Effect:</th>
+                        <td>{{$product->common_side_effect }}</td>
+                    </tr>
+                    <tr>
                         <th>Dosage Form:</th>
                         <td>{{$product->dosage->name }}</td>
                     </tr>
