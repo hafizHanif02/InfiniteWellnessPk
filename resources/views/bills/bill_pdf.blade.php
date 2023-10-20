@@ -10,6 +10,9 @@
             body {
                 font-family: DejaVu Sans, sans-serif !important;
             }
+            .text-right{
+                text-align: right !important;
+            }
         </style>
     @endif
 </head>
@@ -29,10 +32,10 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td colspan="2" class="text-right">
             <table class="address">
                 <tr>
-                    <td colspan="2">
+                    <td colspan="2" >
                         <span class="font-weight-bold patient-detail-heading">{{ __('messages.bill.bill_id') }}:</span>
                         #{{ $bill->bill_id }}
                         <br>
@@ -44,39 +47,40 @@
                     </td>
                 </tr>
             </table>
-            <table>
+            <table style="display: flex; justify-content: flex-end">
+            
                 <tr>
                     <td colspan="2"
-                        class="font-weight-bold patient-detail-heading">{{ __('messages.patient.patient_details') }}</td>
+                        class="font-weight-bold patient-detail-heading text-right" >{{ __('messages.patient.patient_details') }}</td>
                 </tr>
                 <tr>
                     <td class="patient-details">
                         <table class="patient-detail-one">
                             <tr>
-                                <td class="font-weight-bold">{{ __('messages.investigation_report.patient') }}:</td>
-                                <td>{{ $bill->patient->user->full_name }}</td>
+                                <td class="font-weight-bold text-right">{{ __('messages.investigation_report.patient') }}:</td>
+                                <td class="text-right">{{ $bill->patient->user->full_name }}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">{{ __('messages.user.email') }}:</td>
-                                <td>{{ $bill->patient->user->email }}</td>
+                                <td class="font-weight-bold text-right">{{ __('messages.user.email') }}:</td>
+                                <td class="text-right">{{ $bill->patient->user->email }}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">EMR #</td>
-                                <td>
+                                <td class="font-weight-bold text-right">EMR #</td>
+                                <td class="text-right">
                                     {{$bill->patient->MR }}
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">{{ __('messages.bill.cell_no') }}:</td>
-                                <td>{{ !empty($bill->patient->user->phone)  ? $bill->patient->user->phone : 'N/A' }}</td>
+                                <td class="font-weight-bold text-right">{{ __('messages.bill.cell_no') }}:</td>
+                                <td class="text-right">{{ !empty($bill->patient->user->phone)  ? $bill->patient->user->phone : 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">{{ __('messages.user.gender') }}:</td>
-                                <td>{{ $bill->patient->user->gender == 0 ? __('messages.user.male') : __('messages.user.female') }}</td>
+                                <td class="font-weight-bold text-right">{{ __('messages.user.gender') }}:</td>
+                                <td class="text-right">{{ $bill->patient->user->gender == 0 ? __('messages.user.male') : __('messages.user.female') }}</td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold">{{ __('messages.user.dob') }}:</td>
-                                <td>{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y') : 'N/A' }}</td>
+                                <td class="font-weight-bold text-right">{{ __('messages.user.dob') }}:</td>
+                                <td class="text-right">{{ !empty($bill->patient->user->dob) ? Datetime::createFromFormat('Y-m-d',  $bill->patient->user->dob)->format('jS M, Y') : 'N/A' }}</td>
                             </tr>
                         </table>
                     </td>
