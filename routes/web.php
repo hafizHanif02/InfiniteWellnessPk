@@ -1046,6 +1046,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('/retransfer/{trnasferId}', [TransferController::class, 'retransfer']);
 
         Route::get('item-report-pos', [PosController::class, 'posItemReport'])->name('posItemReport.index');
+    Route::post('/validate-pos', [PosController::class, 'validatePos']);
+
         Route::get('pos-item-report-print', [PosController::class, 'posItemReportPrint'])->name('posItemReport.print');
         Route::get('report_products/print', [ProductController::class, 'productsReportPrint'])->name('products_report.print');
     });

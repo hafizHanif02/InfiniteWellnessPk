@@ -227,5 +227,9 @@
         }
     </style>
     <script>
+         if (!sessionStorage.getItem('pageReloaded')) {
+        sessionStorage.setItem('pageReloaded', 'true');
+        window.location.reload();
+    }
         window.print();
     </script>

@@ -39,6 +39,41 @@ class PosController extends Controller
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
     }
+    public function validatePos(Request $request){
+
+        $customMessages = [
+            'products.*.medicine_id.required' => 'At least one product is required',
+            'products.*.product_quantity.required' => 'At least one product quantity is required',
+            'products.*.product_quantity.numeric' => 'Product quantity must be a numeric value',
+            'products.*.product_quantity.min' => 'Product quantity must be at least one',
+        ];
+        
+
+        $validatedData = $request->validate([
+            'patient_name' => ['required', 'string'],
+            'patient_number' => ['nullable', 'string'],
+             'total_amount' => ['required', 'numeric'],
+            'pos_fees' => ['required', 'numeric'],
+            'products' => 'required|array',
+            'products.*.medicine_id' => 'required|exists:medicines,id',
+            'products.*.product_quantity' => 'required|numeric|min:1',
+            'total_discount'=> ['nullable','numeric'],
+            'total_saletax'=> ['nullable','numeric'],
+            'total_amount_ex_saletax'=> ['nullable','numeric'],
+            'total_amount_inc_saletax'=> ['nullable','numeric'],
+            'patient_mr_number' => ['nullable', 'string'],
+            'doctor_name' => ['nullable', 'string'],
+            'cashier_name' => ['nullable', 'string'],
+            'pos_date' => ['required', 'date'],
+            'enter_payment_amount' => ['nullable', 'numeric'],
+            'change_amount' => ['nullable', 'numeric'],
+        ], $customMessages);
+        
+            // Validation succeeded
+            return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+        
+
+    }
 
     public function store(PosRequest $request): RedirectResponse
     {
@@ -264,6 +299,7 @@ class PosController extends Controller
 
         // Query to calculate the total quantity from Pos_Product
         $posesQuery = Pos_Product::whereIn('pos_id', $posid)
+            
             ->selectRaw('pos_id as pos_id, medicine_id, product_name as productName, SUM(product_quantity) as productQty')
             ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
             ->selectRaw('medicines.*')
@@ -284,7 +320,7 @@ class PosController extends Controller
 
         // Fetch the data
         $posReturnQuantity = $returnQuery->get();
-        $poses = $posesQuery->get();
+        $poses = $posesQuery->with('medicine')->get();
         $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
 
         return view('item-report.index', [

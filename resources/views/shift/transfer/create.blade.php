@@ -434,7 +434,7 @@
                 $('#csv-form').submit();
             });
         
-            $(document).ready(function() {
+$(document).ready(function() {
     $('#save-transfer-form').on('submit', function(e) {
         e.preventDefault();
 

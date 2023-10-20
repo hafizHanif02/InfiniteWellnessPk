@@ -14,7 +14,7 @@
                             <i class="fas fa-dollar-sign fa-lg"></i>Cash Payment
                         </button>
                       </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <form action="{{ route('pos.paid',$pos) }}" method="POST" >
                                 @csrf
@@ -54,10 +54,6 @@
                                     <div class="col-md-8">
                                         <label for="change_amount">Change Amount</label>
                                         <input type="text" class="form-control"  name="change_amount" readonly class="change_amount" id="change_amount_card" value="{{$pos->total_amount }}" >
-                                    </div>
-                                    <div class="col-md-12 mt-5 mb-5">
-                                        <label for="card_number">Enter Card Number</label>
-                                        <input type="text"  placeholder="xxxx xxxx xxxx xxxx" class="form-control"  name="card_number" class="card_number" id="card_number">
                                     </div>
                                     <input type="hidden" value="0" name="is_cash">
                                     <input type="hidden" id="pos_total_amount_card" value="{{$pos->total_amount }}">
