@@ -50,7 +50,7 @@
                     <br>
                     <li>
                         <label class="form-label" for="customFile">Past Medical History</label>
-                        <input type="file" class="form-control" id="customFile" name="PastMedicalHistory" value="@foreach($formData as $item)
+                        <input type="text" class="form-control" id="customFile" name="PastMedicalHistory" value="@foreach($formData as $item)
                                 @if($item->fieldName == 'PastMedicalHistory')
                                     {{trim($item->fieldValue)}}
                                     @break

@@ -107,7 +107,7 @@
 
                     <div class="col-md-6">
                         <label for="breakfast" class="form-label">Breakfast</label>
-                        <input type="text" name="breakfast"  value="{{($DietData!=null)?(($DietData->Breakfast!=null)?$DietData->Breakfast:''):''}}" class="form-control" id="breakfast"
+                        <input type="text" name="breakfast"  class="form-control" id="breakfast"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'breakfast')
                                     value="{{trim($item->fieldValue)}}"
@@ -118,7 +118,7 @@
 
                     <div class="col-md-6">
                         <label for="lunch" class="form-label">Lunch</label>
-                        <input type="text" name="lunch" value="{{($DietData!=null)?(($DietData->Lunch!=null)?$DietData->Lunch:''):''}}" class="form-control" id="lunch"
+                        <input type="text" name="lunch" class="form-control" id="lunch"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'lunch')
                                     value="{{trim($item->fieldValue)}}"
@@ -140,7 +140,7 @@
 
                     <div class="col-md-6">
                         <label for="dinner" class="form-label">Dinner</label>
-                        <input type="text" name="dinner" value="{{($DietData!=null)?(($DietData->Dinner!=null)?$DietData->Dinner:''):''}}"  class="form-control" id="dinner"
+                        <input type="text" name="dinner"  class="form-control" id="dinner"
                                   @foreach($formData as $item)
                                 @if($item->fieldName == 'dinner')
                                     value="{{trim($item->fieldValue)}}"

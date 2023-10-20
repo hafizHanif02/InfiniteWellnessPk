@@ -25,7 +25,7 @@
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="1">
-                                        <button type="button" id="approve-purchaseorder-button" class="bg-transparent border-0 text-success">
+                                        <button type="submit" id="approve-purchaseorder-button" class="bg-transparent border-0 text-success">
                                             <i class="fa fa-check"></i>
                                         </button>
                                     </form>
@@ -34,7 +34,7 @@
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="0">
-                                        <button type="button" id="reject-purchaseorder-reject" class="bg-transparent border-0 text-danger">
+                                        <button type="submit" id="reject-purchaseorder-reject" class="bg-transparent border-0 text-danger">
                                             <i class="fa fa-close"></i>
                                         </button>
                                     </form>
