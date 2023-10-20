@@ -78,7 +78,8 @@ class PrescriptionRepository extends BaseRepository
                 })->get()->pluck('patientUser.full_name', 'id')->sort();
         // }
 
-        $patients = Patient::Select('patients.id', 'patients.MR', 'patients.user_id')->with('patientUser')->get()->where('patientUser.status', '=', 1)->sort();
+        $patients = Patient::Select('patients.id', 'patients.MR', 'patients.user_id')->with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('patientUser.full_name',
+        'MR')->sort();
 
         return $patients;
     }

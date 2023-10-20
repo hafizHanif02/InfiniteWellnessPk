@@ -101,7 +101,7 @@
             if (isNaN(EnterAmount) || isNaN(pos_total_amount)) {
                 $('#change_amount').val('Not A Valid Value, Enter Bill Amount = '+pos_total_amount);
             } else if (EnterAmount >= pos_total_amount) {
-                $('#change_amount').val(EnterAmount - pos_total_amount);
+                $('#change_amount').val((EnterAmount - pos_total_amount).toFixed(2));
             } else {
                 $('#change_amount').val('Insufficient Amount (Actual Bill Amount = '+pos_total_amount+')');
             }
@@ -113,7 +113,7 @@
             if (isNaN(EnterAmount) || isNaN(pos_total_amount)) {
                 $('#change_amount_card').val('Not A Valid Value, Enter Bill Amount = '+pos_total_amount);
             } else if (EnterAmount >= pos_total_amount) {
-                $('#change_amount_card').val(EnterAmount - pos_total_amount);
+                $('#change_amount_card').val((EnterAmount - pos_total_amount).toFixed(2));
             } else {
                 $('#change_amount_card').val('Insufficient Amount (Actual Bill Amount = '+pos_total_amount+')');
             }

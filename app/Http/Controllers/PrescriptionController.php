@@ -134,6 +134,7 @@ class PrescriptionController extends AppBaseController
             $prescription->getMedicine;
             $PrescriptionMedicine = PrescriptionMedicineModal::where('prescription_id',$prescription->id)->with('medicine')->get();
             $patients = $this->prescriptionRepository->getPatients();
+            // dd($patients);
             $doctors = $this->doctorRepository->getDoctors();
             $medicines = $this->prescriptionRepository->getMedicines();
             $data = $this->medicineRepository->getSyncList();

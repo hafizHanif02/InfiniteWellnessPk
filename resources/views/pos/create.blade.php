@@ -557,12 +557,12 @@
                             <input type="number"  step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
-                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                            <input type="number" readonly step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any"value="0"  name="products[${a}][gst_percentage]" readonly id="gst_percentage${a}" class="form-control" >
+                            <input type="number" readonly  step="any"value="0"  name="products[${a}][gst_percentage]" readonly id="gst_percentage${a}" class="form-control" >
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
@@ -907,11 +907,11 @@
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
-                        <input class="form-control" type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                        <input class="form-control" readonly type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                         <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
-                    <td><input class="form-control" step="any"value="${gst}"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                    <td><input class="form-control" readonly step="any"value="${gst}"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
