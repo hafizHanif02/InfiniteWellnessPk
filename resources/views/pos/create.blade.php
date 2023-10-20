@@ -537,7 +537,7 @@
                             <select style="min-width: 120px; max-width: 120px;" name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
@@ -581,7 +581,9 @@
                         </td>
                         <td>
                         </td>
-                    </tr>
+                        </tr>
+                        <input type="hidden" id="common_side_effect${a}" >
+                        <input type="hidden" id="dricetion_of_use${a}" >
     `);
             $('.medicine-select').select2();
             enablemainbutton();
@@ -599,6 +601,8 @@
             var gst_perc_tag = document.getElementById('gst_percentage' + id);
             var medicineID = document.getElementById('medicineID' + id);
             var medicineName = document.getElementsByClassName('medicine_name' + id);
+            var common_side_effect_tag = document.getElementById('common_side_effect' + id);
+            var dricetion_of_use_tag = document.getElementById('dricetion_of_use' + id);
             
             // var genericformulatag = document.getElementById('generic_formula' + id);
 
@@ -610,6 +614,8 @@
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
             const MedicineNameData = selectedOption.getAttribute('data-medicine_name');
+            const CommonSideEffect = selectedOption.getAttribute('data-common_side_effect');
+            const DricetionOfUse = selectedOption.getAttribute('data-dricetion_of_use');
 
             // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
@@ -621,6 +627,8 @@
             medicineName.value = MedicineNameData;
             medicineID.value = MedicineId;
             gst_perc_tag.value = gstpercentage;
+            common_side_effect_tag.value = CommonSideEffect;
+            dricetion_of_use_tag.value = DricetionOfUse;
 
             sellingpriceTag.value = sellingPriceValue;
             // genericformulatag.value = GenericFormula;
@@ -758,6 +766,9 @@
             var paitentName = $('#patient_name').val();
             $('#patient_name_label').val(paitentName);
 
+            // const selectMedicine = document.getElementById('medicine' + id);
+            const CommonSideEffect_value = $('#common_side_effect' + id).val();
+            const DricetionOfUse_value = $('#dricetion_of_use' + id).val();
             const selectMedicine = document.getElementById('medicine' + id);
             const MedicineName = document.getElementById('medicine_name_label');
             const MedicineId = document.getElementById('medicine_id_label');
@@ -766,12 +777,14 @@
             const BrandName = document.getElementById('generic_formula_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
-
+            
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const medicineName = selectedOption.getAttribute('data-medicine_name');
             const medicineIDValue = selectedOption.getAttribute('data-medicine_id');
             const brandName = selectedOption.getAttribute('data-generic_formula');
             const brandId = selectedOption.getAttribute('data-brand_id');
+            $('#common_side_effect_label').val(CommonSideEffect_value);
+            $('#direction_use_label').val(DricetionOfUse_value);
 
             (medicineLabel_Id, medicineIDValue);
             var currentDate = new Date();
@@ -783,8 +796,8 @@
 
             MedicineName.value = medicineName;
             MedicineId.value = medicineIDValue;
-            BrandName.value = brandName;
-            BrandIdTag.value = brandId;
+            // BrandName.value = brandName;
+            // BrandIdTag.value = brandId;
         }
 
         function Addlabelforprescription(id) {
