@@ -14,10 +14,10 @@
                    target="_blank"
                    class="btn btn-success me-2 edit-btn">{{ __('messages.ipd_patient_prescription.print_prescription') }}
                 </a>
-                <a class="btn btn-primary edit-btn"
+                {{-- <a class="btn btn-primary edit-btn"
                    href="{{route('prescriptions.edit',['prescription' => $prescription->id])}}">
                     {{ __('messages.common.edit') }}
-                </a>
+                </a> --}}
                 <a href="{{ url()->previous()}}"
                    class="btn btn-outline-primary ms-2">{{ __('messages.common.back') }}</a>
                 @endforeach
