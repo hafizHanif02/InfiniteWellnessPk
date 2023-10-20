@@ -158,7 +158,11 @@
                                                                 data-brand_name="{{ $medicine->brand->name }}"
                                                                 data-brand_id="{{ $medicine->brand->id }}"
                                                                 data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}">
+                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}"
+                                                                data-common_side_effect="{{ $medicine->product->common_side_effect }}"
+                                                                data-direction_of_use="{{ $medicine->product->dricetion_of_use }}"
+                                                                >
+
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
@@ -867,7 +871,11 @@
             var selling_price = $('#search_addbtn' + id).data('selling_price');
             var gst = $('#search_addbtn' + id).data('gst');
             var fixed_discount = $('#search_addbtn' + id).data('fixed_discount');
-            console.log(product_id);
+            var common_side_effect = $('#search_addbtn' + id).data('common_side_effect');
+            var direction_of_use = $('#search_addbtn' + id).data('direction_of_use');
+
+            $("#common_side_effect" + id).val(common_side_effect);
+            $("#dricetion_of_use" + id).val(direction_of_use);
 
             $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
@@ -885,6 +893,8 @@
                         data-totalPrice="${selling_price}"
                         data-gst="${gst}"
                         data-fixed_discount="${fixed_discount}"
+                        data-common_side_effect="${common_side_effect}"
+                        data-direction_of_use="${direction_of_use}"
                         >
                         </td>
                     
@@ -918,6 +928,8 @@
                             </a>
                         </td>
                         <td>
+                            <input type="hidden" id="common_side_effect${a}">
+                            <input type="hidden" id="dricetion_of_use${a}">
 
                         </td>
                 </tr>`);
