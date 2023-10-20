@@ -206,7 +206,7 @@
                             @endforeach</textarea>
                 </div>
 
-                <div class="col-12">
+                {{-- <div class="col-12">
                     <br>
 
                     <h5 class="text-left">Objective Measurements:</h5>
@@ -234,7 +234,7 @@
                                     @break
                                 @endif
                             @endforeach>
-                </div>
+                </div> 
 
                 <div class="col-lx-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <br>
@@ -246,7 +246,7 @@
                                     @break
                                 @endif
                             @endforeach>
-                </div>
+                </div> --}}
 
                 <div class="col-lx-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
