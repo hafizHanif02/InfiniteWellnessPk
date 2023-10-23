@@ -21,7 +21,7 @@ class PosRequest extends FormRequest
             'total_amount_ex_saletax'=> ['nullable','numeric'],
             'total_amount_inc_saletax'=> ['nullable','numeric'],
             'patient_name' => ['required', 'string'],
-            'patient_number' => ['required', 'string'],
+            'patient_number' => ['nullable', 'string'],
             'patient_mr_number' => ['nullable', 'string'],
             'doctor_name' => ['nullable', 'string'],
             'cashier_name' => ['nullable', 'string'],

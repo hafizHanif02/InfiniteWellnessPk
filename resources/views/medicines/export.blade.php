@@ -18,7 +18,7 @@
                 <td>{{$medicine->dosage_form }}</td>
                 <td>{{$medicine->brand->name }}</td>
                 <td>{{$medicine->selling_price }}</td>
-                <td>{{$medicine->quantity }}</td>
+                <td>{{$medicine->total_quantity }}</td>
             </tr>
         @endforeach
     </tbody>
