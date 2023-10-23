@@ -26,7 +26,7 @@
                     <h3>Point Of Sales</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pos.store') }}" id="possubmitform" onsubmit="return false;" method="post">
+                    <form action="{{ route('pos.store') }}" id="possubmitform" onsubmit="return false;" method="POST" enctype= multipart/form-data>
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -257,7 +257,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false;" method="POST">
+                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false;" method="POST" enctype= multipart/form-data>
                     @csrf
                     <div class="modal-body">
                         <div class="row m-5">
