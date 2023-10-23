@@ -41,50 +41,50 @@ class NewStockController extends Controller
                     'name' => $transferProduct->product->productCategory->name,
                 ]);
 
-                $itemName = $transferProduct->product->product_name;
-                $item = Item::where('name', $itemName)->first();
+                // $itemName = $transferProduct->product->product_name;
+                // $item = Item::where('name', $itemName)->first();
 
-                if ($item) {
-                    $item->increment('available_quantity', $transferProduct->total_piece);
-                } else {
-                    $item = Item::create([
-                        'name' => $itemName,
-                        'itemcategory_id' => $itemCategory->id,
-                        'unit' => $transferProduct->product->unit_of_measurement,
-                        'description' => $transferProduct->product->package_detail,
-                        'available_quantity' => $transferProduct->total_piece,
-                    ]);
-                }
+                // if ($item) {
+                //     $item->increment('available_quantity', $transferProduct->total_piece);
+                // } else {
+                //     $item = Item::create([
+                //         'name' => $itemName,
+                //         'itemcategory_id' => $itemCategory->id,
+                //         'unit' => $transferProduct->product->unit_of_measurement,
+                //         'description' => $transferProduct->product->package_detail,
+                //         'available_quantity' => $transferProduct->total_piece,
+                //     ]);
+                // }
 
-                $itemIdExists = ItemStock::where('item_id', $item->id)->exists();
+                // $itemIdExists = ItemStock::where('item_id', $item->id)->exists();
 
-                if ($itemIdExists) {
-                    ItemStock::where('item_id', $item->id)->incrementEach([
-                        'quantity' => $transferProduct->total_piece,
-                    ])->update([
-                        'purchase_price' => $transferProduct->price_per_unit,
-                    ]);
-                } else {
-                    ItemStock::create([
-                        'itemcategory_id' => $itemCategory->id,
-                        'item_id' => $item->id,
-                        // 'supplier_name' => $transferProduct->product->vendor->account_title,
-                        'store_name' => 'Test store',
-                        'quantity' => $transferProduct->total_piece,
-                        'purchase_price' => $transferProduct->price_per_unit,
-                        'description' => $transferProduct->product->package_detail,
-                        'currency_symbol' => 'Rs',
-                    ]);
+                // if ($itemIdExists) {
+                //     ItemStock::where('item_id', $item->id)->incrementEach([
+                //         'quantity' => $transferProduct->total_piece,
+                //     ])->update([
+                //         'purchase_price' => $transferProduct->price_per_unit,
+                //     ]);
+                // } else {
+                //     ItemStock::create([
+                //         'itemcategory_id' => $itemCategory->id,
+                //         'item_id' => $item->id,
+                //         // 'supplier_name' => $transferProduct->product->vendor->account_title,
+                //         'store_name' => 'Test store',
+                //         'quantity' => $transferProduct->total_piece,
+                //         'purchase_price' => $transferProduct->price_per_unit,
+                //         'description' => $transferProduct->product->package_detail,
+                //         'currency_symbol' => 'Rs',
+                //     ]);
 
-                    $category = Category::create([
-                        'name' => $transferProduct->product->productCategory->name,
-                        'is_active' => 1,
-                    ]);
+                //     $category = Category::create([
+                //         'name' => $transferProduct->product->productCategory->name,
+                //         'is_active' => 1,
+                //     ]);
 
-                    $brand = Brand::create([
-                        'name' => $transferProduct->product->manufacturer->company_name,
-                    ]);
-                }
+                //     $brand = Brand::create([
+                //         'name' => $transferProduct->product->manufacturer->company_name,
+                //     ]);
+                // }
 
                 $medicineNameExists = Medicine::where('name', $transferProduct->product->product_name)->exists();
 
