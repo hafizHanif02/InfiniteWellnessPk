@@ -8,11 +8,11 @@
             <div class="row">
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
                     </div>
-                    @endif
+                @endif
             </div>
             @include('flash::message')
             <div class="col-md-12 mb-5 text-end">
@@ -31,34 +31,32 @@
                                 <select class="form-control" name="pos_id" id="pos_id">
                                     <option value="" selected disabled>Select Pos fro Return</option>
                                     @foreach ($poses as $pos)
-                                        <option value="{{$pos->id }}"
-                                             data-pos_date="{{$pos->pos_date }}" 
-                                             data-patient="{{$pos->patient_name }}"
-                                             data-product="{{$pos->PosProduct}}"
-                                             
-                                             >{{$pos->id }}</option>
+                                        <option value="{{ $pos->id }}" data-pos_date="{{ $pos->pos_date }}"
+                                            data-patient="{{ $pos->patient_name }}" data-product="{{ $pos->PosProduct }}">
+                                            {{ $pos->id }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="patient_name">Patient Name<sup class="text-danger">*</sup></label>
-                                <input type="text" readonly name="patient_name"  id="patient_name" class="form-control"
+                                <input type="text" readonly name="patient_name" id="patient_name" class="form-control"
                                     placeholder="Select POS">
                                 @error('patient_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                      
+
                         <div class="mb-3 row">
                             <div class="col-md-6">
                                 <label for="pos_date" class="form-label">POS Date <sup class="text-danger">*</sup></label>
-                                <input type="text" class="form-control" placeholder="Select POS First" readonly name="pos_date" id="pos_date" >
+                                <input type="text" class="form-control" placeholder="Select POS First" readonly
+                                    name="pos_date" id="pos_date">
                                 @error('pos_date')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
+
                         </div>
                         <div class="mt-10">
                             <div class="row mb-5 ">
@@ -69,13 +67,13 @@
                             <div class="table-responsive">
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
-                                        <th class="col" >Product</th>
-                                        <th class="col" >Generic Formula</th>
-                                        <th class="col" >Dosage</th>
-                                        <th class="col" >MRP Per Unit</th>
-                                        <th class="col" >Return Quantity</th>
-                                        <th class="col" >Discount</th>
-                                        <th class="col" >Return Cost</th>
+                                        <th class="col">Product</th>
+                                        <th class="col">Generic Formula</th>
+                                        <th class="col">Qty</th>
+                                        <th class="col">MRP Per Unit</th>
+                                        <th class="col">Return Quantity</th>
+                                        <th class="col">Discount</th>
+                                        <th class="col">Return Cost</th>
                                         <th></th>
                                     </thead>
                                     <tbody class="" id="medicine-table-body">
@@ -100,9 +98,9 @@
     </div>
     </div>
     </div>
- 
-<script>
-    $(document).ready(function() {
+
+    <script>
+        $(document).ready(function() {
             $('#pos_id').select2();
             $("#pos_id").change(function() {
                 var selectedOption = $(this).find(":selected");
@@ -112,7 +110,7 @@
                 var selectedPosDateAttr = selectedOption.data("pos_date");
                 $('#patient_name').val(selectedPatientAttr);
                 $('#pos_date').val(selectedPosDateAttr);
-                
+
                 $("#medicine-table-body").empty();
                 selectedPosProductAttr.forEach(function(medicine, items) {
                     var row = `
@@ -133,36 +131,54 @@
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
-                    
+
                 });
+
+                $('#total_amount').val(0);
+
 
             });
         });
 
-        function chnagequantity(id){
-            var return_quantity = $('#return_quantity'+id).val();
-            var price_per_unit = $('#mrp_perunit'+id).val();
-            var total_cost = $('#total_cost'+id).val();
-            var ReturnAmount = return_quantity * total_cost;
-            // var ReturnAmount = return_quantity * price_per_unit;
-            $('#product_total_price'+id).val(ReturnAmount);
-            $('#product_total_price2'+id).val(ReturnAmount);
-            totalAmount();
-          }
+        // function chnagequantity(id){
+        //     var return_quantity = $('#return_quantity'+id).val();
+        //     var price_per_unit = $('#mrp_perunit'+id).val();
+        //     var total_cost = $('#total_cost'+id).val();
+        //     var ReturnAmount = return_quantity * total_cost;
+        //     // var ReturnAmount = return_quantity * price_per_unit;
+        //     $('#product_total_price'+id).val(ReturnAmount);
+        //     $('#product_total_price2'+id).val(ReturnAmount);
+        //     totalAmount();
+        //   }
+        function chnagequantity(id) {
+            var return_quantity = $('#return_quantity' + id).val();
+            var discount_percentage = $('#discount_percentage' + id).val();
+            var price_per_unit = $('#mrp_perunit' + id).val();
+            var ReturnAmount = price_per_unit * return_quantity;
+            var discountAmount = (ReturnAmount * discount_percentage) / 100;
+            discountAmount = discountAmount.toFixed(2);
+            var totalProductAmount = ReturnAmount - discountAmount;
+            var totalProductAmount = totalProductAmount.toFixed(2);
 
-          function totalAmount(){
+            $('#product_total_price' + id).val(totalProductAmount);
+            $('#product_total_price2' + id).val(totalProductAmount);
+            totalAmount();
+        }
+
+
+        function totalAmount() {
             var TotalAmount = 0;
             $("input[id^='product_total_price2']").each(function() {
-                    if($(this).val() != ''){
-                        TotalAmount += parseFloat($(this).val());
-                    }
-                });
-                $('#total_amount').val(TotalAmount);
+                if ($(this).val() != '') {
+                    TotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#total_amount').val(TotalAmount);
 
-          }
+        }
 
 
-      
+
 
 
         // const prescriptionSelect123 = document.getElementById('prescription_id');
@@ -180,10 +196,5 @@
         //     doctorInput123.readonly = true;
 
         // });
-
-       
-
-      
-        
     </script>
 @endsection
