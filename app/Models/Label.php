@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Pos;
+use App\Models\Medicine;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,5 +29,10 @@ class Label extends Model
     public function pos(): BelongsTo
     {
         return $this->belongsTo(Pos::class);
+    }
+
+    public function medicine(): BelongsTo
+    {
+        return $this->belongsTo(Medicine::class,'medicine_id');
     }
 }

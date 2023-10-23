@@ -34,6 +34,10 @@
                 <td>{{ $label->quantity }}</td>
             </tr>
             <tr>
+                <td>Generic Formula</td>
+                <td>{{$label->medicine->generic_formula }}</td>
+            </tr>
+            <tr>
                 <td>Directions:</td>
                 <td colspan="5">{{ $label->direction_use }}</td>
             </tr>

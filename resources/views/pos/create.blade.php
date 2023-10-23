@@ -257,7 +257,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('label.store') }}" id="labelsubmitform" method="POST">
+                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false;" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row m-5">
