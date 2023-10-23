@@ -162,7 +162,7 @@
 
             $('#product_total_price' + id).val(totalProductAmount);
             $('#product_total_price2' + id).val(totalProductAmount);
-            totalAmount();
+            totalAmount(); 
         }
 
 
@@ -173,7 +173,7 @@
                     TotalAmount += parseFloat($(this).val());
                 }
             });
-            $('#total_amount').val(TotalAmount);
+            $('#total_amount').val(TotalAmount.toFixed(2));
 
         }
 
