@@ -116,7 +116,7 @@ if ($posId !== null && $posId == $request->pos_id) {
         $last_name = getLoggedInUser()->last_name;
         $user_name = $first_name.' '.$last_name;
 
-        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with(['pos','medicine'])->latest()->first();
+        $label = Label::where('pos_id', $pos_id)->where('medicine_id', $medicine_id)->with('pos')->latest()->first();
 
         $generatorHTML = new BarcodeGeneratorHTML();
         $bill_no_barcode = $generatorHTML->getBarcode($label->pos_id, $generatorHTML::TYPE_CODE_128);

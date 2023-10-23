@@ -26,7 +26,7 @@
                     <h3>Point Of Sales</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pos.store') }}" id="possubmitform" onsubmit="return false;" method="POST" enctype= multipart/form-data>
+                    <form action="{{ route('pos.store') }}" id="possubmitform" onsubmit="return false;" method="post">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -179,17 +179,13 @@
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
                                         <th class="col" style="min-width: 100px; max-width: 100px;">Product</th>
-                                        {{-- <th class="col" style="min-width: 200px">Generic Formula</th> --}}
                                         <th class="col" style="min-width: 130px">Qty OH</th>
                                         <th class="col" style="min-width: 130px">MRP Per Unit</th>
                                         <th class="col" style="min-width: 130px">Qty</th>
                                         <th class="col" style="min-width: 130px">DST %</th>
                                         <th class="col" style="min-width: 130px">GST %</th>
-                                        {{-- <th class="col" style="min-width: 200px">Time</th>
-                                        <th class="col" style="min-width: 200px">Comment</th> --}}
                                         <th class="col" style="min-width: 130px">Amount</th>
-                                        <th class="col" style="min-width: 130px">Generate Label</th>
-                                        {{-- <th class="col" style="min-width: 130px">View Label</th> --}}
+                                        <th class="col" style="text-align: end">Label</th>
                                         <th></th>
                                         <th></th>
                                     </thead>
@@ -257,7 +253,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Label</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('label.store') }}" id="labelsubmitform" onsubmit="return false;" method="POST" enctype= multipart/form-data>
+                <form action="{{ route('label.store') }}" id="labelsubmitform" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row m-5">
@@ -277,12 +273,6 @@
                                 <input type="hidden" name="medicine_id" id="medicine_id_label" readonly
                                     class="form-control">
                             </div>
-                            {{-- <div class="mb-5">
-                                <label>Generic Formula</label>
-                                <input type="text" name="brand_name" id="generic_formula_label" readonly
-                                    class="form-control">
-                                <input type="hidden" name="brand_id" id="brand_id_label" readonly class="form-control">
-                            </div> --}}
                             <div class="mb-5">
                                 <label>Total Quantity</label>
                                 <input type="text" name="quantity" id="quantity_label" readonly class="form-control">
@@ -306,7 +296,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onclick="submitbuttonlabel()" id="save_label" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="save_label" class="btn btn-primary">Save changes</button>
                         {{-- <button type="submit" id="save_label1" class="btn btn-primary"> <a id="anchorlabel1" target="_blank"></a> Save changes</button> --}}
                     </div>
                 </form>
@@ -326,12 +316,6 @@
         function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
             $('#possubmitform').submit();
-        }
-
-
-        function submitbuttonlabel() {
-            $('#labelsubmitform').removeAttr('onsubmit');
-            $('#labelsubmitform').submit();
         }
 
         function preventSubmit(event) {
@@ -446,7 +430,10 @@
 
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
-                    <td><button type="button" class="btn btn-primary"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
+                    <td>
+                        <button type="button" class="btn btn-primary"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button>
+                    </td>
+                    <td><a id="printlabel${items}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -578,10 +565,11 @@
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-solid fa-plus"></i> Label
+                            <button type="button" class="btn btn-primary text-end" onclick="Addlabel(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-plus"></i>
                             </button>
-                        </td>
+                            </td>
+                        <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
@@ -847,7 +835,8 @@
         }
 
         // $("#save_label1").click(function() {
-           
+        //     // e.preventDefault();
+        //     $('#labelsubmitform').submit();
         //     var pos_id = $('#pos_id_label').val();
         //     var medicine_id = $('#medicine_id_label').val();
         //     var brand_id = $('#brand_id_label').val();
@@ -861,10 +850,13 @@
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
+            $('#printlabel'+id).removeAttr('disabled');
+            $('#printlabel'+id).attr('href',`/lable/label-print/${pos_id}/${medicine_id}`);
+            $('#printlabel'+id).attr('target','__blank');
             // /lable/label-print/${pos_id}/${medicine_id}
-            sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });     
-            e.preventDefault();
-            $('#labelsubmitform').submit();
+            // sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
+            
+
         }
 
         function sleep(ms) {
@@ -927,9 +919,10 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" onclick="Addlabelforprescription(${a})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-solid fa-plus"></i> Label
+                                <i class="fa-solid fa-plus"></i>
                             </button>
                         </td>
+                        <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
