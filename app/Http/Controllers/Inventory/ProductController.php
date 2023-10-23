@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Models\Patient;
+use App\Models\Medicine;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Dosage;
@@ -236,7 +237,7 @@ class ProductController extends Controller
 
 public function productsReport(Request $request)
 {
-    $productsQuery = Product::select(['products.id', 'product_name', 'open_quantity']);
+    $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity','generic_id']);
 
     if ($request->date_from || $request->date_to) {
         $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
@@ -265,6 +266,7 @@ public function productsReport(Request $request)
     foreach ($products as $product) {
         $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
         $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
+        // $product->generic = Medicine::where('product_id', $product->id)->with('product.generic');
 
         $product->stock_in = $stock_in;
         $product->stock_out = $stock_out;
@@ -274,7 +276,7 @@ public function productsReport(Request $request)
 
         $product->open_quantity = $stock_current - $stock_out + $stock_in;
     }
-
+    // dd($products);
     return view('inventory.product_report.index', ['products' => $products]);
 }
 
