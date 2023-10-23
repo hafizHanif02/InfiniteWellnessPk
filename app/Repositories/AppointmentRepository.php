@@ -9,6 +9,8 @@ use App\Models\Doctor;
 use App\Models\DoctorDepartment;
 use App\Models\Notification;
 use App\Models\Patient;
+use App\Models\DoctorOpdCharge;
+use App\Models\PatientCase;
 use App\Models\Receptionist;
 use App\Models\Schedule;
 use App\Models\User;
@@ -354,6 +356,23 @@ class AppointmentRepository extends BaseRepository
                 'department_id' => $appointmentDepartmentId,
                 'opd_date' => $input['opd_date'],
                 'problem' => $input['problem'],
+            ]);
+            $caseID = PatientCase::where('patient_id', $patient->id)->orderBy('id', 'decs')->first();
+
+            $doc = Doctor::where('id', $input['doctor_id'])->first();
+
+
+            $standard_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
+
+            OpdPatientDepartment::create([
+                'patient_id' => $patient->id,
+                'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+                'doctor_id' => $input['doctor_id'],
+                'appointment_date' => $input['opd_date'],
+                'case_id' => $caseID->case_id,
+                'standerd_charge' => $standard_charge->standard_charge,
+                'payment_mode' => 1,
+                'currency_symbol' => 'pkr'
             ]);
 
             DB::commit();
