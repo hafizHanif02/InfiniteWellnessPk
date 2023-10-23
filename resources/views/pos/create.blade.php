@@ -330,8 +330,8 @@
 
 
         function submitbuttonlabel() {
-            $('#possubmitform').removeAttr('onsubmit');
-            $('#possubmitform').submit();
+            $('#labelsubmitform').removeAttr('onsubmit');
+            $('#labelsubmitform').submit();
         }
 
         function preventSubmit(event) {
