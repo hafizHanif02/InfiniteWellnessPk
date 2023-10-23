@@ -841,8 +841,7 @@
         }
 
         // $("#save_label1").click(function() {
-        //     // e.preventDefault();
-        //     $('#labelsubmitform').submit();
+           
         //     var pos_id = $('#pos_id_label').val();
         //     var medicine_id = $('#medicine_id_label').val();
         //     var brand_id = $('#brand_id_label').val();
@@ -857,9 +856,9 @@
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
             // /lable/label-print/${pos_id}/${medicine_id}
-            sleep(4000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
-            
-
+            sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });     
+            e.preventDefault();
+            $('#labelsubmitform').submit();
         }
 
         function sleep(ms) {
