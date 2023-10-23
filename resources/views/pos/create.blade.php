@@ -306,7 +306,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id="save_label" class="btn btn-primary">Save changes</button>
+                        <button type="button" onclick="submitbuttonlabel()" id="save_label" class="btn btn-primary">Save changes</button>
                         {{-- <button type="submit" id="save_label1" class="btn btn-primary"> <a id="anchorlabel1" target="_blank"></a> Save changes</button> --}}
                     </div>
                 </form>
@@ -324,6 +324,12 @@
         }
 
         function submitbutton() {
+            $('#possubmitform').removeAttr('onsubmit');
+            $('#possubmitform').submit();
+        }
+
+
+        function submitbuttonlabel() {
             $('#possubmitform').removeAttr('onsubmit');
             $('#possubmitform').submit();
         }
