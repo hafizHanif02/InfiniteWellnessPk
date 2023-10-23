@@ -856,7 +856,7 @@
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
             // /lable/label-print/${pos_id}/${medicine_id}
-            sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });     
+            sleep(10000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });     
             e.preventDefault();
             $('#labelsubmitform').submit();
         }
