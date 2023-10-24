@@ -211,11 +211,13 @@
                                                                 data-Id="{{ $medicine->id }}"
                                                                 data-totalQuantity="{{ $medicine->total_quantity }}"
                                                                 data-totalPrice={{ $medicine->selling_price }}
-                                                                data-dricetion_of_use="{{ $posProduct->medicine->product->dricetion_of_use }}"
-                                                                data-common_side_effect="{{ $posProduct->medicine->product->common_side_effect }}"
-                                                                >
+                                                                {{-- data-dricetion_of_use="{{ $posProduct->medicine->product->dricetion_of_use }}"
+                                                                data-common_side_effect="{{ $posProduct->medicine->product->common_side_effect }}" --}}
+                                                                data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"
+                                                                data-common_side_effect="{{ $medicine->product->common_side_effect }}">
                                                                 <div class="select2_generic">
-                                                                    ({{ $medicine->generic_formula }})</div>
+                                                                    ({{ $medicine->generic_formula }})
+                                                                </div>
                                                                 {{ $medicine->name }}
                                                             </option>
                                                         @endforeach
@@ -248,7 +250,7 @@
                                                     <input type="number" step="any"
                                                         value="{{ $posProduct->discount_percentage }}"
                                                         name="products[{{ $loop->iteration }}][discount_percentage]"
-                                                        id="discount_percentage{{ $loop->iteration }}"
+                                                        readonly id="discount_percentage{{ $loop->iteration }}"
                                                         class="form-control"
                                                         onkeyup="discountCalculation({{ $loop->iteration }})">
                                                     <input type="hidden" value="{{ $posProduct->discount_amount }}"
@@ -298,8 +300,12 @@
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
                                                 </td>
-                                                <input type="hidden" value="{{ $posProduct->medicine->product->dricetion_of_use }}" id="dricetion_of_use{{ $loop->iteration }}">
-                                                <input type="hidden" value="{{ $posProduct->medicine->product->common_side_effect }}" id="common_side_effect{{ $loop->iteration }}">
+                                                <input type="hidden"
+                                                    value="{{ $posProduct->medicine->product->dricetion_of_use }}"
+                                                    id="dricetion_of_use{{ $loop->iteration }}">
+                                                <input type="hidden"
+                                                    value="{{ $posProduct->medicine->product->common_side_effect }}"
+                                                    id="common_side_effect{{ $loop->iteration }}">
                                                 <td>
                                                 </td>
                                             </tr>
@@ -666,7 +672,7 @@
                             <input type="number"  step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
-                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                            <input type="number"  step="any" value="0" name="products[${a}][discount_percentage]" id="discount_percentage${a}" readonly class="form-control" onkeyup="discountCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
@@ -1036,11 +1042,11 @@
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
-                        <input class="form-control" type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
+                        <input class="form-control" type="number" step="any" value="${fixed_discount}" readonly name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
                         <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][discount_amount]" id="discount_amounts2${a}" class="form-control">
                         </td>
-                    <td><input class="form-control" step="any"value="${gst}"  name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
+                    <td><input class="form-control" step="any"value="${gst}" readonly name="products[${a}][gst_percentage]" id="gst_percentage${a}" class="form-control" onkeyup="gstCalculation(${a})">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
