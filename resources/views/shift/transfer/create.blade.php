@@ -460,13 +460,13 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 // $('#validation-message').html(xhr.responseJSON.message);
-                
+                console.log(xhr.responseText);
                 $('.wrapper').append(
                     ` <div class="alert alert-danger">
                         <div>
                             <div class="d-flex">
                                 <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
-                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
+                                <span class="mt-1 validationError">${xhr.responseText}</span>
                             </div>
                         </div>
                     </div>
