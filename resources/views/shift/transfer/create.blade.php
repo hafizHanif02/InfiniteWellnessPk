@@ -477,7 +477,7 @@ $(document).ready(function() {
                             width: 290px;
                             padding: 40px;
                             box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
-                            top: 10px;
+                            bottom: 0;
                             right: 10px;
                         }
                         .icon-sm {
