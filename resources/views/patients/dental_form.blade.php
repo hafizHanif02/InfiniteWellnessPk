@@ -83,7 +83,7 @@ margin-left: -10px;
 <div class="patientDetails card mt-3 ">
     <div class="row ">
         <div class="d-flex col-md-6 mt-2 ">
-            <h5 class="date ">Date:</h5>
+            <label class="date form-label">Date:</label>
             <input type="date" name="dates" style="margin-left: 35px;" id="dates" value="@foreach($formData as $item)
             @if($item->fieldName == 'dates')
                 {{trim($item->fieldValue)}}
@@ -92,20 +92,20 @@ margin-left: -10px;
             @endif
         @endforeach">
     </div>
-        <div class="col-md-2 mt-2">
-            Dentist Name:   
+        <div class="col-md-2 mt-2 ">
+            <label class=" form-label in1" style="margin-left: -55px;">Dentist Name:</label>    
         </div>
-        <div class="col-md-4"> <input type="text" name="dentist_name" value="@foreach($formData as $item)
+        <div class="col-md-4 mt-3"> <input  type="text" name="dentist_name" value="@foreach($formData as $item)
             @if($item->fieldName == 'dentist_name')
                 {{trim($item->fieldValue)}}
                 @break
             @endif
-        @endforeach" class="in1" style="margin-left: -85px;"></div>
+        @endforeach" class="in1" ></div>
     </div>
 
     <div class="row" >
         <div class="col-md-1">
-            <h5 class="age mt-3"> Name:</h5>
+            <label class="age mt-3 form-label"> Name:</label>
         </div>
         <div class="d-flex col-md-auto" id="nameinp" style="margin-left: -55px;">
      <input type="text" style="margin-left: 28px;  width: 600px;" class="mt-3" name="name" readonly value="{{$patientData->user->full_name }}">
@@ -114,7 +114,7 @@ margin-left: -10px;
 
     <div class="row mt-2">
         <div class="col-md-auto">
-            <h5 class="gender mt-2"> Age:</h5> 
+            <label class="gender mt-2 form-label"> Age:</label> 
         </div>
         <div class="d-flex col-md-1 mt-2">
          <input type="number" style="margin-left: 15px;" readonly name="age" value="{{$age }}">   
@@ -122,7 +122,7 @@ margin-left: -10px;
 
 
         <div class="col-md-auto">
-            <h5 class="gender mt-2" style="margin-left: 125px;"> Gender:</h5>
+            <label class="gender mt-2 form-label" style="margin-left: 125px;"> Gender:</label>
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="male" @foreach ($formData as $item)
@@ -137,7 +137,7 @@ margin-left: -10px;
         @endforeach >   
         </div> 
         <div class="col-md-auto">
-            <h5 class="male mt-2" style="margin-left: -15px;"> Male:</h5>
+            <label class="male mt-2 form-label" style="margin-left: -15px;"> Male:</label>
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="female" @foreach ($formData as $item)
@@ -152,10 +152,10 @@ margin-left: -10px;
         @endforeach >    
         </div>
         <div class="col-md-auto ml-auto " style="margin-left: -15px; ">
-            <h5 class="female mt-2" > Female:</h5>
+            <label class="female mt-2 form-label" > Female:</label>
         </div>
         <div class="col-md-auto">
-            <h5 class="mrno mt-2 "> MR No:</h5>
+            <label class="mrno mt-2 form-label "> MR No:</label>
         </div>    
         <div class="d-flex col-md-4 mt-2">
         <input type="text" name="mr_no" readonly value="{{$patientData->MR }}">
@@ -181,7 +181,7 @@ margin-left: -10px;
          @endforeach >
         </div> 
          <div class="col-md-2">
-            <h5 class="gender"> Pain</h5> 
+            <label class="gender form-label"> Pain</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="Swelling" @foreach ($formData as $item)
@@ -196,7 +196,7 @@ margin-left: -10px;
         @endforeach >      
         </div> 
          <div class="col-md-2">
-            <h5 class="gender"> Swelling</h5> 
+            <label class="gender form-label"> Swelling</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="Malocclusion" @foreach ($formData as $item)
@@ -211,7 +211,7 @@ margin-left: -10px;
         @endforeach >       
         </div> 
          <div class="col-md-2">
-            <h5 class="gender"> Malocclusion</h5> 
+            <label class="gender form-label"> Malocclusion</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="missingTeeth"  @foreach ($formData as $item)
@@ -226,7 +226,7 @@ margin-left: -10px;
         @endforeach >       
         </div> 
          <div class="col-md-2">
-            <h5 class="gender"> Replace missing Teeth</h5> 
+            <label class="gender form-label"> Replace missing Teeth</label> 
         </div>    
  </div> 
 
@@ -245,7 +245,7 @@ margin-left: -10px;
     @endforeach >    
     </div> 
      <div class="col-md-2">
-        <h5 class="gender mt-4"> Mobility</h5> 
+        <label class="gender mt-4 form-label"> Mobility</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="FoodImpaction"  @foreach ($formData as $item)
@@ -260,7 +260,7 @@ margin-left: -10px;
     @endforeach >       
     </div> 
      <div class="col-md-2">
-        <h5 class="gender mt-4"> Food Impaction</h5> 
+        <label class="gender mt-4 form-label"> Food Impaction</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Aesthetics"  @foreach ($formData as $item)
@@ -275,7 +275,7 @@ margin-left: -10px;
     @endforeach >       
     </div>        
      <div class="col-md-2">
-        <h5 class="gender mt-4"> Aesthetics</h5> 
+        <label class="gender mt-4 form-label"> Aesthetics</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="LimitedMouthOpening"  @foreach ($formData as $item)
@@ -290,7 +290,7 @@ margin-left: -10px;
     @endforeach >      
     </div> 
      <div class="col-md-3">
-        <h5 class="gender mt-3"> Limited Mouth Opening</h5> 
+        <label class="gender mt-4 form-label"> Limited Mouth Opening</label> 
     </div>    
 </div> 
 
@@ -309,7 +309,7 @@ margin-left: -10px;
     @endforeach >          
     </div> 
      <div class="col-md-2 ">
-        <h5 class="gender mt-2"> Bleeding Gums</h5> 
+        <label class="gender mt-4 form-label"> Bleeding Gums</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Sensitivity"  @foreach ($formData as $item)
@@ -324,7 +324,7 @@ margin-left: -10px;
     @endforeach >  
     </div> 
      <div class="col-md-2 ">
-        <h5 class="gender mt-2"> Sensitivity</h5> 
+        <label class="gender mt-4 form-label"> Sensitivity</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Fracture" @foreach ($formData as $item)
@@ -339,7 +339,7 @@ margin-left: -10px;
     @endforeach >       
     </div> 
      <div class="col-md-2 ">
-        <h5 class="gender mt-2"> Fracture</h5> 
+        <label class="gender mt-4 form-label"> Fracture</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Prostheris" @foreach ($formData as $item)
@@ -354,7 +354,7 @@ margin-left: -10px;
     @endforeach >        
     </div> 
      <div class="col-md-2">
-        <h5 class="gender mt-2"> Prostheris</h5> 
+        <label class="gender mt-4 form-label"> Prostheris</label> 
     </div>    
 </div> 
 
@@ -373,7 +373,7 @@ margin-left: -10px;
     @endforeach >       
     </div> 
      <div class="col-md-2">
-        <h5 class="gender mt-2"> Caries</h5> 
+        <label class="gender mt-2 form-label"> Caries</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Staining"  @foreach ($formData as $item)
@@ -387,8 +387,8 @@ margin-left: -10px;
         @endif
     @endforeach >         
     </div> 
-     <div class="col-md-2 mt-2">
-        <h5 class="gender"> Staining</h5> 
+     <div class="col-md-2 mt-2 ">
+        <label class="gender form-label"> Staining</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input type="checkbox" class="check_box1" name="Trauma"  @foreach ($formData as $item)
@@ -403,14 +403,14 @@ margin-left: -10px;
     @endforeach >         
     </div> 
      <div class="col-md-2 mt-2">
-        <h5 class="gender"> Trauma</h5> 
+        <label class="gender form-label"> Trauma</label> 
     </div> 
 </div> 
 </div>
 
 <div class="row Anyother">
     <div class="col-md-1 mt-3">
-       Any other:   
+        <label class="gender form-label"> Any other:</label>      
     </div>
     <div class="col-md-11 mt-2">
         <input type="text" class="in1" name="Anyother" value="@foreach($formData as $item)
@@ -429,7 +429,7 @@ margin-left: -10px;
             <h4  >History of Pain:</h4>           
         </div>
         <div class="col-md-1 mt-3">
-            Duration: 
+            <label class="gender form-label in1" style="margin-left: -25px;"> Duration:</label>         
         </div>
   <div class="col-md-2 mt-2"> <input type="text" name="Duration" value="@foreach($formData as $item)
     @if($item->fieldName == 'Duration')
@@ -437,7 +437,7 @@ margin-left: -10px;
         @break
     @endif
 @endforeach" class="in1" style="margin-left: -35px;"></div> 
-  <div class="col-md-1 mt-3"><p>Occurs/Aggravates:</p></div>
+  <div class="col-md-1 mt-3"><label class="gender form-label"> Occurs/Aggravates:</label></div>
 </div>
 
 
@@ -448,7 +448,7 @@ margin-left: -10px;
     <div class="col-md-1">    
     </div>
      <div class="col-md-1">
-        <h5 class="gender"> Continous</h5> 
+        <label class="gender form-label"> Continous</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -464,7 +464,7 @@ margin-left: -10px;
     </div> 
     
      <div class="col-md-1">
-        <h5 class="gender"> Sharp</h5> 
+        <label class="gender form-label"> Sharp</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -480,7 +480,7 @@ margin-left: -10px;
     </div> 
    
      <div class="col-md-auto">
-        <h5 class="gender"> Only on Stimulus</h5> 
+        <label class="gender form-label"> Only on Stimulus</label> 
     </div> 
     <div class="d-flex col-md-1">
         <input   @foreach ($formData as $item)
@@ -501,7 +501,7 @@ margin-left: -10px;
     <div class="col-md-1">    
     </div> 
      <div class="col-md-1">
-        <h5 class="gender"> Intermittent</h5> 
+        <label class="gender form-label"> Intermittent</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -516,7 +516,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1 col-md-" name="Intermittent">       
     </div>
      <div class="col-md-1">
-        <h5 class="gender"> Dull</h5> 
+        <label class="gender form-label"> Dull</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -531,7 +531,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1" name="Dull">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Spontaneous</h5> 
+        <label class="gender form-label space"> Spontaneous</label> 
     </div>
     <div class="d-flex col-md-1">
         <input  @foreach ($formData as $item)
@@ -552,7 +552,7 @@ margin-left: -10px;
     <div class="col-md-1">    
     </div> 
     <div class="col-md-1">
-        <h5 class="gender"> Localized</h5> 
+        <label class="gender form-label"> Localized</label> 
     </div>
     <div class="d-flex col-md-8">
         <input  @foreach ($formData as $item)
@@ -574,7 +574,7 @@ margin-left: -10px;
     <div class="col-md-1">    
     </div> 
     <div class="col-md-1">
-        <h5 class="gender"> Radiating</h5> 
+        <label class="gender form-label"> Radiating</label> 
     </div>
     <div class="d-flex col-md-8">
         <input  @foreach ($formData as $item)
@@ -593,15 +593,15 @@ margin-left: -10px;
 
 <div class="row Factors">        
     <div class=" col-md-2 mt-3" >
-        Agrravating Factors:           
+        <label class="gender form-label" style="margin-left: -45px;"> Agrravating Factors: </label>              
     </div>
 <div class="col-md-3 mt-2"> <input  value="@foreach($formData as $item)
     @if($item->fieldName == 'AgrravatingFactors')
         {{trim($item->fieldValue)}}
         @break
     @endif
-@endforeach"  type="text" name="AgrravatingFactors" class="in1" style="margin-left: -80px;"></div> 
-<div class="col-md-2 mt-3"><p>Relieving Factors:</p></div>
+@endforeach"  type="text" name="AgrravatingFactors" class="in1 " style="margin-left: -80px;"></div> 
+<div class="col-md-2 mt-3"><label class="gender form-label" style="margin-left: -45px;"> Relieving Factors: </label></div>
 <div class="col-md-3 mt-2"> <input  value="@foreach($formData as $item)
     @if($item->fieldName == 'RelievingFactors')
         {{trim($item->fieldValue)}}
@@ -643,7 +643,7 @@ margin-left: -10px;
     @endforeach type="checkbox" class="check_box1 col-md-1" name="Chalia">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Chalia</h5> 
+        <label class="gender form-label"> Chalia</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -658,7 +658,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Smoking">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Smoking</h5> 
+        <label class="gender form-label"> Smoking</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -673,7 +673,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Naswar">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Naswar</h5> 
+        <label class="gender form-label">Naswar</label> 
     </div>  
 </div>
 
@@ -691,7 +691,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1 col-md-1" name="Paan">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Paan</h5> 
+        <label class="gender form-label"> Paan</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -706,7 +706,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Tobacco">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Tobacco</h5> 
+        <label class="gender form-label"> Tobacco</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -721,7 +721,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Alcohol">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender">Alcohol</h5> 
+        <label class="gender form-label">Alcohol</label> 
     </div>  
 </div>
 <div class="row">     
@@ -738,7 +738,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="Braxium">       
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Braxium</h5> 
+        <label class="gender form-label"> Braxium</label> 
     </div>   
 </div>
 </div>
@@ -761,7 +761,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="Pregnancy">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Pregnancy</h5> 
+        <label class="gender form-label"> Pregnancy</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -776,7 +776,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Asthama">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Asthama</h5> 
+        <label class="gender form-label"> Asthama</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -791,7 +791,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Epilepsy">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Epilepsy</h5> 
+        <label class="gender form-label">Epilepsy</label> 
     </div>  
 </div>
 
@@ -809,7 +809,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1 col-md-" name="HypertensionProfile">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Hypertension</h5> 
+        <label class="gender form-label"> Hypertension</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -824,7 +824,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Tuberculosis">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Tuberculosis</h5> 
+        <label class="gender form-label"> Tuberculosis</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -839,7 +839,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1" name="CerebrovascularAccident">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Cerebrovascular Accident</h5> 
+        <label class="gender form-label">Cerebrovascular Accident</label> 
     </div>  
 </div>
 
@@ -857,7 +857,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="DiabetesMellittus">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Diabetes Mellittus</h5> 
+        <label class="gender form-label"> Diabetes Mellittus</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -872,7 +872,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="PepticUlcerDisease">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Peptic Ulcer Disease</h5> 
+        <label class="gender form-label"> Peptic Ulcer Disease</label> 
     </div> 
 </div>
 
@@ -891,7 +891,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1 col-md-" name="IschemicHeartDisease">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Ischemic Heart Disease</h5> 
+        <label class="gender form-label"> Ischemic Heart Disease</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -906,7 +906,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1" name="RenalDisease">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Renal Disease</h5> 
+        <label class="gender form-label"> Renal Disease</label> 
     </div> 
 </div>
 <div class="row">     
@@ -923,7 +923,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="ValvularHeartDisease">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Valvular Heart Disease</h5> 
+        <label class="gender form-label">Valvular Heart Disease</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input @foreach ($formData as $item)
@@ -938,7 +938,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1" name="Arthritis">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Arthritis</h5> 
+        <label class="gender form-label"> Arthritis</label> 
     </div> 
 </div>
 
@@ -956,7 +956,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="BleedingDisorder">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Bleeding Disorder</h5> 
+        <label class="gender form-label">Bleeding Disorder</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input  @foreach ($formData as $item)
@@ -971,7 +971,7 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="SkinDisease">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Skin Disease</h5> 
+        <label class="gender form-label"> Skin Disease</label> 
     </div> 
 </div>
 <div class="row">     
@@ -988,7 +988,7 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="Hepatitis">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender">Hepatitis</h5> 
+        <label class="gender form-label">Hepatitis</label> 
     </div>
     <div class="d-flex col-md-auto">
         <input   @foreach ($formData as $item)
@@ -1003,14 +1003,14 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1" name="ThyroidDisorder">         
     </div> 
      <div class="col-md-auto">
-        <h5 class="gender"> Thyroid Disorder</h5> 
+        <label class="gender form-label"> Thyroid Disorder</label> 
     </div> 
 </div>
 </div>
 
 <div class="row previous">
     <div class="col-md-2 mt-3">
-       Previous Hospitalization:  
+        <label class=" form-label"> Previous Hospitalization: </label>         
     </div>
     <div class="col-md-3 mt-2">
         <input  @foreach ($formData as $item)
@@ -1028,7 +1028,7 @@ margin-left: -10px;
 
 <div class="row transfusion">
     <div class="col-md-2 mt-3">
-       Transfusion History:  
+        <label class=" form-label"> Transfusion History:</label>       
     </div>
 <div class="d-flex col-md-auto mt-2">
     <input  @foreach ($formData as $item)
@@ -1043,7 +1043,7 @@ margin-left: -10px;
 @endforeach type="checkbox" class="check_box1" name="Donor">         
 </div>     
 <div class="col-md-auto mt-3">
-    <h5 class="gender"> Donor</h5> 
+    <label class="gender form-label"> Donor</label> 
 </div>   
 <div class="d-flex col-md-auto mt-2">
     <input  @foreach ($formData as $item)
@@ -1058,12 +1058,11 @@ margin-left: -10px;
 @endforeach   type="checkbox" class="check_box1" name="Recipient">         
 </div>     
 <div class="col-md-auto mt-3">
-    <h5 class="gender"> Recipient</h5> 
+    <label class="gender form-label"> Recipient</label> 
 </div> 
 </div>
 <div class="row drug">
-    <div class="col-md-1 mt-3">
-       Drug History 
+    <div class="col-md-1 mt-3"><label class="gender form-label"> Drug History </label>     
     </div>
     <div class="col-md-11 mt-2">
         <input  value="@foreach($formData as $item)
@@ -1075,8 +1074,7 @@ margin-left: -10px;
     </div>
 </div>
 <div class="row allergies">
-    <div class="col-md-1 mt-3">
-      Allergies
+    <div class="col-md-1 mt-3"><label class="gender form-label"> Allergies </label>   
     </div>
     <div class="col-md-11 mt-2">
         <input  value="@foreach($formData as $item)
@@ -1106,10 +1104,10 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1 col-md-" name="Diabetes">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Diabetes</h5> 
+        <label class="gender form-label"> Diabetes</label> 
     </div>
     <div class="col-md-2">
-        <h5 class="gender">M/F/B/S</h5>   
+        <label class="gender form-label">M/F/B/S</label>   
     </div>
     <div class="d-flex col-md-1">
         <input  @foreach ($formData as $item)
@@ -1124,10 +1122,10 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="Ihd">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> IHD</h5> 
+        <label class="gender form-label"> IHD</label> 
     </div> 
     <div class="col-md-2">
-        <h5 class="gender">M/F/B/S</h5>   
+        <label class="gender form-label">M/F/B/S</label>   
     </div>
 </div>
 <div class="row">   
@@ -1145,10 +1143,10 @@ margin-left: -10px;
     @endforeach   type="checkbox" class="check_box1 col-md-" name="HypertensionHistory">       
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Hypertension</h5> 
+        <label class="gender form-label"> Hypertension</label> 
     </div>
     <div class="col-md-2">
-        <h5 class="gender">M/F/B/S</h5>   
+        <label class="gender form-label">M/F/B/S</label>   
     </div>
     <div class="d-flex col-md-1">
         <input  @foreach ($formData as $item)
@@ -1163,10 +1161,10 @@ margin-left: -10px;
     @endforeach  type="checkbox" class="check_box1" name="BleedingDisorder2">         
     </div> 
      <div class="col-md-3">
-        <h5 class="gender"> Bleeding Disorder</h5> 
+        <label class="gender form-label"> Bleeding Disorder</label> 
     </div> 
     <div class="col-md-2">
-        <h5 class="gender">M/F/B/S</h5>   
+        <label class="gender form-label">M/F/B/S</label>   
     </div>
 </div>
 </div>
@@ -1193,7 +1191,7 @@ margin-left: -10px;
      @endforeach   type="checkbox" class="check_box1" name="Anemia">       
      </div> 
       <div class="col-md-2">
-         <h5 class="gender mt-2"> Anemia</h5> 
+         <label class="gender mt-2 form-label"> Anemia</label> 
      </div>
      <div class="d-flex col-md-auto">
          <input   @foreach ($formData as $item)
@@ -1207,8 +1205,8 @@ margin-left: -10px;
          @endif
      @endforeach  type="checkbox" class="check_box1" name="Swelling">         
      </div> 
-      <div class="col-md-2 mt-2">
-         <h5 class="gender"> Swelling</h5> 
+      <div class="col-md-2 mt-2 form-label">
+         <label class="gender"> Swelling</label> 
      </div>
  </div> 
  <div class="row mt-1">     
@@ -1225,7 +1223,7 @@ margin-left: -10px;
      @endforeach  type="checkbox" class="check_box1" name="Jaundice">       
      </div> 
       <div class="col-md-2">
-         <h5 class="gender mt-2"> Jaundice</h5> 
+         <label class="gender mt-2 form-label"> Jaundice</label> 
      </div>
      <div class="d-flex col-md-auto">
          <input  @foreach ($formData as $item)
@@ -1239,14 +1237,14 @@ margin-left: -10px;
          @endif
      @endforeach  type="checkbox" class="check_box1" name="FacialAsymmetry">         
      </div> 
-      <div class="col-md-2 mt-2">
-         <h5 class="gender"> Facial Asymmetry</h5> 
+      <div class="col-md-2 mt-2 form-label">
+         <label class="gender"> Facial Asymmetry</label> 
      </div>
  </div> 
  
  <div class="row mt-1">     
      <div class="col-md-auto">
-         <h6>Note:</h6>
+        <label class="gender">Note:</label> 
      </div>
      <div class="col-md-11">
         <input  value="@foreach($formData as $item)@if($item->fieldName == 'note'){{trim($item->fieldValue)}}@break @endif @endforeach"  type="text" name="note" style="width: 100%;" class="in1">
@@ -1311,9 +1309,9 @@ margin-left: -10px;
          @endforeach  type="checkbox" class="check_box1" name="PAXray">       
          </div> 
           <div class="col-md-1">
-             <h5 class="gender mt-2"> PA X-ray</h5> 
+             <label class="gender mt-2 Note:"> PA X-ray</label> 
          </div>
-         <div class="col-md-auto">
+         <div class="col-md-auto mt-2">
              <input name="PAXray_feild"  value="@foreach($formData as $item)
     @if($item->fieldName == 'PAXray_feild')
         {{trim($item->fieldValue)}}
@@ -1322,7 +1320,7 @@ margin-left: -10px;
 @endforeach"  type="text" style="width: 250px;" class="in1">
           </div>
          <div class="d-flex col-md-auto">
-             <input type="checkbox" class="check_box1" name="OPG" @foreach ($formData as $item)
+             <input type="checkbox" class="check_box1 mt-2" name="OPG" @foreach ($formData as $item)
              @if ($item->fieldName == 'OPG' && $item->fieldValue == '1')
                      value="1"
                      checked
@@ -1333,8 +1331,8 @@ margin-left: -10px;
              @endif
          @endforeach>         
          </div> 
-          <div class="col-md-1 mt-2">
-             <h5 class="gender"> OPG</h5> 
+          <div class="col-md-1 ">
+             <label class="gender mt-2 form-label"> OPG</label> 
          </div>
          <div class="col-md-auto">
              <input  value="@foreach($formData as $item)
@@ -1342,12 +1340,12 @@ margin-left: -10px;
         {{trim($item->fieldValue)}}
         @break
     @endif
-@endforeach" name="OPG_feild" type="text" style="width: 250px;" class="in1">
+@endforeach" name="OPG_feild" type="text" style="width: 250px;" class="in1 mt-2">
           </div> 
  <div class="row">
  
      <div class="col-md-2 ">
-         <h5 class="gender mt-2"> Dentist Signature:</h5> 
+         <label class="gender mt-4 form-label"> Dentist Signature:</label> 
      </div>
      <div class="col-md-auto">
          <input  value="@foreach($formData as $item)
@@ -1360,7 +1358,7 @@ margin-left: -10px;
     {{trim($item->fieldValue)}}
     @break
 @endif
-@endforeach" style="width: 250px; margin-left: -20px;" class="in1">
+@endforeach" style="width: 250px; margin-left: -20px;" class="in1 mt-3">
       </div>
  </div>
 </div>
