@@ -31,7 +31,7 @@
         @foreach ($products as $product)
         <tr>
         <td>{{ $product->id }}</td>
-        <td>{{ $product->product_name }}</td>
+        <td>{{ $product->product_name }} {{ ($product->generic->formula != NULL ? '(' . $product->generic->formula . ')' : '-') }}</td>
         <td>{{ $product->open_quantity }}</td>
         <td>{{ $product->stock_current }}</td>
         <td>{{ $product->stock_in }}</td>
