@@ -88,6 +88,7 @@
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr class="text-white">
+                                        <td  style="min-width: 50px" >#</td>
                                         <td  style="min-width: 200px" >Product</td>
                                         <td  style="min-width: 200px">Total Stock</td>
                                         <td  style="min-width: 200px">Unit of Measurement</td>
@@ -162,6 +163,7 @@
                             $("#add-products").append(`
                                     <tr id="${products[i].id}">
                                         <input type="hidden" name="products[${i}][id]" value="${products[i].id}">
+                                        <td>${e}</td>
                                         <td>
                                             <input type="text" class="form-control" value="${products[i].product_name}" readonly>
                                         </td>

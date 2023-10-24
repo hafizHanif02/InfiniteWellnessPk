@@ -18,5 +18,7 @@ Route::prefix('shift')->as('shift.')->middleware(['auth'])->group(function () {
 
     Route::post('/validate-transfer', [TransferController::class, 'validateTransfer']);
 
+    Route::get('/table_data', [TransferController::class, 'fileData']);
+
 
 });
