@@ -573,6 +573,8 @@ class PatientController extends AppBaseController
             $this->insertFASTData($insertedId, (int) $req->patientID);
         } elseif ($formName == 'Referral Form') {
             $this->insertReferralData($insertedId, (int) $req->patientID);
+        }elseif ($formName == 'Dental Form') {
+            $this->insertDentalData($insertedId, (int) $req->patientID);
         }
 
         return redirect(route('patients.show', ['patient' => $req->patientID]));
@@ -1356,6 +1358,13 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsPreviousTreatment', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnyAdditionalInformation', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'signature', 'fieldValue' => ''],
+        ];
+
+        DB::table('form_data')->insert($data);
+    }
+    public function insertDentalData($formID, $patientID){
+        $data = [
+
         ];
 
         DB::table('form_data')->insert($data);

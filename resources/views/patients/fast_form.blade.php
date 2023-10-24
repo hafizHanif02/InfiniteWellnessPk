@@ -1359,7 +1359,7 @@
                                 </select>
                             </td>
                             <td>
-                                <select id="AbdominalPain2" name="AbdominalPain2" class="form-select "
+                                <select id="AbdominalPain2" name=" " class="form-select "
                                     aria-label="Default select example ">
                                      <option
                                     @foreach($formData as $item)
