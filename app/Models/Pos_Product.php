@@ -6,6 +6,7 @@ use App\Models\Medicine;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pos_Product extends Model
 {
@@ -30,5 +31,10 @@ class Pos_Product extends Model
     public function medicine(): HasOne
     {
         return $this->HasOne(Medicine::class, 'id', 'medicine_id');
+    }
+
+    public function label(): BelongsTo
+    {
+        return $this->belongsTo(Label::class, 'medicine_id', 'pos_id');
     }
 }

@@ -26,7 +26,8 @@
                     <h3>Point Of Sales</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('pos.update' , $pos->id) }}" id="possubmitform" onsubmit="return false;" method="POST">
+                    <form action="{{ route('pos.update', $pos->id) }}" id="possubmitform" onsubmit="return false;"
+                        method="POST">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-6">
@@ -36,8 +37,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="cashier_name">Cashier Name</label>
-                                <input type="text" id="cashier_name" name="cashier_name" value="{{ $pos->cashier_name }}" placeholder="Enter Cashier Name"
-                                    class="form-control">
+                                <input type="text" id="cashier_name" name="cashier_name" value="{{ $pos->cashier_name }}"
+                                    placeholder="Enter Cashier Name" class="form-control">
                                 @error('cashier_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -46,17 +47,17 @@
                         <div class="row mb-3 mt-3">
                             <div class="col-md-6">
                                 <label for="patient_mr_number">MR No.</label>
-                                <input type="text" id="patient_mr_number" name="patient_mr_number" readonly value="{{ $pos->patient_mr_number }}"
-                                    class="form-control">
+                                <input type="text" id="patient_mr_number" name="patient_mr_number" readonly
+                                    value="{{ $pos->patient_mr_number }}" class="form-control">
                                 @error('patient_mr_number')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label for="prescription_id">Prescription</label>
-                                <input type="text" id="prescription_id" name="prescription_id" readonly value="{{ $pos->prescription_id }}"
-                                class="form-control">
+                                <input type="text" id="prescription_id" name="prescription_id" readonly
+                                    value="{{ $pos->prescription_id }}" class="form-control">
                                 {{-- <select name="prescription_id" id="prescription_id" class="form-control">
                                     <option value="{{ $pos->prescription_id }}" selected disabled>{{ $pos->prescription }}</option>
                                 </select> --}}
@@ -68,16 +69,16 @@
                         <div class="mb-3 row">
                             <div class="col-md-6">
                                 <label for="patient_name">Patient Name<sup class="text-danger">*</sup></label>
-                                <input type="text" name="patient_name" readonly value="{{ $pos->patient_name }}" id="patient_name" class="form-control"
-                                    placeholder="Enter Patient Name">
+                                <input type="text" name="patient_name" readonly value="{{ $pos->patient_name }}"
+                                    id="patient_name" class="form-control" placeholder="Enter Patient Name">
                                 @error('patient_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label for="patient_name">Contact Number<sup class="text-danger">*</sup></label>
-                                <input type="text" name="patient_number" readonly value="{{ $pos->patient_number }}" id="patient_number" class="form-control"
-                                    placeholder="Enter Patient Number">
+                                <input type="text" name="patient_number" readonly value="{{ $pos->patient_number }}"
+                                    id="patient_number" class="form-control" placeholder="Enter Patient Number">
                                 @error('patient_number')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -89,8 +90,8 @@
                         <div class="mb-3 row">
                             <div class="col-md-6">
                                 <label for="doctor_name" class="form-label">Doctor Name</label>
-                                <input type="text" name="doctor_name" value="{{ $pos->doctor_name }}" id="doctor_name" class="form-control"
-                                    placeholder="Enter Doctor Name">
+                                <input type="text" name="doctor_name" value="{{ $pos->doctor_name }}" id="doctor_name"
+                                    class="form-control" placeholder="Enter Doctor Name">
                                 @error('doctor_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -155,7 +156,9 @@
                                                                 data-brand_name="{{ $medicine->brand->name }}"
                                                                 data-brand_id="{{ $medicine->brand->id }}"
                                                                 data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}">
+                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}"
+                                                                data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"
+                                                                data-common_side_effect="{{ $medicine->product->common_side_effect }}">
                                                             <td><button class="btn btn-success" type="button"
                                                                     onclick="addMedicine({{ $medicine->id }})"><i
                                                                         class="fa fa-plus"></i></button></td>
@@ -173,80 +176,133 @@
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
                                         <th class="col" style="min-width: 200px">Product</th>
-                                        {{-- <th class="col" style="min-width: 200px">Generic Formula</th> --}}
                                         <th class="col" style="min-width: 130px">Qty OH</th>
                                         <th class="col" style="min-width: 130px">MRP Per Unit</th>
                                         <th class="col" style="min-width: 130px">Qty</th>
                                         <th class="col" style="min-width: 130px">DST %</th>
                                         <th class="col" style="min-width: 130px">GST %</th>
-                                        {{-- <th class="col" style="min-width: 200px">Time</th>
-                                        <th class="col" style="min-width: 200px">Comment</th> --}}
                                         <th class="col" style="min-width: 130px">Amount</th>
                                         <th class="col" style="min-width: 130px">Generate Label</th>
-                                        {{-- <th class="col" style="min-width: 130px">View Label</th> --}}
                                         <th></th>
                                         <th></th>
                                     <tbody class="" id="medicine-table-body">
                                         @foreach ($pos->PosProduct as $posProduct)
-                                        <tr id="{{ $posProduct->id }}">
-                                            <td>
-                                                <input type="hidden" id="medicineID{{ $loop->iteration }}" value="{{ $posProduct->medicine_id }}" name="products[{{ $loop->iteration }}][medicine_id]">
-                                                <select name="products[{{ $loop->iteration }}][product_name]" class="form-control  medicine-select medicine_name{{ $loop->iteration }}" id="medicine{{ $loop->iteration }}"  onchange="SelectMedicine({{ $loop->iteration }})" class="form-select prescriptionMedicineId">
-                                                    {{-- <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option> --}}
-                                                    @foreach ($medicines as $medicine)
-                                                        <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
-                                                            <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            {{-- <td>
+                                            <tr id="{{ $posProduct->id }}">
+                                                <td>
+                                                    <input type="hidden" id="medicineID{{ $loop->iteration }}"
+                                                        value="{{ $posProduct->medicine_id }}"
+                                                        name="products[{{ $loop->iteration }}][medicine_id]">
+                                                    <select name="products[{{ $loop->iteration }}][product_name]"
+                                                        class="form-control  medicine-select medicine_name{{ $loop->iteration }}"
+                                                        id="medicine{{ $loop->iteration }}"
+                                                        onchange="SelectMedicine({{ $loop->iteration }})"
+                                                        class="form-select prescriptionMedicineId">
+                                                        {{-- <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option> --}}
+                                                        @foreach ($medicines as $medicine)
+                                                            <option value="{{ $medicine->name }}"
+                                                                data-medicine_name="{{ $medicine->name }}"
+                                                                data-medicine_id="{{ $medicine->id }}"
+                                                                data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}"
+                                                                data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}"
+                                                                data-generic_formula="{{ $medicine->generic_formula }}"
+                                                                data-brand_name="{{ $medicine->brand->name }}"
+                                                                data-brand_id="{{ $medicine->brand->id }}"
+                                                                data-sellingPrice="{{ $medicine->selling_price }}"
+                                                                data-Id="{{ $medicine->id }}"
+                                                                data-totalQuantity="{{ $medicine->total_quantity }}"
+                                                                data-totalPrice={{ $medicine->selling_price }}
+                                                                data-dricetion_of_use="{{ $posProduct->medicine->product->dricetion_of_use }}"
+                                                                data-common_side_effect="{{ $posProduct->medicine->product->common_side_effect }}"
+                                                                >
+                                                                <div class="select2_generic">
+                                                                    ({{ $medicine->generic_formula }})</div>
+                                                                {{ $medicine->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                {{-- <td>
                                                 <input type="text" readonly  name="products[{{ $loop->iteration }}][generic_formula]" id="generic_formula{{ $loop->iteration }}" value="{{ $posProduct->medicine->generic_formula }}" class="form-control">
                                             </td> --}}
-                                            <td>
-                                                <input type="number"  step="any"readonly  id="total_quantity{{ $loop->iteration }}" value="{{ $posProduct->medicine->total_quantity }}" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="number"  step="any"readonly  name="products[{{ $loop->iteration }}][mrp_perunit]" id="selling_price{{ $loop->iteration }}" value="{{ $posProduct->medicine->selling_price }}" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="number"  step="any" value="{{ $posProduct->product_quantity }}" name="products[{{ $loop->iteration }}][product_quantity]" id="dosage{{ $loop->iteration }}" class="form-control" onkeyup="ChnageDosage({{ $loop->iteration }})">
-                                            </td>
-                                            <td>
-                                                <input type="number"  step="any" value="{{ $posProduct->discount_percentage }}" name="products[{{ $loop->iteration }}][discount_percentage]" id="discount_percentage{{ $loop->iteration }}" class="form-control" onkeyup="discountCalculation({{ $loop->iteration }})">
-                                                <input type="hidden" value="{{ $posProduct->discount_amount }}" readonly  name="products[{{ $loop->iteration }}][discount_amount]" id="discount_amount{{ $loop->iteration }}" class="form-control">
-                                                <input type="hidden" value="{{ $posProduct->discount_amount }}" readonly  name="products[{{ $loop->iteration }}][discount_amount]" id="discount_amounts2{{ $loop->iteration }}" class="form-control">
-                                            </td>
-                                            <td>
-                                                <input type="number"  step="any"value="{{ $posProduct->gst_percentage }}"  name="products[{{ $loop->iteration }}][gst_percentage]" readonly id="gst_percentage{{ $loop->iteration }}" class="form-control" >
-                                                <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly  name="products[{{ $loop->iteration }}][gst_amount]" id="gst_amount{{ $loop->iteration }}" class="form-control">
-                                                <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly  name="products[{{ $loop->iteration }}][gst_amount]" id="gst_amounts2{{ $loop->iteration }}" class="form-control">
-                                            </td>
-                                            {{-- <td>
-                                                {{ Form::select('time[]', \App\Models\Prescription::MEAL_ARR, null, ['class' => 'form-select prescriptionMedicineMealId']) }}
-                                            </td>
-                                            <td>
-                                                {{ Form::textarea('comment[]', null, ['class' => 'form-control', 'rows' => 1,'value'=> $posProduct->comment]) }}
-                                            </td> --}}
-                                            <td>
-                                                <input type="number"  step="any"value="{{ $posProduct->product_total_price }}" name="products[{{ $loop->iteration }}][product_total_price]" id="product_total_price{{ $loop->iteration }}" readonly class="form-control">
-                                                <input type="hidden" value="0" id="product_total_prices2{{ $loop->iteration }}" readonly class="form-control">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary" onclick="Addlabel({{ $loop->iteration }})" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="fa-solid fa-plus"></i> Label
-                                                </button>
-                                            </td>
-                                            {{-- <td><button type="button" id="labelprintbtn{{ $loop->iteration }}" disabled class="btn btn-success" id="labelshow{{ $loop->iteration }}"><a id="anchorlabel{{ $loop->iteration }}" target="_blank"  style="text-decoration:none;color:white;"><i class="fa fa-eye"></i>View</button></a></td> --}}
-                                            <td class="text-center">
-                                                <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
-                                                class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
+                                                <td>
+                                                    <input type="number" step="any"readonly
+                                                        id="total_quantity{{ $loop->iteration }}"
+                                                        value="{{ $posProduct->medicine->total_quantity }}"
+                                                        class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="any"readonly
+                                                        name="products[{{ $loop->iteration }}][mrp_perunit]"
+                                                        id="selling_price{{ $loop->iteration }}"
+                                                        value="{{ $posProduct->medicine->selling_price }}"
+                                                        class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="any"
+                                                        value="{{ $posProduct->product_quantity }}"
+                                                        name="products[{{ $loop->iteration }}][product_quantity]"
+                                                        id="dosage{{ $loop->iteration }}" class="form-control"
+                                                        onkeyup="ChnageDosage({{ $loop->iteration }})">
+                                                </td>
+                                                <td>
+                                                    <input type="number" step="any"
+                                                        value="{{ $posProduct->discount_percentage }}"
+                                                        name="products[{{ $loop->iteration }}][discount_percentage]"
+                                                        id="discount_percentage{{ $loop->iteration }}"
+                                                        class="form-control"
+                                                        onkeyup="discountCalculation({{ $loop->iteration }})">
+                                                    <input type="hidden" value="{{ $posProduct->discount_amount }}"
+                                                        readonly name="products[{{ $loop->iteration }}][discount_amount]"
+                                                        id="discount_amount{{ $loop->iteration }}" class="form-control">
+                                                    <input type="hidden" value="{{ $posProduct->discount_amount }}"
+                                                        readonly name="products[{{ $loop->iteration }}][discount_amount]"
+                                                        id="discount_amounts2{{ $loop->iteration }}"
+                                                        class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number"
+                                                        step="any"value="{{ $posProduct->gst_percentage }}"
+                                                        name="products[{{ $loop->iteration }}][gst_percentage]" readonly
+                                                        id="gst_percentage{{ $loop->iteration }}" class="form-control">
+                                                    <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly
+                                                        name="products[{{ $loop->iteration }}][gst_amount]"
+                                                        id="gst_amount{{ $loop->iteration }}" class="form-control">
+                                                    <input type="hidden" value="{{ $posProduct->gst_amount }}" readonly
+                                                        name="products[{{ $loop->iteration }}][gst_amount]"
+                                                        id="gst_amounts2{{ $loop->iteration }}" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number"
+                                                        step="any"value="{{ $posProduct->product_total_price }}"
+                                                        name="products[{{ $loop->iteration }}][product_total_price]"
+                                                        id="product_total_price{{ $loop->iteration }}" readonly
+                                                        class="form-control">
+                                                    <input type="hidden" value="0"
+                                                        id="product_total_prices2{{ $loop->iteration }}" readonly
+                                                        class="form-control">
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary"
+                                                        onclick="Addlabel({{ $loop->iteration }})" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal">
+                                                        <i class="fa-solid fa-plus"></i> Label
+                                                    </button>
+                                                </td>
+                                                <td><a id="printlabel{{ $loop->iteration }}"><button type="button"
+                                                            class="btn btn-success text-center" id="" disabled><i
+                                                                class="fa-solid fa-print"></i></button></a></td>
+                                                <td class="text-center">
+                                                    <a href="javascript:void(0)"
+                                                        title=" {{ __('messages.common.delete') }}"
+                                                        class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                                <input type="hidden" value="{{ $posProduct->medicine->product->dricetion_of_use }}" id="dricetion_of_use{{ $loop->iteration }}">
+                                                <input type="hidden" value="{{ $posProduct->medicine->product->common_side_effect }}" id="common_side_effect{{ $loop->iteration }}">
+                                                <td>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -347,12 +403,12 @@
                             </div>
                             <div class="mb-5">
                                 <label>Dricetion Of Use </label>
-                                <input type="text" name="direction_use" id="direction_use_label"
+                                <input type="text" name="direction_use" readonly id="direction_use_label"
                                     class="form-control">
                             </div>
                             <div class="mb-5">
                                 <label>Common Side Effect</label>
-                                <input type="text" name="common_side_effect" id="common_side_effect_label"
+                                <input type="text" name="common_side_effect" readonly id="common_side_effect_label"
                                     class="form-control">
                             </div>
                         </div>
@@ -492,7 +548,7 @@
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
                     <td><button type="button"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
-                   
+                    <td><a id="printlabel${items}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
@@ -584,7 +640,7 @@
         function Addmore() {
             var tableRow = document.getElementById('medicine-table-body');
             var b = tableRow.rows.length;
-            var a = 1+b;
+            var a = 1 + b;
             $('#medicine' + a).select2();
             $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
@@ -593,7 +649,7 @@
                             <select name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
@@ -629,6 +685,7 @@
                                 <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
+                        <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                        
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
@@ -638,6 +695,8 @@
                         </td>
                         <td>
                         </td>
+                        <input type="hidden" id="common_side_effect${a}" >
+                        <input type="hidden" id="dricetion_of_use${a}" >
                     </tr>
     `);
             $('.medicine-select').select2();
@@ -656,7 +715,9 @@
             var gst_perc_tag = document.getElementById('gst_percentage' + id);
             var medicineID = document.getElementById('medicineID' + id);
             var medicineName = document.getElementsByClassName('medicine_name' + id);
-            
+            var common_side_effect_tag = document.getElementById('common_side_effect' + id);
+            var dricetion_of_use_tag = document.getElementById('dricetion_of_use' + id);
+
             // var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
@@ -667,6 +728,8 @@
             const totalPrice = selectedOption.getAttribute('data-totalPrice');
             const MedicineId = selectedOption.getAttribute('data-Id');
             const MedicineNameData = selectedOption.getAttribute('data-medicine_name');
+            const CommonSideEffect = selectedOption.getAttribute('data-common_side_effect');
+            const DricetionOfUse = selectedOption.getAttribute('data-dricetion_of_use');
 
             // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
@@ -678,9 +741,11 @@
             medicineName.value = MedicineNameData;
             medicineID.value = MedicineId;
             gst_perc_tag.value = gstpercentage;
+            common_side_effect_tag.value = CommonSideEffect;
+            dricetion_of_use_tag.value = DricetionOfUse;
 
             sellingpriceTag.value = sellingPriceValue;
-            genericformulatag.value = GenericFormula;
+            // genericformulatag.value = GenericFormula;
 
         }
 
@@ -818,9 +883,14 @@
             const selectMedicine = document.getElementById('medicine' + id);
             const MedicineName = document.getElementById('medicine_name_label');
             const MedicineId = document.getElementById('medicine_id_label');
+            const CommonSideEffect_value = $('#common_side_effect' + id).val();
+            const DricetionOfUse_value = $('#dricetion_of_use' + id).val();
+
+            console.log('DricetionOfUse_value = ' + DricetionOfUse_value);
+            console.log('CommonSideEffect_value = ' + CommonSideEffect_value);
 
 
-            const BrandName = document.getElementById('generic_formula_label');
+            // const BrandName = document.getElementById('generic_formula_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
 
@@ -829,6 +899,8 @@
             const medicineIDValue = selectedOption.getAttribute('data-medicine_id');
             const brandName = selectedOption.getAttribute('data-generic_formula');
             const brandId = selectedOption.getAttribute('data-brand_id');
+            $('#common_side_effect_label').val(CommonSideEffect_value);
+            $('#direction_use_label').val(DricetionOfUse_value);
 
             (medicineLabel_Id, medicineIDValue);
             var currentDate = new Date();
@@ -840,8 +912,8 @@
 
             MedicineName.value = medicineName;
             MedicineId.value = medicineIDValue;
-            BrandName.value = brandName;
-            BrandIdTag.value = brandId;
+            // BrandName.value = brandName;
+            // BrandIdTag.value = brandId;
         }
 
         function Addlabelforprescription(id) {
@@ -856,10 +928,15 @@
             const MedicineIdTag = document.getElementById('medicine_id_label');
             const BrandName = document.getElementById('generic_formula_label');
             const BrandId = document.getElementById('brand_id_label');
+            const direction_use_tag = document.getElementById('direction_use_label');
+            const common_side_effect_tag = document.getElementById('common_side_effect_label');
+            const dricetion_of_use_tag = document.getElementById('direction_use_label');
             const medicineName = selectMedicine.getAttribute('data-medicine_name');
             const medicineId = selectMedicine.getAttribute('data-medicine_id');
             const brandName = selectMedicine.getAttribute('data-generic_formula');
             const brandId = selectMedicine.getAttribute('data-brand_id');
+            const dricetion_of_use_value = selectMedicine.getAttribute('data-dricetion_of_use');
+            const common_side_effect_value = selectMedicine.getAttribute('data-common_side_effect');
             var currentDate = new Date();
             var formattedDate = currentDate.toISOString().slice(0, 10);
             $('#date_of_selling_label').val(formattedDate);
@@ -869,8 +946,10 @@
 
             MedicineName.value = medicineName;
             MedicineIdTag.value = medicineId;
-            BrandName.value = brandName;
-            BrandId.value = brandId;
+            // BrandName.value = brandName;
+            // BrandId.value = brandId;
+            common_side_effect_tag.value = common_side_effect_value;
+            dricetion_of_use_tag.value = dricetion_of_use_value;
         }
 
         // function AlertLabel(id) {
@@ -893,14 +972,32 @@
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
-            window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
+            $('#printlabel' + id).removeAttr('disabled');
+            $('#printlabel' + id).attr('href', `/lable/label-print/${pos_id}/${medicine_id}`);
+            $('#printlabel' + id).attr('target', '__blank');
+            // /lable/label-print/${pos_id}/${medicine_id}
+            // sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
+
 
         }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // function AlertLabel(id) {
+        //     $("#exampleModal").modal('hide');
+        //     var pos_id = $('#pos_id_label').val();
+        //     var medicine_id = $('#medicineID' + id).val();
+        //     window.alert('Your Product Label Has been Generated');
+        //     window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
+
+        // }
 
         function addMedicine(id) {
             var tableRow = document.getElementById('medicine-table-body');
             var b = tableRow.rows.length;
-            var a = b+1;
+            var a = b + 1;
             var product_id = $('#search_addbtn' + id).data('product_id');
             var product_name = $('#search_addbtn' + id).data('product_name');
             var generic_formula = $('#search_addbtn' + id).data('generic_formula');
@@ -910,6 +1007,8 @@
             var selling_price = $('#search_addbtn' + id).data('selling_price');
             var gst = $('#search_addbtn' + id).data('gst');
             var fixed_discount = $('#search_addbtn' + id).data('fixed_discount');
+            var common_side_effect = $('#search_addbtn' + id).data('common_side_effect');
+            var dricetion_of_use = $('#search_addbtn' + id).data('dricetion_of_use');
             console.log(product_id);
 
             $('#medicine-table-body').append(`
@@ -928,6 +1027,8 @@
                         data-totalPrice="${selling_price}"
                         data-gst="${gst}"
                         data-fixed_discount="${fixed_discount}"
+                        data-common_side_effect="${common_side_effect}"
+                        data-dricetion_of_use="${dricetion_of_use}"
                         >
                         </td>
                    
@@ -953,6 +1054,7 @@
                                 <i class="fa-solid fa-plus"></i> Label
                             </button>
                         </td>
+                        <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                        
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
@@ -967,6 +1069,70 @@
             enablemainbutton();
 
         }
+
+        $(document).ready(function() {
+            $('#possubmitform').on('submit', function(e) {
+                e.preventDefault();
+
+
+                $.ajax({
+                    url: '/validate-pos',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Response:', response);
+                        if (response.valid) {
+                            console.log('Before form submission');
+                            $('#possubmitform')[0].submit();
+                            console.log('After form submission');
+                        } else {
+                            $('#validation-message').text(response.message);
+                            $('#validation-message').show();
+                        }
+
+                    },
+                    error: function(xhr, status, error) {
+                        // $('#validation-message').html(xhr.responseJSON.message);
+
+                        $('.wrapper').append(
+                            ` <div class="alert alert-danger">
+                        <div>
+                            <div class="d-flex">
+                                <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .alert{
+                            position: absolute;
+                            background: white;
+                            width: 290px;
+                            padding: 40px;
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            top: 10px;
+                            right: 10px;
+                        }
+                        .icon-sm {
+                            font-size: 106px !important;
+                        }
+                        .validationError{
+                            font-weight:900;
+                            color:#2f2f2f;
+                            letter-spacing:2px;
+                        }
+                    </style>
+                    `
+                        );
+                        $('.alert').delay(5000).slideUp(300)
+                        $('.alert').delay(50000).slideUp(300, function() {
+                            $('.alert').attr('style', 'display:none')
+                        })
+                    }
+                });
+            });
+        });
     </script>
 
 

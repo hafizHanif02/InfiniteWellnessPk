@@ -203,8 +203,8 @@ class PosController extends Controller
     public function edit($id)
     {
         return view('pos.edit', [
-            'pos' => Pos::find($id),
-            'pos_products' => pos_product::where('pos_id', $id),
+            'pos' => Pos::where('id',$id)->with(['PosProduct.medicine.product'])->first(),
+            'pos_products' => pos_product::where('pos_id', $id)->with('label')->get(),
             'medicines' => Medicine::with('product')->get(),
             'patients' => Patient::with('user')->get(),
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
