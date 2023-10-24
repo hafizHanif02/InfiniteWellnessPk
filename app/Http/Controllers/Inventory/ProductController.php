@@ -274,7 +274,9 @@ public function productsReport(Request $request)
         $stock_current = $stock_in - $stock_out;
         $product->stock_current = $stock_current;
 
-        $product->open_quantity = $stock_current - $stock_out + $stock_in;
+        // $product->open_quantity = $stock_current - $stock_out + $stock_in;
+        $product->open_quantity = ($stock_current + $stock_in) - ($stock_out) ;
+
     }
     // dd($products);
     return view('inventory.product_report.index', ['products' => $products]);
