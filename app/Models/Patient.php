@@ -59,6 +59,14 @@ class Patient extends Model
     public $fillable = [
         'user_id',
         'MR',
+        'blood_pressure',
+        'heart_rate',
+        'respiratory_rate',
+        'temperature',
+        'height',
+        'weight',
+        'bmi',
+        'ibw'
     ];
 
     const STATUS_ALL = 2;

@@ -78,6 +78,7 @@ margin-left: -10px;
         @csrf
     <!-- Site title -->
 <div class="mainForm">
+    <input type="hidden" name="patient_id" value="{{$patientData->id}}">
 <div class="container text-center">
     <h3 class="siteTitle">INFINITE WELLNESS PK</h3>
     <span class="sitePara underline">Plot No.35/135, CP & Berar Cooperating Housing Society, PECHS Block Block 7/8 Karachi East</span>

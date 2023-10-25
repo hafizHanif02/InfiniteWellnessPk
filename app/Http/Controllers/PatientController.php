@@ -513,6 +513,47 @@ class PatientController extends AppBaseController
 
     public function submitForm(Request $request)
     {
+        // dd($request);
+        if($request->BloodPressure != null){
+            Patient::where('id',$request->patient_id)->update([
+                'blood_pressure' => $request->BloodPressure,
+            ]);
+        }
+        if($request->HeartRate != null){
+            Patient::where('id',$request->patient_id)->update([
+                'heart_rate' => $request->HeartRate,
+            ]);
+        }
+        if($request->Temperature != null){
+            Patient::where('id',$request->patient_id)->update([
+                'temperature' => $request->Temperature,
+            ]);
+        }
+        if($request->RespiratoryRate != null){
+            Patient::where('id',$request->patient_id)->update([
+                'respiratory_rate' => $request->RespiratoryRate,
+            ]);
+        }
+        if($request->height != null){
+            Patient::where('id',$request->patient_id)->update([
+                'height' => $request->height,
+            ]);
+        }
+        if($request->weight != null){
+            Patient::where('id',$request->patient_id)->update([
+                'weight' => $request->weight,
+            ]);
+        }
+        if($request->bmi != null){
+            Patient::where('id',$request->patient_id)->update([
+                'bmi' => $request->bmi,
+            ]);
+        }
+        if($request->ibw != null){
+            Patient::where('id',$request->patient_id)->update([
+                'bmi' => $request->ibw,
+            ]);
+        }
         $reqArray = $request->all();
         foreach ($reqArray as $fieldName => $fieldValue) {
             if ($fieldValue != null) {

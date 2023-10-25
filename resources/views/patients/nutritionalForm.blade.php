@@ -14,7 +14,7 @@ Patient | Nutritional Health Survey
                    @csrf
             <!-- <div class="d-flex justify-content-between"> -->
             <div class="row">
-
+                <input type="hidden" name="patient_id" value="{{$patientData->id}}">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="form-group">
                         <label for="exampleInputFname">Full Name:</label>

@@ -26,8 +26,7 @@
                         <input type="text" name="formName" value="FAST FORM" readonly class="form-control" id="fastform"
                         >
                     </div>
-
-
+                    <input type="hidden" name="patient_id" value="{{$patientData->id }}">
                     <div class="col-md-6">
                         <label for="mrNum" class="form-label">Mr #</label>
                         <input type="text" name="mrNum" value="{{$patientData->MR }}"  readonly class="form-control" id="mrNum"
@@ -49,10 +48,9 @@
                                 @endif
                             @endforeach>
                     </div>
-{{-- {{dd($nursingData) }} --}}
                     <div class="col-md-6">
                         <label for="height" class="form-label">Height</label>
-                        <input type="text" name="height" value="{{($nursingData!=null)?(($nursingData->height!=null)?$nursingData->height:''):''}}"  readonly class="form-control" id="height"
+                        <input type="text" name="height" value="{{($patientData!=null)?(($patientData->height!=null)?$patientData->height:''):''}}"   class="form-control" id="height"
                         @foreach($formData as $item)
                                 @if($item->fieldName == 'height')
                                     value="{{trim($item->fieldValue)}}"
@@ -63,7 +61,7 @@
 
                     <div class="col-md-6">
                         <label for="weight" class="form-label">Weight</label>
-                        <input type="text" name="weight" value="{{($nursingData!=null)?(($nursingData->weight!=null)?$nursingData->weight:''):''}}" readonly class="form-control" id="weight"
+                        <input type="text" name="weight" value="{{($patientData!=null)?(($patientData->weight!=null)?$patientData->weight:''):''}}"  class="form-control" id="weight"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'weight')
                                     value="{{trim($item->fieldValue)}}"
@@ -74,7 +72,7 @@
 
                     <div class="col-md-6">
                         <label for="bmi" class="form-label">Body Mass Index - BMI</label>
-                        <input type="text" name="bmi" value="{{($DietData!=null)?(($DietData->bmi!=null)?$DietData->bmi:''):''}}"  readonly class="form-control" id="bmi"
+                        <input type="text" name="bmi" value="{{($patientData!=null)?(($patientData->bmi!=null)?$patientData->bmi:''):''}}"   class="form-control" id="bmi"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'bmi')
                                     value="{{trim($item->fieldValue)}}"
@@ -85,7 +83,7 @@
 
                     <div class="col-md-6">
                         <label for="ibw" class="form-label">Ideal Body Weight – IBW</label>
-                        <input type="text" name="ibw" value="{{($DietData!=null)?(($DietData->ibw!=null)?$DietData->ibw:''):''}}"  readonly class="form-control" id="ibw"
+                        <input type="text" name="ibw" value="{{($patientData!=null)?(($patientData->ibw!=null)?$patientData->ibw:''):''}}"   class="form-control" id="ibw"
                          @foreach($formData as $item)
                                 @if($item->fieldName == 'ibw')
                                     value="{{trim($item->fieldValue)}}"
@@ -1516,5 +1514,76 @@
             });
           });
         });
+
+
+      // Add event listeners to the height and weight input fields
+const heightInput = document.getElementById("height");
+const weightInput = document.getElementById("weight");
+const bmiInput = document.getElementById("bmi");
+const ibwInput = document.getElementById("ibw");
+
+heightInput.addEventListener("input", calculateBMI);
+weightInput.addEventListener("input", calculateBMI);
+heightInput.addEventListener("input", calculateIBW);
+weightInput.addEventListener("input", calculateIBW);
+
+// Function to calculate BMI
+function calculateBMI() {
+    const weightKg = parseFloat(weightInput.value);
+    const heightCm = parseFloat(heightInput.value);
+
+    // Convert height to meters (1 meter = 100 cm)
+    const heightM = heightCm / 100;
+
+    // Calculate BMI
+    const bmi = (weightKg / (heightM * heightM)).toFixed(2);
+
+    // Update the BMI input field
+    bmiInput.value = isNaN(bmi) ? "" : bmi;
+
+    // Determine BMI category based on the calculated BMI
+    let bmiCategory = "";
+
+    if (bmi < 18.5) {
+        bmiCategory = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 23) {
+        bmiCategory = "Normal";
+    } else if (bmi >= 23 && bmi < 27) {
+        bmiCategory = "Overweight";
+    } else if (bmi >= 27) {
+        bmiCategory = "Obese";
+    }
+
+    // Add the BMI category to the BMI input field
+    if (bmiCategory) {
+        bmiInput.value += " (" + bmiCategory + ")";
+    }
+}
+
+// Function to calculate IBW
+function calculateIBW() {
+    // Get height in centimeters
+    const heightCm = parseFloat(heightInput.value);
+    const gender = "male"; // Static variable to specify gender ("male" or "female")
+
+    // Calculate IBW based on gender
+    let ibw;
+
+    if (gender === "male") {
+        ibw = 50 + 2.3 * ((heightCm - 152.4) / 2.54); // Convert height from cm to inches
+    } else if (gender === "female") {
+        ibw = 45.5 + 2.3 * ((heightCm - 152.4) / 2.54); // Convert height from cm to inches
+    } else {
+        ibw = NaN; // Invalid gender
+    }
+
+    // Update the IBW input field with the calculated value
+    ibwInput.value = isNaN(ibw) ? "" : ibw.toFixed(2); // Display IBW with two decimal places
+}
+
+// Initial calculations when the page loads
+calculateBMI();
+calculateIBW();
+
     </script>
     @endsection

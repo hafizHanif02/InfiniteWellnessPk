@@ -14,6 +14,7 @@ Patient | Pre-Test Form
 
 
             <div class="row">
+                <input type="hidden" name="patient_id" value="{{$patientData->id}}">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     <label for="exampleAccount">Mr #</label>
                     <input class="form-control" value="{{$patientData->MR }}" readonly  required id="exampleAccount" placeholder="Your Answer" type="text"
