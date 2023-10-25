@@ -53,5 +53,8 @@ class Pos extends Model
         } elseif ($request->date_to) {
             $query->where('pos_date', '<=', $request->date_to);
         }
+        if (isset($request->is_paid)) {
+            $query->where('is_paid', $request->is_paid);
+        }
     }
 }

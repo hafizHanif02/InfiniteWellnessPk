@@ -5,7 +5,6 @@
 
 
 
-
 @section('content')
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script> 
 <div class="container-fluid mt-5">
@@ -35,6 +34,14 @@
                         <option value="0">Card</option>
                     </select>
                 </div>
+                <div class="mb-5">
+                    <label for="is_paid" class="form-label">Status</label>
+                    <select class="form-control" name="is_paid" id="is_paid" onchange="updateQueryString('is_paid',this.value)">
+                        <option value="" selected disabled>Select Payment Status</option>
+                        <option value="1">Paid</option>
+                        <option value="0">Unpaid</option>
+                    </select>
+                </div>
                 <div class="mt-5">
                     <a href="{{ route('posinv.index') }}" class="btn btn-secondary mt-3">Reset</a>
                     <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
@@ -47,6 +54,7 @@
                         <td>POS No.</td>
                         <td>Patient Name</td>
                         <td>Method</td>
+                        <td>Status</td>
                         <td>Amount</td>
                     </tr>
                    
@@ -59,6 +67,7 @@
                             <td>{{ $ps->id }}</td>
                             <td>{{ $ps->patient_name }}</td>
                             <td>{{($ps->is_cash == 0)?'Card':'Cash' }}</td>
+                            <td>{{($ps->is_paid == 1)?'Paid':'Unpaid' }}</td>
                             <td class="totalamount">
                                 {{ $ps->total_amount }}
                             <input type="hidden" value="{{ $ps->total_amount }}" class="totalamount" id="totalamount" >
@@ -74,7 +83,7 @@
                     <tr>
                      {{-- <td></td>
                      <td></td> --}}
-                     <td colspan="3"></td>
+                     <td colspan="4"></td>
                      <td class="text-start bg-dark text-white">Total Revenue</td>
                      <td class="text-start bg-dark text-white totalrevenuetd" ></td>   
                     </tr>
@@ -131,6 +140,7 @@
                                         <td>${value.id}</td>
                                         <td>${value.patient_name}</td>
                                         <td>${value.is_cash? 'Cash':'Card' }</td>
+                                        <td>${(value.is_paid == 1)? 'Paid':'Unpaid' }</td>
                                         <td class="totalamount">
                                             ${value.total_amount}
                             <input type="hidden" value="${value.total_amount}" class="totalamount" id="totalamount" >

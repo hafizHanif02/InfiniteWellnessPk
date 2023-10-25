@@ -82,7 +82,7 @@
         {{ __('messages.bills') }}
     </a>
 </li> --}}
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*')) ? 'd-none' : '' }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*','pos-return*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('pos*') ? 'active' : '' }}"
        href="/pos">
         {{ __('messages.bill.pos') }}
@@ -148,21 +148,21 @@
 @endmodule
 
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
-       href="{{ route('posinv.index') }}">
+       href="{{ route('posinv.index','is_paid=1') }}">
        POS Report
     </a>
-</li>
+</li> --}}
 @endmodule
 
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('returnposreport*') ? 'active' : '' }}"
        href="{{ route('returnposreport.index') }}">
        POS Return Report
     </a>
-</li>
+</li> --}}
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('returnposreport/daily-report*') ? 'active' : '' }}"
        href="{{ route('returnposreport.daily') }}">
@@ -235,7 +235,7 @@
         {{ __('messages.bill.pos') }}
     </a>
 </li>
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos*','pos-return*')) ? 'd-none' : '' }}">
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('accounts*','employee-payrolls*','invoices*','payments*','payment-reports*','advanced-payments*','bills*','pos-return*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('pos-return*') ? 'active' : '' }}"
        href="{{ route('pos-return.index') }}">
         POS Retrun
@@ -721,23 +721,23 @@
 
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('reportpos*') ? 'active' : '' }}"
-       href="{{ route('posinv.index') }}">
+       href="{{ route('posinv.index', 'is_paid=1') }}">
        POS Report
     </a>
-</li>
+</li> --}}
 @endmodule
 @endrole
 
 @role('Admin|Accountant')
 @module('Expense',$modules)
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('returnposreport*') ? 'active' : '' }}"
        href="{{ route('returnposreport.index') }}">
        POS Return Report
     </a>
-</li>
+</li> --}}
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('incomes*','expenses*','reportpos*', 'returnposreport*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('returnposreport/daily-report*') ? 'active' : '' }}"
        href="{{ route('returnposreport.daily') }}">

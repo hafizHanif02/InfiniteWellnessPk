@@ -33,7 +33,7 @@ class PosReturnController extends Controller
     public function create()
     {
         return view('pos-return.create',[
-            'poses' => Pos::with('PosProduct.medicine')->get()
+            'poses' => Pos::with('PosProduct.medicine')->where('is_paid',1)->get()
         ]);
     }
 

@@ -242,7 +242,8 @@ class PosController extends Controller
     {
 
         return view('pos.filter-list', [
-            'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
+            'pos' => Pos::filter($request)->get(),
+            'paid_pos' => Pos::where('is_paid',1)->get(),
         ]);
     }
     public function posfilterlistajax(Request $request): JsonResponse
@@ -271,7 +272,7 @@ class PosController extends Controller
     public function posdailyreport(Request $request)
     {
 
-        $posData = Pos::filter($request)->latest()->paginate(10)->onEachSide(1);
+        $posData = Pos::filter($request)->where('is_paid',1)->latest()->paginate(10)->onEachSide(1);
         $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
 
         return view('pos-return.daily-report', [
