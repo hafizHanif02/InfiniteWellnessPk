@@ -108,7 +108,7 @@ margin-left: -10px;
             <label class="age mt-3 form-label"> Name:</label>
         </div>
         <div class="d-flex col-md-auto" id="nameinp" style="margin-left: -55px;">
-     <input type="text" style="margin-left: 28px;  width: 600px;" class="mt-3" name="name" readonly value="{{$patientData->user->full_name }}">
+     <input type="text" style="margin-left: 42px;  width: 600px;" class="mt-3 mr-16" name="name" readonly value="{{$patientData->user->full_name }}">
         </div>
     </div>
 
@@ -181,7 +181,7 @@ margin-left: -10px;
          @endforeach >
         </div> 
          <div class="col-md-2">
-            <label class="gender form-label"> Pain</label> 
+            <label class="gender form-label mt-4"> Pain</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="Swelling" @foreach ($formData as $item)
@@ -196,7 +196,7 @@ margin-left: -10px;
         @endforeach >      
         </div> 
          <div class="col-md-2">
-            <label class="gender form-label"> Swelling</label> 
+            <label class="gender form-label mt-4"> Swelling</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="Malocclusion" @foreach ($formData as $item)
@@ -211,7 +211,7 @@ margin-left: -10px;
         @endforeach >       
         </div> 
          <div class="col-md-2">
-            <label class="gender form-label"> Malocclusion</label> 
+            <label class="gender form-label mt-4"> Malocclusion</label> 
         </div>
         <div class="d-flex col-md-auto">
             <input type="checkbox" class="check_box1" name="missingTeeth"  @foreach ($formData as $item)
@@ -226,7 +226,7 @@ margin-left: -10px;
         @endforeach >       
         </div> 
          <div class="col-md-2">
-            <label class="gender form-label"> Replace missing Teeth</label> 
+            <label class="gender form-label mt-2"> Replace missing Teeth</label> 
         </div>    
  </div> 
 
@@ -544,7 +544,7 @@ margin-left: -10px;
                 @break
         @endif
     @endforeach  type="checkbox" class="check_box1" style="margin-left: 36px;" name="Spontaneous">         
-    </div>   
+    </div>      
 </div> 
 <div class="row">
     <div class="col-md-2">    
@@ -1281,11 +1281,11 @@ margin-left: -10px;
          <span>Grade II (GII)</span><br>
          <span>Grade III (GIII)</span>
      </div>
- <div class="row mt-5">
- <div class="col-lg-12">
- <img src="Screenshot (2).png" width="100%"  alt="">
- </div>
- </div>
+     <div class="row mt-5">
+        <div class="col-lg-12">
+        <img src="Screenshot (2).png" width="100%" height="50%" alt="Section 2">
+        </div>
+        </div>
  
  <div class="Investigation">
  <div class="row mt-4">
