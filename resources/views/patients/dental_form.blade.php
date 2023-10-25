@@ -97,15 +97,15 @@ margin-left: -10px;
             @endif
         @endforeach">
     </div>
-        <div class="col-md-2 mt-2 ">
-            <label class=" form-label in1" style="margin-left: -55px;">Dentist Name:</label>    
+        <div class="col-md-2 mt-3 ">
+            <label class=" form-label in1 mt-3" style="margin-left: -55px;">Dentist Name:</label>    
         </div>
-        <div class="col-md-4 mt-3"> <input  type="text" name="dentist_name" value="@foreach($formData as $item)
+        <div class="col-md-4"> <input  type="text" name="dentist_name" value="@foreach($formData as $item)
             @if($item->fieldName == 'dentist_name')
                 {{trim($item->fieldValue)}}
                 @break
             @endif
-        @endforeach" class="in1" ></div>
+        @endforeach" class="in1 mt-3" ></div>
     </div>
 
     <div class="row" >
@@ -117,7 +117,7 @@ margin-left: -10px;
         </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-3">
         <div class="col-md-auto">
             <label class="gender mt-2 form-label"> Age:</label> 
         </div>
