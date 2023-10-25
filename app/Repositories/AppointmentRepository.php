@@ -71,7 +71,7 @@ class AppointmentRepository extends BaseRepository
     {
         /** @var Patient $patients */
         $patients = Patient::with('patientUser')->get()->where('patientUser.status', '=',
-            1)->pluck('patientUser.full_name', 'id')->sort();
+            1)->pluck('patientUser.full_name', 'id','MR')->sort();
 
         return $patients;
     }
@@ -361,7 +361,6 @@ class AppointmentRepository extends BaseRepository
 
             $doc = Doctor::where('id', $input['doctor_id'])->first();
 
-
             $standard_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
 
             OpdPatientDepartment::create([
@@ -383,6 +382,7 @@ class AppointmentRepository extends BaseRepository
             throw new UnprocessableEntityHttpException($e->getMessage());
         }
     }
+
 
     /**
      * @return Doctor

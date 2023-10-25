@@ -89,7 +89,7 @@
                     </tr>
                     <tr colspan="2">
                         <th>Grand Total Amount:</th>
-                        <td>{{$pos->total_amount+1 }}</td>
+                        <td>{{$pos->total_amount }}</td>
                     </tr>
                 </table>
                 <div class="row text-center">

@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\AppointmentExport;
-use App\Http\Requests\CreateAppointmentRequest;
-use App\Http\Requests\UpdateAppointmentRequest;
-use App\Models\Appointment;
-use App\Models\Patient;
-use App\Repositories\AppointmentRepository;
 use DB;
 use Exception;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Patient;
 use Illuminate\View\View;
+use App\Models\Appointment;
+use App\Models\PatientCase;
+use Illuminate\Http\Request;
+use App\Models\DoctorOpdCharge;
+use Illuminate\Http\JsonResponse;
+use App\Exports\AppointmentExport;
+use Illuminate\Routing\Redirector;
+use App\Models\OpdPatientDepartment;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Repositories\AppointmentRepository;
+use App\Http\Requests\CreateAppointmentRequest;
+use App\Http\Requests\UpdateAppointmentRequest;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
@@ -69,7 +72,6 @@ class AppointmentController extends AppBaseController
      */
     public function store(CreateAppointmentRequest $request)
     {
-
         $input = $request->all();
         //return $this->sendSuccess($input['patient_id']);
 
@@ -80,7 +82,22 @@ class AppointmentController extends AppBaseController
         }
         $this->appointmentRepository->create($input);
         $this->appointmentRepository->createNotification($input);
+        
+        //$case_id = PatientCase::where('patient_id',$input['patient_id'])->pluck('id');
+        $caseID = PatientCase::where('patient_id', $input['patient_id'])->orderBy('id', 'desc')->first();
 
+        $standard_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
+        
+        OpdPatientDepartment::create([
+            'patient_id' =>  $input['patient_id'],
+            'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+            'appointment_date' => $input['opd_date'],
+            'case_id' => $caseID->id,
+            'doctor_id' => $input['doctor_id'],
+            'standard_charge' => $standard_charge->standard_charge,
+            'payment_mode' => 1,
+            'currency_symbol' => 'pkr'
+        ]);
         //-------------------------------------
         /*
         $patientData = DB::table('patients')->where(['id'=>$input['patient_id']])->get();
