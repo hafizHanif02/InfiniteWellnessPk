@@ -69,12 +69,17 @@ margin-left: -10px;
   </style>  
 
 <div class="container my-3">
+    <center>
+        <div style="margin-top: 25px !important; margin-bottom: 25px !important">
+            <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
+        </div>
+    </center>
     <form action="{{request()->url()}}" method="POST">
         @csrf
     <!-- Site title -->
 <div class="mainForm">
 <div class="container text-center">
-    <h3 class="siteTitle">WELLNESS PK</h3>
+    <h3 class="siteTitle">INFINITE WELLNESS PK</h3>
     <span class="sitePara underline">Plot No.35/135, CP & Berar Cooperating Housing Society, PECHS Block Block 7/8 Karachi East</span>
 </div>
 
