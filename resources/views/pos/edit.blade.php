@@ -279,7 +279,7 @@
                                                         name="products[{{ $loop->iteration }}][product_total_price]"
                                                         id="product_total_price{{ $loop->iteration }}" readonly
                                                         class="form-control">
-                                                    <input type="hidden" value="0"
+                                                    <input type="hidden" value="{{ $posProduct->product_total_price }}"
                                                         id="product_total_prices2{{ $loop->iteration }}" readonly
                                                         class="form-control">
                                                 </td>
