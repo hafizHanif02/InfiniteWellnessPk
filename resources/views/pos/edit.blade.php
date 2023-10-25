@@ -1096,6 +1096,10 @@
         $(document).ready(function() {
 
             ChnageDosage();
+            discountCalculationTotal();
+            ChnageDosageTotal();
+            gstCalculationTotal();
+            discountCalculation(1);
 
             if (!localStorage.getItem('pageReloaded')) {
                 // If the 'pageReloaded' flag is not set, reload the page
