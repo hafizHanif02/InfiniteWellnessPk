@@ -43,9 +43,9 @@
                                 {{-- {{ dd($poses[0]->medicine_id) }} --}}
                                 <tr>
                                     <th>Product Name</th>
-                                    <th>Product QTY</th>
+                                    <th>Sell QTY</th>
                                     <th>Return QTY</th>
-                                    <th>Total QTY</th>
+                                    <th>Current QTY</th>
                                 </tr>
                             </thead>
                             <tbody>
