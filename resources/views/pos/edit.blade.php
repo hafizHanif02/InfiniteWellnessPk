@@ -447,8 +447,6 @@
         }
 
         $(document).ready(function() {
-            // $('#patient_mr_number').select2();
-            // $('#prescription_id').select2();
             $('.medicine-select').select2();
 
 
@@ -711,7 +709,6 @@
 
         function SelectMedicine(id) {
             const selectMedicine = document.getElementById('medicine' + id);
-            // console.log(selectMedicine);
             const totalQuantitySpan = document.getElementById('total_quantity' + id);
             const discountPercentage = document.getElementById('discount_percentage' + id);
 
@@ -724,8 +721,6 @@
             var common_side_effect_tag = document.getElementById('common_side_effect' + id);
             var dricetion_of_use_tag = document.getElementById('dricetion_of_use' + id);
 
-            // var genericformulatag = document.getElementById('generic_formula' + id);
-
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
@@ -737,7 +732,6 @@
             const CommonSideEffect = selectedOption.getAttribute('data-common_side_effect');
             const DricetionOfUse = selectedOption.getAttribute('data-dricetion_of_use');
 
-            // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
 
             totalQuantitySpan.value = totalQuantity;
@@ -751,7 +745,6 @@
             dricetion_of_use_tag.value = DricetionOfUse;
 
             sellingpriceTag.value = sellingPriceValue;
-            // genericformulatag.value = GenericFormula;
 
         }
 
@@ -843,12 +836,6 @@
 
             $('#gst_amount' + id).val(gst_amount);
             $('#gst_amounts2' + id).val(gst_amount);
-            // $('#product_total_price' + id).val(amount_with_gst);
-
-            //     var totalMedicineCalculatedAmount = $('#product_total_price' + id).val();
-            //     var totalMedicineAmount = $('#product_total_prices2' + id).val();
-            //     var gst_amount = ((gst_percentage * totalMedicineCalculatedAmount) / 100).toFixed(2);
-            //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
             gstCalculationTotal();
         }
 
@@ -872,7 +859,6 @@
 
             $('#total_saletax').val(TotalgstamountToFixed);
             $('#total_amount_ex_saletax').val(TotalAmountWithGSTFINAL);
-            // $('#total_amount').val(parseFloat(ForTotalAmount)+1);
         }
 
 
@@ -896,7 +882,6 @@
             console.log('CommonSideEffect_value = ' + CommonSideEffect_value);
 
 
-            // const BrandName = document.getElementById('generic_formula_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
 
@@ -918,8 +903,6 @@
 
             MedicineName.value = medicineName;
             MedicineId.value = medicineIDValue;
-            // BrandName.value = brandName;
-            // BrandIdTag.value = brandId;
         }
 
         function Addlabelforprescription(id) {
@@ -952,26 +935,9 @@
 
             MedicineName.value = medicineName;
             MedicineIdTag.value = medicineId;
-            // BrandName.value = brandName;
-            // BrandId.value = brandId;
             common_side_effect_tag.value = common_side_effect_value;
             dricetion_of_use_tag.value = dricetion_of_use_value;
         }
-
-        // function AlertLabel(id) {
-        //     window.alert('Your Product Label Has been Generated');
-        //     $('#labelprintbtn' + id).removeAttr('disabled');
-        //     var pos_id = $('#pos_id').val();
-        //     var medicine_id = $('#medicineID' + id).val();
-        //     console.log('Medicine = ' + medicine_id);
-
-        //     var url = '/label/label-show/' + pos_id + '/' + medicine_id;
-
-        //     $('#anchorlabel' + id).attr('href', url);
-
-        //     $("#exampleModal").modal('hide');
-
-        // }
 
         function AlertLabel(id) {
             $("#exampleModal").modal('hide');
@@ -981,24 +947,11 @@
             $('#printlabel' + id).removeAttr('disabled');
             $('#printlabel' + id).attr('href', `/lable/label-print/${pos_id}/${medicine_id}`);
             $('#printlabel' + id).attr('target', '__blank');
-            // /lable/label-print/${pos_id}/${medicine_id}
-            // sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
-
-
         }
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-
-        // function AlertLabel(id) {
-        //     $("#exampleModal").modal('hide');
-        //     var pos_id = $('#pos_id_label').val();
-        //     var medicine_id = $('#medicineID' + id).val();
-        //     window.alert('Your Product Label Has been Generated');
-        //     window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank');
-
-        // }
 
         function addMedicine(id) {
             var tableRow = document.getElementById('medicine-table-body');
@@ -1142,14 +1095,13 @@
 
         $(document).ready(function() {
 
-            ChnageDosage();  
+            ChnageDosage();
 
             if (!localStorage.getItem('pageReloaded')) {
                 // If the 'pageReloaded' flag is not set, reload the page
                 localStorage.setItem('pageReloaded', 'true');
                 window.location.reload();
             }
-
 
         });
     </script>
