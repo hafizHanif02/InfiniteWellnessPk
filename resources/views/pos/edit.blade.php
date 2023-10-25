@@ -1142,62 +1142,7 @@
 
         $(document).ready(function() {
 
-
-                var TotalAmount = 0;
-                $("input[id^='product_total_price']").each(function() {
-                    if ($(this).val() != '') {
-                        TotalAmount += parseFloat($(this).val());
-                    }
-                });
-                $('#total_amount').val(parseFloat(TotalAmount) + 1);
-                $('#total_amounts2').val(TotalAmount);
-                $('#total_amount_ex_saletax').val(TotalAmount);
-                $('#total_amount_inc_saletax').val(TotalAmount);
-
-                var discount_amounts2 = 0;
-                var amountwithouttax = 0;
-                $("input[id^='discount_amounts2']").each(function() {
-                    if ($(this).val() != '') {
-                        discount_amounts2 += parseFloat($(this).val());
-                    }
-                });
-                $("input[id^='product_total_price']").each(function() {
-                    if ($(this).val() != '') {
-                        amountwithouttax += parseFloat($(this).val());
-
-                    }
-                });
-                var TotalAmount = $('#total_amounts2').val();
-                var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
-                var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
-                var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
-                $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
-                $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
-                $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
-                $('#total_discount').val(discount_amounts2Tofixed);
-
-                var Totalgstamount = 0;
-                var TotalWithTax = 0;
-                $("input[id^='gst_amounts2']").each(function() {
-                    if ($(this).val() != '') {
-                        Totalgstamount += parseFloat($(this).val());
-                    }
-                });
-                $("input[id^='product_total_price']").each(function() {
-                    if ($(this).val() != '') {
-                        TotalWithTax += parseFloat($(this).val());
-                    }
-                });
-                var TotalWithTaxToFixed = TotalWithTax.toFixed(2);
-                var TotalgstamountToFixed = Totalgstamount.toFixed(2);
-                var TotalAmountWithGSTFINAL = (parseFloat(TotalWithTaxToFixed) - parseFloat(
-                    TotalgstamountToFixed)).toFixed(2);
-                var ForTotalAmount = TotalAmountWithGSTFINAL;
-
-                $('#total_saletax').val(TotalgstamountToFixed);
-                $('#total_amount_ex_saletax').val(TotalAmountWithGSTFINAL);
-           
-
+            ChnageDosage();  
 
             if (!localStorage.getItem('pageReloaded')) {
                 // If the 'pageReloaded' flag is not set, reload the page
