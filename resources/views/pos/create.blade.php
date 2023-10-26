@@ -315,7 +315,7 @@
 
         function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
-            $('#possubmitform').submit();
+            //$('#possubmitform').submit();
         }
 
         function preventSubmit(event) {
