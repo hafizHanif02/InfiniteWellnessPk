@@ -63,6 +63,16 @@ class NursingFormController extends Controller
      */
     public function store(NursingFormRequest $request)
     {
+        // dd($request);
+            Patient::where('id', $request->patient_id)->update([
+                'blood_pressure' => $request->blood_pressure,
+                'heart_rate' => $request->heart_rate,
+                'respiratory_rate' => $request->respiratory_rate,
+                'temperature' => $request->temperature,
+                'height' => $request->height,
+                'weight' => $request->weight,
+                'bmi' => $request->bmi,
+            ]);
 
         $nursingfrom = NursingForm::create($request->validated());
         foreach($request->medications as $medication){
