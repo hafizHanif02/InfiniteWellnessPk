@@ -1060,7 +1060,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
     @if ($financeMGT)
         <li class="nav-item  {{ Request::is('incomes*','expenses*') ? 'active' : '' }}">
             <a class="nav-link  d-flex align-items-center py-3"
-            href="/reportpos">
+            href="/returnposreport/daily-report">
                                                                 <span class="aside-menu-icon pe-3 pe-3"><i
                                                                             class="fas fa-money-bill"></i></span>
                 <span class="aside-menu-title">{{__('messages.finance')}}</span>
