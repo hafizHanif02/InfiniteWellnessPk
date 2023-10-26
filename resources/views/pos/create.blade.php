@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit" id="proceede_to_pay"
+                            <button class="btn btn-success" type="button" id="proceede_to_pay"
                                 onclick="submitbutton()">Proceed To Pay</button>
                         </div>
                 </div>
@@ -410,7 +410,7 @@
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}" data-dricetion_of_use="${medicine.medicine.product.dricetion_of_use}" data-common_side_effect="${medicine.medicine.product.common_side_effect}"></td>
-                    
+
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
                         </td>
@@ -426,7 +426,7 @@
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
-                        
+
 
                     <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
                     <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
@@ -539,7 +539,7 @@
                                 @endforeach
                             </select>
                         </td>
-                       
+
                         <td>
                             <input type="number"  step="any"readonly value="0"  id="total_quantity${a}" class="form-control">
                         </td>
@@ -559,7 +559,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
-                        
+
                         <td>
                             <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
@@ -600,7 +600,7 @@
             var medicineName = document.getElementsByClassName('medicine_name' + id);
             var common_side_effect_tag = document.getElementById('common_side_effect' + id);
             var dricetion_of_use_tag = document.getElementById('dricetion_of_use' + id);
-            
+
             // var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
@@ -774,7 +774,7 @@
             const BrandName = document.getElementById('generic_formula_label');
             const BrandIdTag = document.getElementById('brand_id_label');
             var medicineLabel_Id = document.getElementById('medicine_id_label');
-            
+
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
             const medicineName = selectedOption.getAttribute('data-medicine_name');
             const medicineIDValue = selectedOption.getAttribute('data-medicine_id');
@@ -855,7 +855,7 @@
             $('#printlabel'+id).attr('target','__blank');
             // /lable/label-print/${pos_id}/${medicine_id}
             // sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
-            
+
 
         }
 
@@ -899,7 +899,7 @@
                         data-dricetion_of_use="${dricetion_of_use}"
                         >
                         </td>
-                    
+
                     <td><input id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
@@ -912,7 +912,7 @@
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amount${a}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${a}][gst_amount]" id="gst_amounts2${a}" class="form-control">
                         </td>
-                   
+
                         <td>
                             <input type="number"  step="any"value="0" name="products[${a}][product_total_price]" id="product_total_price${a}" readonly class="form-control">
                             <input type="hidden" value="0" id="product_total_prices2${a}" readonly class="form-control">
@@ -923,7 +923,7 @@
                             </button>
                         </td>
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
-                        
+
                         <td class="text-center">
                             <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
@@ -941,7 +941,7 @@
     $('#possubmitform').on('submit', function(e) {
         e.preventDefault();
 
-        
+
         $.ajax({
             url: '/validate-pos',
             type: 'post',
@@ -949,7 +949,7 @@
             dataType: 'json',
             success: function(response) {
                 console.log('Response:', response);
-                if (response.valid) { 
+                if (response.valid) {
                     console.log('Before form submission');
                     $('#possubmitform')[0].submit();
                     console.log('After form submission');
@@ -961,7 +961,7 @@
             },
             error: function(xhr, status, error) {
                 // $('#validation-message').html(xhr.responseJSON.message);
-                
+
                 $('.wrapper').append(
                     ` <div class="alert alert-danger">
                         <div>
@@ -977,7 +977,7 @@
                             background: white;
                             width: 290px;
                             padding: 40px;
-                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
+                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
                             top: 10px;
                             right: 10px;
                         }
