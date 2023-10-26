@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="button" id="proceede_to_pay"
+                            <button class="btn btn-success" type="submit" id="proceede_to_pay"
                                 onclick="submitbutton()">Proceed To Pay</button>
                         </div>
                 </div>
