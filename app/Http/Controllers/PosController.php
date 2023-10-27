@@ -222,9 +222,8 @@ class PosController extends Controller
         }
 
         Flash::message('POS Updated!');  
-        // return to_route('pos.index');
-        return redirect()->route('pos.index');
-
+        return to_route('pos.proceed-to-pay-page', $id);
+        // return redirect()->route('pos.index');
     }
 
     public function destroy($id)
