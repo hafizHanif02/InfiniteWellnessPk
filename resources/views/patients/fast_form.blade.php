@@ -1496,6 +1496,11 @@
 for (let index = 0; index < allInput.length; index++) {
     allInput[index].value = allInput[index].value.trim();
 }
+
+let allInput2 =document.getElementsByTagName("textarea");
+for (let index = 0; index < allInput2.length; index++) {
+    allInput2[index].value = allInput2[index].value.trim();
+}
         window.addEventListener("DOMContentLoaded", function() {
           var checkboxes = document.querySelectorAll('input[type="checkbox"]');
     

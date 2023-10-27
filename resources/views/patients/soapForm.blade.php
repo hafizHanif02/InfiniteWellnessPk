@@ -467,7 +467,7 @@ for (let index = 0; index < allInput.length; index++) {
     allInput[index].value = allInput[index].value.trim();
 }
 let allInput2 =document.getElementsByTagName("textarea");
-for (let index = 0; index < allInput.length; index++) {
+for (let index = 0; index < allInput2.length; index++) {
     allInput2[index].value = allInput2[index].value.trim();
 }
     $(function () {
