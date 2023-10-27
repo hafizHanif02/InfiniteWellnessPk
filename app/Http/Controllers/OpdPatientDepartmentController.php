@@ -7,8 +7,11 @@ use Exception;
 use App\Models\User;
 use App\Models\Charge;
 use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\View\View;
+use App\Mail\MarkdownMail;
 use App\Models\Appointment;
+use App\Models\Receptionist;
 use Illuminate\Http\Request;
 use App\Models\ChargeCategory;
 use App\Models\DoctorOpdCharge;
@@ -17,9 +20,11 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use App\Models\OpdPatientDepartment;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail as Email;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Response;
 use App\Models\DentalOpdPatientDepartment;
+use App\Http\Controllers\AppBaseController;
 use App\Repositories\OpdPatientDepartmentRepository;
 use App\Http\Requests\CreateOpdPatientDepartmentRequest;
 use App\Http\Requests\UpdateOpdPatientDepartmentRequest;
@@ -140,6 +145,30 @@ class OpdPatientDepartmentController extends AppBaseController
             'doctor_department_id' => $doc->department_id,
             'opd_date' => $request->appointment_date,
         ]);
+
+        // Email
+        $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
+        $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+        $recipient = [$patient->user->email,$doctor->user->email];
+        $subject = 'Appointment Created';
+        $data = array(
+            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date ',
+        );
+
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date ',
+            'attachments' => null,
+        );
+        
+        Email::to($recipient)
+            ->send(new MarkdownMail('emails.email',
+                $mail['subject'], $mail));
+        // Email
+
         return redirect(route('opd.patient.index'));
     }
 
