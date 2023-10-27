@@ -486,7 +486,6 @@ class PatientController extends AppBaseController
 
     public function showForm(Request $request, $patient)
     {
-        // return $patient;
        $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
        $patientData =  Patient::where('id',$patient)->with('user')->first();
        $ageDifference = Carbon::parse($patientData->user->dob)->diff(Carbon::now());
@@ -495,14 +494,11 @@ class PatientController extends AppBaseController
             );
       $nursingData = NursingForm::where('patient_mr_number', $patientID)->with(['patient.user','Allergies','Medication'])->first();
 
-    //   return $nursingData;
-
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
         $DietData = DB::Table('dietitianAssessment')->where(['patient_id' => $patient])->first();
         if($form_patientId){
             $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
-            // return $fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
             return view('patients.'.$fileName, compact('formData','nursingData','patientData','DietData','age'));
         }
@@ -562,6 +558,13 @@ class PatientController extends AppBaseController
                     ->update([
                         'fieldValue' => $fieldValue, // Update the fieldValue column with the new value
                     ]);
+            }
+            else{
+                DB::table('form_data')
+                ->where('fieldName', $fieldName)->where('formID', $request->formPatientID) // Specify the condition for the update
+                ->update([
+                    'fieldValue' => '', // Update the fieldValue column with the new value
+                ]);
             }
 
         }
