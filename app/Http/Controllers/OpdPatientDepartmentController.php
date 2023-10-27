@@ -263,7 +263,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     $mail = array(
                         'to' => $reception_array,
                         'subject' => $subject,
-                        'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                        'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                         'attachments' => null,
                     );
         
