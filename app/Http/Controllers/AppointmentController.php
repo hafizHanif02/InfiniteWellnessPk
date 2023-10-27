@@ -4,24 +4,28 @@ namespace App\Http\Controllers;
 
 use DB;
 use Exception;
+use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\View\View;
+use App\Mail\MarkdownMail;
 use App\Models\Appointment;
 use App\Models\PatientCase;
+use App\Models\Receptionist;
 use Illuminate\Http\Request;
 use App\Models\DoctorOpdCharge;
 use Illuminate\Http\JsonResponse;
 use App\Exports\AppointmentExport;
 use Illuminate\Routing\Redirector;
 use App\Models\OpdPatientDepartment;
-use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
 use App\Repositories\AppointmentRepository;
+use Illuminate\Support\Facades\Mail as Email;
 use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 /**
  * Class AppointmentController
@@ -98,24 +102,106 @@ class AppointmentController extends AppBaseController
             'payment_mode' => 1,
             'currency_symbol' => 'pkr'
         ]);
-        //-------------------------------------
-        /*
-        $patientData = DB::table('patients')->where(['id'=>$input['patient_id']])->get();
-        $user = DB::table('users')->where(['owner_id' => $patientData[0]->id])->where('owner_type', 'LIKE', '%Patient%')->get();
 
-        $recipient = $user[0]->email;
+        $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
+        $doctor = Doctor::where('id', $input['doctor_id'])->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+        $recipient = [$patient->user->email,$doctor->user->email];
         $subject = 'Appointment Created';
-        $data = [
-            'message' => 'Your Appointment has been created for Dr. this this on '.$input['opd_date'].' time 00:00 AM.',
-        ];
+        $data = array(
+            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+        );
 
-        Mail::send('emails.email', $data, function ($message) use ($recipient, $subject) {
-            $message->to($recipient)
-                ->subject($subject);
-        });*/
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+            'attachments' => null,
+        );
+        
+        Email::to($recipient)
+            ->send(new MarkdownMail('emails.email',
+                $mail['subject'], $mail));
+
+        foreach($receptions as $reception){
+
+            $reception_mail = $reception->user->email;
+            $reception_aray = [$reception->user->email];
+
+
+            $mail = array(
+                'to' => $reception_mail,
+                'subject' => $subject,
+                'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+                'attachments' => null,
+            );
+
+            Email::to($reception_mail)
+            ->send(new MarkdownMail('emails.email',
+                $mail['subject'], $mail));
+        }
+
+
+        // Mail::send('emails.email', $data, function ($message) use ($recipient, $subject) {
+        //     $message->to($recipient)
+        //         ->subject($subject);
+        // });
 
         return $this->sendSuccess(__('messages.web_menu.appointment').' '.__('messages.common.saved_successfully'));
     }
+
+    public function sendmail(){
+        
+        
+        // $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+
+        $recipient = ['azeem.alikhan777@gmail.com','hafiz.hanif992@gmail.com' ];
+        $subject = 'Appointment Created';
+        $data = array(
+            'message' => 'Your Appointment has been created',
+        );
+
+
+        // Mail::send('emails.email', $data, function ($mes) use ($recipient, $subject) {
+        //     $mes->to($recipient)
+        //         ->subject($subject);
+               
+        // });
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' =>'Your Appointment has been created',
+            'attachments' => null,
+        );
+        
+        Email::to($recipient)
+            ->send(new MarkdownMail('emails.email',
+                $mail['subject'], $mail));
+
+
+                // foreach($receptions as $reception){
+
+                //     $reception_mail = $reception->user->email;
+        
+        
+                //     $mail = array(
+                //         'to' => $reception_mail,
+                //         'subject' => $subject,
+                //         'message' => 'Appointment has been created of Dr.  to Patient  on this  Date ',
+                //         'attachments' => null,
+                //     );
+        
+                //     Email::to($reception_mail)
+                //     ->send(new MarkdownMail('emails.email',
+                //         $mail['subject'], $mail));
+                // }
+
+        
+    }
+
 
     /**
      * Display the specified appointment.

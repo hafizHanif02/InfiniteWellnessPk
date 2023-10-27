@@ -365,6 +365,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('calendar-list', [AppointmentCalendarController::class, 'calendarList']);
         Route::get('appointment-detail/{appointment}',
             [AppointmentCalendarController::class, 'getAppointmentDetails'])->name('appointment.details');
+        Route::get('sendmail', [AppointmentController::class, 'sendmail'])->name('appointment.sendmail');
+
+            
         Route::post('appointments/{appointment}/status', [AppointmentController::class, 'status'])
             ->name('appointment.status');
         Route::post('appointments/{appointment}/cancel', [AppointmentController::class, 'cancelAppointment'])
