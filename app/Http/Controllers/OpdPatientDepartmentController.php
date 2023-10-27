@@ -228,6 +228,51 @@ class OpdPatientDepartmentController extends AppBaseController
             'doctor_department_id' => $doc->department_id,
             'opd_date' => $request->appointment_date,
         ]);
+
+         $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
+        $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+        $recipient = [
+        ($patient->user->email != null) ? $patient->user->email : '',
+            $doctor->user->email,
+        ];
+        $subject = 'Dental OPD Created';
+        $data = array(
+            'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+        );
+
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+            'attachments' => null,
+        );
+        
+        Email::to($recipient)
+            ->send(new MarkdownMail('emails.email',
+                $mail['subject'], $mail));
+
+                foreach($receptions as $reception){
+
+                    $reception_mail = $reception->user->email;
+                    $reception_array = [];
+                    $reception_array[] = $reception_mail;
+        
+        
+                    $mail = array(
+                        'to' => $reception_array,
+                        'subject' => $subject,
+                        'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                        'attachments' => null,
+                    );
+        
+                    Email::to($reception_array)
+                    ->send(new MarkdownMail('emails.email',
+                        $mail['subject'], $mail));
+                }
+
+
         Flash::success(('Dentel OPD Created Successfully'));
         return redirect(route('dentalopd.patient.index'));
     }
