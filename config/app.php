@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Infinite Wellness'),
 
     'footer_version_show' => env('VERSION_NUMBER', true),
 

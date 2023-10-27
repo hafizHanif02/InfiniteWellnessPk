@@ -462,6 +462,10 @@
     </div>
 
 <script>
+          let allInput =document.getElementsByTagName("input");
+for (let index = 0; index < allInput.length; index++) {
+    allInput[index].value = allInput[index].value.trim();
+}
     $(function () {
         $("#datepicker").datepicker({
             dateFormat: "yy-mm-dd", // Format of the date

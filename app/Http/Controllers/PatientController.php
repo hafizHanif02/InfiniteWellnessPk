@@ -1478,7 +1478,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'note', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PAXray', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PAXray_feild', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG', '' => 'fieldValue'],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG', 'fieldValue'  =>''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG_feild', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Duration', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DentistSignature', 'fieldValue' => ''],

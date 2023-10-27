@@ -88,16 +88,18 @@ margin-left: -10px;
 <div class="text_start">
 <div class="patientDetails card mt-3 ">
     <div class="row ">
-        <div class="d-flex col-md-6 mt-2 ">
+        <div class="d-flex col-md-6 mt-2">
             <label class="date form-label">Date:</label>
-            <input type="date" name="dates" style="margin-left: 35px;" id="dates" value="@foreach($formData as $item)
-            @if($item->fieldName == 'dates')
-                {{trim($item->fieldValue)}}
-                @break
-           
-            @endif
-        @endforeach">
-    </div>
+            @foreach ($formData as $item)
+                @if ($item->fieldName == 'dates')
+                    @php
+                        $dateValue = date('Y-m-d', strtotime(trim($item->fieldValue)));
+                    @endphp
+                    <input type="date" name="dates" style="margin-left: 35px;" id="dates" value="{{ $dateValue }}">
+                    @break
+                @endif
+            @endforeach
+        </div>
         <div class="col-md-2 mt-3 ">
             <label class=" form-label in1 mt-3" style="margin-left: -55px;">Dentist Name:</label>    
         </div>
@@ -123,7 +125,7 @@ margin-left: -10px;
             <label class="gender mt-2 form-label"> Age:</label> 
         </div>
         <div class="d-flex col-md-1 mt-2">
-         <input type="number" style="margin-left: 15px;" readonly name="age" value="{{$age }}">   
+         <input type="number" style="margin-left: 15px;" readonly name="age" placeholder="{{$age }}" value="{{$age }}">   
         </div> 
 
 
@@ -419,12 +421,12 @@ margin-left: -10px;
         <label class="gender form-label"> Any other:</label>      
     </div>
     <div class="col-md-11 mt-2">
-        <input type="text" class="in1" name="Anyother" value="@foreach($formData as $item)
-        @if($item->fieldName == 'Anyother')
-            {{trim($item->fieldValue)}}
+        @foreach($formData as $item)
+            @if($item->fieldName == 'Anyother')
+                <input type="text" class="in1" name="Anyother" value="{{trim($item->fieldValue)}}">
             @break
         @endif
-    @endforeach">
+    @endforeach
     </div>
 </div>
 
@@ -437,12 +439,7 @@ margin-left: -10px;
         <div class="col-md-1 mt-3">
             <label class="gender form-label in1" style="margin-left: -25px;"> Duration:</label>         
         </div>
-  <div class="col-md-2 mt-2"> <input type="text" name="Duration" value="@foreach($formData as $item)
-    @if($item->fieldName == 'Duration')
-        {{trim($item->fieldValue)}}
-        @break
-    @endif
-@endforeach" class="in1" style="margin-left: -35px;"></div> 
+  <div class="col-md-2 mt-2"> <input type="text" name="Duration" value="@foreach($formData as $item)<?php if($item->fieldName == 'Duration') { echo trim($item->fieldValue); break; } ?>@endforeach" class="in1" style="margin-left: -35px;"></div>     
   <div class="col-md-1 mt-3"><label class="gender form-label"> Occurs/Aggravates:</label></div>
 </div>
 
@@ -1435,6 +1432,10 @@ margin-left: -10px;
 </script>
 
 <script>
+    let allInput =document.getElementsByTagName("input");
+for (let index = 0; index < allInput.length; index++) {
+    allInput[index].value = allInput[index].value.trim();
+}
     $(document).ready(function() {
 
 
