@@ -127,17 +127,18 @@ class AppointmentController extends AppBaseController
         foreach($receptions as $reception){
 
             $reception_mail = $reception->user->email;
-            $reception_aray = [$reception->user->email];
+            $reception_array = [];
+            $reception_array[] = $reception_mail;
 
 
             $mail = array(
-                'to' => $reception_mail,
+                'to' => $reception_array,
                 'subject' => $subject,
-                'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
                 'attachments' => null,
             );
 
-            Email::to($reception_mail)
+            Email::to($reception_array)
             ->send(new MarkdownMail('emails.email',
                 $mail['subject'], $mail));
         }
@@ -182,22 +183,24 @@ class AppointmentController extends AppBaseController
                 $mail['subject'], $mail));
 
 
-                // foreach($receptions as $reception){
+                foreach($receptions as $reception){
 
-                //     $reception_mail = $reception->user->email;
+                    $reception_mail = $reception->user->email;
+                    $reception_array = [];
+                    $reception_array[] = $reception_mail;
         
         
-                //     $mail = array(
-                //         'to' => $reception_mail,
-                //         'subject' => $subject,
-                //         'message' => 'Appointment has been created of Dr.  to Patient  on this  Date ',
-                //         'attachments' => null,
-                //     );
+                    $mail = array(
+                        'to' => $reception_array,
+                        'subject' => $subject,
+                        'message' => 'Appointment has been created of Dr.  to Patient  on this  Date ',
+                        'attachments' => null,
+                    );
         
-                //     Email::to($reception_mail)
-                //     ->send(new MarkdownMail('emails.email',
-                //         $mail['subject'], $mail));
-                // }
+                    Email::to($reception_array)
+                    ->send(new MarkdownMail('emails.email',
+                        $mail['subject'], $mail));
+                }
 
         
     }
