@@ -84,7 +84,7 @@
                         </div>
                         <div class="row md-5 mt-5">
                             <div class="col-md-6">  
-                                <label for="total-amount">POS Fees</label>
+                                <label for="pos_fee">POS Fees</label>
                                 <input type="number" class="form-control" value="1" id="pos_fee" readonly>
                             </div>
                             <div class="col-md-6">
@@ -178,7 +178,6 @@
                 }
             });
             pos_fee = parseFloat($('#pos_fee').val());
-            console.log(pos_fee);
             TotalAmount = TotalAmount + pos_fee;
             $('#total_amount').val(TotalAmount.toFixed(2));
 
