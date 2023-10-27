@@ -109,14 +109,14 @@ class AppointmentController extends AppBaseController
         $recipient = [$patient->user->email,$doctor->user->email];
         $subject = 'Appointment Created';
         $data = array(
-            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+            'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
         );
 
 
         $mail = array(
             'to' => $recipient,
             'subject' => $subject,
-            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+            'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
             'attachments' => null,
         );
         
@@ -134,7 +134,7 @@ class AppointmentController extends AppBaseController
             $mail = array(
                 'to' => $reception_array,
                 'subject' => $subject,
-                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date ',
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
                 'attachments' => null,
             );
 

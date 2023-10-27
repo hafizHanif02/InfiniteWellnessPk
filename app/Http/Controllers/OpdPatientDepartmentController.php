@@ -125,6 +125,8 @@ class OpdPatientDepartmentController extends AppBaseController
     {
         $input = $request->all();
         $doc = Doctor::where('id', $request->doctor_id)->first();
+        $receptions = Receptionist::with('user')->get();
+
 
         if(!empty($input['standard_charge'])) {
             $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
@@ -153,20 +155,39 @@ class OpdPatientDepartmentController extends AppBaseController
         $recipient = [$patient->user->email,$doctor->user->email];
         $subject = 'Appointment Created';
         $data = array(
-            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date ',
+            'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
         );
 
 
         $mail = array(
             'to' => $recipient,
             'subject' => $subject,
-            'message' => 'Appointment has been created of Dr. '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date ',
+            'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
             'attachments' => null,
         );
         
         Email::to($recipient)
             ->send(new MarkdownMail('emails.email',
                 $mail['subject'], $mail));
+
+                foreach($receptions as $reception){
+
+                    $reception_mail = $reception->user->email;
+                    $reception_array = [];
+                    $reception_array[] = $reception_mail;
+        
+        
+                    $mail = array(
+                        'to' => $reception_array,
+                        'subject' => $subject,
+                        'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                        'attachments' => null,
+                    );
+        
+                    Email::to($reception_array)
+                    ->send(new MarkdownMail('emails.email',
+                        $mail['subject'], $mail));
+                }
         // Email
 
         return redirect(route('opd.patient.index'));
