@@ -466,9 +466,9 @@
 for (let index = 0; index < allInput.length; index++) {
     allInput[index].value = allInput[index].value.trim();
 }
-let allInput =document.getElementsByTagName("textarea");
+let allInput2 =document.getElementsByTagName("textarea");
 for (let index = 0; index < allInput.length; index++) {
-    allInput[index].value = allInput[index].value.trim();
+    allInput2[index].value = allInput2[index].value.trim();
 }
     $(function () {
         $("#datepicker").datepicker({
