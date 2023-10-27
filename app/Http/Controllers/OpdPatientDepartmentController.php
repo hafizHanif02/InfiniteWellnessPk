@@ -152,8 +152,11 @@ class OpdPatientDepartmentController extends AppBaseController
         $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
         $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
         $receptions = Receptionist::with('user')->get();
-        $recipient = [$patient->user->email,$doctor->user->email];
-        $subject = 'Appointment Created';
+        $recipient = [
+        ($patient->user->email != null) ? $patient->user->email : '',
+            $doctor->user->email,
+        ];
+        $subject = 'OPD Created';
         $data = array(
             'message' => 'OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
         );
