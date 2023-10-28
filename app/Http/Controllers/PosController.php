@@ -47,7 +47,7 @@ class PosController extends Controller
             'products.*.product_quantity.numeric' => 'Product quantity must be a numeric value',
             'products.*.product_quantity.min' => 'Product quantity must be at least one',
         ];
-        
+
 
         $validatedData = $request->validate([
             'patient_name' => ['required', 'string'],
@@ -68,10 +68,10 @@ class PosController extends Controller
             'enter_payment_amount' => ['nullable', 'numeric'],
             'change_amount' => ['nullable', 'numeric'],
         ], $customMessages);
-        
+
             // Validation succeeded
             return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
-        
+
 
     }
 
@@ -221,7 +221,7 @@ class PosController extends Controller
             Pos_Product::create(array_merge($productData, ['pos_id' => $id]));
         }
 
-        Flash::message('POS Updated!');  
+        Flash::message('POS Updated!');
         return to_route('pos.proceed-to-pay-page', $id);
         // return redirect()->route('pos.index');
     }
@@ -275,7 +275,7 @@ class PosController extends Controller
         $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
 
         return view('pos-return.daily-report', [
-            'pos' => Pos::filter($request)->latest()->paginate(10)->onEachSide(1),
+            'pos' => Pos::filter($request)->where('is_paid',1)->latest()->paginate(10)->onEachSide(1),
             'posreturns' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
         ]);
     }
@@ -287,7 +287,7 @@ class PosController extends Controller
         return Excel::download(new PosExport, 'Pos-Report.xlsx');
     }
 
-    
+
     public function posItemReport(Request $request)
     {
         $posid = Pos_Product::pluck('pos_id');
@@ -299,7 +299,7 @@ class PosController extends Controller
 
         // Query to calculate the total quantity from Pos_Product
         $posesQuery = Pos_Product::whereIn('pos_id', $posid)
-            
+
             ->selectRaw('pos_id as pos_id, medicine_id, product_name as productName, SUM(product_quantity) as productQty')
             ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
             ->selectRaw('medicines.*')
