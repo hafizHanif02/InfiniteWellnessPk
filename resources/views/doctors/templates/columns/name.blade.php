@@ -32,7 +32,7 @@
         <div class="image image-circle image-mini me-3">
             <a href="{{route('doctors_show',$row->id)}}">
                 <div>
-                    @if ($row->doctorUser->image_url)
+                    @if ($row->doctorUser)
                     <img src="{{$row->doctorUser->image_url}}" alt=""
                     class="user-img rounded-circle object-contain" height="35" width="35">
                     @endif
