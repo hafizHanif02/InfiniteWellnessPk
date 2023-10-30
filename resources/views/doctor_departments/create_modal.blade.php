@@ -17,6 +17,10 @@
                         {{ Form::text('title', null, ['class' => 'form-control','required']) }}
                     </div>
                     <div class="form-group col-sm-12 mb-5">
+                        <label for="">Short Name:<span class="required"></label>
+                        {{ Form::text('short_name', null, ['class' => 'form-control','required']) }}
+                    </div>
+                    <div class="form-group col-sm-12 mb-5">
                         {{ Form::label('description', __('messages.doctor_department.description').(':'),['class' => 'form-label']) }}
                         {{ Form::textarea('description', null, ['class' => 'form-control' ,'rows' => '5']) }}
                     </div>

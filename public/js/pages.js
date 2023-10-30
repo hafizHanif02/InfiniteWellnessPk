@@ -5124,6 +5124,7 @@
                       e.success &&
                         ($("#doctorDepartmentId").val(e.data.id),
                         $("#editDoctorDepartmentTitle").val(e.data.title),
+                        $("#editDoctorDepartmentShortName").val(e.data.short_name),
                         $("#editDoctorDepartmentDescription").val(
                           e.data.description
                         ),

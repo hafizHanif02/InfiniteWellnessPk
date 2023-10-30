@@ -49,7 +49,7 @@ class DoctorDepartmentController extends AppBaseController
         $input = $request->all();
         $this->doctorDepartmentRepository->create($input);
 
-        return $this->sendSuccess(__('messages.doctor_department.doctor_department').' '.__('messages.common.saved_successfully'));
+        return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.saved_successfully'));
     }
 
     /**
@@ -62,7 +62,7 @@ class DoctorDepartmentController extends AppBaseController
         $doctorDepartment = $this->doctorDepartmentRepository->find($doctorDepartment->id);
 
         if (empty($doctorDepartment)) {
-            Flash::error(__('messages.doctor_department.doctor_department').' '.__('messages.common.not_found'));
+            Flash::error(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.not_found'));
 
             return redirect(route('doctorDepartments.index'));
         }
@@ -90,7 +90,7 @@ class DoctorDepartmentController extends AppBaseController
         $input = $request->all();
         $this->doctorDepartmentRepository->update($input, $doctorDepartment->id);
 
-        return $this->sendSuccess(__('messages.doctor_department.doctor_department').' '.__('messages.common.updated_successfully'));
+        return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.updated_successfully'));
     }
 
     /**
@@ -102,15 +102,13 @@ class DoctorDepartmentController extends AppBaseController
      */
     public function destroy(DoctorDepartment $doctorDepartment)
     {
-        $doctorDepartmentModels = [
-            Doctor::class,
-        ];
-        $result = canDelete($doctorDepartmentModels, 'doctor_department_id', $doctorDepartment->id);
-        if ($result) {
-            return $this->sendError(__('messages.doctor_department.doctor_department').' '.__('messages.common.cant_be_deleted'));
-        }
-        $doctorDepartment->delete();
+        if ($doctorDepartment) {
+            $doctorDepartment->delete();
+            // Flash::success(__('Deleted successfully'));
+        return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.deleted_successfully'));
 
-        return $this->sendSuccess(__('messages.doctor_department.doctor_department').' '.__('messages.common.deleted_successfully'));
+        } else {
+            Flash::error(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.not_found'));
+        }
     }
 }

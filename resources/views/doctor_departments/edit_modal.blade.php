@@ -17,6 +17,11 @@
                         <span class="required"></span>
                         {{ Form::text('title', null, ['class' => 'form-control','required','id' =>'editDoctorDepartmentTitle']) }}
                     </div>
+                    <div class="form-group col-sm-12 mb-5">
+                        <label for="">Short Name:</label>
+                        <span class="required"></span>
+                        {{ Form::text('short_name', null, ['class' => 'form-control','required','id' =>'editDoctorDepartmentShortName']) }}
+                    </div>
                     <div class="form-group col-sm-12">
                         {{ Form::label('description', __('messages.doctor_department.description').(':'),['class' => 'form-label']) }}
                         {{ Form::textarea('description', null, ['class' => 'form-control' ,'rows' => '5','id' =>'editDoctorDepartmentDescription']) }}

@@ -50,6 +50,7 @@ function renderDoctorDepartmentData (id) {
             if (result.success) {
                 $('#doctorDepartmentId').val(result.data.id);
                 $('#editDoctorDepartmentTitle').val(result.data.title);
+                $('#editDoctorDepartmentShortName').val(result.data.short_name);
                 $('#editDoctorDepartmentDescription').val(result.data.description);
                 $('#edit_doctor_departments_modal').modal('show');
                 ajaxCallCompleted();
