@@ -104,7 +104,6 @@ class DoctorDepartmentController extends AppBaseController
     {
         if ($doctorDepartment) {
             $doctorDepartment->delete();
-            // Flash::success(__('Deleted successfully'));
         return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.deleted_successfully'));
 
         } else {
