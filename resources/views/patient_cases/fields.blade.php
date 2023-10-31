@@ -3,7 +3,14 @@
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('patient_name', __('messages.case.patient').(':'),['class' => 'form-label']) }}
         <span class="required"></span>
-        {{ Form::select('patient_id', $patients, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'casePatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2', 'required']) }}
+        {{-- {{ Form::select('patient_id', $patients, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'casePatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2', 'required']) }} --}}
+
+        <select name="patient_id" class="'form-select select2Selector'"  id="casePatientId" placeholder='Select Patient' class="form-select" required>
+            <option value="" selected disabled>Select Patient</option>
+            @foreach ($patients as $patient)
+            <option value="{{$patient->id }}">({{$patient->MR}}) {{$patient->patientUser->full_name }}</option>                
+            @endforeach
+        </select>
     </div>
 
     <div class="form-group col-sm-6 mb-5">

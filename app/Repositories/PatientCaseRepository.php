@@ -53,8 +53,8 @@ class PatientCaseRepository extends BaseRepository
     public function getPatients()
     {
         /** @var Patient $patients */
-        $patients = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('patientUser.full_name', 'id')->sort();
-
+        // $patients = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->pluck('patientUser.full_name', 'id')->sort();
+        $patients = Patient::with('patientUser')->get()->where('patientUser.status', '=', 1)->sort();
         return $patients;
     }
 
