@@ -45,7 +45,7 @@ class DoctorDepartmentTable extends LivewireTableComponent
                 ->view('doctor_departments.templates.columns.title')
                 ->sortable()->searchable(),
 
-            Column::make(__('messages.appointment.doctor_department'), 'short_name')
+            Column::make(__('Short Name'), 'short_name')
                 ->view('doctor_departments.templates.columns.short_name')
                 ->sortable()->searchable(),
             Column::make(__('messages.common.action'), 'id')->view('doctor_departments.action'),
