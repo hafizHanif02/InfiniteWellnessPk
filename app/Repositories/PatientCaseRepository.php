@@ -74,8 +74,9 @@ class PatientCaseRepository extends BaseRepository
      */
     public function store($input)
     {
+       
         try {
-            $input['case_id'] = mb_strtoupper(PatientCase::generateUniqueCaseId());
+            $input['case_id'] = $input['department_id'].mb_strtoupper(PatientCase::generateUniqueCaseId());
             $patientCase = PatientCase::create($input);
 
             return true;

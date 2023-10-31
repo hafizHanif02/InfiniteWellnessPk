@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PatientCaseExport;
-use App\Http\Requests\CreatePatientCaseRequest;
-use App\Http\Requests\UpdatePatientCaseRequest;
+use Flash;
+use Exception;
+use Carbon\Carbon;
+use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\BedAssign;
+use Illuminate\View\View;
+use App\Models\Department;
 use App\Models\BirthReport;
 use App\Models\DeathReport;
-use App\Models\IpdPatientDepartment;
-use App\Models\OperationReport;
-use App\Models\Patient;
 use App\Models\PatientCase;
-use App\Repositories\PatientCaseRepository;
-use Carbon\Carbon;
-use Exception;
-use Flash;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\OperationReport;
+use App\Models\DoctorDepartment;
+use Illuminate\Http\JsonResponse;
+use App\Exports\PatientCaseExport;
 use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
+use App\Models\IpdPatientDepartment;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Repositories\PatientCaseRepository;
+use App\Http\Requests\CreatePatientCaseRequest;
+use App\Http\Requests\UpdatePatientCaseRequest;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PatientCaseController extends AppBaseController
@@ -59,8 +62,12 @@ class PatientCaseController extends AppBaseController
     {
         $patients = $this->patientCaseRepository->getPatients();
         $doctors = $this->patientCaseRepository->getDoctors();
+        $departments = DoctorDepartment::pluck('title', 'id');
+        $departmentsArray = $departments->toArray();
+        // $departments = Department::pluck('name', 'id')->toArray();
 
-        return view('patient_cases.create', compact('patients', 'doctors'));
+
+        return view('patient_cases.create', compact('patients', 'doctors','departmentsArray'));
     }
 
     /**
@@ -210,5 +217,21 @@ class PatientCaseController extends AppBaseController
         ];
 
         return $this->sendResponse($patientCase, 'Patient Case Retrieved Successfully.');
+    }
+
+
+
+    public function doctor_list(Request $request)
+    {
+        $doctors = Doctor::where(['department_id' => $request->department_id])->with('user')->get();
+
+        if (count($doctors) > 0) {
+            return response()->json([
+                'data' => $doctors,
+            ]);
+        }
+        return response()->json([
+            'data' => ''
+        ]);
     }
 }

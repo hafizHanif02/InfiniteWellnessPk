@@ -784,6 +784,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             '[0-9]+')->name('patient_case_show');
         Route::get('patient-cases-show-modal/{patient_case}', [PatientCaseController::class, 'showModal'])->where('patient_case',
             '[0-9]+')->name('patient_case.show.modal');
+        Route::get('case/doctor/list/', [PatientCaseController::class, 'doctor_list'])->name('case.doctor.list');
     });
 
     Route::middleware('role:Admin|Receptionist|Case Manager')->group(function () {

@@ -5,6 +5,20 @@
         <span class="required"></span>
         {{ Form::select('patient_id', $patients, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'casePatientId', 'placeholder' => 'Select Patient', 'data-control' => 'select2', 'required']) }}
     </div>
+
+    <div class="form-group col-sm-6 mb-5">
+        {{ Form::label('department_id','Department',['class' => 'form-label']) }}
+        <span class="required"></span>
+        {{ Form::select('department_id', $departmentsArray, null, ['class' => 'form-select select2Selector', 'required', 'id' => 'department_id', 'placeholder' => 'Select Deparment', 'data-control' => 'select2', 'required']) }}
+    </div>
+
+    <div class="form-group col-sm-6 mb-5">
+        {{ Form::label('doctor_id','Doctor',['class' => 'form-label']) }}
+        <span class="required"></span>
+        <select name="doctor_id" id="doctor_id" class="form-control">
+            <option value="" selected disabled>Select Department First</option>
+        </select>
+    </div>
    
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('date', __('messages.case.case_date').(':'), ['class' => 'form-label']) }}
@@ -42,3 +56,40 @@
            class="btn btn-secondary me-2">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>
+
+<script>
+     $('#department_id').change(function() {
+        var department_id = $('#department_id').val();
+        console.log(department_id);
+        $.ajax({
+                    type: "get",
+                    url: "/case/doctor/list",
+                    data: {
+                        department_id: $(this).val()
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        $("#doctor_id").empty();
+
+                        if (response.data.length !== 0) {
+                            $('#doctor_id').select2();
+                            $('#doctor_id').append(
+                                `<option>Select Doctor </option>`);
+                            $.each(response.data, function(index, value) {
+                                console.log(value);
+                                $("#doctor_id").append(
+                                    `
+                            <option value="${value.id}" data-doctor="${value.user.full_name}">
+                               ${value.user.full_name}
+                            </option>`
+                                );
+                            });
+                        } else {
+                            $("#doctor_id").html(
+                                `<option value="" class="text-danger" selected disabled>No Doctor found!</option>`
+                            );
+                        }
+                    }
+                });
+     });
+</script>

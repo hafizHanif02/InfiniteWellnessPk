@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Str;
 use Eloquent as Model;
+use App\Models\Department;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
-use Str;
 
 /**
  * Class PatientCase
@@ -83,6 +84,8 @@ class PatientCase extends Model
     public $fillable = [
         'case_id',
         'patient_id',
+        'department_id',
+        'doctor_id',
         'phone',
         'date',
         'status',
@@ -99,6 +102,8 @@ class PatientCase extends Model
         'id' => 'integer',
         'case_id' => 'string',
         'patient_id' => 'integer',
+        'department_id' => 'integer',
+        'doctor_id' => 'integer',
         'phone' => 'string',
         'date' => 'date',
         'status' => 'integer',
@@ -114,6 +119,8 @@ class PatientCase extends Model
      */
     public static $rules = [
         'patient_id' => 'required',
+        'department_id' => 'nullable',
+        'doctor_id' => 'nullable',
         'phone' => 'nullable|numeric',
         'date' => 'required',
         'description' => 'nullable',
@@ -166,6 +173,10 @@ class PatientCase extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     /**
