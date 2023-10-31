@@ -102,12 +102,22 @@ class DoctorDepartmentController extends AppBaseController
      */
     public function destroy(DoctorDepartment $doctorDepartment)
     {
-        if ($doctorDepartment) {
+        $result = Doctor::where('department_id', $doctorDepartment->id)->exists();
+        if (!$result) {
             $doctorDepartment->delete();
-        return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.deleted_successfully'));
-
+            return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.deleted_successfully'));
         } else {
-            Flash::error(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.not_found'));
+            return $this->sendError(__('This department is in use'));
         }
     }
+    // public function destroy(DoctorDepartment $doctorDepartment)
+    // {
+    //     if ($doctorDepartment) {
+    //         $doctorDepartment->delete();
+    //     return $this->sendSuccess(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.deleted_successfully'));
+
+    //     } else {
+    //         Flash::error(__('messages.doctor_department.doctor_department') . ' ' . __('messages.common.not_found'));
+    //     }
+    // }
 }
