@@ -54,7 +54,7 @@ class DocumentRepository extends BaseRepository
             $data['patients'] = getPatientsList($user->owner_id);
         } else {
             if (! $user->hasRole('Patient')) {
-                $data['patients'] = Patient::getActivePatientNames()->toArray();
+                $data['patients'] = Patient::getActivePatientNames();
             }
         }
 

@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use App\Models\Patient;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Patient
@@ -119,18 +121,16 @@ class Patient extends Model
 
     public static function getActivePatientNames()
     {
-        $patients = DB::table('users')
-            ->where('status', '=', 1)
-            ->join('patients', 'users.id', '=', 'patients.user_id')
-            ->select(['users.first_name', 'users.last_name', 'patients.id'])
-            ->orderBy('first_name')
-            ->get();
-        $patientsNames = collect();
-        foreach ($patients as $patient) {
-            $patientsNames[$patient->id] = ucfirst($patient->first_name).' '.ucfirst($patient->last_name);
-        }
+        $all_active_user_id = User::where('status', 1)->pluck('id');
+        $patients = Patient::whereIn('user_id', $all_active_user_id)->with('patientUser')->get();
 
-        return $patientsNames;
+        // // $patientsNames = collect();
+        // // foreach ($patients as $patient) {
+        // //     $patientsNames[$patient->id] = ucfirst($patient->first_name).' '.ucfirst($patient->last_name);
+        // // }
+                     
+        // dd($patients);
+        return $patients;
     }
 
     public function prepareData(): array
