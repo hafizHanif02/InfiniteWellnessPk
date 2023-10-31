@@ -29,7 +29,13 @@
                             <div>
                                 {{ Form::label('patient', __('messages.document.patient').(':'), ['class' => 'form-label']) }}
                                 <span class="required"></span>
-                                {{ Form::select('patient_id', $patients, null, ['class' => 'form-select','required', 'id' => 'editDocumentPatientId', 'placeholder' => __('messages.document.select_patient'), 'data-control' => 'select2']) }}
+                                {{-- {{ Form::select('patient_id', $patients, null, ['class' => 'form-select','required', 'id' => 'editDocumentPatientId', 'placeholder' => __('messages.document.select_patient'), 'data-control' => 'select2']) }} --}}
+                                <select name="patient_id" class="form-select" data-control = 'select2'  id="editDocumentPatientId" placeholder='Select Patient' class="form-select" required>
+                                    <option value="" selected disabled>Select Patient</option>
+                                    @foreach ($patients as $patient)
+                                    <option value="{{$patient->id }}">({{$patient->MR}}) {{$patient->patientUser->full_name }}</option>                
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     @endif
