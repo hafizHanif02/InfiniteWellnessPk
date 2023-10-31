@@ -132,7 +132,6 @@ class DocumentController extends AppBaseController
                 'Content-Disposition' => "attachment; filename={$document->media[0]->file_name}",
                 'filename' => $document->media[0]->file_name,
             ];
-
             return response($file, 200, $headers);
         }
     }
