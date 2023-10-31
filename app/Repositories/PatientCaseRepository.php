@@ -2,13 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\CaseHandler;
-use App\Models\Doctor;
-use App\Models\Notification;
-use App\Models\Patient;
-use App\Models\PatientCase;
-use App\Models\Receptionist;
 use Exception;
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\CaseHandler;
+use App\Models\PatientCase;
+use App\Models\Notification;
+use App\Models\Receptionist;
+use App\Models\DoctorDepartment;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
@@ -76,7 +77,8 @@ class PatientCaseRepository extends BaseRepository
     {
        
         try {
-            $input['case_id'] = $input['department_id'].mb_strtoupper(PatientCase::generateUniqueCaseId());
+            $short_name = DoctorDepartment::where('id',$input['department_id'])->pluck('short_name')->first();
+            $input['case_id'] = $short_name.'-'.mb_strtoupper(PatientCase::generateUniqueCaseId());
             $patientCase = PatientCase::create($input);
 
             return true;
