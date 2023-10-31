@@ -6,7 +6,13 @@
         <div class="form-group col-sm-6 mb-5">
             {{ Form::label('patient_name', __('messages.case.patient').':', ['class' => 'form-label']) }}
             <span class="required"></span>
-            {{ Form::select('patient_id', $patients, null, ['class' => 'form-select','required','id' => 'appointmentPatientId','placeholder'=>'Select Patient', 'data-control' => 'select2']) }}
+            {{-- {{ Form::select('patient_id', $patients, null, ['class' => 'form-select','required','id' => 'appointmentPatientId','placeholder'=>'Select Patient', 'data-control' => 'select2']) }} --}}
+        <select name="patient_id"  id="appointmentPatientId" placeholder='Select Patient' class="form-select" required>
+            <option value="" selected disabled>Select Patient</option>
+            @foreach ($patients as $patient)
+            <option value="{{$patient->id }}">({{$patient->MR}}) {{$patient->patientUser->full_name }}</option>                
+            @endforeach
+        </select>
         </div>
     @endif
 <!-- Department Name Field -->

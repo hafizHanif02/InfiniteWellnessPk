@@ -71,8 +71,7 @@ class AppointmentRepository extends BaseRepository
     {
         /** @var Patient $patients */
         $patients = Patient::with('patientUser')->get()->where('patientUser.status', '=',
-            1)->pluck('patientUser.full_name', 'id','MR')->sort();
-
+            1)->sort();
         return $patients;
     }
 
