@@ -60,14 +60,13 @@ class PatientCaseController extends AppBaseController
      */
     public function create()
     {
+
         $patients = $this->patientCaseRepository->getPatients();
         $doctors = $this->patientCaseRepository->getDoctors();
         $departments = DoctorDepartment::pluck('title', 'id');
         $departmentsArray = $departments->toArray();
-        // $departments = Department::pluck('name', 'id')->toArray();
-
-
         return view('patient_cases.create', compact('patients', 'doctors','departmentsArray'));
+        
     }
 
     /**

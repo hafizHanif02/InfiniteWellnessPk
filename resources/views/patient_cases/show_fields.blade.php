@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-lg-3 d-flex flex-column mb-md-10 mb-5">
                                 <label class="pb-2 fs-5 text-gray-600">{{ __('messages.case.doctor').(':')  }}</label>
-                                <span class="fs-5 text-gray-800">{{$patientCase->doctor->doctorUser->full_name}}</span>
+                                <span class="fs-5 text-gray-800">{{ !empty($patientCase->doctor_id)?$patientCase->doctor->doctorUser->full_name:'-'}}</span>
                             </div>
                             <div class="col-lg-3 d-flex flex-column mb-md-10 mb-5">
                                 <label class="pb-2 fs-5 text-gray-600">{{ __('messages.case.case_date').(':')  }}</label>
@@ -54,3 +54,5 @@
         </div>
     </div>
 </div>
+
+

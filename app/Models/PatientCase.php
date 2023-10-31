@@ -143,6 +143,7 @@ class PatientCase extends Model
             'case_id' => $this->case_id,
             'case_date' => isset($this->date) ? \Carbon\Carbon::parse($this->date)->translatedFormat('jS M, Y,g:i A') : 'N/A',
             'patient' => $this->patient->patientUser->full_name ?? 'N/A',
+            'doctor' => $this->doctor->doctorUser->full_name ?? 'N/A',
             'phone' => $this->phone ?? 'N/A',
             'created_on' => $this->created_at->diffForHumans() ?? 'N/A',
             'description' => $this->description ?? 'N/A',
