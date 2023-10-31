@@ -193,7 +193,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-9">
                             <div class="mb-5">
                                 <label for="unit_of_measurement" class="form-label">Unit Of Measurement <sup
@@ -223,7 +223,12 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
+                    <input type="hidden" value="1" name="unit_of_measurement" id="unit_of_measurement" class="form-control"
+                    title="Least unit">
+                    <input type="hidden"  name="number_of_pack" id="number_of_pack"
+                                class="form-control"  value="1"
+                                title="Number of packet">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-5">
