@@ -119,8 +119,10 @@ class PatientCaseController extends AppBaseController
     {
         $patients = $this->patientCaseRepository->getPatients();
         $doctors = $this->patientCaseRepository->getDoctors();
+        $departments = DoctorDepartment::pluck('title', 'id');
+        $departmentsArray = $departments->toArray();
 
-        return view('patient_cases.edit', compact('patientCase', 'patients', 'doctors'));
+        return view('patient_cases.edit', compact('patientCase', 'patients', 'doctors','departmentsArray'));
     }
 
     /**
@@ -139,7 +141,7 @@ class PatientCaseController extends AppBaseController
 
             return redirect()->back()->withInput($input);
         }
-        $input['fee'] = removeCommaFromNumbers($input['fee']);
+        // $input['fee'] = removeCommaFromNumbers($input['fee']);
         $input['status'] = isset($input['status']) ? 1 : 0;
         $input['phone'] = preparePhoneNumber($input, 'phone');
 
