@@ -618,6 +618,8 @@ class PatientController extends AppBaseController
             $this->insertReferralData($insertedId, (int) $req->patientID);
         }elseif ($formName == 'Dental Form') {
             $this->insertDentalData($insertedId, (int) $req->patientID);
+        }elseif ($formName == 'Progress Form') {
+            $this->insertProgressForm($insertedId, (int) $req->patientID);
         }
 
         return redirect(route('patients.show', ['patient' => $req->patientID]));
@@ -1254,6 +1256,27 @@ class PatientController extends AppBaseController
 
         DB::table('form_data')->insert($data);
     }
+    public function insertProgressForm($formID, $patientID)
+    {
+        $data = [
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'date', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'time', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'location', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'weight', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'height', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'foc', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'temp', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'bp', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'pulse', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'res', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'drsName', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'painScore', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'allergy', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'sign', 'fieldValue' => ''],
+        ];
+
+        DB::table('form_data')->insert($data);
+    }
 
 
     public function insertFASTData($formID, $patientID)
@@ -1349,58 +1372,59 @@ class PatientController extends AppBaseController
         $data = [
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FullName', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'mr_no', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Age', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'age', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'gendercheck', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Email', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FullName2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'LicenseNumber', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Email2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Clinic/HospitalName', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ReasonforReferral', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'CurrentMedicalConditions', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PastMedicalHistory2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Allergies', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Medications3', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => '', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SurgicalHistory', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FamilyMedicalHistory', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SocialHistory', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'RelevantPhysicalExaminationFindings', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Result', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Date', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HealthcareFacility', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DescribeAnyTreatmentsorManagementStrategies', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'TypeofSpecialist', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PreferredSpecialist', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnySpecificInstructions/ConcernsRelatedToTheReferral', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Attachanyrelevantmedicalrecords,testreports,orimagingstudiesthatsupportthereferral.', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientName', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DateofBirth2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Gender', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address3', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'City', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'State', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ZipCode', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber3', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'EmailAddress', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ReferringProviderName', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ClinicName', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address4', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'City2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'State2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber4', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'EmailAddress2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DescribeTheReasonForReferral/AnySpecificConcerns', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'date_of_referral', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'NameAndDesignationOfRequestingPhysician', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientIsReferredTo', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ConsultantDr', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ServiceSpeciality', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ReasonForReferral', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsMedicalHistory', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'CurrentMedications', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AreThereAnyKnownAllergies', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'LaboratoryandDiagnosticTests2', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsPreviousTreatment', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnyAdditionalInformation', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'signature', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'signature', 'fieldValue' => ''],
+
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'CurrentMedicalConditions', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PastMedicalHistory2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Allergies', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Medications3', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => '', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SurgicalHistory', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FamilyMedicalHistory', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SocialHistory', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'RelevantPhysicalExaminationFindings', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Result', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Date', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'HealthcareFacility', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DescribeAnyTreatmentsorManagementStrategies', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'TypeofSpecialist', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PreferredSpecialist', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnySpecificInstructions/ConcernsRelatedToTheReferral', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Attachanyrelevantmedicalrecords,testreports,orimagingstudiesthatsupportthereferral.', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientName', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DateofBirth2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Gender', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address3', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'City', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'State', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ZipCode', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber3', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'EmailAddress', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ReferringProviderName', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ClinicName', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Address4', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'City2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'State2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhoneNumber4', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'EmailAddress2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DescribeTheReasonForReferral/AnySpecificConcerns', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsMedicalHistory', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'CurrentMedications', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AreThereAnyKnownAllergies', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'LaboratoryandDiagnosticTests2', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsPreviousTreatment', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'AnyAdditionalInformation', 'fieldValue' => ''],
+            // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'signature', 'fieldValue' => ''],
         ];
 
         DB::table('form_data')->insert($data);
