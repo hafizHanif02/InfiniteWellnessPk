@@ -170,8 +170,8 @@ class PatientController extends AppBaseController
             $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();
             natcasesort($vaccinations);
 
-            $forms = DB::table('form_type')->get();
-            $currentForm = DB::table('form_patient')->where(['patientID' => $patientId])->get();
+            $forms = DB::table('form_type')->where('fileName','!=','preTestForm')->get();
+            $currentForm = DB::table('form_patient')->where('formName','!=','Pre-Test Form')->where(['patientID' => $patientId])->get();
 
             $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
@@ -497,7 +497,7 @@ class PatientController extends AppBaseController
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
         $DietData = DB::Table('dietitianAssessment')->where(['patient_id' => $patient])->first();
         if($form_patientId){
-            $formFile = DB::Table('form_type')->where(['id' => $form_patientId->formID])->first();
+            $formFile = DB::Table('form_type')->where('fileName','!=','preTestForm')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
             return view('patients.'.$fileName, compact('formData','nursingData','patientData','DietData','age'));
