@@ -1525,7 +1525,7 @@
 
         </div>
         @role('Admin|Doctor')
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary mt-5">Submit</button>
         @endrole
     </form>
         </div>
