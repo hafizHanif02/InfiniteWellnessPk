@@ -477,8 +477,8 @@ $(document).ready(function() {
                             width: 290px;
                             padding: 40px;
                             box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
-                            bottom: 0;
-                            right: 10px;
+                            top: 10px;
+                            right: 30px;
                         }
                         .icon-sm {
                             font-size: 106px !important;

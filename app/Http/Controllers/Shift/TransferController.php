@@ -53,22 +53,25 @@ class TransferController extends Controller
             'products.*.total_piece' => 'At least one product quantity is required',
         ];
         
+        $p_id = $request->product_id;
+        $product = Product::where('id', $p_id)->first();
+        $max_qty = $product->total_quantity;
+        
         $validatedData = $request->validate([
             'supply_date' => ['required', 'date'],
             'products' => ['required'],
             'products.*.id' => ['required', 'exists:products,id'],
             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
             'products.*.price_per_unit' => ['required', 'numeric'],
-            'products.*.total_piece' => ['required', 'integer','min:1'],
+            'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
             'products.*.total_pack' => ['required', 'integer'],
             'products.*.amount' => ['required', 'numeric'],
         ], $customMessages);
         
-            // Validation succeeded
-            return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
-        
-
+        // Validation succeeded
+        return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
+    
 
     
     public function products(Product $product): JsonResponse
