@@ -36,11 +36,13 @@ use Illuminate\Contracts\View\Factory;
 use App\Http\Requests\DietitianRequest;
 use App\Repositories\PatientRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\CreatePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Repositories\PatientCaseRepository;
 use App\Repositories\AdvancedPaymentRepository;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PatientController extends AppBaseController
@@ -68,7 +70,8 @@ class PatientController extends AppBaseController
         return view('patients.index', $data);
     }
 
-    public function dietitanFormList(){
+    public function dietitanFormList()
+    {
         $data['statusArr'] = Patient::STATUS_ARR;
 
         return view('patients.dietitan.index', $data);
@@ -108,14 +111,14 @@ class PatientController extends AppBaseController
             "description" => null
         ];
 
-            //---------------------
+        //---------------------
 
-            // $patientCase = PatientCase::create($data);
+        // $patientCase = PatientCase::create($data);
 
-            //-------------------
+        //-------------------
 
 
-        Flash::success(__('messages.advanced_payment.patient').' '.__('messages.common.saved_successfully'));
+        Flash::success(__('messages.advanced_payment.patient') . ' ' . __('messages.common.saved_successfully'));
 
         return redirect(route('patients.index'));
     }
@@ -153,7 +156,7 @@ class PatientController extends AppBaseController
     public function show($patientId)
     {
         $data = $this->patientRepository->getPatientAssociatedData($patientId);
-        if (! $data) {
+        if (!$data) {
             return view('errors.404');
         }
         if (getLoggedinPatient() && checkRecordAccess($data->id)) {
@@ -170,18 +173,17 @@ class PatientController extends AppBaseController
             $vaccinations = Vaccination::toBase()->pluck('name', 'id')->toArray();
             natcasesort($vaccinations);
 
-            $forms = DB::table('form_type')->where('fileName','!=','preTestForm')->get();
-            $currentForm = DB::table('form_patient')->where('formName','!=','Pre-Test Form')->where(['patientID' => $patientId])->get();
+            $forms = DB::table('form_type')->where('fileName', '!=', 'preTestForm')->get();
+            $currentForm = DB::table('form_patient')->where('formName', '!=', 'Pre-Test Form')->where(['patientID' => $patientId])->get();
 
             $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
-            $patientMR = Patient::where('id',$patientId)->pluck('MR')->first();
-            
+            $patientMR = Patient::where('id', $patientId)->pluck('MR')->first();
 
-            $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user','Allergies','Medication'])->first();
 
-            return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm','dietdata','nursingData'));
+            $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user', 'Allergies', 'Medication'])->first();
 
+            return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
         }
     }
 
@@ -189,7 +191,7 @@ class PatientController extends AppBaseController
     {
 
         $data = $this->patientRepository->getPatientAssociatedData($patientId);
-        if (! $data) {
+        if (!$data) {
             return view('errors.404');
         }
         if (getLoggedinPatient() && checkRecordAccess($data->id)) {
@@ -212,18 +214,16 @@ class PatientController extends AppBaseController
 
             $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
-            $patientMR = Patient::where('id',$patientId)->pluck('MR')->first();
+            $patientMR = Patient::where('id', $patientId)->pluck('MR')->first();
 
-            $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user','Allergies','Medication'])->first();
+            $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user', 'Allergies', 'Medication'])->first();
 
-            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm','dietdata','nursingData'));
-
-
-
+            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
         }
     }
 
-    public function formSubmit(Request $request){
+    public function formSubmit(Request $request)
+    {
         //return $request->all();
 
         // Dietitian::create($request->all());
@@ -317,97 +317,96 @@ class PatientController extends AppBaseController
                 'time42' => $request->time42 ?? 0,
                 'week42' => $request->week42 ?? 0,
             ]);
-
-        }else {
+        } else {
             $insertedId = DB::table('dietitianAssessment')->insertGetId([
-            'patient_id' => $request->patient_id,
-            'age' => $request->age,
-            'weight' => $request->weight,
-            'height' => $request->height,
-            'bmi' => $request->bmi,
-            'ibw' => $request->ibw,
-            'nutritionalStatusCategory' => $request->nutritionalStatusCategory,
-            'pastDietaryPattern' => $request->pastDietaryPattern,
-            'pastFluidIntake' => $request->pastFluidIntake,
-            'foodAllergy' => $request->foodAllergy,
-            'activityFactor' => $request->activityFactor,
-            'Diabetes' => $request->Diabetes,
-            'Hypertension' => $request->Hypertension,
-            'Stroke' => $request->Stroke,
-            'Cancer' => $request->Cancer,
-            'arthritis' => $request->arthritis,
-            'chronicKidneyDisease' => $request->chronicKidneyDisease,
-            'copd' => $request->copd,
-            'Thyroid' => $request->Thyroid,
-            'Asthma' => $request->Asthma,
-            'Alzheimer' => $request->Alzheimer,
-            'cysticFibrosis' => $request->cysticFibrosis,
-            'inflammatoryBowelDisease' => $request->inflammatoryBowelDisease,
-            'osteoporosis' => $request->osteoporosis,
-            'mentalIllness' => $request->mentalIllness,
-            'polycysticOvarySyndrome' => $request->polycysticOvarySyndrome,
-            'Depression' => $request->Depression,
-            'multipleSclerosis' => $request->multipleSclerosis,
-            'inputEmail3' => $request->inputEmail3,
-            'Breakfast' => $request->Breakfast,
-            'Midmorning' => $request->Midmorning,
-            'Lunch' => $request->Lunch,
-            'Dinner' => $request->Dinner,
-            'Regimen' => $request->Regimen,
-            'Breakfastpost' => $request->Breakfastpost,
-            'Midmorningpost' => $request->Midmorningpost,
-            'Lunchpost' => $request->Lunchpost,
-            'Dinnerpost' => $request->Dinnerpost,
-            'Regimenpost' => $request->Regimenpost,
-            'Protein' => $request->Protein,
-            'Carbohydrates' => $request->Carbohydrates,
-            'Fat' => $request->Fat,
-            'Fluid' => $request->Fluid,
-            'Restriction' => $request->Restriction,
-            'Proteincalories' => $request->Proteincalories,
-            'Carbohydratescalories' => $request->Carbohydratescalories,
-            'Fatcalories' => $request->Fatcalories,
-            'ProteinNutrients' => $request->ProteinNutrients,
-            'CarbohydratesNutrients' => $request->CarbohydratesNutrients,
-            'FatNutrients' => $request->FatNutrients,
-            'BasalEnergy' => $request->BasalEnergy,
-            'TotalCalories' => $request->TotalCalories,
-            'date1' => $request->date1,
-            'time1' => $request->time1,
-            'week1' => $request->week1,
-            'date2' => $request->date2,
-            'time2' => $request->time2,
-            'week2' => $request->week2,
-            'date3' => $request->date3,
-            'time3' => $request->time3,
-            'week3' => $request->week3,
-            'date4' => $request->date4,
-            'time4' => $request->time4,
-            'week4' => $request->week4,
-            'date21' => $request->date21,
-            'time21' => $request->time21,
-            'week21' => $request->week21,
-            'date22' => $request->date22,
-            'time22' => $request->time22,
-            'week22' => $request->week22,
-            'date33' => $request->date33,
-            'time33' => $request->time33,
-            'week33' => $request->week33,
-            'date31' => $request->date31,
-            'time31' => $request->time31,
-            'week31' => $request->week31,
-            'date88' => $request->date88,
-            'time88' => $request->time88,
-            'week88' => $request->week88,
-            'date42' => $request->date42,
-            'time42' => $request->time42,
-            'week42' => $request->week42,
-        ]);
+                'patient_id' => $request->patient_id,
+                'age' => $request->age,
+                'weight' => $request->weight,
+                'height' => $request->height,
+                'bmi' => $request->bmi,
+                'ibw' => $request->ibw,
+                'nutritionalStatusCategory' => $request->nutritionalStatusCategory,
+                'pastDietaryPattern' => $request->pastDietaryPattern,
+                'pastFluidIntake' => $request->pastFluidIntake,
+                'foodAllergy' => $request->foodAllergy,
+                'activityFactor' => $request->activityFactor,
+                'Diabetes' => $request->Diabetes,
+                'Hypertension' => $request->Hypertension,
+                'Stroke' => $request->Stroke,
+                'Cancer' => $request->Cancer,
+                'arthritis' => $request->arthritis,
+                'chronicKidneyDisease' => $request->chronicKidneyDisease,
+                'copd' => $request->copd,
+                'Thyroid' => $request->Thyroid,
+                'Asthma' => $request->Asthma,
+                'Alzheimer' => $request->Alzheimer,
+                'cysticFibrosis' => $request->cysticFibrosis,
+                'inflammatoryBowelDisease' => $request->inflammatoryBowelDisease,
+                'osteoporosis' => $request->osteoporosis,
+                'mentalIllness' => $request->mentalIllness,
+                'polycysticOvarySyndrome' => $request->polycysticOvarySyndrome,
+                'Depression' => $request->Depression,
+                'multipleSclerosis' => $request->multipleSclerosis,
+                'inputEmail3' => $request->inputEmail3,
+                'Breakfast' => $request->Breakfast,
+                'Midmorning' => $request->Midmorning,
+                'Lunch' => $request->Lunch,
+                'Dinner' => $request->Dinner,
+                'Regimen' => $request->Regimen,
+                'Breakfastpost' => $request->Breakfastpost,
+                'Midmorningpost' => $request->Midmorningpost,
+                'Lunchpost' => $request->Lunchpost,
+                'Dinnerpost' => $request->Dinnerpost,
+                'Regimenpost' => $request->Regimenpost,
+                'Protein' => $request->Protein,
+                'Carbohydrates' => $request->Carbohydrates,
+                'Fat' => $request->Fat,
+                'Fluid' => $request->Fluid,
+                'Restriction' => $request->Restriction,
+                'Proteincalories' => $request->Proteincalories,
+                'Carbohydratescalories' => $request->Carbohydratescalories,
+                'Fatcalories' => $request->Fatcalories,
+                'ProteinNutrients' => $request->ProteinNutrients,
+                'CarbohydratesNutrients' => $request->CarbohydratesNutrients,
+                'FatNutrients' => $request->FatNutrients,
+                'BasalEnergy' => $request->BasalEnergy,
+                'TotalCalories' => $request->TotalCalories,
+                'date1' => $request->date1,
+                'time1' => $request->time1,
+                'week1' => $request->week1,
+                'date2' => $request->date2,
+                'time2' => $request->time2,
+                'week2' => $request->week2,
+                'date3' => $request->date3,
+                'time3' => $request->time3,
+                'week3' => $request->week3,
+                'date4' => $request->date4,
+                'time4' => $request->time4,
+                'week4' => $request->week4,
+                'date21' => $request->date21,
+                'time21' => $request->time21,
+                'week21' => $request->week21,
+                'date22' => $request->date22,
+                'time22' => $request->time22,
+                'week22' => $request->week22,
+                'date33' => $request->date33,
+                'time33' => $request->time33,
+                'week33' => $request->week33,
+                'date31' => $request->date31,
+                'time31' => $request->time31,
+                'week31' => $request->week31,
+                'date88' => $request->date88,
+                'time88' => $request->time88,
+                'week88' => $request->week88,
+                'date42' => $request->date42,
+                'time42' => $request->time42,
+                'week42' => $request->week42,
+            ]);
 
 
-        return response()->json(['message' => 'Success'], 200);
+            return response()->json(['message' => 'Success'], 200);
+        }
     }
-}
 
     /**
      * Show the form for editing the specified Patient.
@@ -437,7 +436,7 @@ class PatientController extends AppBaseController
         $input['status'] = isset($input['status']) ? 1 : 0;
         $this->patientRepository->update($input, $patient);
 
-        Flash::success(__('messages.advanced_payment.patient').' '.__('messages.common.updated_successfully'));
+        Flash::success(__('messages.advanced_payment.patient') . ' ' . __('messages.common.updated_successfully'));
 
         return redirect(route('patients.index'));
     }
@@ -462,13 +461,13 @@ class PatientController extends AppBaseController
         ];
         $result = canDelete($patientModels, 'patient_id', $patient->id);
         if ($result) {
-            return $this->sendError(__('messages.advanced_payment.patient').' '.__('messages.common.cant_be_deleted'));
+            return $this->sendError(__('messages.advanced_payment.patient') . ' ' . __('messages.common.cant_be_deleted'));
         }
         $patient->patientUser()->delete();
         $patient->address()->delete();
         $patient->delete();
 
-        return $this->sendSuccess(__('messages.advanced_payment.patient').' '.__('messages.common.deleted_successfully'));
+        return $this->sendSuccess(__('messages.advanced_payment.patient') . ' ' . __('messages.common.deleted_successfully'));
     }
 
     /**
@@ -478,7 +477,7 @@ class PatientController extends AppBaseController
     public function activeDeactiveStatus($id)
     {
         $patient = Patient::findOrFail($id);
-        $status = ! $patient->patientUser->status;
+        $status = !$patient->patientUser->status;
         $patient->patientUser()->update(['status' => $status]);
 
         return $this->sendSuccess(__('messages.common.status_updated_successfully'));
@@ -486,21 +485,21 @@ class PatientController extends AppBaseController
 
     public function showForm(Request $request, $patient)
     {
-       $patientID =  Patient::where('id',$patient)->pluck('MR')->first();
-       $patientData =  Patient::where('id',$patient)->with('user')->first();
-       $ageDifference = Carbon::parse($patientData->user->dob)->diff(Carbon::now());
-            $age = ($ageDifference->y > 0) ? ($ageDifference->y . ' Years') : (
-                ($ageDifference->m > 0) ? ($ageDifference->m . ' Months') : ($ageDifference->d . ' Days')
-            );
-      $nursingData = NursingForm::where('patient_mr_number', $patientID)->with(['patient.user','Allergies','Medication'])->first();
+        $patientID =  Patient::where('id', $patient)->pluck('MR')->first();
+        $patientData =  Patient::where('id', $patient)->with('user')->first();
+        $ageDifference = Carbon::parse($patientData->user->dob)->diff(Carbon::now());
+        $age = ($ageDifference->y > 0) ? ($ageDifference->y . ' Years') : (
+            ($ageDifference->m > 0) ? ($ageDifference->m . ' Months') : ($ageDifference->d . ' Days')
+        );
+        $nursingData = NursingForm::where('patient_mr_number', $patientID)->with(['patient.user', 'Allergies', 'Medication'])->first();
 
         $form_patientId = DB::Table('form_patient')->where(['id' => $request->formPatientID])->first();
         $DietData = DB::Table('dietitianAssessment')->where(['patient_id' => $patient])->first();
-        if($form_patientId){
-            $formFile = DB::Table('form_type')->where('fileName','!=','preTestForm')->where(['id' => $form_patientId->formID])->first();
+        if ($form_patientId) {
+            $formFile = DB::Table('form_type')->where('fileName', '!=', 'preTestForm')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
-            return view('patients.'.$fileName, compact('formData','nursingData','patientData','DietData','age'));
+            return view('patients.' . $fileName, compact('formData', 'nursingData', 'patientData', 'DietData', 'age'));
         }
 
 
@@ -510,46 +509,47 @@ class PatientController extends AppBaseController
     public function submitForm(Request $request)
     {
         // dd($request);
-        if($request->BloodPressure != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->BloodPressure != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'blood_pressure' => $request->BloodPressure,
             ]);
         }
-        if($request->HeartRate != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->HeartRate != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'heart_rate' => $request->HeartRate,
             ]);
         }
-        if($request->Temperature != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->Temperature != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'temperature' => $request->Temperature,
             ]);
         }
-        if($request->RespiratoryRate != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->RespiratoryRate != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'respiratory_rate' => $request->RespiratoryRate,
             ]);
         }
-        if($request->height != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->height != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'height' => $request->height,
             ]);
         }
-        if($request->weight != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->weight != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'weight' => $request->weight,
             ]);
         }
-        if($request->bmi != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->bmi != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'bmi' => $request->bmi,
             ]);
         }
-        if($request->ibw != null){
-            Patient::where('id',$request->patient_id)->update([
+        if ($request->ibw != null) {
+            Patient::where('id', $request->patient_id)->update([
                 'bmi' => $request->ibw,
             ]);
         }
+
         $reqArray = $request->all();
         foreach ($reqArray as $fieldName => $fieldValue) {
             if ($fieldValue != null) {
@@ -558,19 +558,110 @@ class PatientController extends AppBaseController
                     ->update([
                         'fieldValue' => $fieldValue, // Update the fieldValue column with the new value
                     ]);
-            }
-            else{
+            } else {
                 DB::table('form_data')
-                ->where('fieldName', $fieldName)->where('formID', $request->formPatientID) // Specify the condition for the update
-                ->update([
-                    'fieldValue' => '', // Update the fieldValue column with the new value
-                ]);
+                    ->where('fieldName', $fieldName)->where('formID', $request->formPatientID) // Specify the condition for the update
+                    ->update([
+                        'fieldValue' => '', // Update the fieldValue column with the new value
+                    ]);
             }
-
         }
 
-        return view('patients.blankView');
+        // Handle updating the image data
+        if ($request->hasFile('soapFormAttachment')) {
+            $file = $request->file('soapFormAttachment');
+            // $fileName = url('/') . '/storage/SoapForm/' . $file->getClientOriginalName();
+            $fileName = 'SoapForm'. date('Y-m-d') . '.'. $file->getClientOriginalExtension();
 
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'soapFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+        // Handle updating the image data
+        if ($request->hasFile('referralFormAttachment')) {
+            $file = $request->file('referralFormAttachment');
+            $fileName = 'ReferralForm' . date('Y-m-d') . '.'. $file->getClientOriginalExtension();
+
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'referralFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+        // Handle updating the image data
+        if ($request->hasFile('progressFormAttachment')) {
+            $file = $request->file('progressFormAttachment');
+            $fileName = 'ProgressForm' . date('Y-m-d') . '.'. $file->getClientOriginalExtension();
+
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'progressFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+        // Handle updating the image data
+        if ($request->hasFile('nutritionalFormAttachment')) {
+            $file = $request->file('nutritionalFormAttachment');
+            $fileName = 'NutritionalForm' . date('Y-m-d') . '.'. $file->getClientOriginalExtension();
+
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'nutritionalFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+        // Handle updating the image data
+        if ($request->hasFile('fastFormAttachment')) {
+            $file = $request->file('fastFormAttachment');
+            $fileName = 'FastForm' . date('Y-m-d') . '.'. $file->getClientOriginalExtension();
+
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'fastFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+        // Handle updating the image data
+        if ($request->hasFile('dentalFormAttachment')) {
+            $file = $request->file('dentalFormAttachment');
+            $fileName = 'DentalForm' . date('Y-m-d') . '.'. $file->getClientOriginalExtension();
+
+            // Move and store the new file
+            $file->move(public_path('storage/Attachments'), $fileName);
+
+            // Update the database with the new image file name
+            DB::table('form_data')
+                ->where('fieldName', 'dentalFormAttachment')
+                ->where('formID', $request->formPatientID)
+                ->update(['fieldValue' => $fileName]);
+        }
+
+
+
+        return view('patients.blankView');
     }
 
     /**
@@ -578,7 +669,7 @@ class PatientController extends AppBaseController
      */
     public function patientExport()
     {
-        return Excel::download(new PatientExport, 'patients-'.time().'.xlsx');
+        return Excel::download(new PatientExport, 'patients-' . time() . '.xlsx');
     }
 
     /**
@@ -587,7 +678,6 @@ class PatientController extends AppBaseController
     public function getBirthDate($id)
     {
         return Patient::whereId($id)->with('user')->first();
-
     }
 
     public function formCreat(Request $req)
@@ -604,7 +694,7 @@ class PatientController extends AppBaseController
             'formDate' => $formattedDate,
         ]);
 
-        Flash::success(__('messages.advanced_payment.patient').' Form has been added successfully');
+        Flash::success(__('messages.advanced_payment.patient') . ' Form has been added successfully');
 
         if ($formName == 'SOAP Form') {
             $this->insertSOAPForm($insertedId, (int) $req->patientID);
@@ -612,13 +702,13 @@ class PatientController extends AppBaseController
             $this->insertPreTestData($insertedId, (int) $req->patientID);
         } elseif ($formName == 'Nutritional Assessment Form') {
             $this->insertNutritientData($insertedId, (int) $req->patientID);
-        }   elseif ($formName == 'FAST FORM') {
+        } elseif ($formName == 'FAST FORM') {
             $this->insertFASTData($insertedId, (int) $req->patientID);
         } elseif ($formName == 'Referral Form') {
             $this->insertReferralData($insertedId, (int) $req->patientID);
-        }elseif ($formName == 'Dental Form') {
+        } elseif ($formName == 'Dental Form') {
             $this->insertDentalData($insertedId, (int) $req->patientID);
-        }elseif ($formName == 'Progress Form') {
+        } elseif ($formName == 'Progress Form') {
             $this->insertProgressForm($insertedId, (int) $req->patientID);
         }
 
@@ -1185,6 +1275,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Daily7066', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Weekly7066', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Monthly7066', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'nutritionalFormAttachment', 'fieldValue' => ''],
         ];
 
         DB::table('form_data')->insert($data);
@@ -1252,6 +1343,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FamilyMedicalHistory', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'SocialHistory', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PhysicalExamination', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'soapFormAttachment', 'fieldValue' => ''],
         ];
 
         DB::table('form_data')->insert($data);
@@ -1273,6 +1365,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'painScore', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'allergy', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'sign', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'progressFormAttachment', 'fieldValue' => ''],
         ];
 
         DB::table('form_data')->insert($data);
@@ -1362,13 +1455,15 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating2', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating3', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Bloating4', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'fastFormAttachment', 'fieldValue' => ''],
 
 
         ];
 
         DB::table('form_data')->insert($data);
     }
-    public function insertReferralData($formID, $patientID){
+    public function insertReferralData($formID, $patientID)
+    {
         $data = [
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'FullName', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'mr_no', 'fieldValue' => ''],
@@ -1382,6 +1477,7 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ServiceSpeciality', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'ReasonForReferral', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PatientsMedicalHistory', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'referralFormAttachment', 'fieldValue' => ''],
             // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'signature', 'fieldValue' => ''],
 
             // ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'CurrentMedicalConditions', 'fieldValue' => ''],
@@ -1429,7 +1525,8 @@ class PatientController extends AppBaseController
 
         DB::table('form_data')->insert($data);
     }
-    public function insertDentalData($formID, $patientID){
+    public function insertDentalData($formID, $patientID)
+    {
         $data = [
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'dates', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'dentist_name', 'fieldValue' => ''],
@@ -1505,10 +1602,11 @@ class PatientController extends AppBaseController
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'note', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PAXray', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'PAXray_feild', 'fieldValue' => ''],
-            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG', 'fieldValue'  =>''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG', 'fieldValue'  => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'OPG_feild', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'Duration', 'fieldValue' => ''],
             ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'DentistSignature', 'fieldValue' => ''],
+            ['formID' => $formID, 'patientID' => $patientID, 'fieldName' => 'dentalFormAttachment', 'fieldValue' => ''],
         ];
 
         DB::table('form_data')->insert($data);

@@ -19,7 +19,7 @@
                 <!-- //! FORRRMMM ONE STARTS -->
                 <h1 class="text-primary">Patient Data</h1>
 
-                <form action="{{request()->url()}}" method="POST">
+                <form action="{{request()->url()}}" method="POST" enctype="multipart/form-data">
 @csrf
                 <div class="row g-3">
                 <div class="hidden">
@@ -1484,6 +1484,45 @@
 
                     </tbody>
                 </table>
+
+                <div class="row">
+
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <br>
+                    <label for="exampleInput8">Attach File</label>
+                    <input name="fastFormAttachment" type="file" class="form-control " id="exampleInput8"
+                     @foreach($formData as $item)
+                                @if($item->fieldName == 'fastFormAttachment')
+                                    value="{{trim($item->fieldValue)}}"
+                                    @break
+                                @endif
+                            @endforeach
+                            >
+                            <input type="hidden" name="oldfastFormAttachment" 
+                            @foreach($formData as $item)
+                                @if($item->fieldName == 'fastFormAttachment')
+                                    value="{{trim($item->fieldValue)}}"
+                                    @break
+                                @endif
+                            @endforeach
+                        >
+                </div>
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+                    <br>
+                    <label>View Attachment</label>
+                    <br>
+                    
+                    @foreach($formData as $item)
+                        @if($item->fieldName == 'fastFormAttachment')
+                        <a href="/storage/Attachments/{{ trim($item->fieldValue) }} 
+                            " target="_blank">Show Attachment</a>
+                            @break
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
+
         </div>
         @role('Admin|Doctor')
         <button type="submit" class="btn btn-primary">Submit</button>

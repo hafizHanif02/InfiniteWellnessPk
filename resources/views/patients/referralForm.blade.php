@@ -7,7 +7,7 @@
 
 {{--  {{dd($nursingData) }}  --}}
 <div class="container my-3">
-        <form action="{{request()->url()}}" method="POST">
+        <form action="{{request()->url()}}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="row">
@@ -311,6 +311,40 @@
                                 @endif
                             @endforeach</textarea>
 
+                </div>
+
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <br>
+                    <label for="exampleInput8">Attach File</label>
+                    <input name="referralFormAttachment" type="file" class="form-control " id="exampleInput8"
+                     @foreach($formData as $item)
+                                @if($item->fieldName == 'referralFormAttachment')
+                                    value="{{trim($item->fieldValue)}}"
+                                    @break
+                                @endif
+                            @endforeach
+                            >
+                            <input type="hidden" name="oldreferralFormAttachment" 
+                            @foreach($formData as $item)
+                                @if($item->fieldName == 'referralFormAttachment')
+                                    value="{{trim($item->fieldValue)}}"
+                                    @break
+                                @endif
+                            @endforeach
+                        >
+                </div>
+
+                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                    <br>
+                    <label for="exampleInput8">Attach File</label>
+                    <br>
+                        @foreach($formData as $item)
+                        @if($item->fieldName == 'referralFormAttachment')
+                        <a href="/storage/Attachments/{{ trim($item->fieldValue) }} 
+                            " target="_blank">Show Attachment</a>
+                            @break
+                        @endif
+                    @endforeach
                 </div>
 
                 

@@ -6,7 +6,7 @@
 @section('content')
     {{--  {{dd($nursingData) }}  --}}
     <div class="container my-3">
-        <form action="{{ request()->url() }}" method="POST">
+        <form action="{{ request()->url() }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="row">
@@ -158,6 +158,44 @@
                                 @endif @endforeach>
                 </div>
             </div>
+
+
+            <div class="row">
+            <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                <br>
+                <label for="exampleInput8">Attach File</label>
+                <input name="progressFormAttachment" type="file" class="form-control " id="exampleInput8"
+                 @foreach($formData as $item)
+                            @if($item->fieldName == 'progressFormAttachment')
+                                value="{{trim($item->fieldValue)}}"
+                                @break
+                            @endif
+                        @endforeach
+                        >
+                        <input type="hidden" name="oldprogressFormAttachment" 
+                        @foreach($formData as $item)
+                            @if($item->fieldName == 'progressFormAttachment')
+                                value="{{trim($item->fieldValue)}}"
+                                @break
+                            @endif
+                        @endforeach
+                    >
+            </div>
+            <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+                <br>
+                <label>View Attachment</label>
+                <br>
+                
+                @foreach($formData as $item)
+                    @if($item->fieldName == 'progressFormAttachment')
+                    <a href="/storage/Attachments/{{ trim($item->fieldValue) }} 
+                        " target="_blank">Show Attachment</a>
+                        @break
+                    @endif
+                @endforeach
+            </div>
+
+        </div>
 
             <hr>
 

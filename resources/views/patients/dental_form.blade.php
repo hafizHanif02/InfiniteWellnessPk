@@ -74,7 +74,7 @@ margin-left: -10px;
             <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
         </div>
     </center>
-    <form action="{{request()->url()}}" method="POST">
+    <form action="{{request()->url()}}" method="POST" enctype="multipart/form-data">
         @csrf
     <!-- Site title -->
 <div class="mainForm">
@@ -1365,6 +1365,44 @@ margin-left: -10px;
       </div>
  </div>
 </div>
+
+<div class="row">
+<div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+    <br>
+    <label for="exampleInput8">Attach File</label>
+    <input name="dentalFormAttachment" type="file" class="form-control " id="exampleInput8"
+     @foreach($formData as $item)
+                @if($item->fieldName == 'dentalFormAttachment')
+                    value="{{trim($item->fieldValue)}}"
+                    @break
+                @endif
+            @endforeach
+            >
+            <input type="hidden" name="olddentalFormAttachment" 
+            @foreach($formData as $item)
+                @if($item->fieldName == 'dentalFormAttachment')
+                    value="{{trim($item->fieldValue)}}"
+                    @break
+                @endif
+            @endforeach
+        >
+</div>
+<div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+    <br>
+    <label>View Attachment</label>
+    <br>
+    
+    @foreach($formData as $item)
+        @if($item->fieldName == 'dentalFormAttachment')
+        <a href="/storage/Attachments/{{ trim($item->fieldValue) }} 
+            " target="_blank">Show Attachment</a>
+            @break
+        @endif
+    @endforeach
+</div>
+
+</div>
+
  
  </div>
  </div>
