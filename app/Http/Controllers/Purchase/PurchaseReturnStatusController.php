@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Purchase\PurchaseReturnStatusRequest;
-use App\Models\Purchase\PurchaseReturnNote;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Models\Inventory\Product;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Purchase\PurchaseReturnNote;
+use App\Http\Requests\Purchase\PurchaseReturnStatusRequest;
 
 class PurchaseReturnStatusController extends Controller
 {
@@ -26,12 +27,13 @@ class PurchaseReturnStatusController extends Controller
 
     public function update(PurchaseReturnStatusRequest $request, PurchaseReturnNote $purchaseReturnStatus): RedirectResponse
     {
-        if($request->status === 1) {
-            $purchaseReturnStatus->product->decrementEach([
-                'cost_price' => $purchaseReturnStatus->price,
-                'total_quantity' => $purchaseReturnStatus->quantity,
-            ]);
+        // dd($purchaseReturnStatus);
+        if ($request->status == 1) {
+            Product::where('id', $purchaseReturnStatus->product_id)->decrement(
+                'total_quantity', $purchaseReturnStatus->quantity
+            );
         }
+        
         $purchaseReturnStatus->update([
             'status' => $request->status,
         ]);
