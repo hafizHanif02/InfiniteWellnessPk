@@ -1604,6 +1604,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">{{ __('Transfer Request') }}</span>
         </a>
     </li>
+    
 
     @endrole
 

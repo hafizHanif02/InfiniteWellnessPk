@@ -51,36 +51,48 @@ class TransferController extends Controller
         
         $customMessages = [
             'products.required' => 'At least one product is required',
-            'products.*.total_piece' => 'At least one product quantity is required',
+            'products.*.total_piece' => 'Product Quantity Should be added Correctly',
         ];
  
         if($request->product_id){
             $p_id = $request->product_id;
             $product = Product::where('id', $p_id)->first();
             $max_qty = $product->total_quantity;
+
+            $validatedData = $request->validate([
+                'supply_date' => ['required', 'date'],
+                'products' => ['required'],
+                'products.*.id' => ['required', 'exists:products,id'],
+                'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+                'products.*.price_per_unit' => ['required', 'numeric'],
+                'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+                'products.*.total_pack' => ['required', 'integer'],
+                'products.*.amount' => ['required', 'numeric'],
+            ], $customMessages);
+
         }else{
+            // dd($request->products);
             foreach($request->products as $product){
                 $p_id = $product['id'];
                 $product = Product::where('id', $p_id)->first();
-                $max_qty = $product->total_quantity;
+                $max_qty = $product->total_quantity-1;
+
+                if($p_id == $product->product_id){
+                    $validatedData = $request->validate([
+                        'supply_date' => ['required', 'date'],
+                        'products' => ['required'],
+                        'products.*.id' => ['required', 'exists:products,id'],
+                        'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+                        'products.*.price_per_unit' => ['required', 'numeric'],
+                        'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+                        'products.*.total_pack' => ['required', 'integer'],
+                        'products.*.amount' => ['required', 'numeric'],
+                    ], $customMessages);
+                }
             }
+
         }
-
-        
-        $validatedData = $request->validate([
-            'supply_date' => ['required', 'date'],
-            'products' => ['required'],
-            'products.*.id' => ['required', 'exists:products,id'],
-            'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-            'products.*.price_per_unit' => ['required', 'numeric'],
-            'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
-            'products.*.total_pack' => ['required', 'integer'],
-            'products.*.amount' => ['required', 'numeric'],
-        ], $customMessages);
-
-
-        
-        
+ 
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
     
