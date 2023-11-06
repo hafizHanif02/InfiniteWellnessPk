@@ -75,7 +75,7 @@ class TransferController extends Controller
             foreach($request->products as $product){
                 $p_id = $product['id'];
                 $product = Product::where('id', $p_id)->first();
-                $max_qty = $product->total_quantity-1;
+                $max_qty = $product->total_quantity;
 
                 if($p_id == $product->product_id){
                     $validatedData = $request->validate([
