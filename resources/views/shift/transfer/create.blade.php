@@ -258,6 +258,9 @@
                                     <tr id="${response.product.id}">
                                         <input type="hidden" name="products[${items}][id]" value="${response.product.id}">
                                         <td>
+                                            
+                                        </td>
+                                        <td>
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
@@ -388,6 +391,8 @@
                 <tr id="${response.product.id}">
                                         <input type="hidden" name="products[${items}][id]" value="${response.product.id}">
                                         <td>
+                                        </td>
+                                        <td>
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
@@ -459,14 +464,14 @@ $(document).ready(function() {
 
             },
             error: function(xhr, status, error) {
-                // $('#validation-message').html(xhr.responseJSON.message);
+                $('#validation-message').html(xhr.responseJSON.message);
                 console.log(xhr.responseText);
                 $('.wrapper').append(
                     ` <div class="alert alert-danger">
                         <div>
                             <div class="d-flex">
                                 <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
-                                <span class="mt-1 validationError">${xhr.responseText}</span>
+                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
                             </div>
                         </div>
                     </div>

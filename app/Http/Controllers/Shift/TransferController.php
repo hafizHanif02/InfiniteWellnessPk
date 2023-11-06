@@ -47,6 +47,7 @@ class TransferController extends Controller
     }
 
     public function validateTransfer(Request $request){
+
         
         $customMessages = [
             'products.required' => 'At least one product is required',
@@ -68,7 +69,6 @@ class TransferController extends Controller
             'products.*.amount' => ['required', 'numeric'],
         ], $customMessages);
         
-        // Validation succeeded
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
     
