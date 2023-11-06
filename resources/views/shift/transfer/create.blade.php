@@ -8,6 +8,16 @@
                 <h3>Shift Transfer Inventory</h3>
                 <a href="{{ route('purchase.return.index') }}" class="btn btn-secondary">Back</a>
             </div>
+            <div class="alert-container"   style="display:none;">
+                <div class="alert alert-danger">
+                    <div>
+                        <div class="d-flex">
+                            <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                            <span class="validation-container"></span>
+                        </div>
+                    </div>
+                </div>
+            </div> 
             <div class="card-body">
                 <form id="save-transfer-form" action="{{ route('shift.transfers.store') }}" method="POST">
                     @csrf
@@ -445,7 +455,6 @@ $(document).ready(function() {
     $('#save-transfer-form').on('submit', function(e) {
         e.preventDefault();
 
-        
         $.ajax({
             url: '/shift/validate-transfer',
             type: 'post',
@@ -453,57 +462,68 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 console.log('Response:', response);
-                if (response.valid) { 
+                if (response.valid) {
                     console.log('Before form submission');
                     $('#save-transfer-form')[0].submit();
                     console.log('After form submission');
                 } else {
-                    $('#validation-message').text(response.message);
-                    $('#validation-message').show();
-                }
+                    // Show the alert and validation message
+                    $('.alert-container').css('display', 'block');
+                    $('.validation-container').show();
+                    $('.validation-container').text(response.message);
 
+                    // Scroll to the validation message
+                    $('html, body').animate({
+                        scrollTop: $('.validation-container').offset().top
+                    }, 1000);
+
+                    // Automatically hide the alert after 5 seconds
+                    setTimeout(function() {
+                        $('.alert-container').css('display', 'none');
+                    }, 5000);
+                }
             },
             error: function(xhr, status, error) {
-                $('#validation-message').html(xhr.responseJSON.message);
-                console.log(xhr.responseText);
-                $('.wrapper').append(
-                    ` <div class="alert alert-danger">
-                        <div>
-                            <div class="d-flex">
-                                <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
-                                <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <style>
-                        .alert{
-                            position: absolute;
-                            background: white;
-                            width: 290px;
-                            padding: 40px;
-                            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
-                            top: 10px;
-                            right: 30px;
-                        }
-                        .icon-sm {
-                            font-size: 106px !important;
-                        }
-                        .validationError{
-                            font-weight:900;
-                            color:#2f2f2f;
-                            letter-spacing:2px;
-                        }
-                    </style>
-                    `
-        );
-                $('.alert').delay(5000).slideUp(300)
-                $('.alert').delay(50000).slideUp(300, function() {
-                    $('.alert').attr('style', 'display:none')
-                })
-    }
+                // Show the validation message
+                $('.validation-container').text(xhr.responseJSON.message);
+                $('.validation-container').show();
+
+                // Scroll to the validation message
+                $('html, body').animate({
+                    scrollTop: $('.validation-container').offset().top
+                }, 1000);
+
+                // Automatically hide the alert after 5 seconds
+                setTimeout(function() {
+                    $('.alert-container').css('display', 'none');
+                }, 5000);
+            }
         });
     });
 });
+
+
+
+
         </script>
     @endpush
+    <style>
+        .alert{
+            position: absolute;
+            background: white;
+            width: 290px;
+            padding: 40px;
+            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
+            top: 10px;
+            right: 10px;
+        }
+        .icon-sm {
+            font-size: 106px !important;
+        }
+        .validationError{
+            font-weight:900;
+            color:#2f2f2f;
+            letter-spacing:2px;
+        }
+    </style>
 </x-layouts.app>
