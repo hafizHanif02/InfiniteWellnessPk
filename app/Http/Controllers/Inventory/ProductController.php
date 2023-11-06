@@ -23,6 +23,7 @@ use App\Models\Inventory\ProductCategory;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
+use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
 
 class ProductController extends Controller
@@ -330,13 +331,17 @@ class ProductController extends Controller
         $products = Product::select('id')->get();
 
                 foreach($products as $product) {
-                    $stock_in = GoodReceiveProduct::where('product_id', $product->id)->groupBy('product_id')->sum('deliver_qty');
-                    $purchaceReturn = PurchaseReturnProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
-                    $transfer = PurchaseReturnProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
+                    $goodreceivenoteProducts = GoodReceiveProduct::where('product_id', $product->id)->groupBy('product_id')->sum('deliver_qty');
+                    $purchaceReturnProducts = PurchaseReturnNote::where('product_id', $product->id)->groupBy('product_id')->sum('quantity');
+                    $transferProducts = TransferProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
                      
                 }
 
-        return view('inventory.products.recalculation');
+        return view('inventory.products.recalculation',[
+            'goodreceivenoteProducts' => $goodreceivenoteProducts,
+            'purchaceReturnProducts' => $purchaceReturnProducts,
+            'transferProducts' => $transferProducts,
+        ]);
 }
 
 }
