@@ -327,6 +327,16 @@ class ProductController extends Controller
 
     public function recalculation()
     {
+        $products = Product::select('id')->get();
+
+                foreach($products as $product) {
+                    $stock_in = GoodReceiveProduct::where('product_id', $product->id)->groupBy('product_id')->sum('deliver_qty');
+                    $purchaceReturn = PurchaseReturnProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
+                    $transfer = PurchaseReturnProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
+                     
+                }
+
         return view('inventory.products.recalculation');
-    }
+}
+
 }
