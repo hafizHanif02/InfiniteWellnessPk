@@ -53,10 +53,19 @@ class TransferController extends Controller
             'products.required' => 'At least one product is required',
             'products.*.total_piece' => 'At least one product quantity is required',
         ];
-        
-        $p_id = $request->product_id;
-        $product = Product::where('id', $p_id)->first();
-        $max_qty = $product->total_quantity;
+ 
+        if($request->product_id){
+            $p_id = $request->product_id;
+            $product = Product::where('id', $p_id)->first();
+            $max_qty = $product->total_quantity;
+        }else{
+            foreach($request->products as $product){
+                $p_id = $product['id'];
+                $product = Product::where('id', $p_id)->first();
+                $max_qty = $product->total_quantity;
+            }
+        }
+
         
         $validatedData = $request->validate([
             'supply_date' => ['required', 'date'],
@@ -68,6 +77,9 @@ class TransferController extends Controller
             'products.*.total_pack' => ['required', 'integer'],
             'products.*.amount' => ['required', 'numeric'],
         ], $customMessages);
+
+
+        
         
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }

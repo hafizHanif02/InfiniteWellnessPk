@@ -389,7 +389,7 @@
                 console.log(response);
                 var newRow = `
                 <tr id="${response.product.id}">
-                                        <input type="hidden" name="products[${items}][id]" value="${response.product.id}">
+                                        <input type="hidden" name="products[${items}][id]" value="${response.product_id}">
                                         <td>
                                         </td>
                                         <td>
