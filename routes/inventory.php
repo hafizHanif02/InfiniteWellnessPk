@@ -49,4 +49,6 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::resource('vendors', VendorController::class);
     Route::post('vendors/import-excel', [VendorController::class, 'importExcel'])->name('vendors.import-excel');
 
+    Route::get('recalculation', [ProductController::class, 'recalculation'])->name('recalculation');
+
 });

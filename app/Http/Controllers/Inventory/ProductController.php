@@ -29,27 +29,28 @@ class ProductController extends Controller
 {
     public function index(Request $request): View
     {
-        if(isset($request->search_data)){
+        if (isset($request->search_data)) {
             return view('inventory.products.index', [
                 'products' => Product::where('product_name', 'LIKE', '%' . $request->search_data . '%')->orWhere('id', 'LIKE', '%' . $request->search_data . '%')->with('goodReceiveProducts')->paginate(5)->setPath(''),
                 'search_data' => $request->search_data
-            ]); 
+            ]);
         }
         return view('inventory.products.index', [
             'products' => Product::with('goodReceiveProducts')->orderBy('product_name', 'asc')->latest()->paginate(10)->onEachSide(1),
             'search_data' => ''
         ]);
     }
-    public function exportToExcel(){
+    public function exportToExcel()
+    {
         $product = Product::get();
-        return view('inventory.products.export',[
+        return view('inventory.products.export', [
             'porducts' => $product
         ]);
     }
 
     public function importExcel(Request $request): RedirectResponse
     {
-        Excel::import(new ProductImport, storage_path('app/public/'.request()->file('products_csv')->store('products-excel-files', 'public')));
+        Excel::import(new ProductImport, storage_path('app/public/' . request()->file('products_csv')->store('products-excel-files', 'public')));
 
         return back()->with('success', 'Imported successfully!');
     }
@@ -162,7 +163,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request): RedirectResponse
     {
         // dd($request);
-        Product::create($request->validated()+['open_quantity' => $request->total_quantity, 'total_quantity' => 0]);
+        Product::create($request->validated() + ['open_quantity' => $request->total_quantity, 'total_quantity' => 0]);
         // StockIn::create($request->validated());
 
         return to_route('inventory.products.index')->with('success', 'Product created!');
@@ -182,7 +183,7 @@ class ProductController extends Controller
             'dosages' => Dosage::orderBy('name')->get(),
             'generics' => Generic::orderBy('formula')->get(),
             'manufacturers' => Manufacturer::orderBy('company_name')->get(['id', 'company_name']),
-            'vendors' => Vendor::orderBy('contact_person')->get(['id','contact_person']),
+            'vendors' => Vendor::orderBy('contact_person')->get(['id', 'contact_person']),
             'product' => $product,
             'dosage_id' => Dosage::latest()->pluck('id')->first(),
             'manufacturer_id' => Manufacturer::latest()->pluck('id')->first(),
@@ -191,7 +192,7 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated()+['open_quantity' => $request->total_quantity]);
+        $product->update($request->validated() + ['open_quantity' => $request->total_quantity]);
 
         return to_route('inventory.products.index')->with('success', 'Product updated!');
     }
@@ -204,8 +205,9 @@ class ProductController extends Controller
     }
 
 
-    public function form(){
-        return view('inventory.products.form',[
+    public function form()
+    {
+        return view('inventory.products.form', [
             'patients' => Patient::with('user')->get(),
         ]);
     }
@@ -214,12 +216,12 @@ class ProductController extends Controller
     public function opd(Request $request)
     {
 
-        $getPatientID = Patient::where(['MR'=> $request->patient_mr_number])->get();
+        $getPatientID = Patient::where(['MR' => $request->patient_mr_number])->get();
 
-        if(count($getPatientID) > 0){
+        if (count($getPatientID) > 0) {
             return response()->json([
-                'data' => OpdPatientDepartment::where('patient_id',$getPatientID[0]->id)->with('patient.user','doctor.user')->get(),
-                'data2' => DentalOpdPatientDepartment::where('patient_id',$getPatientID[0]->id)->with('patient.user')->get(),
+                'data' => OpdPatientDepartment::where('patient_id', $getPatientID[0]->id)->with('patient.user', 'doctor.user')->get(),
+                'data2' => DentalOpdPatientDepartment::where('patient_id', $getPatientID[0]->id)->with('patient.user')->get(),
             ]);
         }
 
@@ -229,100 +231,102 @@ class ProductController extends Controller
         ]);
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         return $request->search_data;
     }
 
-    
+
 
     public function productsReport(Request $request)
     {
-        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity','generic_id']);
-    
+        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'generic_id']);
+
         if ($request->date_from || $request->date_to) {
             $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
                 ->leftJoin('transfer_products', 'products.id', '=', 'transfer_products.product_id')
                 ->groupBy('products.id', 'product_name', 'open_quantity');
-        
+
             if ($request->date_from) {
                 $productsQuery->where('good_receive_products.created_at', '>=', $request->date_from);
             }
-        
+
             if ($request->date_to) {
                 $productsQuery->where('good_receive_products.created_at', '<=', $request->date_to);
             }
-        
+
             if ($request->date_from) {
                 $productsQuery->where('transfer_products.created_at', '>=', $request->date_from);
             }
-        
+
             if ($request->date_to) {
                 $productsQuery->where('transfer_products.created_at', '<=', $request->date_to);
             }
         }
-    
+
         $products = $productsQuery->get();
-    
+
         foreach ($products as $product) {
             $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
             $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
-        
+
             $product->stock_in = $stock_in;
             $product->stock_out = $stock_out;
-        
+
             $stock_current = $stock_in - $stock_out;
             $product->stock_current = $stock_current;
-        
+
             $product->open_quantity = ($stock_current + $stock_out) - ($stock_in);
-        
         }
         return view('inventory.product_report.index', ['products' => $products]);
     }
 
-public function productsReportPrint(Request $request)
-{ 
-    $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity','generic_id']);
+    public function productsReportPrint(Request $request)
+    {
+        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'generic_id']);
 
-    if ($request->date_from || $request->date_to) {
-        $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
-            ->leftJoin('transfer_products', 'products.id', '=', 'transfer_products.product_id')
-            ->groupBy('products.id', 'product_name', 'open_quantity');
+        if ($request->date_from || $request->date_to) {
+            $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
+                ->leftJoin('transfer_products', 'products.id', '=', 'transfer_products.product_id')
+                ->groupBy('products.id', 'product_name', 'open_quantity');
 
-        if ($request->date_from) {
-            $productsQuery->where('good_receive_products.created_at', '>=', $request->date_from);
+            if ($request->date_from) {
+                $productsQuery->where('good_receive_products.created_at', '>=', $request->date_from);
+            }
+
+            if ($request->date_to) {
+                $productsQuery->where('good_receive_products.created_at', '<=', $request->date_to);
+            }
+
+            if ($request->date_from) {
+                $productsQuery->where('transfer_products.created_at', '>=', $request->date_from);
+            }
+
+            if ($request->date_to) {
+                $productsQuery->where('transfer_products.created_at', '<=', $request->date_to);
+            }
         }
 
-        if ($request->date_to) {
-            $productsQuery->where('good_receive_products.created_at', '<=', $request->date_to);
+        $products = $productsQuery->get();
+
+        foreach ($products as $product) {
+            $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
+            $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
+
+            $product->stock_in = $stock_in;
+            $product->stock_out = $stock_out;
+
+            $stock_current = $stock_in - $stock_out;
+            $product->stock_current = $stock_current;
+
+            $product->open_quantity = ($stock_current + $stock_out) - ($stock_in);
         }
 
-        if ($request->date_from) {
-            $productsQuery->where('transfer_products.created_at', '>=', $request->date_from);
-        }
-
-        if ($request->date_to) {
-            $productsQuery->where('transfer_products.created_at', '<=', $request->date_to);
-        }
+        return view('inventory.product_report.print', ['products' => $products]);
     }
 
-    $products = $productsQuery->get();
-
-    foreach ($products as $product) {
-        $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
-        $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
-    
-        $product->stock_in = $stock_in;
-        $product->stock_out = $stock_out;
-    
-        $stock_current = $stock_in - $stock_out;
-        $product->stock_current = $stock_current;
-    
-        $product->open_quantity = ($stock_current + $stock_out) - ($stock_in);
-    
+    public function recalculation()
+    {
+        return view('inventory.products.recalculation');
     }
-
-    return view('inventory.product_report.print', ['products' => $products]);
-}
-   
-    
 }
