@@ -181,7 +181,7 @@
                                             <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" value="${key.quantity}" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                            <input type="number" value="${key.quantity}" id="totalpeice${i}" min="1" max="${products[i].total_quantity}" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>

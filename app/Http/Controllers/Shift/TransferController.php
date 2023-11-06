@@ -71,13 +71,12 @@ class TransferController extends Controller
             ], $customMessages);
 
         }else{
-            // dd($request->products);
             foreach($request->products as $product){
                 $p_id = $product['id'];
-                $product = Product::where('id', $p_id)->first();
-                $max_qty = $product->total_quantity;
-
-                if($p_id == $product->product_id){
+                $Inventory_product = Product::where('id', $p_id)->first();
+                
+                if($p_id == $Inventory_product->id){
+                    $max_qty = $Inventory_product->total_quantity;
                     $validatedData = $request->validate([
                         'supply_date' => ['required', 'date'],
                         'products' => ['required'],
