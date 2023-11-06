@@ -27,7 +27,7 @@ class TransferController extends Controller
     public function importExcel(Request $request)
     {
         return "testing";
-        Excel::import(new TransferProductImport, storage_path('app/public/'.request()->file('transfer-products_csv')->store('transfer-products-excel-files', 'public')));
+        Excel::import(new TransferProductImport, storage_path('app/public/' . request()->file('transfer-products_csv')->store('transfer-products-excel-files', 'public')));
 
         return back()->with('success', 'Imported successfully!');
     }
@@ -46,57 +46,100 @@ class TransferController extends Controller
         ]);
     }
 
-    public function validateTransfer(Request $request){
+    // public function validateTransfer(Request $request)
+    // {
 
-        
+
+    //     $customMessages = [
+    //         'products.required' => 'At least one product is required',
+    //         'products.*.total_piece' => 'Product Quantity Should be added Correctly',
+    //     ];
+
+    //     if ($request->product_id) {
+    //         $p_id = $request->product_id;
+    //         $product = Product::where('id', $p_id)->first();
+    //         $max_qty = $product->total_quantity;
+
+    //         $validatedData = $request->validate([
+    //             'supply_date' => ['required', 'date'],
+    //             'products' => ['required'],
+    //             'products.*.id' => ['required', 'exists:products,id'],
+    //             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+    //             'products.*.price_per_unit' => ['required', 'numeric'],
+    //             'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+    //             'products.*.total_pack' => ['required', 'integer'],
+    //             'products.*.amount' => ['required', 'numeric'],
+    //         ], $customMessages);
+    //     } else {
+    //         foreach ($request->products as $product) {
+    //             $p_id = $product['id'];
+    //             $Inventory_product = Product::where('id', $p_id)->first();
+
+    //             if ($p_id == $Inventory_product->id) {
+    //                 $max_qty = $Inventory_product->total_quantity;
+    //                 $validatedData = $request->validate([
+    //                     'supply_date' => ['required', 'date'],
+    //                     'products' => ['required'],
+    //                     'products.*.id' => ['required', 'exists:products,id'],
+    //                     'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+    //                     'products.*.price_per_unit' => ['required', 'numeric'],
+    //                     'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+    //                     'products.*.total_pack' => ['required', 'integer'],
+    //                     'products.*.amount' => ['required', 'numeric'],
+    //                 ], $customMessages);
+    //             }
+    //         }
+    //     }
+
+    //     return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+    // }
+
+    public function validateTransfer(Request $request)
+    {
         $customMessages = [
             'products.required' => 'At least one product is required',
             'products.*.total_piece' => 'Product Quantity Should be added Correctly',
         ];
- 
-        if($request->product_id){
-            $p_id = $request->product_id;
-            $product = Product::where('id', $p_id)->first();
-            $max_qty = $product->total_quantity;
+        
+        $request->validate([
+            'supply_date' => ['required', 'date'],
+            'products' => ['required'],
+        ]);
 
-            $validatedData = $request->validate([
-                'supply_date' => ['required', 'date'],
-                'products' => ['required'],
-                'products.*.id' => ['required', 'exists:products,id'],
-                'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-                'products.*.price_per_unit' => ['required', 'numeric'],
-                'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
-                'products.*.total_pack' => ['required', 'integer'],
-                'products.*.amount' => ['required', 'numeric'],
-            ], $customMessages);
+        foreach ($request->products as $product) {
+            $p_id = $product['id'];
+            $Inventory_product = Product::where('id', $p_id)->first();
 
-        }else{
-            foreach($request->products as $product){
-                $p_id = $product['id'];
-                $Inventory_product = Product::where('id', $p_id)->first();
-                
-                if($p_id == $Inventory_product->id){
-                    $max_qty = $Inventory_product->total_quantity;
-                    $validatedData = $request->validate([
-                        'supply_date' => ['required', 'date'],
-                        'products' => ['required'],
-                        'products.*.id' => ['required', 'exists:products,id'],
-                        'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-                        'products.*.price_per_unit' => ['required', 'numeric'],
-                        'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
-                        'products.*.total_pack' => ['required', 'integer'],
-                        'products.*.amount' => ['required', 'numeric'],
-                    ], $customMessages);
-                }
+            if (!$Inventory_product) {
+                return response()->json(['valid' => false, 'message' => 'Product does not exist.']);
             }
 
+            $max_qty = $Inventory_product->total_quantity;
+
+            $productValidationRules = [
+                'id' => ['required', 'exists:products,id'],
+                'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+                'price_per_unit' => ['required', 'numeric'],
+                'total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+                'total_pack' => ['required', 'integer'],
+                'amount' => ['required', 'numeric'],
+            ];
+
+            $validatedData = $request->validate([
+                'products.*' => $productValidationRules,
+            ], $customMessages);
+
+            if (!$validatedData) {
+                return response()->json(['valid' => false, 'message' => 'Validation failed.']);
+            }
         }
- 
+
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
-    
 
-    
+
+
+
     public function products(Product $product): JsonResponse
     {
         return response()->json([
@@ -120,7 +163,6 @@ class TransferController extends Controller
                 'total_pack' => $product['total_pack'],
                 'amount' => $product['amount']
             ]);
-
         }
 
         return to_route('shift.transfers.index')->with('success', 'Transfer created!');
@@ -135,15 +177,14 @@ class TransferController extends Controller
 
     public function retransfer($transferId)
     {
-        
-         $transferProduct = TransferProduct::where('transfer_id',$transferId)->with('product')->get();
 
-         if (!$transferProduct) {
-             return response()->json(['message' => 'Transfer not found'], 404);
-         }
+        $transferProduct = TransferProduct::where('transfer_id', $transferId)->with('product')->get();
+
+        if (!$transferProduct) {
+            return response()->json(['message' => 'Transfer not found'], 404);
+        }
         //  dd($transferProduct);
- 
-         return response()->json($transferProduct);
-    }
 
+        return response()->json($transferProduct);
+    }
 }
