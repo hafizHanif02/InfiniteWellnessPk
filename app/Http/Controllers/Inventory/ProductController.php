@@ -328,20 +328,39 @@ class ProductController extends Controller
 
     public function recalculation()
     {
-        $products = Product::select('id')->get();
+        return view('inventory.products.recalculation');
+    }
 
-                foreach($products as $product) {
-                    $goodreceivenoteProducts = GoodReceiveProduct::where('product_id', $product->id)->groupBy('product_id')->sum('deliver_qty');
-                    $purchaceReturnProducts = PurchaseReturnNote::where('product_id', $product->id)->groupBy('product_id')->sum('quantity');
-                    $transferProducts = TransferProduct::where('product_id', $product->id)->groupBy('product_id')->sum('total_piece');
-                     
-                }
+    public function recalculate()
+    {
+        $products = Product::select(['products.id', 'product_name', 'total_quantity', 'open_quantity'])->get();
 
-        return view('inventory.products.recalculation',[
-            'goodreceivenoteProducts' => $goodreceivenoteProducts,
-            'purchaceReturnProducts' => $purchaceReturnProducts,
-            'transferProducts' => $transferProducts,
+        foreach ($products as $product) {
+            $stock_in = GoodReceiveProduct::where('product_id', $product->id)
+                ->whereHas('goodReceiveNote', function ($query) {
+                    $query->where('is_approved', 1);
+                })
+                ->sum('deliver_qty');
+            $purchaseReturnProducts = PurchaseReturnNote::where('status', 1)->where('product_id', $product->id)->sum('quantity');
+            $stock_out = TransferProduct::where('product_id', $product->id)
+                ->whereHas('transfer', function ($query) {
+                    $query->where('status', 1);
+                })
+                ->sum('total_piece');
+
+            // $product->stock_out = $stock_out;
+            // $product->stock_in = $stock_in;
+            $updated_qty = $stock_in - $purchaseReturnProducts - $stock_out;
+            $product->total_quantity = $updated_qty;
+
+            // Update the 'total_quantity' column in the database
+            $product->total_quantity = $updated_qty;
+            $product->save();
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Product recalculation successfully.',
+            'products' => $products
         ]);
-}
-
+    }
 }
