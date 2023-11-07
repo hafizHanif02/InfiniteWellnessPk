@@ -112,7 +112,7 @@
                                             <input type="text" id="current_qty${index}" name="products[${index}][current_qty]" class="form-control" value="${value.total_quantity}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" id="adjustment_qty${index}" name="products[${index}][adjustment_qty]" class="form-control" onkeyup="calculate(${index})" value="">
+                                            <input type="number" id="adjustment_qty${index}" name="products[${index}][adjustment_qty]" class="form-control" onkeyup="calculate(${index})" value="">
                                         </td>
                                         <td>
                                             <input type="text" id="different_qty${index}" name="products[${index}][different_qty]" class="form-control" value="" readonly>
@@ -138,72 +138,8 @@
                 var adjustment_qty = $("#adjustment_qty" + index).val();
                 var different_qty = current_qty - adjustment_qty;
                 $("#different_qty" + index).val(different_qty);
-                console.log(current_qty,adjustment_qty,different_qty);
+                console.log(current_qty, adjustment_qty, different_qty);
             }
-
-            // $(document).ready(function() {
-            //     $('#save-adjustment-form').on('submit', function(e) {
-            //         e.preventDefault(); // Prevent the default form submission
-
-            //         // Perform your AJAX request here
-            //         $.ajax({
-            //             url: '/inventory/adjustment/store',
-            //             type: 'post',
-            //             data: $(this).serialize(),
-            //             dataType: 'json',
-            //             success: function(response) {
-            //                 console.log('Response:', response);
-            //                 if (response.valid) {
-            //                     console.log('Before form submission');
-            //                     $('#save-adjustment-form')[0].submit();
-            //                     console.log('After form submission');
-            //                 } else {
-            //                     $('#validation-message').text(response.message);
-            //                     $('#validation-message').show();
-            //                 }
-
-            //             },
-            //             error: function(xhr, status, error) {
-            //                 // $('#validation-message').html(xhr.responseJSON.message);
-
-            //                 $('.wrapper').append(
-            //                     ` <div class="alert alert-danger">
-            //             <div>
-            //                 <div class="d-flex">
-            //                     <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
-            //                     <span class="mt-1 validationError">${xhr.responseJSON.message}</span>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //         <style>
-            //             .alert{
-            //                 position: absolute;
-            //                 background: white;
-            //                 width: 290px;
-            //                 padding: 40px;
-            //                 box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5); 
-            //                 top: 10px;
-            //                 right: 10px;
-            //             }
-            //             .icon-sm {
-            //                 font-size: 106px !important;
-            //             }
-            //             .validationError{
-            //                 font-weight:900;
-            //                 color:#2f2f2f;
-            //                 letter-spacing:2px;
-            //             }
-            //         </style>
-            //         `
-            //                 );
-            //                 $('.alert').delay(5000).slideUp(300)
-            //                 $('.alert').delay(50000).slideUp(300, function() {
-            //                     $('.alert').attr('style', 'display:none')
-            //                 })
-            //             }
-            //         });
-            //     });
-            // });
         </script>
     @endpush
 </x-layouts.app>

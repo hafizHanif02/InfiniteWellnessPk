@@ -371,7 +371,7 @@ class ProductController extends Controller
         return view(
             'inventory.products.adjustment',
             [
-                'adjustment' => AdjustmentProduct::orderBy('id')->paginate(10),
+                'adjustment' => AdjustmentProduct::orderBy('id', 'desc')->paginate(10),
             ]
         );
     }
