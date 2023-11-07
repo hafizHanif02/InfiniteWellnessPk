@@ -33,7 +33,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::resource('product-categories', ProductCategoryController::class)->except('show');
     Route::post('product-categories/import-excel', [ProductCategoryController::class, 'importExcel'])->name('product-categories.import-excel');
 
-    // Dosages
+    // Dosages/
     Route::resource('dosages', DosageController::class)->except('show');
     Route::post('dosages/import-excel', [DosageController::class, 'importExcel'])->name('dosages.import-excel');
 
@@ -51,5 +51,8 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
 
     Route::get('recalculation', [ProductController::class, 'recalculation'])->name('recalculation');
     Route::post('recalculation', [ProductController::class, 'recalculate'])->name('recalculate');
+    Route::get('adjustment', [ProductController::class, 'adjustment'])->name('products.adjustment');
+    Route::get('adjustment/create', [ProductController::class, 'adjustmentCreate'])->name('products.adjustment.create');
+    Route::post('adjustment/store', [ProductController::class, 'adjustmentStore'])->name('adjustments.store');
 
 });

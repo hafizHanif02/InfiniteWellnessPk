@@ -12,6 +12,7 @@ use App\Models\Inventory\Generic;
 use App\Models\Inventory\Product;
 use App\Models\Inventory\StockIn;
 use Illuminate\Http\JsonResponse;
+use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use App\Models\OpdPatientDepartment;
 use Maatwebsite\Excel\Facades\Excel;
@@ -25,6 +26,7 @@ use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
+use App\Models\AdjustmentProduct;
 
 class ProductController extends Controller
 {
@@ -362,5 +364,44 @@ class ProductController extends Controller
             'message' => 'Product recalculation successfully.',
             'products' => $products
         ]);
+    }
+
+    public function adjustment()
+    {
+        return view(
+            'inventory.products.adjustment',
+            [
+                'adjustment' => AdjustmentProduct::orderBy('id')->paginate(10),
+            ]
+        );
+    }
+
+    public function adjustmentCreate()
+    {
+        return view('inventory.products.adjustment_create', [
+            'adjustment_id' => AdjustmentProduct::latest()->pluck('id')->first(),
+            'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
+            'manufactuters' => Manufacturer::orderBy('company_name')->get(['id', 'company_name']),
+            'products' => Product::orderBy('id')->with('generic')->get(),
+        ]);
+    }
+
+    public function adjustmentStore(Request $request)
+    {
+        foreach ($request->products as $product) {
+            AdjustmentProduct::create([
+                'product_id' => $product['product_id'],
+                'product_name' => $product['product_name'],
+                'current_qty' => $product['current_qty'],
+                'adjustment_qty' => $product['adjustment_qty'],
+                'different_qty' => $product['different_qty'],
+            ]);
+
+            Product::where('id', $product['product_id'])->update([
+                'total_quantity' => $product['adjustment_qty'],
+            ]);
+        }
+
+        return redirect('/inventory/adjustment')->with('success', 'Adjustment created successfully.');
     }
 }
