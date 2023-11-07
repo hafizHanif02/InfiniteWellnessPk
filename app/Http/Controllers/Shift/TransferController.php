@@ -47,80 +47,132 @@ class TransferController extends Controller
         ]);
     }
 
+    // public function validateTransfer(Request $request)
+    // {
+
+
+    //     $customMessages = [
+    //         'products.required' => 'At least one product is required',
+    //         'products.*.total_piece' => 'Product Quantity Should be added Correctly',
+    //     ];
+
+    //     if ($request->product_id) {
+    //         $p_id = $request->product_id;
+    //         $product = Product::where('id', $p_id)->first();
+    //         $max_qty = $product->total_quantity;
+
+    //         $validatedData = $request->validate([
+    //             'supply_date' => ['required', 'date'],
+    //             'products' => ['required'],
+    //             'products.*.id' => ['required', 'exists:products,id'],
+    //             'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+    //             'products.*.price_per_unit' => ['required', 'numeric'],
+    //             'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+    //             'products.*.total_pack' => ['required', 'integer'],
+    //             'products.*.amount' => ['required', 'numeric'],
+    //         ], $customMessages);
+    //     } else {
+    //         $customMessages = [
+    //             'products.required' => 'At least one product is required',
+    //         ];
+
+    //         $validator = Validator::make($request->all(), [
+    //             'supply_date' => ['required', 'date'],
+    //             'products' => ['required', 'array'],
+    //             'products.*.id' => ['required', 'exists:products,id'],
+    //         ]);
+
+    //         $validationErrors = [];
+
+    //         if ($validator->fails()) {
+    //             $validationErrors['global'] = 'Global validation error message';
+    //         }
+
+    //         foreach ($request->products as $key => $product) {
+    //             $p_id = $product['id'];
+    //             $inventoryProduct = Product::find($p_id);
+
+    //             if (!$inventoryProduct) {
+    //                 $validationErrors['products.' . $key . '.id'] = 'Product not found';
+    //             } else {
+    //                 $max_qty = $inventoryProduct->total_quantity;
+
+    //                 $productValidator = Validator::make($product, [
+    //                     'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+    //                     'price_per_unit' => ['required', 'numeric'],
+    //                     'total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+    //                     'total_pack' => ['required', 'integer'],
+    //                     'amount' => ['required', 'numeric'],
+    //                 ]);
+
+    //                 if ($productValidator->fails()) {
+    //                     $validationErrors['products.' . $key] = $productValidator->errors();
+    //                 }
+    //             }
+    //         }
+
+    //         if (!empty($validationErrors)) {
+    //             return response()->json(['valid' => false, 'message' => 'Product is not added Correctly !', 'errors' => $validationErrors]);
+    //         }
+
+    //         // Validation succeeded
+    //         return response()->json(['valid' => true, 'message' => 'Validation succeeded']);
+
+    //     }
+
+    //     return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+    // }
+
     public function validateTransfer(Request $request)
     {
-
-
         $customMessages = [
             'products.required' => 'At least one product is required',
-            'products.*.total_piece' => 'Product Quantity Should be added Correctly',
+            'products.*.total_piece.max' => 'Product Quantity should not exceed :max',
+        ];
+
+        $rules = [
+            'supply_date' => ['required', 'date'],
+            'products' => ['required', 'array'],
         ];
 
         if ($request->product_id) {
-            $p_id = $request->product_id;
-            $product = Product::where('id', $p_id)->first();
-            $max_qty = $product->total_quantity;
-
-            $validatedData = $request->validate([
-                'supply_date' => ['required', 'date'],
-                'products' => ['required'],
-                'products.*.id' => ['required', 'exists:products,id'],
-                'products.*.unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-                'products.*.price_per_unit' => ['required', 'numeric'],
-                'products.*.total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
-                'products.*.total_pack' => ['required', 'integer'],
-                'products.*.amount' => ['required', 'numeric'],
-            ], $customMessages);
-        } else {
-            $customMessages = [
-                'products.required' => 'At least one product is required',
-            ];
-            
-            $validator = Validator::make($request->all(), [
-                'supply_date' => ['required', 'date'],
-                'products' => ['required', 'array'],
-                'products.*.id' => ['required', 'exists:products,id'],
-            ]);
-            
-            $validationErrors = [];
-            
-            if ($validator->fails()) {
-                $validationErrors['global'] = 'Global validation error message';
-            }
-            
-            foreach ($request->products as $key => $product) {
-                $p_id = $product['id'];
-                $inventoryProduct = Product::find($p_id);
-            
-                if (!$inventoryProduct) {
-                    $validationErrors['products.' . $key . '.id'] = 'Product not found';
-                } else {
-                    $max_qty = $inventoryProduct->total_quantity;
-            
-                    $productValidator = Validator::make($product, [
-                        'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
-                        'price_per_unit' => ['required', 'numeric'],
-                        'total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
-                        'total_pack' => ['required', 'integer'],
-                        'amount' => ['required', 'numeric'],
-                    ]);
-            
-                    if ($productValidator->fails()) {
-                        $validationErrors['products.' . $key] = $productValidator->errors();
-                    }
-                }
-            }
-            
-            if (!empty($validationErrors)) {
-                return response()->json(['valid' => false, 'message' => 'Product is not added Correctly !', 'errors' => $validationErrors]);
-            }
-            
-            // Validation succeeded
-            return response()->json(['valid' => true, 'message' => 'Validation succeeded']);
-            
+            $rules['products.*.id'] = ['required', 'exists:products,id'];
+            $rules['products.*.unit_of_measurement'] = ['required', 'integer', 'in:0,1'];
+            $rules['products.*.price_per_unit'] = ['required', 'numeric'];
+            $rules['products.*.total_pack'] = ['required', 'integer'];
+            $rules['products.*.amount'] = ['required', 'numeric'];
         }
 
-        return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+        $validationErrors = [];
+
+        foreach ($request->products as $key => $product) {
+            $p_id = $product['id'];
+            $inventoryProduct = Product::find($p_id);
+
+            if (!$inventoryProduct) {
+                $validationErrors['products.' . $key . '.id'] = 'Product not found';
+            } else {
+                $max_qty = $inventoryProduct->total_quantity;
+
+                $productValidator = Validator::make($product, [
+                    'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
+                    'price_per_unit' => ['required', 'numeric'],
+                    'total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+                    'total_pack' => ['required', 'integer'],
+                    'amount' => ['required', 'numeric'],
+                ]);
+
+                if ($productValidator->fails()) {
+                    $validationErrors['products.' . $key] = $productValidator->errors();
+                }
+            }
+        }
+
+        if (!empty($validationErrors)) {
+            return response()->json(['valid' => false, 'message' => 'Product is not added correctly!', 'errors' => $validationErrors]);
+        }
+
+        return response()->json(['valid' => true, 'message' => 'Validation succeeded']);
     }
 
 
