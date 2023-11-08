@@ -21,9 +21,11 @@
                     <tbody id="ajax-data"></tbody>
                 </table>
                 <div id="loading"
-                    style="display: none;justify-content: center; align-items: center margin-bottom: 50px">
+                    style="display: none; justify-content: center; align-items: center margin-bottom: 50px">
                     <center>
-                        <img src="https://i.gifer.com/ZKZg.gif" width="70px" alt="">
+                        <p>Recalculating... Please do'nt close this page</p>
+                        <img src="https://i.gifer.com/ZKZg.gif" width="20px" alt="">
+
                     </center>
                 </div>
             </div>

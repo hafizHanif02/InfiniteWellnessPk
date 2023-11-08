@@ -349,15 +349,24 @@ class ProductController extends Controller
                     $query->where('status', 1);
                 })
                 ->sum('total_piece');
+            $different_qty = AdjustmentProduct::where('product_id', $product->id)->OrderBy('id', 'desc')
+                ->sum('different_qty');
 
             // $product->stock_out = $stock_out;
             // $product->stock_in = $stock_in;
-            $updated_qty = $stock_in - $purchaseReturnProducts - $stock_out;
+            // if(count($different_qty) > 0){
+            //     $different_qty = $different_qty[0]->different_qty;
+            // }else{
+            //     $different_qty = 0;
+            // };
+            $updated_qty = $stock_in - $purchaseReturnProducts - $stock_out + ($different_qty);
             // $product->total_quantity = $updated_qty;
 
             // Update the 'total_quantity' column in the database
             $product->total_quantity = $updated_qty;
             $product->save();
+            // $data = "GRN = " . $stock_in . " - PRN = " . $purchaseReturnProducts . " - TRN = " . $stock_out . " + APN = " . $different_qty . " = " . $updated_qty;
+            // dd($data);
         }
         return response()->json([
             'success' => true,
