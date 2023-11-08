@@ -37,6 +37,7 @@ class PurchaseReturnNoteController extends Controller
 
     public function store(PurchaseReturnRequest $request): RedirectResponse
     {
+        
         foreach ($request->products as $product) {
             PurchaseReturnNote::create([
                 'good_receive_note_id' => $request->good_receive_note_id,

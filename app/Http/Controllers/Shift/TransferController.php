@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shift;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
@@ -9,6 +10,7 @@ use App\Exports\StockOutExport;
 use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
@@ -188,7 +190,8 @@ class TransferController extends Controller
         $transfer = Transfer::create([
             'supply_date' => $request->supply_date
         ]);
-
+        $user = Auth::user();
+        $requistionproductlogs = 'Transfer No. '.$transfer->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             $transferProduct = TransferProduct::create([
                 'transfer_id' => $transfer->id,
@@ -199,7 +202,20 @@ class TransferController extends Controller
                 'total_pack' => $product['total_pack'],
                 'amount' => $product['amount']
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Transfer Has Been Created Transfer No.'.$transfer->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'log/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
 
         return to_route('shift.transfers.index')->with('success', 'Transfer created!');
     }

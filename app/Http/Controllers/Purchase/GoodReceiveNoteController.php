@@ -85,7 +85,7 @@ class GoodReceiveNoteController extends Controller
             'action' => 'Good Receive Note Has Been Created GRN No.'.$goodReceiveNote->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'good-receive-note/' . $logs->id . '.txt'; 
+        $fileName = 'log/' . $logs->id . '.txt'; 
         $filePath = public_path($fileName); 
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
@@ -147,7 +147,7 @@ class GoodReceiveNoteController extends Controller
             'action' => 'Good Receive Note Has Been Updated GRN No.'.$goodReceiveNote->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'good-receive-note/' . $logs->id . '.txt'; 
+        $fileName = 'log/' . $logs->id . '.txt'; 
         $filePath = public_path($fileName); 
         $directory = dirname($filePath);
         if (!file_exists($directory)) {

@@ -136,7 +136,7 @@ class RequistionController extends Controller
             'action' => 'Requistion Has Been Created Requistion No.'.$requistion->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'requistion/' . $logs->id . '.txt'; 
+        $fileName = 'log/' . $logs->id . '.txt'; 
         $filePath = public_path($fileName); 
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
@@ -186,7 +186,7 @@ class RequistionController extends Controller
             'action' => 'Requistion Has Been Updated Requistion No.'.$requistion->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'requistion/' . $logs->id . '.txt'; 
+        $fileName = 'log/' . $logs->id . '.txt'; 
         $filePath = public_path($fileName); 
         $directory = dirname($filePath);
         if (!file_exists($directory)) {

@@ -73,7 +73,7 @@ class PurchaseOrderController extends Controller
             'action' => 'Purchase Order Has Been Updated Requistion No.'.$purchaseorder->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'purchaseorder/' . $logs->id . '.txt'; 
+        $fileName = 'log/' . $logs->id . '.txt'; 
         $filePath = public_path($fileName); 
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
