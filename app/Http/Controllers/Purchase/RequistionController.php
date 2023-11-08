@@ -167,7 +167,7 @@ class RequistionController extends Controller
             'delivery_date' => $request->delivery_date
         ]);
 
-        // $requistion->requistionProducts()->delete();
+        $requistion->requistionProducts()->delete();
         $user = Auth::user();
         $requistionproductlogs = 'Requistion No. '.$requistion->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
