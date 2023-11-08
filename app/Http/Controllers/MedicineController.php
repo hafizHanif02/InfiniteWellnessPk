@@ -6,6 +6,7 @@ use App\Exports\MedicineExport;
 use App\Http\Requests\CreateMedicineRequest;
 use App\Http\Requests\UpdateMedicineRequest;
 use App\Models\Medicine;
+use App\Models\MedicineAdjustment;
 use App\Repositories\MedicineRepository;
 use Exception;
 use Flash;
@@ -160,5 +161,38 @@ class MedicineController extends AppBaseController
         ];
 
         return $this->sendResponse($medicine, 'Medicine Retrieved Successfully');
+    }
+
+    public function medicinesAdjustment()
+    {
+        return view('medicines.add-medicines-adjustment',[
+            'medicines'=> Medicine::get(),
+            'adjustment_id' => MedicineAdjustment::latest()->pluck('id')->first(),
+            ]);
+    }
+
+    public function getMedicines(Request $request): JsonResponse
+    {
+        return response()->json([
+            'medicine' => Medicine::whereIn('id', $request->medicine_id)->get(),
+        ]);
+    }
+
+    public function medicinesAdjustmentStore(Request $request)
+    {
+        foreach ($request->medicines as $medicine) {
+            MedicineAdjustment::create([
+                'medicine_id' => $medicine['medicine_id'],
+                'medicine_name' => $medicine['medicine_name'],
+                'current_qty' => $medicine['current_qty'],
+                'adjustment_qty' => $medicine['adjustment_qty'],
+                'different_qty' => $medicine['different_qty'],
+            ]);
+
+            Medicine::where('id', $medicine['medicine_id'])->update([
+                'total_quantity' => $medicine['adjustment_qty'],
+            ]);
+        }
+        return redirect()->back()->with('success','Adjustment created successfully');
     }
 }

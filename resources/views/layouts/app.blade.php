@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     @else
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    
     <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     @endif
 

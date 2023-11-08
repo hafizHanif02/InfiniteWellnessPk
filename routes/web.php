@@ -523,6 +523,10 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::resource('medicines', MedicineController::class)->parameters(['medicines' => 'medicine']);
         Route::get('medicines', [MedicineController::class, 'index'])->name('medicines.index')->middleware('modules');
         Route::get('medicines-show-modal/{medicine}', [MedicineController::class, 'showModal'])->name('medicines.show.modal');
+        Route::post('/get-medicines', [MedicineController::class, 'getMedicines'])->name('medicines.getMedicines');
+        Route::get('medicines-adjustment/create', [MedicineController::class, 'medicinesAdjustment'])->name('medicines.adjustment.create');
+        Route::post('medicines-adjustment/store', [MedicineController::class, 'medicinesAdjustmentStore'])->name('medicines.adjustment.store');
+
 
         Route::resource('categories', CategoryController::class)->parameters(['categories' => 'category']);
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('modules');
