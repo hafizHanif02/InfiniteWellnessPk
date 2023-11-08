@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Http\Controllers\Controller;
-use App\Models\Purchase\GoodReceiveNote;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\Log;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Purchase\GoodReceiveNote;
 
 class GoodReceiveStatusController extends Controller
 {
@@ -27,15 +29,10 @@ class GoodReceiveStatusController extends Controller
     public function status(Request $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
         if ($request->status == 1) {
-            // dd($goodReceiveNote->goodReceiveProducts);
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
                 $unit_trade = (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100) + $goodReceiveProduct->item_amount;
 
                 if ($goodReceiveProduct->bonus != NULL) {
-                    // $goodReceiveProduct->product->incrementEach([
-                    //     'total_quantity', $goodReceiveProduct->deliver_qty,
-                    //     'total_quantity', $goodReceiveProduct->bonus,
-                    // ]);
                     $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
                     $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->bonus);
 
@@ -49,6 +46,11 @@ class GoodReceiveStatusController extends Controller
         }
         $goodReceiveNote->update([
             'is_approved' => $request->status
+        ]);
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Good Receive Note Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' GRN No.' . $goodReceiveNote->id,
+            'action_by_user_id' => $user->id,
         ]);
 
         return back()->with('success', 'Good receive updated!');

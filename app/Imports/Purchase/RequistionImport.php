@@ -2,13 +2,15 @@
 
 namespace App\Imports\Purchase;
 
-use App\Models\Inventory\Product;
+use App\Models\Log;
 use App\Models\Inventory\Vendor;
-use App\Models\Purchase\Requistion;
-use App\Models\Purchase\RequistionProduct;
+use App\Models\Inventory\Product;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use App\Models\Purchase\Requistion;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Purchase\RequistionProduct;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -36,6 +38,8 @@ class RequistionImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, 
                 'remarks' => $row['remarks'],
                 'delivery_date' => $row['delivery_date']
             ]);
+            $user = Auth::user();
+            $requistionproductlogs = 'Requistion No. '.$requistion->id.' Products:{[produc_id, qty],';
             $product = Product::where('product_name', $row['product_name'])->first();
             RequistionProduct::create([
                 'requistion_id' => $requistion->id,
@@ -45,6 +49,19 @@ class RequistionImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, 
                 'total_piece' => $row['total_piece'],
                 'total_amount' => $row['total_amount'],
             ]);
+            $requistionproductlogs .= '['.$product->id.','.$row['total_piece'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Requistion Has Been Created Requistion No.'.$requistion->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'requistion/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
     }
 }

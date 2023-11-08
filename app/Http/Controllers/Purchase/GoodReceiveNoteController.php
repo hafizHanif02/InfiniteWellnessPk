@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
-use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
@@ -61,6 +63,8 @@ class GoodReceiveNoteController extends Controller
             'advance_tax_amount' => $request->advance_tax_amount,
             'sale_tax_percentage' => $request->sale_tax_percentage,
         ]);
+        $user = Auth::user();
+        $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
@@ -74,7 +78,20 @@ class GoodReceiveNoteController extends Controller
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Good Receive Note Has Been Created GRN No.'.$goodReceiveNote->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'good-receive-note/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
 
         return to_route('purchase.good_receive_note.index')->with('success', 'GRN created!');
     }
@@ -109,7 +126,8 @@ class GoodReceiveNoteController extends Controller
             'sale_tax_percentage' => $request->sale_tax_percentage,
             'advance_tax_amount' => $request->sale_tax_percentage,
         ]);
-
+        $user = Auth::user();
+        $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             $product_id = $product['id'];
             GoodReceiveProduct::where(['product_id'=>$product_id],['good_receive_note_id'=>$goodReceiveNote->id])->update([
@@ -122,13 +140,31 @@ class GoodReceiveNoteController extends Controller
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Good Receive Note Has Been Updated GRN No.'.$goodReceiveNote->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'good-receive-note/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
 
         return to_route('purchase.good_receive_note.index')->with('success', 'GRN updated!');
     }
 
     public function destroy(GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Good Receive Note Has Been Deleted GRN No.'.$goodReceiveNote->id ,
+            'action_by_user_id' => $user->id,
+        ]);
         $goodReceiveNote->delete();
 
         return back()->with('success', 'GRN deleted!');

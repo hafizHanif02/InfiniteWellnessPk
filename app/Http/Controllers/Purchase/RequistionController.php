@@ -235,7 +235,6 @@ class RequistionController extends Controller
         foreach($requistionProducts as $requistionProduct){
             $currentMonth = now()->month;
             $openQuantity = GoodReceiveProduct::where('product_id', $requistionProduct->product_id)->whereMonth(DB::raw('DATE(created_at)'), $currentMonth)->first();
-            // dd($openQuantity);
         }
 
         
