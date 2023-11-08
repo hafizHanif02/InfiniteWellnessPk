@@ -2,11 +2,13 @@
 
 namespace App\Imports\Inventory;
 
-use App\Models\Inventory\Manufacturer;
+use App\Models\Log;
 use App\Models\Inventory\Vendor;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Inventory\Manufacturer;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -32,7 +34,7 @@ class VendorImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, With
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            Vendor::create([
+            $vendor = Vendor::create([
                 'manufacturer_id' => Manufacturer::where('company_name', $row['manufacturer'])->pluck('id')->first(),
                 'account_title' => $row['account_title'],
                 'contact_person' => $row['contact_person'],
@@ -45,6 +47,12 @@ class VendorImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, With
                 'area' => $row['area'],
                 'city' => $row['city'],
             ]);
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Vendor Has Been Created Vendor Account Title:'.$row['account_title']. ' Code ('.$vendor->id.')' ,
+            'action_by_user_id' => $user->id,
+        ]);   
         }
     }
 }

@@ -24,7 +24,6 @@ class GenericImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            dd($row);
             Generic::create([
                 'formula' => $row['formula'],
                 'generic_detail' => $row['generic_detail'],
@@ -32,7 +31,7 @@ class GenericImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
 
             $user = Auth::user();
             Log::create([
-            'action' => 'Generic Formula Has Been Created Generic Formula: '.$row['formula'].' Code ('.$row->id .')',
+            'action' => 'Generic Formula Has Been Created Generic Formula: '.$row['formula'],
             'action_by_user_id' => $user->id,
             ]);
         }

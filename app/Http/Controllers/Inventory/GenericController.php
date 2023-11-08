@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Inventory\GenericRequest;
-use App\Imports\Inventory\GenericImport;
-use App\Models\Inventory\Generic;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\Log;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\Inventory\Generic;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use App\Imports\Inventory\GenericImport;
+use App\Http\Requests\Inventory\GenericRequest;
 
 class GenericController extends Controller
 {
@@ -36,11 +38,17 @@ class GenericController extends Controller
         return view('inventory.generic.create', [
             'code' => Generic::latest()->pluck('id')->first(),
         ]);
+        
     }
 
     public function store(GenericRequest $request): RedirectResponse
     {
-        Generic::create($request->validated());
+        $generic = Generic::create($request->validated());
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Generic Formula Has Been Created Generic Formula: '.$generic->formula,
+        'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.generics.index')->with('success', 'Generic created!');
     }
@@ -55,12 +63,22 @@ class GenericController extends Controller
     public function update(GenericRequest $request, Generic $generic): RedirectResponse
     {
         $generic->update($request->validated());
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Generic Formula Has Been Updated Generic Formula: '.$generic->formula.' Code ('.$generic->id .')',
+        'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.generics.index')->with('success', 'Generic updated!');
     }
 
     public function destroy(Generic $generic): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Generic Formula Has Been Deleted Generic Formula: '.$generic->formula. ' Code ('.$generic->id .')',
+        'action_by_user_id' => $user->id,
+        ]);
         $generic->delete();
 
         return back()->with('success', 'Generic deleted!');

@@ -64,12 +64,22 @@ class ManufacturerController extends Controller
     public function update(ManufacturerRequest $request, Manufacturer $manufacturer): RedirectResponse
     {
         $manufacturer->update($request->validated());
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Manufacturer Has Been Edited Company Name: '.$manufacturer->company_name.' Code ('.$manufacturer->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.manufacturers.index')->with('success', 'Manufacturer updated!');
     }
 
     public function destroy(Manufacturer $manufacturer): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Manufacturer Has Been Deleted Company Name: '.$manufacturer->company_name.' Code ('.$manufacturer->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
         $manufacturer->delete();
 
         return back()->with('success', 'Manufacturer deleted!');
