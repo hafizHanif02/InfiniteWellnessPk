@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Inventory\ManufacturerRequest;
-use App\Imports\Inventory\ManufacturerImport;
-use App\Models\Inventory\Manufacturer;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\Log;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Inventory\Manufacturer;
+use App\Imports\Inventory\ManufacturerImport;
+use App\Http\Requests\Inventory\ManufacturerRequest;
 
 class ManufacturerController extends Controller
 {
@@ -40,7 +42,13 @@ class ManufacturerController extends Controller
 
     public function store(ManufacturerRequest $request): RedirectResponse
     {
-        Manufacturer::create($request->validated());
+        $manufacturer = Manufacturer::create($request->validated());
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Manufacturer Has Been Created Company Name: '.$request->company_name.' Code ('.$manufacturer->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.manufacturers.index')->with('success', 'Manufacturer created!');
     }

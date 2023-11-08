@@ -2,15 +2,17 @@
 
 namespace App\Imports\Inventory;
 
+use App\Models\Log;
 use App\Models\Inventory\Dosage;
-use App\Models\Inventory\Generic;
-use App\Models\Inventory\Manufacturer;
-use App\Models\Inventory\Product;
-use App\Models\Inventory\ProductCategory;
 use App\Models\Inventory\Vendor;
+use App\Models\Inventory\Generic;
+use App\Models\Inventory\Product;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Inventory\Manufacturer;
+use App\Models\Inventory\ProductCategory;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -64,6 +66,8 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
                 'cost_price' => 0,
                 'barcode' => $row['barcode'] ?? null,
             ]);
+
+            
             $product->update([
                 'product_name' => $row['product_name'],
                 'dosage_id' => Dosage::where('name', $row['dosage'])->pluck('id')->first(),
@@ -82,6 +86,11 @@ class ProductImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
                 'sale_tax_percentage' => $row['sale_tax_percentage'] ?? 0,
                 'discount_trade_price' => $row['discount_trade_price'] ?? 0,
                 'barcode' => $row['barcode'] ?? null,
+            ]);
+            $user = Auth::user();
+            Log::create([
+                'action' => 'Product Has Been Created Product Name: '.$row['product_name'].' ('.$product->id.')',
+                'action_by_user_id' => $user->id,
             ]);
         }
     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Dosage;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Imports\Inventory\DosageImport;
@@ -39,8 +41,15 @@ class DosageController extends Controller
     }
 
     public function store(DosageRequest $request): RedirectResponse
-    {
-        Dosage::create($request->validated());
+    { 
+        
+        $dosage = Dosage::create($request->validated());
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Dosage Form Has Been Created Dosage Form Name:'.$request->name.' Code ('.$request->code .')',
+        'action_by_user_id' => $user->id,
+    ]);
+
 
         return to_route('inventory.dosages.index')->with('success', 'Dosage created!');
     }
@@ -55,12 +64,22 @@ class DosageController extends Controller
     public function update(DosageRequest $request, Dosage $dosage): RedirectResponse
     {
         $dosage->update($request->validated());
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Dosage Form Has Been Updated Dosage Form Name:'.$dosage->name.' Code ('.$dosage->id .')',
+        'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.dosages.index')->with('success', 'Dosage updated!');
     }
 
     public function destroy(Dosage $dosage): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Dosage Form Has Been Deleted Dosage Form Name:'.$dosage->name.' Code ('.$dosage->id .')',
+        'action_by_user_id' => $user->id,
+        ]);
         $dosage->delete();
 
         return back()->with('success', 'Dosage deleted!');

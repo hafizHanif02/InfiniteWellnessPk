@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
@@ -12,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
@@ -113,7 +115,6 @@ class RequistionController extends Controller
             'delivery_date' => now(),
             'discount_amount' => $request->discount_amount
         ]);
-
         foreach ($request->products as $product) {
             RequistionProduct::create([
                 'requistion_id' => $requistion->id,
