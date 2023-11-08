@@ -26,6 +26,7 @@
                             <td>#</td>
                             <td>Action</td>
                             <td>User</td>
+                            <td>User Code</td>
                             <td>Date/Time</td>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $log->action }}</td>
                                 <td>{{ $log->actionByUser->first_name . $log->actionByUser->last_name }}</td>
+                                <td>{{ $log->action_by_user_id }}</td>
                                 <td>{{ $log->created_at->format('d M Y h:i A') }}</td>
                             </tr>
                         @empty
