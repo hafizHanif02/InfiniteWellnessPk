@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Medicines Adjustment</h3>
-                <a href="{{ route('inventory.products.adjustment') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('medicines.adjustment.show') }}" class="btn btn-secondary">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('medicines.adjustment.store') }}" method="POST" id="save-adjustment-form"
@@ -65,7 +65,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="{{ route('inventory.products.adjustment') }}" class="btn btn-danger">Cancel</a>
+                    <a href="{{ route('medicines.adjustment.show') }}" class="btn btn-danger">Cancel</a>
                     <button type="submit" class="btn btn-primary ms-3">Save</button>
             </div>
             </form>
