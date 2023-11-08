@@ -2,10 +2,12 @@
 
 namespace App\Imports\Inventory;
 
-use App\Models\Inventory\Manufacturer;
+use App\Models\Log;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Inventory\Manufacturer;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
@@ -24,6 +26,13 @@ class ManufacturerImport implements SkipsEmptyRows, ToCollection, WithHeadingRow
             Manufacturer::create([
                 'company_name' => $row['company_name'],
             ]);
+        
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Manufacturer Has Been Created Company Name: '.$row['company_name'],
+            'action_by_user_id' => $user->id,
+        ]);
+
         }
     }
 }

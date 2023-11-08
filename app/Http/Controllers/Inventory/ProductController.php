@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Models\Log;
 use App\Models\Patient;
 use App\Models\Medicine;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Dosage;
 use App\Models\Inventory\Vendor;
+use App\Models\AdjustmentProduct;
 use App\Models\Inventory\Generic;
 use App\Models\Inventory\Product;
 use App\Models\Inventory\StockIn;
@@ -15,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use App\Models\OpdPatientDepartment;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
@@ -26,7 +29,6 @@ use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
-use App\Models\AdjustmentProduct;
 
 class ProductController extends Controller
 {
@@ -54,7 +56,6 @@ class ProductController extends Controller
     public function importExcel(Request $request): RedirectResponse
     {
         Excel::import(new ProductImport, storage_path('app/public/' . request()->file('products_csv')->store('products-excel-files', 'public')));
-
         return back()->with('success', 'Imported successfully!');
     }
 
@@ -83,6 +84,12 @@ class ProductController extends Controller
             ]);
         }
 
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Product Category Has Been Created Category Name: '.$request->name,
+            'action_by_user_id' => $user->id,
+        ]);
+
         return response()->json([
             'data' => ProductCategory::create($validator->validated()),
         ], 200);
@@ -93,6 +100,11 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'formula' => ['required', 'string', 'max:255', 'unique:generics,formula'],
             'generic_detail' => ['nullable', 'string'],
+        ]);
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Generic Formula Has Been Created Generic Formula: '.$request->formula.' Generic Code ('.$request->code.')',
+            'action_by_user_id' => $user->id,
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -116,6 +128,12 @@ class ProductController extends Controller
             ]);
         }
         $dosage = Dosage::create($validator->validated());
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Dosage Has Been Created Dosage Form Name: '.$dosage->name.' Code ('.$dosage->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
         return response()->json([
             'data' => $dosage,
         ], 200);
@@ -136,6 +154,9 @@ class ProductController extends Controller
             'area' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
         ]);
+
+       
+
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
@@ -157,17 +178,30 @@ class ProductController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
+        
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Manufacturer Has Been Created Company Name: '.$request->company_name.' Code ('.$request->code.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return response()->json([
             'data' => Manufacturer::create($validator->validated()),
         ], 200);
+
+
     }
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        // dd($request);
-        Product::create($request->validated() + ['open_quantity' => $request->total_quantity, 'total_quantity' => 0]);
-        // StockIn::create($request->validated());
+
+        $product = Product::create($request->validated() + ['open_quantity' => $request->total_quantity, 'total_quantity' => 0]);
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Product Has Been Created Product Name: '.$request->product_name.' ('.$product->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.products.index')->with('success', 'Product created!');
     }
@@ -191,11 +225,18 @@ class ProductController extends Controller
             'dosage_id' => Dosage::latest()->pluck('id')->first(),
             'manufacturer_id' => Manufacturer::latest()->pluck('id')->first(),
         ]);
+      
     }
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
         $product->update($request->validated() + ['open_quantity' => $request->total_quantity]);
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Product Has Been Edited Product Name: '.$product->product_name.' ('.$product->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return to_route('inventory.products.index')->with('success', 'Product updated!');
     }
@@ -203,6 +244,11 @@ class ProductController extends Controller
     public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Product Has Been Deleted Product Name: '.$product->product_name.' ('.$product->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
 
         return back()->with('success', 'Product deleted!');
     }
@@ -218,7 +264,6 @@ class ProductController extends Controller
 
     public function opd(Request $request)
     {
-
         $getPatientID = Patient::where(['MR' => $request->patient_mr_number])->get();
 
         if (count($getPatientID) > 0) {
@@ -337,6 +382,12 @@ class ProductController extends Controller
     {
         $products = Product::select(['products.id', 'product_name', 'total_quantity', 'open_quantity'])->get();
 
+        $user = Auth::user();
+        Log::create([
+            'action' => 'All Inventory Has Been Recalculated',
+            'action_by_user_id' => $user->id,
+        ]);
+
         foreach ($products as $product) {
             $stock_in = GoodReceiveProduct::where('product_id', $product->id)
                 ->whereHas('goodReceiveNote', function ($query) {
@@ -368,6 +419,12 @@ class ProductController extends Controller
             // $data = "GRN = " . $stock_in . " - PRN = " . $purchaseReturnProducts . " - TRN = " . $stock_out . " + APN = " . $different_qty . " = " . $updated_qty;
             // dd($data);
         }
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Recalculation Has Been Executed ',
+            'action_by_user_id' => $user->id,
+        ]);
         return response()->json([
             'success' => true,
             'message' => 'Product recalculation successfully.',

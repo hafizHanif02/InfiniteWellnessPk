@@ -446,7 +446,7 @@
             });
         });
     });  
-    $('input[name="import-product"]').change(function() {
+$('input[name="import-product"]').change(function() {
         console.log('asdfsdf');
                 $('#csv-form').submit();
             });
@@ -501,11 +501,7 @@ $(document).ready(function() {
         });
     });
 });
-
-
-    
-
-        </script>
+</script>
     @endpush
     <style>
         .alert{
