@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Flash;
+use Response;
+use Exception;
+use App\Models\Log;
+use App\Models\Pos;
+use App\Models\Medicine;
+use Illuminate\View\View;
+use App\Models\Pos_Product;
+use Illuminate\Http\Request;
 use App\Exports\MedicineExport;
+use App\Models\PosProductReturn;
+use Illuminate\Http\JsonResponse;
+use App\Models\MedicineAdjustment;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Shift\TransferProduct;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Repositories\MedicineRepository;
 use App\Http\Requests\CreateMedicineRequest;
 use App\Http\Requests\UpdateMedicineRequest;
-use App\Models\Medicine;
-use App\Models\MedicineAdjustment;
-use App\Repositories\MedicineRepository;
-use Exception;
-use Flash;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
-use Maatwebsite\Excel\Facades\Excel;
-use Response;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class MedicineController extends AppBaseController
@@ -66,7 +72,7 @@ class MedicineController extends AppBaseController
 
         $this->medicineRepository->create($input);
 
-        Flash::success(__('messages.medicine.medicine').' '.__('messages.common.saved_successfully'));
+        Flash::success(__('messages.medicine.medicine') . ' ' . __('messages.common.saved_successfully'));
 
         return redirect(route('medicines.index'));
     }
@@ -106,7 +112,7 @@ class MedicineController extends AppBaseController
     {
         $this->medicineRepository->update($request->all(), $medicine->id);
 
-        Flash::success(__('messages.medicine.medicine').' '.__('messages.common.updated_successfully'));
+        Flash::success(__('messages.medicine.medicine') . ' ' . __('messages.common.updated_successfully'));
 
         return redirect(route('medicines.index'));
     }
@@ -122,7 +128,7 @@ class MedicineController extends AppBaseController
     {
         $this->medicineRepository->delete($medicine->id);
 
-        return $this->sendSuccess(__('messages.medicine.medicine').' '.__('messages.common.deleted_successfully'));
+        return $this->sendSuccess(__('messages.medicine.medicine') . ' ' . __('messages.common.deleted_successfully'));
     }
 
     /**
@@ -132,7 +138,7 @@ class MedicineController extends AppBaseController
     {
         // return Excel::download(new MedicineExport, 'medicines-'.time().'.xlsx');
         $medicines = Medicine::with('brand')->get();
-        return view('medicines.export',[
+        return view('medicines.export', [
             'medicines' => $medicines
         ]);
     }
@@ -163,12 +169,22 @@ class MedicineController extends AppBaseController
         return $this->sendResponse($medicine, 'Medicine Retrieved Successfully');
     }
 
+    public function medicinesAdjustmentShow()
+    {
+        return view(
+            'medicines.medicine-adjustment',
+            [
+                'adjustment' => MedicineAdjustment::orderBy('id', 'desc')->paginate(10),
+            ]
+        );
+    }
+
     public function medicinesAdjustment()
     {
-        return view('medicines.add-medicines-adjustment',[
-            'medicines'=> Medicine::get(),
+        return view('medicines.add-medicines-adjustment', [
+            'medicines' => Medicine::get(),
             'adjustment_id' => MedicineAdjustment::latest()->pluck('id')->first(),
-            ]);
+        ]);
     }
 
     public function getMedicines(Request $request): JsonResponse
@@ -193,6 +209,60 @@ class MedicineController extends AppBaseController
                 'total_quantity' => $medicine['adjustment_qty'],
             ]);
         }
-        return redirect()->back()->with('success','Adjustment created successfully');
+        return redirect()->back()->with('success', 'Adjustment created successfully');
+    }
+
+    public function medicinesRecalculation()
+    {
+        return view('medicines.medicine-Recalculation');
+    }
+
+    public function medicinesRecalculate()
+    {
+        $medicines = Medicine::select(['medicines.id', 'product_id', 'name', 'total_quantity'])->get();
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'All Medicine Has Been Recalculated',
+            'action_by_user_id' => $user->id,
+        ]);
+
+        $approvedpos = Pos::where('is_paid', 1)->select('id')->get();
+
+        foreach ($medicines as $medicine) {
+            $pos = Pos_Product::where('medicine_id', $medicine->id)->whereIn('pos_id', $approvedpos)
+                ->sum('product_quantity');
+
+            $posReturn = PosProductReturn::where('medicine_id', $medicine->id)
+                ->sum('product_quantity');
+
+            $transfer = TransferProduct::where('product_id', $medicine->product_id)
+                ->whereHas('transfer', function ($query) {
+                    $query->where('status', 1);
+                })
+                ->sum('total_piece');
+
+            $different_qty = MedicineAdjustment::where('medicine_id', $medicine->id)->OrderBy('id', 'desc')
+                ->sum('different_qty');
+
+            $updated_qty = $transfer - $pos + $posReturn + ($different_qty);
+
+
+            $medicine->total_quantity = $updated_qty;
+            $medicine->save();
+            // $data = 'Pos ='. $pos . ' Transfer ='. $transfer . ' Pos Return ='. $posReturn . ' Different Qty ='. $different_qty . ' Updated Qty ='. $updated_qty;
+            // dd($data);
+        }
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Recalculation Has Been Executed ',
+            'action_by_user_id' => $user->id,
+        ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Medicine recalculation successfully.',
+            'medicine' => $medicines
+        ]);
     }
 }

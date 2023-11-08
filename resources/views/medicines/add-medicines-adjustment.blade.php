@@ -137,9 +137,11 @@
                 var current_qty = $("#current_qty" + index).val();
                 var adjustment_qty = $("#adjustment_qty" + index).val();
                 current_qty = parseInt(current_qty);
-                current_qty = Math.abs(current_qty);
                 adjustment_qty = parseInt(adjustment_qty);
-                var different_qty = current_qty + adjustment_qty;
+                // current_qty = Math.abs(current_qty);
+                var different_qty = parseInt(current_qty)*(-1)+parseInt(adjustment_qty);
+
+                // var different_qty = current_qty - adjustment_qty;
                 $("#different_qty" + index).val(different_qty);
                 console.log(current_qty, adjustment_qty, different_qty);
             }

@@ -524,8 +524,11 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('medicines', [MedicineController::class, 'index'])->name('medicines.index')->middleware('modules');
         Route::get('medicines-show-modal/{medicine}', [MedicineController::class, 'showModal'])->name('medicines.show.modal');
         Route::post('/get-medicines', [MedicineController::class, 'getMedicines'])->name('medicines.getMedicines');
+        Route::get('medicines-adjustment', [MedicineController::class, 'medicinesAdjustmentShow'])->name('medicines.adjustment.show');
         Route::get('medicines-adjustment/create', [MedicineController::class, 'medicinesAdjustment'])->name('medicines.adjustment.create');
         Route::post('medicines-adjustment/store', [MedicineController::class, 'medicinesAdjustmentStore'])->name('medicines.adjustment.store');
+        Route::get('medicines-recalculation', [MedicineController::class, 'medicinesRecalculation'])->name('medicines.recalculation');
+        Route::post('medicines/recalculate', [MedicineController::class, 'medicinesRecalculate'])->name('medicines.recalculate');
 
 
         Route::resource('categories', CategoryController::class)->parameters(['categories' => 'category']);
