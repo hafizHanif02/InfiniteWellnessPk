@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use App\Imports\Inventory\CategoryImport;
@@ -32,13 +34,18 @@ class ProductCategoryController extends Controller
 
     public function create(): View
     {
+
         return view('inventory.product-categories.create');
     }
 
     public function store(ProductCategoryRequest $request): RedirectResponse
-    {
-        ProductCategory::create($request->validated());
-
+    { 
+        $product =ProductCategory::create($request->validated());
+         $user = Auth::user();
+            Log::create([
+            'action' => 'Product Category Has Been Created Product Name: '.$product->name.' ID('.$product->id.')',
+            'action_by_user_id' => $user->id,
+        ]);
         return to_route('inventory.product-categories.index')->with('success', 'Product category created!');
     }
 
@@ -52,12 +59,21 @@ class ProductCategoryController extends Controller
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory): RedirectResponse
     {
         $productCategory->update($request->validated());
-
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Product Category Has Been Updated Product Name: '.$productCategory->name.' ID('.$productCategory->id.')',
+        'action_by_user_id' => $user->id,
+    ]);
         return to_route('inventory.product-categories.index')->with('success', 'Product category updated!');
     }
 
     public function destroy(ProductCategory $productCategory): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+        'action' => 'Product Category Has Been Deleted Product Name: '.$productCategory->name. ' ID('.$productCategory->id.')',
+        'action_by_user_id' => $user->id,
+    ]);
         $productCategory->delete();
 
         return back()->with('success', 'product category deleted!');
