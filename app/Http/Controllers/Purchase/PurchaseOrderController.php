@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
@@ -9,6 +10,7 @@ use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\RequistionProduct;
 use App\Http\Requests\Purchase\RequistionRequest;
@@ -53,6 +55,8 @@ class PurchaseOrderController extends Controller
         ]);
 
         $purchaseorder->requistionProducts()->delete();
+        $user = Auth::user();
+        $requistionproductlogs = 'Requistion No. '.$purchaseorder->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             RequistionProduct::create([
                 'requistion_id' => $purchaseorder->id,
@@ -62,8 +66,20 @@ class PurchaseOrderController extends Controller
                 'total_piece' => $product['total_piece'],
                 'total_amount' => $product['total_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
-
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Purchase Order Has Been Updated Requistion No.'.$purchaseorder->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'purchaseorder/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         return to_route('purchase.purchaseorder.index')->with('success', 'Purchase order updated!');
     }
 
@@ -72,6 +88,11 @@ class PurchaseOrderController extends Controller
         $requistion->update([
             'is_approved' => $request->status,
             'purchase_order_date' => now(),
+        ]);
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Requisition Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' Requisition No.' . $requistion->id,
+            'action_by_user_id' => $user->id,
         ]);
 
         return back()->with('success', 'Requistion updated!');

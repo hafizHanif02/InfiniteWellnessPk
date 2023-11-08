@@ -18,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Inventory\Manufacturer;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Purchase\GoodReceiveNote;
 use Illuminate\Support\Facades\Validator;
 use App\Imports\Purchase\RequistionImport;
@@ -115,6 +116,9 @@ class RequistionController extends Controller
             'delivery_date' => now(),
             'discount_amount' => $request->discount_amount
         ]);
+
+        $user = Auth::user();
+        $requistionproductlogs = 'Requistion No. '.$requistion->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             RequistionProduct::create([
                 'requistion_id' => $requistion->id,
@@ -125,8 +129,20 @@ class RequistionController extends Controller
                 'discount_percentage' => $product['discount_percentage'],
                 'total_amount' => $product['total_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
-
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Requistion Has Been Created Requistion No.'.$requistion->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'requistion/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         return to_route('purchase.requistions.index')->with('success', 'Requistion created!');
     }
 
@@ -151,7 +167,9 @@ class RequistionController extends Controller
             'delivery_date' => $request->delivery_date
         ]);
 
-        $requistion->requistionProducts()->delete();
+        // $requistion->requistionProducts()->delete();
+        $user = Auth::user();
+        $requistionproductlogs = 'Requistion No. '.$requistion->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             RequistionProduct::create([
                 'requistion_id' => $requistion->id,
@@ -161,12 +179,30 @@ class RequistionController extends Controller
                 'total_piece' => $product['total_piece'],
                 'total_amount' => $product['total_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Requistion Has Been Updated Requistion No.'.$requistion->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'requistion/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         return to_route('purchase.requistions.index')->with('success', 'Requistion updated!');
     }
 
     public function destroy(Requistion $requistion): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Requistion Has Been Deleted Requistion No.'.$requistion->id ,
+            'action_by_user_id' => $user->id,
+        ]);
         $requistion->delete();
 
         return back()->with('success', 'Requistion deleted!');

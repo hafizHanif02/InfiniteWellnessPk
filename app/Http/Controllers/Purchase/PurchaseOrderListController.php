@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
 use Illuminate\Http\JsonResponse;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\RequistionProduct;
 use App\Http\Requests\Purchase\RequistionRequest;
@@ -54,6 +56,8 @@ class PurchaseOrderListController extends Controller
         ]);
 
         $purchaseorderlist->requistionProducts()->delete();
+        $user = Auth::user();
+        $requistionproductlogs = 'Requistion No. '.$purchaseorderlist->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             RequistionProduct::create([
                 'requistion_id' => $purchaseorderlist->id,
@@ -63,7 +67,20 @@ class PurchaseOrderListController extends Controller
                 'total_piece' => $product['total_piece'],
                 'total_amount' => $product['total_amount'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Purchase Order Has Been Updated Requistion No.'.$purchaseorderlist->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'purchaseorder/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
 
         return to_route('purchase.purchaseorderlist.index')->with('success', 'Purchase Order updated!');
     }
