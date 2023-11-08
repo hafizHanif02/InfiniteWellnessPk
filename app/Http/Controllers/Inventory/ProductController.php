@@ -353,7 +353,7 @@ class ProductController extends Controller
             // $product->stock_out = $stock_out;
             // $product->stock_in = $stock_in;
             $updated_qty = $stock_in - $purchaseReturnProducts - $stock_out;
-            $product->total_quantity = $updated_qty;
+            // $product->total_quantity = $updated_qty;
 
             // Update the 'total_quantity' column in the database
             $product->total_quantity = $updated_qty;
