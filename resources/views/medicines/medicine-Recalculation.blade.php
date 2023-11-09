@@ -26,7 +26,6 @@
                 <center>
                     <p>Recalculating... Please do'nt close this page</p>
                     <img src="https://i.gifer.com/ZKZg.gif" width="20px" alt="">
-
                 </center>
             </div>
         </div>
@@ -47,21 +46,21 @@
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(data) {
-                    console.log(data);
-                    $('#table').show();
+                    // $('#table').show();
+                    $('#success').show();
                     $('#loading').hide();
                     $('#recalculate').text('Recalculate');
                     $('#recalculate').removeAttr('disabled');
                     console.log(data);
-                    $.each(data.medicines, function(index, value) {
-                        $('#ajax-data').append(`
-                        <tr>
-                            <td>${value.id}</td>
-                            <td>${value.name}</td>
-                            <td>${value.total_quantity}</td>
-                        </tr>
-                    `);
-                    });
+                    // $.each(data.medicine, function(index, value) {
+                    //     $('#ajax-data').append(`
+                    //     <tr>
+                    //         <td>${value.id}</td>
+                    //         <td>${value.name}</td>
+                    //         <td>${value.total_quantity}</td>
+                    //     </tr>
+                    // `);
+                    // });
                 }
             });
         });

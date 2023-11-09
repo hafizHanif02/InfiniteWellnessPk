@@ -209,7 +209,9 @@ class MedicineController extends AppBaseController
                 'total_quantity' => $medicine['adjustment_qty'],
             ]);
         }
-        return redirect()->back()->with('success', 'Adjustment created successfully');
+
+        Flash::success('Medicines Adjustment created successfully.');
+        return redirect(route('medicines.adjustment.show'));
     }
 
     public function medicinesRecalculation()
@@ -259,6 +261,7 @@ class MedicineController extends AppBaseController
             'action' => 'Recalculation Has Been Executed ',
             'action_by_user_id' => $user->id,
         ]);
+        
         return response()->json([
             'success' => true,
             'message' => 'Medicine recalculation successfully.',

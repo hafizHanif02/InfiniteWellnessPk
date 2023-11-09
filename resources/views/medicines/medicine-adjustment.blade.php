@@ -6,6 +6,9 @@
 <div class="container-fluid mt-5">
     <div class="card">
         <div class="card-body">
+            <div class="d-flex flex-column">
+                @include('flash::message')
+            </div>
             <div class="d-flex justify-content-between mb-5">
                 <h3>Adjustment Products</h3>
                 <a href="{{ route('medicines.adjustment.create') }}" class="btn btn-primary">Add
@@ -26,7 +29,7 @@
                     @foreach ($adjustment as $medicine)
                         <tr>
                             <td scope="row">{{ $medicine->id }}</td>
-                            <td>{{ $medicine->name }}</td>
+                            <td>{{ $medicine->medicine_name }}</td>
                             <td>{{ $medicine->current_qty }}</td>
                             <td>{{ $medicine->adjustment_qty }}</td>
                             <td>{{ $medicine->different_qty }}</td>
