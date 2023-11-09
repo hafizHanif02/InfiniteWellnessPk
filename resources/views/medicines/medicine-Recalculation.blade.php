@@ -10,12 +10,12 @@
                 <button class="btn btn-primary" id="recalculate">Recaculate <i class="fas fa-angle-double-down"></i></button>
             </div>
             <div class="card-body">
-                <table id="table" style="display: none" class="table table-bordered text-center table-hover">
+                <table id="table" style="display: none;" class="table table-bordered text-center table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Total Qty</th>
+                            <th class="text-dark">#</th>
+                            <th class="text-dark">Name</th>
+                            <th class="text-dark">Total Qty</th>
                         </tr>
                     </thead>
                     <tbody id="ajax-data"></tbody>
@@ -37,34 +37,42 @@
                 $('#recalculate').attr('disabled', 'disabled');
                 $('#ajax-data').empty();
                 $('#loading').show();
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('medicines.recalculate') }}",
-                    data: {
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(data) {
-                        // $('#table').show();
+
+                fetch("{{ route('medicines.recalculate') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({}),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
                         $('#success').show();
                         $('#loading').hide();
+                        $('#table').show();
                         $('#recalculate').text('Recalculate');
                         $('#recalculate').removeAttr('disabled');
-                        console.log(data.medicine);
-                        // $.each(data.medicine, function(index, value) {
-                        //     $('#ajax-data').append(`
-                    //     <tr>
-                    //         <td>${value.id}</td>
-                    //         <td>${value.name}</td>
-                    //         <td>${value.total_quantity}</td>
-                    //     </tr>
-                    // `);
-                        // });
-                    },
-                    error: function(xhr, status, error) {
-                        console.log("Error:", error);
-                    }
-
-                });
+                        $('#ajax-data').show();
+                        console.log(data.medicines);
+                        data.medicines.forEach(function(value) {
+                            $('#ajax-data').append(`
+                        <tr>
+                          <td>${value.id}</td>
+                          <td>${value.name}</td>
+                          <td>${value.total_quantity}</td>
+                        </tr>
+                      `);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
             });
         });
     </script>

@@ -264,7 +264,7 @@ class MedicineController extends AppBaseController
         return response()->json([
             'success' => true,
             'message' => 'Medicine recalculation successfully.',
-            'medicine' => $medicines
+            'medicines' => $medicines
         ]);
     }
 }
