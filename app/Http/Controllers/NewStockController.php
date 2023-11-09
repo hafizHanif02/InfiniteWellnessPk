@@ -30,19 +30,19 @@ class NewStockController extends Controller
     public function updateStatus(NewstockRequest $request, Transfer $transfer)
     {
 
-        
+
         if ($request->status == 1) {
-            
+
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
-            
-            
+
+
             $user = Auth::user();
         $requistionproductlogs = 'Transfer No:'.$transfer->id.' Products:{[produc_id, qty],';
             foreach ($transfer->transferProducts as $transferProduct) {
             Product::where('id', $transferProduct->product_id)->decrement(
                 'total_quantity', $transferProduct->total_piece);
 
-        
+
                 $itemCategory = ItemCategory::firstOrCreate([
                     'name' => $transferProduct->product->productCategory->name,
                 ]);
@@ -99,7 +99,7 @@ class NewStockController extends Controller
                     Medicine::where('name', $transferProduct->product->product_name)->incrementEach([
                         'total_quantity' => $transferProduct->total_piece,
                     ])->update([
-                        'selling_price' => $transferProduct->product->manufacturer_retail_price,
+                        'selling_price' => $transferProduct->product->unit_retail,
                         'buying_price' => $transferProduct->product->cost_price,
                         'barcode' => $transferProduct->product->barcode,
                     ]);
@@ -114,7 +114,7 @@ class NewStockController extends Controller
                             'name' => $transferProduct->product->product_name,
                             'generic_formula' => $transferProduct->product->generic->formula,
                             'barcode' => $transferProduct->product->barcode,
-                            'selling_price' => $transferProduct->product->manufacturer_retail_price,
+                            'selling_price' => $transferProduct->product->unit_retail,
                             'buying_price' => $transferProduct->product->cost_price,
                             'description' => $transferProduct->product->package_detail,
                             'salt_composition' => $transferProduct->product->generic->formula,
@@ -134,7 +134,7 @@ class NewStockController extends Controller
                             'name' => $transferProduct->product->product_name,
                             'generic_formula' => $transferProduct->product->generic->formula,
                             'barcode' => $transferProduct->product->barcode,
-                            'selling_price' => $transferProduct->product->manufacturer_retail_price,
+                            'selling_price' => $transferProduct->product->unit_retail,
                             'buying_price' => $transferProduct->product->cost_price,
                             'description' => $transferProduct->product->package_detail,
                             'salt_composition' => $transferProduct->product->generic->formula,
@@ -143,15 +143,15 @@ class NewStockController extends Controller
                         ]);
                     }
                 }
-                $requistionproductlogs .= '['.$transferProduct->product->id.','.$transferProduct->total_piece.'],'; 
+                $requistionproductlogs .= '['.$transferProduct->product->id.','.$transferProduct->total_piece.'],';
             }
             $requistionproductlogs .= '}';
             $logs = Log::create([
                 'action' => 'Purchase Return Has Been Created GRN No.'.$request->good_receive_note_id ,
                 'action_by_user_id' => $user->id,
             ]);
-            $fileName = 'log/' . $logs->id . '.txt'; 
-            $filePath = public_path($fileName); 
+            $fileName = 'log/' . $logs->id . '.txt';
+            $filePath = public_path($fileName);
             $directory = dirname($filePath);
             if (!file_exists($directory)) {
                 mkdir($directory, 0755, true);
