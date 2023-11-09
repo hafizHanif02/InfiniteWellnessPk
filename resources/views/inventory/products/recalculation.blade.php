@@ -25,7 +25,7 @@
                     <center>
                         <p>Recalculating... Please don't close this page</p>
                         <img src="https://i.gifer.com/ZKZg.gif" width="20px" alt="">
-
+                        
                     </center>
                 </div>
             </div>
