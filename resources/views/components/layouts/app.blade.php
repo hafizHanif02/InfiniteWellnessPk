@@ -99,7 +99,8 @@
                                                 Products Report
                                             </a>
                                         </li>
-                                        {{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0">
+                                        @role('Admin')
+                                        <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0">
                                             <a class="nav-link p-0 {{ request()->route()->named('inventory.recalculation')? 'active': '' }}"
                                                 href="{{ route('inventory.recalculation') }}">
                                                 Recalculation
@@ -110,8 +111,8 @@
                                                 href="{{ route('inventory.products.adjustment') }}">
                                                 Adjustment Products
                                             </a>
-                                        </li> --}}
-                                        
+                                        </li>
+                                        @endrole                                
                                     </ul>
                                 </div>
                             </div>

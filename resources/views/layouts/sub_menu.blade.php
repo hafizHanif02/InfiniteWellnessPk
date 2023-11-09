@@ -623,6 +623,22 @@
 </li>
 @endmodule
 @endrole
+@role('Admin')
+@module('Medicines',$modules)
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0">
+    <a class="nav-link p-0 {{ request()->route()->named('medicines.adjustment.show')? 'active': '' }}"
+        href="{{ route('medicines.adjustment.show') }}">
+        Medicine Adjustment
+    </a>
+</li>
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0">
+    <a class="nav-link p-0 {{ request()->route()->named('medicines.recalculation')? 'active': '' }}"
+        href="{{ route('medicines.recalculation') }}">
+        Medicine Recalculation
+    </a>
+</li>
+@endmodule
+@endrole
 @role('Admin|Receptionist')
 @module('Radiology Categories',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('radiology-categories*','radiology-tests*')) ? 'd-none' : '' }}">
