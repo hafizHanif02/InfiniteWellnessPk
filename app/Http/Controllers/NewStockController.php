@@ -99,7 +99,7 @@ class NewStockController extends Controller
                     Medicine::where('name', $transferProduct->product->product_name)->incrementEach([
                         'total_quantity' => $transferProduct->total_piece,
                     ])->update([
-                        'selling_price' => $transferProduct->product->unit_trade,
+                        'selling_price' => $transferProduct->product->manufacturer_retail_price,
                         'buying_price' => $transferProduct->product->cost_price,
                         'barcode' => $transferProduct->product->barcode,
                     ]);
@@ -114,7 +114,7 @@ class NewStockController extends Controller
                             'name' => $transferProduct->product->product_name,
                             'generic_formula' => $transferProduct->product->generic->formula,
                             'barcode' => $transferProduct->product->barcode,
-                            'selling_price' => $transferProduct->product->unit_trade,
+                            'selling_price' => $transferProduct->product->manufacturer_retail_price,
                             'buying_price' => $transferProduct->product->cost_price,
                             'description' => $transferProduct->product->package_detail,
                             'salt_composition' => $transferProduct->product->generic->formula,
@@ -134,7 +134,7 @@ class NewStockController extends Controller
                             'name' => $transferProduct->product->product_name,
                             'generic_formula' => $transferProduct->product->generic->formula,
                             'barcode' => $transferProduct->product->barcode,
-                            'selling_price' => $transferProduct->product->unit_trade,
+                            'selling_price' => $transferProduct->product->manufacturer_retail_price,
                             'buying_price' => $transferProduct->product->cost_price,
                             'description' => $transferProduct->product->package_detail,
                             'salt_composition' => $transferProduct->product->generic->formula,
