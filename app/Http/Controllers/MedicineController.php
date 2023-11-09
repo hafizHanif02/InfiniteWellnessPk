@@ -185,6 +185,7 @@ class MedicineController extends AppBaseController
             'medicines' => Medicine::get(),
             'adjustment_id' => MedicineAdjustment::latest()->pluck('id')->first(),
         ]);
+    
     }
 
     public function getMedicines(Request $request): JsonResponse
@@ -196,6 +197,7 @@ class MedicineController extends AppBaseController
 
     public function medicinesAdjustmentStore(Request $request)
     {
+        $user = Auth::user();
         foreach ($request->medicines as $medicine) {
             MedicineAdjustment::create([
                 'medicine_id' => $medicine['medicine_id'],
@@ -208,7 +210,13 @@ class MedicineController extends AppBaseController
             Medicine::where('id', $medicine['medicine_id'])->update([
                 'total_quantity' => $medicine['adjustment_qty'],
             ]);
+            
+            Log::create([
+                'action' => 'Medicines Adjustment Has Been Created Medicine Code:'.$medicine['medicine_id'],
+                'action_by_user_id' => $user->id,
+            ]);
         }
+       
 
         Flash::success('Medicines Adjustment created successfully.');
         return redirect(route('medicines.adjustment.show'));
