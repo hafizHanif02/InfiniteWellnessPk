@@ -454,6 +454,7 @@ class ProductController extends Controller
 
     public function adjustmentStore(Request $request)
     {
+        $user = Auth::user();
         foreach ($request->products as $product) {
             AdjustmentProduct::create([
                 'product_id' => $product['product_id'],
@@ -465,6 +466,11 @@ class ProductController extends Controller
 
             Product::where('id', $product['product_id'])->update([
                 'total_quantity' => $product['adjustment_qty'],
+            ]);
+
+            Log::create([
+                'action' => 'Products Adjustment Has Been Created Product Code:'.$product['product_id'],
+                'action_by_user_id' => $user->id,
             ]);
         }
 
