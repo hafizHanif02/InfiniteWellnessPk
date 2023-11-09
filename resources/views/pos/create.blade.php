@@ -123,7 +123,7 @@
                             {{-- Model --}}
                             <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1"
                                 aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
+                                <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
@@ -149,22 +149,22 @@
                                                             <td>{{ $medicine->name }}</td>
                                                             <td>{{ $medicine->generic_formula }}</td>
                                                             <td>{{ $medicine->barcode }}</td>
-                                                            <input type="hidden" id="search_addbtn{{ $medicine->id }}"
-                                                                data-product_id="{{ $medicine->id }}"
-                                                                data-product_name="{{ $medicine->name }}"
-                                                                data-generic_formula="{{ $medicine->generic_formula }}"
-                                                                data-total_quantity="{{ $medicine->total_quantity }}"
-                                                                data-selling_price="{{ $medicine->selling_price }}"
-                                                                data-brand_name="{{ $medicine->brand->name }}"
-                                                                data-brand_id="{{ $medicine->brand->id }}"
-                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}"
-                                                                data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
-                                                                data-common_side_effect="{{$medicine->product->common_side_effect}}"
-                                                                >
                                                             <td><button class="btn btn-success" type="button"
-                                                                    onclick="addMedicine({{ $medicine->id }})"><i
-                                                                        class="fa fa-plus"></i></button></td>
+                                                                onclick="addMedicine({{ $medicine->id }})"><i
+                                                                class="fa fa-plus"></i></button>
+                                                                <input type="hidden" id="search_addbtn{{ $medicine->id }}"
+                                                                    data-product_id="{{ $medicine->id }}"
+                                                                    data-product_name="{{ $medicine->name }}"
+                                                                    data-generic_formula="{{ $medicine->generic_formula }}"
+                                                                    data-total_quantity="{{ $medicine->total_quantity }}"
+                                                                    data-selling_price="{{ $medicine->product->manufacturer_retail_price }}"
+                                                                    data-brand_name="{{ $medicine->brand->name }}"
+                                                                    data-brand_id="{{ $medicine->brand->id }}"
+                                                                    data-gst="{{ $medicine->product->sale_tax_percentage }}"
+                                                                    data-fixed_discount="{{ $medicine->product->fixed_discount }}"
+                                                                    data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
+                                                                    data-common_side_effect="{{$medicine->product->common_side_effect}}"
+                                                                    ></td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -428,8 +428,8 @@
                         </td>
 
 
-                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
-                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
+                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.product.manufacturer_retail_price) * medicine.dosage}" placeholder="selling_price"></td>
+                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.product.manufacturer_retail_price) * medicine.dosage}" placeholder="selling_price">
                     <td>
                         <button type="button" class="btn btn-primary"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i></button>
                     </td>
@@ -533,7 +533,7 @@
                             <select style="min-width: 120px; max-width: 120px;" name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->product->manufacturer_retail_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
