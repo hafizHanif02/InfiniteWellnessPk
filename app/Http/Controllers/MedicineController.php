@@ -222,7 +222,6 @@ class MedicineController extends AppBaseController
     public function medicinesRecalculate()
     {
         $medicines = Medicine::select(['medicines.id', 'product_id', 'name', 'total_quantity'])->get();
-
         $user = Auth::user();
         Log::create([
             'action' => 'All Medicine Has Been Recalculated',
