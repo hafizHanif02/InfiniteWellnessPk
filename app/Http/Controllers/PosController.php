@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Barcode;
+use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Patient;
 use App\Models\Medicine;
@@ -17,6 +18,7 @@ use App\Models\PosProductReturn;
 use App\Http\Requests\PosRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use Picqer\Barcode\BarcodeGeneratorHTML;
@@ -87,13 +89,27 @@ class PosController extends Controller
         // Create POS and associated products
         $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
 
+        $user = Auth::user();
+        $requistionproductlogs = 'Pos No.'.$pos->id.' Products:{[medicine_id, qty],';
         foreach ($request->input('products') as $productData) {
             // dd($productData);
-            Pos_Product::create(array_merge($productData, ['pos_id' => $pos->id, 'user_id' => $userId]));
+           $pos_product = Pos_Product::create(array_merge($productData, ['pos_id' => $pos->id, 'user_id' => $userId]));
             // Medicine::where('product_id', $productData->product_id)->decrement(
             //     'total_quantity', $transferProduct->total_piece);
+            $requistionproductlogs .= '['.$pos_product->medicine_id.','.$pos_product->product_quantity.'],'; 
         }
-
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Pos Has Been Created Pos No.'.$pos->id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'log/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         Flash::message('POS created!');
 
         return redirect()->route('pos.proceed-to-pay-page', ['pos' => $pos]);
@@ -102,7 +118,11 @@ class PosController extends Controller
     public function ProceedToPayPage($pos)
     {
         $pos = Pos::where('id', $pos)->with(['PosProduct.medicine', 'prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
-
+        $user = Auth::user();
+        Log::create([
+            'action' => 'POS Proceede To Checkout Pos No.'.$pos->id ,
+            'action_by_user_id' => $user->id,
+        ]);
         return view('pos.proceed_to_pay', [
             'pos' => $pos,
         ]);
@@ -138,7 +158,7 @@ class PosController extends Controller
         $Pos_Product = Pos_Product::where('pos_id', $pos)->get();
 
 
-        Pos::where('id', $pos)->update([
+        $pos = Pos::where('id', $pos)->update([
             'is_cash' => $reqeust->is_cash,
             'is_paid' => 1,
             'enter_payment_amount' => $reqeust->enter_payment_amount,
@@ -151,6 +171,12 @@ class PosController extends Controller
                 'total_quantity' => $PosProduct->product_quantity
             ]);
         }
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'POS Payement Enter Pos No.'.$pos->id ,
+            'action_by_user_id' => $user->id,
+        ]);
         Flash::message('POS Payed!');
 
         return to_route('pos.print', $pos);
@@ -215,12 +241,28 @@ class PosController extends Controller
 
     public function update(PosRequest $request, $id)
     {
-        Pos::find($id)->update($request->all());
+        // dd($request);
+        $pos = Pos::find($id)->update($request->all());
         Pos_Product::where('pos_id', $id)->delete();
+        $user = Auth::user();
+        $requistionproductlogs = 'Pos No. '.$request->pos_id.' Products:{[medicine_id, qty],';
         foreach ($request->input('products') as $productData) {
             Pos_Product::create(array_merge($productData, ['pos_id' => $id]));
+            // dd($productData['medicine_id']);
+            $requistionproductlogs .= '['.$productData['medicine_id'].','.$productData['product_quantity'].'],'; 
         }
-
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Pos Has Been Updated Pos No.'.$request->pos_id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'log/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         Flash::message('POS Updated!');
         return to_route('pos.proceed-to-pay-page', $id);
         // return redirect()->route('pos.index');
@@ -228,7 +270,12 @@ class PosController extends Controller
 
     public function destroy($id)
     {
-        Pos::find($id)->delete();
+        $pos = Pos::find($id)->delete();
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Pos Has Been Deleted Pos No.'.$id ,
+            'action_by_user_id' => $user->id,
+        ]);
         Flash::message('POS Deleted!');
 
         return to_route('pos.index');

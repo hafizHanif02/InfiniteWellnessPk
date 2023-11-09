@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Medicine;
 use App\Models\PosReturn;
@@ -9,6 +10,7 @@ use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PosReturnController extends Controller
@@ -57,6 +59,8 @@ class PosReturnController extends Controller
             'pos_id' => $request->pos_id,
             'total_amount' => $request->total_amount
         ]);
+        $user = Auth::user();
+        $requistionproductlogs = 'Pos Return No. '.$posReturn->id.' Products:{[medicine_id, qty],';
         foreach($request->products as $product){
             PosProductReturn::create([
                 'pos_return_id' => $posReturn->id,
@@ -70,7 +74,20 @@ class PosReturnController extends Controller
             ]);
             Medicine::where('id', $product['medicine_id'])->increment('total_quantity', $product['return_quantity']);
 
+            $requistionproductlogs .= '['.$product['medicine_id'].','.$product['return_quantity'].'],'; 
         }
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Pos Return Has Been Created Pos Return No.'.$posReturn->id.' POS No.'.$request->pos_id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'log/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         Flash::message('POS Returned!');
         // dd($posReturn->id);
         return to_route('pos-return.print',$posReturn->id);
@@ -123,6 +140,11 @@ class PosReturnController extends Controller
     public function destroy(PosReturn $posReturn)
     {
         $posReturn->delete();
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Pos Return Has Been Deleted Pos Return No.'.$posReturn->id.' Pos No.'.$posReturn->pos_id ,
+            'action_by_user_id' => $user->id,
+        ]);
         Flash::message('POS Returned Deleted!');
 
         return to_route('pos-return.index');

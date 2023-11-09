@@ -1,1 +1,0 @@
-GRN No. 6330 Products:{[produc_id, qty],[1495,2],[1496,2],[2372,2],}
