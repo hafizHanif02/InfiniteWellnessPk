@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use App\Models\Log;
 use Illuminate\View\View;
 use App\Models\Inventory\Product;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Purchase\PurchaseReturnStatusRequest;
@@ -37,6 +39,15 @@ class PurchaseReturnStatusController extends Controller
         $purchaseReturnStatus->update([
             'status' => $request->status,
         ]);
+
+
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Purchase Return Note Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' GRN No.' . $purchaseReturnStatus->good_receive_note_id.' Products ID:'.$purchaseReturnStatus->product_id,
+            'action_by_user_id' => $user->id,
+        ]);
+
+
 
         return to_route('purchase.purchase-return-status.index')->with('success', 'Purchase status updated!');
     }

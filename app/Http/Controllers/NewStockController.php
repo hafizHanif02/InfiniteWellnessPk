@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\TransferExport;
-use App\Http\Requests\NewstockRequest;
+use App\Models\Log;
+use App\Models\Item;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Item;
-use App\Models\ItemCategory;
-use App\Models\ItemStock;
 use App\Models\Medicine;
-use App\Models\Shift\Transfer;
-use Illuminate\Http\RedirectResponse;
+use App\Models\ItemStock;
 use Illuminate\View\View;
+use App\Models\ItemCategory;
+use App\Models\Shift\Transfer;
+use App\Exports\TransferExport;
 use App\Models\Inventory\Product;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\NewstockRequest;
 
 class NewStockController extends Controller
 {
@@ -32,6 +34,10 @@ class NewStockController extends Controller
         if ($request->status == 1) {
             
             $transfer = $transfer->load(['transferProducts.product.productCategory','transferProducts.product.dosage','transferProducts.product.manufacturer' ,'transferProducts.product.vendor','transferProducts.product.generic']);
+            
+            
+            $user = Auth::user();
+        $requistionproductlogs = 'Transfer No:'.$transfer->id.' Products:{[produc_id, qty],';
             foreach ($transfer->transferProducts as $transferProduct) {
             Product::where('id', $transferProduct->product_id)->decrement(
                 'total_quantity', $transferProduct->total_piece);
@@ -137,12 +143,29 @@ class NewStockController extends Controller
                         ]);
                     }
                 }
+                $requistionproductlogs .= '['.$transferProduct->product->id.','.$transferProduct->total_piece.'],'; 
             }
+            $requistionproductlogs .= '}';
+            $logs = Log::create([
+                'action' => 'Purchase Return Has Been Created GRN No.'.$request->good_receive_note_id ,
+                'action_by_user_id' => $user->id,
+            ]);
+            $fileName = 'log/' . $logs->id . '.txt'; 
+            $filePath = public_path($fileName); 
+            $directory = dirname($filePath);
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            file_put_contents($filePath, $requistionproductlogs);
         }
         $transfer->update([
             'status' => $request->status,
         ]);
-        
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Transfer Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' Transfer No.' . $transfer->id,
+            'action_by_user_id' => $user->id,
+        ]);
 
         return back();
     }

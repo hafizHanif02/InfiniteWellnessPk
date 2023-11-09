@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Purchase;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Purchase\PurchaseReturnRequest;
+use App\Models\Log;
+use Illuminate\View\View;
 use App\Models\Inventory\Product;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Http\Requests\Purchase\PurchaseReturnRequest;
 
 class PurchaseReturnNoteController extends Controller
 {
@@ -37,16 +39,29 @@ class PurchaseReturnNoteController extends Controller
 
     public function store(PurchaseReturnRequest $request): RedirectResponse
     {
-        
+        $user = Auth::user();
+        $requistionproductlogs = 'Purchase Return GRN No:'.$request->good_receive_note_id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
-            PurchaseReturnNote::create([
+            $purchaseReturn = PurchaseReturnNote::create([
                 'good_receive_note_id' => $request->good_receive_note_id,
                 'product_id' => $product['id'],
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],
             ]);
+            $requistionproductlogs .= '['.$product['id'].','.$product['quantity'].'],'; 
         }
-
+        $requistionproductlogs .= '}';
+        $logs = Log::create([
+            'action' => 'Purchase Return Has Been Created GRN No.'.$request->good_receive_note_id ,
+            'action_by_user_id' => $user->id,
+        ]);
+        $fileName = 'log/' . $logs->id . '.txt'; 
+        $filePath = public_path($fileName); 
+        $directory = dirname($filePath);
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        file_put_contents($filePath, $requistionproductlogs);
         return to_route('purchase.return.index')->with('success', 'Purchase Return Added!');
     }
 
@@ -59,6 +74,11 @@ class PurchaseReturnNoteController extends Controller
 
     public function destroy(PurchaseReturnNote $return): RedirectResponse
     {
+        $user = Auth::user();
+        Log::create([
+            'action' => 'Purchase Return Has Been Deleted GRN No.'.$return->good_receive_note_id.' Product ID:'.$return->product_id, 
+            'action_by_user_id' => $user->id,
+        ]);
         $return->delete();
 
         return to_route('purchase.return.index')->with('success', 'Purchase Return Deleted!');
