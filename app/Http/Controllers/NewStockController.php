@@ -146,8 +146,9 @@ class NewStockController extends Controller
                 $requistionproductlogs .= '['.$transferProduct->product->id.','.$transferProduct->total_piece.'],';
             }
             $requistionproductlogs .= '}';
-            $logs = Log::create([
-                'action' => 'Purchase Return Has Been Created GRN No.'.$request->good_receive_note_id ,
+            $user = Auth::user();
+            $logs =Log::create([
+                'action' => 'Transfer Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' Transfer No.' . $transfer->id,
                 'action_by_user_id' => $user->id,
             ]);
             $fileName = 'log/' . $logs->id . '.txt';
@@ -160,11 +161,6 @@ class NewStockController extends Controller
         }
         $transfer->update([
             'status' => $request->status,
-        ]);
-        $user = Auth::user();
-        Log::create([
-            'action' => 'Transfer Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' Transfer No.' . $transfer->id,
-            'action_by_user_id' => $user->id,
         ]);
 
         return back();

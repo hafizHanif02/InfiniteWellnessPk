@@ -1,0 +1,1 @@
+Pos Return No. 24 Products:{[medicine_id, qty],[280,1],}

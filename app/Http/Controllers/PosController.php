@@ -119,10 +119,10 @@ class PosController extends Controller
     {
         $pos = Pos::where('id', $pos)->with(['PosProduct.medicine', 'prescription.patient', 'prescription.getMedicine.medicine', 'prescription.doctor.doctorUser', 'prescription.patient.patientUser'])->first();
         $user = Auth::user();
-        Log::create([
-            'action' => 'POS Proceede To Checkout Pos No.'.$pos->id ,
-            'action_by_user_id' => $user->id,
-        ]);
+        // Log::create([
+        //     'action' => 'POS Proceede To Checkout Pos No.'.$pos->id ,
+        //     'action_by_user_id' => $user->id,
+        // ]);
         return view('pos.proceed_to_pay', [
             'pos' => $pos,
         ]);
