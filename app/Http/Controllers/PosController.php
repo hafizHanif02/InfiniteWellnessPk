@@ -156,7 +156,7 @@ class PosController extends Controller
     public function Payment(Request $reqeust, $pos)
     {
         $Pos_Product = Pos_Product::where('pos_id', $pos)->get();
-
+        $pos_id = $pos;
 
         $pos = Pos::where('id', $pos)->update([
             'is_cash' => $reqeust->is_cash,
@@ -171,15 +171,16 @@ class PosController extends Controller
                 'total_quantity' => $PosProduct->product_quantity
             ]);
         }
+        
 
         $user = Auth::user();
         Log::create([
-            'action' => 'POS Payement Enter Pos No.'.$pos->id ,
+            'action' => 'POS Payement Enter Pos No.'.$pos_id ,
             'action_by_user_id' => $user->id,
         ]);
         Flash::message('POS Payed!');
 
-        return to_route('pos.print', $pos);
+        return to_route('pos.print', $pos_id);
     }
 
     public function prescription(Request $request)
