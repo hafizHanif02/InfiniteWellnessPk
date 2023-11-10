@@ -406,6 +406,7 @@
                 var total = 0;
                 console.log(selectedMedicinesAttr);
                 selectedMedicinesAttr.forEach(function(medicine, items) {
+                    console.log(medicine, items);
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
@@ -414,7 +415,7 @@
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
                         </td>
-                    <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.selling_price}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
+                    <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.product.unit_retail}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                     <td>
                         <input type="number" readonly step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="${medicine.medicine.product.fixed_discount}" class="form-control"  name="products[${items}][discount_percentage]" >
