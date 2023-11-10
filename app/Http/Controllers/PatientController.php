@@ -113,7 +113,7 @@ class PatientController extends AppBaseController
 
         //---------------------
 
-        // $patientCase = PatientCase::create($data);
+        $patientCase = PatientCase::create($data);
 
         //-------------------
 
