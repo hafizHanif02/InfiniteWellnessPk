@@ -157,7 +157,7 @@
                                                                     data-product_name="{{ $medicine->name }}"
                                                                     data-generic_formula="{{ $medicine->generic_formula }}"
                                                                     data-total_quantity="{{ $medicine->total_quantity }}"
-                                                                    data-selling_price="{{ $medicine->selling_price }}"
+                                                                    data-selling_price="{{ $medicine->product->unit_retail }}"
                                                                     data-brand_name="{{ $medicine->brand->name }}"
                                                                     data-brand_id="{{ $medicine->brand->id }}"
                                                                     data-gst="{{ $medicine->product->sale_tax_percentage }}"
@@ -533,7 +533,7 @@
                             <select style="min-width: 120px; max-width: 120px;" name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>
+                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->product->unit_retail }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->product->unit_retail }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
