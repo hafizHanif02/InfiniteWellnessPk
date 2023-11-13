@@ -229,6 +229,11 @@ class PosController extends Controller
 
     public function edit($id)
     {
+        $PosId = Pos::where('id',$id)->exists();
+        if(!$PosId){
+            Flash::error('POS Not Found!');
+            return to_route('pos.index');
+        }
         return view('pos.edit', [
             'pos' => Pos::where('id',$id)->with(['PosProduct.medicine.product'])->first(),
             'pos_products' => pos_product::where('pos_id', $id)->with('label')->get(),
