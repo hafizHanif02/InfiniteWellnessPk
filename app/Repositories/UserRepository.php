@@ -2,40 +2,41 @@
 
 namespace App\Repositories;
 
-use App\Models\Accountant;
-use App\Models\AdvancedPayment;
-use App\Models\Appointment;
-use App\Models\BedAssign;
+use Auth;
+use Hash;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Bill;
+use App\Models\User;
+use App\Models\Nurse;
+use App\Models\Doctor;
+use App\Models\Invoice;
+use App\Models\Patient;
+use App\Models\Schedule;
+use App\Models\BedAssign;
+use App\Models\Dietitian;
+use App\Models\Accountant;
+use App\Models\Pharmacist;
+use App\Models\Appointment;
 use App\Models\BirthReport;
 use App\Models\CaseHandler;
 use App\Models\DeathReport;
-use App\Models\Doctor;
-use App\Models\DoctorDepartment;
-use App\Models\EmployeePayroll;
-use App\Models\InvestigationReport;
-use App\Models\Invoice;
-use App\Models\IpdPatientDepartment;
-use App\Models\LabTechnician;
-use App\Models\Nurse;
-use App\Models\OperationReport;
-use App\Models\Patient;
-use App\Models\PatientAdmission;
 use App\Models\PatientCase;
-use App\Models\Pharmacist;
+use App\Models\SupplyChain;
 use App\Models\Prescription;
 use App\Models\Receptionist;
-use App\Models\Schedule;
-use App\Models\User;
-use App\Models\Dietitian;
-use App\Models\SupplyChain;
-use Auth;
-use Carbon\Carbon;
-use Exception;
-use Hash;
+use App\Models\LabTechnician;
+use App\Models\AdvancedPayment;
+use App\Models\DoctorDietitian;
+use App\Models\EmployeePayroll;
+use App\Models\OperationReport;
+use App\Models\DoctorDepartment;
+use App\Models\PatientAdmission;
+use App\Models\InvestigationReport;
+use App\Models\IpdPatientDepartment;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
@@ -193,6 +194,11 @@ class UserRepository extends BaseRepository
                 // $user->sendEmailVerificationNotification();
                 $ownerId = $SupplyChain->id;
                 $ownerType = SupplyChain::class;
+            } elseif ($input['department_id'] == 12) {
+                $DoctorDietitian = DoctorDietitian::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $DoctorDietitian->id;
+                $ownerType = DoctorDietitian::class;
             }
 
 
