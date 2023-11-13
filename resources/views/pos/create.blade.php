@@ -308,14 +308,15 @@
         function disablemainbutton() {
             $('#proceede_to_pay').attr('disabled', 'true');
         }
-
+        
         function enablemainbutton() {
             $('#proceede_to_pay').removeAttr('disabled');
         }
-
+        
         function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
-            //$('#possubmitform').submit();
+            $('#proceede_to_pay').attr('disabled', 'true');
+            $('#possubmitform').submit();
         }
 
         function preventSubmit(event) {
