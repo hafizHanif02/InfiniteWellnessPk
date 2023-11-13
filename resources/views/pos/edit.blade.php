@@ -355,7 +355,7 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-success" type="submit" id="proceede_to_pay"
-                                onclick="submitbutton()">Update</button>
+                                >Update</button>
                         </div>
                 </div>
             </div>
@@ -437,10 +437,10 @@
             $('#proceede_to_pay').removeAttr('disabled');
         }
 
-        function submitbutton() {
-            $('#possubmitform').removeAttr('onsubmit');
-            $('#possubmitform').submit();
-        }
+        // function submitbutton() {
+        //     $('#possubmitform').removeAttr('onsubmit');
+        //     $('#possubmitform').submit();
+        // }
 
         function preventSubmit(event) {
             event.preventDefault();
