@@ -1032,6 +1032,7 @@
         $(document).ready(function() {
             $('#possubmitform').on('submit', function(e) {
                 e.preventDefault();
+                $('#proceede_to_pay').prop('disabled', true);
 
 
                 $.ajax({
