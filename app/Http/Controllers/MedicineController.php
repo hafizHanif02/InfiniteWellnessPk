@@ -114,7 +114,7 @@ class MedicineController extends AppBaseController
 
         $user = Auth::user();
         Log::create([
-            'action' => 'Medicine Has Been Edited Medicine Name :'.$medicine->name.' ('.$medicine->id.')',
+            'action' => 'Medicine Has Been Edited Medicine Name : '.$medicine->name.' ('.$medicine->id.')',
             'action_by_user_id' => $user->id,
         ]);
 
