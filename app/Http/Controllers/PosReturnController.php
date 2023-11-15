@@ -76,8 +76,10 @@ class PosReturnController extends Controller
                 "product_total_price" => $product['product_total_price'],
             ]);
             Medicine::where('id', $product['medicine_id'])->increment('total_quantity', $product['return_quantity']);
-            BatchPOS::where('id', $product['batch_id'])->decrement('sold_quantity', $product['return_quantity']);
-            $requistionproductlogs .= '['.$product['medicine_id'].','.$product['return_quantity'].'],'; 
+            if($product['batch_id']){
+                BatchPOS::where('id', $product['batch_id'])->decrement('sold_quantity', $product['return_quantity']);
+                $requistionproductlogs .= '['.$product['medicine_id'].','.$product['return_quantity'].'],'; 
+            }
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
