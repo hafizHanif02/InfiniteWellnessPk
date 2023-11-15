@@ -18,6 +18,7 @@
                     </div>
                 </div>
             </div> 
+           
             <div class="card-body">
                 <form id="save-transfer-form" action="{{ route('shift.transfers.store') }}" method="POST">
                     @csrf
@@ -71,6 +72,11 @@
                             @enderror
                         </div>
                     </div>
+                    {{-- @foreach ($products as $product)
+                    @if($product->id == 2407)
+                    {{dd($product->batch[0]) }}
+                    @endif
+                    @endforeach --}}
                     <div class="row mb-5">
                         <div class="col-md-10">
                             <label for="product_id" class="form-label">Products<sup class="text-danger">*</sup></label>
@@ -100,9 +106,11 @@
                                     <tr class="text-white">
                                         <td  style="min-width: 50px" >#</td>
                                         <td  style="min-width: 200px" >Product</td>
+                                        <td  style="min-width: 200px" >Batch</td>
                                         <td  style="min-width: 200px">Total Stock</td>
                                         <td  style="min-width: 200px">Unit of Measurement</td>
                                         <td  style="min-width: 200px">Price Per Unit</td>
+                                        <td  style="min-width: 200px">Expiry Date</td>
                                         <td  style="min-width: 200px">Total Piece</td>
                                         <td  style="min-width: 200px">Total Pack</td>
                                         <td  style="min-width: 200px">Amount</td>
@@ -176,6 +184,12 @@
                                         <td>${e}</td>
                                         <td>
                                             <input type="text" class="form-control" value="${products[i].product_name}" readonly>
+                                        </td>
+                                        <td>
+                                            <select name="products[${i}][batch]" class="form-control">
+                                                <option value="" selected>Select Batch</option>
+                                                <option value="${products[i].batch}">${products[i].batch}</option>
+                                            </select>
                                         </td>
                                         <td>
                                             <input type="text" name="products[${i}][total_quantity]" class="form-control" value="${products[i].total_quantity}" readonly>
@@ -263,6 +277,7 @@
                         type: "get",
                         url: "/shift/transfer-products/" + productId,
                         success: function(response) {
+                            console.log(response.product.batch);
                             var items = $("tbody tr").length;
                             $("#add-products").append(`
                                     <tr id="${response.product.id}">
@@ -274,7 +289,25 @@
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][total_quantity]" class="form-control" value="${response.product.total_quantity}" readonly>
+                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control">
+                                            ${response.product.batch.length != 0  ?
+                                                `<option value="" selected>Select Batch</option>
+                                                ${response.product.batch.map(batch => {
+                                                    return `<option value="${batch.id}" 
+                                                                data-batch-id="${batch.id}" 
+                                                                data-quantity="${batch.quantity}" 
+                                                                data-expiry-date="${batch.expiry_date}"
+                                                                data-unit_retail="${batch.unit_retail}"
+                                                                data-unit_trade="${batch.unit_trade}">
+                                                            ${batch.batch_no}
+                                                            </option>`;
+                                                }).join('')}` :
+                                                `<option value="">Not Any Batch Found</option>`
+                                            }
+                                        </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="products[${items}][total_quantity]" id="totalquantity${items}" class="form-control" value="${response.product.total_quantity}" readonly>
                                         </td>
                                         <td>
                                             <select id="selectunit_of_measurement${items}" onchange="changeType(${response.product.id},${items})" name="products[${items}][unit_of_measurement]" class="form-control" required>
@@ -284,8 +317,10 @@
                                         </td>
                                         <td>
                                             <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.unit_trade}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit2${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
                                         </td>
+                                        <td>
+                                            <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}"  readonly>
                                         <td>
                                             <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
                                         </td>
@@ -293,14 +328,14 @@
                                             <input type="number" name="products[${items}][total_pack]" value="${response.product.number_of_pack}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][amount]" value="${response.product.unit_trade}" class="form-control" readonly>
+                                            <input type="number" name="products[${items}][amount]" value="${response.product.unit_trade}" id="importamount${items}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${response.product.id})" class="text-danger fa fa-trash"></i>
                                         </td>
 
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][pieces_per_pack]" value="${response.product.pieces_per_pack }">
-                                        <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][price_per_unit_unitonly]" value="${response.product.unit_trade }">
+                                        <input type="hidden" id="discountamount${response.product.id}" class="price_per_unit_unitonly${items}" name="products[${items}][price_per_unit_unitonly]" value="${response.product.unit_trade }">
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][disc_amount]" value="${(response.product.discount_trade_price * response.product.cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${response.product.id}" value="${response.product.trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${items}" name="products[${items}][total_peice_per_pack]" value="${response.product.pieces_per_pack}">
@@ -320,6 +355,31 @@
 
             function removeRaw(id) {
                 $("#" + id).remove();
+            }
+
+            function batchChange(items, id) {
+
+                const select = document.getElementById(`batch${items}`);
+                const selectedOption = select.options[select.selectedIndex];
+
+
+                const batchId = selectedOption.getAttribute('data-batch-id');
+                const quantity = selectedOption.getAttribute('data-quantity');
+                const expiryDate = selectedOption.getAttribute('data-expiry-date');
+                const unitTrade = selectedOption.getAttribute('data-unit_trade');
+                const unitRetail = selectedOption.getAttribute('data-unit_retail');
+
+                $(`#price_per_unit${items}`).val(unitTrade);
+                $(`#price_per_unit2${items}`).val(unitTrade);
+                $(`#discountamount${id}`).val(unitTrade);
+                $(`#importamount${items}`).val(unitTrade);
+                $('.price_per_unit_unitonly'+items).val(unitTrade);
+                // console.log($('.price_per_unit_unitonly'+items).val());
+                $(`#totalquantity${items}`).val(quantity);
+                $(`#expiry_date${items}`).val(expiryDate);
+                // Perform actions with the additional data
+                console.log(`Selected Batch ID: ${batchId}, Quantity: ${quantity}, Expiry Date: ${expiryDate}, unitTrade: ${unitTrade}, unitRetail: ${unitRetail}`);
+
             }
 
             function changeType(id, items) {
@@ -406,7 +466,25 @@
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][total_quantity]" class="form-control" value="${response.product.total_quantity}" readonly>
+                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control">
+                                            ${response.product.batch.length != 0  ?
+                                                `<option value="" selected disabled>Select Batch</option>
+                                                ${response.product.batch.map(batch => {
+                                                    return `<option value="${batch.id}" 
+                                                                data-batch-id="${batch.id}" 
+                                                                data-quantity="${batch.quantity}" 
+                                                                data-expiry-date="${batch.expiry_date}"
+                                                                data-unit_retail="${batch.unit_retail}"
+                                                                data-unit_trade="${batch.unit_trade}">
+                                                            ${batch.batch_no}
+                                                            </option>`;
+                                                }).join('')}` :
+                                                `<option value="">Not Any Batch Found</option>`
+                                            }
+                                        </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="products[${items}][total_quantity]" id="totalquantity${items}" class="form-control" value="${response.product.total_quantity}" readonly>
                                         </td>
                                         <td>
                                             <select id="selectunit_of_measurement${items}" onchange="changeType(${response.product.id},${items})" name="products[${items}][unit_of_measurement]" class="form-control" required>
@@ -417,6 +495,9 @@
                                         <td>
                                             <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.unit_trade}" readonly  class="form-control">
                                             <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}" readonly="">
                                         </td>
                                         <td>
                                             <input type="number" value="${response.total_piece}"  name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">

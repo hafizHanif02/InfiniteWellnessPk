@@ -2,11 +2,12 @@
 
 namespace App\Models\Inventory;
 
-use App\Models\Purchase\GoodReceiveProduct;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Batch;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Purchase\GoodReceiveProduct;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -69,4 +70,10 @@ class Product extends Model
     {
         return $this->hasMany(GoodReceiveProduct::class);
     }
+
+    public function batch(): HasMany
+    {
+        return $this->hasMany(Batch::class)->whereColumn('quantity', '>', 'transfer_quantity');
+    }
+
 }

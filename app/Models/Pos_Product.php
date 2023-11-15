@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\BatchPOS;
 use App\Models\Medicine;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pos_Product extends Model
 {
@@ -15,6 +16,7 @@ class Pos_Product extends Model
         'pos_id',
         'medicine_id',
         'product_name',
+        'batch_id',
         'generic_formula',
         'product_quantity',
         'mrp_perunit',
@@ -31,6 +33,11 @@ class Pos_Product extends Model
     public function medicine(): HasOne
     {
         return $this->HasOne(Medicine::class, 'id', 'medicine_id');
+    }
+
+    public function batchpos(): HasOne
+    {
+        return $this->HasOne(BatchPOS::class, 'id', 'batch_id');
     }
 
     public function label(): BelongsTo

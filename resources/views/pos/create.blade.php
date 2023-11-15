@@ -161,6 +161,7 @@
                                                                     data-brand_name="{{ $medicine->brand->name }}"
                                                                     data-brand_id="{{ $medicine->brand->id }}"
                                                                     data-gst="{{ $medicine->product->sale_tax_percentage }}"
+                                                                    data-batch_pos="{{ json_encode($medicine->batchpos) }}"
                                                                     data-fixed_discount="{{ $medicine->product->fixed_discount }}"
                                                                     data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
                                                                     data-common_side_effect="{{$medicine->product->common_side_effect}}"
@@ -179,6 +180,7 @@
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
                                         <th class="col" style="min-width: 100px; max-width: 100px;">Product</th>
+                                        <th class="col" style="min-width: 130px">Batch No</th>
                                         <th class="col" style="min-width: 130px">Qty OH</th>
                                         <th class="col" style="min-width: 130px">MRP Per Unit</th>
                                         <th class="col" style="min-width: 130px">Qty</th>
@@ -304,6 +306,8 @@
         </div>
     </div>
 
+   
+
     <script>
         function disablemainbutton() {
             $('#proceede_to_pay').attr('disabled', 'true');
@@ -366,6 +370,7 @@
                     },
                     dataType: "json",
                     success: function(response) {
+                        console.log(response);
                         $("#prescription_id").empty();
 
                         if (response.data.length !== 0) {
@@ -375,7 +380,7 @@
                                 (value);
                                 $("#prescription_id").append(
                                     `
-                            <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}"  data-medicines='${JSON.stringify(value.get_medicine)}'>
+                            <option value="${value.id}" data-doctor="${value.doctor.user.full_name}"  data-patient="${value.patient.user.full_name}" data-medicines='${JSON.stringify(value.get_medicine)}'>
                                (${value.patient_opd}) ${value.doctor.user.full_name}" To "${value.patient.user.full_name}
                             </option>`
                                 );
@@ -405,16 +410,32 @@
                 $('#doctor_name').val(selectedDoctorAttr);
 
                 var total = 0;
-                console.log(selectedMedicinesAttr);
                 selectedMedicinesAttr.forEach(function(medicine, items) {
-                    console.log(medicine, items);
+                    console.log(medicine);
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}" data-dricetion_of_use="${medicine.medicine.product.dricetion_of_use}" data-common_side_effect="${medicine.medicine.product.common_side_effect}"></td>
-
                     <td>
-                            <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}"  id="total_quantity${items}" class="form-control">
+                        <select name="products[${items}][batch_id]" id="batch_pos${items}" onchange="ChangeBatch(${items})" class="form-control">
+                                ${medicine.medicine.batchpos.length != 0  ?
+                                                `<option value="" disabled selected>Select Batch</option>
+                                                ${medicine.medicine.batchpos.map(batch => {
+                                                    return `<option value="${batch.id}" 
+                                                                data-batch-id="${batch.id}" 
+                                                                data-quantity_oh="${batch.quantity}" 
+                                                                data-expiry-date="${batch.expiry_date}"
+                                                                data-unit_retail="${batch.unit_retail}"
+                                                                data-price="${batch.unit_trade}">
+                                                            ${batch.batch.batch_no}
+                                                            </option>`;
+                                                }).join('')}` :
+                                                `<option value="">Not Any Batch Found</option>`
+                                            }
+                            </select>
+                    </td>
+                    <td>
+                            <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}" name="products[${items}][total_stock]"  id="total_quantity${items}" class="form-control">
                         </td>
                     <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.product.unit_retail}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
@@ -529,21 +550,24 @@
             var a = tableRow.rows.length;
             $('#medicine' + a).select2();
             $('#medicine-table-body').append(`
+           
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
                             <select style="min-width: 120px; max-width: 120px;" name="products[${a}][product_name]" class="form-control  medicine-select medicine_name${a}" id="medicine${a}"  onchange="SelectMedicine(${a})" class="form-select prescriptionMedicineId">
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->name }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->product->unit_retail }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->product->unit_retail }}>
+                                    <option value="{{ $medicine->name }}" data-batch_pos="{{ json_encode($medicine->batchpos) }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->product->unit_retail }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->product->unit_retail }}>
                                         <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
                             </select>
                         </td>
-
+                        <td> 
+                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="form-control">
+                            </select>
                         <td>
-                            <input type="number"  step="any"readonly value="0"  id="total_quantity${a}" class="form-control">
+                            <input type="number" step="any"readonly value="0" name="products[${a}][total_stock]"  id="total_quantity${a}" class="form-control">
                         </td>
                         <td>
                             <input type="number"  step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
@@ -606,6 +630,25 @@
             // var genericformulatag = document.getElementById('generic_formula' + id);
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
+
+            var batchPosSelect = document.getElementById("batch_pos" +id);
+
+            // Clear previous options
+            batchPosSelect.innerHTML = '<option value="" selected disabled>Select Batch</option>';
+
+            const batchPositions = JSON.parse(selectedOption.getAttribute('data-batch_pos'));
+
+            // console.log('Batches POS Select '+batchPosSelect);
+
+
+
+            if (batchPositions) {
+                batchPositions.forEach(function (batchPos) {
+                    console.log(batchPos);
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.quantity+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                });
+            }
+
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
             const fixedDiscount = selectedOption.getAttribute('data-fixed_discount');
@@ -730,6 +773,7 @@
             //     var totalMedicineAmountwithGst = (parseFloat(gst_amount) + parseFloat(totalMedicineAmount)).toFixed(2);
             gstCalculationTotal();
         }
+
 
         function gstCalculationTotal() {
             var Totalgstamount = 0;
@@ -861,6 +905,20 @@
 
         }
 
+        function ChangeBatch(id){
+            const selectBatch = document.getElementById('batch_pos' + id);
+
+            const selectedOption = selectBatch.options[selectBatch.selectedIndex];
+
+            const total_quantity = selectedOption.getAttribute('data-quantity_oh');
+            const price = selectedOption.getAttribute('data-price');
+
+            console.log(selectedOption);   
+            $('#total_quantity'+id).val(total_quantity);
+            $('#selling_price'+id).val(price);
+            ChnageDosage(id);
+        }
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -879,7 +937,8 @@
             var fixed_discount = $('#search_addbtn' + id).data('fixed_discount');
             var common_side_effect = $('#search_addbtn' + id).data('common_side_effect');
             var dricetion_of_use = $('#search_addbtn' + id).data('dricetion_of_use');
-            // console.log(common_side_effect, dricetion_of_use);
+            var batch_pos = $('#search_addbtn' + id).data('batch_pos');
+            console.log(batch_pos);
 
             $('#medicine-table-body').append(`
             <tr id="medicine-row${a}">
@@ -899,10 +958,29 @@
                         data-fixed_discount="${fixed_discount}"
                         data-common_side_effect="${common_side_effect}"
                         data-dricetion_of_use="${dricetion_of_use}"
+                        data-batch_pos="${batch_pos}"
                         >
                         </td>
+                        <td>
+                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="form-control">
+                                ${batch_pos.length != 0  ?
+                                                `<option value="" selected>Select Batch</option>
+                                                ${batch_pos.map(batch => {
+                                                    return `<option value="${batch.id}" 
+                                                                data-batch-id="${batch.id}" 
+                                                                data-quantity_oh="${batch.quantity}" 
+                                                                data-expiry-date="${batch.expiry_date}"
+                                                                data-unit_retail="${batch.unit_retail}"
+                                                                data-price="${batch.unit_trade}">
+                                                            ${batch.batch.batch_no}
+                                                            </option>`;
+                                                }).join('')}` :
+                                                `<option value="">Not Any Batch Found</option>`
+                                            }
+                            </select>
+                        </td>
 
-                    <td><input id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
+                    <td><inpu name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
@@ -996,7 +1074,8 @@
         );
                 $('.alert').delay(5000).slideUp(300)
                 $('.alert').delay(50000).slideUp(300, function() {
-                    $('.alert').attr('style', 'display:none')
+                    $('.alert').attr('style', 'display:none');
+                    $('#proceede_to_pay').removeAttr('disabled');
                 })
     }
         });

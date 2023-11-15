@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\Pos;
+use App\Models\BatchPOS;
 use App\Models\Medicine;
 use App\Models\PosReturn;
 use Laracasts\Flash\Flash;
@@ -34,8 +35,10 @@ class PosReturnController extends Controller
      */
     public function create()
     {
+        $pos = Pos::with(['PosProduct.medicine','PosProduct.batchpos.batch'])->where('is_paid',1)->get();
+
         return view('pos-return.create',[
-            'poses' => Pos::with('PosProduct.medicine')->where('is_paid',1)->get()
+            'poses' => Pos::with(['PosProduct.medicine','PosProduct.batchpos.batch'])->where('is_paid',1)->get()
         ]);
     }
 
@@ -73,7 +76,7 @@ class PosReturnController extends Controller
                 "product_total_price" => $product['product_total_price'],
             ]);
             Medicine::where('id', $product['medicine_id'])->increment('total_quantity', $product['return_quantity']);
-
+            BatchPOS::where('id', $product['batch_id'])->decrement('sold_quantity', $product['return_quantity']);
             $requistionproductlogs .= '['.$product['medicine_id'].','.$product['return_quantity'].'],'; 
         }
         $requistionproductlogs .= '}';

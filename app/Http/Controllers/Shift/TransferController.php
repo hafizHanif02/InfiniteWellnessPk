@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Shift;
 
 use App\Models\Log;
+use App\Models\Batch;
+use App\Models\BatchPOS;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
@@ -43,7 +45,7 @@ class TransferController extends Controller
     public function create(): View
     {
         return view('shift.transfer.create', [
-            'products' => Product::orderBy('product_name')->get(),
+            'products' => Product::orderBy('product_name')->with('batch')->get(),
             'transfer_id' => Transfer::latest()->pluck('id')->first(),
             'transfers' => Transfer::with('transferProducts.product')->get(),
         ]);
@@ -178,10 +180,10 @@ class TransferController extends Controller
     }
 
 
-    public function products(Product $product): JsonResponse
+    public function products($product): JsonResponse
     {
         return response()->json([
-            'product' => $product,
+            'product' => Product::where('id',$product)->with('batch')->first(),
         ]);
     }
 
@@ -192,7 +194,8 @@ class TransferController extends Controller
         ]);
         $user = Auth::user();
         $requistionproductlogs = 'Transfer No. '.$transfer->id.' Products:{[produc_id, qty],';
-        foreach ($request->products as $product) {
+            foreach ($request->products as $product) {
+
             $transferProduct = TransferProduct::create([
                 'transfer_id' => $transfer->id,
                 'product_id' => $product['id'],
@@ -202,6 +205,45 @@ class TransferController extends Controller
                 'total_pack' => $product['total_pack'],
                 'amount' => $product['amount']
             ]);
+            
+            if($product['batch_no'] != null){
+            $batch = Batch::where('id', $product['batch_no'])->first();
+
+            
+            if($batch->quantity >= $product['total_piece']){
+                Batch::where('id', $product['batch_no'])->update([
+                    'transfer_quantity' => $product['total_piece'],
+                ]);
+                $batchpos = BatchPOS::where('product_id', $product['id'])->where('batch_id', $product['batch_no'])->first();
+
+                if($batchpos){
+                    if($batchpos->batch_id == $batch->id ){
+                        BatchPOS::increment('quantity', $product['total_piece']);
+                    }else{
+                        BatchPOS::create([
+                           'batch_id' => $product['batch_no'],
+                           'product_id'=>$product['id'],
+                           'unit_trade'=>$product['price_per_unit_unitonly'],
+                           'quantity'=>$product['total_piece'],
+                           'expiry_date'=>$batch->expiry_date,
+                           'sold_quantity'=>0,
+                        ]);
+                    }
+                }else{
+                    BatchPOS::create([
+                       'batch_id' => $product['batch_no'],
+                       'product_id'=>$product['id'],
+                       'unit_trade'=>$product['price_per_unit_unitonly'],
+                       'quantity'=>$product['total_piece'],
+                       'expiry_date'=>$batch->expiry_date,
+                       'sold_quantity'=>0,
+                    ]);
+                } 
+            }
+            else{
+                return redirect()->back()->with('success', 'Insufficient Stock!');
+            }
+        }
             $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
         $requistionproductlogs .= '}';
@@ -230,7 +272,7 @@ class TransferController extends Controller
     public function retransfer($transferId)
     {
 
-        $transferProduct = TransferProduct::where('transfer_id', $transferId)->with('product')->get();
+        $transferProduct = TransferProduct::where('transfer_id', $transferId)->with('product.batch')->get();
 
         if (!$transferProduct) {
             return response()->json(['message' => 'Transfer not found'], 404);

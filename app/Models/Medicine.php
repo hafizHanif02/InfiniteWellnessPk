@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\Label;
 use Eloquent as Model;
+use App\Models\BatchPOS;
 use Illuminate\Support\Carbon;
 use App\Models\Inventory\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -131,8 +133,16 @@ class Medicine extends Model
     {
         return $this->belongsTo(Product::class, 'product_id','id');
     }
+
+    
     public function label(): BelongsTo
     {
         return $this->belongsTo(Label::class);
+    }
+
+
+    public function batchpos(): HasMany
+    {
+        return $this->hasMany(BatchPOS::class,'product_id','product_id')->whereColumn('quantity', '>', 'sold_quantity');
     }
 }

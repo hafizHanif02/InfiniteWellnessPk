@@ -12,6 +12,8 @@ use Illuminate\View\View;
 use App\Exports\PosExport;
 use Laracasts\Flash\Flash;
 use App\Models\Pos_Product;
+use App\Models\BatchPOS;
+use App\Rules\ProductQuantityInRange;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
@@ -34,15 +36,21 @@ class PosController extends Controller
 
     public function create(): View
     {
+        // dd(Medicine::with('product','batchpos.batch')->where('product_id',2407)->first());
         return view('pos.create', [
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
-            'medicines' => Medicine::with('product')->get(),
+            'medicines' => Medicine::with('product','batchpos.batch')->get(),
             'patients' => Patient::with('user')->get(),
             'pos_id' => Pos::latest()->pluck('id')->first(),
         ]);
     }
     public function validatePos(Request $request){
-
+        // foreach ($request->products as $product) {
+        //     if ($product['total_stock'] < $product['product_quantity']) {
+        //         return response()->json(['valid' => false, 'message' => 'Insufficient Stock']);
+        //     }
+            
+        // }
         $customMessages = [
             'products.*.medicine_id.required' => 'At least one product is required',
             'products.*.product_quantity.required' => 'At least one product quantity is required',
@@ -50,6 +58,7 @@ class PosController extends Controller
             'products.*.product_quantity.min' => 'Product quantity must be at least one',
         ];
 
+        
 
         $validatedData = $request->validate([
             'patient_name' => ['required', 'string'],
@@ -58,7 +67,7 @@ class PosController extends Controller
             'pos_fees' => ['required', 'numeric'],
             'products' => 'required|array',
             'products.*.medicine_id' => 'required|exists:medicines,id',
-            'products.*.product_quantity' => 'required|numeric|min:1',
+            'products.*.product_quantity' => ['required', 'numeric', new ProductQuantityInRange],
             'total_discount'=> ['nullable','numeric'],
             'total_saletax'=> ['nullable','numeric'],
             'total_amount_ex_saletax'=> ['nullable','numeric'],
@@ -92,7 +101,6 @@ class PosController extends Controller
         $user = Auth::user();
         $requistionproductlogs = 'Pos No.'.$pos->id.' Products:{[medicine_id, qty],';
         foreach ($request->input('products') as $productData) {
-            // dd($productData);
            $pos_product = Pos_Product::create(array_merge($productData, ['pos_id' => $pos->id, 'user_id' => $userId]));
             // Medicine::where('product_id', $productData->product_id)->decrement(
             //     'total_quantity', $transferProduct->total_piece);
@@ -155,7 +163,8 @@ class PosController extends Controller
 
     public function Payment(Request $reqeust, $pos)
     {
-        $Pos_Product = Pos_Product::where('pos_id', $pos)->get();
+        $Pos_Product = Pos_Product::where('pos_id', $pos)->with('batchpos')->get();
+       
         $pos_id = $pos;
 
         $pos = Pos::where('id', $pos)->update([
@@ -166,9 +175,14 @@ class PosController extends Controller
 
         ]);
 
+
+
         foreach ($Pos_Product as $PosProduct) {
             Medicine::where('id', $PosProduct->medicine_id)->decrementEach([
                 'total_quantity' => $PosProduct->product_quantity
+            ]);
+            BatchPOS::where('id', $PosProduct->batchpos->id)->incrementEach([
+                'sold_quantity' => $PosProduct->product_quantity
             ]);
         }
         
@@ -189,7 +203,7 @@ class PosController extends Controller
 
         if (count($getPatientID) > 0) {
             return response()->json([
-                'data' => Prescription::where('patient_id', $getPatientID[0]->id)->with('patient.user', 'getMedicine.medicine.product', 'doctor.user')->get(),
+                'data' => Prescription::where('patient_id', $getPatientID[0]->id)->with('patient.user', 'getMedicine.medicine.product', 'getMedicine.medicine.batchpos.batch', 'doctor.user')->get(),
             ]);
         }
 
@@ -236,8 +250,8 @@ class PosController extends Controller
         }
         return view('pos.edit', [
             'pos' => Pos::where('id',$id)->with(['PosProduct.medicine.product'])->first(),
-            'pos_products' => pos_product::where('pos_id', $id)->with('label')->get(),
-            'medicines' => Medicine::with('product')->get(),
+            'pos_products' => Pos_Product::where('pos_id', $id)->with('label','batchpos.batch')->get(),
+            'medicines' => Medicine::with(['product', 'batchpos.batch'])->get(),
             'patients' => Patient::with('user')->get(),
             'prescriptions' => Prescription::latest()->with(['getMedicine.medicine', 'doctor.user', 'patient.user'])->get(),
         ]);
@@ -254,8 +268,7 @@ class PosController extends Controller
         $requistionproductlogs = 'Pos No. '.$request->pos_id.' Products:{[medicine_id, qty],';
         foreach ($request->input('products') as $productData) {
             Pos_Product::create(array_merge($productData, ['pos_id' => $id]));
-            // dd($productData['medicine_id']);
-            $requistionproductlogs .= '['.$productData['medicine_id'].','.$productData['product_quantity'].'],'; 
+            $requistionproductlogs .= '['.$productData['medicine_id'].','.$productData['product_quantity'].'],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([

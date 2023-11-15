@@ -382,12 +382,6 @@ class ProductController extends Controller
     {
         $products = Product::select(['products.id', 'product_name', 'total_quantity', 'open_quantity'])->get();
 
-        $user = Auth::user();
-        Log::create([
-            'action' => 'All Inventory Has Been Recalculated',
-            'action_by_user_id' => $user->id,
-        ]);
-
         foreach ($products as $product) {
             $stock_in = GoodReceiveProduct::where('product_id', $product->id)
                 ->whereHas('goodReceiveNote', function ($query) {
@@ -422,9 +416,11 @@ class ProductController extends Controller
 
         $user = Auth::user();
         Log::create([
-            'action' => 'Recalculation Has Been Executed ',
+            'action' => 'All Inventory Product Has Been Recalculated',
             'action_by_user_id' => $user->id,
         ]);
+
+        
         return response()->json([
             'success' => true,
             'message' => 'Product recalculation successfully.',
@@ -471,7 +467,7 @@ class ProductController extends Controller
             Log::create([
                 'action' => 'Products Adjustment Has Been Created Product Code:'.$product['product_id'],
                 'action_by_user_id' => $user->id,
-            ]);
+            ]);       
         }
 
         return redirect('/inventory/adjustment')->with('success', 'Adjustment created successfully.');

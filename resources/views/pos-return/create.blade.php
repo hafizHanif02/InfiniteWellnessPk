@@ -68,6 +68,7 @@
                                 <table class="table table-bodered table-medicine" id="able-medicine">
                                     <thead class="bg-dark">
                                         <th class="col">Product</th>
+                                        <th class="col">Batch</th>
                                         <th class="col">Generic Formula</th>
                                         <th class="col">Qty</th>
                                         <th class="col">MRP Per Unit</th>
@@ -122,9 +123,13 @@
                     <input type="hidden" value="${medicine.medicine.id}" name="products[${items}][medicine_id]">
                     <input type="hidden" value="${medicine.id}" name="products[${items}][product_id]">
                     <td><input type="text" class="form-control" value="${medicine.medicine.name}" name="products[${items}][product_name]" readonly ></td>
+                    <td>
+                        <input type="hidden" class="form-control" value="${(medicine.batchpos)?medicine.batchpos.id:''}"  placeholder="" name="products[${items}][batch_id]" readonly >
+                        <input type="text" class="form-control" value="${(medicine.batchpos)?medicine.batchpos.batch.batch_no:''}" readonly >
+                        </td>
                     <td><input type="text" class="form-control" value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]" readonly ></td>
                     <td><input type="number" class="form-control" value="${medicine.product_quantity}" readonly ></td>
-                    <td><input type="number"  class="form-control" value="${medicine.medicine.selling_price}" id="mrp_perunit${items}" readonly ></td>
+                    <td><input type="number"  class="form-control" value="${medicine.mrp_perunit}" id="mrp_perunit${items}" readonly ></td>
                     <td><input type="number"  class="form-control" id="return_quantity${items}" value="0" max=${medicine.product_quantity} onkeyup="chnagequantity(${items})" name="products[${items}][return_quantity]" ></td>
                     <td><input type="number"  class="form-control" id="discount_percentage${items}" value="${medicine.discount_percentage}" name="products[${items}][discount_percentage]" readonly ></td>
                     <td><input type="number"  class="form-control" value="0"  id="product_total_price${items}" name="products[${items}][product_total_price]" readonly >
@@ -202,5 +207,9 @@
         //     doctorInput123.readonly = true;
 
         // });
+    </script>
+    <script>
+        // Use JavaScript to set the value to an empty string
+        document.querySelector('input[name="products[${items}][batch_id]"]').value = '';
     </script>
 @endsection

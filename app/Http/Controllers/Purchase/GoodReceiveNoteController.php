@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
+use App\Models\Batch;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
@@ -50,6 +51,9 @@ class GoodReceiveNoteController extends Controller
 
     public function store(GoodReceiveNoteRequest $request): RedirectResponse
     {
+        
+        
+        // dd($request->products);
         $goodReceiveNote = GoodReceiveNote::create([
             'invoice_number' => $request->invoice_number,
             'requistion_id' => $request->requistion_id,
@@ -65,7 +69,7 @@ class GoodReceiveNoteController extends Controller
         ]);
         $user = Auth::user();
         $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
-        foreach ($request->products as $product) {
+            foreach ($request->products as $product) {
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],
@@ -78,6 +82,22 @@ class GoodReceiveNoteController extends Controller
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
             ]);
+
+            $requistion = RequistionProduct::where(['requistion_id'=> $request->requistion_id, 'product_id' => $product['id']])->with('product')->first();
+
+            // dd($product['batch_no']);
+
+            Batch::create([
+                'batch_no' => $product['batch_no'],
+               'product_id' => $product['id'],
+               'unit_trade' => $requistion->product->unit_trade,
+               'unit_retail' => $requistion->product->unit_retail,
+               'quantity' => $product['deliver_qty'], 
+               'expiry_date' => $product['expiry_date'],
+            'transfer_quantity' => 0
+            ]);
+        
+
             $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
         }
         $requistionproductlogs .= '}';
