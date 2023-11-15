@@ -93,6 +93,7 @@ class GoodReceiveNoteController extends Controller
                'unit_trade' => $requistion->product->unit_trade,
                'unit_retail' => $requistion->product->unit_retail,
                'quantity' => $product['deliver_qty'], 
+               'remaining_qty' => $product['deliver_qty'], 
                'expiry_date' => $product['expiry_date'],
             'transfer_quantity' => 0
             ]);

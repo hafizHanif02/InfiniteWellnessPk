@@ -296,6 +296,7 @@
                                                     return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
+                                                                data-remaining_qty="${batch.remaining_qty}" 
                                                                 data-expiry-date="${batch.expiry_date}"
                                                                 data-unit_retail="${batch.unit_retail}"
                                                                 data-unit_trade="${batch.unit_trade}">
@@ -365,6 +366,7 @@
 
                 const batchId = selectedOption.getAttribute('data-batch-id');
                 const quantity = selectedOption.getAttribute('data-quantity');
+                const remaining_qty = selectedOption.getAttribute('data-remaining_qty');
                 const expiryDate = selectedOption.getAttribute('data-expiry-date');
                 const unitTrade = selectedOption.getAttribute('data-unit_trade');
                 const unitRetail = selectedOption.getAttribute('data-unit_retail');
@@ -375,10 +377,10 @@
                 $(`#importamount${items}`).val(unitTrade);
                 $('.price_per_unit_unitonly'+items).val(unitTrade);
                 // console.log($('.price_per_unit_unitonly'+items).val());
-                $(`#totalquantity${items}`).val(quantity);
+                $(`#totalquantity${items}`).val(remaining_qty);
                 $(`#expiry_date${items}`).val(expiryDate);
                 // Perform actions with the additional data
-                console.log(`Selected Batch ID: ${batchId}, Quantity: ${quantity}, Expiry Date: ${expiryDate}, unitTrade: ${unitTrade}, unitRetail: ${unitRetail}`);
+                console.log(`Selected Batch ID: ${batchId}, Quantity: ${quantity}, Remaining Quantity: ${remaining_qty}, Expiry Date: ${expiryDate}, unitTrade: ${unitTrade}, unitRetail: ${unitRetail}`);
 
             }
 
@@ -473,6 +475,7 @@
                                                     return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
+                                                                data-remaining_qty="${batch.remaining_qty}" 
                                                                 data-expiry-date="${batch.expiry_date}"
                                                                 data-unit_retail="${batch.unit_retail}"
                                                                 data-unit_trade="${batch.unit_trade}">

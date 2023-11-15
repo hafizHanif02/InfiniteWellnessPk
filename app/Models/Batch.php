@@ -16,6 +16,7 @@ class Batch extends Model
         'unit_retail',
         'quantity',
         'transfer_quantity',
+        'remaining_qty',
         'expiry_date'
     ];
 }

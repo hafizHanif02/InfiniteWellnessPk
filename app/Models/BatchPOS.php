@@ -17,6 +17,7 @@ class BatchPOS extends Model
         'unit_trade',
         'quantity',
         'sold_quantity',
+        'remaining_qty',
         'expiry_date',
     ];
 

@@ -182,7 +182,10 @@ class PosController extends Controller
                 'total_quantity' => $PosProduct->product_quantity
             ]);
             BatchPOS::where('id', $PosProduct->batchpos->id)->incrementEach([
-                'sold_quantity' => $PosProduct->product_quantity
+                'sold_quantity' => $PosProduct->product_quantity,
+            ]);
+            BatchPOS::where('id', $PosProduct->batchpos->id)->update([
+                'remaining_qty' => $PosProduct->batchpos->remaining_qty - $PosProduct->product_quantity
             ]);
         }
         

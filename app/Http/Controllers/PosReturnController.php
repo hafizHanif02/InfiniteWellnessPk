@@ -10,6 +10,7 @@ use App\Models\PosReturn;
 use Laracasts\Flash\Flash;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,9 @@ class PosReturnController extends Controller
             Medicine::where('id', $product['medicine_id'])->increment('total_quantity', $product['return_quantity']);
             if($product['batch_id']){
                 BatchPOS::where('id', $product['batch_id'])->decrement('sold_quantity', $product['return_quantity']);
+                BatchPOS::where('id', $product['batch_id'])->update([
+                    'remaining_qty' => DB::raw('remaining_qty +' . $product['return_quantity'])
+                ]);
                 $requistionproductlogs .= '['.$product['medicine_id'].','.$product['return_quantity'].'],'; 
             }
         }

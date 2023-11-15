@@ -423,7 +423,8 @@
                                                 ${medicine.medicine.batchpos.map(batch => {
                                                     return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
-                                                                data-quantity_oh="${batch.quantity}" 
+                                                                data-quantity_oh="${batch.remaining_qty}"
+                                                                data-remaining_qty="${batch.remaining_qty}"
                                                                 data-expiry-date="${batch.expiry_date}"
                                                                 data-unit_retail="${batch.unit_retail}"
                                                                 data-price="${batch.unit_trade}">
@@ -645,7 +646,7 @@
             if (batchPositions) {
                 batchPositions.forEach(function (batchPos) {
                     console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.quantity+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
                 });
             }
 
@@ -968,7 +969,8 @@
                                                 ${batch_pos.map(batch => {
                                                     return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
-                                                                data-quantity_oh="${batch.quantity}" 
+                                                                data-quantity_oh="${batch.remaining_qty}" 
+                                                                data-remaining_qty="${batch.remaining_qty}"
                                                                 data-expiry-date="${batch.expiry_date}"
                                                                 data-unit_retail="${batch.unit_retail}"
                                                                 data-price="${batch.unit_trade}">
@@ -980,7 +982,7 @@
                             </select>
                         </td>
 
-                    <td><inpu name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
+                    <td><input name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
@@ -1073,7 +1075,7 @@
                     `
         );
                 $('.alert').delay(5000).slideUp(300)
-                $('.alert').delay(50000).slideUp(300, function() {
+                $('.alert').delay(5000).slideUp(300, function() {
                     $('.alert').attr('style', 'display:none');
                     $('#proceede_to_pay').removeAttr('disabled');
                 })

@@ -152,16 +152,18 @@ class TransferController extends Controller
         foreach ($request->products as $key => $product) {
             $p_id = $product['id'];
             $inventoryProduct = Product::find($p_id);
+            $batch = Batch::where('id',$product['batch_no'])->first();
 
             if (!$inventoryProduct) {
                 $validationErrors['products.' . $key . '.id'] = 'Product not found';
             } else {
                 $max_qty = $inventoryProduct->total_quantity;
+                $remaining_qty = $batch->remaining_qty;
 
                 $productValidator = Validator::make($product, [
                     'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
                     'price_per_unit' => ['required', 'numeric'],
-                    'total_piece' => ['required', 'integer', 'min:1', "max:$max_qty"],
+                    'total_piece' => ['required', 'integer', 'min:1', "max:$remaining_qty"],
                     'total_pack' => ['required', 'integer'],
                     'amount' => ['required', 'numeric'],
                 ]);
@@ -212,19 +214,22 @@ class TransferController extends Controller
             
             if($batch->quantity >= $product['total_piece']){
                 Batch::where('id', $product['batch_no'])->update([
-                    'transfer_quantity' => $product['total_piece'],
+                    'transfer_quantity' => $batch->transfer_quantity + $product['total_piece'],
+                    'remaining_qty' => $batch->remaining_qty - $product['total_piece'],
                 ]);
                 $batchpos = BatchPOS::where('product_id', $product['id'])->where('batch_id', $product['batch_no'])->first();
 
                 if($batchpos){
                     if($batchpos->batch_id == $batch->id ){
                         BatchPOS::increment('quantity', $product['total_piece']);
+                        BatchPOS::increment('remaining_qty', $product['total_piece']);
                     }else{
                         BatchPOS::create([
                            'batch_id' => $product['batch_no'],
                            'product_id'=>$product['id'],
                            'unit_trade'=>$product['price_per_unit_unitonly'],
                            'quantity'=>$product['total_piece'],
+                           'remaining_qty'=>$product['total_piece'],
                            'expiry_date'=>$batch->expiry_date,
                            'sold_quantity'=>0,
                         ]);
@@ -235,6 +240,7 @@ class TransferController extends Controller
                        'product_id'=>$product['id'],
                        'unit_trade'=>$product['price_per_unit_unitonly'],
                        'quantity'=>$product['total_piece'],
+                       'remaining_qty'=>$product['total_piece'],
                        'expiry_date'=>$batch->expiry_date,
                        'sold_quantity'=>0,
                     ]);

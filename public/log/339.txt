@@ -1,0 +1,1 @@
+GRN No. 6343 Products:{[produc_id, qty],[1085,40],}
