@@ -186,13 +186,26 @@
                                             <input type="text" class="form-control" value="${products[i].product_name}" readonly>
                                         </td>
                                         <td>
-                                            <select name="products[${i}][batch]" class="form-control">
-                                                <option value="" selected>Select Batch</option>
-                                                <option value="${products[i].batch}">${products[i].batch}</option>
-                                            </select>
+                                            <select onchange="batchChange(${i},${products[i].id})" id="batch${i}" name="products[${i}][batch_no]" class="form-control">
+                                            ${products[i].batch.length != 0  ?
+                                                `<option value="" selected disabled>Select Batch</option>
+                                                ${products[i].batch.map(batch => {
+                                                    return `<option value="${batch.id}" 
+                                                                data-batch-id="${batch.id}" 
+                                                                data-quantity="${batch.quantity}" 
+                                                                data-remaining_qty="${batch.remaining_qty}" 
+                                                                data-expiry-date="${batch.expiry_date}"
+                                                                data-unit_retail="${batch.unit_retail}"
+                                                                data-unit_trade="${batch.unit_trade}">
+                                                            ${batch.batch_no}
+                                                            </option>`;
+                                                }).join('')}` :
+                                                `<option value="">Not Any Batch Found</option>`
+                                            }
+                                        </select>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${i}][total_quantity]" class="form-control" value="${products[i].total_quantity}" readonly>
+                                            <input type="text" name="products[${i}][total_quantity]" id="totalquantity${i}" class="form-control" value="${products[i].total_quantity}" readonly>
                                         </td>
                                         <td>
                                             <select id="selectunit_of_measurement${i}" onchange="changeType(${products[i].id},${i})" name="products[${i}][unit_of_measurement]" class="form-control" required>
@@ -205,7 +218,9 @@
                                             <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
                                         </td>
                                         <td>
-                                            <input type="number" value="${key.quantity}" id="totalpeice${i}" min="1" max="${products[i].total_quantity}" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                            <input type="text" name="products[${i}][expiry_date]" class="form-control" id="expiry_date${i}"  readonly>
+                                        <td>
+                                            <input type="number" value="1" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>

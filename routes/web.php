@@ -105,6 +105,7 @@ use App\Http\Controllers\IpdPatientDepartmentController;
 use App\Http\Controllers\OpdPatientDepartmentController;
 use App\Http\Controllers\PatientDiagnosisTestController;
 use App\Http\Controllers\IpdConsultantRegisterController;
+use App\Http\Controllers\Purchase\GoodReceiveNoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -1362,3 +1363,6 @@ Route::get('/set-language', [Web\WebController::class, 'setLanguage'])->name('se
 Route::get('get_opd_data_by_pataint_id/{pataientID}', [OpdPatientDepartmentController::class, 'getOpdData']);
 Route::get('get_opd_doc_by_opd/{opdNumber}', [OpdPatientDepartmentController::class, 'getOpdDataDocName']);
 require __DIR__.'/upgrade.php';
+
+
+Route::get('createBatch',[GoodReceiveNoteController::class,'createBatch']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Purchase;
 use App\Models\Log;
 use App\Models\Batch;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
 use Illuminate\Http\JsonResponse;
@@ -247,6 +248,29 @@ class GoodReceiveNoteController extends Controller
 
         // Validation succeeded
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
+    }
+
+    public function createBatch()
+    {
+        $GRNProducts = GoodReceiveProduct::all();
+
+        foreach( $GRNProducts as $GRNProduct )
+        {
+            // $batchNumber = $GRNProduct->batch_number ?? Str::random(10);
+            $batchNumber = $GRNProduct->batch_number ?? strtoupper(Str::random(3) . Str::random(3, '1234567890'));
+            Batch::create([
+            'batch_no' => $batchNumber,
+            'product_id' => $GRNProduct->product_id,
+            'unit_trade' => $GRNProduct->item_amount,
+            'unit_retail' => $GRNProduct->product->unit_retail,
+            'quantity' => $GRNProduct->deliver_qty, 
+            'remaining_qty' => $GRNProduct->deliver_qty, 
+            'expiry_date' => $GRNProduct->expiry_date,
+            'transfer_quantity' => 0
+            ]);
+        }
+
+        return "Done !";
     }
 
 }
