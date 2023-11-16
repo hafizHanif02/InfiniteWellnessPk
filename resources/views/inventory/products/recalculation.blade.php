@@ -13,9 +13,9 @@
                 <table id="table" style="display: none" class="table table-bordered text-center table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th class="text-dark">#</th>
-                            <th class="text-dark">Name</th>
-                            <th class="text-dark">Total Qty</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Total Qty</th>
                         </tr>
                     </thead>
                     <tbody id="ajax-data"></tbody>

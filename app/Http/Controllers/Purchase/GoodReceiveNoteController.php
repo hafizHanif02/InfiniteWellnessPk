@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
 use App\Models\Batch;
+use App\Models\BatchPOS;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,12 +15,12 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
-use App\Models\Shift\TransferProduct;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -274,34 +275,92 @@ class GoodReceiveNoteController extends Controller
 
         return "Done !";
     }
+    public function createBatchPOS()
+    {
+        $transfers = Transfer::with('transferProducts.product')->get();
+        foreach ($transfers as $transfer) {
+            foreach ($transfer->transferProducts as $transferProduct) {
+                $batch = $transferProduct->product->batch->first();
+                    BatchPOS::create([
+                        'batch_id' => $batch->id,
+                        'product_id' => $transferProduct->product_id,
+                        'unit_trade' => $transferProduct->product->unit_trade,
+                        'unit_retail' => $transferProduct->product->unit_retail,
+                        'quantity' => $transferProduct->total_piece, 
+                        'sold_quantity' => 0,
+                        'remaining_qty' => $transferProduct->total_piece,
+                        'expiry_date' => $batch->expiry_date,
+                    ]);
+            }
+        }
+        
+
+        return "Done !";
+    }
+
+    // public function transferBatch()
+    // {
+    //     $transfers = Transfer::where('status', 1)->get();
+    //     foreach($transfers as $transfer)
+    //     {
+    //         $transferProduct = TransferProduct::where('transfer_id', $transfer->id)->get();
+    //         foreach($transferProduct as $product)
+    //         {
+    //             $batches = Batch::where('product_id', $product->product_id)->where('remaining_qty', "!=" , 0)->get();
+    //             if(count($batches) > 0){
+    //                 foreach($batches as $batch)
+    //                 {
+    //                     if($product->total_piece <= $batch->remaining_qty)
+    //                     {
+    //                         Batch::where('id', $batch->id)->update([
+    //                             'transfer_quantity' => $batch->transfer_quantity + $product->total_piece,
+    //                             'remaining_qty' => $batch->remaining_qty - $product->total_piece,
+    //                         ]);
+    //                     }
+    //                 }
+    //             }else{
+    //                 return $batches;
+    //             }
+    //         }
+    //     }
+
+    //     return $transfer;
+    // }
 
     public function transferBatch()
     {
         $transfers = Transfer::where('status', 1)->get();
-        foreach($transfers as $transfer)
-        {
-            $transferProduct = TransferProduct::where('transfer_id', $transfer->id)->get();
-            foreach($transferProduct as $product)
-            {
-                $batches = Batch::where('product_id', $product->product_id)->where('remaining_qty', "!=" , 0)->get();
-                if(count($batches) > 0){
-                    foreach($batches as $batch)
-                    {
-                        if($product->total_piece <= $batch->remaining_qty)
-                        {
-                            Batch::where('id', $batch->id)->update([
-                                'transfer_quantity' => $batch->transfer_quantity + $product->total_piece,
-                                'remaining_qty' => $batch->remaining_qty - $product->total_piece,
-                            ]);
-                        }
-                    }
-                }else{
-                    return $batches;
+    
+        foreach ($transfers as $transfer) {
+            $transferProducts = TransferProduct::where('transfer_id', $transfer->id)->get();
+    
+            foreach ($transferProducts as $product) {
+                $batches = Batch::where('product_id', $product->product_id)
+                                ->where('remaining_qty', '>', 0)
+                                ->get();
+    
+                $quantityToTransfer = $product->total_piece;
+    
+                foreach ($batches as $batch) {
+                    // Distribute the transfer quantity among batches, updating each batch
+                    $currentTransferQuantity = min($quantityToTransfer, $batch->remaining_qty);
+    
+                    Batch::where('id', $batch->id)->update([
+                        'transfer_quantity' => $batch->transfer_quantity + $currentTransferQuantity,
+                        'remaining_qty' => $batch->remaining_qty - $currentTransferQuantity,
+                    ]);
+    
+                    $quantityToTransfer -= $currentTransferQuantity;
                 }
+    
+                // Update the product quantity with the total transfer quantity
+                $product->total_piece -= $product->total_piece - $quantityToTransfer;
             }
         }
-
-        return $transfer;
+    
+        return $transfers;
     }
+    
+
 
 }
