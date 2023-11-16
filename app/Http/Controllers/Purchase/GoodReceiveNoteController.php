@@ -282,11 +282,11 @@ class GoodReceiveNoteController extends Controller
         foreach ($transfers as $transfer) {
             foreach ($transfer->transferProducts as $transferProduct) {
                 if($transferProduct->product->batch){
-                    $batchs = Batch::where('product_id', $transferProduct->product->id)->get();
-                    foreach($batchs as $batch){
+                    $batch = Batch::where('product_id', $transferProduct->product->id)->first();
+                    // foreach($batchs as $batch){
                         $batch_id = BatchPOS::where('batch_id', $batch->id)->first();
                         // dd($batch_id);
-                        if(!$batch_id){
+                        // if(!$batch_id){
                             BatchPOS::create([
                                 'batch_id' => $batch->id,
                                 'product_id' => $transferProduct->product_id,
@@ -297,8 +297,8 @@ class GoodReceiveNoteController extends Controller
                                 'remaining_qty' => $transferProduct->total_piece,
                                 'expiry_date' => $batch->expiry_date,
                             ]);
-                        }
-                    }
+                        // }
+                    // }
                 }
             }
         }

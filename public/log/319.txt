@@ -1,1 +1,1 @@
-Transfer No. 1106 Products:{[produc_id, qty],[1085,10],}
+Pos No.1326 Products:{[medicine_id, qty],[1220,5],}
