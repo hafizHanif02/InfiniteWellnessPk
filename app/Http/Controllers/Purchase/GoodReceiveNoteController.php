@@ -21,6 +21,7 @@ use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
+use Illuminate\Validation\Rules\Exists;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -277,20 +278,28 @@ class GoodReceiveNoteController extends Controller
     }
     public function createBatchPOS()
     {
-        $transfers = Transfer::with('transferProducts.product')->get();
+        $transfers = Transfer::with('transferProducts.product')->where('status', 1)->get();
         foreach ($transfers as $transfer) {
             foreach ($transfer->transferProducts as $transferProduct) {
-                $batch = $transferProduct->product->batch->first();
-                    BatchPOS::create([
-                        'batch_id' => $batch->id,
-                        'product_id' => $transferProduct->product_id,
-                        'unit_trade' => $transferProduct->product->unit_trade,
-                        'unit_retail' => $transferProduct->product->unit_retail,
-                        'quantity' => $transferProduct->total_piece, 
-                        'sold_quantity' => 0,
-                        'remaining_qty' => $transferProduct->total_piece,
-                        'expiry_date' => $batch->expiry_date,
-                    ]);
+                if($transferProduct->product->batch){
+                    $batchs = Batch::where('product_id', $transferProduct->product->id)->get();
+                    foreach($batchs as $batch){
+                        $batch_id = BatchPOS::where('batch_id', $batch->id)->first();
+                        // dd($batch_id);
+                        if(!$batch_id){
+                            BatchPOS::create([
+                                'batch_id' => $batch->id,
+                                'product_id' => $transferProduct->product_id,
+                                'unit_trade' => $transferProduct->product->unit_trade,
+                                'unit_retail' => $transferProduct->product->unit_retail,
+                                'quantity' => $transferProduct->total_piece, 
+                                'sold_quantity' => 0,
+                                'remaining_qty' => $transferProduct->total_piece,
+                                'expiry_date' => $batch->expiry_date,
+                            ]);
+                        }
+                    }
+                }
             }
         }
         
