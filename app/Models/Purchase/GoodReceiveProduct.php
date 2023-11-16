@@ -25,6 +25,7 @@ class GoodReceiveProduct extends Model
         'discount',
         'saletax_percentage',
         'saletax_amount',
+        'batch_id',
     ];
 
     public function product(): BelongsTo

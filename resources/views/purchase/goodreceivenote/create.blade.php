@@ -99,6 +99,7 @@
                                         <td style="min-width: 150px">SaleTax Amount</td>
                                         <td style="min-width: 150px">Bonus</td>
                                         <td style="min-width: 150px">Exp Date</td>
+                                        <td style="min-width: 150px">Batch ID</td>
                                         <td style="min-width: 150px">Batch No.</td>
                                         <td style="min-width: 150px">Price Per Unit</td>
                                         <td style="min-width: 150px">Amount</td>

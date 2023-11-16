@@ -283,7 +283,6 @@ class TransferController extends Controller
         if (!$transferProduct) {
             return response()->json(['message' => 'Transfer not found'], 404);
         }
-        //  dd($transferProduct);
 
         return response()->json($transferProduct);
     }
