@@ -1366,3 +1366,4 @@ require __DIR__.'/upgrade.php';
 
 
 Route::get('createBatch',[GoodReceiveNoteController::class,'createBatch']);
+Route::get('transferBatch',[GoodReceiveNoteController::class,'transferBatch']);

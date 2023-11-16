@@ -7,6 +7,7 @@ use App\Models\Batch;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Shift\Transfer;
 use App\Models\Inventory\Vendor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
+use App\Models\Shift\TransferProduct;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -271,6 +273,35 @@ class GoodReceiveNoteController extends Controller
         }
 
         return "Done !";
+    }
+
+    public function transferBatch()
+    {
+        $transfers = Transfer::where('status', 1)->get();
+        foreach($transfers as $transfer)
+        {
+            $transferProduct = TransferProduct::where('transfer_id', $transfer->id)->get();
+            foreach($transferProduct as $product)
+            {
+                $batches = Batch::where('product_id', $product->product_id)->where('remaining_qty', "!=" , 0)->get();
+                if(count($batches) > 0){
+                    foreach($batches as $batch)
+                    {
+                        if($product->total_piece <= $batch->remaining_qty)
+                        {
+                            Batch::where('id', $batch->id)->update([
+                                'transfer_quantity' => $batch->transfer_quantity + $product->total_piece,
+                                'remaining_qty' => $batch->remaining_qty - $product->total_piece,
+                            ]);
+                        }
+                    }
+                }else{
+                    return $batches;
+                }
+            }
+        }
+
+        return $transfer;
     }
 
 }
