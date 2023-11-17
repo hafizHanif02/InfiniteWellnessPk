@@ -1,1 +1,1 @@
-Transfer No:1107 Products:{[produc_id, qty],[1085,5],}
+Purchase Return GRN No:6348 Products:{[produc_id, qty],[1405,1],[1407,1],[1599,1],[2357,1],}

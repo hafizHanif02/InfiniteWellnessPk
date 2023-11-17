@@ -48,6 +48,7 @@ class PurchaseReturnNoteController extends Controller
                 'quantity' => $product['quantity'],
                 'price' => $product['price'],
             ]);
+
             $requistionproductlogs .= '['.$product['id'].','.$product['quantity'].'],'; 
         }
         $requistionproductlogs .= '}';
