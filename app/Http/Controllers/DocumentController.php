@@ -78,11 +78,11 @@ class DocumentController extends AppBaseController
         }
     }
 
-    /**                                         
+    /**
      * Update the specified Document in storage.
-     *                                          
-     * @return JsonResponse                     
-     */                                          
+     *
+     * @return JsonResponse
+     */
     public function update(Document $document, UpdateDocumentRequest $request)
     {
         $this->documentRepository->updateDocument($request->all(), $document->id);
