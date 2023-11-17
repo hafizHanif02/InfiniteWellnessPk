@@ -203,12 +203,12 @@ class GoodReceiveNoteController extends Controller
     {
 
         // $goodreceiveproduct = GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('product')->get();
-
-        // $totalproductamount = 0;
-        // foreach ($goodreceiveproduct as $product) {
-        //     $totalproductamount += $product->item_amount;
-        // }
-        //requistion_id
+                                                                                                                                 
+        // $totalproductamount = 0;                                                                                              
+        // foreach ($goodreceiveproduct as $product) {                                                                           
+        //     $totalproductamount += $product->item_amount;                                                                     
+        // }                                                                                                                     
+        //requistion_id                                                                                                           
         $grn = GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first();
         $rec = Requistion::where('id', $grn->requistion_id)->first();
         $manuFacname = DB::table('manufacturers')->where('id', $rec->manufacturer_id )->first();

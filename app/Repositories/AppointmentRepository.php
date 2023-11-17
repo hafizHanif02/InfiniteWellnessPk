@@ -446,7 +446,7 @@ class AppointmentRepository extends BaseRepository
 
     public function getDepartmentDoctorList($id): array
     {
-        $doctors = Doctor::where('doctor_department_id', $id)->with('doctorUser')->orderBy('id',
+        $doctors = Doctor::where('department_id', $id)->with('doctorUser')->orderBy('id',
             'desc')->get()->where('doctorUser.status', '=',
                 1);
 
