@@ -137,7 +137,7 @@
         </td>
     </tr>
     <tr>
-        <td></td>
+        <td style="width: 30%"></td>
         <td>
             <table class="bill-footer">
                 <tr>
