@@ -31,7 +31,7 @@ class PurchaseReturnStatusController extends Controller
 
     public function update(PurchaseReturnStatusRequest $request, PurchaseReturnNote $purchaseReturnStatus): RedirectResponse
     {
-        // dd($purchaseReturnStatus);
+        dd($request);
         if ($request->status == 1) {
             Product::where('id', $purchaseReturnStatus->product_id)->decrement(
                 'total_quantity', $purchaseReturnStatus->quantity
