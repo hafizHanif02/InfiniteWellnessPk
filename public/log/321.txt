@@ -1,1 +1,1 @@
-GRN No. 6350 Products:{[produc_id, qty],[1495,10],[1496,10],[2372,6],}
+Pos No.1327 Products:{[medicine_id, qty],[43,250],}
