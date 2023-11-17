@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
-use App\Models\Pos;
 use App\Models\Batch;
 use App\Models\BatchPOS;
 use Illuminate\View\View;
@@ -18,12 +17,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules\Exists;
 use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
-use App\Models\Inventory\Product;
+use Illuminate\Validation\Rules\Exists;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -58,8 +56,8 @@ class GoodReceiveNoteController extends Controller
 
     public function store(GoodReceiveNoteRequest $request): RedirectResponse
     {
-        
-        
+
+
         // dd($request->products);
         $goodReceiveNote = GoodReceiveNote::create([
             'invoice_number' => $request->invoice_number,
@@ -88,6 +86,7 @@ class GoodReceiveNoteController extends Controller
                    'expiry_date' => $product['expiry_date'],
                 'transfer_quantity' => 0
               ]);
+
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],
@@ -105,7 +104,7 @@ class GoodReceiveNoteController extends Controller
 
             // dd($product['batch_no']);
 
-        
+
 
             $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
         }
@@ -342,69 +341,37 @@ class GoodReceiveNoteController extends Controller
     public function transferBatch()
     {
         $transfers = Transfer::where('status', 1)->get();
-    
+
         foreach ($transfers as $transfer) {
             $transferProducts = TransferProduct::where('transfer_id', $transfer->id)->get();
-    
+
             foreach ($transferProducts as $product) {
                 $batches = Batch::where('product_id', $product->product_id)
                                 ->where('remaining_qty', '>', 0)
                                 ->get();
-    
+
                 $quantityToTransfer = $product->total_piece;
-    
+
                 foreach ($batches as $batch) {
                     // Distribute the transfer quantity among batches, updating each batch
                     $currentTransferQuantity = min($quantityToTransfer, $batch->remaining_qty);
-    
+
                     Batch::where('id', $batch->id)->update([
                         'transfer_quantity' => $batch->transfer_quantity + $currentTransferQuantity,
                         'remaining_qty' => $batch->remaining_qty - $currentTransferQuantity,
                     ]);
-    
+
                     $quantityToTransfer -= $currentTransferQuantity;
                 }
-    
+
                 // Update the product quantity with the total transfer quantity
                 $product->total_piece -= $product->total_piece - $quantityToTransfer;
             }
         }
-    
+
         return $transfers;
     }
 
-    public function PosProduct()
-    {
-        $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
-    
-        foreach ($poses as $pos) {
-            foreach ($pos->PosProduct as $product) {
-                $remainingQuantity = $product->product_quantity;
-    
-                $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
-                ->orderByDesc('created_at') 
-                ->get();
-
-                foreach ($batchPosList as $batchPos) {
-                    $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
-
-                    // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
-                    $batchPos->update([
-                        'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
-                        'sold_quantity' => $batchPos->sold_quantity + $quantityToUpdate,
-                    ]);
-    
-                    $remainingQuantity -= $quantityToUpdate;
-                    if ($remainingQuantity == 0) {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    
-
-    
 
 
 }
