@@ -31,23 +31,35 @@ class PurchaseReturnStatusController extends Controller
 
     public function update(PurchaseReturnStatusRequest $request, PurchaseReturnNote $purchaseReturnStatus): RedirectResponse
     {
-        dd($request);
         if ($request->status == 1) {
             Product::where('id', $purchaseReturnStatus->product_id)->decrement(
                 'total_quantity', $purchaseReturnStatus->quantity
             );
         }
-
-        $batches_id = GoodReceiveProduct::where('batch_id', $purchaseReturnStatus->batch_id)->get()->pluck('batch_id');
-        // dd(($batches_id));
-        foreach ($batches_id as $batch_id) {
-            // Use isset to check if $batch_id exists
-            if (isset($batch_id)) {
-                Batch::where('id', $batch_id)->decrement([
-                    'quantity' => $purchaseReturnStatus->quantity,
-                ]);
-            }
+        $goodreceiveproductbatch_id = GoodReceiveProduct::where('good_receive_note_id', $purchaseReturnStatus->good_receive_note_id)
+        ->where('product_id', $purchaseReturnStatus->product_id)
+        ->pluck('batch_id')
+        ->first();
+    
+    if (isset($goodreceiveproductbatch_id)) {
+        $quantity = Batch::where('id', $goodreceiveproductbatch_id)->value('quantity');
+        $transfer_qty = Batch::where('id', $goodreceiveproductbatch_id)->value('transfer_quantity');
+        $remaining_qty = $quantity - $transfer_qty;
+        $product_qty = Product::where('id', $purchaseReturnStatus->product_id)->value('total_quantity');
+        $quantity = $product_qty - $remaining_qty;
+    
+        
+    
+        if ($remaining_qty > 0 ) {
+            Batch::where('id', $goodreceiveproductbatch_id)->decrementEach([
+                'quantity' => $remaining_qty,
+                'remaining_qty' => $remaining_qty,
+            ]);
+        } else {
+            return redirect()->route('purchase.purchase-return-status.index')->with('success', 'Stock Is Insufficient!');
         }
+    }
+        // }
         
         $purchaseReturnStatus->update([
             'status' => $request->status,

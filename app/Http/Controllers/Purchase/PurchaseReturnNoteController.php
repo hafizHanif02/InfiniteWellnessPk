@@ -26,14 +26,14 @@ class PurchaseReturnNoteController extends Controller
     public function create(): View
     {
         return view('purchase.purchasereturn.create', [
-            'goodReceiveNotes' => GoodReceiveNote::latest()->get(['id']),
+            'goodReceiveNotes' => GoodReceiveNote::with('goodReceiveProducts.batch')->latest()->get(['id']),
         ]);
     }
 
     public function returnProductList(int $goodReceiveNoteId): JsonResponse
     {
         return response()->json([
-            'products' => GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNoteId)->with(['product','goodReceiveNote'])->get(),
+            'products' => GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNoteId)->with(['product','goodReceiveNote','batch'])->get(),
         ]);
     }
 

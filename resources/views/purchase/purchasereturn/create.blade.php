@@ -49,6 +49,7 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <td>Product</td>
+                                        <td>Batch</td>
                                         <td>Purchase Qty</td>
                                         <td>Limit</td>
                                         <td>Qty</td>
@@ -114,6 +115,9 @@
                                             <input type="text" class="form-control" value="${value.product.product_name}" readonly>
                                         </td>
                                         <td>
+                                            <input type="text" name="products[${items}][batch]"  class="form-control" value="${(value.batch)?value.batch.batch_no: ''}" readonly>
+                                        </td>
+                                        <td>
                                             <input type="text" name="products[${items}][remaining_quantity]" id="remaining_quantity${value.product.id}" class="form-control" value="${value.deliver_qty}" readonly>
                                         </td>
                                         <td>
@@ -123,8 +127,8 @@
                                             <input type="text" name="products[${items}][quantity]"  min="1" value="1" id="minusquantity${value.product.id}" max="${value.deliver_qty}" value="${value.good_receive_note.deliver_qty}" name="quantity[${items}]" onkeyup="changeQuantity(${value.product.id},${items})" class="form-control" required>
                                         </td>
                                         <td>
-                                            <input type="number"  value="${value.product.total_quantity}" id="leftedquantity${value.product.id}"  class="form-control" readonly> 
-                                            <input type="hidden"  value="${value.product.total_quantity}" id="leftedquantity2${value.product.id}"  class="form-control" readonly>
+                                            <input type="number"  value="${(value.batch)?value.batch.remaining_qty:0}" id="leftedquantity${value.product.id}"  class="form-control" readonly> 
+                                            <input type="hidden"  value="${(value.batch)?value.batch.remaining_qty:0}" id="leftedquantity2${value.product.id}"  class="form-control" readonly>
                                         </td>
                                         <td>
                                             <input type="number" name="products[${items}][purchase_rate]" id="purchase_rate${value.product.id}" value="${(value.product.cost_price)}" class="form-control" readonly>    

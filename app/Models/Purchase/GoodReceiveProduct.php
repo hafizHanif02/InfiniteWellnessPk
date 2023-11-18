@@ -2,6 +2,7 @@
 
 namespace App\Models\Purchase;
 
+use App\Models\Batch;
 use App\Models\Inventory\Product;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Purchase\RequistionProduct;
@@ -41,5 +42,10 @@ class GoodReceiveProduct extends Model
     public function requistionProduct(): BelongsTo
     {
         return $this->belongsTo(RequistionProduct::class,'product_id','product_id');
+    }
+
+    public function batch(): BelongsTo
+    {
+        return $this->belongsTo(Batch::class,'batch_id','id');
     }
 }
