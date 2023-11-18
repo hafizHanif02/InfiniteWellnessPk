@@ -1,1 +1,0 @@
-Transfer No. 1093 Products:{[produc_id, qty],[1085,50],}

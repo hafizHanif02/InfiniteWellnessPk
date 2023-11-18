@@ -1,1 +1,0 @@
-Purchase Return GRN No:6351 Products:{[produc_id, qty],[1130,50],}
