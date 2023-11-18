@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
+use App\Models\Pos;
 use App\Models\Batch;
 use App\Models\BatchPOS;
 use Illuminate\View\View;
@@ -17,11 +18,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rules\Exists;
 use App\Models\Purchase\GoodReceiveNote;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
-use Illuminate\Validation\Rules\Exists;
 
 class GoodReceiveNoteController extends Controller
 {
@@ -370,6 +371,34 @@ class GoodReceiveNoteController extends Controller
         }
 
         return $transfers;
+    }
+
+    public function PosProduct()
+    {
+        $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
+    
+        foreach ($poses as $pos) {
+            foreach ($pos->PosProduct as $product) {
+                $remainingQuantity = $product->product_quantity;
+    
+                $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
+                ->orderByDesc('created_at') 
+                ->get();
+                foreach ($batchPosList as $batchPos) {
+                    $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
+                    // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
+                    $batchPos->update([
+                        'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
+                        'sold_quantity' => $batchPos->sold_quantity + $quantityToUpdate,
+                    ]);
+    
+                    $remainingQuantity -= $quantityToUpdate;
+                    if ($remainingQuantity == 0) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 
