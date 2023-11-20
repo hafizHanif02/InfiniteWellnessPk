@@ -1,3 +1,3 @@
-<div class="text-end pe-25">
+<div class="text-center">
     {{$row->total_quantity  }} 
 </div>

@@ -78,6 +78,10 @@ class MedicineTable extends LivewireTableComponent
                 ->view('medicines.templates.columns.selling_price')
                 ->searchable()
                 ->sortable(),
+            Column::make('Discount', 'product.fixed_discount')
+                ->view('medicines.templates.columns.discount')
+                ->searchable()
+                ->sortable(),
             // Column::make(__('messages.medicine.buying_price'), 'buying_price')
             //     ->view('medicines.templates.columns.buying_price')
             //     ->searchable()
@@ -94,6 +98,6 @@ class MedicineTable extends LivewireTableComponent
     public function builder(): Builder
     {
         /** @var Medicine $query */
-        return Medicine::with('category', 'brand')->select('medicines.*');
+        return Medicine::with('category', 'brand','product')->select('medicines.*');
     }
 }
