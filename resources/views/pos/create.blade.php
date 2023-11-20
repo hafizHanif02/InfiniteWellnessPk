@@ -411,7 +411,7 @@
 
                 var total = 0;
                 selectedMedicinesAttr.forEach(function(medicine, items) {
-                    console.log(medicine);
+                    // console.log(medicine);
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
@@ -465,8 +465,6 @@
                     gstCalculation(items);
                     ChangeBatch(items);
 
-
-
                     var Dosage = $('#dosage' + items).val();
                     var selling_price = $('#selling_price' + items).val();
                     var product_total_price_main = Dosage * selling_price;
@@ -506,8 +504,6 @@
                         $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
                         $('#total_discount').val(discount_amounts2Tofixed);
                     }
-
-
 
 
                 });
