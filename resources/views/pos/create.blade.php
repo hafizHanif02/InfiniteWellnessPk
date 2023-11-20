@@ -417,11 +417,10 @@
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
                     <td><input type="text" class="form-control" readonly value="${medicine.medicine.name}" name="products[${items}][product_name]" placeholder="item name" id="medicine${items}" data-medicine_id="${medicine.medicine.id}" data-medicine_name="${medicine.medicine.name}" data-brand_name="${medicine.medicine.name}" data-brand_id="${medicine.medicine.id}" data-sellingPrice="${medicine.medicine.selling_price}" data-Id="${medicine.medicine.id}" data-totalQuantity="${medicine.medicine.total_quantity}" data-generic_formula="${medicine.medicine.generic_formula}" data-totalPrice="${medicine.medicine.selling_price}" data-dricetion_of_use="${medicine.medicine.product.dricetion_of_use}" data-common_side_effect="${medicine.medicine.product.common_side_effect}"></td>
                     <td>
-                        <select name="products[${items}][batch_id]" id="batch_pos${items}" onchange="ChangeBatch(${items})" class="form-control">
+                        <select name="products[${items}][batch_id]" id="batch_pos${items}" onchange="ChangeBatch(${items})" class="batch_pos form-control">
                                 ${medicine.medicine.batchpos.length != 0  ?
-                                                `<option value="" disabled selected>Select Batch</option>
-                                                ${medicine.medicine.batchpos.map(batch => {
-                                                    return `<option value="${batch.id}" 
+                                                `${medicine.medicine.batchpos.map(batch => {
+                                                    return `<option  value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity_oh="${batch.remaining_qty}"
                                                                 data-remaining_qty="${batch.remaining_qty}"
@@ -464,6 +463,7 @@
 
                     total += ((medicine.medicine.selling_price) * medicine.dosage);
                     gstCalculation(items);
+                    ChangeBatch(items);
 
 
 
@@ -565,7 +565,7 @@
                             </select>
                         </td>
                         <td> 
-                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="form-control">
+                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class=" batch_pos form-control">
                             </select>
                         <td>
                             <input type="number" step="any"readonly value="0" name="products[${a}][total_stock]"  id="total_quantity${a}" class="form-control">
@@ -635,7 +635,7 @@
             var batchPosSelect = document.getElementById("batch_pos" +id);
 
             // Clear previous options
-            batchPosSelect.innerHTML = '<option value="" selected disabled>Select Batch</option>';
+            batchPosSelect.innerHTML = '';
 
             const batchPositions = JSON.parse(selectedOption.getAttribute('data-batch_pos'));
 
@@ -643,12 +643,14 @@
 
 
 
-            if (batchPositions) {
-                batchPositions.forEach(function (batchPos) {
-                    console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
-                });
-            }
+            // if (batchPositions) {
+            //     batchPositions.forEach(function (batchPos) {
+            //         console.log(batchPos);
+            //         batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+            //         $('#total_quantity'+id).val(batchPos.remaining_qty);
+            //         $('#selling_price'+id).val(batchPos.unit_trade);
+            //     });
+            // }
 
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
@@ -675,6 +677,17 @@
 
             sellingpriceTag.value = sellingPriceValue;
             // genericformulatag.value = GenericFormula;
+
+            if (batchPositions) {
+                batchPositions.forEach(function (batchPos) {
+                    console.log(batchPos);
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    totalQuantity.value = batchPos.remaining_qty;
+                    totalMedicineAmount.value = batchPos.unit_trade;
+                    totalMedicineAmount2.value = batchPos.unit_trade;
+                    ChangeBatch(id);
+                });
+            }
 
         }
 
@@ -963,25 +976,29 @@
                         >
                         </td>
                         <td>
-                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="form-control">
-                                ${batch_pos.length != 0  ?
-                                                `<option value="" selected>Select Batch</option>
-                                                ${batch_pos.map(batch => {
-                                                    return `<option value="${batch.id}" 
-                                                                data-batch-id="${batch.id}" 
-                                                                data-quantity_oh="${batch.remaining_qty}" 
-                                                                data-remaining_qty="${batch.remaining_qty}"
-                                                                data-expiry-date="${batch.expiry_date}"
-                                                                data-unit_retail="${batch.unit_retail}"
-                                                                data-price="${batch.unit_trade}">
-                                                            ${batch.batch.batch_no}
-                                                            </option>`;
-                                                }).join('')}` :
-                                                `<option value="">Not Any Batch Found</option>`
-                                            }
-                            </select>
-                        </td>
-
+                        <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="batch_pos form-control">
+                            ${batch_pos.length !== 0
+                                ? `${batch_pos.map(batch => {
+                                    return `<option  value="${batch.id}" 
+                                                data-batch-id="${batch.id}" 
+                                                data-quantity_oh="${batch.remaining_qty}" 
+                                                data-remaining_qty="${batch.remaining_qty}"
+                                                data-expiry-date="${batch.expiry_date}"
+                                                data-unit_retail="${batch.unit_retail}"
+                                                data-price="${batch.unit_trade}">
+                                            ${batch.batch.batch_no}
+                                            </option>`
+                                            
+                                }).join('')}`
+                                : `<option value="">Not Any Batch Found</option>`
+                            }
+                        </select>
+                    </td>
+                    
+                           
+                        
+                    
+                    
                     <td><input name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
@@ -1016,8 +1033,8 @@
 
                         </td>
                 </tr>`);
-            enablemainbutton();
-
+                enablemainbutton();
+                ChangeBatch(a);
         }
         $(document).ready(function() {
     $('#possubmitform').on('submit', function(e) {
@@ -1083,7 +1100,14 @@
         });
     });
 });
+$(document).ready(function() {
+    var id = $('.batch_pos').val();
+    ChangeBatch(id)
+;
+})
     </script>
+
+
 
 
 @endsection
