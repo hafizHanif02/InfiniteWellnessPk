@@ -15,6 +15,7 @@
         {{-- {{ dd($poses[0]->medicine_id) }} --}}
         <tr>
             <th>Product Name</th>
+            <th>Manufacturer</th>
             <th>Sell QTY</th>
             <th>Return QTY</th>
             <th>Current QTY</th>
@@ -30,6 +31,7 @@
                 @endphp
                 <tr>
                     <td>{{ $posProduct->productName }}</td>
+                    <td>{{ $posProduct->company_name }}</td>
                     <td>{{ $posProduct->productQty }}</td>
                     <td>
                         @if ($returnProduct)

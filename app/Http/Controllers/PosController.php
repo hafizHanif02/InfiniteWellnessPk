@@ -369,9 +369,12 @@ class PosController extends Controller
         // Query to calculate the total quantity from Pos_Product
         $posesQuery = Pos_Product::whereIn('pos_id', $posid)
 
-            ->selectRaw('pos_id as pos_id, medicine_id, product_name as productName, SUM(product_quantity) as productQty')
+            ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
             ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
+            ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+            ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
             ->selectRaw('medicines.*')
+            ->selectRaw('manufacturers.*')
             ->groupBy('medicine_id');
 
         // Apply filters
@@ -411,10 +414,13 @@ class PosController extends Controller
 
         // Query to calculate the total quantity from Pos_Product
         $posesQuery = Pos_Product::whereIn('pos_id', $posid)
-            ->selectRaw('pos_id as pos_id, medicine_id, product_name as productName, SUM(product_quantity) as productQty')
-            ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
-            ->selectRaw('medicines.*')
-            ->groupBy('medicine_id');
+        ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
+        ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
+        ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+        ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
+        ->selectRaw('medicines.*')
+        ->selectRaw('manufacturers.*')
+        ->groupBy('medicine_id');
 
         // Apply filters
 
