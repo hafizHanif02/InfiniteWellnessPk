@@ -74,7 +74,7 @@ class MedicineTable extends LivewireTableComponent
             Column::make('Manufacturer', 'brand.name')
                 ->searchable()
                 ->sortable(),
-            Column::make(__('messages.medicine.selling_price'), 'selling_price')
+            Column::make(__('MRP'), 'selling_price')
                 ->view('medicines.templates.columns.selling_price')
                 ->searchable()
                 ->sortable(),
