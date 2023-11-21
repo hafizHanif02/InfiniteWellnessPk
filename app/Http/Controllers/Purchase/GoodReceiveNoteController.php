@@ -82,8 +82,8 @@ class GoodReceiveNoteController extends Controller
                    'product_id' => $product['id'],
                    'unit_trade' => $requistion->product->unit_trade,
                    'unit_retail' => $requistion->product->unit_retail,
-                   'quantity' => $product['deliver_qty'], 
-                   'remaining_qty' => $product['deliver_qty'], 
+                   'quantity' => $product['deliver_qty'],
+                   'remaining_qty' => $product['deliver_qty'],
                    'expiry_date' => $product['expiry_date'],
                 'transfer_quantity' => 0
               ]);
@@ -107,15 +107,15 @@ class GoodReceiveNoteController extends Controller
 
 
 
-            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
+            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
             'action' => 'Good Receive Note Has Been Created GRN No.'.$goodReceiveNote->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'log/' . $logs->id . '.txt'; 
-        $filePath = public_path($fileName); 
+        $fileName = 'log/' . $logs->id . '.txt';
+        $filePath = public_path($fileName);
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -169,15 +169,15 @@ class GoodReceiveNoteController extends Controller
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
             ]);
-            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],'; 
+            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
             'action' => 'Good Receive Note Has Been Updated GRN No.'.$goodReceiveNote->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'log/' . $logs->id . '.txt'; 
-        $filePath = public_path($fileName); 
+        $fileName = 'log/' . $logs->id . '.txt';
+        $filePath = public_path($fileName);
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -270,8 +270,8 @@ class GoodReceiveNoteController extends Controller
             'product_id' => $GRNProduct->product_id,
             'unit_trade' => $GRNProduct->item_amount,
             'unit_retail' => $GRNProduct->product->unit_retail,
-            'quantity' => $GRNProduct->deliver_qty, 
-            'remaining_qty' => $GRNProduct->deliver_qty, 
+            'quantity' => $GRNProduct->deliver_qty,
+            'remaining_qty' => $GRNProduct->deliver_qty,
             'expiry_date' => $GRNProduct->expiry_date,
             'transfer_quantity' => 0
             ]);
@@ -293,9 +293,9 @@ class GoodReceiveNoteController extends Controller
                             BatchPOS::create([
                                 'batch_id' => $batch->id,
                                 'product_id' => $transferProduct->product_id,
-                                'unit_trade' => $transferProduct->product->unit_trade,
-                                'unit_retail' => $transferProduct->product->unit_retail,
-                                'quantity' => $transferProduct->total_piece, 
+                                'unit_trade' => $batch->unit_trade,
+                                'unit_retail' => $batch->unit_retail,
+                                'quantity' => $transferProduct->total_piece,
                                 'sold_quantity' => 0,
                                 'remaining_qty' => $transferProduct->total_piece,
                                 'expiry_date' => $batch->expiry_date,
@@ -305,7 +305,7 @@ class GoodReceiveNoteController extends Controller
                 }
             }
         }
-        
+
 
         return "Done !";
     }
@@ -376,13 +376,13 @@ class GoodReceiveNoteController extends Controller
     public function PosProduct()
     {
         $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
-    
+
         foreach ($poses as $pos) {
             foreach ($pos->PosProduct as $product) {
                 $remainingQuantity = $product->product_quantity;
-    
+
                 $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
-                ->orderByDesc('created_at') 
+                ->orderByDesc('created_at')
                 ->get();
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
@@ -391,7 +391,7 @@ class GoodReceiveNoteController extends Controller
                         'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
                         'sold_quantity' => $batchPos->sold_quantity + $quantityToUpdate,
                     ]);
-    
+
                     $remainingQuantity -= $quantityToUpdate;
                     if ($remainingQuantity == 0) {
                         break;

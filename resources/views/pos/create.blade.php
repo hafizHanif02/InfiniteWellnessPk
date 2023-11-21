@@ -306,17 +306,17 @@
         </div>
     </div>
 
-   
+
 
     <script>
         function disablemainbutton() {
             $('#proceede_to_pay').attr('disabled', 'true');
         }
-        
+
         function enablemainbutton() {
             $('#proceede_to_pay').removeAttr('disabled');
         }
-        
+
         function submitbutton() {
             $('#possubmitform').removeAttr('onsubmit');
             $('#proceede_to_pay').attr('disabled', 'true');
@@ -411,7 +411,7 @@
 
                 var total = 0;
                 selectedMedicinesAttr.forEach(function(medicine, items) {
-                    // console.log(medicine);
+                     console.log(medicine);
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
@@ -420,8 +420,8 @@
                         <select name="products[${items}][batch_id]" id="batch_pos${items}" onchange="ChangeBatch(${items})" class="batch_pos form-control">
                                 ${medicine.medicine.batchpos.length != 0  ?
                                                 `${medicine.medicine.batchpos.map(batch => {
-                                                    return `<option  value="${batch.id}" 
-                                                                data-batch-id="${batch.id}" 
+                                                    return `<option  value="${batch.id}"
+                                                                data-batch-id="${batch.id}"
                                                                 data-quantity_oh="${batch.remaining_qty}"
                                                                 data-remaining_qty="${batch.remaining_qty}"
                                                                 data-expiry-date="${batch.expiry_date}"
@@ -462,7 +462,7 @@
                     $("#medicine-table-body").append(row);
 
                     var pricerperunit = $('#selling_price'+items).val();
-                    
+
                     total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
                     ChangeBatch(items);
@@ -484,7 +484,7 @@
                     $('#discount_amounts2' + items).val(discount_amount);
                     discountCalculationTotal();
                     gstCalculation(items);
-                    
+
 
                     function discountCalculationTotal() {
                         var discount_amounts2 = 0;
@@ -511,7 +511,7 @@
                         $('#total_discount').val(discount_amounts2Tofixed);
 
 
-                        
+
                     }
 
 
@@ -557,7 +557,7 @@
             var a = tableRow.rows.length;
             $('#medicine' + a).select2();
             $('#medicine-table-body').append(`
-           
+
             <tr id="medicine-row${a}">
                         <td>
                             <input type="hidden" id="medicineID${a}" name="products[${a}][medicine_id]">
@@ -570,7 +570,7 @@
                                 @endforeach
                             </select>
                         </td>
-                        <td> 
+                        <td>
                             <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class=" batch_pos form-control">
                             </select>
                         <td>
@@ -939,7 +939,7 @@
             const total_quantity = selectedOption.getAttribute('data-quantity_oh');
             const price = selectedOption.getAttribute('data-price');
 
-            console.log(selectedOption);   
+            console.log(selectedOption);
             $('#total_quantity'+id).val(total_quantity);
             $('#selling_price'+id).val(price);
             ChnageDosage(id);
@@ -991,26 +991,26 @@
                         <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="batch_pos form-control">
                             ${batch_pos.length !== 0
                                 ? `${batch_pos.map(batch => {
-                                    return `<option  value="${batch.id}" 
-                                                data-batch-id="${batch.id}" 
-                                                data-quantity_oh="${batch.remaining_qty}" 
+                                    return `<option  value="${batch.id}"
+                                                data-batch-id="${batch.id}"
+                                                data-quantity_oh="${batch.remaining_qty}"
                                                 data-remaining_qty="${batch.remaining_qty}"
                                                 data-expiry-date="${batch.expiry_date}"
                                                 data-unit_retail="${batch.unit_retail}"
                                                 data-price="${batch.unit_trade}">
                                             ${batch.batch.batch_no}
                                             </option>`
-                                            
+
                                 }).join('')}`
                                 : `<option value="">Not Any Batch Found</option>`
                             }
                         </select>
                     </td>
-                    
-                           
-                        
-                    
-                    
+
+
+
+
+
                     <td><input name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
                     <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
