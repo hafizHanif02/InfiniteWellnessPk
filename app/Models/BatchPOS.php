@@ -15,6 +15,7 @@ class BatchPOS extends Model
         'batch_id',  
         'product_id',
         'unit_trade',
+        'unit_retail',
         'quantity',
         'sold_quantity',
         'remaining_qty',
