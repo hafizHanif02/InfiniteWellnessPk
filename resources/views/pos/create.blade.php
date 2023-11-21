@@ -451,8 +451,8 @@
                         </td>
 
 
-                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
-                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
+                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly  placeholder="selling_price"></td>
+                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly  placeholder="selling_price">
                     <td>
                         <button type="button" class="btn btn-primary"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i></button>
                     </td>
@@ -461,9 +461,13 @@
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
-                    total += ((medicine.medicine.selling_price) * medicine.dosage);
+                    var pricerperunit = $('#selling_price'+items).val();
+                    
+                    total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
                     ChangeBatch(items);
+                    ChnageDosage(items);
+                    ChnageDosageTotal();
 
                     var Dosage = $('#dosage' + items).val();
                     var selling_price = $('#selling_price' + items).val();
@@ -480,6 +484,7 @@
                     $('#discount_amounts2' + items).val(discount_amount);
                     discountCalculationTotal();
                     gstCalculation(items);
+                    
 
                     function discountCalculationTotal() {
                         var discount_amounts2 = 0;
@@ -496,6 +501,7 @@
                             }
                         });
                         var TotalAmount = $('#total_amounts2').val();
+                        console.log('Total 2 '+total_amounts2);
                         var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
                         var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
                         var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
@@ -503,6 +509,9 @@
                         $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
                         $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
                         $('#total_discount').val(discount_amounts2Tofixed);
+
+
+                        
                     }
 
 
@@ -510,7 +519,7 @@
 
                 $("#total_amount").val(total.toFixed(2));
                 $("#total_amounts2").val(total.toFixed(2));
-
+                // ChnageDosage(items);
             });
             enablemainbutton();
         });
@@ -539,6 +548,7 @@
             var grandTotal = total_amount + advance_cost;
 
             $("#total_amount").val(grandTotal.toFixed(2));
+            console.log('Total 3 '+grandTotal.toFixed(2));
 
         }
 
@@ -702,6 +712,7 @@
         }
 
         function ChnageDosageTotal() {
+
             var TotalAmount = 0;
             $("input[id^='product_total_prices2']").each(function() {
                 if ($(this).val() != '') {
@@ -710,8 +721,11 @@
             });
             $('#total_amount').val(parseFloat(TotalAmount) + 1);
             $('#total_amounts2').val(TotalAmount);
+            console.log('Total 4 '+TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
+            console.log('change dosage Change dosage !'+TotalAmount);
+
 
         }
 
@@ -746,12 +760,14 @@
                 }
             });
             var TotalAmount = $('#total_amounts2').val();
+            console.log('Total 5 '+TotalAmount);
             var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
             var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
             $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
+            console.log('amount discount !@'+amountwithouttaxToFixed);
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
