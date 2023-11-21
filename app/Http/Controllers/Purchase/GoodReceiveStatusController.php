@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
+use App\Models\Batch;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\GoodReceiveNote;
+use App\Models\Purchase\GoodReceiveProduct;
 
 class GoodReceiveStatusController extends Controller
 {
@@ -30,7 +32,22 @@ class GoodReceiveStatusController extends Controller
     {
         if ($request->status == 1) {
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
-                $unit_trade = (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100) + $goodReceiveProduct->item_amount;
+                $unit_trade = $goodReceiveProduct->item_amount - (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100);
+                $manufacture_retail_price = $goodReceiveProduct->item_amount * $goodReceiveProduct->product->pieces_per_pack;
+                // dd($manufacture_retail_price, $unit_trade);
+                  $batch =   Batch::create([
+                    'batch_no' => $goodReceiveProduct->batch_number,
+                   'product_id' => $goodReceiveProduct->product->id,
+                   'unit_trade' => $unit_trade,
+                   'unit_retail'=> $goodReceiveProduct->item_amount,
+                   'quantity' => $goodReceiveProduct->deliver_qty,
+                   'remaining_qty' => $goodReceiveProduct->deliver_qty,
+                   'expiry_date' => $goodReceiveProduct->expiry_date,
+                    'transfer_quantity' => 0
+              ]);
+                GoodReceiveProduct::where('id', $goodReceiveProduct->id)->update([
+                    'batch_id' => $batch->id
+                ]);
 
                 if ($goodReceiveProduct->bonus != NULL) {
                     $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
@@ -40,8 +57,13 @@ class GoodReceiveStatusController extends Controller
                     $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty,);
                 }
 
-                $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
-                $goodReceiveProduct->product->update(['unit_trade' => $unit_trade]);
+                // $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
+                
+                $goodReceiveProduct->product->update([
+                'manufacturer_retail_price'=> $manufacture_retail_price,
+                'unit_trade' => $unit_trade,
+                'unit_retail'=> $goodReceiveProduct->item_amount
+            ]);
             }
         }
         $goodReceiveNote->update([

@@ -77,17 +77,18 @@ class GoodReceiveNoteController extends Controller
         $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
             foreach ($request->products as $product) {
             $requistion = RequistionProduct::where(['requistion_id'=> $request->requistion_id, 'product_id' => $product['id']])->with('product')->first();
-              $batch =   Batch::create([
-                    'batch_no' => $product['batch_no'],
-                   'product_id' => $product['id'],
-                   'unit_trade' => $requistion->product->unit_trade,
-                   'unit_retail' => $requistion->product->unit_retail,
-                   'quantity' => $product['deliver_qty'],
-                   'remaining_qty' => $product['deliver_qty'],
-                   'expiry_date' => $product['expiry_date'],
-                'transfer_quantity' => 0
-              ]);
+            //   $batch =   Batch::create([
+            //         'batch_no' => $product['batch_no'],
+            //        'product_id' => $product['id'],
+            //        'unit_trade' => $requistion->product->unit_trade,
+            //        'unit_retail' => $requistion->product->unit_retail,
+            //        'quantity' => $product['deliver_qty'],
+            //        'remaining_qty' => $product['deliver_qty'],
+            //        'expiry_date' => $product['expiry_date'],
+            //     'transfer_quantity' => 0
+            //   ]);
 
+              
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],
@@ -99,7 +100,7 @@ class GoodReceiveNoteController extends Controller
                 'discount' => $product['discount'],
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
-                'batch_id' => $batch->id,
+                // 'batch_id' => $batch->id,
             ]);
 
 

@@ -214,8 +214,8 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit]" value="${products[i].unit_trade}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_trade}" readonly  class="form-control">
+                                            <input type="number" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit]" value="${products[i].unit_retail}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_retail}" readonly  class="form-control">
                                         </td>
                                         <td>
                                             <input type="text" name="products[${i}][expiry_date]" class="form-control" id="expiry_date${i}"  readonly>
@@ -226,15 +226,15 @@
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${i}][amount]" id="importamount${i}" value="${products[i].unit_trade}" class="form-control" readonly>
+                                            <input type="number" name="products[${i}][amount]" id="importamount${i}" value="${products[i].unit_retail}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${products[i].id})" class="text-danger fa fa-trash"></i>
                                         </td>
 
                                         <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][pieces_per_pack]" value="${products[i].pieces_per_pack }">
-                                        <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][price_per_unit_unitonly]" value="${products[i].unit_trade }">
-                                        <input type="hidden" id="forimportunitprice${i}"  value="${products[i].unit_trade }">
+                                        <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][price_per_unit_unitonly]" value="${products[i].unit_retail }">
+                                        <input type="hidden" id="forimportunitprice${i}"  value="${products[i].unit_retail }">
                                         <input type="hidden" id="discountamount${products[i].id}" name="products[${i}][disc_amount]" value="${(products[i].discount_trade_price * products[i].cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${products[i].id}" value="${products[i].trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${i}" name="products[${i}][total_peice_per_pack]" value="${products[i].pieces_per_pack}">
@@ -332,8 +332,8 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.unit_trade}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit2${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
+                                            <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.unit_retail}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit2${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_retail}" readonly  class="form-control">
                                         </td>
                                         <td>
                                             <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}"  readonly>
@@ -344,14 +344,14 @@
                                             <input type="number" name="products[${items}][total_pack]" value="${response.product.number_of_pack}"  class="form-control" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" name="products[${items}][amount]" value="${response.product.unit_trade}" id="importamount${items}" class="form-control" readonly>
+                                            <input type="number" name="products[${items}][amount]" value="${response.product.unit_retail}" id="importamount${items}" class="form-control" readonly>
                                         </td>
                                         <td>
                                             <i onclick="removeRaw(${response.product.id})" class="text-danger fa fa-trash"></i>
                                         </td>
 
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][pieces_per_pack]" value="${response.product.pieces_per_pack }">
-                                        <input type="hidden" id="discountamount${response.product.id}" class="price_per_unit_unitonly${items}" name="products[${items}][price_per_unit_unitonly]" value="${response.product.unit_trade }">
+                                        <input type="hidden" id="discountamount${response.product.id}" class="price_per_unit_unitonly${items}" name="products[${items}][price_per_unit_unitonly]" value="${response.product.unit_retail }">
                                         <input type="hidden" id="discountamount${response.product.id}" name="products[${items}][disc_amount]" value="${(response.product.discount_trade_price * response.product.cost_price)/100 }">
                                         <input type="hidden" id="tradeprice${response.product.id}" value="${response.product.trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${items}" name="products[${items}][total_peice_per_pack]" value="${response.product.pieces_per_pack}">
@@ -386,11 +386,13 @@
                 const unitTrade = selectedOption.getAttribute('data-unit_trade');
                 const unitRetail = selectedOption.getAttribute('data-unit_retail');
 
-                $(`#price_per_unit${items}`).val(unitTrade);
-                $(`#price_per_unit2${items}`).val(unitTrade);
-                $(`#discountamount${id}`).val(unitTrade);
-                $(`#importamount${items}`).val(unitTrade);
-                $('.price_per_unit_unitonly'+items).val(unitTrade);
+                // console.log('Unit Retail '+unitRetail);
+
+                $(`#price_per_unit${items}`).val(unitRetail);
+                $(`#price_per_unit2${items}`).val(unitRetail);
+                $(`#discountamount${id}`).val(unitRetail);
+                $(`#importamount${items}`).val(unitRetail);
+                $('.price_per_unit_unitonly'+items).val(unitRetail);
                 // console.log($('.price_per_unit_unitonly'+items).val());
                 $(`#totalquantity${items}`).val(remaining_qty);
                 $(`#expiry_date${items}`).val(expiryDate);
