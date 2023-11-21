@@ -78,7 +78,7 @@ class MedicineTable extends LivewireTableComponent
                 ->view('medicines.templates.columns.selling_price')
                 ->searchable()
                 ->sortable(),
-            Column::make('Discount', 'product.fixed_discount')
+            Column::make('Discount %', 'product.fixed_discount')
                 ->view('medicines.templates.columns.discount')
                 ->searchable()
                 ->sortable(),
