@@ -463,7 +463,7 @@
 
                     var pricerperunit = $('#selling_price'+items).val();
 
-                    total += ((pricerperunit) * medicine.dosage);
+                    // total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
                     ChangeBatch(items);
                     ChnageDosage(items);
@@ -517,8 +517,8 @@
 
                 });
 
-                $("#total_amount").val(total.toFixed(2));
-                $("#total_amounts2").val(total.toFixed(2));
+                // $("#total_amount").val(total.toFixed(2));
+                // $("#total_amounts2").val(total.toFixed(2));
                 // ChnageDosage(items);
             });
             enablemainbutton();
@@ -687,7 +687,7 @@
             if (batchPositions) {
                 batchPositions.forEach(function (batchPos) {
                     console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'" data-unit_retail="'+batchPos.unit_retail+'"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
                     totalQuantity.value = batchPos.remaining_qty;
                     totalMedicineAmount.value = batchPos.unit_trade;
                     totalMedicineAmount2.value = batchPos.unit_trade;
@@ -938,10 +938,11 @@
 
             const total_quantity = selectedOption.getAttribute('data-quantity_oh');
             const price = selectedOption.getAttribute('data-price');
+            const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
             console.log(selectedOption);
             $('#total_quantity'+id).val(total_quantity);
-            $('#selling_price'+id).val(price);
+            $('#selling_price'+id).val(unit_retail);
             ChnageDosage(id);
         }
 
