@@ -260,17 +260,19 @@ class GoodReceiveNoteController extends Controller
 
     public function createBatch()
     {
-        $GRNProducts = GoodReceiveProduct::all();
+        $GRNProducts = GoodReceiveProduct::with('product')->all();
 
         foreach( $GRNProducts as $GRNProduct )
         {
+            $unit_trade = $GRNProduct->item_amount - (($GRNProduct->product->trade_price_percentage * $GRNProduct->item_amount) / 100);
+            $manufacture_retail_price = $GRNProduct->item_amount * $GRNProduct->product->pieces_per_pack;
             // $batchNumber = $GRNProduct->batch_number ?? Str::random(10);
             $batchNumber = $GRNProduct->batch_number ?? strtoupper(Str::random(3) . Str::random(3, '1234567890'));
             Batch::create([
             'batch_no' => $batchNumber,
             'product_id' => $GRNProduct->product_id,
-            'unit_trade' => $GRNProduct->item_amount,
-            'unit_retail' => $GRNProduct->product->unit_retail,
+            'unit_trade' => $unit_trade,
+            'unit_retail'=> $goodReceiveProduct->item_amount,
             'quantity' => $GRNProduct->deliver_qty,
             'remaining_qty' => $GRNProduct->deliver_qty,
             'expiry_date' => $GRNProduct->expiry_date,
