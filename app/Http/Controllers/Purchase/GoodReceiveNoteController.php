@@ -260,7 +260,7 @@ class GoodReceiveNoteController extends Controller
 
     public function createBatch()
     {
-        $GRNProducts = GoodReceiveProduct::with('product')->all();
+        $GRNProducts = GoodReceiveProduct::with('product')->get();
 
         foreach( $GRNProducts as $GRNProduct )
         {
@@ -272,7 +272,7 @@ class GoodReceiveNoteController extends Controller
             'batch_no' => $batchNumber,
             'product_id' => $GRNProduct->product_id,
             'unit_trade' => $unit_trade,
-            'unit_retail'=> $goodReceiveProduct->item_amount,
+            'unit_retail'=> $GRNProduct->item_amount,
             'quantity' => $GRNProduct->deliver_qty,
             'remaining_qty' => $GRNProduct->deliver_qty,
             'expiry_date' => $GRNProduct->expiry_date,
