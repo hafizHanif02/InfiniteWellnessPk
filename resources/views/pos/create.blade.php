@@ -463,7 +463,7 @@
 
                     var pricerperunit = $('#selling_price'+items).val();
 
-                    total += ((pricerperunit) * medicine.dosage);
+                    // total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
                     ChangeBatch(items);
                     ChnageDosage(items);
@@ -517,8 +517,8 @@
 
                 });
 
-                $("#total_amount").val(total.toFixed(2));
-                $("#total_amounts2").val(total.toFixed(2));
+                // $("#total_amount").val(total.toFixed(2));
+                // $("#total_amounts2").val(total.toFixed(2));
                 // ChnageDosage(items);
             });
             enablemainbutton();
