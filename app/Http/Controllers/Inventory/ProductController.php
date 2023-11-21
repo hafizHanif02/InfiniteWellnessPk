@@ -45,11 +45,33 @@ class ProductController extends Controller
             'search_data' => ''
         ]);
     }
+    // public function exportToExcel()
+    // {
+    //     $product = Product::get();
+    //     return view('inventory.products.export', [
+    //         'porducts' => $product
+    //     ]);
+    // }
+
     public function exportToExcel()
     {
-        $product = Product::get();
+        $products = Product::leftJoin('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->leftJoin('generics', 'products.generic_id', '=', 'generics.id')
+            ->leftJoin('manufacturers', 'products.manufacturer_id', '=', 'manufacturers.id')
+            ->leftJoin('dosages', 'products.dosage_id', '=', 'dosages.id') // Join with the dosages table
+            ->select(
+                'products.*',
+                'product_categories.name as category_name',
+                'generics.formula as generic_formula',
+                'manufacturers.company_name as manufacturer_name',
+                'dosages.name as dosage_name' // Select the 'name' column from the dosages table
+            )
+            ->orderBy('products.id')
+            ->get();
+    
         return view('inventory.products.export', [
-            'porducts' => $product
+            'products' => $products,
+            // Other variables you want to pass to the view
         ]);
     }
 

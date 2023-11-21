@@ -940,7 +940,7 @@
             const price = selectedOption.getAttribute('data-price');
             const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
-            console.log(selectedOption);
+            // console.log(selectedOption);
             $('#total_quantity'+id).val(total_quantity);
             $('#selling_price'+id).val(unit_retail);
             ChnageDosage(id);

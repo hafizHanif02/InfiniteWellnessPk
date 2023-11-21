@@ -200,7 +200,7 @@
                                                         id="medicine{{ $loop->iteration }}"
                                                         onchange="SelectMedicine({{ $loop->iteration }})"
                                                         class="form-select prescriptionMedicineId">
-                                                        {{-- <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option> --}}
+                                                        <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option>
                                                         @foreach ($medicines as $medicine)
                                                             <option value="{{ $medicine->name }}"
                                                                 data-medicine_name="{{ $medicine->name }}"
@@ -228,21 +228,20 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    
-                                                    
                                                     <select class="form-control" name="products[{{ $loop->iteration }}][batch_id]" id="batch_pos{{ $loop->iteration }}" onchange="ChangeBatch({{ $loop->iteration }})">
-                                                        <option value="" selected disabled>Select Batch</option>
-                                                        @foreach ($pos_products as $posProduct)
-                                                        <option value="{{$posProduct->batchpos->id}}"
-                                                            data-batch-id="{{$posProduct->batchpos->id}}" 
-                                                                data-quantity_oh="{{$posProduct->batchpos->quantity}}" 
-                                                                data-expiry-date="{{$posProduct->batchpos->expiry_date}}"
-                                                                data-unit_retail="{{$posProduct->batchpos->unit_retail}}"
-                                                                data-price="{{$posProduct->batchpos->unit_trade}}"
-                                                            selected>{{$posProduct->batchpos->batch->batch_no}}</option>
+                                                        @foreach ($posProduct->medicine->batchpos as $batch)
+                                                            <option value="{{ $batch->id }}" 
+                                                                    data-batch-id="{{ $batch->id }}" 
+                                                                    data-quantity_oh="{{ $batch->quantity }}" 
+                                                                    data-expiry-date="{{ $batch->expiry_date }}"
+                                                                    data-unit_retail="{{ $batch->unit_retail }}"
+                                                                    data-price="{{ $batch->unit_trade }}"
+                                                                    {{ $batch->id == $posProduct->batch_id ? 'selected' : '' }}
+                                                                >{{ $batch->batch->batch_no }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
+                                                
                                                 {{-- <td>
                                                 <input type="text" readonly  name="products[{{ $loop->iteration }}][generic_formula]" id="generic_formula{{ $loop->iteration }}" value="{{ $posProduct->medicine->generic_formula }}" class="form-control">
                                             </td> --}}
@@ -256,7 +255,7 @@
                                                     <input type="number" step="any"readonly
                                                         name="products[{{ $loop->iteration }}][mrp_perunit]"
                                                         id="selling_price{{ $loop->iteration }}"
-                                                        value="{{($posProduct->batchpos) ? $posProduct->batchpos->unit_trade : $posProduct->medicine->selling_price }}"
+                                                        value="{{($posProduct->batchpos) ? $posProduct->batchpos->unit_retail : $posProduct->medicine->selling_price }}"
                                                         class="form-control">
                                                 </td>
                                                 <td>
@@ -307,7 +306,7 @@
                                                     <button type="button" class="btn btn-primary"
                                                         onclick="Addlabel({{ $loop->iteration }})" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal">
-                                                        <i class="fa-solid fa-plus"></i> Label
+                                                        <i class="fa-solid fa-plus"></i>
                                                     </button>
                                                 </td>
                                                 <td><a id="printlabel{{ $loop->iteration }}"><button type="button"
@@ -568,17 +567,23 @@
                         <input type="hidden" value="0" readonly  name="products[${items}][gst_amount]" id="gst_amount${items}" class="form-control">
                             <input type="hidden" value="0" readonly  name="products[${items}][gst_amounts2]" id="gst_amounts2${items}" class="form-control">
                         </td>
-                   
-                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price"></td>
-                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly value="${(medicine.medicine.selling_price) * medicine.dosage}" placeholder="selling_price">
+
+                    <td><input type="text" class="form-control"  name="products[${items}][product_total_price]" id="product_total_price${items}" readonly  placeholder="selling_price"></td>
+                    <input type="hidden" class="form-control"  name="products[${items}][product_total_prices2]" id="product_total_prices2${items}" readonly  placeholder="selling_price">
                     <td><button type="button"  onclick="Addlabelforprescription(${items})" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-plus"></i> Label</button></td>
                     <td><a id="printlabel${items}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                     <td></td>
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
-                    total += ((medicine.medicine.selling_price) * medicine.dosage);
+                    // total += ((medicine.medicine.selling_price) * medicine.dosage);
+                    var pricerperunit = $('#selling_price'+items).val();
+                    
+                    total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
+                    ChnageDosage(items);
+                    ChnageDosageTotal();
+                    ChangeBatch(items);
 
 
 
@@ -751,7 +756,7 @@
             var batchPosSelect = document.getElementById("batch_pos" +id);
 
             // Clear previous options
-            batchPosSelect.innerHTML = '<option value="" selected disabled>Select Batch</option>';
+            batchPosSelect.innerHTML = '';
 
             const batchPositions = JSON.parse(selectedOption.getAttribute('data-batch_pos'));
 
@@ -759,12 +764,12 @@
 
 
 
-            if (batchPositions) {
-                batchPositions.forEach(function (batchPos) {
-                    console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.quantity+'" data-price="'+batchPos.unit_trade+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
-                });
-            }
+            // if (batchPositions) {
+            //     batchPositions.forEach(function (batchPos) {
+            //         console.log(batchPos);
+            //         batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.quantity+'" data-price="'+batchPos.unit_trade+'" data-unit_retail="'+batchPos.unit_retail+'"   value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+            //     });
+            // }
 
             const totalQuantity = selectedOption.getAttribute('data-totalQuantity');
             const gstpercentage = selectedOption.getAttribute('data-gst');
@@ -791,6 +796,17 @@
 
             sellingpriceTag.value = sellingPriceValue;
             // genericformulatag.value = GenericFormula;
+
+            if (batchPositions) {
+                batchPositions.forEach(function (batchPos) {
+                    console.log(batchPos);
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'" data-unit_retail="'+batchPos.unit_retail+'"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    totalQuantity.value = batchPos.remaining_qty;
+                    totalMedicineAmount.value = batchPos.unit_trade;
+                    totalMedicineAmount2.value = batchPos.unit_trade;
+                    ChangeBatch(id);
+                });
+            }
 
         }
 
@@ -1003,10 +1019,10 @@
 
             const total_quantity = selectedOption.getAttribute('data-quantity_oh');
             const price = selectedOption.getAttribute('data-price');
+            const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
-            console.log(selectedOption);   
             $('#total_quantity'+id).val(total_quantity);
-            $('#selling_price'+id).val(price);
+            $('#selling_price'+id).val(unit_retail);
             ChnageDosage(id);
         }
 
@@ -1053,21 +1069,20 @@
                         >
                         </td>
                         <td>
-                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="form-control">
-                                ${batch_pos.length != 0  ?
-                                                `<option value="" selected>Select Batch</option>
-                                                ${batch_pos.map(batch => {
-                                                    return `<option value="${batch.id}" 
-                                                                data-batch-id="${batch.id}" 
-                                                                data-quantity_oh="${batch.quantity}" 
-                                                                data-expiry-date="${batch.expiry_date}"
-                                                                data-unit_retail="${batch.unit_retail}"
-                                                                data-price="${batch.unit_trade}">
-                                                            ${batch.batch.batch_no}
-                                                            </option>`;
-                                                }).join('')}` :
-                                                `<option value="">Not Any Batch Found</option>`
-                                            }
+                            <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="batch_pos form-control">
+                                ${batch_pos.length != 0  
+                                    ? `${batch_pos.map(batch => {
+                                            return `<option value="${batch.id}" 
+                                                        data-batch-id="${batch.id}" 
+                                                        data-quantity_oh="${batch.remaining_qty}"
+                                                        data-expiry-date="${batch.expiry_date}"
+                                                        data-unit_retail="${batch.unit_retail}"
+                                                        data-price="${batch.unit_trade}">
+                                                    ${batch.batch.batch_no}
+                                                    </option>`;
+                                        }).join('')}` :
+                                        `<option value="">Not Any Batch Found</option>`
+                                    }
                             </select>
                         </td>
 
@@ -1106,6 +1121,7 @@
                         </td>
                 </tr>`);
             enablemainbutton();
+            ChangeBatch(a);
 
         }
 
@@ -1190,6 +1206,11 @@
             }
 
         });
+
+        $(document).ready(function() {
+    var id = $('.batch_pos').val();
+    ChangeBatch(id);
+    });
     </script>
 
 
