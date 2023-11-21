@@ -120,59 +120,60 @@
 
                             {{-- Model --}}
                             <div id="advancesearch" class="modal fade" role="dialog" tabindex="-1"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#advancesearch"
-                                            class="btn-close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input id="myInput" class="form-control" type="text"
-                                            placeholder="Search..">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <td>Product</td>
-                                                    <td>Generic Fromula</td>
-                                                    <td>Barcode</td>
-                                                    <td>Action</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="myTable">
-
-                                                @foreach ($medicines as $medicine)
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="groupModalLabel">Advance Search</h3>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#advancesearch"
+                                                class="btn-close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input id="myInput" class="form-control" type="text"
+                                                placeholder="Search..">
+                                            <table class="table table-bordered">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{ $medicine->name }}</td>
-                                                        <td>{{ $medicine->generic_formula }}</td>
-                                                        <td>{{ $medicine->barcode }}</td>
-                                                        <td><button class="btn btn-success" type="button"
-                                                            onclick="addMedicine({{ $medicine->id }})"><i
-                                                            class="fa fa-plus"></i></button>
-                                                            <input type="hidden" id="search_addbtn{{ $medicine->id }}"
-                                                                data-product_id="{{ $medicine->id }}"
-                                                                data-product_name="{{ $medicine->name }}"
-                                                                data-generic_formula="{{ $medicine->generic_formula }}"
-                                                                data-total_quantity="{{ $medicine->total_quantity }}"
-                                                                data-selling_price="{{ $medicine->product->unit_retail }}"
-                                                                data-brand_name="{{ $medicine->brand->name }}"
-                                                                data-brand_id="{{ $medicine->brand->id }}"
-                                                                data-gst="{{ $medicine->product->sale_tax_percentage }}"
-                                                                data-batch_pos="{{ json_encode($medicine->batchpos) }}"
-                                                                data-fixed_discount="{{ $medicine->product->fixed_discount }}"
-                                                                data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
-                                                                data-common_side_effect="{{$medicine->product->common_side_effect}}"
-                                                                ></td>
+                                                        <td>Product</td>
+                                                        <td>Generic Fromula</td>
+                                                        <td>Barcode</td>
+                                                        <td>Action</td>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody id="myTable">
+
+                                                    @foreach ($medicines as $medicine)
+                                                        <tr>
+                                                            <td>{{ $medicine->name }}</td>
+                                                            <td>{{ $medicine->generic_formula }}</td>
+                                                            <td>{{ $medicine->barcode }}</td>
+                                                            <td><button class="btn btn-success" type="button"
+                                                                    onclick="addMedicine({{ $medicine->id }})"><i
+                                                                        class="fa fa-plus"></i></button>
+                                                                <input type="hidden"
+                                                                    id="search_addbtn{{ $medicine->id }}"
+                                                                    data-product_id="{{ $medicine->id }}"
+                                                                    data-product_name="{{ $medicine->name }}"
+                                                                    data-generic_formula="{{ $medicine->generic_formula }}"
+                                                                    data-total_quantity="{{ $medicine->total_quantity }}"
+                                                                    data-selling_price="{{ $medicine->product->unit_retail }}"
+                                                                    data-brand_name="{{ $medicine->brand->name }}"
+                                                                    data-brand_id="{{ $medicine->brand->id }}"
+                                                                    data-gst="{{ $medicine->product->sale_tax_percentage }}"
+                                                                    data-batch_pos="{{ json_encode($medicine->batchpos) }}"
+                                                                    data-fixed_discount="{{ $medicine->product->fixed_discount }}"
+                                                                    data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"
+                                                                    data-common_side_effect="{{ $medicine->product->common_side_effect }}">
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {{-- End Model --}}
+                            {{-- End Model --}}
 
                             <div class="table-responsive">
                                 <table class="table table-bodered table-medicine" id="able-medicine">
@@ -200,7 +201,19 @@
                                                         id="medicine{{ $loop->iteration }}"
                                                         onchange="SelectMedicine({{ $loop->iteration }})"
                                                         class="form-select prescriptionMedicineId">
-                                                        <option value="{{ $posProduct->medicine->name }}" selected data-medicine_name="{{ $medicine->name }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->selling_price }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->selling_price }}>{{ $posProduct->medicine->name }}</option>
+                                                        <option value="{{ $posProduct->medicine->name }}" selected
+                                                            data-medicine_name="{{ $medicine->name }}"
+                                                            data-medicine_id="{{ $medicine->id }}"
+                                                            data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}"
+                                                            data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}"
+                                                            data-generic_formula="{{ $medicine->generic_formula }}"
+                                                            data-brand_name="{{ $medicine->brand->name }}"
+                                                            data-brand_id="{{ $medicine->brand->id }}"
+                                                            data-sellingPrice="{{ $medicine->selling_price }}"
+                                                            data-Id="{{ $medicine->id }}"
+                                                            data-totalQuantity="{{ $medicine->total_quantity }}"
+                                                            data-totalPrice={{ $medicine->selling_price }}>
+                                                            {{ $posProduct->medicine->name }}</option>
                                                         @foreach ($medicines as $medicine)
                                                             <option value="{{ $medicine->name }}"
                                                                 data-medicine_name="{{ $medicine->name }}"
@@ -228,34 +241,38 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" name="products[{{ $loop->iteration }}][batch_id]" id="batch_pos{{ $loop->iteration }}" onchange="ChangeBatch({{ $loop->iteration }})">
+                                                    <select class="form-control"
+                                                        name="products[{{ $loop->iteration }}][batch_id]"
+                                                        id="batch_pos{{ $loop->iteration }}"
+                                                        onchange="ChangeBatch({{ $loop->iteration }})">
                                                         @foreach ($posProduct->medicine->batchpos as $batch)
-                                                            <option value="{{ $batch->id }}" 
-                                                                    data-batch-id="{{ $batch->id }}" 
-                                                                    data-quantity_oh="{{ $batch->quantity }}" 
-                                                                    data-expiry-date="{{ $batch->expiry_date }}"
-                                                                    data-unit_retail="{{ $batch->unit_retail }}"
-                                                                    data-price="{{ $batch->unit_trade }}"
-                                                                    {{ $batch->id == $posProduct->batch_id ? 'selected' : '' }}
-                                                                >{{ $batch->batch->batch_no }}</option>
+                                                            <option value="{{ $batch->id }}"
+                                                                data-batch-id="{{ $batch->id }}"
+                                                                data-quantity_oh="{{ $batch->quantity }}"
+                                                                data-expiry-date="{{ $batch->expiry_date }}"
+                                                                data-unit_retail="{{ $batch->unit_retail }}"
+                                                                data-price="{{ $batch->unit_trade }}"
+                                                                {{ $batch->id == $posProduct->batch_id ? 'selected' : '' }}>
+                                                                {{ $batch->batch->batch_no }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
-                                                
+
                                                 {{-- <td>
                                                 <input type="text" readonly  name="products[{{ $loop->iteration }}][generic_formula]" id="generic_formula{{ $loop->iteration }}" value="{{ $posProduct->medicine->generic_formula }}" class="form-control">
                                             </td> --}}
                                                 <td>
                                                     <input type="number" step="any"readonly
-                                                        id="total_quantity{{ $loop->iteration }}" name="products[{{ $loop->iteration }}][total_stock]"
-                                                        value="{{($posProduct->batchpos) ? $posProduct->batchpos->quantity: $posProduct->medicine->total_quantity }}"
+                                                        id="total_quantity{{ $loop->iteration }}"
+                                                        name="products[{{ $loop->iteration }}][total_stock]"
+                                                        value="{{ $posProduct->batchpos ? $posProduct->batchpos->quantity : $posProduct->medicine->total_quantity }}"
                                                         class="form-control">
                                                 </td>
                                                 <td>
                                                     <input type="number" step="any"readonly
                                                         name="products[{{ $loop->iteration }}][mrp_perunit]"
                                                         id="selling_price{{ $loop->iteration }}"
-                                                        value="{{($posProduct->batchpos) ? $posProduct->batchpos->unit_retail : $posProduct->medicine->selling_price }}"
+                                                        value="{{ $posProduct->batchpos ? $posProduct->batchpos->unit_retail : $posProduct->medicine->selling_price }}"
                                                         class="form-control">
                                                 </td>
                                                 <td>
@@ -304,8 +321,8 @@
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary"
-                                                        onclick="Addlabel({{ $loop->iteration }})" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal">
+                                                        onclick="Addlabel({{ $loop->iteration }})"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                         <i class="fa-solid fa-plus"></i>
                                                     </button>
                                                 </td>
@@ -373,8 +390,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-success" type="submit" id="proceede_to_pay"
-                                >Update</button>
+                            <button class="btn btn-success" type="submit" id="proceede_to_pay">Update</button>
                         </div>
                 </div>
             </div>
@@ -577,8 +593,8 @@
                     $("#medicine-table-body").append(row);
 
                     // total += ((medicine.medicine.selling_price) * medicine.dosage);
-                    var pricerperunit = $('#selling_price'+items).val();
-                    
+                    var pricerperunit = $('#selling_price' + items).val();
+
                     total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
                     ChnageDosage(items);
@@ -669,7 +685,7 @@
         function Addmore() {
             var tableRow = document.getElementById('medicine-table-body');
             var b = tableRow.rows.length;
-            var a = b+1;
+            var a = b + 1;
             $('#medicine' + a).select2();
             $('#medicine-table-body').append(`
            
@@ -753,7 +769,7 @@
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
 
-            var batchPosSelect = document.getElementById("batch_pos" +id);
+            var batchPosSelect = document.getElementById("batch_pos" + id);
 
             // Clear previous options
             batchPosSelect.innerHTML = '';
@@ -798,9 +814,11 @@
             // genericformulatag.value = GenericFormula;
 
             if (batchPositions) {
-                batchPositions.forEach(function (batchPos) {
+                batchPositions.forEach(function(batchPos) {
                     console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'" data-unit_retail="'+batchPos.unit_retail+'"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="' + batchPos.remaining_qty +
+                        '" data-price="' + batchPos.unit_trade + '" data-unit_retail="' + batchPos.unit_retail +
+                        '"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
                     totalQuantity.value = batchPos.remaining_qty;
                     totalMedicineAmount.value = batchPos.unit_trade;
                     totalMedicineAmount2.value = batchPos.unit_trade;
@@ -1012,7 +1030,7 @@
             $('#printlabel' + id).attr('target', '__blank');
         }
 
-        function ChangeBatch(id){
+        function ChangeBatch(id) {
             const selectBatch = document.getElementById('batch_pos' + id);
 
             const selectedOption = selectBatch.options[selectBatch.selectedIndex];
@@ -1021,8 +1039,8 @@
             const price = selectedOption.getAttribute('data-price');
             const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
-            $('#total_quantity'+id).val(total_quantity);
-            $('#selling_price'+id).val(unit_retail);
+            $('#total_quantity' + id).val(total_quantity);
+            $('#selling_price' + id).val(unit_retail);
             ChnageDosage(id);
         }
 
@@ -1032,7 +1050,7 @@
 
         function addMedicine(id) {
             var tableRow = document.getElementById('medicine-table-body');
-            var a = tableRow.rows.length+1;
+            var a = tableRow.rows.length + 1;
             var product_id = $('#search_addbtn' + id).data('product_id');
             var product_name = $('#search_addbtn' + id).data('product_name');
             var generic_formula = $('#search_addbtn' + id).data('generic_formula');
@@ -1072,7 +1090,7 @@
                             <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="batch_pos form-control">
                                 ${batch_pos.length != 0  
                                     ? `${batch_pos.map(batch => {
-                                            return `<option value="${batch.id}" 
+                                                return `<option value="${batch.id}" 
                                                         data-batch-id="${batch.id}" 
                                                         data-quantity_oh="${batch.remaining_qty}"
                                                         data-expiry-date="${batch.expiry_date}"
@@ -1080,7 +1098,7 @@
                                                         data-price="${batch.unit_trade}">
                                                     ${batch.batch.batch_no}
                                                     </option>`;
-                                        }).join('')}` :
+                                            }).join('')}` :
                                         `<option value="">Not Any Batch Found</option>`
                                     }
                             </select>
@@ -1208,9 +1226,9 @@
         });
 
         $(document).ready(function() {
-    var id = $('.batch_pos').val();
-    ChangeBatch(id);
-    });
+            var id = $('.batch_pos').val();
+            ChangeBatch(id);
+        });
     </script>
 
 
