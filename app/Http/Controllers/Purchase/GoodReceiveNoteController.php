@@ -88,7 +88,7 @@ class GoodReceiveNoteController extends Controller
             //     'transfer_quantity' => 0
             //   ]);
 
-              
+
             GoodReceiveProduct::create([
                 'good_receive_note_id' => $goodReceiveNote->id,
                 'product_id' => $product['id'],
@@ -272,7 +272,7 @@ class GoodReceiveNoteController extends Controller
             'batch_no' => $batchNumber,
             'product_id' => $GRNProduct->product_id,
             'unit_trade' => $unit_trade,
-            'unit_retail'=> $GRNProduct->item_amount,
+            'unit_retail'=> $GRNProduct->product->unit_retail,
             'quantity' => $GRNProduct->deliver_qty,
             'remaining_qty' => $GRNProduct->deliver_qty,
             'expiry_date' => $GRNProduct->expiry_date,
