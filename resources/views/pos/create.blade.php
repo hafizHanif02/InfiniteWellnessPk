@@ -683,7 +683,7 @@
 
             sellingpriceTag.value = sellingPriceValue;
             // genericformulatag.value = GenericFormula;
-
+                console.log("selling value " + sellingPriceValue);
             if (batchPositions) {
                 batchPositions.forEach(function (batchPos) {
                     console.log(batchPos);
