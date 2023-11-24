@@ -26,6 +26,7 @@ class GoodReceiveProduct extends Model
         'discount',
         'saletax_percentage',
         'saletax_amount',
+        'manufacturer_retail_price',
         'batch_id',
     ];
 

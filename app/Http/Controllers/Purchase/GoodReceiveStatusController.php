@@ -32,14 +32,16 @@ class GoodReceiveStatusController extends Controller
     {
         if ($request->status == 1) {
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
-                $unit_trade = $goodReceiveProduct->item_amount - (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100);
-                $manufacture_retail_price = $goodReceiveProduct->item_amount * $goodReceiveProduct->product->pieces_per_pack;
+                // $unit_trade = (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100) + $goodReceiveProduct->item_amount;
+                // $unit_trade = $goodReceiveProduct->item_amount - (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100);
+                // $manufacture_retail_price = $goodReceiveProduct->item_amount * $goodReceiveProduct->product->pieces_per_pack;
                 // dd($manufacture_retail_price, $unit_trade);
+                // $unit_retail = $goodReceiveProduct->manufacture_retail_price/$goodReceiveProduct->deliver_qty;
                   $batch =   Batch::create([
                     'batch_no' => $goodReceiveProduct->batch_number,
                    'product_id' => $goodReceiveProduct->product->id,
-                   'unit_trade' => $unit_trade,
-                   'unit_retail'=> $goodReceiveProduct->item_amount,
+                   'unit_trade' => $goodReceiveProduct->item_amount,
+                   'unit_retail'=> $goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty,
                    'quantity' => $goodReceiveProduct->deliver_qty,
                    'remaining_qty' => $goodReceiveProduct->deliver_qty,
                    'expiry_date' => $goodReceiveProduct->expiry_date,
@@ -59,10 +61,17 @@ class GoodReceiveStatusController extends Controller
 
                 // $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
                 
-                $goodReceiveProduct->product->update([
-                'manufacturer_retail_price'=> $manufacture_retail_price,
-                'unit_trade' => $unit_trade,
-                'unit_retail'=> $goodReceiveProduct->item_amount
+            //     $goodReceiveProduct->product->update([
+            //     'manufacturer_retail_price'=> $goodReceiveProduct->manufacture_retail_price,
+            //     'unit_trade' => $unit_trade,
+            //     // 'unit_retail'=> $goodReceiveProduct->item_amount
+            // ]);
+
+            // dd($goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty, $goodReceiveProduct->item_amount, $goodReceiveProduct->manufacturer_retail_price);
+            $goodReceiveProduct->product->update([
+                'unit_retail' => $goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty,
+                'unit_trade' => $goodReceiveProduct->item_amount,
+                'manufacturer_retail_price' => $goodReceiveProduct->manufacturer_retail_price
             ]);
             }
         }

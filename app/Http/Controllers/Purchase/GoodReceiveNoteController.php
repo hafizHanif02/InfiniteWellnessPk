@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Purchase;
-
 use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Batch;
@@ -40,7 +38,6 @@ class GoodReceiveNoteController extends Controller
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
         ]);
     }
-
     public function getRequisitions($vendorId): JsonResponse
     {
         return response()->json([
@@ -100,6 +97,7 @@ class GoodReceiveNoteController extends Controller
                 'discount' => $product['discount'],
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
+                'manufacturer_retail_price' => $product['manufacturer_retail_price'],
                 // 'batch_id' => $batch->id,
             ]);
 

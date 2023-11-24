@@ -101,6 +101,7 @@
                                         <td style="min-width: 150px">Exp Date</td>
                                         <td style="min-width: 150px">Batch No.</td>
                                         <td style="min-width: 150px">Price Per Unit</td>
+                                        <td style="min-width: 150px">MRP</td>
                                         <td style="min-width: 150px">Amount</td>
                                     </tr>
                                 </thead>
@@ -275,7 +276,10 @@
                                                 <td>
                                                     <input type="number" id="price_per_unit${requistionProduct.id}" name="products[${items}][totalprice2]" value="${requistionProduct.price_per_unit}" class="form-control" readonly>
                                                 </td>
-
+                                                <td>
+                                                    <input type="number" id="manufacturer_retail_price${requistionProduct.id}" name="products[${items}][manufacturer_retail_price]" value="${requistionProduct.product.manufacturer_retail_price}" step="any"  class="form-control">
+                                                </td>
+                                                
                                                 <td>
                                                     <input type="number" id="totalprices2${requistionProduct.id}" name="products[${items}][totalprice]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
                                                     <input type="hidden" id="totalpricefordiscount${requistionProduct.id}" name="products[${items}][totalpricefordiscount]" value="${requistionProduct.total_amount/requistionProduct.total_piece}" class="form-control" readonly>
