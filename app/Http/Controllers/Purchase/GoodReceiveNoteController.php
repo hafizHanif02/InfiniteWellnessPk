@@ -158,7 +158,7 @@ class GoodReceiveNoteController extends Controller
         $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             $product_id = $product['id'];
-            GoodReceiveProduct::where(['product_id'=>$product_id],['good_receive_note_id'=>$goodReceiveNote->id])->update([
+            GoodReceiveProduct::where(['product_id'=>$product_id,'good_receive_note_id'=>$goodReceiveNote->id])->update([
                 'deliver_qty' => $product['deliver_qty'],
                 'bonus' => $product['bonus'] ?? null,
                 'expiry_date' => $product['expiry_date'],
@@ -167,6 +167,7 @@ class GoodReceiveNoteController extends Controller
                 'discount' => $product['discount'],
                 'saletax_percentage' => $product['saletax_percentage'],
                 'saletax_amount' => $product['saletax_amount'],
+                'manufacturer_retail_price' => $product['manufacturer_retail_price'],
             ]);
             $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],';
         }

@@ -106,6 +106,7 @@
                                         <td style="min-width: 150px">Exp Date</td>
                                         <td style="min-width: 150px">Batch No.</td>
                                         <td style="min-width: 150px">Price Per Unit</td>
+                                        <td style="min-width: 150px">MRP</td>
                                         <td style="min-width: 150px">Amount</td>
 
                                     </tr>
@@ -204,7 +205,12 @@
                                                     value="{{ $goodReceiveProduct->requistionProduct->price_per_unit }}"
                                                     class="form-control" readonly>
                                             </td>
-
+                                            <td>
+                                                <input type="number" id="manufacturer_retail_price{{ $loop->iteration }}"
+                                                    name="products[{{ $loop->iteration }}][manufacturer_retail_price]"
+                                                    value="{{ $goodReceiveProduct->manufacturer_retail_price }}"
+                                                    class="form-control">
+                                            </td>
                                             <td>
                                                 <input type="number" id="totalprice2{{ $loop->iteration }}"
                                                     name="products[{{ $loop->iteration }}][totalprice]"
