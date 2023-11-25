@@ -87,7 +87,7 @@
                             </tr>
                             <tr>
                                 <th>Manufacture Purchase Rate</th>
-                                <td>{{ $goodReceiveNoteProduct->product->manufacturer_retail_price }}</td>
+                                <td>{{ $goodReceiveNoteProduct->manufacturer_retail_price }}</td>
                             </tr>
                             <tr>
                                 

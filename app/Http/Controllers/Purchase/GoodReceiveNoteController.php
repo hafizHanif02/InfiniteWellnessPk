@@ -251,6 +251,7 @@ class GoodReceiveNoteController extends Controller
             'products.*.discount' => ['nullable', 'numeric', 'min:0'],
             'products.*.saletax_percentage' => ['nullable', 'numeric'],
             'products.*.saletax_amount' => ['nullable', 'numeric'],
+            'products.*.manufacturer_retail_price' => ['required', 'numeric'],
         ], $customMessages);
 
         // Validation succeeded
