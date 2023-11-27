@@ -181,7 +181,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     Route::get('payment-success', [StripeController::class, 'paymentSuccess'])->name('payment-success');
     Route::get('failed-payment', [StripeController::class, 'handleFailedPayment'])->name('failed-payment');
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|PharmacistAdmin|Case Manager')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('notice-board', [Employee\NoticeBoardController::class, 'index'])->name('employee.noticeboard')->middleware('modules');
             Route::get('notice-board/{id}', [Employee\NoticeBoardController::class, 'show'])->name('noticeboard.show');
@@ -189,7 +189,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         });
     });
 
-    Route::middleware('role:Admin|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|PharmacistAdmin|Case Manager')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('payroll', [Employee\PayrollController::class, 'index'])->name('payroll')->middleware('modules');
         });
@@ -309,7 +309,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
     });
 
     // excel export routes.
-    Route::middleware('role:Pharmacist|Admin')->group(function () {
+    Route::middleware('role:Pharmacist|PharmacistAdmin|Admin')->group(function () {
         Route::prefix('pharmacist')->group(function () {
             Route::get('export-brands', [BrandController::class, 'brandExport'])->name('brands.excel');
             Route::get('export-medicines', [MedicineController::class, 'medicineExport'])->name('medicines.excel');
@@ -504,14 +504,14 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('export-case-handlers', [CaseHandlerController::class, 'caseHandlerExport'])->name('case.handler.excel');
     });
 
-    Route::middleware('role:Admin|Doctor|Lab Technician|Pharmacist|Case Manager|Accountant|Receptionist')->group(function () {
+    Route::middleware('role:Admin|Doctor|Lab Technician|Pharmacist|PharmacistAdmin|Case Manager|Accountant|Receptionist')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('doctor', [Employee\DoctorController::class, 'index'])->name('doctor');
             Route::get('doctor/{id}', [Employee\DoctorController::class, 'show'])->name('doctor.show');
         });
     });
 
-    Route::middleware('role:Pharmacist')->group(function () {
+    Route::middleware('role:Pharmacist|PharmacistAdmin')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('prescriptions', [Employee\PrescriptionController::class, 'index'])->name('employee.prescriptions');
             Route::get('prescriptions/{id}', [Employee\PrescriptionController::class, 'show'])->name('employee.prescriptions.show');
@@ -520,7 +520,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         });
     });
 
-    Route::middleware('role:Admin|Lab Technician|Pharmacist')->group(function () {
+    Route::middleware('role:Admin|Lab Technician|Pharmacist|PharmacistAdmin')->group(function () {
         Route::resource('medicines', MedicineController::class)->parameters(['medicines' => 'medicine']);
         Route::get('medicines', [MedicineController::class, 'index'])->name('medicines.index')->middleware('modules');
         Route::get('medicines-show-modal/{medicine}', [MedicineController::class, 'showModal'])->name('medicines.show.modal');
@@ -553,7 +553,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('packages/{package}', [PackageController::class, 'show'])->where('package', '[0-9]+');
     });
 
-    Route::middleware('role:Admin|Patient|Nurse|Pharmacist')->group(function () {
+    Route::middleware('role:Admin|Patient|Nurse|Pharmacist|PharmacistAdmin')->group(function () {
         Route::prefix('employee')->group(function () {
             Route::get('patient-admissions', [Employee\PatientAdmissionController::class, 'index'])->name('patient-admissions');
             Route::get('patient-admissions/{patient_admission}', [Employee\PatientAdmissionController::class, 'show'])
@@ -651,7 +651,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
             ->name('vaccinated-patients.excel');
     });
 
-    Route::middleware('role:Admin|Accountant|Doctor|Nurse|Receptionist|Lab Technician|Pharmacist|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Accountant|Doctor|Nurse|Receptionist|Lab Technician|Pharmacist|PharmacistAdmin|Case Manager')->group(function () {
         Route::get('employee-payrolls/{employeePayroll}',
             [EmployeePayrollController::class, 'show'])->where('employeePayroll', '[0-9]+');
         Route::get('employee-payrolls-show/{employeePayroll}',
@@ -667,7 +667,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('services/{service_id}/active-deactive', [ServiceController::class, 'activeDeActiveService']);
     });
 
-    Route::middleware('role:Admin|Accountant|Pharmacist')->group(function () {
+    Route::middleware('role:Admin|Accountant|Pharmacist|PharmacistAdmin')->group(function () {
         Route::resource('accounts', AccountController::class)->parameters(['accounts' => 'account']);
         Route::get('accounts', [AccountController::class, 'index'])->name('accounts.index')->middleware('modules');
         Route::post('accounts/{account}/active-deactive', [AccountController::class, 'activeDeactiveAccount']);
@@ -817,7 +817,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('export-ambulances', [AmbulanceController::class, 'ambulanceExport'])->name('ambulance.excel');
     });
 
-    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Accountant|Pharmacist')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Case Manager|Doctor|Accountant|Pharmacist|PharmacistAdmin')->group(function () {
         //Sms Rout
         Route::get('sms', [SmsController::class, 'index'])->name('sms.index')->middleware('modules');
         Route::post('sms', [SmsController::class, 'store'])->name('sms.store');
@@ -827,7 +827,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('sms-users-lists', [SmsController::class, 'getUsersList'])->name('sms.users.lists');
     });
 
-    Route::middleware('role:Admin|Receptionist|Lab Technician|Pharmacist')->group(function () {
+    Route::middleware('role:Admin|Receptionist|Lab Technician|Pharmacist|PharmacistAdmin')->group(function () {
         // radiology test routes
         Route::get('radiology-tests',
             [RadiologyTestController::class, 'index'])->name('radiology.test.index')->middleware('modules');
@@ -921,7 +921,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('employees-list', [EmployeePayrollController::class, 'getEmployeesList'])->name('employees.list');
     });
 
-    Route::middleware('role:Admin|Nurse|Pharmacist|Doctor|Receptionist|Dietitian|SupplyChain|Supply-Chain|Accountant')->group(function () {
+    Route::middleware('role:Admin|Nurse|Pharmacist|PharmacistAdmin|Doctor|Receptionist|Dietitian|SupplyChain|Supply-Chain|Accountant')->group(function () {
         //        Route::resource('departments', 'DepartmentController');
         //        Route::post('departments/{department}/active-deactive', 'DepartmentController@activeDeactiveDepartment');
 
@@ -1295,7 +1295,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::delete('testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
     });
 
-    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|Case Manager')->group(function () {
+    Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse|Accountant|Lab Technician|Pharmacist|PharmacistAdmin|Case Manager')->group(function () {
 
         //Notification routes
         Route::get('/notification/{notification}/read',

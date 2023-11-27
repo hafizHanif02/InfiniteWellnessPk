@@ -1030,7 +1030,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
     {{--@endmodule--}}
     @endrole
 
-    @role('Pharmacist')
+    @role('Pharmacist|PharmacistAdmin')
 
     {{-- Billing --}}
     <?php

@@ -599,7 +599,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Pharmacist|Lab Technician')
+@role('Admin|Pharmacist|Lab Technician|PharmacistAdmin')
 @module('Medicine Categories',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('categories*','brands*','medicines*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('categories*') ? 'active' : '' }}"
@@ -609,7 +609,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Pharmacist|Lab Technician')
+@role('Admin|Pharmacist|Lab Technician|PharmacistAdmin')
 @module('Medicine Brands',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('categories*','brands*','medicines*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('brands*') ? 'active' : '' }}"
@@ -619,7 +619,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Pharmacist|Lab Technician')
+@role('Admin|Pharmacist|Lab Technician|PharmacistAdmin')
 @module('Medicines',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('categories*','brands*','medicines*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('medicines*') ? 'active' : '' }}"
@@ -629,7 +629,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Pharmacist')
+@role('Admin|Pharmacist|PharmacistAdmin')
 @module('Medicines',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0">
     <a class="nav-link p-0 {{ request()->route()->named('medicines.adjustment.show')? 'active': '' }}"
@@ -655,7 +655,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Receptionist|Pharmacist|Lab Technician')
+@role('Admin|Receptionist|Pharmacist|Lab Technician|PharmacistAdmin')
 @module('Radiology Tests',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('radiology-categories*','radiology-tests*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('radiology-tests*') ? 'active' : '' }}"
@@ -675,7 +675,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Receptionist|Pharmacist|Lab Technician')
+@role('Admin|Receptionist|Pharmacist|Lab Technician|PharmacistAdmin')
 @module('Pathology Tests',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('pathology-categories*','pathology-tests*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('pathology-tests*') ? 'active' : '' }}"
@@ -705,7 +705,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Doctor|Accountant|Case Manager|Receptionist|Pharmacist')
+@role('Admin|Doctor|Accountant|Case Manager|Receptionist|Pharmacist|PharmacistAdmin')
 @module('SMS',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('sms*','mail*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('sms*') ? 'active' : '' }}"
@@ -922,7 +922,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse')
+@role('Admin|Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse|PharmacistAdmin')
 @module('Live Meetings',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0  {{ (!Request::is('live-consultation*','live-meeting*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('live-meeting*') ? 'active' : '' }}"
@@ -1028,7 +1028,7 @@
 </li>
 @endmodule
 @endrole
-@role('Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse|Patient')
+@role('Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse|Patient|PharmacistAdmin')
 @module('Notice Boards',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ !Request::is('employee/notice-board*') ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('employee/notice-board*') ? 'active' : '' }}"
@@ -1038,7 +1038,7 @@
 </li>
 @endmodule
 @endrole
-@role('Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse')
+@role('Doctor|Accountant|Case Manager|Receptionist|Pharmacist|Lab Technician|Nurse|PharmacistAdmin')
 @module('My Payrolls',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ !Request::is('employee/payroll*') ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('employee/payroll*') ? 'active' : '' }}"

@@ -200,6 +200,12 @@ class UserRepository extends BaseRepository
                 $ownerId = $DoctorDietitian->id;
                 $ownerType = DoctorDietitian::class;
             }
+            elseif ($input['department_id'] == 13) {
+                $PharmacistAdmin = Pharmacist::create(['user_id' => $user->id]);
+                // $user->sendEmailVerificationNotification();
+                $ownerId = $PharmacistAdmin->id;
+                $ownerType = Pharmacist::class;
+            }
 
 
 
