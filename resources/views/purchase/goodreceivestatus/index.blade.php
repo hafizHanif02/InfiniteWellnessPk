@@ -23,6 +23,8 @@
                                 <td>{{ $grn->requistion->vendor->account_title }}</td>
                                 <td>
                                     @if ($grn->is_approved === null)
+                                    {{-- @role('PharmacistAdmin') --}}
+                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin'))
                                         <form id="approve-goodreceivestatus-form"
                                             action="{{ route('purchase.good-receive-statuses.status', $grn->id) }}"
                                             class="d-inline" method="POST">
@@ -45,6 +47,10 @@
                                                 <i class="fa fa-close"></i>
                                             </button>
                                         </form>
+                                    {{-- @endrole --}}
+                                    @else
+                                        <div class="badge badge-warning">Only Admin Can Approve</div>
+                                    @endif
                                     @elseif($grn->is_approved == 1)
                                         <div class="badge badge-success">Approved</div>
                                     @else

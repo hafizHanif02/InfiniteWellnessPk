@@ -23,6 +23,7 @@
                                 <td>{{ $purchasereturn->goodReceiveNote->id }}</td>
                                 <td>
                                     @if ($purchasereturn->status === null)
+                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin'))
                                         <form id="approve-purchasereturnstatus-form"
                                             action="{{ route('purchase.purchase-return-status.update', $purchasereturn->id) }}"
                                             class="d-inline" method="POST">
@@ -45,6 +46,9 @@
                                                 <i class="fa fa-close"></i>
                                             </button>
                                         </form>
+                                        @else
+                                        <div class="badge badge-warning">Only Admin Can Approve</div>
+                                    @endif
                                     @elseif($purchasereturn->status === 1)
                                         <div class="badge badge-success">Approved</div>
                                     @else

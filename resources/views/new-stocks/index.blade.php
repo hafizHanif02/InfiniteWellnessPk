@@ -26,6 +26,7 @@
                                 <td>{{ $newStock->total_supply_quantity }}</td> --}}
                                 <td class="d-flex justify-content-center">
                                     <a style="display: flex;align-items: center;" target="_blank" href="{{ route('new-stocks.report.show',$newStock->id) }}"><i class="fa fa-eye"></i></a>
+                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin'))
                                     <form action="{{ route('new-stocks.update-status', $newStock->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
@@ -38,7 +39,9 @@
                                         data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fa fa-close"></i>
                                     </button>
-
+                                    @else
+                                    <div class="btn disabled btn-warning btn-sm ms-2">Only Admin Can Approve</div>
+                                @endif
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1"

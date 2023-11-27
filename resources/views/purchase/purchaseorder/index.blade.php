@@ -20,6 +20,7 @@
                                 <td>{{ $requistion->id }}</td>
                                 <td>{{ $requistion->vendor->account_title }}</td>
                                 <td class="d-flex justify-content-center gap-5">
+                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin'))
                                     <form id="approve-purchaseorder-form" action="{{ route('purchase.purchaseorder.status', $requistion->id) }}"
                                         class="d-inline" method="POST">
                                         @csrf
@@ -38,6 +39,9 @@
                                             <i class="fa fa-close"></i>
                                         </button>
                                     </form>
+                                    @else
+                                    <div class="badge badge-warning">Only Admin Can Approve</div>
+                                @endif
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-5">
