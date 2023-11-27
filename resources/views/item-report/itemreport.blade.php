@@ -40,7 +40,7 @@
                         </div>
                         <table id="tbl_exporttable_to_xls" class="table table-striped">
                             <thead>
-                                {{-- {{ dd($poses[0]->medicine_id) }} --}}
+                                {{-- {{ dd($medicines[0]) }} --}}
                                 <tr>
                                     <th>Product Name</th>
                                     <th>Manufacturer</th>
@@ -50,33 +50,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- {{ dd($poses) }} --}}
-                                @foreach ($poses as $posProduct)
-                                    @if ($posProduct != null)
-                                        @php
-                                            // Find the corresponding return quantity for the current product
-                                            $returnProduct = $posReturnQuantity->where('productName', $posProduct->productName)->first();
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $posProduct->productName }}</td>
-                                            <td>{{ $posProduct->company_name }}</td>
-                                            <td>{{ $posProduct->productQty }}</td>
-                                            <td>
-                                                @if ($returnProduct)
-                                                    {{ $returnProduct->totalquantity }}
-                                                @else
-                                                    0
-                                                @endif
-                                            <td>{{ $posProduct->total_quantity }}</td>
-                                            </td>
-                                        </tr>
-                                    @else
-                                        <tr>
-                                            <td colspan="5" class="text-danger">No Record found!</td>
-                                        </tr>
-                                    @endif
+                                @foreach ($medicines as $product)
+                                    <tr>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->product->manufacturer->company_name }}</td>
+                                        <td>{{ $product->sell_qty }}</td>
+                                        <td>{{ $product->return_qty }}</td>
+                                        <td>{{ $product->total_quantity }}</td>
+                                    </tr>
+                                    
                                 @endforeach
-
                             </tbody>
                         </table>
                         <div>
