@@ -437,7 +437,7 @@
                     <td>
                             <input type="number"  step="any"readonly value="${medicine.medicine.total_quantity}" name="products[${items}][total_stock]"  id="total_quantity${items}" class="form-control">
                         </td>
-                    <td><input type="text" class="form-control" readonly id="selling_price${items}" value="${medicine.medicine.product.unit_retail}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
+                    <td><input type="text" class="form-control" id="selling_price${items}" value="${medicine.medicine.product.unit_retail}" name="products[${items}][mrp_perunit]" placeholder="mrp perunit"></td>
                     <td><input type="text" class="form-control" readonly id="dosage${items}" value="${medicine.dosage}" name="products[${items}][product_quantity]" placeholder="dosage"></td>
                     <td>
                         <input type="number" readonly step="any"onkeyup="discountCalculation(${items})" id="discount_percentage${items}" value="${medicine.medicine.product.fixed_discount}" class="form-control"  name="products[${items}][discount_percentage]" >
@@ -577,7 +577,7 @@
                             <input type="number" step="any"readonly value="0" name="products[${a}][total_stock]"  id="total_quantity${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
+                            <input type="number"  step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
                         </td>
                         <td>
                             <input type="number"  step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
@@ -942,7 +942,7 @@
 
             // console.log(selectedOption);
             $('#total_quantity'+id).val(total_quantity);
-            //$('#selling_price'+id).val(unit_retail);
+            $('#selling_price'+id).val(unit_retail);
             ChnageDosage(id);
         }
 
@@ -1013,7 +1013,7 @@
 
 
                     <td><input name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
-                    <td><input class="form-control" type="text" step="any"readonly  name="products[${a}][mrp_perunit]" id="selling_price${a}" readonly value="${selling_price}"></td>
+                    <td><input class="form-control" type="text" step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" value="${selling_price}"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
                         <input class="form-control" readonly type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
