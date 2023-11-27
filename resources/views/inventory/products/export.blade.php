@@ -12,7 +12,6 @@
         <th>manufacturer_retail_price</th>
         <th>pieces_per_pack</th>
         <th>Total Quantity</th>
-        <th>Open Quantity</th>
         <th>trade_price_percentage</th>
         <th>unit_retail</th>
         <th>fixed_discount</th>
@@ -59,7 +58,6 @@
                 <td>{{ $product->manufacturer_retail_price }}</td>
                 <td>{{ $product->pieces_per_pack }}</td>
                 <td>{{ $product->total_quantity }}</td>
-                <td>{{ $product->open_quantity }}</td>
                 <td>{{ $product->trade_price_percentage }}</td>
                 <td>{{ $product->unit_retail }}</td>
                 <td>{{ $product->fixed_discount }}</td>
