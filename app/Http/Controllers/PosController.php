@@ -357,21 +357,69 @@ class PosController extends Controller
     }
 
 
-    public function posItemReport(Request $request)
+    // public function posItemReport(Request $request)
+    // {
+    //     $posid = Pos_Product::pluck('pos_id');
+
+    //     // Query to calculate the total quantity and total price from returns
+    //     $returnQuery = PosProductReturn::whereIn('pos_id', $posid)
+    //         ->selectRaw('pos_id as pos_id, product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
+    //         ->groupBy('medicine_id');
+
+    //     // Query to calculate the total quantity from Pos_Product
+    //     $posesQuery = Pos_Product::whereIn('pos_id', $posid)
+
+    //         ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
+    //         ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
+    //         ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+    //         ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
+    //         ->selectRaw('medicines.*')
+    //         ->selectRaw('manufacturers.*')
+    //         ->groupBy('medicine_id');
+
+    //     // Apply filters
+
+    //     if ($request->date_from && $request->date_to) {
+    //         $returnQuery->whereBetween('pos_product_returns.created_at', [$request->date_from, $request->date_to]);
+    //         $posesQuery->whereBetween('pos__products.created_at', [$request->date_from, $request->date_to]);
+    //     } elseif ($request->date_from) {
+    //         $returnQuery->where('pos_product_returns.created_at', '>=', $request->date_from);
+    //         $posesQuery->where('pos__products.created_at', '>=', $request->date_from);
+    //     } elseif ($request->date_to) {
+    //         $returnQuery->where('pos_product_returns.created_at', '<=', $request->date_to);
+    //         $posesQuery->where('pos__products.created_at', '<=', $request->date_to);
+    //     }
+
+    //     // Fetch the data
+    //     $posReturnQuantity = $returnQuery->get();
+    //     $poses = $posesQuery->with('medicine')->get();
+    //     $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
+
+    //     return view('item-report.index', [
+    //         'poses' => $poses,
+    //         'posReturns' => $posReturns,
+    //         'posReturnQuantity' => $posReturnQuantity,
+    //     ]);
+    // }
+
+    public function itemReport(Request $request)
     {
-        $posid = Pos_Product::pluck('pos_id');
+        $medicineId = Medicine::pluck('id');
 
         // Query to calculate the total quantity and total price from returns
-        $returnQuery = PosProductReturn::whereIn('pos_id', $posid)
+        $returnQuery = PosProductReturn::whereIn('medicine_id', $medicineId)
+            ->where('pos.is_paid', 1)
+            ->leftJoin('pos', 'pos.id', '=', 'pos_product_returns.pos_id')
             ->selectRaw('pos_id as pos_id, product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
             ->groupBy('medicine_id');
 
         // Query to calculate the total quantity from Pos_Product
-        $posesQuery = Pos_Product::whereIn('pos_id', $posid)
-
+        $posesQuery = Pos_Product::whereIn('medicine_id', $medicineId)
+        ->where('pos.is_paid', 1)
             ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
             ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
             ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+            ->leftJoin('pos', 'pos.id', '=', 'pos__products.pos_id')
             ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
             ->selectRaw('medicines.*')
             ->selectRaw('manufacturers.*')
@@ -393,9 +441,9 @@ class PosController extends Controller
         // Fetch the data
         $posReturnQuantity = $returnQuery->get();
         $poses = $posesQuery->with('medicine')->get();
-        $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
+        $posReturns = PosProductReturn::whereIn('pos_id', $medicineId)->get();
 
-        return view('item-report.index', [
+        return view('item-report.itemreport', [
             'poses' => $poses,
             'posReturns' => $posReturns,
             'posReturnQuantity' => $posReturnQuantity,
@@ -403,24 +451,28 @@ class PosController extends Controller
     }
 
 
-    public function posItemReportPrint(Request $request)
+    public function itemReportPrint(Request $request)
     {
-        $posid = Pos_Product::pluck('pos_id');
+        $medicineId = Medicine::pluck('id');
 
         // Query to calculate the total quantity and total price from returns
-        $returnQuery = PosProductReturn::whereIn('pos_id', $posid)
+        $returnQuery = PosProductReturn::whereIn('medicine_id', $medicineId)
+            ->where('pos.is_paid', 1)
+            ->leftJoin('pos', 'pos.id', '=', 'pos_product_returns.pos_id')
             ->selectRaw('pos_id as pos_id, product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
             ->groupBy('medicine_id');
 
         // Query to calculate the total quantity from Pos_Product
-        $posesQuery = Pos_Product::whereIn('pos_id', $posid)
-        ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
-        ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
-        ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
-        ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
-        ->selectRaw('medicines.*')
-        ->selectRaw('manufacturers.*')
-        ->groupBy('medicine_id');
+        $posesQuery = Pos_Product::whereIn('medicine_id', $medicineId)
+        ->where('pos.is_paid', 1)
+            ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
+            ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
+            ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+            ->leftJoin('pos', 'pos.id', '=', 'pos__products.pos_id')
+            ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
+            ->selectRaw('medicines.*')
+            ->selectRaw('manufacturers.*')
+            ->groupBy('medicine_id');
 
         // Apply filters
 
@@ -437,8 +489,8 @@ class PosController extends Controller
 
         // Fetch the data
         $posReturnQuantity = $returnQuery->get();
-        $poses = $posesQuery->get();
-        $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
+        $poses = $posesQuery->with('medicine')->get();
+        $posReturns = PosProductReturn::whereIn('pos_id', $medicineId)->get();
 
         return view('item-report.print', [
             'poses' => $poses,
@@ -446,4 +498,48 @@ class PosController extends Controller
             'posReturnQuantity' => $posReturnQuantity,
         ]);
     }
+    
+    // public function posItemReportPrint(Request $request)
+    // {
+    //     $posid = Pos_Product::pluck('pos_id');
+
+    //     // Query to calculate the total quantity and total price from returns
+    //     $returnQuery = PosProductReturn::whereIn('pos_id', $posid)
+    //         ->selectRaw('pos_id as pos_id, product_name as productName, SUM(product_quantity) as totalquantity, SUM(product_total_price) as totalprice')
+    //         ->groupBy('medicine_id');
+
+    //     // Query to calculate the total quantity from Pos_Product
+    //     $posesQuery = Pos_Product::whereIn('pos_id', $posid)
+    //     ->selectRaw('pos_id as pos_id, medicine_id, products.product_name as productName, SUM(product_quantity) as productQty')
+    //     ->leftJoin('medicines', 'medicines.id', '=', 'pos__products.medicine_id')
+    //     ->leftJoin('products', 'products.id', '=', 'medicines.product_id')
+    //     ->leftJoin('manufacturers', 'manufacturers.id', '=', 'products.manufacturer_id')
+    //     ->selectRaw('medicines.*')
+    //     ->selectRaw('manufacturers.*')
+    //     ->groupBy('medicine_id');
+
+    //     // Apply filters
+
+    //     if ($request->date_from && $request->date_to) {
+    //         $returnQuery->whereBetween('pos_product_returns.created_at', [$request->date_from, $request->date_to]);
+    //         $posesQuery->whereBetween('pos__products.created_at', [$request->date_from, $request->date_to]);
+    //     } elseif ($request->date_from) {
+    //         $returnQuery->where('pos_product_returns.created_at', '>=', $request->date_from);
+    //         $posesQuery->where('pos__products.created_at', '>=', $request->date_from);
+    //     } elseif ($request->date_to) {
+    //         $returnQuery->where('pos_product_returns.created_at', '<=', $request->date_to);
+    //         $posesQuery->where('pos__products.created_at', '<=', $request->date_to);
+    //     }
+
+    //     // Fetch the data
+    //     $posReturnQuantity = $returnQuery->get();
+    //     $poses = $posesQuery->get();
+    //     $posReturns = PosProductReturn::whereIn('pos_id', $posid)->get();
+
+    //     return view('item-report.print', [
+    //         'poses' => $poses,
+    //         'posReturns' => $posReturns,
+    //         'posReturnQuantity' => $posReturnQuantity,
+    //     ]);
+    // }
 }

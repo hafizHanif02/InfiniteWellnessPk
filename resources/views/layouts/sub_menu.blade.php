@@ -145,10 +145,16 @@
         {{ __('messages.transfer_report') }}
     </a>
 </li>
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('item-report-pos') ? 'active' : '' }}"
        href="{{ route('posItemReport.index') }}">
        POS Item Report
+    </a>
+</li> --}}
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('item-report-pos') ? 'active' : '' }}"
+        href="{{ route('itemReport.itemreport') }}">
+    Item Report
     </a>
 </li>
 @endmodule
@@ -822,10 +828,16 @@
     </a>
 </li>
 
-<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
+{{-- <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ Request::is('item-report-pos') ? 'active' : '' }}"
        href="{{ route('posItemReport.index') }}">
        POS Item Report
+    </a>
+</li> --}}
+<li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('item-categories*','items*','item-stocks*','issued-items*','new-stocks*','item-report*')) ? 'd-none' : '' }}">
+    <a class="nav-link p-0 {{ Request::is('item-report-pos') ? 'active' : '' }}"
+        href="{{ route('itemReport.itemreport') }}">
+    Item Report
     </a>
 </li>
 @endmodule
