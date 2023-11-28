@@ -107,23 +107,46 @@ class AppointmentController extends AppBaseController
         $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
         $doctor = Doctor::where('id', $input['doctor_id'])->with('user')->first();
         $receptions = Receptionist::with('user')->get();
-        $recipient = [$patient->user->email,$doctor->user->email];
+        $patientEmail = $patient->user->email;
+        $doctorEmail = $doctor->user->email;
+        // $recipient = [$patient->user->email,$doctor->user->email];
+        $recipient = [$patientEmail,$doctorEmail];
+
         $subject = 'Appointment Created';
-        $data = array(
-            'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
-        );
+
+        if(!empty($patientEmail)){
+            $data = array(
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
+            );
 
 
-        $mail = array(
-            'to' => $recipient,
-            'subject' => $subject,
-            'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
-            'attachments' => null,
-        );
-        
-        Email::to($recipient)
-            ->send(new MarkdownMail('emails.email',
-                $mail['subject'], $mail));
+            $mail = array(
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
+                'attachments' => null,
+            );
+
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
+        }else{
+            $data = array(
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
+            );
+
+            $recipient = $doctorEmail;
+            $mail = array(
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => 'Appointment has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['opd_date'].' Date & Time ',
+                'attachments' => null,
+            );
+
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
+        }
 
         foreach($receptions as $reception){
 
@@ -309,11 +332,19 @@ class AppointmentController extends AppBaseController
             $patient = Patient::where('id', $appointment->patient_id)->with('user')->first();
             $doctor = Doctor::where('id',  $appointment->doctor_id)->with('user')->first();
             $receptions = Receptionist::with('user')->get();
-            $recipient = [$patient->user->email, $doctor->user->email];
+
+            $patientEmail = $patient->user->email;
+            $doctorEmail = $doctor->user->email;
+
+            // $recipient = [$patient->user->email, $doctor->user->email];
+            $recipient = [$patientEmail, $doctorEmail];
             $subject = 'Appointment Approved';
-            $data = array(
-                'message' => 'Appointment has been approved of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
-            );
+
+            if(!empty($patientEmail)){
+
+                $data = array(
+                    'message' => 'Appointment has been approved of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+                );
 
 
             $mail = array(
@@ -329,6 +360,26 @@ class AppointmentController extends AppBaseController
                     $mail['subject'],
                     $mail
                 ));
+            }else{
+                $data = array(
+                    'message' => 'Appointment has been approved of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+                );
+
+                $recipient = $doctorEmail;
+            $mail = array(
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => 'Appointment has been approved of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+                'attachments' => null,
+            );
+
+            Email::to($recipient)
+                ->send(new MarkdownMail(
+                    'emails.email',
+                    $mail['subject'],
+                    $mail
+                ));
+            }
 
             foreach ($receptions as $reception) {
 
@@ -367,27 +418,53 @@ class AppointmentController extends AppBaseController
             $patient = Patient::where('id', $appointment->patient_id)->with('user')->first();
             $doctor = Doctor::where('id',  $appointment->doctor_id)->with('user')->first();
             $receptions = Receptionist::with('user')->get();
-            $recipient = [$patient->user->email, $doctor->user->email];
+            $patientEmail = $patient->user->email;
+            $doctorEmail = $doctor->user->email;
+            $recipient = [$patientEmail, $doctorEmail];
+            // $recipient = [$patient->user->email, $doctor->user->email];
             $subject = 'Appointment Cancelled';
-            $data = array(
-                'message' => 'Appointment has been cancelled of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
-            );
 
-
-            $mail = array(
+            if(!empty($patientEmail)){
+                
+                $data = array(
+                    'message' => 'Appointment has been cancelled of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+                );
+                
+                
+                $mail = array(
                 'to' => $recipient,
                 'subject' => $subject,
                 'message' => 'Appointment has been cancelled of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
                 'attachments' => null,
             );
-
+            
             Email::to($recipient)
-                ->send(new MarkdownMail(
-                    'emails.email',
-                    $mail['subject'],
-                    $mail
-                ));
+            ->send(new MarkdownMail(
+                'emails.email',
+                $mail['subject'],
+                $mail
+            ));
+        }else{
+            $data = array(
+                'message' => 'Appointment has been cancelled of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+            );
 
+            $recipient = $doctorEmail;
+            
+            $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Appointment has been cancelled of ' . $doctor->user->full_name . ' to Patient ' . $patient->user->full_name . ' which is scheduled on ' . $appointment->opd_date . ' this Date & Time ',
+            'attachments' => null,
+        );
+        
+        Email::to($recipient)
+        ->send(new MarkdownMail(
+            'emails.email',
+            $mail['subject'],
+            $mail
+        ));
+        }
             foreach ($receptions as $reception) {
 
                 $reception_mail = $reception->user->email;
