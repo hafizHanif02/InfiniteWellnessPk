@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Models\Log;
+use App\Models\Batch;
 use App\Models\Patient;
 use App\Models\Medicine;
 use Illuminate\View\View;
@@ -29,6 +30,7 @@ use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
+use App\Models\BatchPOS;
 
 class ProductController extends Controller
 {
@@ -494,4 +496,42 @@ class ProductController extends Controller
 
         return redirect('/inventory/adjustment')->with('success', 'Adjustment created successfully.');
     }
+
+    // batch pos report 
+// public function batchPosReport()
+// {
+//     $batches = Medicine::paginate(10)->onEachSide(1);
+//     return view('inventory.batch_report.batchreport', [
+//         'batches' => $batches
+//     ]);
+
+// }
+public function batchPosReport(Request $request)
+{
+    $query = Medicine::query();
+
+    if ($request->has('search_data')) {
+        $searchTerm = $request->search_data;
+        $query->where('name', 'LIKE', '%' . $searchTerm . '%')
+              ->orWhere('id', '=', $searchTerm );
+    }
+
+    $batches = $query->paginate(10)->onEachSide(1);
+
+    return view('inventory.batch_report.batchreport', [
+        'batches' => $batches,
+        'search_data' => $request->search_data ?? ''
+    ]);
+}
+
+public function batchPosReportShow($id)
+{
+    $batches = BatchPOS::where('product_id', $id)->get();
+    $product = Medicine::find($id);
+
+    return view('inventory.batch_report.batchReportShow', [
+        'batches' => $batches,
+        'product' => $product,
+    ]);
+}
 }
