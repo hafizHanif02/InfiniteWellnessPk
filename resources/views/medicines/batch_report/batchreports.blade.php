@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Batch Pos Report
+    Batch POS Report
 @endsection
 @section('content')
     <div class="container-fluid">

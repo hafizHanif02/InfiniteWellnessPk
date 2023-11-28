@@ -25,9 +25,11 @@
 
                 <table class="table table-bordered">
                     <thead class="table-dark">
-                        <th>Id</th>
-                        <th>Product Name</th>
-                        <th>Actions</th>
+                        <tr>
+                            <th>Id</th>
+                            <th>Product Name</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody class="table-light">
                         @foreach ($batches as $product)
@@ -39,6 +41,7 @@
                                         class="btn btn-primary btn-sm">View batch
                                     </a>
                                 </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
