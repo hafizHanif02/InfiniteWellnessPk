@@ -531,6 +531,10 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('medicines-recalculation', [MedicineController::class, 'medicinesRecalculation'])->name('medicines.recalculation');
         Route::post('medicines/recalculate', [MedicineController::class, 'medicinesRecalculate'])->name('medicines.recalculate');
 
+         // batch pos report
+    Route::get('medicines/medicines/batch-pos-report', [MedicineController::class, 'batchPosReport'])->name('medicines.batch-pos-report');
+    Route::get('medicines/medicines/batch-pos-report/show/{id}', [MedicineController::class, 'batchPosReportShow'])
+    ->name('medicines.batch-pos-report.show');
 
         Route::resource('categories', CategoryController::class)->parameters(['categories' => 'category']);
         Route::get('categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('modules');

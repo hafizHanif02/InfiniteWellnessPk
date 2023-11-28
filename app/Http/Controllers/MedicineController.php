@@ -24,6 +24,7 @@ use Illuminate\Contracts\View\Factory;
 use App\Repositories\MedicineRepository;
 use App\Http\Requests\CreateMedicineRequest;
 use App\Http\Requests\UpdateMedicineRequest;
+use App\Models\BatchPOS;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class MedicineController extends AppBaseController
@@ -281,4 +282,34 @@ class MedicineController extends AppBaseController
             'medicines' => $medicines
         ]);
     }
+    
+    public function batchPosReport(Request $request)
+    {
+        $query = Medicine::query();
+    
+        if ($request->has('search_data')) {
+            $searchTerm = $request->search_data;
+            $query->where('name', 'LIKE', '%' . $searchTerm . '%')
+                  ->orWhere('id', '=', $searchTerm );
+        }
+    
+        $batches = $query->paginate(10)->onEachSide(1);
+    
+        return view('medicines.batch_report.batchreports', [
+            'batches' => $batches,
+            'search_data' => $request->search_data ?? ''
+        ]);
+    }
+
+    public function batchPosReportShow($id)
+    {
+      
+        $batches = BatchPOS::where('product_id', $id)->get();
+    $product = Medicine::find($id);
+
+    return view('medicines.batch_report.batchReportShow', [
+        'batches' => $batches,
+        // 'product' => $product,
+    ]);
+}
 }

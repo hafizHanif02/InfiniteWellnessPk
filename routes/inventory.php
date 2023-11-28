@@ -10,6 +10,7 @@ use App\Http\Controllers\Inventory\ProductController;
 use App\Http\Controllers\Inventory\ManufacturerController;
 use App\Http\Controllers\Inventory\ProductCategoryController;
 
+
 Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(function () {
 
     // Products
@@ -54,7 +55,9 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::get('adjustment', [ProductController::class, 'adjustment'])->name('products.adjustment');
     Route::get('adjustment/create', [ProductController::class, 'adjustmentCreate'])->name('products.adjustment.create');
     Route::post('adjustment/store', [ProductController::class, 'adjustmentStore'])->name('adjustments.store');
-    // batch pos report
-    Route::get('batch-pos-report', [ProductController::class, 'batchPosReport'])->name('products.batch-pos-report');
-    Route::get('batch-pos-report/show/{id}', [ProductController::class, 'batchPosReportShow'])->name('products.batch-pos-report.print');
+    // batch  report
+    Route::get('inventory/batch-report', [ProductController::class, 'batchPosReport'])->name('products.batch-pos-report');
+
+    Route::get('inventory/batch-report/show/{id}', [ProductController::class, 'batchPosReportShow'])
+    ->name('products.batch-pos-report.print');
 });

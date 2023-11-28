@@ -497,22 +497,13 @@ class ProductController extends Controller
         return redirect('/inventory/adjustment')->with('success', 'Adjustment created successfully.');
     }
 
-    // batch pos report 
-// public function batchPosReport()
-// {
-//     $batches = Medicine::paginate(10)->onEachSide(1);
-//     return view('inventory.batch_report.batchreport', [
-//         'batches' => $batches
-//     ]);
-
-// }
 public function batchPosReport(Request $request)
 {
-    $query = Medicine::query();
+    $query = Product::query();
 
     if ($request->has('search_data')) {
         $searchTerm = $request->search_data;
-        $query->where('name', 'LIKE', '%' . $searchTerm . '%')
+        $query->where('product_name', 'LIKE', '%' . $searchTerm . '%')
               ->orWhere('id', '=', $searchTerm );
     }
 
@@ -526,8 +517,9 @@ public function batchPosReport(Request $request)
 
 public function batchPosReportShow($id)
 {
-    $batches = BatchPOS::where('product_id', $id)->get();
-    $product = Medicine::find($id);
+    $batches = Batch::where('product_id', $id)->get();
+    $product = Product::find($id);
+    // dd($product);
 
     return view('inventory.batch_report.batchReportShow', [
         'batches' => $batches,

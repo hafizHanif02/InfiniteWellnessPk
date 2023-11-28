@@ -1,8 +1,8 @@
-<x-layouts.app title="Good Receive Note Create">
-    @push('styles')
-        <link nonce="{{ csp_nonce() }}" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-            rel="stylesheet" />
-    @endpush
+@extends('layouts.app')
+@section('title')
+    Batch Pos Report
+@endsection
+@section('content')
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -20,30 +20,29 @@
                     </form>
                 </div>
             </div>
-            <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="table-dark text-dark">
+                    <th>Id</th>
+                    <th>Medicine Name</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody class="table-light">
+                    @foreach ($batches as $product)
+                        <tr>
+                            <td>{{ $product->id }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>
+                                <a href="{{ route('medicines.batch-pos-report.show', ['id' => $product->product_id]) }}"
+                                    class="btn btn-primary btn-sm">View batch Pos</a>
 
-                <table class="table table-bordered">
-                    <thead class="table-dark">
-                        <th>Id</th>
-                        <th>Product Name</th>
-                        <th>Actions</th>
-                    </thead>
-                    <tbody class="table-light">
-                        @foreach ($batches as $product)
-                            <tr>
-                                <td>{{ $product->id }}</td>
-                                <td>{{ $product->product_name }}</td>
-                                <td>
-                                    <a href="{{ route('inventory.products.batch-pos-report.print', ['id' => $product->id]) }}"
-                                        class="btn btn-primary btn-sm">View batch
-                                    </a>
-                                </td>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $batches->links() }}
-            </div>
-</x-layouts.app>
+                            </td>
+                    @endforeach
+                </tbody>
+            </table>
+            {{ $batches->links() }}
+        </div>
+    </div>
+@endsection
 <style>
     .search-input {
         padding: 10px;
@@ -75,8 +74,8 @@
     .fa-search:before {
         font-size: 30px;
         /* position: relative;
-                          left:10px ;
-                          bottom:40px */
+                left:10px ;
+                bottom:40px */
     }
 
     /* Style for the search icon */
