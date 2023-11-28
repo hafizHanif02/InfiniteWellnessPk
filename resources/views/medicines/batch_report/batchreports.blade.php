@@ -20,11 +20,15 @@
                     </form>
                 </div>
             </div>
+            <div class="card-body">
+
             <table class="table table-bordered">
-                <thead class="table-dark text-dark">
-                    <th>Id</th>
-                    <th>Medicine Name</th>
-                    <th>Actions</th>
+                <thead class="text-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Medicine Name</th>
+                        <th>Actions</th>
+                    </tr>
                 </thead>
                 <tbody class="table-light">
                     @foreach ($batches as $product)
@@ -34,12 +38,14 @@
                             <td>
                                 <a href="{{ route('medicines.batch-pos-report.show', ['id' => $product->product_id]) }}"
                                     class="btn btn-primary btn-sm">View batch Pos</a>
-
                             </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
             {{ $batches->links() }}
+        </div>
+
         </div>
     </div>
 @endsection

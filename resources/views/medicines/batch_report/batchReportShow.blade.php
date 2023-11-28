@@ -9,21 +9,9 @@
                 <h3>Batch Report </h3>
                 <a href="{{ route('medicines.batch-pos-report') }}" class="btn btn-secondary mb-3">Back to Batch Pos
                     </a>
-                {{-- <table class="table table-bordered">
-                    <thead>
-                        <tr class="text-start">
-                            <th> Product Id </th>
-                            <td>{{ $product->id }}</td>
-                        </tr>
-                        <tr>
-                            <th class="text-start"> Product Name </th>
-                            <td>{{ $product->name }}</td>
-                        </tr>
-                    </thead>
-                    </tbody>
-                </table> --}}
             </div>
-        
+            <div class="card-body">
+
                 <table class="table table-bordered">
                     <thead class="table-dark text-dark">
                         <th>Batch Id</th>
@@ -39,7 +27,7 @@
                             <tr>
                                 <td>{{ $product->batch_id }}</td>
                                 <td>{{ $product->unit_trade }}</td>
-                                <td>{{ $product->unit_retail }}</td>
+                                <td>{{ ($product->unit_retail)?$product->unit_retail:0 }} </td>
                                 <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->sold_quantity }}</td>
                                 <td>{{ $product->remaining_qty }}</td>
@@ -54,5 +42,7 @@
 
                     </tbody>
                 </table>
+            </div>
+
             </div>
         @endsection

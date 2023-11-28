@@ -1,7 +1,8 @@
-<x-layouts.app title="Good Receive Note Create">
+<x-layouts.app title="Batch Report">
     @push('styles')
         <link nonce="{{ csp_nonce() }}" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
             rel="stylesheet" />
+            
     @endpush
     <div class="container-fluid">
         <div class="card">
@@ -44,6 +45,7 @@
                 {{ $batches->links() }}
             </div>
 </x-layouts.app>
+
 <style>
     .search-input {
         padding: 10px;
@@ -60,7 +62,6 @@
 
     }
 
-    /* Style for the search button */
     .search-button {
 
 
@@ -74,20 +75,14 @@
 
     .fa-search:before {
         font-size: 30px;
-        /* position: relative;
-                          left:10px ;
-                          bottom:40px */
     }
 
-    /* Style for the search icon */
     .search-button i {
         color: #d60b0b;
         font-size: 20px;
 
     }
 
-
-    /* Transition effect for the search icon color */
     .search-input:focus+.search-button i {
         color: #a10505;
     }
