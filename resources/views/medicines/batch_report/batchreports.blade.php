@@ -21,11 +21,6 @@
                 </div>
             </div>
             <div class="card-body">
-                @if($batches->isEmpty())
-                <tr class="text-center text-danger" >
-                    <td >No data found</td>
-                </tr>
-            @else
             <table class="table table-bordered">
                 <thead class="text-dark">
                     <tr>
@@ -35,6 +30,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-light">
+                    @if($batches->isNotEmpty())
                     @foreach ($batches as $product)
                         <tr>
                             <td>{{ $product->id }}</td>
@@ -45,10 +41,14 @@
                             </td>
                         </tr>
                     @endforeach
+                    @else
+                    <tr class="text-center text-danger" >
+                        <td colspan="3">No data found</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
             {{ $batches->links() }}
-            @endif
         </div>
 
         </div>
