@@ -21,7 +21,11 @@
                 </div>
             </div>
             <div class="card-body">
-
+                @if($batches->isEmpty())
+                <tr class="text-center text-danger" >
+                    <td >No data found</td>
+                </tr>
+            @else
             <table class="table table-bordered">
                 <thead class="text-dark">
                     <tr>
@@ -44,6 +48,7 @@
                 </tbody>
             </table>
             {{ $batches->links() }}
+            @endif
         </div>
 
         </div>

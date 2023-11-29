@@ -33,7 +33,7 @@
                         <th>Unit Trade</th>
                         <th>Unit Retail</th>
                         <th>Quantity</th>
-                        <th>transfer_quantity</th>
+                        <th>Transfer Qty</th>
                         <th>Remaining Qty</th>
                         <th>Expiry Date</th>
                     </thead>

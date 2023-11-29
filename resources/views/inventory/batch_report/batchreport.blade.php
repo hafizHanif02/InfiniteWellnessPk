@@ -22,7 +22,12 @@
                 </div>
             </div>
             <div class="card-body">
-
+                <div class="card-body">
+                    @if($batches->isEmpty())
+                    <tr class="text-center text-danger" >
+                        <td >No data found</td>
+                    </tr>
+                @else
                 <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr>
@@ -46,6 +51,7 @@
                     </tbody>
                 </table>
                 {{ $batches->links() }}
+                @endif
             </div>
 </x-layouts.app>
 
