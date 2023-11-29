@@ -11,7 +11,7 @@
         <th>manufacturer</th>
         <th>manufacturer_retail_price</th>
         <th>pieces_per_pack</th>
-        <th>Total Quantity</th>
+        <th>quantity</th>
         <th>trade_price_percentage</th>
         <th>unit_retail</th>
         <th>fixed_discount</th>
