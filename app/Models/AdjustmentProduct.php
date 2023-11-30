@@ -14,6 +14,7 @@ class AdjustmentProduct extends Model
     protected $fillable = [
         'id ',
         'product_id',
+        'batch_id',
         'product_name',
         'current_qty',
         'adjustment_qty',

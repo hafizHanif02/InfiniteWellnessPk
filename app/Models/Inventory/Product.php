@@ -76,4 +76,9 @@ class Product extends Model
         return $this->hasMany(Batch::class)->whereColumn('quantity', '>', 'transfer_quantity');
     }
 
+    public function AllBatch(): HasMany
+    {
+        return $this->hasMany(Batch::class);
+    }
+
 }

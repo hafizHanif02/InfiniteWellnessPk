@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inventory;
 use App\Models\Log;
 use App\Models\Batch;
 use App\Models\Patient;
+use App\Models\BatchPOS;
 use App\Models\Medicine;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Models\Inventory\Generic;
 use App\Models\Inventory\Product;
 use App\Models\Inventory\StockIn;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
 use App\Http\Controllers\Controller;
 use App\Models\OpdPatientDepartment;
@@ -30,7 +32,6 @@ use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
-use App\Models\BatchPOS;
 
 class ProductController extends Controller
 {
@@ -475,7 +476,7 @@ class ProductController extends Controller
     public function getProduct(Request $request): JsonResponse
     {
         return response()->json([
-            'product' => Product::whereIn('id', $request->product_id)->with('batch')->get(),
+            'product' => Product::whereIn('id', $request->product_id)->with('AllBatch')->get(),
         ]);
     }
 
@@ -485,14 +486,31 @@ class ProductController extends Controller
         foreach ($request->products as $product) {
             AdjustmentProduct::create([
                 'product_id' => $product['product_id'],
+                'batch_id' => $product['batch_id'],
                 'product_name' => $product['product_name'],
                 'current_qty' => $product['current_qty'],
                 'adjustment_qty' => $product['adjustment_qty'],
                 'different_qty' => $product['different_qty'],
             ]);
 
+            if ($product['current_qty'] > $product['adjustment_qty']) {
+            $qty = $product['current_qty'] - $product['adjustment_qty'];
+                    
             Product::where('id', $product['product_id'])->update([
-                'total_quantity' => $product['adjustment_qty'],
+                'total_quantity' => DB::raw('total_quantity - ' . $qty)
+            ]);
+        
+            } else {
+                $qty = $product['adjustment_qty'] - $product['current_qty'];
+            
+                Product::where('id', $product['product_id'])->update([
+                    'total_quantity' => DB::raw('total_quantity + ' . $qty)
+                ]);
+            }
+
+
+            Batch::where('id', $product['batch_id'])->update([
+                'remaining_qty' => $product['adjustment_qty'],
             ]);
 
             Log::create([
