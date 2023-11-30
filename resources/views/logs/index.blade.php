@@ -34,6 +34,7 @@
                         @forelse ($logs as $log)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                {{-- <td>{{ $log->id }}</td> --}}
                                 <td>{{ $log->action }}</td>
                                 <td>{{ $log->actionByUser->first_name . $log->actionByUser->last_name }}</td>
                                 <td>{{ $log->action_by_user_id }}</td>

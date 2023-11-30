@@ -124,7 +124,7 @@
                                         <tr>
                                             <td>${index + 1}</td>
                                             <td>${value.id}</td>
-                                            <td>${value.vendor.contact_person}</td>
+                                            <td>${value.vendor.account_title}</td>
                                             <td>${(value.delivery_date == null) ?'-':value.delivery_date}</td>
                                             <td>${value.purchase_order_date}</td>
                                             <td>
