@@ -26,7 +26,7 @@
                                 <td>{{ $newStock->total_supply_quantity }}</td> --}}
                                 <td class="d-flex justify-content-center">
                                     <a style="display: flex;align-items: center;" target="_blank" href="{{ route('new-stocks.report.show',$newStock->id) }}"><i class="fa fa-eye"></i></a>
-                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin'))
+                                    @if(auth()->user()->hasRole('Admin') || auth()->user()->hasRole('PharmacistAdmin') || auth()->user()->hasRole('Pharmacist'))
                                     <form action="{{ route('new-stocks.update-status', $newStock->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
