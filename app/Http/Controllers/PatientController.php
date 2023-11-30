@@ -186,10 +186,9 @@ class PatientController extends AppBaseController
             return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
         }
     }
-
+    
     public function dietitanShow($patientId)
     {
-
         $data = $this->patientRepository->getPatientAssociatedData($patientId);
         if (!$data) {
             return view('errors.404');
@@ -215,10 +214,8 @@ class PatientController extends AppBaseController
             $dietdata = DB::table('dietitianAssessment')->where(['patient_id' => $patientId])->first();
 
             $patientMR = Patient::where('id', $patientId)->pluck('MR')->first();
-
             $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user', 'Allergies', 'Medication'])->first();
-
-            return view('patients.dietitan.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
+            return view('patients.dietitan.show', compact('data','patientMR', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
         }
     }
 

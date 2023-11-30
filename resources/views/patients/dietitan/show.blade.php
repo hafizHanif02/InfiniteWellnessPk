@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-12">
                     @include('flash::message')
-                    @include('patients.dietitan.show_fields')
+                    @include('patients.dietitan.show_fields',['nursingData' => $nursingData])
                 </div>
             </div>
             @include('patients.advanced_payments.edit_modal')

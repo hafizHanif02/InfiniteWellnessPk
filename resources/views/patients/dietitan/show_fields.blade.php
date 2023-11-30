@@ -354,7 +354,7 @@
                                     <div class="col-md-6">
                                         <label for="weight" class="form-label">Weight (kg)</label>
                                         <input type="number" name="weight"
-                                            value="{{ $dietdata === null ? '' : $dietdata->weight }}"
+                                            value="{{ $nursingData === null ? '' : $nursingData->weight }}"
                                             class="form-control" id="weight" placeholder="add you weight">
                                     </div>
 
@@ -362,7 +362,7 @@
                                     <div class="col-6">
                                         <label for="height" class="form-label">Height (cm)</label>
                                         <input type="number" name="height"
-                                            value="{{ $dietdata === null ? '' : $dietdata->height }}"
+                                            value="{{ $nursingData === null ? '' : $nursingData->height }}"
                                             class="form-control" id="height" placeholder="Add your height">
                                     </div>
 
@@ -1184,7 +1184,7 @@
 
                                             </td>
                                             <td>
-                                                <h3>Third Month</h3>
+                                                <h3>Fourth Month</h3>
                                             </td>
                                             <td colspan="3">
 
