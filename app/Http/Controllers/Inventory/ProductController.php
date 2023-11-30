@@ -471,6 +471,13 @@ class ProductController extends Controller
             'products' => Product::orderBy('id')->with('generic')->get(),
         ]);
     }
+    
+    public function getProduct(Request $request): JsonResponse
+    {
+        return response()->json([
+            'product' => Product::whereIn('id', $request->product_id)->with('batch')->get(),
+        ]);
+    }
 
     public function adjustmentStore(Request $request)
     {

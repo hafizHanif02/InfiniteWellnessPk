@@ -54,6 +54,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::post('recalculation', [ProductController::class, 'recalculate'])->name('recalculate');
     Route::get('adjustment', [ProductController::class, 'adjustment'])->name('products.adjustment');
     Route::get('adjustment/create', [ProductController::class, 'adjustmentCreate'])->name('products.adjustment.create');
+    Route::post('getProduct', [ProductController::class, 'getProduct'])->name('products.getProduct');
     Route::post('adjustment/store', [ProductController::class, 'adjustmentStore'])->name('adjustments.store');
     // batch  report
     Route::get('batch-report', [ProductController::class, 'batchPosReport'])->name('products.batch-pos-report');
