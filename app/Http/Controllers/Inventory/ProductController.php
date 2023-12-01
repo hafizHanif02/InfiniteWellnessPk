@@ -347,9 +347,16 @@ class ProductController extends Controller
         $products = $productsQuery->get();
 
         foreach ($products as $product) {
-            $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
-            $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
-
+            $stock_in = GoodReceiveProduct::with('goodReceiveNote')
+            ->whereHas('goodReceiveNote', function ($query) {
+                $query->where('is_approved', 1);
+            })
+            ->where('product_id', $product->id)
+            ->sum('deliver_qty');    
+            
+            $stock_out = TransferProduct::with('transfer')->whereHas('transfer', function ($query) {
+                $query->where('status', 1);
+            })->where('product_id', $product->id)->sum('total_piece');
             $product->stock_in = $stock_in;
             $product->stock_out = $stock_out;
 
@@ -390,9 +397,16 @@ class ProductController extends Controller
         $products = $productsQuery->get();
 
         foreach ($products as $product) {
-            $stock_in = GoodReceiveProduct::where('product_id', $product->id)->sum('deliver_qty');
-            $stock_out = TransferProduct::where('product_id', $product->id)->sum('total_piece');
-
+            $stock_in = GoodReceiveProduct::with('goodReceiveNote')
+            ->whereHas('goodReceiveNote', function ($query) {
+                $query->where('is_approved', 1);
+            })
+            ->where('product_id', $product->id)
+            ->sum('deliver_qty');    
+            
+            $stock_out = TransferProduct::with('transfer')->whereHas('transfer', function ($query) {
+                $query->where('status', 1);
+            })->where('product_id', $product->id)->sum('total_piece');
             $product->stock_in = $stock_in;
             $product->stock_out = $stock_out;
 
