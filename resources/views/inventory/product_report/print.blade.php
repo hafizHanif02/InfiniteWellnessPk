@@ -32,8 +32,8 @@
         <tr>
         <td>{{ $product->id }}</td>
         <td>{{ $product->product_name }} {{ ($product->generic->formula != NULL ? '(' . $product->generic->formula . ')' : '-') }}</td>
-        <td>{{ $product->open_quantity }}</td>
-        {{-- <td>{{ $product->stock_current }}</td> --}}
+        {{-- <td>{{ $product->open_quantity }}</td> --}}
+        <td>{{ $product->stock_current }}</td>
         <td>{{ $product->total_quantity }}</td>
         <td>{{ $product->stock_in }}</td>
         <td>{{ $product->stock_out }}</td>
