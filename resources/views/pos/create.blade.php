@@ -577,7 +577,7 @@
                             <input type="number" step="any"readonly value="0" name="products[${a}][total_stock]"  id="total_quantity${a}" class="form-control">
                         </td>
                         <td>
-                            <input type="number"  step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control">
+                            <input type="number"  step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" class="form-control" onkeyup="ChnageDosage(${a})">
                         </td>
                         <td>
                             <input type="number"  step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})">
