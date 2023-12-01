@@ -1013,7 +1013,7 @@
 
 
                     <td><input name="products[${a}][total_stock]"t id="total_quantity${a}" class="form-control" type="text" readonly value="${total_quantity}"></td>
-                    <td><input class="form-control" type="text" step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" value="${selling_price}"></td>
+                    <td><input class="form-control" type="text" step="any"  name="products[${a}][mrp_perunit]" id="selling_price${a}" value="${selling_price}" onkeyup="ChnageDosage(${a})"></td>
                     <td><input class="form-control" type="number" step="any" value="0" name="products[${a}][product_quantity]" id="dosage${a}" class="form-control" onkeyup="ChnageDosage(${a})"></td>
                     <td>
                         <input class="form-control" readonly type="number" step="any" value="${fixed_discount}" name="products[${a}][discount_percentage]" id="discount_percentage${a}" class="form-control" onkeyup="discountCalculation(${a})">
