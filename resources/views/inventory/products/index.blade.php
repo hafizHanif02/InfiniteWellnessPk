@@ -30,6 +30,16 @@
                             <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
+                        <form id="update-csv-form" action="{{ route('inventory.products.update-import-excel') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="update_product" id="update_product" style="display: none;">
+                            <label for="update_product" class="btn btn-secondary float-end mr-5 mb-3">
+                                Update Product Excel
+                            </label>
+                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                                style="display: none;">button</button>
+                        </form>
                         <a href="{{ route('inventory.products.create') }}"
                             class="btn btn-primary float-end mr-5 mb-3">Add
                             New</a>
@@ -97,6 +107,11 @@
             $('input[name="products_csv"]').change(function() {
                 $('#csv-form').submit();
             });
+
+            $('input[name="update_product"]').change(function() {
+                $('#update-csv-form').submit();
+            });
+
             function deleteProduct(productId) {
                 $(this).prop('disabled', true);
                 $('#delete-product-form'+productId).submit();

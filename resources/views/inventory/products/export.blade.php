@@ -4,11 +4,12 @@
         <th>product_category</th>
         <th>product_name</th>
         <th>dricetion_of_use</th>
-        <th>genric_fromula</th>
+        <th>generic_formula</th>
         <th>common_side_effect</th>
         <th>package_detail</th>
-        <th>dosage form</th>
+        <th>dosage</th>
         <th>manufacturer</th>
+        <th>unit_of_measurement</th>
         <th>manufacturer_retail_price</th>
         <th>pieces_per_pack</th>
         <th>quantity</th>
@@ -20,8 +21,8 @@
         <th>sale_tax_percentage</th>
         <td>discount_trade_price</td>
         <th>cost_price</th>
-        {{-- <th>unit_of_measurement</th> 
-          <th>number_of_pack</th> --}}
+        {{-- <th>unit_of_measurement</th> --}} 
+          <th>number_of_pack</th> 
         <th>barcode</th>
     </tr>
     <tbody>
@@ -50,11 +51,12 @@
                 <td>{{ $product->dosage_name }}</td>
                 <td>{{ $product->manufacturer_name }}</td>
 
+                @if ($product->unit_of_measurement == 1)
+                    <td>Pcs</td>
+                @else
+                    <td>Packet</td>
+                @endif
 
-                {{-- <td>{{ $product->generics_formula }}</td> --}}
-                {{-- <td>{{ $product->product_categories->name }}</td> --}}
-                {{-- <td>{{ $product->dosage->name }}</td> --}}
-                {{-- <td>{{ $product->total_quantity }}</td> --}}
                 <td>{{ $product->manufacturer_retail_price }}</td>
                 <td>{{ $product->pieces_per_pack }}</td>
                 <td>{{ $product->total_quantity }}</td>
@@ -66,8 +68,7 @@
                 <td>{{ $product->sale_tax_percentage }}</td>
                 <td>{{ $product->discount_trade_price }}</td>
                 <td>{{ $product->cost_price }}</td>
-                {{-- <td>{{ $product->unit_of_measurement }}</td>
-                <td>{{ $product->number_of_pack }}</td>       --}}
+                <td>{{ $product->number_of_pack }}</td>
 
             </tr>
         @endforeach

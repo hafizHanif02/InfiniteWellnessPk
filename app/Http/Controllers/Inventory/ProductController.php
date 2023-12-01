@@ -26,6 +26,7 @@ use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Inventory\Manufacturer;
 use App\Imports\Inventory\ProductImport;
+use App\Imports\Inventory\UpdateProductExcel;
 use App\Models\Inventory\ProductCategory;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DentalOpdPatientDepartment;
@@ -82,6 +83,12 @@ class ProductController extends Controller
     {
         Excel::import(new ProductImport, storage_path('app/public/' . request()->file('products_csv')->store('products-excel-files', 'public')));
         return back()->with('success', 'Imported successfully!');
+    }
+
+    public function updateImportExcel(Request $request): RedirectResponse
+    {
+        Excel::import(new UpdateProductExcel, storage_path('app/public/' . request()->file('update_product')->store('update-products-excel-files', 'public')));
+        return back()->with('success', 'Updated successfully!');
     }
 
     public function create(): View
