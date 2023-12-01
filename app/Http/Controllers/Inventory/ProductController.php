@@ -313,7 +313,7 @@ class ProductController extends Controller
 
     public function productsReport(Request $request)
     {
-        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'generic_id']);
+        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'total_quantity', 'generic_id']);
 
         if ($request->date_from || $request->date_to) {
             $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
@@ -356,7 +356,7 @@ class ProductController extends Controller
 
     public function productsReportPrint(Request $request)
     {
-        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'generic_id']);
+        $productsQuery = Product::with('generic')->select(['products.id', 'product_name', 'open_quantity', 'total_quantity', 'generic_id']);
 
         if ($request->date_from || $request->date_to) {
             $productsQuery->leftJoin('good_receive_products', 'products.id', '=', 'good_receive_products.product_id')
