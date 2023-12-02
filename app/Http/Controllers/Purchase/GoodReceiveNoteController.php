@@ -379,8 +379,8 @@ class GoodReceiveNoteController extends Controller
 
     public function PosProduct()
     {
-        $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
-
+        $poses = Pos::with('PosProduct.medicine.product')->where(['is_paid'=> 1, 'medicine_id' => 653])->get();
+        return $poses;
         foreach ($poses as $pos) {
             foreach ($pos->PosProduct as $product) {
                 $remainingQuantity = $product->product_quantity;
