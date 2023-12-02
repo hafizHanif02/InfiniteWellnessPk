@@ -405,7 +405,7 @@ class GoodReceiveNoteController extends Controller
         }
 
         $posesReturn = PosReturn::with('Pos_Product_Return.medicine.product')->get();
-        return posesReturn;
+        return $posesReturn;
         foreach ($posesReturn as $pos) {
             foreach ($pos->PosProduct as $product) {
                 $remainingQuantity = $product->product_quantity;
