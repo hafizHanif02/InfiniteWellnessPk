@@ -415,7 +415,7 @@ class GoodReceiveNoteController extends Controller
                 ->orderByDesc('created_at')
                 ->get();
                 foreach ($batchPosList as $batchPos) {
-                    $quantityToUpdate = max($batchPos->remaining_qty, $remainingQuantity);
+                    $quantityToUpdate = min($batchPos->sold_quantity, $remainingQuantity);
                      //dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
                     $batchPos->update([
                         'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
