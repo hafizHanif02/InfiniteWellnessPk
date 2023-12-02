@@ -405,9 +405,9 @@ class GoodReceiveNoteController extends Controller
         }
 
         $posesReturn = PosReturn::with('Pos_Product_Return.medicine.product')->get();
-        return $posesReturn;
+
         foreach ($posesReturn as $pos) {
-            foreach ($pos->PosProduct as $product) {
+            foreach ($pos->pos__product__return as $product) {
                 $remainingQuantity = $product->product_quantity;
 
                 $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
@@ -417,8 +417,8 @@ class GoodReceiveNoteController extends Controller
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
                     // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
                     $batchPos->update([
-                        'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
-                        'sold_quantity' => $batchPos->sold_quantity + $quantityToUpdate,
+                        'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
+                        'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
                     ]);
 
                     $remainingQuantity -= $quantityToUpdate;
