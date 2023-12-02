@@ -418,8 +418,8 @@ class GoodReceiveNoteController extends Controller
                     $quantityToUpdate = min($batchPos->sold_quantity, $remainingQuantity);
                      //dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
                    $batchPos->update([
-                        'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
-                        'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
+                        // 'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
+                        // 'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
                     ]);
 
                     $remainingQuantity -= $quantityToUpdate;
