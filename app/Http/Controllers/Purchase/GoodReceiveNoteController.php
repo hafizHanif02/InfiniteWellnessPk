@@ -379,6 +379,13 @@ class GoodReceiveNoteController extends Controller
 
     public function PosProduct()
     {
+        $allBatch = BatchPOS::all();
+        foreach($allBatch as $Onebatch){
+            $Onebatch->update([
+                'sold_quantity' => 0,
+                'remaining_qty' => $Onebatch->quantity
+            ]);
+        }
         $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
 
         foreach ($poses as $pos) {
@@ -391,7 +398,9 @@ class GoodReceiveNoteController extends Controller
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
                     // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
+
                     $batchPos->update([
+
                         'remaining_qty' => ($batchPos->remaining_qty - $quantityToUpdate),
                         'sold_quantity' => ($batchPos->sold_quantity + $quantityToUpdate),
                     ]);
@@ -418,8 +427,8 @@ class GoodReceiveNoteController extends Controller
                     $quantityToUpdate = min($batchPos->sold_quantity, $remainingQuantity);
                      //dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
                    $batchPos->update([
-                        // 'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
-                        // 'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
+                        'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
+                        'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
                     ]);
 
                     $remainingQuantity -= $quantityToUpdate;
