@@ -379,7 +379,7 @@ class GoodReceiveNoteController extends Controller
 
     public function PosProduct()
     {
-        $poses = Pos::with('PosProduct.medicine.product')->get();
+        $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
 
         foreach ($poses as $pos) {
             foreach ($pos->PosProduct as $product) {
@@ -404,7 +404,7 @@ class GoodReceiveNoteController extends Controller
             }
         }
 
-        $posesReturn = PosReturn::with('Pos_Product_Return.medicine.product')->where('is_paid', 1)->get();
+        $posesReturn = PosReturn::with('Pos_Product_Return.medicine.product')->get();
         return posesReturn;
         foreach ($posesReturn as $pos) {
             foreach ($pos->PosProduct as $product) {
