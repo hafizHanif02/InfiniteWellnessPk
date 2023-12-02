@@ -407,8 +407,8 @@ class GoodReceiveNoteController extends Controller
         $posesReturn = PosReturn::with('Pos_Product_Return.medicine.product')->get();
         //return $posesReturn;
         foreach ($posesReturn as $pos) {
-            return $pos->Pos_Product_Return;
-            foreach ($pos->pos__product__return as $product) {
+            //return $pos->Pos_Product_Return;
+            foreach ($pos->Pos_Product_Return as $product) {
                 $remainingQuantity = $product->product_quantity;
 
                 $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
