@@ -380,7 +380,7 @@ class GoodReceiveNoteController extends Controller
     public function PosProduct()
     {
         $poses = Pos::with('PosProduct.medicine.product')->where('is_paid', 1)->get();
-
+        return $poses;
         foreach ($poses as $pos) {
             foreach ($pos->PosProduct as $product) {
                 $remainingQuantity = $product->product_quantity;
@@ -390,9 +390,6 @@ class GoodReceiveNoteController extends Controller
                 ->get();
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
-                    if($product->medicine->product->id == 2077){
-                        dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
-                    }
                     // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
                     $batchPos->update([
                         'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
