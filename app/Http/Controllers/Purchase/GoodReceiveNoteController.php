@@ -390,7 +390,10 @@ class GoodReceiveNoteController extends Controller
                 ->get();
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
-                     dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
+                    if($batchPos->remaining_qty > 0){
+
+                        dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
+                    }
                     $batchPos->update([
                         'remaining_qty' => $batchPos->remaining_qty - $quantityToUpdate,
                         'sold_quantity' => $batchPos->sold_quantity + $quantityToUpdate,
