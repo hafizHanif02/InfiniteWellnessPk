@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
 use Picqer\Barcode\BarcodeGeneratorHTML;
+use Carbon\Carbon;
 
 class PosController extends Controller
 {
