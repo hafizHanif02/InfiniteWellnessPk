@@ -465,7 +465,12 @@ class PosController extends Controller
                     $dateTo = Carbon::parse($request->date_to)->addDay()->toDateString();
                     $query->whereBetween('pos__products.created_at', [$request->date_from, Carbon::parse($request->date_to)->addDay()->toDateString()]);
                 })
-                
+                ->when($request->date_from, function ($query) use ($request) {
+                    $query->where('pos__products.created_at', '>=', $request->date_from);
+                })
+                ->when($request->date_to, function ($query) use ($request) {
+                    $query->where('pos__products.created_at', '<=', Carbon::parse($request->date_to)->addDay()->toDateString());
+                })
                 ->sum('product_quantity');
 
             $return_qty = PosProductReturn::where('medicine_id', $medicine->id)
