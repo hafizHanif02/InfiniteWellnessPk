@@ -457,19 +457,19 @@ class PosController extends Controller
         $medicines = Medicine::with('product.manufacturer')->get();
 
         foreach ($medicines as $medicine) {
-            $dateTo = Carbon::parse($request->date_to)->addDay()->toDateString();
+
             $sell_qty = Pos_Product::where('medicine_id', $medicine->id)
                 ->where('pos.is_paid', 1)
                 ->leftJoin('pos', 'pos.id', '=', 'pos__products.pos_id')
                 ->when($request->date_from && $request->date_to, function ($query) use ($request) {
-
-                    $query->whereBetween('pos__products.created_at', [$request->date_from, $dateTo]);
+                    $dateTo = Carbon::parse($request->date_to)->addDay()->toDateString();
+                    $query->whereBetween('pos__products.created_at', [$request->date_from, Carbon::parse($request->date_to)->addDay()->toDateString()]);
                 })
                 ->when($request->date_from, function ($query) use ($request) {
-                    $query->where('pos__products.created_at', '>=',$dateTo);
+                    $query->where('pos__products.created_at', '>=', $request->date_from);
                 })
                 ->when($request->date_to, function ($query) use ($request) {
-                    $query->where('pos__products.created_at', '<=', $dateTo);
+                    $query->where('pos__products.created_at', '<=', $request->date_to);
                 })
                 ->sum('product_quantity');
 
