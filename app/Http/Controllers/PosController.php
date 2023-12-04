@@ -49,7 +49,7 @@ class PosController extends Controller
         //     if ($product['total_stock'] < $product['product_quantity']) {
         //         return response()->json(['valid' => false, 'message' => 'Insufficient Stock']);
         //     }
-            
+
         // }
         $customMessages = [
             'products.*.medicine_id.required' => 'At least one product is required',
@@ -58,7 +58,7 @@ class PosController extends Controller
             'products.*.product_quantity.min' => 'Product quantity must be at least one',
         ];
 
-        
+
 
         $validatedData = $request->validate([
             'patient_name' => ['required', 'string'],
@@ -104,15 +104,15 @@ class PosController extends Controller
            $pos_product = Pos_Product::create(array_merge($productData, ['pos_id' => $pos->id, 'user_id' => $userId]));
             // Medicine::where('product_id', $productData->product_id)->decrement(
             //     'total_quantity', $transferProduct->total_piece);
-            $requistionproductlogs .= '['.$pos_product->medicine_id.','.$pos_product->product_quantity.'],'; 
+            $requistionproductlogs .= '['.$pos_product->medicine_id.','.$pos_product->product_quantity.'],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
             'action' => 'Pos Has Been Created Pos No.'.$pos->id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'log/' . $logs->id . '.txt'; 
-        $filePath = public_path($fileName); 
+        $fileName = 'log/' . $logs->id . '.txt';
+        $filePath = public_path($fileName);
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -164,7 +164,7 @@ class PosController extends Controller
     public function Payment(Request $reqeust, $pos)
     {
         $Pos_Product = Pos_Product::where('pos_id', $pos)->with('batchpos')->get();
-       
+
         $pos_id = $pos;
 
         $pos = Pos::where('id', $pos)->update([
@@ -188,7 +188,7 @@ class PosController extends Controller
                 'remaining_qty' => $PosProduct->batchpos->remaining_qty - $PosProduct->product_quantity
             ]);
         }
-        
+
 
         $user = Auth::user();
         Log::create([
@@ -278,8 +278,8 @@ class PosController extends Controller
             'action' => 'Pos Has Been Updated Pos No.'.$request->pos_id ,
             'action_by_user_id' => $user->id,
         ]);
-        $fileName = 'log/' . $logs->id . '.txt'; 
-        $filePath = public_path($fileName); 
+        $fileName = 'log/' . $logs->id . '.txt';
+        $filePath = public_path($fileName);
         $directory = dirname($filePath);
         if (!file_exists($directory)) {
             mkdir($directory, 0755, true);
@@ -403,7 +403,7 @@ class PosController extends Controller
     //         'posReturnQuantity' => $posReturnQuantity,
     //     ]);
     // }
-    
+
     // public function posItemReportPrint(Request $request)
     // {
     //     $posid = Pos_Product::pluck('pos_id');
@@ -456,11 +456,13 @@ class PosController extends Controller
         $medicines = Medicine::with('product.manufacturer')->get();
 
         foreach ($medicines as $medicine) {
+
             $sell_qty = Pos_Product::where('medicine_id', $medicine->id)
                 ->where('pos.is_paid', 1)
                 ->leftJoin('pos', 'pos.id', '=', 'pos__products.pos_id')
                 ->when($request->date_from && $request->date_to, function ($query) use ($request) {
-                    $query->whereBetween('pos__products.created_at', [$request->date_from, $request->date_to]);
+                    $dateTo = Carbon::parse($request->date_to)->addDay()->toDateString();
+                    $query->whereBetween('pos__products.created_at', [$request->date_from, $dateTo]);
                 })
                 ->when($request->date_from, function ($query) use ($request) {
                     $query->where('pos__products.created_at', '>=', $request->date_from);
@@ -498,7 +500,7 @@ class PosController extends Controller
     public function itemReportPrint(Request $request)
     {
         $medicines = Medicine::with('product.manufacturer')->get();
-    
+
         foreach ($medicines as $medicine) {
             $sell_qty = Pos_Product::where('medicine_id', $medicine->id)
                 ->where('pos.is_paid', 1)
@@ -513,7 +515,7 @@ class PosController extends Controller
                     $query->where('pos__products.created_at', '<=', $request->date_to);
                 })
                 ->sum('product_quantity');
-            
+
             $return_qty = PosProductReturn::where('medicine_id', $medicine->id)
                 ->where('pos.is_paid', 1)
                 ->leftJoin('pos', 'pos.id', '=', 'pos_product_returns.pos_id')
@@ -527,7 +529,7 @@ class PosController extends Controller
                     $query->where('pos_product_returns.created_at', '<=', $request->date_to);
                 })
                 ->sum('product_quantity');
-            
+
             $medicine->sell_qty = $sell_qty;
             $medicine->return_qty = $return_qty;
         }
