@@ -158,6 +158,7 @@
 
                 const RemainingQty = selectedOption.getAttribute('data-remaining_qty');
                 $("#current_qty" + id).val(RemainingQty);
+                calculate(id);
             }
 
             function calculate(index) {

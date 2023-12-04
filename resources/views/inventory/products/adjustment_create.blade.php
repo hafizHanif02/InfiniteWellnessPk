@@ -174,6 +174,8 @@
             const quantity = selectedOption.getAttribute('data-remaining_quantity');
             $("#current_qty"+items).val(quantity);
             console.log(`Selected Batch ID: ${batchId}, Quantity: ${quantity}`);
+
+            calculate(items);
                         
             }
         </script>
