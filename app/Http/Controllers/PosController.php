@@ -463,7 +463,7 @@ class PosController extends Controller
                 ->leftJoin('pos', 'pos.id', '=', 'pos__products.pos_id')
                 ->when($request->date_from && $request->date_to, function ($query) use ($request) {
                     $dateTo = Carbon::parse($request->date_to)->addDay()->toDateString();
-                    return $dateTo;
+                    return dd($dateTo);
                     $query->whereBetween('pos__products.created_at', [$request->date_from, $dateTo]);
                 })
                 ->when($request->date_from, function ($query) use ($request) {
