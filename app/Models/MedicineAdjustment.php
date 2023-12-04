@@ -11,6 +11,7 @@ class MedicineAdjustment extends Model
     protected $fillable = [
         "id",
         "medicine_id",
+        "batchPOS_id",
         "medicine_name",
         "current_qty",
         "adjustment_qty",

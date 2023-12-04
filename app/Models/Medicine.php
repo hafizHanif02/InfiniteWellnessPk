@@ -145,4 +145,8 @@ class Medicine extends Model
     {
         return $this->hasMany(BatchPOS::class,'product_id','product_id')->whereColumn('quantity', '>', 'sold_quantity');
     }
+    public function AllBatchPOS(): HasMany
+    {
+        return $this->hasMany(BatchPOS::class,'product_id','product_id');
+    }
 }

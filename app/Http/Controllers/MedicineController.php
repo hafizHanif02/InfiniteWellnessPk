@@ -7,6 +7,7 @@ use Response;
 use Exception;
 use App\Models\Log;
 use App\Models\Pos;
+use App\Models\BatchPOS;
 use App\Models\Medicine;
 use Illuminate\View\View;
 use App\Models\Pos_Product;
@@ -16,6 +17,7 @@ use App\Models\PosProductReturn;
 use Illuminate\Http\JsonResponse;
 use App\Models\MedicineAdjustment;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Shift\TransferProduct;
@@ -24,7 +26,6 @@ use Illuminate\Contracts\View\Factory;
 use App\Repositories\MedicineRepository;
 use App\Http\Requests\CreateMedicineRequest;
 use App\Http\Requests\UpdateMedicineRequest;
-use App\Models\BatchPOS;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class MedicineController extends AppBaseController
@@ -198,7 +199,7 @@ class MedicineController extends AppBaseController
     public function getMedicines(Request $request): JsonResponse
     {
         return response()->json([
-            'medicine' => Medicine::whereIn('id', $request->medicine_id)->get(),
+            'medicine' => Medicine::whereIn('id', $request->medicine_id)->with('AllBatchPOS.batch')->get(),
         ]);
     }
 
@@ -208,14 +209,27 @@ class MedicineController extends AppBaseController
         foreach ($request->medicines as $medicine) {
             MedicineAdjustment::create([
                 'medicine_id' => $medicine['medicine_id'],
+                'batchPOS_id' => $medicine['batch_id'],
                 'medicine_name' => $medicine['medicine_name'],
                 'current_qty' => $medicine['current_qty'],
                 'adjustment_qty' => $medicine['adjustment_qty'],
                 'different_qty' => $medicine['different_qty'],
             ]);
 
-            Medicine::where('id', $medicine['medicine_id'])->update([
-                'total_quantity' => $medicine['adjustment_qty'],
+            if($medicine['current_qty'] > $medicine['adjustment_qty']){
+                $qty = $medicine['current_qty'] - $medicine['adjustment_qty'];
+                Medicine::where('id', $medicine['medicine_id'])->update([
+                    'total_quantity' => DB::raw('total_quantity - ' . $qty)
+                ]);
+            }else{
+                $qty = $medicine['adjustment_qty'] - $medicine['current_qty'];
+                Medicine::where('id', $medicine['medicine_id'])->update([
+                    'total_quantity' => DB::raw('total_quantity + ' . $qty)
+                ]);
+            }
+
+            BatchPOS::where('id', $medicine['batch_id'])->update([
+                'remaining_qty' => $medicine['adjustment_qty'],
             ]);
             
             Log::create([
@@ -223,7 +237,6 @@ class MedicineController extends AppBaseController
                 'action_by_user_id' => $user->id,
             ]);
         }
-       
 
         Flash::success('Medicines Adjustment created successfully.');
         return redirect(route('medicines.adjustment.show'));

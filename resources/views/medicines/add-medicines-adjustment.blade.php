@@ -55,6 +55,7 @@
                             <thead class="table-dark">
                                 <tr class="text-white">
                                     <td style="min-width: 200px">Medicine</td>
+                                    <td style="min-width: 200px">Batch</td>
                                     <td style="min-width: 120px">Current Qty</td>
                                     <td style="min-width: 200px">Adjustment Qty</td>
                                     <td style="min-width: 150px">Difference Qty</td>
@@ -101,6 +102,7 @@
                         success: function(response) {
                             $("#medicine_id option[value='" + medicine_id + "']").remove();
                             var items = $("tbody tr").length;
+                            // console.log(response.medicine[0].all_batch_p_o_s);
                             $.each(response.medicine, function(index, value) {
                                 $("#add-products").append(`
                                     <tr id="${value.id}">
@@ -109,7 +111,23 @@
                                             <input type="text" id="product_name" name="medicines[${index}][medicine_name]" class="form-control" value="${value.name}" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" id="current_qty${index}" name="medicines[${index}][current_qty]" class="form-control" value="${value.total_quantity}" readonly>
+                                            <select name="medicines[${index}][batch_id]" id="batch_pos${index}" onchange="ChangeBatch(${index})" class="batch_pos form-control">
+                                                ${response.medicine[index].all_batch_p_o_s.length !== 0 ?
+                                                `<option value="" selected disabled>Select Batch</option>
+                                                    ${response.medicine[index].all_batch_p_o_s.map(batch => {
+                                                        return `<option  value="${batch.id}"
+                                                                    data-batch-id="${batch.id}"
+                                                                    data-remaining_qty="${batch.remaining_qty}">
+                                                                    ${batch.batch.batch_no}
+                                                                </option>`
+                                                            
+                                                    }).join('')}`
+                                                    : `<option value="">Not Any Batch Found</option>`
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" id="current_qty${index}" name="medicines[${index}][current_qty]" class="form-control" value="" readonly>
                                         </td>
                                         <td>
                                             <input type="number" id="adjustment_qty${index}" name="medicines[${index}][adjustment_qty]" class="form-control" onkeyup="calculate(${index})" value="">
@@ -131,6 +149,15 @@
 
             function removeRaw(id) {
                 $("#" + id).remove();
+            }
+
+            function ChangeBatch(id){
+                const selectBatch = document.getElementById('batch_pos' + id);
+
+                const selectedOption = selectBatch.options[selectBatch.selectedIndex];
+
+                const RemainingQty = selectedOption.getAttribute('data-remaining_qty');
+                $("#current_qty" + id).val(RemainingQty);
             }
 
             function calculate(index) {
