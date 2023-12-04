@@ -1574,7 +1574,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
          </li>
      @endif
      @endrole
-    @role('Admin|SupplyChain')
+    @role('Admin|SupplyChain|PharmacistAdmin')
     <div class="mb-5"></div>
     <li class="nav-item mt-5">
         <a class="nav-link  d-flex align-items-center py-3 reload-page"
