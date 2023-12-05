@@ -30,7 +30,7 @@
             </tr>
             <tr class="text-start" >
                 <th colspan="3" class="text-start">Cashier Name</th>
-               @if($pos != null)
+               @if($pos->cashier_name != null)
                <th colspan="5">{{ $pos->cashier_name }}</th>
                @else
                <th colspan="5">-</th>
