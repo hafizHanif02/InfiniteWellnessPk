@@ -52,6 +52,8 @@ class UpdateProductExcel implements SkipsEmptyRows, ToCollection, WithHeadingRow
                 'manufacturer_id' => Manufacturer::where('company_name', $row['manufacturer'])->pluck('id')->first(),
                 // 'vendor_id' => Vendor::where('contact_person', $row['vendor'])->pluck('id')->first(),
                 'unit_of_measurement' => $row['unit_of_measurement'] == 'Pcs' ? 1 : 0,
+                'common_side_effect' => $row['common_side_effect'] ?? null,
+                'dricetion_of_use' => $row['dricetion_of_use'] ?? null,
                 'manufacturer_retail_price' => $row['manufacturer_retail_price'],
                 'number_of_pack' => $row['unit_of_measurement'] == 'unit_quantity' ? 1 : $row['number_of_pack'],
                 'pieces_per_pack' => $row['pieces_per_pack'],
