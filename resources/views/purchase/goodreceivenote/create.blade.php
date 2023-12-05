@@ -408,7 +408,7 @@
 
             function advanceTax() {
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithtax = parseFloat($('#totalcostwithtax').val());
+                var totalcostwithtax = parseFloat($('#net_total_amountcosts2').val());
 
                 var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
