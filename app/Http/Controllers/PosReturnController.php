@@ -72,6 +72,7 @@ class PosReturnController extends Controller
                 "medicine_id" => $product['medicine_id'],
                 "product_id" => $product['product_id'],
                 "product_name" => $product['product_name'],
+                'mrp_perunit' => $product['mrp_perunit'],
                 "generic_formula" => $product['generic_formula'],
                 "product_quantity" => $product['return_quantity'],
                 "product_total_price" => $product['product_total_price'],

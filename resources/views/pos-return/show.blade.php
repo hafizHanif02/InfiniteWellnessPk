@@ -61,7 +61,8 @@
                                 <td>{{ $PosProduct->medicine->name }}</td>
                                 <td>{{ $PosProduct->generic_formula }}</td>
                                 <td>{{ $PosProduct->product_quantity }}</td>
-                                <td>{{ $PosProduct->medicine->selling_price }}</td>
+                                {{-- <td>{{ $PosProduct->medicine->selling_price }}</td> --}}
+                                <td>{{ $PosProduct->mrp_perunit }}</td>
                                 <td>{{ $PosProduct->product_total_price }} Rs</td>
                             </tr>
                         @endforeach
