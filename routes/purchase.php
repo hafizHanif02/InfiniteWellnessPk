@@ -28,7 +28,7 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
 
     // Good Receiveing Note
     Route::resource('good_receive_note', GoodReceiveNoteController::class);
-    
+
     // Get Requestion From Ajax
     Route::get('/get/requisitions/{vendorId}', [GoodReceiveNoteController::class, 'getRequisitions']);
     Route::get('/get/requistion-products/{requistionId}', [GoodReceiveNoteController::class, 'getRequisitionProducts']);
@@ -58,6 +58,6 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
     Route::get('purchase-return-status/retransfer/{purchasereturn}',[ PurchaseReturnStatusController::class,'retransfer'])->name('purchase-return-status.retransfer');
 
     // Purchase GRN Print
-    Route::get('good_receive_note/print/{id}', [GoodReceiveNoteController::class, 'batchReport'])->name('good_receive_note.print');
+    Route::get('good_receive_note/print/{id}', [GoodReceiveNoteController::class, 'print'])->name('good_receive_note.print');
 
 });
