@@ -391,20 +391,36 @@
 
 
 
+            // function advanceTax() {
+            //     var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
+            //     var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
+            //     var SaleTaxPercPerc = $('#sale_tax_percentage').val();
+
+            //     var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
+            //     $('#advance_tax_percentage_amount').val(advanceTaxAmount);
+
+            //     // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
+            //     // $('#sales_taxamount').val(salesTaxAmount);
+
+            //     var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
+            //     $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
+            // }
+
             function advanceTax() {
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithouttax = parseFloat($('#net_total_amountcosts3').val());
+                var totalcostwithtax = parseFloat($('#totalcostwithtax').val());
+
                 var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
-                var advanceTaxAmount = (parseFloat((advancetaxperc * totalcostwithouttax) / 100)).toFixed(2);
+                var advanceTaxAmount = (parseFloat((totalcostwithtax * advancetaxperc) / 100)).toFixed(2);
                 $('#advance_tax_percentage_amount').val(advanceTaxAmount);
 
-                // var salesTaxAmount = (parseFloat((SaleTaxPercPerc * totalcostwithouttax) / 100)).toFixed(2);
-                // $('#sales_taxamount').val(salesTaxAmount);
-
-                var amountwithtax = (parseFloat(totalcostwithouttax) + parseFloat(advanceTaxAmount));
+                var amountwithtax = (parseFloat(totalcostwithtax) + parseFloat(advanceTaxAmount));
                 $('#net_total_amountcosts2').val(amountwithtax.toFixed(2));
             }
+
+
+
 
 
             // function saleTax() {
