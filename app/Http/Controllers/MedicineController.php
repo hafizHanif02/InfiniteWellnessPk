@@ -182,7 +182,7 @@ class MedicineController extends AppBaseController
         return view(
             'medicines.medicine-adjustment',
             [
-                'adjustment' => MedicineAdjustment::orderBy('id', 'desc')->paginate(10),
+                'adjustment' => MedicineAdjustment::with('batchPOS')->orderBy('id', 'desc')->paginate(10),
             ]
         );
     }

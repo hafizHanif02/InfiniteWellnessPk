@@ -19,6 +19,7 @@
                     <tr>
                         <td scope="col">Adjustment #</td>
                         <td scope="col">Medicine Name</td>
+                        <td scope="col">Batch_POS ID</td>
                         <td scope="col">Current Quantity</td>
                         <td scope="col">Adjustment Quantity</td>
                         <td scope="col">Difference Quantity</td>
@@ -26,10 +27,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{-- {{ dd($adjustment) }} --}}
                     @foreach ($adjustment as $medicine)
                         <tr>
                             <td scope="row">{{ $medicine->id }}</td>
                             <td>{{ $medicine->medicine_name }}</td>
+                            <td>{{ $medicine->batchPOS ? $medicine->batchPOS->id : 'N/A' }}</td>
                             <td>{{ $medicine->current_qty }}</td>
                             <td>{{ $medicine->adjustment_qty }}</td>
                             <td>{{ $medicine->different_qty }}</td>

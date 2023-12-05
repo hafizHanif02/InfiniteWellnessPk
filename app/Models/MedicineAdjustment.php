@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BatchPOS;
+use App\Models\Medicine;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MedicineAdjustment extends Model
 {
@@ -19,4 +21,14 @@ class MedicineAdjustment extends Model
         "created_at",
         "updated_at",
         ]; 
+
+    public function medicine()
+    {
+        return $this->belongsTo(Medicine::class);
+    }
+
+    public function batchPOS()
+    {
+        return $this->belongsTo(BatchPOS::class, 'batchPOS_id');
+    }
 }
