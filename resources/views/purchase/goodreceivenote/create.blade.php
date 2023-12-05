@@ -357,7 +357,8 @@
                     totalAmountForTaxOnly += parseFloat($(this).val());
 
                 });
-                $("#totalcostwithtax").val(totalAmountForTaxOnly.toFixed(2));
+                // $("#totalcostwithtax").val(totalAmountForTaxOnly.toFixed(2));
+                $("#totalcostwithtax").val(totalAmountForNet.toFixed(2));
                 $('#net_total_amountcosts2').val(totalAmountForNet.toFixed(2));
                 // $("#totalcostwithtax").val(totalAmount.toFixed(2));
 
@@ -408,7 +409,7 @@
 
             function advanceTax() {
                 var advancetaxperc = parseFloat($('#advance_tax_percentage').val());
-                var totalcostwithtax = parseFloat($('#net_total_amountcosts2').val());
+                var totalcostwithtax = parseFloat($('#totalcostwithtax').val());
 
                 var SaleTaxPercPerc = $('#sale_tax_percentage').val();
 
