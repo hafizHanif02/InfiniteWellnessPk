@@ -28,6 +28,14 @@
                 <th colspan="3" class="text-start">Name</th>
                 <th colspan="5">{{ $pos->patient_name }}</th>
             </tr>
+            <tr class="text-start" >
+                <th colspan="3" class="text-start">Cashier Name</th>
+               @if($pos != null)
+               <th colspan="5">{{ $pos->cashier_name }}</th>
+               @else
+               <th colspan="5">-</th>
+               @endif
+            </tr>
             <tr class="text-start">
                 <th colspan="3" class="text-start">EMR #</th>
                 @if (isset($mr_barcode))
