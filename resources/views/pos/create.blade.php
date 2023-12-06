@@ -147,7 +147,7 @@
                                                     @foreach ($medicines as $medicine)
                                                         <tr>
                                                             <td>{{ $medicine->name }}</td>
-                                                            <td>{{ $medicine->generic_formula }}</td>
+                                                            <td>{{ $medicine->product->generic->formula}}</td>
                                                             <td>{{ $medicine->barcode }}</td>
                                                             <td><button class="btn btn-success" type="button"
                                                                 onclick="addMedicine({{ $medicine->id }})"><i
@@ -155,7 +155,7 @@
                                                                 <input type="hidden" id="search_addbtn{{ $medicine->id }}"
                                                                     data-product_id="{{ $medicine->id }}"
                                                                     data-product_name="{{ $medicine->name }}"
-                                                                    data-generic_formula="{{ $medicine->generic_formula }}"
+                                                                    data-generic_formula="{{ $medicine->product->generic->formula }}"
                                                                     data-total_quantity="{{ $medicine->total_quantity }}"
                                                                     data-selling_price="{{ $medicine->product->unit_retail }}"
                                                                     data-brand_name="{{ $medicine->brand->name }}"
@@ -565,7 +565,7 @@
                                 <option value="" selected disabled>Select Medicine</option>
                                 @foreach ($medicines as $medicine)
                                     <option value="{{ $medicine->name }}" data-batch_pos="{{ json_encode($medicine->batchpos) }}" data-medicine_name="{{ $medicine->name }}" data-common_side_effect="{{ $medicine->product->common_side_effect }}" data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"  data-medicine_id="{{ $medicine->id }}" data-gst="{{ $medicine->product != null ? $medicine->product->sale_tax_percentage : '' }}" data-fixed_discount="{{ $medicine->product != null ? $medicine->product->fixed_discount : '' }}" data-generic_formula="{{ $medicine->generic_formula }}" data-brand_name="{{ $medicine->brand->name }}" data-brand_id="{{ $medicine->brand->id }}" data-sellingPrice="{{ $medicine->product->unit_retail }}" data-Id="{{ $medicine->id }}" data-totalQuantity="{{ $medicine->total_quantity }}" data-totalPrice={{ $medicine->product->unit_retail }}>
-                                        <div class="select2_generic">({{ $medicine->generic_formula }})</div>{{ $medicine->name }}
+                                        <div class="select2_generic">({{ $medicine->product->generic->formula }})</div>{{ $medicine->name }}
                                     </option>
                                 @endforeach
                             </select>
