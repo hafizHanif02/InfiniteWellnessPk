@@ -137,7 +137,7 @@
                                                 <thead>
                                                     <tr>
                                                         <td>Product</td>
-                                                        <td>Generic Fromula</td>
+                                                        <td>Generic Formula</td>
                                                         <td>Barcode</td>
                                                         <td>Action</td>
                                                     </tr>
