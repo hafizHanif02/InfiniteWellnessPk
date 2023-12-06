@@ -170,21 +170,22 @@
             var totalProductAmount = totalProductAmount.toFixed(2);
 
             $('#product_total_price' + id).val(totalProductAmount);
-            $('#product_total_price2' + id).val(totalProductAmount);
+            // $('#product_total_price2' + id).val(totalProductAmount);
             totalAmount(); 
         }
 
 
         function totalAmount() {
             var TotalAmount = 0;
-            $("input[id^='product_total_price2']").each(function() {
+            $("input[id^='product_total_price']").each(function() {
                 if ($(this).val() != '') {
                     TotalAmount += parseFloat($(this).val());
                 }
             });
+            console.log(TotalAmount);
             pos_fee = parseFloat($('#pos_fee').val());
             TotalAmount = TotalAmount + pos_fee;
-            $('#total_amount').val(TotalAmount.toFixed(2));
+            $('#total_amount').val(TotalAmount.toFixed());
 
         }
 
