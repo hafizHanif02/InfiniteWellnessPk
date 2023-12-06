@@ -629,7 +629,7 @@
 </li>
 @endmodule
 @endrole
-@role('Admin|Pharmacist|PharmacistAdmin')
+@role('Admin|PharmacistAdmin')
 @module('Medicines',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('medicines*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ request()->route()->named('medicines.adjustment.show')? 'active': '' }}"
@@ -637,6 +637,10 @@
         Medicine Adjustment
     </a>
 </li>
+@endrole
+@endmodule
+@role('Admin|Pharmacist|PharmacistAdmin')
+@module('Medicines',$modules)
 <li class="nav-item position-relative mx-xl-3 mb-3 mb-xl-0 {{ (!Request::is('medicines*')) ? 'd-none' : '' }}">
     <a class="nav-link p-0 {{ request()->route()->named('medicines.recalculation')? 'active': '' }}"
         href="{{ route('medicines.recalculation') }}">
