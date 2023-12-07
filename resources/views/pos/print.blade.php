@@ -51,7 +51,8 @@
             </tr>
             <tr class="text-start">
                 <th colspan="3" class="text-start">Contact #</th>
-                <th colspan="5" style="text-align: left margin-left:20px;">034124782147</th>
+                {{-- <th colspan="5" style="text-align: left margin-left:20px;">034124782147</th> --}}
+                <th colspan="5" style="text-align: left margin-left:20px;">{{ $pos->patient_number ? $pos->patient_number : '-'  }}</th>
 
 
 
