@@ -157,6 +157,10 @@ class RequistionController extends Controller
     {
         return view('purchase.requistion.edit', [
             'requistion' => Requistion::where('id',$requistion)->with(['requistionProducts.product', 'vendor.manufacturer'])->first(),
+            'requistion_id' => Requistion::latest()->pluck('id')->first(),
+            'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
+            'manufactuters' => Manufacturer::orderBy('company_name')->get(['id', 'company_name']),
+            'products' => Product::orderBy('id')->with('generic')->get(),
         ]);
     }
 
@@ -164,7 +168,8 @@ class RequistionController extends Controller
     {
         $requistion->update([
             'remarks' => $request->remarks,
-            'delivery_date' => $request->delivery_date
+            'delivery_date' => $request->delivery_date,
+            'discount_amount' => $request->discount_amount
         ]);
 
         $requistion->requistionProducts()->delete();
@@ -177,6 +182,7 @@ class RequistionController extends Controller
                 'limit' => $product['limit'],
                 'price_per_unit' => $product['price_per_unit'],
                 'total_piece' => $product['total_piece'],
+                'discount_percentage' => $product['discount_percentage'],
                 'total_amount' => $product['total_amount'],
             ]);
             $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 

@@ -1,4 +1,13 @@
 <x-layouts.app title="Edit Purchase Order List">
+    @push('styles')
+        <link nonce="{{ csp_nonce() }}" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+            rel="stylesheet" />
+    @endpush
+    <style>
+        .select2-container{
+            width: 100% !important;
+        }
+    </style>
     <div class="container-fluid">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -54,6 +63,35 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="mb-5">
+                        <label for="document" class="form-label">Import Products</label>
+                        <input type="file" name="document" id="document" class="form-control"
+                            title="Import products">
+                        @error('document')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-5">
+                        <label for="product_id" class="form-label">(Generic Formula) Product <sup class="text-danger">*</sup></label>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select name="product_id[]" id="product_id" class="form-control" multiple>
+                                    <option value="" selected disabled>Select Product</option>
+                                    @foreach ($products as $product)
+                                    <option value="{{$product->id }}">({{$product->generic->formula}}) {{$product->product_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" id="add-btn" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead class="table-dark">
@@ -128,6 +166,8 @@
                             </tbody>
                         </table>
                     </div>
+                    <input type="hidden" readonly id="discount_amount" placeholder="Total Amount"
+                    name="discount_amount" class="form-control" value="0">
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-danger">Cancel</a>
                         <button type="submit" id="save-purchaseorder-button" class="btn btn-primary ms-3">Update</button>
@@ -137,9 +177,12 @@
         </div>
     </div>
     @push('scripts')
-    <script> 
-    $(document).ready(function() {
+    <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
+    </script>
 
+    <script nonce="{{ csp_nonce() }}">
+    $(document).ready(function() {
+        $('#product_id').select2();
         $('form').on('keypress', 'input', function(e) {
                     if (e.which === 13) { 
                     e.preventDefault(); 
@@ -181,21 +224,21 @@
             }
         }
         function changeQuantityPerUnit(id, items, limit = null) {
+                var quantity = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
+                var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
+                $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
+                let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
 
-            var quantity = $("input[name='products[" + items + "][total_piece]']").val();
-            var priceperpeice = $("input[name='products[" + items + "][price_per_unit2]']").val();
-            $("input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
-            let piece_per_pack = $("input[name='products[" + items + "][pieces_per_pack]']").val();
-            
-            if(quantity >= piece_per_pack){
-                $("input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity/piece_per_pack)));
+                if(quantity >= piece_per_pack){
+                    $("#" + id + " input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity/piece_per_pack)));
+                }
+                else if (quantity < piece_per_pack) {
+                    $("#" + id + " input[name='products[" + items + "][total_pack]']").val(0);
+                }
+                $("#" + id + " input[name='products[" + items + "][total_amount]']").val((quantity * (priceperpeice)));
+                $("#" + id + " input[name='products[" + items + "][total_amounts2]']").val((quantity * (priceperpeice)));
+
             }
-            else if (quantity < piece_per_pack) {
-                $("input[name='products[" + items + "][total_pack]']").val(0);
-            }
-            $("input[name='products[" + items + "][total_amount]']").val((quantity * (priceperpeice)));
-        
-        }
 
         function changeQuantityPerPack(id, items, limit = null) {
             var total_pack = $("input[name='products[" + items + "][total_pack]']").val();
@@ -210,6 +253,7 @@
         function discountPerc(id) {
                 var discountPer = $('#discount_percentage'+id).val();
                 var total_cost_per_product = $('#total_amounts2'+id).val();
+                console.log('H '+total_cost_per_product);
                 var discount_amount = ((discountPer/100) * total_cost_per_product);
                 $('#discount_amount').val(discount_amount)
                 $('#discount_amount2'+id).val(discount_amount);
@@ -227,6 +271,161 @@
                 $('#discount_amount').val(discount);
             }
 
+            $("#add-btn").click(function(e) {
+                e.preventDefault();
+                addProduct();
+                $("#product_id").empty();
+            });
+
+            function addProduct(type, callback) {
+                var productId = $("#product_id").val();
+                if (productId && $('tbody tr#' + productId).length == 0) {
+                    $.ajax({
+                        type: "post",
+                        url: "/purchase/requistions/product/",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            product_id: productId
+                        },
+                        success: function(response) {
+                            $("#product_id option[value='"+productId+"']").remove();
+                            var items = $("tbody tr").length;
+                            console.log(response.product);
+                            $.each(response.product, function(index, value) {
+                                $("#add-products").append(`
+                                    <tr id="${value.id}">
+                                        <input type="hidden" name="products[${index}][id]" value="${value.id}">
+                                        <td>
+                                            <input type="text" class="form-control" value="${value.product_name}" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="products[${index}][total_quantity]" class="form-control" value="${value.total_quantity}" readonly>
+                                        </td>
+                                        <td>
+                                            <select id="selectLimit${index}" onchange="changeType(${value.id},${index})" name="products[${index}][limit]" class="form-control" required>
+                                                <option value="1" selected >Unit Qty</option>
+                                                <option value="0">Box Qty</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" step="any" id="price_per_unit${index}" name="products[${index}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
+                                            <input type="number" step="any" id="price_per_unit${index}2" name="products[${index}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" value="1" min="1" name="products[${index}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${index})" class="form-control">
+                                        </td>
+                                        <td>
+
+                                            <input type="number" id="previouse_price${value.id}"  value="${value.unit_trade}" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="products[${index}][total_pack]"  class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="number" step="any" name="products[${index}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
+                                            <input type="hidden" id="discount_amount2${value.id}">
+                                        </td>
+                                        <td>
+                                            <input type="number" name="products[${index}][total_amount]" value="${value.unit_trade}" id="total_amount${value.id}" class="form-control" readonly>
+                                            <input type="hidden" name="products[${index}][total_amounts2]" value="${value.price_per_unit*value.total_piece}" id="total_amounts2${value.id}" class="form-control" readonly>
+                                        </td>
+                                        <td>
+                                            <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
+                                            <input type="hidden" id="cost_price${value.id}" value="${value.cost_price}">
+                                            <input type="hidden" id="unit_trade${value.id}" value="${value.unit_trade}">
+                                        </td>
+                                        <input type="hidden" id="discountamount${value.id}" name="products[${index}][pieces_per_pack]" value="${value.pieces_per_pack }">
+                                        <input type="hidden" id="pieces_per_pack${value.id}" name="pieces_per_pack" value="${value.pieces_per_pack }">
+                                        <input type="hidden" id="previouse_pricess${value.id}" value="${value.cost_price}">
+                                        <input type="hidden" id="cost_price${value.id}" value="${value.cost_price}">
+                                        <input type="hidden" id="unit_trade${value.id}" value="${value.unit_trade}">
+                                        <input type="hidden" id="discountamount${value.id}" name="products[${index}][disc_amount]" value="${(value.discount_trade_price * value.cost_price)/100 }">
+                                        <input type="hidden" id="tradeprice${index}" value="${value.trade_price}">
+                                        <input type="hidden" id="total_peice_per_pack${index}" name="products[${index}][total_peice_per_pack]" value="${value.pieces_per_pack}">
+                                        <input type="hidden" id="mainqunatityvalue${index}" name="products[${index}][mainqunatityvalue]" >
+                                    </tr>
+                                    
+                                `);
+                            });
+                        }
+                    });
+                }
+            }
+
+            $("#document").change(function() {
+                var file = $("#document")[0].files[0];
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('document', file);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/purchase/requistions/document/import",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function(response) {
+                        if ($("#add-products #" + response.product.id).length == 0) {
+                            var items = $("tbody tr").length;
+                            $.each(response.product, function(index, value) {
+                                // $.each(value1, function(index, value) {
+                                console.log(value);
+                                $("#add-products").append(`
+                                    <tr id="${value.id}">
+                                            <input type="hidden" name="products[${items}][id]" value="${value.product.id}">
+                                            <td>
+                                                <input type="text" class="form-control" value="${value.product.product_name}" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="products[${items}][total_quantity]" class="form-control" value="${value.product.total_quantity}" readonly>
+                                            </td>
+                                            <td>
+                                                <select id="selectLimit${items}" onchange="changeType(${value.id},${items})" name="products[${items}][limit]" class="form-control" required>
+                                                    <option value="${value.limit == 'unit_quantity'? 1 : ''}" ${value.limit == 'unit_quantity' ? 'selected' : '' } >Unit Qty</option>
+                                                    <option value="${value.limit == 'box_quantity'? 0 : ''}" ${value.limit == 'box_quantity' ? 'selected' : '' }>Box Qty</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
+                                                <input type="number" step="any" id="price_per_unit${items}2" name="products[${items}][price_per_unit2]" value="" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${value.id},${items})" class="form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number"  value="${value.product.cost_price}" class="form-control" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="products[${items}][total_pack]"  class="form-control" readonly>
+                                            </td>
+                                            <td>
+                                            <input type="number" step="any"  name="products[${items}][discount_percentage]" onkeyup="discountPerc(${value.id})"  id="discount_percentage${value.id}" value="0" class="form-control" >
+                                            <input type="hidden" id="discount_amount2${value.id}">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="products[${items}][total_amount]" value="${value.product.cost_price}" class="form-control" readonly>
+                                            </td>
+                                            <td>
+                                                <i onclick="removeRaw(${value.id})" class="text-danger fa fa-trash"></i>
+                                            </td>
+
+                                            <input type="hidden" id="discountamount${value.id}" name="products[${items}][pieces_per_pack]" value="${value.product.pieces_per_pack }">
+                                            <input type="hidden" id="discountamount${value.id}" name="products[${items}][disc_amount]" value="${(value.product.discount_trade_price * value.product.cost_price)/100 }">
+                                            <input type="hidden" id="tradeprice${items}" value="${value.product.trade_price}">
+                                            <input type="hidden" id="total_peice_per_pack${items}" name="products[${items}][total_peice_per_pack]" value="${value.product.pieces_per_pack}">
+                                            <input type="hidden" id="mainqunatityvalue${items}" name="products[${items}][mainqunatityvalue]" >
+                                        </tr>
+                                `);
+                                // });
+                            });
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
         
 
 
