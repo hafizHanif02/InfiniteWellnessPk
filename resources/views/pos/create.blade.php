@@ -551,6 +551,7 @@
             console.log('Total 3 '+grandTotal.toFixed(2));
 
         }
+    
 
         function Addmore() {
             var tableRow = document.getElementById('medicine-table-body');
@@ -604,7 +605,7 @@
                             </td>
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
+                            <a title=" {{ __('messages.common.delete') }}" onclick="deletevalues()"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -618,6 +619,21 @@
             $('.medicine-select').select2();
             enablemainbutton();
         }
+//    for delete values when delete row is click
+        function deletevalues() {
+
+        var tableRow = document.getElementById('medicine-table-body');
+        var a = tableRow.rows.length;
+        tableRow.deleteRow(-1);
+        enablemainbutton();
+
+        ChnageDosageTotal();
+        discountCalculationTotal();
+        gstCalculationTotal();
+
+        console.log('heelo');
+    }
+
 
         function SelectMedicine(id) {
             const selectMedicine = document.getElementById('medicine' + id);
@@ -1037,7 +1053,7 @@
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
 
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
+                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}" onclick="deletevalues()"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
