@@ -605,7 +605,7 @@
                             </td>
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         <td class="text-center">
-                            <a title=" {{ __('messages.common.delete') }}" onclick="deletevalues()"
+                            <a title=" {{ __('messages.common.delete') }}" onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -620,19 +620,16 @@
             enablemainbutton();
         }
 //    for delete values when delete row is click
-        function deletevalues() {
+        function deletevalues(id) {
+            $(`#medicine-row${id}`).remove();
+            enablemainbutton();
 
-        var tableRow = document.getElementById('medicine-table-body');
-        var a = tableRow.rows.length;
-        tableRow.deleteRow(-1);
-        enablemainbutton();
-
-        ChnageDosageTotal();
-        discountCalculationTotal();
-        gstCalculationTotal();
-
-        console.log('heelo');
-    }
+            ChnageDosageTotal();
+            discountCalculationTotal();
+            gstCalculationTotal();
+            
+            console.log('heelo');
+        }
 
 
         function SelectMedicine(id) {
@@ -1053,7 +1050,7 @@
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
 
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}" onclick="deletevalues()"
+                            <a title=" {{ __('messages.common.delete') }}" onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
