@@ -35,7 +35,9 @@
         </tr>
         <tr class="text-start">
             <th colspan="3" class="text-start">Contact No :</th>
-            <th colspan="5">034124782147</th>
+            {{-- <th colspan="5">034124782147</th> --}}
+            <th colspan="5">{{ $posReturn->pos->patient_number ? $posReturn->pos->patient_number : '-' }}</th>
+
         </tr>
 
         <tr style="border-top: 1px solid rgb(29, 29, 29); border-bottom: 1px solid rgb(29, 29, 29);">
