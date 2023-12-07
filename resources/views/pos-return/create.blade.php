@@ -185,7 +185,7 @@
             console.log(TotalAmount);
             pos_fee = parseFloat($('#pos_fee').val());
             TotalAmount = TotalAmount + pos_fee;
-            $('#total_amount').val(TotalAmount.toFixed());
+            $('#total_amount').val(TotalAmount.toFixed(2));
 
         }
 
