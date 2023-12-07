@@ -55,12 +55,20 @@ class MedicineTable extends LivewireTableComponent
     public function columns(): array
     {
         return [
-            Column::make('Item Code', 'id')
+            Column::make('Item Code', 'product.id')
             ->view('medicines.templates.columns.code')
             ->searchable()
             ->sortable(),
             Column::make('Item', 'name')
                 ->view('medicines.templates.columns.name')
+                ->searchable()
+                ->sortable(),
+                Column::make('Piece Per Pack', 'product.pieces_per_pack')
+                ->view('medicines.templates.columns.piece_per_pack')
+                ->searchable()
+                ->sortable(),
+                Column::make('Category', 'product.productCategory.name')
+                ->view('medicines.templates.columns.category')
                 ->searchable()
                 ->sortable(),
             Column::make(('generic formula'), 'generic_formula')
@@ -98,6 +106,6 @@ class MedicineTable extends LivewireTableComponent
     public function builder(): Builder
     {
         /** @var Medicine $query */
-        return Medicine::with('category', 'brand','product')->select('medicines.*');
+        return Medicine::with('category', 'brand','product.productCategory')->select('medicines.*');
     }
 }

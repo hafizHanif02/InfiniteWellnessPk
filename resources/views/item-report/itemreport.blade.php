@@ -2,6 +2,7 @@
 @section('title')
     POS Item Report
 @endsection
+{{-- {{dd($medicines[0])}} --}}
 @section('content')
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <div class="container-fluid mt-5">
@@ -43,6 +44,8 @@
                                 {{-- {{ dd($medicines[0]) }} --}}
                                 <tr>
                                     <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Piece Per Pack</th>
                                     <th>Manufacturer</th>
                                     <th>Sell QTY</th>
                                     <th>Return QTY</th>
@@ -53,6 +56,8 @@
                                 @foreach ($medicines as $product)
                                     <tr>
                                         <td>{{ $product->name }}</td>
+                                        <td>{{ $product->product->productCategory->name }}</td>
+                                        <td>{{ $product->product->pieces_per_pack }}</td>
                                         <td>{{ $product->product->manufacturer->company_name }}</td>
                                         <td>{{ $product->sell_qty }}</td>
                                         <td>{{ $product->return_qty }}</td>
