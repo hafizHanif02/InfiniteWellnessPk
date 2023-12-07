@@ -167,7 +167,7 @@
                         </table>
                     </div>
                     <input type="hidden" readonly id="discount_amount" placeholder="Total Amount"
-                    name="discount_amount" class="form-control" value="0">
+                    name="discount_amount" class="form-control" value="{{ $requistion->discount_amount }}">
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-danger">Cancel</a>
                         <button type="submit" id="save-purchaseorder-button" class="btn btn-primary ms-3">Update</button>
