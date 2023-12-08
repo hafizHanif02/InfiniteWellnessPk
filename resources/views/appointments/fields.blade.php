@@ -15,6 +15,14 @@
         </select>
         </div>
     @endif
+    <div class="form-group col-sm-6 mb-5">
+        {{ Form::label('Patient Cases', __('Patient Cases ').':', ['class' => 'form-label']) }}
+        {{-- <span class="required"></span> --}}
+        <select name="patient_case_id" class="form-select" data-control="select2" id="appointmentPatientCaseId">
+            <option value="" selected disabled>Select Patient Case</option>
+        </select>
+        {{-- {{ Form::select('doctor_department_id',$departments, null, ['class' => 'form-select','required','id' => 'appointmentDepartmentId','placeholder'=>'Select Department', 'data-control' => 'select2']) }} --}}
+    </div>
 <!-- Department Name Field -->
     <div class="form-group col-sm-6 mb-5">
         {{ Form::label('department_name', __('messages.appointment.doctor_department').':', ['class' => 'form-label']) }}
@@ -35,6 +43,18 @@
             <span class="required"></span>
             {{ Form::text('opd_date', isset($appointment) ? $appointment->opd_date->format('Y-m-d') : null, ['id'=>'appointmentOpdDate', 'class' => (getLoggedInUser()->thememode ? 'bg-light opdDate form-control' : 'bg-white opdDate form-control'), 'required', 'autocomplete'=>'off']) }}
         </div>
+
+        <div class="form-group col-sm-6 mb-5">
+            {{ Form::label('Payment Mode', __('Payment Mode ').':', ['class' => 'form-label']) }}
+            <span class="required"></span>
+            <select name="payment_mode" class="form-select" data-control="select2" id="payment_mode">
+                <option value="" selected disabled>Select Payment Method</option>
+                <option value="1">Cash</option>
+                <option value="2">Cheque</option>
+                <option value="3">Card</option>
+            </select>
+        </div>
+
         <!-- Notes Field -->
         <div class="form-group col-sm-6 mb-5">
             {{ Form::label('problem', __('messages.appointment.description').':', ['class' => 'form-label']) }}
@@ -112,3 +132,36 @@
            class="btn btn-secondary">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#appointmentPatientId").change(function () {
+            var patientId = $(this).val();
+            console.log(patientId);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('appointments.patient-case') }}",
+                data: {
+                    patient_id: patientId
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response.length > 0) {
+                        $("#appointmentPatientCaseId").empty();
+                        $("#appointmentPatientCaseId").append('<option value="" selected disabled>Select Case</option>');
+                        for (var i = 0; i < response.length; i++) {
+                            $("#appointmentPatientCaseId").append('<option value="' + response[i].id + '">' + response[i].case_id + '</option>');
+                        
+                    }
+                }else{
+                    $("#appointmentPatientCaseId").empty();
+                    $("#appointmentPatientCaseId").append('<option value="" selected disabled>No Case Found</option>');
+                }
+            },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        })
+    })
+</script>

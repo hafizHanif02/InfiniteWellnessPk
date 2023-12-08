@@ -69,6 +69,13 @@ class AppointmentController extends AppBaseController
         return view('appointments.create', compact('patients', 'departments', 'statusArr'));
     }
 
+    public function getPatientCase(Request $request)
+    {
+        $patient_id = $request->get('patient_id');
+        $patientCase = PatientCase::where('patient_id', $patient_id)->get();
+        return response()->json($patientCase);
+    }
+
     /**
      * Store a newly created appointment in storage.
      *
@@ -92,17 +99,31 @@ class AppointmentController extends AppBaseController
         $caseID = PatientCase::where('patient_id', $input['patient_id'])->orderBy('id', 'desc')->first();
 
         $standard_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
-        
-        OpdPatientDepartment::create([
-            'patient_id' =>  $input['patient_id'],
-            'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
-            'appointment_date' => $input['opd_date'],
-            'case_id' => $caseID->id,
-            'doctor_id' => $input['doctor_id'],
-            'standard_charge' => $standard_charge->standard_charge,
-            'payment_mode' => 1,
-            'currency_symbol' => 'pkr'
-        ]);
+        $followup_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
+
+        if($request->patient_case_id != null){
+            OpdPatientDepartment::create([
+                'patient_id' =>  $input['patient_id'],
+                'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+                'appointment_date' => $input['opd_date'],
+                'case_id' => $input['patient_case_id'],
+                'doctor_id' => $input['doctor_id'],
+                'followup_charge' => $followup_charge->followup_charge,
+                'payment_mode' => $input['payment_mode'],
+                'currency_symbol' => 'pkr'
+            ]);
+        }else{
+            OpdPatientDepartment::create([
+                'patient_id' =>  $input['patient_id'],
+                'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+                'appointment_date' => $input['opd_date'],
+                'case_id' => $caseID->id,
+                'doctor_id' => $input['doctor_id'],
+                'standard_charge' => $standard_charge->standard_charge,
+                'payment_mode' => $input['payment_mode'],
+                'currency_symbol' => 'pkr'
+            ]);
+        }
 
         $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
         $doctor = Doctor::where('id', $input['doctor_id'])->with('user')->first();

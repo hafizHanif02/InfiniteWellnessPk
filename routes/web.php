@@ -359,6 +359,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
 
     Route::middleware('role:Admin|Patient|Doctor|Receptionist|Nurse')->group(function () {
         Route::resource('appointments', AppointmentController::class);
+        Route::post('get-patient-case',[AppointmentController::class ,'getPatientCase'])->name('appointments.patient-case');
         Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index')->middleware('modules');
         Route::post('appointments/{appointment}', [AppointmentController::class, 'update']);
         Route::get('doctors-list', [AppointmentController::class, 'getDoctors']);
