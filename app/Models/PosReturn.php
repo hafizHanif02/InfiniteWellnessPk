@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Pos;
 use App\Models\PosProductReturn;
 use Illuminate\Database\Eloquent\Model;
@@ -37,11 +38,11 @@ class PosReturn extends Model
             $query->whereHas('pos',function ($query)use ($request) {$query->where('is_cash', $request->is_cash);});
         }
         if ($request->date_from && $request->date_to) {
-            $query->whereBetween('created_at', [$request->date_from, $request->date_to]);
+            $query->whereBetween('created_at', [$request->date_from, Carbon::parse($request->date_to)->addDay()->toDateString()]);
         } elseif ($request->date_from) {
             $query->where('created_at', '>=', $request->date_from);
         } elseif ($request->date_to) {
-            $query->where('created_at', '<=', $request->date_to);
+            $query->where('created_at', '<=', Carbon::parse($request->date_to)->addDay()->toDateString());
         }
     }
 
