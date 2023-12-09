@@ -15,6 +15,7 @@ class Pos extends Model
         'prescription_id',
         'total_amount',
         'pos_fees',
+        'fbr_invoice_no',
         'total_discount',
         'total_saletax',
         'total_amount_ex_saletax',

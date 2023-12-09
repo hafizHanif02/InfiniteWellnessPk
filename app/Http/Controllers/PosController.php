@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Barcode;
+use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Patient;
+use App\Models\BatchPOS;
 use App\Models\Medicine;
 use App\Models\PosReturn;
 use Illuminate\View\View;
 use App\Exports\PosExport;
 use Laracasts\Flash\Flash;
 use App\Models\Pos_Product;
-use App\Models\BatchPOS;
-use App\Rules\ProductQuantityInRange;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
@@ -22,9 +22,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Rules\ProductQuantityInRange;
 use Illuminate\Http\RedirectResponse;
 use Picqer\Barcode\BarcodeGeneratorHTML;
-use Carbon\Carbon;
 
 class PosController extends Controller
 {
@@ -87,8 +87,101 @@ class PosController extends Controller
 
     }
 
-    public function store(PosRequest $request): RedirectResponse
-    {
+    public function store(PosRequest $request)
+    {  
+        //fbr work start
+            $pos_id =  $request->pos_id;
+            $patient_name = $request->patient_name;
+            $pos_date =  $request->pos_date;
+            $patient_number = $request->patient_number;
+            $total_amount = $request->total_amount;
+            $total_saletax = $request->total_saletax;
+            $total_salevalue = $request->total_amount_inc_saletax;
+              $allItems = [];
+              $totalQty = 0;
+              $gstAmount = 0;
+                 if (!empty($request->products) && is_array($request->products)) {
+                     foreach ($request->products as $product) {
+                     
+                        $item = [
+                            "ItemCode" => $product['medicine_id'] ,
+                            "ItemName" => $product['product_name'] ,
+                            "Quantity" => $product['product_quantity'] ,
+                            "PCTCode" => "11001010",
+                            "TaxRate" => "0.00" ,
+                            "SaleValue" => $product['mrp_perunit'] ,
+                            "TotalAmount" => $product['product_total_price'] ,
+                            "TaxCharged" => $product['gst_amount'] ,
+                            "Discount" => $product['discount_amount'] ,
+                            "FurtherTax" => 0.0,
+                            "InvoiceType" => 1,
+                            "RefUSIN" => null
+                        ];
+                        $totalQty += $product['product_quantity'];
+                        $gstAmount += floatval($product['gst_amount']);
+                        $allItems[] = $item;
+                    
+                }
+            }  
+        $datafbr = [
+            "InvoiceNumber" => $request->pos_id,
+            "POSID" => 161992,
+            "USIN" => "USIN0",
+            "DateTime" => $pos_date,
+            "BuyerNTN" => "1234567-8",
+            "BuyerCNIC" => "12345-1234567-8",
+            "BuyerName" => $patient_name,
+            "BuyerPhoneNumber" => $patient_number,
+            "items" => $allItems,
+            "TotalBillAmount" => $total_amount,
+            "TotalQuantity" => $totalQty,
+            "TotalSaleValue" => $total_salevalue,
+            "TotalTaxCharged" => $gstAmount,
+            "PaymentMode" => 2,
+            "InvoiceType" => 1,
+        ];
+        
+        $curl = curl_init();
+        $datafbr_json = json_encode($datafbr);
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://gw.fbr.gov.pk/imsp/v1/api/Live/PostData',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>$datafbr_json,
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer 455391dc-76c1-3c2e-a0bc-2d33ccf6b655',
+            'Content-Type: application/json'
+        ),
+        ));
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_message = curl_error($curl);
+            echo "Curl Error: " . $error_message;
+        } else {
+            $dataRes = json_decode($response);
+
+            if ($dataRes && isset($dataRes->InvoiceNumber)) {
+                $invoiceNumber = $dataRes->InvoiceNumber;   
+                $userId = auth()->user()->id; 
+                $posData = array_merge($request->validated(), [
+                    'user_id' => $userId,
+                    'fbr_invoice_no' => $invoiceNumber 
+                ]);
+                $pos = Pos::create($posData);
+            
+            } else {
+              
+                Flash::message('Fbr Invoice Not Created!');
+            }
+        }       
+        curl_close($curl);
+        // fbr work end
+        // exit;
         $userId = auth()->user()->id;
 
         $request->validate([
@@ -97,7 +190,7 @@ class PosController extends Controller
         ]);
 
         // Create POS and associated products
-        $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
+        // $pos = Pos::create(array_merge($request->validated(), ['user_id' => $userId]));
 
         $user = Auth::user();
         $requistionproductlogs = 'Pos No.'.$pos->id.' Products:{[medicine_id, qty],';
