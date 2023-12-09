@@ -24,6 +24,7 @@ use App\Repositories\AppointmentRepository;
 use Illuminate\Support\Facades\Mail as Email;
 use App\Http\Requests\CreateAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
+use App\Models\DentalOpdPatientDepartment;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
@@ -86,6 +87,8 @@ class AppointmentController extends AppBaseController
         $input = $request->all();
         //return $this->sendSuccess($input['patient_id']);
 
+        $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
+
         $input['opd_date'] = $input['opd_date'].$input['time'];
         // $input['is_completed'] = isset($input['status']) ? Appointment::STATUS_COMPLETED : Appointment::STATUS_PENDING;
         $input['is_completed'] = 0;
@@ -101,31 +104,65 @@ class AppointmentController extends AppBaseController
         $standard_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
         $followup_charge = DoctorOpdCharge::where('doctor_id', $input['doctor_id'])->first();
 
-        if($request->patient_case_id != null){
-            OpdPatientDepartment::create([
-                'patient_id' =>  $input['patient_id'],
-                'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
-                'appointment_date' => $input['opd_date'],
-                'case_id' => $input['patient_case_id'],
-                'doctor_id' => $input['doctor_id'],
-                'followup_charge' => $followup_charge->followup_charge,
-                'payment_mode' => $input['payment_mode'],
-                'currency_symbol' => 'pkr'
-            ]);
+        if($request->doctor_department_id == 5){
+            if($request->patient_case_id != null){
+                DentalOpdPatientDepartment::create([
+                    'patient_id' =>  $input['patient_id'],
+                    'doctor_id' => $input['doctor_id'],
+                    'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
+                    'case_id' => $input['patient_case_id'],
+                    'height' => $patient->height?$patient->height:'',
+                    'weight' => $patient->weight?$patient->weight:'',
+                    'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
+                    'appointment_date' => $input['opd_date'],
+                    'followup_charge' => $followup_charge->followup_charge,
+                    'total_amount' => $followup_charge->followup_charge,
+                    'payment_mode' => $input['payment_mode'],
+                    'currency_symbol' => 'pkr'
+                ]);
+            }else{
+                DentalOpdPatientDepartment::create([
+                    'patient_id' =>  $input['patient_id'],
+                    'doctor_id' => $input['doctor_id'],
+                    'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
+                    'case_id' => $caseID->id,
+                    'height' => $patient->height?$patient->height:'',
+                    'weight' => $patient->weight?$patient->weight:'',
+                    'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
+                    'appointment_date' => $input['opd_date'],
+                    'standard_charge' => $standard_charge->standard_charge,
+                    'total_amount' => $standard_charge->standard_charge,
+                    'payment_mode' => $input['payment_mode'],
+                    'currency_symbol' => 'pkr'
+                ]);
+            }
         }else{
-            OpdPatientDepartment::create([
-                'patient_id' =>  $input['patient_id'],
-                'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
-                'appointment_date' => $input['opd_date'],
-                'case_id' => $caseID->id,
-                'doctor_id' => $input['doctor_id'],
-                'standard_charge' => $standard_charge->standard_charge,
-                'payment_mode' => $input['payment_mode'],
-                'currency_symbol' => 'pkr'
-            ]);
+            if($request->patient_case_id != null){
+                OpdPatientDepartment::create([
+                    'patient_id' =>  $input['patient_id'],
+                    'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+                    'appointment_date' => $input['opd_date'],
+                    'case_id' => $input['patient_case_id'],
+                    'doctor_id' => $input['doctor_id'],
+                    'followup_charge' => $followup_charge->followup_charge,
+                    'payment_mode' => $input['payment_mode'],
+                    'currency_symbol' => 'pkr'
+                ]);
+            }else{
+                OpdPatientDepartment::create([
+                    'patient_id' =>  $input['patient_id'],
+                    'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
+                    'appointment_date' => $input['opd_date'],
+                    'case_id' => $caseID->id,
+                    'doctor_id' => $input['doctor_id'],
+                    'standard_charge' => $standard_charge->standard_charge,
+                    'payment_mode' => $input['payment_mode'],
+                    'currency_symbol' => 'pkr'
+                ]);
+            }
         }
 
-        $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
+        // $patient = Patient::where('id', $input['patient_id'])->with('user')->first();
         $doctor = Doctor::where('id', $input['doctor_id'])->with('user')->first();
         $receptions = Receptionist::with('user')->get();
         $patientEmail = $patient->user->email;
