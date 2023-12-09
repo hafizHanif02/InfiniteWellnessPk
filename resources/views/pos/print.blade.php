@@ -193,18 +193,25 @@
 
             <tr>
                 <th colspan="4"></th>
-                <th  colspan="2">{!! $invoice_barcode !!}</th>
+                <th colspan="2">
+                    <img width="180px" src="{{ asset('images/fbr.png') }}" alt="">
+                </th>
                 @if ($qrCode != null)
                 <th  colspan="2">{{ $qrCode }} <br> FBR</th>
                 @endif
                 <th colspan="4"></th>
             </tr>
+        </thead>
+    </table>
+
+    <table style="margin-top: 100px!important">
+        <thead>
             <tr>
-
-                <th class="text-start" colspan="2">{{ $pos->id }}</th>
-
+                <th colspan="4"></th>
+                <th colspan="2">{{ $pos->id }}</th>
+                <th  colspan="2">{!! $invoice_barcode !!}</th>
+                <th colspan="4"></th>
             </tr>
-
         </thead>
     </table>
     {{-- </x-layouts.print> --}}
