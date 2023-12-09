@@ -5,7 +5,7 @@
                 <div style="margin-top: 25px !important; margin-bottom: 25px !important">
                     <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
                 </div>
-                {{ $qrCode }}
+                
                 <div style="margin-top: 25px !important; margin-bottom: 10px !important">
                     <h2>InfinitewellnessPK</h2>
                 </div>
@@ -194,7 +194,10 @@
             <tr>
                 <th colspan="4"></th>
                 <th  colspan="2">{!! $invoice_barcode !!}</th>
-                <th colspan="6"></th>
+                @if ($qrCode != null)
+                <th  colspan="2">{{ $qrCode }} <br> FBR</th>
+                @endif
+                <th colspan="4"></th>
             </tr>
             <tr>
 
