@@ -5,7 +5,10 @@
                 <div style="margin-top: 25px !important; margin-bottom: 25px !important">
                     <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
                 </div>
+<<<<<<< HEAD
                 
+=======
+>>>>>>> parent of aff7ecfe (QR CODE)
                 <div style="margin-top: 25px !important; margin-bottom: 10px !important">
                     <h2>InfinitewellnessPK</h2>
                 </div>
