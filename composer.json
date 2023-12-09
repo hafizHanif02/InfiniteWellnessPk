@@ -39,6 +39,7 @@
         "picqer/php-barcode-generator": "^2.4",
         "rappasoft/laravel-livewire-tables": "dev-master",
         "rennokki/laravel-eloquent-query-cache": "^3.3",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-cookie-consent": "^3.2",
         "spatie/laravel-csp": "^2.8",
         "spatie/laravel-medialibrary": "^10.0",

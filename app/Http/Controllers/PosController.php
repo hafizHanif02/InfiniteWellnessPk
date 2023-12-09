@@ -25,6 +25,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Rules\ProductQuantityInRange;
 use Illuminate\Http\RedirectResponse;
 use Picqer\Barcode\BarcodeGeneratorHTML;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PosController extends Controller
 {
@@ -318,11 +319,14 @@ class PosController extends Controller
         } else {
             $mr_barcode = null;
         }
+        $invoiceNo = $posData->fbr_invoice_no;
+        $qrCode = QrCode::size(200)->generate($invoiceNo);
         $invoice_barcode = $generatorHTML->getBarcode($posData->id, $generatorHTML::TYPE_CODE_128);
         return view('pos.print', [
             'pos' => $posData,
             'mr_barcode' => $mr_barcode,
             'invoice_barcode' => $invoice_barcode,
+            'qrCode' => $qrCode
         ]);
     }
 
