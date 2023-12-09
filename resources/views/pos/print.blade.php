@@ -192,14 +192,38 @@
             </tr>
 
             <tr>
+                
+                <th class="text-start" colspan="4">
+                </th>
+                <th class="text-start" colspan="4" style="text-align: center;">
+                    <p>FBR Invoice #
+                    {{ $pos->fbr_invoice_no }}</p>
+                </th>
+                <th class="text-start" colspan="4">
+                </th>
+            </tr>
+
+            <tr>
                 <th colspan="4"></th>
                 <th colspan="2">
-                    <img width="180px" src="{{ asset('images/fbr.png') }}" alt="">
+                    <img width="80px" src="{{ asset('images/pos.png') }}" alt="">
                 </th>
                 @if ($qrCode != null)
                 <th  colspan="2">{{ $qrCode }} <br> FBR</th>
                 @endif
                 <th colspan="4"></th>
+            </tr>
+            
+            <tr>
+                <th class="text-start" colspan="4">
+                </th>
+                <th class="text-center" colspan="4">
+                    <p>Verify This Invoice Through FBR TaxAsaan MobileApp OR SMS
+                     At 9966 And Win Exciting Prizes in Draw.
+                    </p>
+                </th>
+                <th class="text-start" colspan="4">
+                </th>
             </tr>
         </thead>
     </table>

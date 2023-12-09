@@ -320,7 +320,7 @@ class PosController extends Controller
             $mr_barcode = null;
         }
         $invoice_barcode = $generatorHTML->getBarcode($posData->id, $generatorHTML::TYPE_CODE_128);
-
+        
         if($posData->fbr_invoice_no != null){
             $invoiceNo = $posData->fbr_invoice_no;
             $qrCode = QrCode::size(70)->generate($invoiceNo);
