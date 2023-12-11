@@ -21,7 +21,7 @@ class NursingFormController extends Controller
      */
     public function index(){
         return view('nursing_form.index',[
-            'nursing_froms' => NursingForm::latest()->paginate(10),
+            'nursing_froms' => NursingForm::with('patient.user')->latest()->paginate(10),
         ]);
     }
 

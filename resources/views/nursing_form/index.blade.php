@@ -2,7 +2,7 @@
 @section('title')
     Nursing From List
 @endsection
-@section('content')
+@section('content') 
 <div class="container-fluid">
     <div class="d-flex flex-column">
         @include('flash::message')
@@ -17,6 +17,7 @@
                         <tr>
                             <th>Form No.</th>
                             <th>Paitent MR No.</th>
+                            <th>Patient Name</th>
                             <th>OPD ID</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td>{{ $nursing_from->id }}</td>
                                 <td>{{ $nursing_from->patient_mr_number }}</td>
+                                <td>{{ $nursing_from->patient->user->first_name }} {{ $nursing_from->patient->user->last_name }}</td>
                                 <td>{{ $nursing_from->opd_id }}</td>
                                 <td class="d-flex justify-content-center gap-5">
                                     <a href="/nursing-form/{{$nursing_from->id}}">
