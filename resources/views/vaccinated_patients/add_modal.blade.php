@@ -1,6 +1,5 @@
 <div id="add_vaccinated_patient_modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        {{-- {{dd($patients)}} --}}
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -13,13 +12,16 @@
                 <div class="alert alert-danger d-none hide" id="validationErrorsBox"></div>
                 <div class="row">
                     <div class="form-group col-sm-6 mb-5">
-                        <select name="patient_id"  id="appointmentPatientId" placeholder='Select Patient' class="form-select" required>
-                            <option value="" selected disabled>Select Patient</option>
-                            @foreach ($patients as $patient)
-                            <option value="{{$patient->id }}">{{$patient->MR}}- {{$patient->patientUser->full_name }}</option>                
-                            @endforeach
-                        </select>
-                    </div>                
+                        {{ Form::label('patient_id', __('messages.vaccinated_patient.patient').(':'), ['class' => 'form-label']) }}
+                        <span class="required"></span>
+                        @php
+                        $options = ['' => 'Select Patient'];
+                        foreach ($patients as $patient) {
+                            $options[$patient->MR] = "({$patient->MR}) {$patient->patientUser->full_name}";
+                        }
+                        @endphp
+                        {{ Form::select('patient_id', $options, null, ['class' => 'form-control', 'required', 'id' => 'vPatientName', 'data-control' => 'select2']) }}
+                    </div>                    
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('vaccination_id', __('messages.vaccinated_patient.vaccine').(':'),['class' => 'form-label']) }}
                         <span class="required"></span>
