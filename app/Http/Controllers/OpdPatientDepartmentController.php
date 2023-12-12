@@ -187,48 +187,119 @@ class OpdPatientDepartmentController extends AppBaseController
         ]);
 
         // Email
-        $patient = Patient::where('id',  $dentalOpdPatientDepartment->patient_id)->with('user')->first();
-        $doctor = Doctor::where('id',  $dentalOpdPatientDepartment->doctor_id)->with('user')->first();
+        // $patient = Patient::where('id',  $dentalOpdPatientDepartment->patient_id)->with('user')->first();
+        // $doctor = Doctor::where('id',  $dentalOpdPatientDepartment->doctor_id)->with('user')->first();
+        // $receptions = Receptionist::with('user')->get();
+
+        // $patientEmail = $patient->user->email;
+        // $doctorEmail = $doctor->user->email;
+
+        // $recipient = [
+        // $patientEmail,
+        // $doctorEmail
+        // ];
+
+        // $subject = 'Dental OPD ' . $dentalOpdPatientDepartment->opd_number .'  Updated';
+        // if (!empty($patientEmail)) {
+        //     // $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+        //     $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
+
+        //     $recipient = [$patientEmail, $doctorEmail];
+        //     $mail = [
+        //         'to' => $recipient,
+        //         'subject' => $subject,
+        //         'message' => $message,
+        //         'attachments' => null,
+        //     ];
+        
+        //     Email::to($recipient)
+        //         ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        // }else{
+        //     $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
+
+        //     $recipient = $doctorEmail;
+        //     $mail = [
+        //         'to' => $recipient,
+        //         'subject' => $subject,
+        //         'message' => $message,
+        //         'attachments' => null,
+        //     ];
+        
+        //     Email::to($recipient)
+        //         ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        // }
+
+        //         foreach($receptions as $reception){
+
+        //             $reception_mail = $reception->user->email;
+        //             $reception_array = [];
+        //             $reception_array[] = $reception_mail;
+        
+        
+        //             $mail = array(
+        //                 'to' => $reception_array,
+        //                 'subject' => $subject,
+        //                 $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+        //                 'attachments' => null,
+        //             );
+        
+        //             Email::to($reception_array)
+        //             ->send(new MarkdownMail('emails.email',
+        //                 $mail['subject'], $mail));
+        //         }
+        // Email
+
+
+
+
+
+        $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
+        $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
         $receptions = Receptionist::with('user')->get();
 
         $patientEmail = $patient->user->email;
         $doctorEmail = $doctor->user->email;
-
         $recipient = [
+        // ($patient->user->email != null) ? $patient->user->email : '',
+        //     $doctor->user->email,
         $patientEmail,
         $doctorEmail
         ];
 
-        $subject = 'Dental OPD ' . $dentalOpdPatientDepartment->opd_number .'  Updated';
-        if (!empty($patientEmail)) {
-            // $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
-            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
+        $subject = 'Dental OPD Created';
+        if(!empty($patientEmail)){
+            $data = array(
+                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+            );
 
-            $recipient = [$patientEmail, $doctorEmail];
-            $mail = [
+
+            $mail = array(
                 'to' => $recipient,
                 'subject' => $subject,
-                'message' => $message,
+                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                 'attachments' => null,
-            ];
-        
-            Email::to($recipient)
-                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
-        }else{
-            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
+            );
 
-            $recipient = $doctorEmail;
-            $mail = [
-                'to' => $recipient,
-                'subject' => $subject,
-                'message' => $message,
-                'attachments' => null,
-            ];
-        
             Email::to($recipient)
-                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
         }
+        else{
+            $data = array(
+                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+            );
+            $recipient = $doctorEmail;
+            $mail = array(
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                'attachments' => null,
+            );
 
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
+        }
                 foreach($receptions as $reception){
 
                     $reception_mail = $reception->user->email;
@@ -239,7 +310,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     $mail = array(
                         'to' => $reception_array,
                         'subject' => $subject,
-                        $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                        'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                         'attachments' => null,
                     );
         
@@ -247,7 +318,6 @@ class OpdPatientDepartmentController extends AppBaseController
                     ->send(new MarkdownMail('emails.email',
                         $mail['subject'], $mail));
                 }
-        // Email
         
 
         return redirect(route('dentalopd.patient.index'));
