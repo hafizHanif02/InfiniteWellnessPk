@@ -481,7 +481,7 @@ class PatientController extends AppBaseController
     }
 
     public function showForm(Request $request, $patient)
-    {
+    {        
         $patientID =  Patient::where('id', $patient)->pluck('MR')->first();
         $patientData =  Patient::where('id', $patient)->with('user')->first();
         $ageDifference = Carbon::parse($patientData->user->dob)->diff(Carbon::now());
@@ -498,8 +498,6 @@ class PatientController extends AppBaseController
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
             return view('patients.' . $fileName, compact('formData', 'nursingData', 'patientData', 'DietData', 'age'));
         }
-
-
         return "fdsfasdf";
     }
 
@@ -655,8 +653,6 @@ class PatientController extends AppBaseController
                 ->where('formID', $request->formPatientID)
                 ->update(['fieldValue' => $fileName]);
         }
-
-
 
         return view('patients.blankView');
     }

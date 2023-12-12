@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="text-center">Subjective Objective Assessment Plan (SOAP)</h2>
-                </div>;
+                </div>
                 <input type="hidden" name="patient_id" value="{{$patientData->id}}">
                 <br><br>
                 <div class="col-12">
@@ -125,7 +125,6 @@
                 </div>
                 <div class="col-12">
                     <br>
-
                     <h5 class="text-left">Vital Signs</h5>
                 </div>
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
@@ -137,7 +136,12 @@
 
                                     @break
                                 @endif
-                            @endforeach>
+                            @endforeach>                       
+                </div>
+                <div class="col-md-1">
+                    <div class="mt-5">
+                        mmHg
+                    </div>
                 </div>
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
@@ -150,7 +154,11 @@
                                 @endif
                             @endforeach>
                 </div>
-
+                <div class="col-md-1">
+                    <div class="mt-5">
+                        bpm
+                    </div>
+                </div>
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Respiratory Rate</label>
@@ -162,7 +170,11 @@
                                 @endif
                             @endforeach>
                 </div>
-
+                <div class="col-md-1">
+                    <div class="mt-5">
+                        breaths/min
+                    </div>
+                </div>
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
                     <label for="exampleInput3">Temperature</label>
@@ -174,7 +186,11 @@
                                 @endif
                             @endforeach>
                 </div>
-
+                <div class="col-md-1">
+                    <div class="mt-5">
+                        °C/°F
+                    </div>
+                </div>
 
                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12">
                     <br>
