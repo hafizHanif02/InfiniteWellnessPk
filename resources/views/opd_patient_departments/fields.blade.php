@@ -28,31 +28,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="col-md-2">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('height', __('messages.ipd_patient.height').':', ['class' => 'form-label']) }}
-                {{ Form::number('height', (isset($data['last_visit'])) ? $data['last_visit']->height : 0, ['class' => 'form-control', 'max' => '7', 'step' => '.01']) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('weight', __('messages.ipd_patient.weight').':', ['class' => 'form-label']) }}
-                {{ Form::number('weight', (isset($data['last_visit'])) ? $data['last_visit']->weight : 0, ['class' => 'form-control', 'max' => '200', 'step' => '.01']) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('bp', __('messages.ipd_patient.bp').':', ['class' => 'form-label']) }}
-                {{ Form::number('bp', (isset($data['last_visit'])) ? $data['last_visit']->bp : null, ['class' => 'form-control']) }}
-            </div>
-        </div>
-    </div> --}}
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('appointment_date', __('messages.opd_patient.appointment_date').':', ['class' => 'form-label']) }}
@@ -61,6 +37,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
@@ -70,17 +47,30 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 <div class="form-group">
-                    <label id="opdStandardChargeLabel" for="opdStandardCharge">Standard Charge</label>
+                    <label class="form-label" id="opdStandardChargeLabel" for="opdStandardCharge">Standard Charge</label>
                     <span class="required"></span>
                     <div class="input-group">
                         {{ Form::text('standard_charge', null , ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required']) }}
                         <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
                     </div>
                     {{ Form::hidden('doctor_id_for_schedule', null, ['class' => 'form-control price-input', 'id' => 'doctor_id_for_schedule', 'required']) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="mb-5">
+            <div class="mb-5">
+                <div class="form-group">
+                    <label class="form-label" id="advance_amount_label" for="advance_amount">Advance Amount</label>
+                    <div class="input-group">
+                        {{ Form::text('advance_amount', null , ['class' => 'form-control price-input', 'id' => 'advance_amount']) }}
+                        <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -35,6 +35,7 @@ class DentalOpdPatientDepartment extends Model
         'standard_charge',
         'followup_charge',
         'total_amount',
+        'advance_amount',
         'payment_mode',
         'currency_symbol',
         'service_id'

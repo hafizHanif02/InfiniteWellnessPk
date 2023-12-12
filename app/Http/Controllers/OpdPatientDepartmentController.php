@@ -131,6 +131,10 @@ class OpdPatientDepartmentController extends AppBaseController
     {
         $dentalOpdPatientDepartment = DentalOpdPatientDepartment::findOrFail($dentalOpdPatientDepartment);
 
+        if(!empty($request->advance_amount)) {
+            $advanceAmount = removeCommaFromNumbers($request->advance_amount);
+        }
+
         $appointment_id = Appointment::where('id', $dentalOpdPatientDepartment->appointment_id)->first();
         $patient = Patient::where('id', $dentalOpdPatientDepartment->patient_id)->first();
 
@@ -151,11 +155,12 @@ class OpdPatientDepartmentController extends AppBaseController
                 'standard_charge' => $standard_charge->standard_charge,
                 'followup_charge' => 0,
                 'total_amount' => $request->total_amount,
+                'advance_amount' => $advanceAmount,
                 'payment_mode' => $request->payment_mode,
                 'currency_symbol' => 'pkr',
                 'symptoms'=> $request->symptoms,
                 'notes'=> $request->notes,
-                'service_id' => $request->chargesList
+                'service_id' => $request->chargesList ?? [],
             ]);
         }
         if($request->followup_charge){
@@ -172,11 +177,12 @@ class OpdPatientDepartmentController extends AppBaseController
                 'standard_charge' => 0,
                 'followup_charge' => $followup_charge->followup_charge,
                 'total_amount' => $request->total_amount,
+                'advance_amount' => $advanceAmount,
                 'payment_mode' => $request->payment_mode,
                 'currency_symbol' => 'pkr',
                 'symptoms'=> $request->symptoms,
                 'notes'=> $request->notes,
-                'service_id' => $request->chargesList
+                'service_id' => $request->chargesList ?? [],
             ]);
         }
         $doctor_department = Doctor::where('id', $dentalOpdPatientDepartment->doctor_id)->first();
@@ -366,6 +372,9 @@ class OpdPatientDepartmentController extends AppBaseController
         if(!empty($input['followup_charge'])) {
             $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         }
+        if(!empty($input['advance_amount'])) {
+            $input['advance_amount'] = removeCommaFromNumbers($input['advance_amount']);
+        }
         // $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
         // $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         $input['appointment_id'] = $appointment->id;
@@ -444,13 +453,15 @@ class OpdPatientDepartmentController extends AppBaseController
         $input = $request->all();
         $doc = Doctor::where('id', $request->doctor_id)->first();
 
+        if(!empty($request->advance_amount)) {
+            $advance_amount = removeCommaFromNumbers($request->advance_amount);
+        }
         $appointment = Appointment::create([
             'patient_id' => $request->patient_id,
             'doctor_id' => $request->doctor_id,
             'doctor_department_id' => $doc->department_id,
             'opd_date' => $request->appointment_date,
         ]);
-        
         // dd($input);
         $data = [
             "currency_symbol" => $request->currency_symbol,
@@ -462,7 +473,7 @@ class OpdPatientDepartmentController extends AppBaseController
             "height" => $request->height,
             "weight"=> $request->weight,
             "bp" => $request->bp,
-            "doctor_id" => $request->doctor_id,
+            // "doctor_id" => $request->doctor_id,
             "appointment_date" => $request->appointment_date,
             "payment_mode" => $request->payment_mode,
             "symptoms"=> $request->symptoms,
@@ -471,12 +482,13 @@ class OpdPatientDepartmentController extends AppBaseController
             "standard_charge" => $request->standard_charge,
             "followup_charge" => $request->followup_charge,
             "total_amount" => $request->total_amount,
+            'advance_amount' => $advance_amount,
         ];
         DentalOpdPatientDepartment::insert($data);
 
         
 
-         $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
+        $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
         $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
         $receptions = Receptionist::with('user')->get();
 
@@ -611,6 +623,9 @@ class OpdPatientDepartmentController extends AppBaseController
         if(!empty($input['followup_charge'])) {
             $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         }
+        if(!empty($input['advance_amount'])) {
+            $input['advance_amount'] = removeCommaFromNumbers($input['advance_amount']);
+        }
 
         $doc = Doctor::where('id', $input['doctor_id'])->first();
         $receptions = Receptionist::with('user')->get();
@@ -632,6 +647,7 @@ class OpdPatientDepartmentController extends AppBaseController
                 'is_old_patient' => 0,
                 'standard_charge' => $input['standard_charge'],
                 'followup_charge' => 0,
+                'advance_amount' => $input['advance_amount'],
                 'payment_mode' => $input['payment_mode'],
                 'currency_symbol' => 'PKR',
             ]);
@@ -651,6 +667,7 @@ class OpdPatientDepartmentController extends AppBaseController
                 'is_old_patient' => 1,
                 'standard_charge' => 0,
                 'followup_charge' => $input['followup_charge'],
+                'advance_amount' => $input['advance_amount'],
                 'payment_mode' => $input['payment_mode'],
                 'currency_symbol' => 'PKR',
             ]);

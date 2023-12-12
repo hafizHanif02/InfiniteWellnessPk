@@ -45,6 +45,13 @@
         </div>
 
         <div class="form-group col-sm-6 mb-5">
+            {{ Form::label('advance_amount', 'Advance Amount '.':', ['class' => 'form-label']) }}
+            {{-- <span class="required"></span> --}}
+            {{-- {{ Form::text('advance_amount' ['id'=>'appointmentAdvanceAmount', 'class' => (getLoggedInUser()->thememode ? 'bg-light opdDate form-control' : 'bg-white opdDate form-control'), , 'autocomplete'=>'off']) }} --}}
+            <input type="number" name="advance_amount" id="appointmentAdvanceAmount" class="form-control">
+        </div>
+
+        <div class="form-group col-sm-6 mb-5">
             {{ Form::label('Payment Mode', __('Payment Mode ').':', ['class' => 'form-label']) }}
             <span class="required"></span>
             <select name="payment_mode" class="form-select" data-control="select2" id="payment_mode">

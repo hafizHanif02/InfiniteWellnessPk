@@ -145,18 +145,27 @@
             </tbody>
         </table>
     </div>
-    <div class="col-lg-3 col-md-4 col-sm-4 float-right p-0">
+    <div class="col-lg-4 col-md-8 col-sm-8 float-right p-0">
         <table class="w-100">
             <tbody class="bill-item-footer">
             <tr>
-                <td class="text-right">
+                <td class="text-right pe-4">
+                    <label class="form-label text-right" for="discount">Total</label>
+                    <input readonly type="text" id="total" class="form-control">
+                </td>
+                <td class="text-right pe-4">
+                    <label class="form-label text-right" for="discount">Advance</label>
+                    <input name="advance_amount" readonly type="text" class="form-control" id="advance_amount" onkeyup="calculateTotal()">
+                    <input name="advance_amount" type="hidden" id="advance_amount2">
+                </td>
+                <td class="text-right pe-4">
                     <label class="form-label text-right" for="discount">Discount</label>
                     <input name="discount_amount" type="text" class="form-control" id="discount" onkeyup="calculateTotal()">
                     <input name="total_amount" type="hidden" id="total_amounts">
 
                 </td>
                 <td class="text-right">
-                    <label class="form-label text-right" for="discount">Total Amount</label>
+                    <label class="form-label text-right" for="discount">Net Total</label>
                     <input type="number" readonly step="any" class="form-control" class="form-control" id="totalPrices">
                     <input type="hidden" readonly step="any" class="form-control" class="form-control" id="totalPrices2">
                 </td>
@@ -172,7 +181,7 @@
 </div>
 
 <!-- Total Amount Field -->
-{{ Form::hidden('total_amount', null, ['class' => 'form-control', 'id' => 'totalAmount']) }}
+{{-- {{ Form::hidden('total_amount', null, ['class' => 'form-control', 'id' => 'totalAmount']) }} --}}
 
 <!-- Submit Field -->
 <div class="float-end">
@@ -209,9 +218,13 @@ input.onchange  = function() {
             document.getElementById('billDoctorId').value = data['doctor']["first_name"] + " " + data['doctor']["last_name"];
             document.getElementById('opdDate').value = data['created_at'];
             document.getElementById('opdCharge').value = data['charges'];
+            document.getElementById('total').value = data['charges'];
             // document.getElementById('totalPrice').innerHTML = "Rs " + data['charges'];
-            document.getElementById('totalPrices').value = data['charges'];
-            document.getElementById('totalPrices2').value = data['charges'];
+            document.getElementById('totalPrices').value = data['charges'] - data['advance_amount'];
+            document.getElementById('totalPrices2').value = data['charges'] - data['advance_amount'];
+            document.getElementById('advance_amount').value = data['advance_amount'];
+            document.getElementById('advance_amount2').value = data['advance_amount'];
+
 
 
 
@@ -220,7 +233,8 @@ input.onchange  = function() {
             var diccount = document.getElementById('discount').value;
             var totalPrices = document.getElementById('totalPrices2').value;
             var discount_amount = (diccount*totalPrices)/100;
-            $('#totalPrices').val(totalPrices-discount_amount);
+            $('#totalPrices').val(totalPrices-discount_amount-data['advance_amount']);
+            $('#totalPrices2').val(totalPrices-discount_amount-data['advance_amount']);
             
             // console.log(discount_amount);
 
@@ -270,12 +284,18 @@ function calculateTotal(){
     let dis = document.getElementById('discount');
     let totalPrices = document.getElementById('totalPrices');
     let total_amounts = document.getElementById('total_amounts');
+    let advance_amount = document.getElementById('advance_amount2');
+    let total = document.getElementById('total');
+
     
     if(dis.value.length == 0){
         dis.value = 0.00;
     }
-    totalPrices.value = totalAmount-parseFloat(dis.value);
-    total_amounts.value = totalAmount-parseFloat(dis.value);
+    var amounts = totalAmount - parseFloat(dis.value) - parseFloat(advance_amount.value);
+    totalPrices.value = amounts;
+    total_amounts.value = amounts;
+    total.value = totalAmount;
+    // console.log('Ha' +  amounts);
 }, 100); 
 }
 

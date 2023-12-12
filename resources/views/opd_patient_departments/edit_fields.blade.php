@@ -120,6 +120,20 @@
         </div>
     @endif
 
+        <div class="col-md-3">
+            <div class="mb-5">
+                <div class="mb-5">
+                    <div class="form-group">
+                        <label id="advance_amount" class="form-label" for="advance_amount">Advance Amount</label>
+                        <div class="input-group">
+                            {{ Form::text('advance_amount', null, ['class' => 'form-control price-input', 'id' => 'advance_amount']) }}
+                            <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <div class="col-md-3">
         <div class="mb-5">
             <div class="mb-5">

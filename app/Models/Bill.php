@@ -24,6 +24,7 @@ class Bill extends Model
         'payment_type',
         'discount_amount',
         'total_amount',
+        'advance_amount',
     ];
 
     protected $casts = [
@@ -37,6 +38,7 @@ class Bill extends Model
         'payment_type' => 'integer',
         'discount_amount' => 'float',
         'total_amount' => 'float',
+        'advance_amount' => 'double',
     ];
 
     public static $rules = [

@@ -2,7 +2,7 @@
 {{ Form::hidden('currency_symbol', getCurrentCurrency(), ['class' => 'currencySymbol']) }}
 <div class="row gx-10 mb-5">
 
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('patient_id', __('MR / Patient name') . ':', ['class' => 'form-label']) }}
@@ -12,7 +12,7 @@
         </div>
     </div>
     <input type="hidden" name="appointment_id" value="{{ $dentalOpdPatientDepartment->appointment_id }}">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('case_id', __('messages.ipd_patient.case_id') . ':', ['class' => 'form-label']) }}
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('appointment_date', __('messages.opd_patient.appointment_date') . ':', ['class' => 'form-label']) }}
@@ -48,11 +48,11 @@
         </div>
     </div>
     @if ($dentalOpdPatientDepartment->standard_charge != 0)
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="mb-5">
                 <div class="mb-5">
                     <div class="form-group">
-                        <label id="opdStandardChargeLabel" for="opdStandardCharge">Standard Charge</label>
+                        <label id="opdStandardChargeLabel" class="form-label" for="opdStandardCharge">Standard Charge</label>
                         <span class="required"></span>
                         <div class="input-group">
                             {{ Form::text('standard_charge', $dentalOpdPatientDepartment->standard_charge, ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required','readonly']) }}
@@ -63,11 +63,11 @@
             </div>
         </div>
         @else
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="mb-5">
                 <div class="mb-5">
                     <div class="form-group">
-                        <label id="opdStandardChargeLabel" for="opdStandardCharge">Followup Charge</label>
+                        <label id="opdStandardChargeLabel" class="form-label" for="opdStandardCharge">Followup Charge</label>
                         <span class="required"></span>
                         <div class="input-group">
                             {{ Form::text('followup_charge', $dentalOpdPatientDepartment->followup_charge, ['class' => 'form-control price-input', 'id' => 'opdStandardCharge', 'required','readonly']) }}
@@ -79,24 +79,27 @@
         </div>
     @endif
 
+    <div class="col-md-2">
+        <div class="mb-5">
+            <div class="mb-5">
+                <div class="form-group">
+                    <label id="advance_amount" class="form-label" for="advance_amount">Advance Amount</label>
+                    <div class="input-group">
+                        {{ Form::text('advance_amount', null, ['class' => 'form-control price-input', 'id' => 'advance_amount']) }}
+                        <div class="input-group-text border-0"><a><span>{{ getCurrencySymbol() }}</span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="col-md-3">
+
+    <div class="col-md-4">
         <div class="mb-5">
             <div class="mb-5">
                 {{ Form::label('payment_mode', __('messages.ipd_payments.payment_mode') . ':', ['class' => 'form-label']) }}
                 <span class="required"></span>
                 {{ Form::select('payment_mode', $data['paymentMode'], null, ['class' => 'form-select', 'required', 'id' => 'opdPaymentMode', 'data-control' => 'select2', 'placeholder' => 'Choose Payment']) }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="mb-5">
-            <div class="mb-5">
-                {{ Form::label('is_old_patient', __('messages.ipd_patient.is_old_patient') . ':', ['class' => 'form-label']) }}<br>
-                <div class="form-check form-switch">
-                    <input id="is_old_patient_checkbox" class="form-check-input w-35px h-20px" name="is_old_patient"
-                        type="checkbox" value="1" >
-                </div>
             </div>
         </div>
     </div>
@@ -113,6 +116,18 @@
             <div class="mb-5">
                 {{ Form::label('notes', __('messages.ipd_patient.notes') . ':', ['class' => 'form-label']) }}
                 {{ Form::textarea('notes', null, ['class' => 'form-control', 'rows' => 4]) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="mb-5">
+            <div class="mb-5">
+                {{ Form::label('is_old_patient', __('messages.ipd_patient.is_old_patient') . ':', ['class' => 'form-label']) }}<br>
+                <div class="form-check form-switch">
+                    <input id="is_old_patient_checkbox" class="form-check-input w-35px h-20px" name="is_old_patient"
+                        type="checkbox" value="1" >
+                </div>
             </div>
         </div>
     </div>

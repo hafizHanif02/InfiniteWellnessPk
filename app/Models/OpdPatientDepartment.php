@@ -77,6 +77,7 @@ class OpdPatientDepartment extends Model
         'doctor_id',
         'standard_charge',
         'followup_charge',
+        'advance_amount',
         'payment_mode',
         'currency_symbol',
     ];

@@ -98,9 +98,11 @@ class BillController extends AppBaseController
         
         if($docID[0]->is_old_patient){
             $patientData->charges = $docID[0]->standard_charge;
+            $patientData->advance_amount = $docID[0]->advance_amount;
         }
         else{
             $patientData->charges = $docID[0]->standard_charge;
+            $patientData->advance_amount = $docID[0]->advance_amount;
         }
 
 

@@ -118,6 +118,7 @@ class AppointmentController extends AppBaseController
                     'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
                     'appointment_date' => $input['opd_date'],
                     'followup_charge' => $followup_charge->followup_charge,
+                    'advance_amount' => $input['advance_amount'],
                     'total_amount' => $followup_charge->followup_charge,
                     'payment_mode' => $input['payment_mode'],
                     'currency_symbol' => 'pkr'
@@ -135,6 +136,7 @@ class AppointmentController extends AppBaseController
                     'appointment_date' => $input['opd_date'],
                     'standard_charge' => $standard_charge->standard_charge,
                     'total_amount' => $standard_charge->standard_charge,
+                    'advance_amount' => $input['advance_amount'],
                     'payment_mode' => $input['payment_mode'],
                     'currency_symbol' => 'pkr'
                 ]);
@@ -149,6 +151,7 @@ class AppointmentController extends AppBaseController
                     'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'followup_charge' => $followup_charge->followup_charge,
+                    'advance_amount' => $input['advance_amount'],
                     'payment_mode' => $input['payment_mode'],
                     'currency_symbol' => 'pkr'
                 ]);
@@ -161,6 +164,7 @@ class AppointmentController extends AppBaseController
                     'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'standard_charge' => $standard_charge->standard_charge,
+                    'advance_amount' => $input['advance_amount'],
                     'payment_mode' => $input['payment_mode'],
                     'currency_symbol' => 'pkr'
                 ]);
