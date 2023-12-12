@@ -147,7 +147,7 @@ class OpdPatientDepartmentController extends AppBaseController
                 'height' => $patient->height?$patient->height:'',
                 'weight' => $patient->weight?$patient->weight:'',
                 'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
-                'appointment_date' => $request->opd_date,
+                'appointment_date' => $request->appointment_date,
                 'standard_charge' => $standard_charge->standard_charge,
                 'followup_charge' => 0,
                 'total_amount' => $request->total_amount,
@@ -168,7 +168,7 @@ class OpdPatientDepartmentController extends AppBaseController
                 'height' => $patient->height?$patient->height:'',
                 'weight' => $patient->weight?$patient->weight:'',
                 'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
-                'appointment_date' => $request->opd_date,
+                'appointment_date' => $request->appointment_date,
                 'standard_charge' => 0,
                 'followup_charge' => $followup_charge->followup_charge,
                 'total_amount' => $request->total_amount,
@@ -665,13 +665,78 @@ class OpdPatientDepartmentController extends AppBaseController
 
 
         // Email
-        $patient = Patient::where('id',  $input['patient_id'])->with('user')->first();
-        $doctor = Doctor::where('id',  $input['doctor_id'])->with('user')->first();
+        // $patient = Patient::where('id',  $input['patient_id'])->with('user')->first();
+        // $doctor = Doctor::where('id',  $input['doctor_id'])->with('user')->first();
+        // $receptions = Receptionist::with('user')->get();
+
+        // $patientEmail = $patient->user->email;
+        // $doctorEmail = $doctor->user->email;
+
+        // $recipient = [
+        // // ($patient->user->email != null) ? $patient->user->email : '',
+        // //     $doctor->user->email,
+        // $patientEmail,
+        // $doctorEmail
+        // ];
+
+        // $subject = 'OPD ' .$input['opd_number'] .'  Updated';
+        // if (!empty($patientEmail)) {
+        //     $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+
+        //     $recipient = [$patientEmail, $doctorEmail];
+        //     $mail = [
+        //         'to' => $recipient,
+        //         'subject' => $subject,
+        //         'message' => $message,
+        //         'attachments' => null,
+        //     ];
+        
+        //     Email::to($recipient)
+        //         ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        // }else{
+        //     $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+
+        //     $recipient = $doctorEmail;
+        //     $mail = [
+        //         'to' => $recipient,
+        //         'subject' => $subject,
+        //         'message' => $message,
+        //         'attachments' => null,
+        //     ];
+        
+        //     Email::to($recipient)
+        //         ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        // }
+
+        //         foreach($receptions as $reception){
+
+        //             $reception_mail = $reception->user->email;
+        //             $reception_array = [];
+        //             $reception_array[] = $reception_mail;
+        
+        
+        //             $mail = array(
+        //                 'to' => $reception_array,
+        //                 'subject' => $subject,
+        //                 $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+        //                 'attachments' => null,
+        //             );
+        
+        //             Email::to($reception_array)
+        //             ->send(new MarkdownMail('emails.email',
+        //                 $mail['subject'], $mail));
+        //         }
+        // Email
+
+
+
+
+        $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
+        $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
         $receptions = Receptionist::with('user')->get();
 
         $patientEmail = $patient->user->email;
         $doctorEmail = $doctor->user->email;
-
         $recipient = [
         // ($patient->user->email != null) ? $patient->user->email : '',
         //     $doctor->user->email,
@@ -680,34 +745,39 @@ class OpdPatientDepartmentController extends AppBaseController
         ];
 
         $subject = 'OPD ' .$input['opd_number'] .'  Updated';
-        if (!empty($patientEmail)) {
-            $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+        if(!empty($patientEmail)){
+            $data = array(
+                'message' => 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+            );
 
-            $recipient = [$patientEmail, $doctorEmail];
-            $mail = [
+
+            $mail = array(
                 'to' => $recipient,
                 'subject' => $subject,
-                'message' => $message,
+                'message' => 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
                 'attachments' => null,
-            ];
-        
-            Email::to($recipient)
-                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
-        }else{
-            $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+            );
 
-            $recipient = $doctorEmail;
-            $mail = [
-                'to' => $recipient,
-                'subject' => $subject,
-                'message' => $message,
-                'attachments' => null,
-            ];
-        
             Email::to($recipient)
-                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
         }
+        else{
+            $data = array(
+                'message' => 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+            );
+            $recipient = $doctorEmail;
+            $mail = array(
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+                'attachments' => null,
+            );
 
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email',
+                    $mail['subject'], $mail));
+        }
                 foreach($receptions as $reception){
 
                     $reception_mail = $reception->user->email;
@@ -718,7 +788,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     $mail = array(
                         'to' => $reception_array,
                         'subject' => $subject,
-                        $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+                        'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                         'attachments' => null,
                     );
         
@@ -726,7 +796,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     ->send(new MarkdownMail('emails.email',
                         $mail['subject'], $mail));
                 }
-        // Email
+        
 
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.updated_successfully'));
 
