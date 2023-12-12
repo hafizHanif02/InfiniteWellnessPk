@@ -40,7 +40,7 @@ class Pos extends Model
     }
     public function PosProduct()
     {
-        return $this->hasMany(Pos_Product::class,'pos_id');
+        return $this->hasMany(Pos_Product::class, 'pos_id');
     }
 
     public function scopeFilter($query, $request): void
