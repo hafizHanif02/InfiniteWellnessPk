@@ -253,7 +253,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <form method="post" action="/forms/{{ $data->id }}">
+                        <form method="post" action="/forms/{{ $data->id }}" enctype="multipart/form-data">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -339,7 +339,7 @@
                     ">
 
                                 {{-- {{dd($dietdata) }} --}}
-                                <form id="form1" class="row g-3" method="POST">
+                                <form id="form1" class="row g-3" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="patient_id" value="{{ $data->id }}">
 
@@ -463,7 +463,7 @@
                     <div class="tab-pane fade" id="ex2-tabs-2" role="tabpanel" aria-labelledby="ex2-tab-2">
                         <div>
                             <div style="background-color: aliceblue; padding: 20px;border-radius: 29px;">
-                                <form id="form2" class="row g-3">
+                                <form id="form2" class="row g-3" enctype="multipart/form-data">
                                     <div class="col-md-12">
                                         <h2 style="justify-content: center;display:flex;">Co-morbidity-Specific
                                             Nutritional Considerations</h2>
@@ -653,7 +653,7 @@
 
 
 
-                                <form id="form3" class="row g-3">
+                                <form id="form3" class="row g-3" enctype="multipart/form-data">
                                     <div class="col-md-12">
                                         <h2
                                             style="    justify-content: center;
@@ -724,10 +724,7 @@
                             border-radius: 29px;
                             ">
 
-
-
-
-                                <form id="form4" class="row g-3">
+                                <form id="form4" class="row g-3" enctype="multipart/form-data">
                                     <div class="col-md-12">
                                         <h2
                                             style="    justify-content: center;
@@ -735,16 +732,12 @@
                                             Nutritional Intervention Plan</h2>
                                         <h2
                                             style="    justify-content: center;
-                         display: flex;">
+                                         display: flex;">
                                             (Post Test)</h2>
                                     </div>
-
-
                                     <div class="col-md-12">
                                         <h3>Recommended Diet </h3>
-                                    </div>
-
-
+                                    </div>           
                                     <div class="col-md-6">
                                         <label for="Breakfastpost" class="form-label">Breakfast:
                                         </label>
@@ -758,9 +751,6 @@
                                         <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Midmorningpost != null) ? $dietdata->Midmorningpost : '') }}" id="Midmorningpost"
                                             name="Midmorningpost" >
                                     </div>
-
-
-
                                     <div class="col-md-6">
                                         <label for="Lunchpost" class="form-label"> Lunch:
                                         </label>
@@ -787,9 +777,18 @@
                                             name="Regimenpost">
                                     </div>
 
-
-
-
+                                    <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                        <br>
+                                        <label for="exampleInput8">Attach File</label>
+                                        <input name="nutritionalInterventionFile" type="file" class="form-control " id="nutritionalInterventionFile">
+                                    </div>
+                                    <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+                                        <br>
+                                        <label>View Attachment</label>
+                                        <br>                                                                            
+                                            <a href="/storage/Attachments/{{ trim($dietdata->nutritionalInterventionFile) }} 
+                                                " target="_blank">Show Attachment</a>                                                            
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -805,7 +804,7 @@
 
 
 
-                                <form id="form5" class="row g-3">
+                                <form id="form5" class="row g-3" enctype="multipart/form-data">
                                     <div class="col-md-12">
                                         <h2
                                             style="    justify-content: center;
@@ -945,7 +944,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <form id="form6" action=""> <!-- //! First table starts -->
+                                    <form id="form6" action="" enctype="multipart/form-data"> <!-- //! First table starts -->
 
                                         <tr>
                                             <td>
@@ -1148,9 +1147,6 @@
                                                    value="{{ ($dietdata === null) ? '' : (($dietdata->week31 != null) ? $dietdata->week31 : '') }}"  id="week31" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
-
-
-
                                         <tr>
                                             <td>
                                                 <input type="date" name="date88" class="form-control"
@@ -1170,11 +1166,6 @@
                                         </tr>
                                         <!-- //! PART 3333 ends -->
 
-
-
-
-
-
                                         <!-- //! PART 44 -->
                                         <tr>
                                             <td>
@@ -1187,12 +1178,8 @@
                                                 <h3>Fourth Month</h3>
                                             </td>
                                             <td colspan="3">
-
                                             </td>
                                         </tr>
-
-
-
                                         <tr>
                                             <td>
                                                 <input type="date" name="date42" class="form-control"
@@ -1210,13 +1197,23 @@
                                                    value="{{ ($dietdata === null) ? '' : (($dietdata->week42 != null) ? $dietdata->week42 : '') }}"  id="week42" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
-
-
-
-
-                                        <!-- //! PART 444 ends -->
-
-
+                                        <tr>
+                                            <td>
+                                                <!-- //! PART 444 ends -->
+                                                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                            <br>
+                                            <label for="exampleInput8">Attach File</label>
+                                            <input name="patientFollowUpFile" type="file" class="form-control " id="patientFollowUpFile" style="width: 600px;">
+                                        </div>
+                                        <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+                                            <br>
+                                            <label>View Attachment</label>
+                                            <br>                                                                            
+                                            <a href="/storage/Attachments/{{ trim($dietdata->patientFollowUpFile) }} 
+                                                " target="_blank">Show Attachment</a>                                                            
+                                            </div>
+                                        </td>
+                                    </tr>
 
                                     </form>
 
@@ -1559,40 +1556,48 @@
 </script> --}}
 <script>
     $(document).ready(function() {
-        $("#submitButton").click(function() {
-            var formData = new FormData();
+    $("#submitButton").click(function() {
+        var formData = new FormData();
+        // Iterate through each form
+        for (var i = 1; i <= 6; i++) {
+            var formId = 'form' + i;
+            var form = document.getElementById(formId);
 
-            // Iterate through each form
-            for (var i = 1; i <= 6; i++) {
-                var formId = 'form' + i;
-                var form = document.getElementById(formId);
-
-                // Append each form's data to the formData object
-                for (var j = 0; j < form.elements.length; j++) {
-                    var element = form.elements[j];
-                    if (element.name) {
-                        formData.append(element.name, element.value);
+            // Append each form's data to the formData object
+            for (var j = 0; j < form.elements.length; j++) {
+                var element = form.elements[j];
+                
+                // Check if the element is a file input
+                if (element.type === 'file') {
+                    // Check if files are selected
+                    if (element.files.length > 0) {
+                        formData.append(element.name, element.files[0]);
                     }
+                } else if (element.name) {
+                    formData.append(element.name, element.value);
                 }
             }
-            var csrfToken = $('input[name="_token"]').val();
-            formData.append('_token', csrfToken);
-            $.ajax({
-                type: "POST",
-                url: "/patients/{{ $data->id }}",
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log("Forms submitted successfully:", response);
-                },
-                error: function(error) {
-                    console.error("Error submitting the forms:", error);
-                }
-            });
+        }      
+        var csrfToken = $('input[name="_token"]').val();
+        formData.append('_token', csrfToken);
+        
+        $.ajax({
+            type: "POST",
+            url: "/patients/{{ $data->id }}",
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log("Forms submitted successfully:", response);
+            },
+            error: function(error) {
+                console.error("Error submitting the forms:", error);
+            }
         });
     });
+});
+
 </script>
