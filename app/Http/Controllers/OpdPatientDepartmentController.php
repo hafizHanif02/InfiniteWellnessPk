@@ -266,17 +266,17 @@ class OpdPatientDepartmentController extends AppBaseController
         $doctorEmail
         ];
 
-        $subject = 'Dental OPD Created';
+        $subject = 'Dental OPD ' . $request->opd_number .'  Updated';
         if(!empty($patientEmail)){
             $data = array(
-                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
             );
 
 
             $mail = array(
                 'to' => $recipient,
                 'subject' => $subject,
-                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                 'attachments' => null,
             );
 
@@ -286,13 +286,13 @@ class OpdPatientDepartmentController extends AppBaseController
         }
         else{
             $data = array(
-                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
             );
             $recipient = $doctorEmail;
             $mail = array(
                 'to' => $recipient,
                 'subject' => $subject,
-                'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                 'attachments' => null,
             );
 
@@ -310,7 +310,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     $mail = array(
                         'to' => $reception_array,
                         'subject' => $subject,
-                        'message' => 'Dental OPD And Appointment  has been created of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
+                        'message' => 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                         'attachments' => null,
                     );
         
