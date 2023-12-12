@@ -785,9 +785,11 @@
                                     <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
                                         <br>
                                         <label>View Attachment</label>
-                                        <br>                                                                            
-                                            <a href="/storage/Attachments/{{ trim($dietdata->nutritionalInterventionFile) }} 
-                                                " target="_blank">Show Attachment</a>                                                            
+                                        <br>   
+                                        @if($dietdata != null && $dietdata->nutritionalInterventionFile != null)
+                                        <a href="/storage/Attachments/{{ trim($dietdata->nutritionalInterventionFile) }}" target="_blank">Show Attachment</a>                                                  
+                                    @endif
+                                                                                          
                                     </div>
                                 </form>
                             </div>
@@ -1209,14 +1211,13 @@
                                             <br>
                                             <label>View Attachment</label>
                                             <br>                                                                            
-                                            <a href="/storage/Attachments/{{ trim($dietdata->patientFollowUpFile) }} 
-                                                " target="_blank">Show Attachment</a>                                                            
+                                            @if($dietdata != null && $dietdata->patientFollowUpFile != null)
+                                            <a href="/storage/Attachments/{{ trim($dietdata->patientFollowUpFile) }}" target="_blank">Show Attachment</a>                                                  
+                                        @endif                                                        
                                             </div>
                                         </td>
                                     </tr>
-
                                     </form>
-
                                 </tbody>
                             </table>
 
