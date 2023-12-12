@@ -64,6 +64,7 @@ class OpdPatientDepartment extends Model
 
     public $fillable = [
         'patient_id',
+        'appointment_id',
         'opd_number',
         'height',
         'weight',

@@ -96,6 +96,7 @@ class AppointmentController extends AppBaseController
             $input['patient_id'] = $request->user()->owner_id;
         }
         $this->appointmentRepository->create($input);
+        $appoint_id = DB::getPdo()->lastInsertId();
         $this->appointmentRepository->createNotification($input);
         
         //$case_id = PatientCase::where('patient_id',$input['patient_id'])->pluck('id');
@@ -108,6 +109,7 @@ class AppointmentController extends AppBaseController
             if($request->patient_case_id != null){
                 DentalOpdPatientDepartment::create([
                     'patient_id' =>  $input['patient_id'],
+                    'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
                     'case_id' => $input['patient_case_id'],
@@ -123,6 +125,7 @@ class AppointmentController extends AppBaseController
             }else{
                 DentalOpdPatientDepartment::create([
                     'patient_id' =>  $input['patient_id'],
+                    'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
                     'case_id' => $caseID->id,
@@ -143,6 +146,7 @@ class AppointmentController extends AppBaseController
                     'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
                     'appointment_date' => $input['opd_date'],
                     'case_id' => $input['patient_case_id'],
+                    'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'followup_charge' => $followup_charge->followup_charge,
                     'payment_mode' => $input['payment_mode'],
@@ -154,6 +158,7 @@ class AppointmentController extends AppBaseController
                     'opd_number' => OpdPatientDepartment::generateUniqueOpdNumber(),
                     'appointment_date' => $input['opd_date'],
                     'case_id' => $caseID->id,
+                    'appointment_id' => $appoint_id,
                     'doctor_id' => $input['doctor_id'],
                     'standard_charge' => $standard_charge->standard_charge,
                     'payment_mode' => $input['payment_mode'],

@@ -23,6 +23,7 @@ class OpdPatientDepartmentRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'patient_id',
+        'appointment_id',
         'ipd_number',
         'height',
         'weight',

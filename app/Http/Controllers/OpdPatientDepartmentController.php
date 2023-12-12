@@ -97,6 +97,162 @@ class OpdPatientDepartmentController extends AppBaseController
 
         return view('dentalOpd_patient_departments.create', compact('data', 'chargeCate'));
     }
+
+    public function dentalOpdEdit( $dentalOpdPatientDepartment , Request $request){
+        
+        $dentalOpdPatientDepartment = DentalOpdPatientDepartment::findOrFail($dentalOpdPatientDepartment);
+        //return $dentalOpdPatientDepartment;
+        
+        //dd();
+        $data = $this->opdPatientDepartmentRepository->getAssociatedData();
+        $data['revisit'] = ($request->get('revisit')) ? $request->get('revisit') : 0;
+        if ($data['revisit']) {
+            $id = $data['revisit'];
+            $data['last_visit'] = DentalOpdPatientDepartment::findOrFail($id);
+        }
+
+        foreach ($data['patients2'] as $key => $value) {
+            $data['patients'][$value->id] = $value->MR. " - ".$value->patientUser->full_name;
+        }
+
+        // dd($dentalOpdPatientDepartment);
+
+        $chargeCate = ChargeCategory::where('charge_type', 6)->get();
+
+        foreach ($chargeCate as $key => $value) {
+            $chargeCate[$key]->allCharges = Charge::where('charge_category_id', $value->id)->get();
+        }
+
+        return view('dentalOpd_patient_departments.edit', compact('data','dentalOpdPatientDepartment','chargeCate'));
+
+    }
+
+    public function dentalOpdUpdate($dentalOpdPatientDepartment , Request $request)
+    {
+        $dentalOpdPatientDepartment = DentalOpdPatientDepartment::findOrFail($dentalOpdPatientDepartment);
+
+        $appointment_id = Appointment::where('id', $dentalOpdPatientDepartment->appointment_id)->first();
+        $patient = Patient::where('id', $dentalOpdPatientDepartment->patient_id)->first();
+
+        $followup_charge = DoctorOpdCharge::where('doctor_id', $dentalOpdPatientDepartment->doctor_id)->first();
+        $standard_charge = DoctorOpdCharge::where('doctor_id', $dentalOpdPatientDepartment->doctor_id)->first();
+
+        if($request->standard_charge){
+            $dentalOpdPatientDepartment->update([
+                'patient_id' =>  $request->patient_id,
+                'appointment_id' => $appointment_id->id,
+                'doctor_id' => $request->doctor_id,
+                'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
+                'case_id' => $request->patient_case_id,
+                'height' => $patient->height?$patient->height:'',
+                'weight' => $patient->weight?$patient->weight:'',
+                'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
+                'appointment_date' => $request->opd_date,
+                'standard_charge' => $standard_charge->standard_charge,
+                'followup_charge' => 0,
+                'total_amount' => $request->total_amount,
+                'payment_mode' => $request->payment_mode,
+                'currency_symbol' => 'pkr',
+                'symptoms'=> $request->symptoms,
+                'notes'=> $request->notes,
+                'service_id' => $request->chargesList
+            ]);
+        }
+        if($request->followup_charge){
+            $dentalOpdPatientDepartment->update([
+                'patient_id' =>  $request->patient_id,
+                'appointment_id' => $appointment_id->id,
+                'doctor_id' => $request->doctor_id,
+                'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
+                'case_id' => $request->patient_case_id,
+                'height' => $patient->height?$patient->height:'',
+                'weight' => $patient->weight?$patient->weight:'',
+                'bp' => $patient->blood_pressure?$patient->blood_pressure:'',
+                'appointment_date' => $request->opd_date,
+                'standard_charge' => 0,
+                'followup_charge' => $followup_charge->followup_charge,
+                'total_amount' => $request->total_amount,
+                'payment_mode' => $request->payment_mode,
+                'currency_symbol' => 'pkr',
+                'symptoms'=> $request->symptoms,
+                'notes'=> $request->notes,
+                'service_id' => $request->chargesList
+            ]);
+        }
+        $doctor_department = Doctor::where('id', $dentalOpdPatientDepartment->doctor_id)->first();
+        Appointment::where('id', $dentalOpdPatientDepartment->appointment_id)->update([
+            'doctor_id' => $dentalOpdPatientDepartment->doctor_id,
+            'doctor_department_id' => $doctor_department->department_id,
+            'opd_date' => $dentalOpdPatientDepartment->appointment_date,
+        ]);
+
+        // Email
+        $patient = Patient::where('id',  $dentalOpdPatientDepartment->patient_id)->with('user')->first();
+        $doctor = Doctor::where('id',  $dentalOpdPatientDepartment->doctor_id)->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+
+        $patientEmail = $patient->user->email;
+        $doctorEmail = $doctor->user->email;
+
+        $recipient = [
+        $patientEmail,
+        $doctorEmail
+        ];
+
+        $subject = 'Dental OPD ' . $dentalOpdPatientDepartment->opd_number .'  Updated';
+        if (!empty($patientEmail)) {
+            // $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ';
+
+            $recipient = [$patientEmail, $doctorEmail];
+            $mail = [
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => $message,
+                'attachments' => null,
+            ];
+        
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        }else{
+            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ';
+
+            $recipient = $doctorEmail;
+            $mail = [
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => $message,
+                'attachments' => null,
+            ];
+        
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        }
+
+                foreach($receptions as $reception){
+
+                    $reception_mail = $reception->user->email;
+                    $reception_array = [];
+                    $reception_array[] = $reception_mail;
+        
+        
+                    $mail = array(
+                        'to' => $reception_array,
+                        'subject' => $subject,
+                        $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ',
+                        'attachments' => null,
+                    );
+        
+                    Email::to($reception_array)
+                    ->send(new MarkdownMail('emails.email',
+                        $mail['subject'], $mail));
+                }
+        // Email
+        
+
+        return redirect(route('dentalopd.patient.index'));
+    }
+
     public function getOpdData(Request $request){
         $data = OpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get()->toArray();
         $data2 = DentalOpdPatientDepartment::where(['patient_id'=>$request->pataientID])->get()->toArray();
@@ -127,6 +283,12 @@ class OpdPatientDepartmentController extends AppBaseController
         $doc = Doctor::where('id', $request->doctor_id)->first();
         $receptions = Receptionist::with('user')->get();
 
+        $appointment = Appointment::create([
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'doctor_department_id' => $doc->department_id,
+            'opd_date' => $request->appointment_date,
+        ]);
 
         if(!empty($input['standard_charge'])) {
             $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
@@ -136,17 +298,10 @@ class OpdPatientDepartmentController extends AppBaseController
         }
         // $input['standard_charge'] = removeCommaFromNumbers($input['standard_charge']);
         // $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
+        $input['appointment_id'] = $appointment->id;
         $patiendID = $this->opdPatientDepartmentRepository->store($input);
         $this->opdPatientDepartmentRepository->createNotification($input);
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.saved_successfully'));
-
-
-        $appointment = Appointment::create([
-            'patient_id' => $request->patient_id,
-            'doctor_id' => $request->doctor_id,
-            'doctor_department_id' => $doc->department_id,
-            'opd_date' => $request->appointment_date,
-        ]);
 
         // Email
         $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
@@ -217,11 +372,20 @@ class OpdPatientDepartmentController extends AppBaseController
 
     public function dentalStore(Request $request){
         $input = $request->all();
+        $doc = Doctor::where('id', $request->doctor_id)->first();
+
+        $appointment = Appointment::create([
+            'patient_id' => $request->patient_id,
+            'doctor_id' => $request->doctor_id,
+            'doctor_department_id' => $doc->department_id,
+            'opd_date' => $request->appointment_date,
+        ]);
         
         // dd($input);
         $data = [
             "currency_symbol" => $request->currency_symbol,
             "patient_id" => $request->patient_id,
+            'appointment_id' => $appointment->id,
             "doctor_id" => $request->doctor_id,
             "case_id" => $request->case_id,
             "opd_number" => $request->opd_number,
@@ -240,13 +404,7 @@ class OpdPatientDepartmentController extends AppBaseController
         ];
         DentalOpdPatientDepartment::insert($data);
 
-        $doc = Doctor::where('id', $request->doctor_id)->first();
-        $appointment = Appointment::create([
-            'patient_id' => $request->patient_id,
-            'doctor_id' => $request->doctor_id,
-            'doctor_department_id' => $doc->department_id,
-            'opd_date' => $request->appointment_date,
-        ]);
+        
 
          $patient = Patient::where('id',  $request->patient_id)->with('user')->first();
         $doctor = Doctor::where('id',  $request->doctor_id)->with('user')->first();
@@ -383,7 +541,123 @@ class OpdPatientDepartmentController extends AppBaseController
         if(!empty($input['followup_charge'])) {
             $input['followup_charge'] = removeCommaFromNumbers($input['followup_charge']);
         }
-        $this->opdPatientDepartmentRepository->updateOpdPatientDepartment($input, $opdPatientDepartment);
+
+        $doc = Doctor::where('id', $input['doctor_id'])->first();
+        $receptions = Receptionist::with('user')->get();
+
+        // $this->opdPatientDepartmentRepository->updateOpdPatientDepartment($input, $opdPatientDepartment);
+        if(!empty($input['standard_charge'])) {
+
+            OPDPatientDepartment::where('id', $opdPatientDepartment->id)->update([
+                'patient_id' => $input['patient_id'],
+                'doctor_id' => $input['doctor_id'],
+                'case_id' => $input['case_id'],
+                'opd_number' => $input['opd_number'],
+                'height' => $input['height'],
+                'weight' => $input['weight'],
+                'bp' => $input['bp'],
+                'symptoms' => $input['symptoms'],
+                'notes' => $input['notes'],
+                'appointment_date' => $input['appointment_date'],
+                'is_old_patient' => 0,
+                'standard_charge' => $input['standard_charge'],
+                'followup_charge' => 0,
+                'payment_mode' => $input['payment_mode'],
+                'currency_symbol' => 'PKR',
+            ]);
+
+        }else{
+            OPDPatientDepartment::where('id', $opdPatientDepartment->id)->update([
+                'patient_id' => $input['patient_id'],
+                'doctor_id' => $input['doctor_id'],
+                'case_id' => $input['case_id'],
+                'opd_number' => $input['opd_number'],
+                'height' => $input['height'],
+                'weight' => $input['weight'],
+                'bp' => $input['bp'],
+                'symptoms' => $input['symptoms'],
+                'notes' => $input['notes'],
+                'appointment_date' => $input['appointment_date'],
+                'is_old_patient' => 1,
+                'standard_charge' => 0,
+                'followup_charge' => $input['followup_charge'],
+                'payment_mode' => $input['payment_mode'],
+                'currency_symbol' => 'PKR',
+            ]);
+        }
+
+        $doctor_department = Doctor::where('id', $input['doctor_id'])->first();
+        Appointment::where('id', $input['appointment_id'])->update([
+            'doctor_id' => $input['doctor_id'],
+            'doctor_department_id' => $doctor_department->department_id,
+            'opd_date' => $input['appointment_date'],
+        ]);
+
+
+        // Email
+        $patient = Patient::where('id',  $input['patient_id'])->with('user')->first();
+        $doctor = Doctor::where('id',  $input['doctor_id'])->with('user')->first();
+        $receptions = Receptionist::with('user')->get();
+
+        $patientEmail = $patient->user->email;
+        $doctorEmail = $doctor->user->email;
+
+        $recipient = [
+        // ($patient->user->email != null) ? $patient->user->email : '',
+        //     $doctor->user->email,
+        $patientEmail,
+        $doctorEmail
+        ];
+
+        $subject = 'OPD ' .$input['opd_number'] .'  Updated';
+        if (!empty($patientEmail)) {
+            $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+
+            $recipient = [$patientEmail, $doctorEmail];
+            $mail = [
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => $message,
+                'attachments' => null,
+            ];
+        
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        }else{
+            $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
+
+            $recipient = $doctorEmail;
+            $mail = [
+                'to' => $recipient,
+                'subject' => $subject,
+                'message' => $message,
+                'attachments' => null,
+            ];
+        
+            Email::to($recipient)
+                ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
+        }
+
+                foreach($receptions as $reception){
+
+                    $reception_mail = $reception->user->email;
+                    $reception_array = [];
+                    $reception_array[] = $reception_mail;
+        
+        
+                    $mail = array(
+                        'to' => $reception_array,
+                        'subject' => $subject,
+                        $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ',
+                        'attachments' => null,
+                    );
+        
+                    Email::to($reception_array)
+                    ->send(new MarkdownMail('emails.email',
+                        $mail['subject'], $mail));
+                }
+        // Email
+
         Flash::success(__('messages.opd_patient.opd_patient').' '.__('messages.common.updated_successfully'));
 
         return redirect(route('opd.patient.index'));

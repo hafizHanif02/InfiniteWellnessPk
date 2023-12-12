@@ -16,11 +16,13 @@ class DentalOpdPatientDepartment extends Model
     const PAYMENT_MODES = [
         1 => 'Cash',
         2 => 'Cheque',
+        3 => 'Card',
     ];
 
     public $fillable = [
         'patient_id',
         'doctor_id',
+        'appointment_id',
         'opd_number',
         'height',
         'weight',
@@ -35,6 +37,7 @@ class DentalOpdPatientDepartment extends Model
         'total_amount',
         'payment_mode',
         'currency_symbol',
+        'service_id'
     ];
 
     /**

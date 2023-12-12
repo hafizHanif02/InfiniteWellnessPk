@@ -19,3 +19,7 @@
     </a> --}}
 </form>
 
+<a href="/dentalOpds/{{$row->id}}/edit" title="Edit" class="btn px-1 text-primary fs-3 ps-0">
+    <i class="fa-solid fa-pen-to-square"></i>
+</a>
+

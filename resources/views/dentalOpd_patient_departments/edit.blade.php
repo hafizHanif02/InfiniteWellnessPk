@@ -25,9 +25,9 @@
                 {{Form::hidden('lastVisit',false,['id'=>'editOpdLastVisit','class'=>'lastVisit'])}}
 
                 <div class="card-body">
-                    {{ Form::model($opdPatientDepartment, ['route' => ['opd.patient.update', $opdPatientDepartment->id], 'method' => 'patch', 'id' => 'editOpdPatientDepartmentForm']) }}
+                    {{ Form::model($dentalOpdPatientDepartment, ['route' => ['dentalopd.patient.update', $dentalOpdPatientDepartment->id], 'method' => 'patch', 'id' => 'editdentalOpdPatientDepartmentForm']) }}
 
-                    @include('opd_patient_departments.edit_fields')
+                    @include('dentalOpd_patient_departments.edit_fields')
 
                     {{ Form::close() }}
                 </div>

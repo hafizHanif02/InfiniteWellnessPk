@@ -6,4 +6,7 @@
    class="deleteOpdPatientBtn btn px-1 text-danger fs-3 ps-0">
     <i class="fa-solid fa-trash"></i>
 </a>
+<a href="/opds/{{$row->id}}/edit" target="_blank" title="Edit" class="editOpdPatientBtn btn px-1 text-primary fs-3 ps-0">
+    <i class="fa-solid fa-pen-to-square"></i>
+</a>
 
