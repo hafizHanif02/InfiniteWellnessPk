@@ -447,8 +447,8 @@ class PosController extends Controller
         $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
 
         return view('pos-return.daily-report', [
-            'pos' => Pos::filter($request)->where('is_paid',1)->latest()->paginate(10)->onEachSide(1),
-            'posreturns' => PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1),
+            'pos' => Pos::filter($request)->where('is_paid',1)->latest()->get(),
+            'posreturns' => PosReturn::with('pos')->filter($request)->latest()->get(),
         ]);
     }
 
