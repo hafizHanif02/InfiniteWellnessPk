@@ -183,7 +183,7 @@ class OpdPatientDepartmentController extends AppBaseController
         Appointment::where('id', $dentalOpdPatientDepartment->appointment_id)->update([
             'doctor_id' => $dentalOpdPatientDepartment->doctor_id,
             'doctor_department_id' => $doctor_department->department_id,
-            'opd_date' => $dentalOpdPatientDepartment->appointment_date,
+            'opd_date' => $request->appointment_date,
         ]);
 
         // Email
@@ -202,7 +202,7 @@ class OpdPatientDepartmentController extends AppBaseController
         $subject = 'Dental OPD ' . $dentalOpdPatientDepartment->opd_number .'  Updated';
         if (!empty($patientEmail)) {
             // $message = 'OPD And Appointment has been updated of '.$doctor->user->full_name.' to Patient '.$patient->user->full_name.' on this '.$input['appointment_date'].' Date & Time ';
-            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ';
+            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
 
             $recipient = [$patientEmail, $doctorEmail];
             $mail = [
@@ -215,7 +215,7 @@ class OpdPatientDepartmentController extends AppBaseController
             Email::to($recipient)
                 ->send(new MarkdownMail('emails.email', $mail['subject'], $mail));
         }else{
-            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ';
+            $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ';
 
             $recipient = $doctorEmail;
             $mail = [
@@ -239,7 +239,7 @@ class OpdPatientDepartmentController extends AppBaseController
                     $mail = array(
                         'to' => $reception_array,
                         'subject' => $subject,
-                        $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$dentalOpdPatientDepartment->appointment_date.' Date & Time ',
+                        $message = 'Dental OPD And Appointment  has been Updated of '. $doctor->user->full_name .' to Patient '.$patient->user->full_name.' on this '.$request->appointment_date.' Date & Time ',
                         'attachments' => null,
                     );
         
