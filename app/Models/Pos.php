@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Models\Pos;
 use App\Models\Pos_Product;
 use Illuminate\Database\Eloquent\Model;
@@ -40,7 +39,7 @@ class Pos extends Model
     }
     public function PosProduct()
     {
-        return $this->hasMany(Pos_Product::class, 'pos_id');
+        return $this->hasMany(Pos_Product::class,'pos_id');
     }
 
     public function scopeFilter($query, $request): void
@@ -49,11 +48,11 @@ class Pos extends Model
             $query->where('is_cash', $request->is_cash);
         }
         if ($request->date_from && $request->date_to) {
-            $query->whereBetween('pos_date', [$request->date_from, Carbon::parse($request->date_to)->addDay()->toDateString()]);
+            $query->whereBetween('pos_date', [$request->date_from, $request->date_to]);
         } elseif ($request->date_from) {
             $query->where('pos_date', '>=', $request->date_from);
         } elseif ($request->date_to) {
-            $query->where('pos_date', '<=', Carbon::parse($request->date_to)->addDay()->toDateString());
+            $query->where('pos_date', '<=', $request->date_to);
         }
         if (isset($request->is_paid)) {
             $query->where('is_paid', $request->is_paid);
