@@ -7,7 +7,7 @@
             </div>
 
             <div style="margin-top: 25px !important; margin-bottom: 10px !important">
-                <h2>Infinite WellnessPK</h2>
+                <h2>Infinite Wellness PK</h2>
             </div>
             <div style="margin-top: 25px !important; margin-bottom: 10px !important">
                 <p>Ntn # 4459721-1</p>
