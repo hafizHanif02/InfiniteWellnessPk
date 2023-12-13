@@ -790,6 +790,12 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('nursing-form/{formID}', [NursingFormController::class, 'showForm']);
         Route::get('nursing-form/opd/list', [NursingFormController::class, 'opd']);
 
+        //fast-medical-record
+        Route::get('fast-medical-record', [NursingFormController::class, 'fastMedicalRecord'])->name('fast-medical-record.index');
+        Route::get('fast-medical-record/create', [NursingFormController::class, 'fastMedicalRecordcreate'])->name('fast-medical-record.create');
+        Route::post('fast-medical-record/store', [NursingFormController::class, 'fastMedicalRecordstore'])->name('fast-medical-record.store');
+        Route::get('fast-medical-record/{id}', [NursingFormController::class, 'fastMedicalRecordShow'])->name('fast-medical-record.show');
+
     });
 
     Route::middleware('role:Admin|Nurse|Receptionist|Doctor|Case Manager|Nurse')->group(function () {

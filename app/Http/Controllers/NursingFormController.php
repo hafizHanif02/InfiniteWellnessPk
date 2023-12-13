@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OpdPatientDepartment;
 use App\Http\Requests\NursingFormRequest;
 use App\Models\DentalOpdPatientDepartment;
+use App\Models\FastMedicalRecord;
 
 class NursingFormController extends Controller
 {
@@ -172,5 +173,33 @@ class NursingFormController extends Controller
     {
         $nursingForm->delete();
         return to_route('nursing-form.index')->with('success', 'Nurse Form deleted!');
+    }
+
+    public function fastMedicalRecord ()
+    {
+        return view('Fast-Medical-Record.index',[
+            'fast_medical_records' => FastMedicalRecord::get(),
+        ]);
+    }
+    public function fastMedicalRecordcreate ()
+    {
+        return view('Fast-Medical-Record.create',[
+            'patients' => Patient::with('user')->get(),
+        ]);
+    }
+
+    public function fastMedicalRecordstore(Request $request)
+    {
+        // dd($request);
+        FastMedicalRecord::create($request->all());
+
+        return to_route('fast-medical-record.index')->with('success', 'Fast Medical Record created!');
+    }
+
+    public function fastMedicalRecordShow($id)
+    {
+        // return view('Fast-Medical-Record.create',[
+            // 'Fast_Medical_Record' => FastMedicalRecord::where('id', $id)->first(),
+        // ]);
     }
 }

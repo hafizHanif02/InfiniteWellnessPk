@@ -366,6 +366,15 @@ $medicineMgt = getMenuLinks(\App\Models\User::MAIN_MEDICINES)
     </a>
 </li>
 
+{{-- <li class="nav-item  {{ Request::is('fast-medical-record*') ? 'active' : '' }}">
+    <a class="nav-link  d-flex align-items-center py-3"
+       href="{{ route('nursing.index') }}">
+        <span class="aside-menu-icon pe-3 pe-3"><i
+                    class="fa fa-user-cog"></i></span>
+        <span class="aside-menu-title">Fast Medical Record</span>
+    </a>
+</li> --}}
+
 {{--Nursers--}}
 @module('Nurses',$modules)
 <li class="nav-item  {{ Request::is('nurses*') ? 'active' : '' }}">

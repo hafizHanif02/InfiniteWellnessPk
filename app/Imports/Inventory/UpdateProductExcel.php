@@ -60,10 +60,10 @@ class UpdateProductExcel implements SkipsEmptyRows, ToCollection, WithHeadingRow
                 'total_quantity' => 0,
                 'trade_price_percentage' => $row['trade_price_percentage'],
                 // 'unit_retail' => $row['number_of_pack'] * $row['pieces_per_pack'],
-                'unit_retail' => $row['unit_retail'],
+                'unit_retail' => $row['manufacturer_retail_price'] / $row['pieces_per_pack'],
                 'fixed_discount' => $row['fixed_discount'] ?? 0,
-                // 'trade_price' => $row['manufacturer_retail_price'] - ($row['manufacturer_retail_price'] * $row['trade_price_percentage'] / 100),
-                'trade_price' => $row['trade_price'],
+                'trade_price' => $row['manufacturer_retail_price'] - ($row['manufacturer_retail_price'] * $row['trade_price_percentage'] / 100),
+                // 'trade_price' => $row['trade_price'],
                 'unit_trade' => $row['unit_trade'],
                 'sale_tax_percentage' => $row['sale_tax_percentage'] ?? 0,
                 'discount_trade_price' => $row['discount_trade_price'] ?? 0,
@@ -94,7 +94,7 @@ class UpdateProductExcel implements SkipsEmptyRows, ToCollection, WithHeadingRow
             // ]);
             $user = Auth::user();
             Log::create([
-                'action' => 'Product Has Been Created Product Name: '.$row['product_name'].' ('.$row['code'].')',
+                'action' => 'Product Has Been Updated In Bulk.',
                 'action_by_user_id' => $user->id,
             ]);
         }
