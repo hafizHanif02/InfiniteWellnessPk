@@ -14,9 +14,11 @@ class TransferProduct extends Model
     protected $fillable = [
         'transfer_id',
         'product_id',
+        'batch_id',
         'unit_of_measurement',
         'price_per_unit',
         'total_piece',
+        'unit_trade',
         'total_pack',
         'amount',
     ];

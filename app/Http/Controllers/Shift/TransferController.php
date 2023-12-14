@@ -208,57 +208,60 @@ class TransferController extends Controller
             $transferProduct = TransferProduct::create([
                 'transfer_id' => $transfer->id,
                 'product_id' => $product['id'],
+                'batch_id' => $product['batch_no'],
                 'unit_of_measurement' => $product['unit_of_measurement'],
                 'price_per_unit' => $product['price_per_unit'],
                 'total_piece' => $product['total_piece'],
+                'unit_trade' => $product['price_per_unit_unitonly'],
                 'total_pack' => $product['total_pack'],
                 'amount' => $product['amount']
             ]);
             
-            if($product['batch_no'] != null){
-            $batch = Batch::where('id', $product['batch_no'])->first();
+        //     if($product['batch_no'] != null){
+        //     $batch = Batch::where('id', $product['batch_no'])->first();
 
             
-            if($batch->quantity >= $product['total_piece']){
-                Batch::where('id', $product['batch_no'])->update([
-                    'transfer_quantity' => $batch->transfer_quantity + $product['total_piece'],
-                    'remaining_qty' => $batch->remaining_qty - $product['total_piece'],
-                ]);
-                $batchpos = BatchPOS::where('product_id', $product['id'])->where('batch_id', $product['batch_no'])->first();
+        //     if($batch->quantity >= $product['total_piece']){
+        //         Batch::where('id', $product['batch_no'])->update([
+        //             'transfer_quantity' => $batch->transfer_quantity + $product['total_piece'],
+        //             'remaining_qty' => $batch->remaining_qty - $product['total_piece'],
+        //         ]);
+        //         $batchpos = BatchPOS::where('product_id', $product['id'])->where('batch_id', $product['batch_no'])->first();
 
-                if($batchpos){
-                    if($batchpos->batch_id == $batch->id ){
-                        BatchPOS::increment('quantity', $product['total_piece']);
-                        BatchPOS::increment('remaining_qty', $product['total_piece']);
-                    }else{
-                        BatchPOS::create([
-                           'batch_id' => $product['batch_no'],
-                           'product_id'=>$product['id'],
-                           'unit_trade'=>$product['price_per_unit_unitonly'],
-                           'unit_retail'=>$batch->unit_retail,
-                           'quantity'=>$product['total_piece'],
-                           'remaining_qty'=>$product['total_piece'],
-                           'expiry_date'=>$batch->expiry_date,
-                           'sold_quantity'=>0,
-                        ]);
-                    }
-                }else{
-                    BatchPOS::create([
-                       'batch_id' => $product['batch_no'],
-                       'product_id'=>$product['id'],
-                       'unit_trade'=>$product['price_per_unit_unitonly'],
-                       'unit_retail'=>$batch->unit_retail,
-                       'quantity'=>$product['total_piece'],
-                       'remaining_qty'=>$product['total_piece'],
-                       'expiry_date'=>$batch->expiry_date,
-                       'sold_quantity'=>0,
-                    ]);
-                } 
-            }
-            else{
-                return redirect()->back()->with('success', 'Insufficient Stock!');
-            }
-        }
+        //         if($batchpos){
+        //             if($batchpos->batch_id == $batch->id ){
+        //                 BatchPOS::increment('quantity', $product['total_piece']);
+        //                 BatchPOS::increment('remaining_qty', $product['total_piece']);
+        //             }else{
+        //                 BatchPOS::create([
+        //                    'batch_id' => $product['batch_no'],
+        //                    'product_id'=>$product['id'],
+        //                    'unit_trade'=>$product['price_per_unit_unitonly'],
+        //                    'unit_retail'=>$batch->unit_retail,
+        //                    'quantity'=>$product['total_piece'],
+        //                    'remaining_qty'=>$product['total_piece'],
+        //                    'expiry_date'=>$batch->expiry_date,
+        //                    'sold_quantity'=>0,
+        //                 ]);
+        //             }
+        //         }else{
+        //             BatchPOS::create([
+        //                'batch_id' => $product['batch_no'],
+        //                'product_id'=>$product['id'],
+        //                'unit_trade'=>$product['price_per_unit_unitonly'],
+        //                'unit_retail'=>$batch->unit_retail,
+        //                'quantity'=>$product['total_piece'],
+        //                'remaining_qty'=>$product['total_piece'],
+        //                'expiry_date'=>$batch->expiry_date,
+        //                'sold_quantity'=>0,
+        //             ]);
+        //         } 
+        //     }
+        //     else{
+        //         return redirect()->back()->with('success', 'Insufficient Stock!');
+        //     }
+        // }
+
             $requistionproductlogs .= '['.$product['id'].','.$product['total_piece'].'],'; 
         }
         $requistionproductlogs .= '}';
