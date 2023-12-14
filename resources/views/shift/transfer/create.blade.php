@@ -223,7 +223,7 @@
                                         </td>
                                         <td>
                                             <input type="number" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit]" value="${products[i].unit_retail}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_retail}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit2${i}" name="products[${i}][price_per_unit2]" value="${products[i].unit_retail}" readonly  class="form-control">
                                         </td>
                                         <td>
                                             <input type="text" name="products[${i}][expiry_date]" class="form-control" id="expiry_date${i}"  readonly>
@@ -463,6 +463,7 @@
                     var pieces_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
                     var quantity = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
                     var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
+                    console.log(priceperpeice);
                     $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
                     let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
 
@@ -542,7 +543,7 @@
                                         </td>
                                         <td>
                                             <input type="number" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit]" value="${response.product.unit_trade}" readonly  class="form-control">
-                                            <input type="hidden" step="any" id="price_per_unit${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
+                                            <input type="hidden" step="any" id="price_per_unit2${items}" name="products[${items}][price_per_unit2]" value="${response.product.unit_trade}" readonly  class="form-control">
                                         </td>
                                         <td>
                                             <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}" readonly="">
