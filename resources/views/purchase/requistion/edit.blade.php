@@ -274,7 +274,7 @@
             $("#add-btn").click(function(e) {
                 e.preventDefault();
                 addProduct();
-                $("#product_id").empty();
+                // $("#product_id").empty();
             });
 
             function addProduct(type, callback) {

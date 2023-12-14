@@ -148,7 +148,7 @@
             $("#add-btn").click(function(e) {
                 e.preventDefault();
                 addProduct();
-                $("#product_id").empty();
+                // $("#product_id").empty();
             });
             // $('#manufacturer_id').change(function() {
             //     $("#add-products").empty();
@@ -176,7 +176,7 @@
             //         }
             //     });
             // });
-
+       
             function addProduct(type, callback) {
                 var productId = $("#product_id").val();
                 if (productId && $('tbody tr#' + productId).length == 0) {
@@ -189,7 +189,7 @@
                         },
                         success: function(response) {
                             $("#product_id option[value='"+productId+"']").remove();
-                            var items = $("tbody tr").length;
+                            var items = $("tbody tr").length;                        
                             $.each(response.product, function(index, value) {
                                 $("#add-products").append(`
                                     <tr id="${value.id}">
