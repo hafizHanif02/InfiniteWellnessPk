@@ -67,6 +67,10 @@
         {{ Form::text('charges', null, ['class' => 'form-control', 'id' => 'opdCharge', 'readonly']) }}
     </div>
     <div class="col-lg-3 col-md-4 col-sm-12 mb-5">
+        {{ Form::label('followUpCharge', 'Follow Up Charges'.(':'),['class'=>'form-label']) }}
+        {{ Form::text('followUpCharge', null, ['class' => 'form-control', 'id' => 'followUpCharge', 'readonly']) }}
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12 mb-5">
         {{ Form::label('payment', 'Payment Type'.(':'),['class'=>'form-label']) }}
             <select name="payment_type" class="form-control payment_type" required>
                 <option value="0">Cash</option>
@@ -217,11 +221,18 @@ input.onchange  = function() {
             document.getElementById('dob').value = data['dob'];
             document.getElementById('billDoctorId').value = data['doctor']["first_name"] + " " + data['doctor']["last_name"];
             document.getElementById('opdDate').value = data['created_at'];
-            document.getElementById('opdCharge').value = data['charges'];
-            document.getElementById('total').value = data['charges'];
             // document.getElementById('totalPrice').innerHTML = "Rs " + data['charges'];
-            document.getElementById('totalPrices').value = data['charges'] - data['advance_amount'];
-            document.getElementById('totalPrices2').value = data['charges'] - data['advance_amount'];
+            if(data['charges'] != null){   
+                document.getElementById('opdCharge').value = data['charges'];
+                document.getElementById('total').value = data['charges'];
+                document.getElementById('totalPrices').value = data['charges'] - data['advance_amount'];
+                document.getElementById('totalPrices2').value = data['charges'] - data['advance_amount'];
+            }else{
+                document.getElementById('followUpCharge').value = data['followup_charge'];
+                document.getElementById('total').value = data['followup_charge'];
+                document.getElementById('totalPrices').value = data['followup_charge'] - data['advance_amount'];
+                document.getElementById('totalPrices2').value = data['followup_charge'] - data['advance_amount'];
+            }
             document.getElementById('advance_amount').value = data['advance_amount'];
             document.getElementById('advance_amount2').value = data['advance_amount'];
 
@@ -247,11 +258,19 @@ input.onchange  = function() {
             })
 
             
-            
-            document.getElementsByClassName('itemName')[0].value = "OPD";
+            if(data['charges'] != null){
+                document.getElementsByClassName('itemName')[0].value = "OPD";
+            }else{
+                document.getElementsByClassName('itemName')[0].value = "OPD Follow Up";
+            }
             // document.getElementsByClassName('quantity')[0].value = "1";
-            document.getElementsByClassName('price')[0].value = data['charges'];
-            document.getElementsByClassName('itemTotal')[0].innerHTML = data['charges'];
+            if(data['charges'] != null){
+                document.getElementsByClassName('price')[0].value = data['charges'];
+                document.getElementsByClassName('itemTotal')[0].innerHTML = data['charges'];
+            }else{
+                document.getElementsByClassName('price')[0].value = data['followup_charge'];
+                document.getElementsByClassName('itemTotal')[0].innerHTML = data['followup_charge'];
+            }
             
                 
 

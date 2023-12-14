@@ -97,15 +97,29 @@ class BillController extends AppBaseController
         $patientData->doctor = $docData;
         
         if($docID[0]->is_old_patient){
-            $patientData->charges = $docID[0]->standard_charge;
-            $patientData->advance_amount = $docID[0]->advance_amount;
+            if($docID[0]->standard_charge == 0){
+                $patientData->followup_charge = $docID[0]->followup_charge;
+                $patientData->advance_amount = $docID[0]->advance_amount;
+            }
+            else{
+                $patientData->charges = $docID[0]->standard_charge;
+                $patientData->advance_amount = $docID[0]->advance_amount;
+            }
+            // $patientData->charges = $docID[0]->standard_charge;
+            // $patientData->advance_amount = $docID[0]->advance_amount;
         }
         else{
-            $patientData->charges = $docID[0]->standard_charge;
-            $patientData->advance_amount = $docID[0]->advance_amount;
+            if($docID[0]->standard_charge == 0){
+                $patientData->followup_charge = $docID[0]->followup_charge;
+                $patientData->advance_amount = $docID[0]->advance_amount;
+            }
+            else{
+                $patientData->charges = $docID[0]->standard_charge;
+                $patientData->advance_amount = $docID[0]->advance_amount;
+            }
+            // $patientData->charges = $docID[0]->standard_charge;
+            // $patientData->advance_amount = $docID[0]->advance_amount;
         }
-
-
         return $patientData;
     }
 
