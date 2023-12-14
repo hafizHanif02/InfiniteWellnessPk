@@ -794,7 +794,8 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('fast-medical-record', [NursingFormController::class, 'fastMedicalRecord'])->name('fast-medical-record.index');
         Route::get('fast-medical-record/create', [NursingFormController::class, 'fastMedicalRecordcreate'])->name('fast-medical-record.create');
         Route::post('fast-medical-record/store', [NursingFormController::class, 'fastMedicalRecordstore'])->name('fast-medical-record.store');
-        Route::get('fast-medical-record/{id}', [NursingFormController::class, 'fastMedicalRecordShow'])->name('fast-medical-record.show');
+        Route::get('fast-medical-record/view/{id}', [NursingFormController::class, 'fastMedicalRecordShow'])->name('fast-medical-record.show');
+        Route::get('fast-medical-record/print', [NursingFormController::class, 'fastMedicalRecordPrint'])->name('fast-medical-record.print');
 
     });
 
@@ -1384,3 +1385,4 @@ Route::get('createBatch',[GoodReceiveNoteController::class,'createBatch']);
 Route::get('createBatchPOS',[GoodReceiveNoteController::class,'createBatchPOS']);
 Route::get('transferBatch',[GoodReceiveNoteController::class,'transferBatch']);
 Route::get('PosProduct',[GoodReceiveNoteController::class,'PosProduct']);
+Route::get('retailSet',[GoodReceiveNoteController::class,'retailSet']);

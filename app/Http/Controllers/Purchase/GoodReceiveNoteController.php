@@ -2,14 +2,15 @@
 namespace App\Http\Controllers\Purchase;
 use App\Models\Log;
 use App\Models\Pos;
-use App\Models\PosReturn;
 use App\Models\Batch;
 use App\Models\BatchPOS;
+use App\Models\PosReturn;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
 use App\Models\Inventory\Vendor;
+use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Models\Purchase\Requistion;
@@ -438,6 +439,18 @@ class GoodReceiveNoteController extends Controller
                 }
             }
         }
+    }
+
+    public function retailSet()
+    {
+        $products = Product::all();
+        foreach($products as $product){
+            $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
+            Product::where('id', $product->id)->update([
+                'unit_retail' => $unitRetail
+            ]);
+        }
+        return 'done';
     }
 
 

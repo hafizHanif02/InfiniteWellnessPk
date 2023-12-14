@@ -86,6 +86,12 @@ class OpdPatientTable extends LivewireTableComponent
 //                        ->orWhere('standard_charge', 'like', '%'. $searchTerm .'%');
 //                }))
                 ->sortable(),
+
+                Column::make(__('followup charge'), 'followup_charge')
+                ->view('opd_patient_departments.columns.followup_charge')
+                ->sortable()
+                ->searchable(),
+
             Column::make(__('messages.ipd_payments.payment_mode'), 'payment_mode')
                 ->view('opd_patient_departments.columns.payment_mode')
                 ->searchable()
