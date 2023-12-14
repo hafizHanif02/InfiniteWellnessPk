@@ -44,6 +44,7 @@ class TransferController extends Controller
 
     public function create(): View
     {
+    
         return view('shift.transfer.create', [
             'products' => Product::orderBy('product_name')->with('batch')->get(),
             'transfer_id' => Transfer::latest()->pluck('id')->first(),
@@ -132,58 +133,64 @@ class TransferController extends Controller
         $customMessages = [
             'products.required' => 'At least one product is required',
             'products.*.total_piece.max' => 'Product Quantity should not exceed :max',
+            'products.*.batch_no.required' => 'Batch information is required for each product',
+            
         ];
-
+    
         $rules = [
             'supply_date' => ['required', 'date'],
             'products' => ['required', 'array'],
-        ];
 
+        ];
+    
         if ($request->product_id) {
             $rules['products.*.id'] = ['required', 'exists:products,id'];
             $rules['products.*.unit_of_measurement'] = ['required', 'integer', 'in:0,1'];
             $rules['products.*.price_per_unit'] = ['required', 'numeric'];
             $rules['products.*.total_pack'] = ['required', 'integer'];
             $rules['products.*.amount'] = ['required', 'numeric'];
+            $rules['products.*.batch_no'] = ['required']; 
         }
-
+    
         $validationErrors = [];
-
+    
         foreach ($request->products as $key => $product) {
             $p_id = $product['id'];
             $inventoryProduct = Product::find($p_id);
-            $batch = Batch::where('id',$product['batch_no'])->first();
-
+            $batch = Batch::where('id', $product['batch_no'])->first();
+            
             if (!$inventoryProduct) {
                 $validationErrors['products.' . $key . '.id'] = 'Product not found';
             } else {
                 $max_qty = $inventoryProduct->total_quantity;
-                $remaining_qty = $batch->remaining_qty;
-
+                $remaining_qty = $batch ? $batch->remaining_qty : 0;
+    
                 $productValidator = Validator::make($product, [
                     'unit_of_measurement' => ['required', 'integer', 'in:0,1'],
                     'price_per_unit' => ['required', 'numeric'],
                     'total_piece' => ['required', 'integer', 'min:1', "max:$remaining_qty"],
                     'total_pack' => ['required', 'integer'],
                     'amount' => ['required', 'numeric'],
-                ]);
-
+                    'batch_no' => ['required'], 
+                ], $customMessages);
+    
                 if ($productValidator->fails()) {
                     $validationErrors['products.' . $key] = $productValidator->errors();
                 }
             }
         }
-
+    
         if (!empty($validationErrors)) {
             return response()->json(['valid' => false, 'message' => 'Product is not added correctly!', 'errors' => $validationErrors]);
         }
-
+    
         return response()->json(['valid' => true, 'message' => 'Validation succeeded']);
     }
+    
 
 
     public function products($product): JsonResponse
-    {
+    { 
         return response()->json([
             'product' => Product::where('id',$product)->with('batch')->first(),
         ]);

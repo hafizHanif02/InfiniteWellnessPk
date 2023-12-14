@@ -8,17 +8,18 @@
                 <h3>Shift Transfer Inventory</h3>
                 <a href="{{ route('purchase.return.index') }}" class="btn btn-secondary">Back</a>
             </div>
-            <div class="alert-container"   style="display:none;">
+            <div class="alert-container" style="display:none;">
                 <div class="alert alert-danger">
                     <div>
                         <div class="d-flex">
-                            <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
+                            <i class="fas fa-frown me-2 my-custom-icon"
+                                style="font-size: 40px;padding-right:2px;color:orange;"></i>
                             <span class="validation-container"></span>
                         </div>
                     </div>
                 </div>
-            </div> 
-           
+            </div>
+
             <div class="card-body">
                 <form id="save-transfer-form" action="{{ route('shift.transfers.store') }}" method="POST">
                     @csrf
@@ -60,9 +61,12 @@
                         <div class="col-md-12">
                             <label for="re_transfer_id" class="form-label">Re Transfer</label>
                             <select name="re_transfer_id" id="re_transfer_id" class="form-control">
-                                <option value="" selected disabled>If You Want To Re-Transfer Any Same Request</option>
+                                <option value="" selected disabled>If You Want To Re-Transfer Any Same Request
+                                </option>
                                 @forelse ($transfers as $transfer)
-                                    <option value="{{ $transfer->id }}">{{ $transfer->id }} ({{$transfer->supply_date}})</option>
+                                    <option value="{{ $transfer->id }}">{{ $transfer->id }}
+                                        ({{ $transfer->supply_date }})
+                                    </option>
                                 @empty
                                     <option value="" class="text-danger">no product found!</option>
                                 @endforelse
@@ -73,7 +77,7 @@
                         </div>
                     </div>
                     {{-- @foreach ($products as $product)
-                    @if($product->id == 2407)
+                    @if ($product->id == 2407)
                     {{dd($product->batch[0]) }}
                     @endif
                     @endforeach --}}
@@ -98,22 +102,22 @@
                             <button type="button" id="add-btn" class="btn btn-primary mt-5">Add</button>
                         </div>
                     </div>
-                    
+
                     <div class="mb-5">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-dark">
                                     <tr class="text-white">
-                                        <td  style="min-width: 50px" >#</td>
-                                        <td  style="min-width: 200px" >Product</td>
-                                        <td  style="min-width: 200px" >Batch</td>
-                                        <td  style="min-width: 200px">Total Stock</td>
-                                        <td  style="min-width: 200px">Unit of Measurement</td>
-                                        <td  style="min-width: 200px">Price Per Unit</td>
-                                        <td  style="min-width: 200px">Expiry Date</td>
-                                        <td  style="min-width: 200px">Total Piece</td>
-                                        <td  style="min-width: 200px">Total Pack</td>
-                                        <td  style="min-width: 200px">Amount</td>
+                                        <td style="min-width: 50px">#</td>
+                                        <td style="min-width: 200px">Product</td>
+                                        <td style="min-width: 200px">Batch</td>
+                                        <td style="min-width: 200px">Total Stock</td>
+                                        <td style="min-width: 200px">Unit of Measurement</td>
+                                        <td style="min-width: 200px">Price Per Unit</td>
+                                        <td style="min-width: 200px">Expiry Date</td>
+                                        <td style="min-width: 200px">Total Piece</td>
+                                        <td style="min-width: 200px">Total Pack</td>
+                                        <td style="min-width: 200px">Amount</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -124,61 +128,65 @@
                     </div>
                     <div class="d-flex justify-content-center mt-5">
                         <a href="{{ route('shift.transfers.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-transfer-button" class="btn btn-primary ms-3">Save</button>
+                        <button type="button" id="save-transfer-button" class="btn btn-primary ms-3"
+                            disabled>Save</button>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!DOCTYPE html>
-<html>
+    <html>
 
-<head>
-  <title>Excel to JSON Conversion</title>
-</head>
+    <head>
+        <title>Excel to JSON Conversion</title>
+    </head>
 
-<body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-  <script>
-    document.getElementById('upload').addEventListener('change', handleFile, false);
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+        <script>
+            document.getElementById('upload').addEventListener('change', handleFile, false);
 
-    function handleFile(e) {
-      const files = e.target.files;
-      if (!files || files.length === 0) return;
+            function handleFile(e) {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
 
-      const file = files[0];
-      const reader = new FileReader();
+                const file = files[0];
+                const reader = new FileReader();
 
-      reader.onload = function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-
-
-        const json = XLSX.utils.sheet_to_json(sheet);
-
-
-        var products = `<?php echo json_encode($products) ?>`;
-
-        products = JSON.parse(products);
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {
+                        type: 'array'
+                    });
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = workbook.Sheets[sheetName];
 
 
-        var BreakException = {};
+                    const json = XLSX.utils.sheet_to_json(sheet);
 
-        var isValid = true;
 
-        $(json).each(function(e, key) {
-            // console.log(key.code);
-                for(var i = 0;i<products.length; i++){
-                    // if(key.code == products[i].id){
-                    //     console.log(key.code + ' == ' + products[i].id + ' => ' + products[i].total_quantity);
-                    // }
-                    
-                    if(products[i].id == key.code ){
-                        if(key.quantity > 0){
-                            var items = $("tbody tr").length;
-                            $("#add-products").append(`
+                    var products = `<?php echo json_encode($products); ?>`;
+
+                    products = JSON.parse(products);
+
+
+                    var BreakException = {};
+
+                    var isValid = true;
+
+                    $(json).each(function(e, key) {
+                        // console.log(key.code);
+                        for (var i = 0; i < products.length; i++) {
+                            // if(key.code == products[i].id){
+                            //     console.log(key.code + ' == ' + products[i].id + ' => ' + products[i].total_quantity);
+                            // }
+
+                            if (products[i].id == key.code) {
+                                if (key.quantity > 0) {
+                                    var items = $("tbody tr").length;
+                                    $("#add-products").append(`
                                     <tr id="${products[i].id}">
                                         <input type="hidden" name="products[${i}][id]" value="${products[i].id}">
                                         <td>${e}</td>
@@ -186,11 +194,11 @@
                                             <input type="text" class="form-control" value="${products[i].product_name}" readonly>
                                         </td>
                                         <td>
-                                            <select onchange="batchChange(${i},${products[i].id})" id="batch${i}" name="products[${i}][batch_no]" class="form-control">
+                                            <select onchange="batchChange(${i},${products[i].id})" id="batch${i}" name="products[${i}][batch_no]" class="form-control batch1">
                                             ${products[i].batch.length != 0  ?
                                                 `<option value="" selected disabled>Select Batch</option>
-                                                ${products[i].batch.map(batch => {
-                                                    return `<option value="${batch.id}" 
+                                                                ${products[i].batch.map(batch => {
+                                                                    return `<option value="${batch.id}" class="highlight" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -199,7 +207,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                }).join('')}` :
+                                                                }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
@@ -239,62 +247,77 @@
                                         <input type="hidden" id="tradeprice${products[i].id}" value="${products[i].trade_price}">
                                         <input type="hidden" id="total_peice_per_pack${i}" name="products[${i}][total_peice_per_pack]" value="${products[i].pieces_per_pack}">
                                         <input type="hidden" id="mainqunatityvalue${i}" name="products[${i}][mainqunatityvalue]" >
-                                ` );
-                                calculation(i);
-                                break;
-                                    }else {
-                                        alert(`The following Item Code (${key.code}) has quantity is zero or less`);
-                                    }
-                        
-                                
-                        
-                    }else {
-                        if(i == (products.length- 1 )){
-                            isValid = false;
+                                `);
+                                    calculation(i);
+                                    break;
+                                } else {
+                                    alert(`The following Item Code (${key.code}) has quantity is zero or less`);
+                                }
+
+
+
+                            } else {
+                                if (i == (products.length - 1)) {
+                                    isValid = false;
+                                }
+
+                            }
                         }
-                        
+                    });
+
+                    if (!isValid) {
+                        alert('Not A Valid Excel Action');
                     }
-                }
-        });
+                };
 
-        if (!isValid) {
-            alert('Not A Valid Excel Action');
-        }
+                reader.readAsArrayBuffer(file);
+            }
 
-        
+            function calculation(i) {
+                var totalPeice = $('#totalpeice' + i).val();
+                var unitprice = $('#forimportunitprice' + i).val();
+                $('#importamount' + i).val(totalPeice * unitprice);
+            }
 
+            //     $(document).ready(function() {
+            //     $('#submit').prop('disabled', true);
+            //     $('form input, form select, form textarea').on('input change', function() {
+            //         console.log("first");
+            //         if (                  
+            //             $('id="batch{$id}"').val() !== '' &&                
+            //         ) {
+            //             $('#save-transfer-button').prop('disabled', false);
+            //             console.log('if condition');
+            //         } else {
+            //             $('#save-transfer-button').prop('disabled', true);
+            //             console.log('else condition');
+            //         }
+            //     });
+            // });
+        </script>
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#product_id, #requistion, #re_transfer_id').select2();
+                });
+                $("#add-btn").click(function(e) {
+                    e.preventDefault();
+                    addProduct();
+                    $('.batch1').trigger('change'); 
+                });
 
-    };
-
-      reader.readAsArrayBuffer(file);
-    }
-    function calculation(i){
-        var totalPeice = $('#totalpeice'+i).val();
-        var unitprice = $('#forimportunitprice'+i).val();
-        $('#importamount'+i).val(totalPeice*unitprice);
-    }
-  </script>
-    @push('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#product_id, #requistion, #re_transfer_id').select2();
-            });
-            $("#add-btn").click(function(e) {
-                e.preventDefault();
-                addProduct();
-            });
-
-            function addProduct(type) {
-                var productId = $("#product_id").val();
-                if (productId != null && ($('#add-products tr#' + productId).length == 0)) {
-                    $.ajax({
-                        type: "get",
-                        url: "/shift/transfer-products/" + productId,
-                        success: function(response) {
-                            console.log(response.product.batch);
-                            var items = $("tbody tr").length;
-                            $("#add-products").append(`
+                function addProduct(type) {
+                    $('.batch1').trigger('change'); 
+                    var productId = $("#product_id").val();
+                    if (productId != null && ($('#add-products tr#' + productId).length == 0)) {
+                        $.ajax({
+                            type: "get",
+                            url: "/shift/transfer-products/" + productId,
+                            success: function(response) {
+                                console.log(response.product.batch);
+                                var items = $("tbody tr").length;
+                                $("#add-products").append(`
                                     <tr id="${response.product.id}">
                                         <input type="hidden" name="products[${items}][id]" value="${response.product.id}">
                                         <td>
@@ -304,11 +327,11 @@
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control">
+                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control batch1">
                                             ${response.product.batch.length != 0  ?
                                                 `<option value="" selected>Select Batch</option>
-                                                ${response.product.batch.map(batch => {
-                                                    return `<option value="${batch.id}" 
+                                                                        ${response.product.batch.map(batch => {
+                                                                            return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -317,7 +340,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                }).join('')}` :
+                                                                        }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
@@ -357,126 +380,131 @@
                                         <input type="hidden" id="total_peice_per_pack${items}" name="products[${items}][total_peice_per_pack]" value="${response.product.pieces_per_pack}">
                                         <input type="hidden" id="mainqunatityvalue${items}" name="products[${items}][mainqunatityvalue]" >
                                 `);
-                        }
-                    });
+                                $('.batch1').trigger('change');
+                            }
+                        });
+                    }
+                }
+
+                function removeRaw(id) {
+                    $("#" + id).remove();
+                    $('.batch1').trigger('change');                          
+                }
+
+                function removeRaw(id) {
+                    $("#" + id).remove();                   
+                    $('.batch1').trigger('change');         
+                }
+
+                function batchChange(items, id) {
+
+                    const select = document.getElementById(`batch${items}`);
+                    const selectedOption = select.options[select.selectedIndex];
+
+
+                    const batchId = selectedOption.getAttribute('data-batch-id');
+                    const quantity = selectedOption.getAttribute('data-quantity');
+                    const remaining_qty = selectedOption.getAttribute('data-remaining_qty');
+                    const expiryDate = selectedOption.getAttribute('data-expiry-date');
+                    const unitTrade = selectedOption.getAttribute('data-unit_trade');
+                    const unitRetail = selectedOption.getAttribute('data-unit_retail');
+
+                    // console.log('Unit Retail '+unitRetail);
+
+                    $(`#price_per_unit${items}`).val(unitRetail);
+                    $(`#price_per_unit2${items}`).val(unitRetail);
+                    $(`#discountamount${id}`).val(unitRetail);
+                    $(`#importamount${items}`).val(unitRetail);
+                    $('.price_per_unit_unitonly' + items).val(unitRetail);
+                    // console.log($('.price_per_unit_unitonly'+items).val());
+                    $(`#totalquantity${items}`).val(remaining_qty);
+                    $(`#expiry_date${items}`).val(expiryDate);
+                    // Perform actions with the additional data
+                    console.log(
+                        `Selected Batch ID: ${batchId}, Quantity: ${quantity}, Remaining Quantity: ${remaining_qty}, Expiry Date: ${expiryDate}, unitTrade: ${unitTrade}, unitRetail: ${unitRetail}`
+                    );
 
                 }
-            }
 
-
-
-            function removeRaw(id) {
-                $("#" + id).remove();
-            }
-
-            function removeRaw(id) {
-                $("#" + id).remove();
-            }
-
-            function batchChange(items, id) {
-
-                const select = document.getElementById(`batch${items}`);
-                const selectedOption = select.options[select.selectedIndex];
-
-
-                const batchId = selectedOption.getAttribute('data-batch-id');
-                const quantity = selectedOption.getAttribute('data-quantity');
-                const remaining_qty = selectedOption.getAttribute('data-remaining_qty');
-                const expiryDate = selectedOption.getAttribute('data-expiry-date');
-                const unitTrade = selectedOption.getAttribute('data-unit_trade');
-                const unitRetail = selectedOption.getAttribute('data-unit_retail');
-
-                // console.log('Unit Retail '+unitRetail);
-
-                $(`#price_per_unit${items}`).val(unitRetail);
-                $(`#price_per_unit2${items}`).val(unitRetail);
-                $(`#discountamount${id}`).val(unitRetail);
-                $(`#importamount${items}`).val(unitRetail);
-                $('.price_per_unit_unitonly'+items).val(unitRetail);
-                // console.log($('.price_per_unit_unitonly'+items).val());
-                $(`#totalquantity${items}`).val(remaining_qty);
-                $(`#expiry_date${items}`).val(expiryDate);
-                // Perform actions with the additional data
-                console.log(`Selected Batch ID: ${batchId}, Quantity: ${quantity}, Remaining Quantity: ${remaining_qty}, Expiry Date: ${expiryDate}, unitTrade: ${unitTrade}, unitRetail: ${unitRetail}`);
-
-            }
-
-            function changeType(id, items) {
-                var unit_of_measurement = $("#selectunit_of_measurement" + items).val();
-                var amount = $("#" + id + " input[name='products[" + items + "][amount]']").val();
-                var tradeprice = $("#tradeprice"+id).val();
-                console.log(tradeprice);
-                var TotalPeice = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
-                var price_per_unitet = $("#" + id + " input[name='products[" + items + "][total_peice_per_pack]']").val();
-                var price_per_unit_unitonly = $("#" + id + " input[name='products[" + items + "][price_per_unit_unitonly]']").val();
-                var TotalPack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
-                var pieces_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
-                if (unit_of_measurement == 1) {
-                    // UNIT
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((price_per_unit_unitonly));
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val((price_per_unit_unitonly));
-                    $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
-                        'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
-                    $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
-                } else if (unit_of_measurement == 0) {
-                    // BOX
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(tradeprice);
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
-                        'changeQuantityPerPack(' + id + ',' + items + ')').val(tradeprice);
-                    $("#" + id + " input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('onkeyup',
-                        'changeQuantityPerPack(' + id + ',' + items + ')');
-                    $("#" + id + " input[name='products[" + items + "][total_piece]']").attr('readonly', 'true').val(price_per_unitet *
-                    pieces_per_pack);
-                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(tradeprice);
-                    $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val(price_per_unitet);
+                function changeType(id, items) {
+                    var unit_of_measurement = $("#selectunit_of_measurement" + items).val();
+                    var amount = $("#" + id + " input[name='products[" + items + "][amount]']").val();
+                    var tradeprice = $("#tradeprice" + id).val();
+                    console.log(tradeprice);
+                    var TotalPeice = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
+                    var price_per_unitet = $("#" + id + " input[name='products[" + items + "][total_peice_per_pack]']").val();
+                    var price_per_unit_unitonly = $("#" + id + " input[name='products[" + items + "][price_per_unit_unitonly]']")
+                        .val();
+                    var TotalPack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
+                    var pieces_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
+                    if (unit_of_measurement == 1) {
+                        // UNIT
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((price_per_unit_unitonly));
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val((price_per_unit_unitonly));
+                        $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
+                            'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
+                        $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
+                    } else if (unit_of_measurement == 0) {
+                        // BOX
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(tradeprice);
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
+                            'changeQuantityPerPack(' + id + ',' + items + ')').val(tradeprice);
+                        $("#" + id + " input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('onkeyup',
+                            'changeQuantityPerPack(' + id + ',' + items + ')');
+                        $("#" + id + " input[name='products[" + items + "][total_piece]']").attr('readonly', 'true').val(
+                            price_per_unitet *
+                            pieces_per_pack);
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(tradeprice);
+                        $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val(price_per_unitet);
+                    }
                 }
-            }
-            function changeQuantityPerUnit(id, items, unit_of_measurement = null) {
-                var pieces_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
-                var quantity = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
-                var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
-                $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
-                let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
 
-                if(quantity >= piece_per_pack){
-                    $("#" + id + " input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity/pieces_per_pack)));
+                function changeQuantityPerUnit(id, items, unit_of_measurement = null) {
+                    var pieces_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
+                    var quantity = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
+                    var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
+                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
+                    let piece_per_pack = $("#" + id + " input[name='products[" + items + "][pieces_per_pack]']").val();
+
+                    if (quantity >= piece_per_pack) {
+                        $("#" + id + " input[name='products[" + items + "][total_pack]']").val((Math.floor(quantity /
+                            pieces_per_pack)));
+                    } else if (quantity < piece_per_pack) {
+                        $("#" + id + " input[name='products[" + items + "][total_pack]']").val(0);
+                    }
+                    $("#" + id + " input[name='products[" + items + "][amount]']").val((quantity * (priceperpeice)));
+
                 }
-                else if (quantity < piece_per_pack) {
-                    $("#" + id + " input[name='products[" + items + "][total_pack]']").val(0);
+
+                function changeQuantityPerPack(id, items, unit_of_measurement = null) {
+                    var total_pack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
+                    var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
+                    var peice_per_pack = $("#" + id + " input[name='products[" + items + "][total_peice_per_pack]']").val();
+                    console.log(peice_per_pack);
+                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
+                    var mainqunatityvalue = $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val();
+                    $("#" + id + " input[name='products[" + items + "][amount]']").val((total_pack * (priceperpeice)));
+                    $("#" + id + " input[name='products[" + items + "][total_piece]']").val(total_pack * mainqunatityvalue);
+                    $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
                 }
-                $("#" + id + " input[name='products[" + items + "][amount]']").val((quantity * (priceperpeice)));
 
-            }
+                $('#save-transfer-button').on('click', function() {
+                    // $(this).prop('disabled', true);
+                    $('#save-transfer-form').submit();
+                });
 
-            function changeQuantityPerPack(id, items, unit_of_measurement = null) {
-                var total_pack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
-                var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
-                var peice_per_pack = $("#" + id + " input[name='products[" + items + "][total_peice_per_pack]']").val();
-                console.log(peice_per_pack);
-                $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice );
-                var mainqunatityvalue = $("#" + id + " input[name='products[" + items + "][mainqunatityvalue]']").val();
-                $("#" + id + " input[name='products[" + items + "][amount]']").val((total_pack * (priceperpeice)));
-                $("#" + id + " input[name='products[" + items + "][total_piece]']").val(total_pack * mainqunatityvalue);
-                $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(priceperpeice);
-            }
+                $('#re_transfer_id').on('change', function() {
+                    var selectedTransferId = $(this).val();
 
-            $('#save-transfer-button').on('click', function() {
-                // $(this).prop('disabled', true);
-                $('#save-transfer-form').submit();
-            });
+                    // Make an AJAX request to fetch products for the selected transfer
+                    $.get('/retransfer/' + selectedTransferId, function(data) {
+                        // Clear the table
+                        $('#add-products').empty();
 
-            $('#re_transfer_id').on('change', function() {
-        var selectedTransferId = $(this).val();
-
-        // Make an AJAX request to fetch products for the selected transfer
-        $.get('/retransfer/' + selectedTransferId, function(data) {
-            // Clear the table
-            $('#add-products').empty();
-
-            // Loop through the fetched data and add rows to the table
-            $.each(data, function(items, response) {
-                console.log(response);
-                var newRow = `
+                        // Loop through the fetched data and add rows to the table
+                        $.each(data, function(items, response) {
+                            console.log(response);
+                            var newRow = `
                 <tr id="${response.product.id}">
                                         <input type="hidden" name="products[${items}][id]" value="${response.product_id}">
                                         <td>
@@ -485,11 +513,11 @@
                                             <input type="text" class="form-control" value="${response.product.product_name}" readonly>
                                         </td>
                                         <td>
-                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control">
+                                            <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control batch1">
                                             ${response.product.batch.length != 0  ?
                                                 `<option value="" selected disabled>Select Batch</option>
-                                                ${response.product.batch.map(batch => {
-                                                    return `<option value="${batch.id}" 
+                                                                        ${response.product.batch.map(batch => {
+                                                                            return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -498,7 +526,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                }).join('')}` :
+                                                                        }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
@@ -540,87 +568,115 @@
                                         <input type="hidden" id="mainqunatityvalue${items}" name="products[${items}][mainqunatityvalue]" >
                 `;
 
-                $('#add-products').append(newRow);
-                $('#re_transfer_id').prop('disabled', true);
+                            $('#add-products').append(newRow);
+                            $('#re_transfer_id').prop('disabled', true);
 
 
-            });
-        });
-    });  
-$('input[name="import-product"]').change(function() {
-        console.log('asdfsdf');
-                $('#csv-form').submit();
-            });
-        
-$(document).ready(function() {
-    $('#save-transfer-form').on('submit', function(e) {
-        e.preventDefault();
+                        });
+                    });
+                });
+                $('input[name="import-product"]').change(function() {
+                    console.log('asdfsdf');
+                    $('#csv-form').submit();
+                });
 
-        $.ajax({
-            url: '/shift/validate-transfer',
-            type: 'post',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log('Response:', response);
-                if (response.valid) {
-                    console.log('Before form submission');
-                    $('#save-transfer-form')[0].submit();
-                    console.log('After form submission');
-                } else {
-                    // Show the alert and validation message
-                    $('.alert-container').css('display', 'block');
-                    $('.validation-container').show();
-                    $('.validation-container').text(response.message);
+                $(document).ready(function() {
 
-                    // Scroll to the validation message
-                    $('html, body').animate({
-                        scrollTop: $('.validation-container').offset().top
-                    }, 1000);
+                    // $(document).on('change', '.batch1', function() {
+                    //     let selectedOption = $(this).find(':selected');
 
-                    // Automatically hide the alert after 5 seconds
-                    setTimeout(function() {
-                        $('.alert-container').css('display', 'none');
-                    }, 5000);
-                }
-            },
-            error: function(xhr, status, error) {
-                // Show the validation message
-                $('.validation-container').text(xhr.responseJSON.message);
-                $('.validation-container').show();
+                    //     if (selectedOption.val() !== '') {
+                    //         $('#save-transfer-button').prop('disabled', false);
+                    //     } else {
+                    //         $('#save-transfer-button').prop('disabled', true);
+                    //     }
+                    // });
 
-                // Scroll to the validation message
-                $('html, body').animate({
-                    scrollTop: $('.validation-container').offset().top
-                }, 1000);
+                    $(document).on('change', '.batch1', function() {
+                        let allSelected = true;
 
-                // Automatically hide the alert after 5 seconds
-                setTimeout(function() {
-                    $('.alert-container').css('display', 'none');
-                }, 5000);
+                        $('.batch1').each(function() {
+                            let selectedOption = $(this).find(':selected');
+
+                            if (selectedOption.val() === '') {
+                                allSelected = false;
+                                return false;
+                            }
+                        });
+
+                        $('#save-transfer-button').prop('disabled', !allSelected);
+                    });
+
+                    $('#save-transfer-form').on('submit', function(e) {
+                        e.preventDefault();
+
+                        $.ajax({
+                            url: '/shift/validate-transfer',
+                            type: 'post',
+                            data: $(this).serialize(),
+                            dataType: 'json',
+                            success: function(response) {
+                                console.log('Response:', response);
+                                if (response.valid) {
+                                    console.log('Before form submission');
+                                    $('#save-transfer-form')[0].submit();
+                                    console.log('After form submission');
+                                } else {
+                                    // Show the alert and validation message
+                                    $('.alert-container').css('display', 'block');
+                                    $('.validation-container').show();
+                                    $('.validation-container').text(response.message);
+
+                                    // Scroll to the validation message
+                                    $('html, body').animate({
+                                        scrollTop: $('.validation-container').offset().top
+                                    }, 1000);
+
+                                    // Automatically hide the alert after 5 seconds
+                                    setTimeout(function() {
+                                        $('.alert-container').css('display', 'none');
+                                    }, 5000);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                // Show the validation message
+                                $('.validation-container').text(xhr.responseJSON.message);
+                                $('.validation-container').show();
+
+                                // Scroll to the validation message
+                                $('html, body').animate({
+                                    scrollTop: $('.validation-container').offset().top
+                                }, 1000);
+
+                                // Automatically hide the alert after 5 seconds
+                                setTimeout(function() {
+                                    $('.alert-container').css('display', 'none');
+                                }, 5000);
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+        <style>
+            .alert {
+                position: absolute;
+                background: white;
+                width: 290px;
+                padding: 40px;
+                box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
+                top: 10px;
+                right: 10px;
             }
-        });
-    });
-});
-</script>
-    @endpush
-    <style>
-        .alert{
-            position: absolute;
-            background: white;
-            width: 290px;
-            padding: 40px;
-            box-shadow: 5px 5px 5px rgba(128, 128, 128, 0.5);
-            top: 10px;
-            right: 10px;
-        }
-        .icon-sm {
-            font-size: 106px !important;
-        }
-        .validationError{
-            font-weight:900;
-            color:#2f2f2f;
-            letter-spacing:2px;
-        }
-    </style>
+
+            .icon-sm {
+                font-size: 106px !important;
+            }
+
+            .validationError {
+                font-weight: 900;
+                color: #2f2f2f;
+                letter-spacing: 2px;
+            }
+        </style>
 </x-layouts.app>
