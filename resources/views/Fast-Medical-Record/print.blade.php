@@ -132,3 +132,7 @@
     </tbody>
 
 </table>
+
+<script>
+    window.print();
+</script>
