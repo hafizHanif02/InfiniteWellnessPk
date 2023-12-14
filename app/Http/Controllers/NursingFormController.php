@@ -178,7 +178,7 @@ class NursingFormController extends Controller
     public function fastMedicalRecord()
     {
         return view('Fast-Medical-Record.index', [
-            'fast_medical_records' => FastMedicalRecord::get(),
+            'fast_medical_records' => FastMedicalRecord::orderBy('id', 'desc')->paginate(10)->onEachSide(1),
         ]);
     }
     public function fastMedicalRecordcreate()

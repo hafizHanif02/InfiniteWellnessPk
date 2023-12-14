@@ -65,7 +65,7 @@
                         </tbody>
                     </table>
                     <div>
-                        {{-- {{ $fast_medical_records->links() }} --}}
+                        {{ $fast_medical_records->links() }}
                     </div>
                 </div>
             </div>
