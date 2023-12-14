@@ -71,7 +71,7 @@ class GoodReceiveStatusController extends Controller
 
                 // dd($goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty, $goodReceiveProduct->item_amount, $goodReceiveProduct->manufacturer_retail_price);
                 $goodReceiveProduct->product->update([
-                    'unit_retail' => $goodReceiveProduct->manufacturer_retail_price / $goodReceiveProduct->deliver_qty,
+                    'unit_retail' => $formatted_unit_retail,
                     'unit_trade' => $goodReceiveProduct->item_amount,
                     'manufacturer_retail_price' => $goodReceiveProduct->manufacturer_retail_price
                 ]);
