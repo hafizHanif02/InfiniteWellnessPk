@@ -288,6 +288,7 @@
                             product_id: productId
                         },
                         success: function(response) {
+                            $("#product_id option:selected").remove();
                             $("#product_id option[value='"+productId+"']").remove();
                             var items = $("tbody tr").length;
                             console.log(response.product);

@@ -176,9 +176,9 @@
             //         }
             //     });
             // });
-       
+  
             function addProduct(type, callback) {
-                var productId = $("#product_id").val();
+                var productId = $("#product_id").val();         
                 if (productId && $('tbody tr#' + productId).length == 0) {
                     $.ajax({
                         type: "post",
@@ -188,6 +188,7 @@
                             product_id: productId
                         },
                         success: function(response) {
+                            $("#product_id option:selected").remove();
                             $("#product_id option[value='"+productId+"']").remove();
                             var items = $("tbody tr").length;                        
                             $.each(response.product, function(index, value) {
