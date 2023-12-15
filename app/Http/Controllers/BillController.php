@@ -105,8 +105,6 @@ class BillController extends AppBaseController
                 $patientData->charges = $docID[0]->standard_charge;
                 $patientData->advance_amount = $docID[0]->advance_amount;
             }
-            // $patientData->charges = $docID[0]->standard_charge;
-            // $patientData->advance_amount = $docID[0]->advance_amount;
         }
         else{
             if($docID[0]->standard_charge == 0){
@@ -117,9 +115,12 @@ class BillController extends AppBaseController
                 $patientData->charges = $docID[0]->standard_charge;
                 $patientData->advance_amount = $docID[0]->advance_amount;
             }
-            // $patientData->charges = $docID[0]->standard_charge;
-            // $patientData->advance_amount = $docID[0]->advance_amount;
         }
+
+        if (count($docID) > 0 && isset($docID[0]->service_id)) {
+            $patientData->service_id = $docID[0]->service_id;
+        }
+        
         return $patientData;
     }
 

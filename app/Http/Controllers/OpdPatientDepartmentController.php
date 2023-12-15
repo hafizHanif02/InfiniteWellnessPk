@@ -146,7 +146,7 @@ class OpdPatientDepartmentController extends AppBaseController
                 'patient_id' =>  $request->patient_id,
                 'appointment_id' => $appointment_id->id,
                 'doctor_id' => $request->doctor_id,
-                'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
+                // 'opd_number' => DentalOpdPatientDepartment::generateUniqueOpdNumber(),
                 'case_id' => $request->patient_case_id,
                 'height' => $patient->height?$patient->height:'',
                 'weight' => $patient->weight?$patient->weight:'',
