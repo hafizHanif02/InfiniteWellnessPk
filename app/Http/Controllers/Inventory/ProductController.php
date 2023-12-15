@@ -571,7 +571,7 @@ public function batchPosReportShow($id)
 // history
 public function productHistory($id)
 {
-    $product = Product::find($id);
+    $product = Product::with('generic')->find($id);
     
     $goodReceives = GoodReceiveProduct::where('product_id', $id)
     ->whereHas('goodReceiveNote', function ($query) {

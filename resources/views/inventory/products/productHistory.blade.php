@@ -9,7 +9,19 @@
                 <h3>Product History</h3>
             </div>
             <div class="card-body">
-                {{-- <table class="table table-bordered text-center">
+                <table class="table table-bordered text-center table-hover mb-5">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product Name
+                            </th>
+                            <td>
+                                {{ $product->product_name }} ({{ $product->generic->formula }})
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+                <table class="table table-bordered text-center">
                     <thead class="table-dark">
                         <tr>
                             <th>SR</th>
@@ -48,64 +60,20 @@
                                         class="badge badge-{{ strtolower($data['type']) == 'purchase' ? 'success' : 'danger' }}">{{ $data['type'] }}</span>
                                 </td>
                                 <td>{{ $data['id'] }}</td>
-                                <td>{{ $data['type'] == 'Purchase' ? $data['deliver_qty'] : $data['total_piece'] }}</td>
-                                <td>{{ $data['created_at'] }}</td>
+                                <td>{{ $data['type'] == 'Purchase' ? $data['deliver_qty'] + $data['bonus'] : $data['total_piece'] }}
+                                </td>
+                                <td>{{ \Carbon\Carbon::parse($data['created_at'])->timezone('Asia/Karachi')->format('Y-m-d h:i:s A') }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
-                </table> --}}
-
-
-                <!-- Your table code -->
-<table class="table table-bordered text-center">
-    <thead class="table-dark">
-        <tr>
-            <th>SR</th>
-            <th>Type</th>
-            <th>#</th>
-            <th>Qty</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody class="table-light">
-        @php
-            $key = 0;
-
-            // Combine purchases and transfers into a single array
-            $combinedData = array_merge(
-                array_map(function ($item) {
-                    $item['type'] = 'Purchase';
-                    return $item;
-                }, $goodReceives->toArray()),
-                array_map(function ($item) {
-                    $item['type'] = 'Transfer';
-                    return $item;
-                }, $transfers->toArray())
-            );
-
-            // Sort the combined data by date in ascending order (FILO)
-            usort($combinedData, function ($a, $b) {
-                return strtotime($a['created_at']) - strtotime($b['created_at']);
-            });
-        @endphp
-
-        @foreach ($combinedData as $data)
-            <tr class="{{ strtolower($data['type']) }}-row">
-                <td>{{ ++$key }}</td>
-                <td><span class="badge badge-{{ strtolower($data['type']) == 'purchase' ? 'success' : 'danger' }}">{{ $data['type'] }}</span></td>
-                <td>{{ $data['id'] }}</td>
-                <td>{{ $data['type'] == 'Purchase' ? $data['deliver_qty'] : $data['total_piece'] }}</td>
-                <td>{{ \Carbon\Carbon::parse($data['created_at'])->timezone('Asia/Karachi')->format('Y-m-d H:i:s') }}</td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
+                </table>
 
 
                 <div class="row">
                     <div class="col-md-12 text-center mt-3">
                         <span style="font-weight: bold">Current Quantity:
-                            {{ $goodReceives->sum('deliver_qty') - $transfers->sum('total_piece') }}</span>
+                            {{ $goodReceives->sum('deliver_qty') + $goodReceives->sum('bonus') - $transfers->sum('total_piece') }}</span>
                     </div>
                 </div>
 
