@@ -77,6 +77,7 @@
                                                 class="fa fa-trash"></i></button>
                                     </form>
                                     <a href="{{ route('inventory.inventory.products.history', $product->id) }}"
+                                        target="_blank"
                                         aria-label="Detail"><i class="fa fa-history"></i></a>
                                 </td>
                             </tr>

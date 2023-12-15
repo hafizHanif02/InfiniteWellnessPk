@@ -62,7 +62,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     ->name('products.batch-pos-report.print');
 
     // history
-    Route::get('inventory/products/history/{id}', [ProductController::class, 'productHistory'])
+    Route::get('products/history/{id}', [ProductController::class, 'productHistory'])
     ->name('inventory.products.history');
 
 });

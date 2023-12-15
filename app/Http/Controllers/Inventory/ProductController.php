@@ -576,13 +576,13 @@ public function productHistory($id)
     $goodReceives = GoodReceiveProduct::where('product_id', $id)
     ->whereHas('goodReceiveNote', function ($query) {
         $query->where('is_approved', 1);
-    })
+    })->orderBy('created_at', 'asc')
     ->get();
 
     $transfers = TransferProduct::where('product_id', $id)
     ->whereHas('transfer', function ($query) {
         $query->where('status', 1);
-    })
+    })->orderBy('created_at', 'asc')
     ->get();
 
     return view('inventory.products.productHistory', [
