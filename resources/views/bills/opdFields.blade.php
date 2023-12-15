@@ -202,7 +202,7 @@
 <script>
     $(document).ready(function() {
         $("#patientOPDId").change(function() {
-            $("#tableBody tr.itemList:nth-child(2)").remove();
+            $("#tableBody tr.itemList:not(:first-child)").remove();
         });
     })
     var input = document.getElementById('patientOPDId');
@@ -245,9 +245,6 @@
                             <td class="table__qty">
                             {{ Form::hidden('qty[]', 1, ['class' => 'form-control qty quantity', 'required']) }}
                         </td>
-                            <td class="text-center">
-                                <i class="fa fa-trash text-danger delete-invoice-item pointer"></i>
-                            </td>
                         </tr>
                         `);
                     });

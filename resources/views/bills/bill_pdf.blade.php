@@ -151,6 +151,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td class="font-weight-bold">Advance:</td>
+                    <td>{{ checkNumberFormat(($bill->advance_amount) ? $bill->advance_amount : 0, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
+                    </td>
+                </tr>
+                <tr>
                     <td class="font-weight-bold">Total Amount:</td>
                     <td>{{ checkNumberFormat($bill->total_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
                     </td>
