@@ -76,6 +76,8 @@
                                             aria-label="Delete Product" id="delete-product-button"><i
                                                 class="fa fa-trash"></i></button>
                                     </form>
+                                    <a href="{{ route('inventory.inventory.products.history', $product->id) }}"
+                                        aria-label="Detail"><i class="fa fa-history"></i></a>
                                 </td>
                             </tr>
                         @empty

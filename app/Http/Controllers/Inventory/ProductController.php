@@ -567,4 +567,30 @@ public function batchPosReportShow($id)
         'product' => $product,
     ]);
 }
+
+// history
+public function productHistory($id)
+{
+    $product = Product::find($id);
+    
+    $goodReceives = GoodReceiveProduct::where('product_id', $id)
+    ->whereHas('goodReceiveNote', function ($query) {
+        $query->where('is_approved', 1);
+    })
+    ->get();
+
+    $transfers = TransferProduct::where('product_id', $id)
+    ->whereHas('transfer', function ($query) {
+        $query->where('status', 1);
+    })
+    ->get();
+
+    return view('inventory.products.productHistory', [
+        'product' => $product,
+        'goodReceives' => $goodReceives,
+        'transfers' => $transfers,
+    ]);
+}
+
+
 }
