@@ -39,14 +39,16 @@ class GoodReceiveStatusController extends Controller
                 // $unit_retail = $goodReceiveProduct->manufacture_retail_price/$goodReceiveProduct->deliver_qty;
                 $unit_retail = $goodReceiveProduct->manufacturer_retail_price / $goodReceiveProduct->product->pieces_per_pack;
                 $formatted_unit_retail = number_format($unit_retail, 2);
+                $quantity = $goodReceiveProduct->deliver_qty + $goodReceiveProduct->bonus;
+                // dd($quantity);
 
                 $batch =   Batch::create([
                     'batch_no' => $goodReceiveProduct->batch_number,
                     'product_id' => $goodReceiveProduct->product->id,
                     'unit_trade' => $goodReceiveProduct->item_amount,
                     'unit_retail' => $formatted_unit_retail,
-                    'quantity' => $goodReceiveProduct->deliver_qty,
-                    'remaining_qty' => $goodReceiveProduct->deliver_qty,
+                    'quantity' => $quantity,
+                    'remaining_qty' => $quantity,
                     'expiry_date' => $goodReceiveProduct->expiry_date,
                     'transfer_quantity' => 0
                 ]);

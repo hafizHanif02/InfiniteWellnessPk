@@ -415,11 +415,20 @@ class ProductController extends Controller
         $products = Product::select(['products.id', 'product_name', 'total_quantity', 'open_quantity'])->get();
 
         foreach ($products as $product) {
-            $stock_in = GoodReceiveProduct::where('product_id', $product->id)
+            $stock_in1 = GoodReceiveProduct::where('product_id', $product->id)
                 ->whereHas('goodReceiveNote', function ($query) {
                     $query->where('is_approved', 1);
                 })
                 ->sum('deliver_qty');
+
+                $stock_in2 = GoodReceiveProduct::where('product_id', $product->id)
+                ->whereHas('goodReceiveNote', function ($query) {
+                    $query->where('is_approved', 1);
+                })
+                ->sum('bonus');
+
+
+                $stock_in = $stock_in1 + $stock_in2;
             $purchaseReturnProducts = PurchaseReturnNote::where('status', 1)->where('product_id', $product->id)->sum('quantity');
             $stock_out = TransferProduct::where('product_id', $product->id)
                 ->whereHas('transfer', function ($query) {
