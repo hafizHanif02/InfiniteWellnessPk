@@ -54,10 +54,10 @@ class NewStockController extends Controller
 
                 $transfer_product = TransferProduct::where('transfer_id', $transferProduct->transfer_id)->first();
 
-
+                
                 if ($transfer_product->batch_id != null) {
                     $batch = Batch::where('id', $transfer_product->batch_id)->first();
-
+                    
                     // dd($transfer_product->total_piece , $batch->quantity);
 
                     if ($batch->quantity >= $transfer_product->total_piece) {
@@ -69,8 +69,8 @@ class NewStockController extends Controller
 
                         if ($batchpos) {
                             if ($batchpos->batch_id == $batch->id) {
-                                $batchpos->increment('quantity', $transfer_product->total_piece);
-                                $batchpos->increment('remaining_qty', $transfer_product->total_piece);
+                                BatchPOS::increment('quantity', $transfer_product->total_piece);
+                                BatchPOS::increment('remaining_qty', $transfer_product->total_piece);
                             } else {
                                 BatchPOS::create([
                                     'batch_id' => $transfer_product->batch_id,
