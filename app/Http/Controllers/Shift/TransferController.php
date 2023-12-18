@@ -298,4 +298,14 @@ class TransferController extends Controller
 
         return response()->json($transferProduct);
     }
+
+    public function getBatch($batchId)
+    {
+        $batch = Batch::where('id', $batchId)->first();
+        $productBatch = Batch::where('product_id', $batch->product_id)->get();
+
+        return response()->json([
+            'productBatch' => $productBatch,
+        ]);
+    }
 }

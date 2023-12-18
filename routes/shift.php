@@ -17,8 +17,10 @@ Route::prefix('shift')->as('shift.')->middleware(['auth'])->group(function () {
     Route::get('stock-in/export', [StockReportController::class, 'exportStockInReport'])->name('stock-in.export');
 
     Route::post('/validate-transfer', [TransferController::class, 'validateTransfer']);
-
+    
     Route::get('/table_data', [TransferController::class, 'fileData']);
+
+    Route::get('/get-batch/{batchID}', [TransferController::class, 'getBatch'])->name('transfer.batch');
 
 
 });

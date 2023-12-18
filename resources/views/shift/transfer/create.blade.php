@@ -197,8 +197,8 @@
                                             <select onchange="batchChange(${i},${products[i].id})" id="batch${i}" name="products[${i}][batch_no]" class="form-control batch1">
                                             ${products[i].batch.length != 0  ?
                                                 `<option value="" selected disabled>Select Batch</option>
-                                                                ${products[i].batch.map(batch => {
-                                                                    return `<option value="${batch.id}" class="highlight" 
+                                                                        ${products[i].batch.map(batch => {
+                                                                            return `<option value="${batch.id}" class="highlight" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -207,7 +207,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                                }).join('')}` :
+                                                                        }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
@@ -304,11 +304,11 @@
                 $("#add-btn").click(function(e) {
                     e.preventDefault();
                     addProduct();
-                    $('.batch1').trigger('change'); 
+                    $('.batch1').trigger('change');
                 });
 
                 function addProduct(type) {
-                    $('.batch1').trigger('change'); 
+                    $('.batch1').trigger('change');
                     var productId = $("#product_id").val();
                     if (productId != null && ($('#add-products tr#' + productId).length == 0)) {
                         $.ajax({
@@ -330,8 +330,8 @@
                                             <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control batch1">
                                             ${response.product.batch.length != 0  ?
                                                 `<option value="" selected>Select Batch</option>
-                                                                        ${response.product.batch.map(batch => {
-                                                                            return `<option value="${batch.id}" 
+                                                                                    ${response.product.batch.map(batch => {
+                                                                                        return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -340,7 +340,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                                        }).join('')}` :
+                                                                                    }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
@@ -388,12 +388,12 @@
 
                 function removeRaw(id) {
                     $("#" + id).remove();
-                    $('.batch1').trigger('change');                          
+                    $('.batch1').trigger('change');
                 }
 
                 function removeRaw(id) {
-                    $("#" + id).remove();                   
-                    $('.batch1').trigger('change');         
+                    $("#" + id).remove();
+                    $('.batch1').trigger('change');
                 }
 
                 function batchChange(items, id) {
@@ -475,6 +475,62 @@
                     }
                     $("#" + id + " input[name='products[" + items + "][amount]']").val((quantity * (priceperpeice)));
 
+                    // BATCH SELECTION WORKING
+
+                    var transferQty = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
+                    var batchQty = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
+
+                    if (transferQty > batchQty) {
+                        var batch_id = $("#" + id + " select[name='products[" + items + "][batch_no]']").val();
+                        console.log("Batch_id: " + batch_id);
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/shift/get-batch/" + batch_id,
+                            success: function(data) {
+                                console.log(data.productBatch);
+
+                                for (var i = 0; i < data.productBatch.length; i++) {
+                                    var remainingQty = data.productBatch[i].remaining_qty;
+
+                                    if (remainingQty >= transferQty) {
+                                        console.log("Found batch with enough remaining_qty: ", data.productBatch[i]);
+                                        $("#" + id + " select[name='products[" + items + "][batch_no]']").val(data
+                                            .productBatch[i].id).trigger('change');
+                                        break;
+                                    } else {
+                                        console.log("Not Match");
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+                //    else if (transferQty < batchQty) {
+                //         var batch_id = $("#" + id + " select[name='products[" + items + "][batch_no]']").val();
+                //         console.log("Batch_id: " + batch_id);
+                //         $.ajax({
+                //             type: "GET",
+                //             url: "/shift/get-batch/" + batch_id,
+                //             success: function(data) {
+                //                 console.log(data.productBatch);
+
+                //                 for (var i = 0; i < data.productBatch.length; i++) {
+                //                     var remainingQty = data.productBatch[i].remaining_qty;
+
+                //                     if (remainingQty <= transferQty) {
+                //                         console.log("Found batch with enough remaining_qty: ", data.productBatch[i]);
+                //                         $("#" + id + " select[name='products[" + items + "][batch_no]']").val(data
+                //                             .productBatch[i].id).trigger('change');
+                //                         break;
+                //                     } else {
+                //                         console.log("Not Match");
+                //                     }
+                //                 }
+                //             }
+                //         });
+                //     }
+
                 }
 
                 function changeQuantityPerPack(id, items, unit_of_measurement = null) {
@@ -517,8 +573,8 @@
                                             <select onchange="batchChange(${items},${response.product.id})" id="batch${items}" name="products[${items}][batch_no]" class="form-control batch1">
                                             ${response.product.batch.length != 0  ?
                                                 `<option value="" selected disabled>Select Batch</option>
-                                                                        ${response.product.batch.map(batch => {
-                                                                            return `<option value="${batch.id}" 
+                                                                                    ${response.product.batch.map(batch => {
+                                                                                        return `<option value="${batch.id}" 
                                                                 data-batch-id="${batch.id}" 
                                                                 data-quantity="${batch.quantity}" 
                                                                 data-remaining_qty="${batch.remaining_qty}" 
@@ -527,7 +583,7 @@
                                                                 data-unit_trade="${batch.unit_trade}">
                                                             ${batch.batch_no}
                                                             </option>`;
-                                                                        }).join('')}` :
+                                                                                    }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                                         </select>
