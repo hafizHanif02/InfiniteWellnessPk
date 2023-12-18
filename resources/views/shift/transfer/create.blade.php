@@ -532,7 +532,7 @@
                 //     }
 
                 }
-
+// hello world
                 function changeQuantityPerPack(id, items, unit_of_measurement = null) {
                     var total_pack = $("#" + id + " input[name='products[" + items + "][total_pack]']").val();
                     var priceperpeice = $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val();
