@@ -40,7 +40,7 @@ class ProductController extends Controller
     {
         if (isset($request->search_data)) {
             return view('inventory.products.index', [
-                'products' => Product::where('product_name', 'LIKE', `%$request->search_data%`)->orWhere('id', 'LIKE', `%$request->search_data%`)->with('goodReceiveProducts')->paginate(5)->setPath(''),
+                'products' => Product::where('product_name', 'LIKE', '%' . $request->search_data . '%')->orWhere('id', 'LIKE', '%' . $request->search_data . '%')->with('goodReceiveProducts')->setPath(''),
                 'search_data' => $request->search_data
             ]);
         }
