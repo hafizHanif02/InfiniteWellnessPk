@@ -40,7 +40,7 @@ class ProductController extends Controller
     {
         if (isset($request->search_data)) {
             return view('inventory.products.index', [
-                'products' => Product::where('product_name', 'LIKE', '%' . $request->search_data . '%')->orWhere('id', 'LIKE', '%' . $request->search_data . '%')->with('goodReceiveProducts')->paginate(5)->setPath(''),
+                'products' => Product::where('product_name', 'LIKE', `%$request->search_data%`)->orWhere('id', 'LIKE', `%$request->search_data%`)->with('goodReceiveProducts')->paginate(5)->setPath(''),
                 'search_data' => $request->search_data
             ]);
         }
@@ -72,7 +72,7 @@ class ProductController extends Controller
             )
             ->orderBy('products.id')
             ->get();
-    
+
         return view('inventory.products.export', [
             'products' => $products,
             // Other variables you want to pass to the view
@@ -106,7 +106,7 @@ class ProductController extends Controller
     }
 
     public function storeProductCategory(Request $request): JsonResponse
-    {   
+    {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', 'unique:product_categories,name'],
         ]);
@@ -187,7 +187,7 @@ class ProductController extends Controller
             'city' => ['required', 'string', 'max:255'],
         ]);
 
-       
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -210,7 +210,7 @@ class ProductController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
-        
+
         $user = Auth::user();
         Log::create([
             'action' => 'Manufacturer Has Been Created Company Name: '.$request->company_name.' Code ('.$request->code.')',
@@ -257,7 +257,7 @@ class ProductController extends Controller
             'dosage_id' => Dosage::latest()->pluck('id')->first(),
             'manufacturer_id' => Manufacturer::latest()->pluck('id')->first(),
         ]);
-      
+
     }
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
@@ -461,7 +461,7 @@ class ProductController extends Controller
             'action_by_user_id' => $user->id,
         ]);
 
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Product recalculation successfully.',
@@ -488,7 +488,7 @@ class ProductController extends Controller
             'products' => Product::orderBy('id')->with('generic')->get(),
         ]);
     }
-    
+
     public function getProduct(Request $request): JsonResponse
     {
         return response()->json([
@@ -511,14 +511,14 @@ class ProductController extends Controller
 
             if ($product['current_qty'] > $product['adjustment_qty']) {
             $qty = $product['current_qty'] - $product['adjustment_qty'];
-                    
+
             Product::where('id', $product['product_id'])->update([
                 'total_quantity' => DB::raw('total_quantity - ' . $qty)
             ]);
-        
+
             } else {
                 $qty = $product['adjustment_qty'] - $product['current_qty'];
-            
+
                 Product::where('id', $product['product_id'])->update([
                     'total_quantity' => DB::raw('total_quantity + ' . $qty)
                 ]);
@@ -532,7 +532,7 @@ class ProductController extends Controller
             Log::create([
                 'action' => 'Products Adjustment Has Been Created Product Code:'.$product['product_id'],
                 'action_by_user_id' => $user->id,
-            ]);       
+            ]);
         }
 
         return redirect('/inventory/adjustment')->with('success', 'Adjustment created successfully.');
@@ -572,7 +572,7 @@ public function batchPosReportShow($id)
 public function productHistory($id)
 {
     $product = Product::with('generic')->find($id);
-    
+
     $goodReceives = GoodReceiveProduct::where('product_id', $id)
     ->whereHas('goodReceiveNote', function ($query) {
         $query->where('is_approved', 1);
