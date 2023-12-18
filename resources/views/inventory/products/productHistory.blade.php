@@ -68,8 +68,6 @@
                         @endforeach
                     </tbody>
                 </table>
-
-
                 <div class="row">
                     <div class="col-md-12 text-center mt-3">
                         <span style="font-weight: bold">Current Quantity:
@@ -85,12 +83,12 @@
 
 <style>
     .purchase-row {
-        background-color: #aaffaa;
+        background-color: #ecedec;
         /* Light green for purchases */
     }
 
     .transfer-row {
-        background-color: #ffaaaa;
+        background-color: #fdfbcf;
         /* Light red for transfers */
     }
 </style>
