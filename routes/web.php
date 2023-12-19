@@ -531,6 +531,9 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::post('medicines-adjustment/store', [MedicineController::class, 'medicinesAdjustmentStore'])->name('medicines.adjustment.store');
         Route::get('medicines-recalculation', [MedicineController::class, 'medicinesRecalculation'])->name('medicines.recalculation');
         Route::post('medicines/recalculate', [MedicineController::class, 'medicinesRecalculate'])->name('medicines.recalculate');
+        // history
+        Route::get('history/{id}', [MedicineController::class, 'medicinesHistory'])
+        ->name('medicines.products.history');
 
          // batch pos report
     Route::get('medicines/medicines/batch-pos-report', [MedicineController::class, 'batchPosReport'])->name('medicines.batch-pos-report');

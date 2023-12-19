@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pos;
 use App\Models\BatchPOS;
 use App\Models\Medicine;
 use Illuminate\Database\Eloquent\Model;
@@ -44,4 +45,9 @@ class Pos_Product extends Model
     {
         return $this->belongsTo(Label::class, 'medicine_id', 'pos_id');
     }
+    public function pos() : BelongsTo
+{
+    return $this->belongsTo(Pos::class , 'pos_id', 'id'); 
+}
+
 }

@@ -9,9 +9,11 @@ use App\Models\Log;
 use App\Models\Pos;
 use App\Models\BatchPOS;
 use App\Models\Medicine;
+use App\Models\PosReturn;
 use Illuminate\View\View;
 use App\Models\Pos_Product;
 use Illuminate\Http\Request;
+use App\Models\Shift\Transfer;
 use App\Exports\MedicineExport;
 use App\Models\PosProductReturn;
 use Illuminate\Http\JsonResponse;
@@ -324,5 +326,26 @@ class MedicineController extends AppBaseController
         'batches' => $batches,
         // 'product' => $product,
     ]);
+}
+
+public function medicinesHistory($id){
+    $product = Medicine::find($id);
+    $productId = $product->product_id;
+    $transfer = TransferProduct::where('product_id', $productId)
+    ->whereHas('transfer', function ($query) {
+        $query->where('status', 1);
+    })->orderBy('created_at', 'asc')
+    ->get();
+    $posProduct = Pos_Product::where('medicine_id', $id)
+    ->whereHas('pos', function ($query) {
+        $query->where('is_paid', 1);
+    })
+    ->orderBy('created_at', 'asc')
+    ->get(); 
+    $posProductReturn = PosProductReturn::where('medicine_id', $id)
+    ->orderBy('created_at', 'asc')
+    ->get();
+  
+    return view('medicines.medicinesHistory', compact('product', 'posProduct', 'posProductReturn', 'transfer'));
 }
 }

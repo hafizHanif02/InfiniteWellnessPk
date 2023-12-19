@@ -6,3 +6,6 @@
    class="deleteMedicineBtn  btn px-1 text-danger fs-3 ps-0">
                   <i class="fa-solid fa-trash"></i>
 </a>
+<a href="{{ route('medicines.products.history', $row->id) }}"
+   target="_blank"
+   aria-label="Detail"><i class="fa fa-history"></i></a>
