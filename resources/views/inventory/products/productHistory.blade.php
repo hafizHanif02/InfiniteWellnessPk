@@ -85,12 +85,9 @@
 
 <style>
     .purchase-row {
-        background-color: #aaffaa;
-        /* Light green for purchases */
-    }
-
-    .transfer-row {
-        background-color: #ffaaaa;
-        /* Light red for transfers */
-    }
-</style>
+       background-color: #ecedec !important; /* Light green for purchases */
+   }
+   .transfer-row {
+       background-color: #fdfbcf !important; /* Light red for transfers */
+   }
+   </style>
