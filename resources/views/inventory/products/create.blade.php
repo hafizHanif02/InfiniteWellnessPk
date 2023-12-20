@@ -422,37 +422,46 @@
 
 
 
-            function calculation(){
+            function calculation() {
                 var retailPrice = parseFloat($("#manufacturer_retail_price").val());
                 if ($("#manufacturer_retail_price").val() != '') {
                     var tp = parseFloat($("#trade_price_percentage").val());
                     var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
                     $("#trade_price").val(calc);
-
                     var pcsperpack = parseInt($("#pieces_per_pack").val());
-                var noofpack = parseInt($('#number_of_pack').val());
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                totaltotal_quantity = parseInt(pcsperpack * noofpack);
-                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
-                $("#unit_retail").val(retailpriceperunit);
-                var tradeprice = parseFloat($("#trade_price").val());
-                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
-                $("#unit_trade").val(tradepriceperunit);
-                $("#total_quantity").val(noofpack * pcsperpack);
+                    var noofpack = parseInt($('#number_of_pack').val());
+                    var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                    totaltotal_quantity = parseInt(pcsperpack * noofpack);
+                    var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
+                    $("#unit_retail").val(retailpriceperunit);
+                    var tradeprice = parseFloat($("#trade_price").val());
+                    var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
+                    tradepriceperunit = parseFloat(tradepriceperunit).toFixed(2);
+                    $("#unit_trade").val(tradepriceperunit);
+                    $("#trade_price").val(tradepriceperunit);
+                    $("#total_quantity").val(noofpack * pcsperpack);
 
-                var discperc = parseInt($("#discount_trade_price").val());
-                var tradeprice = parseFloat($("#trade_price").val());
-                var calc = tradeprice - (tradeprice * discperc / 100);
-                $("#cost_price").val(calc);
+                    var discperc = $("#discount_trade_price").val();
+                    var tradeprice = parseFloat($("#trade_price").val());
+                    var calc = tradeprice - (tradeprice * discperc / 100);
+                    calc = parseFloat(calc).toFixed(2);
+                    $("#cost_price").val(calc);
 
-                 if ($('#unit_of_measurement').val() === '0') {
-                    // Box
-                    $('#number_of_pack').prop('readonly', false);
-                } else if ($('#unit_of_measurement').val() === '1') {
-                    // Unit
-                    $('#number_of_pack').prop('readonly', true);
-                    $("#number_of_pack").val(1);
-                }
+                    if ($('#unit_of_measurement').val() === '0') {
+                        // Box
+                        $('#number_of_pack').prop('readonly', false);
+                    } else if ($('#unit_of_measurement').val() === '1') {
+                        // Unit
+                        $('#number_of_pack').prop('readonly', true);
+                        $("#number_of_pack").val(1);
+                    }
+
+                    // Fixed Discount Amount Set
+                    var fixed_discount = $("#fixed_discount").val();
+                    var cost_price = $("#cost_price").val();
+                    var percentage = (fixed_discount / 100) * cost_price;
+                    $("#discount_amount").val(percentage);
+                    // Fixed Discount Amount Set
 
                 }
             }

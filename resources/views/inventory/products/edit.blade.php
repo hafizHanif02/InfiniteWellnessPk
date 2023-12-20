@@ -26,7 +26,8 @@
                         </div>
                         <div class="col-md-5">
                             <div class="mb-5">
-                                <label for="product_category_id" class="form-label">Product Category<sup class="text-danger">*</sup></label>
+                                <label for="product_category_id" class="form-label">Product Category<sup
+                                        class="text-danger">*</sup></label>
                                 <select type="text" name="product_category_id" id="product_category_id" required
                                     class="form-control @error('product_category_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select category</option>
@@ -34,9 +35,10 @@
                                         <option value="{{ $productCategory->id }}"
                                             {{ old('product_category_id', $productCategory->id) == $product->product_category_id ? 'selected' : '' }}>
                                             {{ $productCategory->name }}
-                                    </option>
+                                        </option>
                                     @empty
-                                        <option value="" id="no-product-category-found" class="text-danger" disabled>No product category
+                                        <option value="" id="no-product-category-found" class="text-danger"
+                                            disabled>No product category
                                             found!</option>
                                     @endforelse
                                 </select>
@@ -73,7 +75,8 @@
                         <label for="common_side_effect" class="form-label">Common Side Effect <sup
                                 class="text-danger">*</sup></label>
                         <input type="text" name="common_side_effect" id="common_side_effect" class="form-control"
-                            value="{{ old('common_side_effect', $product->common_side_effect) }}" title="common_side_effect">
+                            value="{{ old('common_side_effect', $product->common_side_effect) }}"
+                            title="common_side_effect">
                         @error('common_side_effect')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -113,20 +116,19 @@
                     </div>
 
                     <div class="mb-5">
-                        <label for="dosage_id" class="form-label">Dosage <sup
-                                class="text-danger">*</sup></label>
+                        <label for="dosage_id" class="form-label">Dosage <sup class="text-danger">*</sup></label>
                         <div class="row">
                             <div class="col-md-11">
                                 <select type="text" name="dosage_id" id="dosage_id"
                                     class="form-control @error('dosage_id') is-invalid @enderror">
                                     <option value="" selected disabled>Select Dosage </option>
                                     @forelse ($dosages as $dosage)
-                                    <option value="{{ $dosage->id }}"
-                                        {{ old('dosage_id', $dosage->id) == $product->dosage_id ? 'selected' : '' }}>
-                                        {{ $dosage->name }}</option>
+                                        <option value="{{ $dosage->id }}"
+                                            {{ old('dosage_id', $dosage->id) == $product->dosage_id ? 'selected' : '' }}>
+                                            {{ $dosage->name }}</option>
                                     @empty
                                         <option value="" id="no-dosage-found" class="text-danger" disabled>No
-                                            Dosage  found!</option>
+                                            Dosage found!</option>
                                     @endforelse
                                 </select>
                                 @error('dosage_id')
@@ -224,18 +226,18 @@
                             @enderror
                         </div>
                     </div> --}}
-                    <input type="hidden" value="1" name="unit_of_measurement" id="unit_of_measurement" class="form-control"
-                    title="Least unit">
-                    <input type="hidden"  name="number_of_pack" id="number_of_pack"
-                                class="form-control"  value="1"
-                                title="Number of packet">
+                    <input type="hidden" value="1" name="unit_of_measurement" id="unit_of_measurement"
+                        class="form-control" title="Least unit">
+                    <input type="hidden" name="number_of_pack" id="number_of_pack" class="form-control"
+                        value="1" title="Number of packet">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" step="any" name="manufacturer_retail_price"
-                                    id="manufacturer_retail_price" required class="form-control"
+                                <input type="number" onkeyup="calculation()" step="any"
+                                    name="manufacturer_retail_price" id="manufacturer_retail_price" required
+                                    class="form-control"
                                     value="{{ old('manufacturer_retail_price', $product->manufacturer_retail_price) }}"
                                     title="Retail Price">
                                 @error('manufacturer_retail_price')
@@ -247,8 +249,8 @@
                             <div class="mb-5">
                                 <label for="pieces_per_pack" class="form-label">Pieces Per Pack <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="pieces_per_pack" id="pieces_per_pack"
-                                    class="form-control"
+                                <input type="number" onkeyup="calculation()" name="pieces_per_pack"
+                                    id="pieces_per_pack" class="form-control"
                                     value="{{ old('pieces_per_pack', $product->pieces_per_pack) }}"
                                     title="Pieces per pack">
                                 @error('pieces_per_pack')
@@ -259,7 +261,8 @@
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="total_quantity" class="form-label"></label>
-                                <input type="hidden" onkeyup="calculation()" name="total_quantity" id="total_quantity" class="form-control" readonly
+                                <input type="hidden" onkeyup="calculation()" name="total_quantity"
+                                    id="total_quantity" class="form-control" readonly
                                     value="{{ old('total_quantity', $product->total_quantity) }}" title="Paking">
                                 @error('total_quantity')
                                     <div class="text-danger">{{ $message }}</div>
@@ -270,8 +273,8 @@
                             <div class="mb-5">
                                 <label for="trade_price_percentage" class="form-label">Trade Price % <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="trade_price_percentage" id="trade_price_percentage"
-                                    class="form-control"
+                                <input type="number" onkeyup="calculation()" name="trade_price_percentage"
+                                    id="trade_price_percentage" class="form-control"
                                     value="{{ old('trade_price_percentage', $product->trade_price_percentage) }}"
                                     title="Trade price percentage">
                                 @error('trade_price_percentage')
@@ -306,7 +309,7 @@
                                 <label for="fixed_discount" class="form-label">Discount Amount</label>
                                 <input type="number" min="1" name="discount_amount" id="discount_amount"
                                     class="form-control @error('fixed_discount') is-invalid @enderror"
-                                    value="{{ old('discount_amount',($product->fixed_discount / 100)* $product->cost_price) }}"
+                                    value="{{ old('discount_amount', ($product->fixed_discount / 100) * $product->cost_price) }}"
                                     title="Discount Amount" readonly>
                                 @error('fixed_discount')
                                     <small class="text-danger">{{ $message }}</small>
@@ -318,9 +321,9 @@
                             <div class="mb-5">
                                 <label for="trade_price" class="form-label">Trade Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="trade_price" id="trade_price" class="form-control"
-                                    readonly value="{{ old('trade_price', $product->trade_price) }}"
-                                    title="Trade price">
+                                <input type="number" onkeyup="calculation()" name="trade_price" id="trade_price"
+                                    class="form-control" readonly
+                                    value="{{ old('trade_price', $product->trade_price) }}" title="Trade price">
                                 @error('trade_price')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -341,8 +344,9 @@
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="sale_tax_percentage" class="form-label">Sale Tax Percentage</label>
-                                <input type="number" name="sale_tax_percentage" id="sale_tax_percentage" class="form-control"
-                                    placeholder="Enter Sales Tax" value="{{ old('sale_tax_percentage', $product->sale_tax_percentage) }}"
+                                <input type="number" name="sale_tax_percentage" id="sale_tax_percentage"
+                                    class="form-control" placeholder="Enter Sales Tax"
+                                    value="{{ old('sale_tax_percentage', $product->sale_tax_percentage) }}"
                                     title="Sales tax">
                                 @error('sale_tax_percentage')
                                     <div class="text-danger">{{ $message }}</div>
@@ -354,7 +358,8 @@
                             <div class="mb-5">
                                 <label for="discount_trade_price" class="form-label">Discount % On Trade Price</label>
                                 <input type="number" name="discount_trade_price" id="discount_trade_price"
-                                    class="form-control" onkeyup="calculation()" placeholder="Enter discount percentage on trade price"
+                                    class="form-control" onkeyup="calculation()"
+                                    placeholder="Enter discount percentage on trade price"
                                     value="{{ old('discount_trade_price', $product->discount_trade_price) }}"
                                     placeholder="Enter discount percentage on trade price"
                                     title="Discount percentage on trade price">
@@ -367,9 +372,10 @@
                             <div class="mb-5">
                                 <label for="cost_price" class="form-label">Cost Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="cost_price" id="cost_price" class="form-control"
-                                    readonly value="{{ old('cost_price', $product->cost_price) }}"
-                                    placeholder="Cost price" title="Cost price">
+                                <input type="number" onkeyup="calculation()" name="cost_price" id="cost_price"
+                                    class="form-control" readonly
+                                    value="{{ old('cost_price', $product->cost_price) }}" placeholder="Cost price"
+                                    title="Cost price">
                                 @error('cost_price')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -400,21 +406,20 @@
         <script>
             $(document).ready(function() {
 
-                $("#fixed_discount").on('keyup',function(){
-
+                $("#fixed_discount").on('keyup', function() {
                     var fixed_discount = $("#fixed_discount").val();
                     var cost_price = $("#cost_price").val();
 
                     var percentage = (fixed_discount / 100) * cost_price;
                     $("#discount_amount").val(percentage);
-
                 });
-            // Capture the key press event on all input fields within the form
-              $('form').on('keypress', 'input', function(e) {
-                if (e.which === 13) { // 13 is the key code for "Enter"
-                  e.preventDefault(); // Prevent the default form submission
-                }
-              });
+
+                // Capture the key press event on all input fields within the form
+                $('form').on('keypress', 'input', function(e) {
+                    if (e.which === 13) { // 13 is the key code for "Enter"
+                        e.preventDefault(); // Prevent the default form submission
+                    }
+                });
 
 
                 $('#group_id, #product_category_id, #manufacturer_id, #vendor_id, #generic_id').select2();
@@ -486,37 +491,46 @@
 
 
 
-            function calculation(){
+            function calculation() {
                 var retailPrice = parseFloat($("#manufacturer_retail_price").val());
                 if ($("#manufacturer_retail_price").val() != '') {
                     var tp = parseFloat($("#trade_price_percentage").val());
                     var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
                     $("#trade_price").val(calc);
-
                     var pcsperpack = parseInt($("#pieces_per_pack").val());
-                var noofpack = parseInt($('#number_of_pack').val());
-                var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                totaltotal_quantity = parseInt(pcsperpack * noofpack);
-                var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
-                $("#unit_retail").val(retailpriceperunit);
-                var tradeprice = parseFloat($("#trade_price").val());
-                var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
-                $("#unit_trade").val(tradepriceperunit);
-                $("#total_quantity").val(noofpack * pcsperpack);
+                    var noofpack = parseInt($('#number_of_pack').val());
+                    var retailPrice = parseFloat($("#manufacturer_retail_price").val());
+                    totaltotal_quantity = parseInt(pcsperpack * noofpack);
+                    var retailpriceperunit = parseFloat(retailPrice / totaltotal_quantity);
+                    $("#unit_retail").val(retailpriceperunit);
+                    var tradeprice = parseFloat($("#trade_price").val());
+                    var tradepriceperunit = parseFloat(tradeprice / totaltotal_quantity);
+                    tradepriceperunit = parseFloat(tradepriceperunit).toFixed(2);
+                    $("#unit_trade").val(tradepriceperunit);
+                    $("#trade_price").val(tradepriceperunit);
+                    $("#total_quantity").val(noofpack * pcsperpack);
 
-                var discperc = parseInt($("#discount_trade_price").val());
-                var tradeprice = parseFloat($("#trade_price").val());
-                var calc = tradeprice - (tradeprice * discperc / 100);
-                $("#cost_price").val(calc);
+                    var discperc = $("#discount_trade_price").val();
+                    var tradeprice = parseFloat($("#trade_price").val());
+                    var calc = tradeprice - (tradeprice * discperc / 100);
+                    calc = parseFloat(calc).toFixed(2);
+                    $("#cost_price").val(calc);
 
-                 if ($('#unit_of_measurement').val() === '0') {
-                    // Box
-                    $('#number_of_pack').prop('readonly', false);
-                } else if ($('#unit_of_measurement').val() === '1') {
-                    // Unit
-                    $('#number_of_pack').prop('readonly', true);
-                    $("#number_of_pack").val(1);
-                }
+                    if ($('#unit_of_measurement').val() === '0') {
+                        // Box
+                        $('#number_of_pack').prop('readonly', false);
+                    } else if ($('#unit_of_measurement').val() === '1') {
+                        // Unit
+                        $('#number_of_pack').prop('readonly', true);
+                        $("#number_of_pack").val(1);
+                    }
+
+                    // Fixed Discount Amount Set
+                    var fixed_discount = $("#fixed_discount").val();
+                    var cost_price = $("#cost_price").val();
+                    var percentage = (fixed_discount / 100) * cost_price;
+                    $("#discount_amount").val(percentage);
+                    // Fixed Discount Amount Set
 
                 }
             }
