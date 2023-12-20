@@ -41,6 +41,7 @@ class NewStockController extends Controller
 
             $user = Auth::user();
             $requistionproductlogs = 'Transfer No:' . $transfer->id . ' Products:{[produc_id, qty],';
+                
             foreach ($transfer->transferProducts as $transferProduct) {
                 Product::where('id', $transferProduct->product_id)->decrement(
                     'total_quantity',
@@ -52,45 +53,46 @@ class NewStockController extends Controller
                     'name' => $transferProduct->product->productCategory->name,
                 ]);
 
-                $transfer_product = TransferProduct::where('transfer_id', $transferProduct->transfer_id)->first();
+                // $transfer_product = TransferProduct::where('transfer_id', $transferProduct->transfer_id)->first();
 
 
-                if ($transfer_product->batch_id != null) {
-                    $batch = Batch::where('id', $transfer_product->batch_id)->first();
+                if ($transferProduct->batch_id != null) {
+                    $batch = Batch::where('id', $transferProduct->batch_id)->first();
 
-                    // dd($transfer_product->total_piece , $batch->quantity);
 
-                    if ($batch->quantity >= $transfer_product->total_piece) {
-                        Batch::where('id', $transfer_product->batch_id)->update([
-                            'transfer_quantity' => $batch->transfer_quantity + $transfer_product->total_piece,
-                            'remaining_qty' => $batch->remaining_qty - $transfer_product->total_piece,
+
+                    if ($batch->quantity >= $transferProduct->total_piece) {
+                        Batch::where('id', $transferProduct->batch_id)->update([
+                            'transfer_quantity' => $batch->transfer_quantity + $transferProduct->total_piece,
+                            'remaining_qty' => $batch->remaining_qty - $transferProduct->total_piece,
                         ]);
-                        $batchpos = BatchPOS::where('product_id', $transfer_product->product_id)->where('batch_id', $transfer_product->batch_id)->first();
+                        // dd($batch->remaining_qty);
+                        $batchpos = BatchPOS::where('product_id', $transferProduct->product_id)->where('batch_id', $transferProduct->batch_id)->first();
 
                         if ($batchpos) {
                             if ($batchpos->batch_id == $batch->id) {
-                                $batchpos->increment('quantity', $transfer_product->total_piece);
-                                $batchpos->increment('remaining_qty', $transfer_product->total_piece);
+                                $batchpos->increment('quantity', $transferProduct->total_piece);
+                                $batchpos->increment('remaining_qty', $transferProduct->total_piece);
                             } else {
                                 BatchPOS::create([
-                                    'batch_id' => $transfer_product->batch_id,
-                                    'product_id' => $transfer_product->product_id,
-                                    'unit_trade' => $transfer_product->unit_trade,
+                                    'batch_id' => $transferProduct->batch_id,
+                                    'product_id' => $transferProduct->product_id,
+                                    'unit_trade' => $transferProduct->unit_trade,
                                     'unit_retail' => $batch->unit_retail,
-                                    'quantity' => $transfer_product->total_piece,
-                                    'remaining_qty' => $transfer_product->total_piece,
+                                    'quantity' => $transferProduct->total_piece,
+                                    'remaining_qty' => $transferProduct->total_piece,
                                     'expiry_date' => $batch->expiry_date,
                                     'sold_quantity' => 0,
                                 ]);
                             }
                         } else {
                             BatchPOS::create([
-                                'batch_id' => $transfer_product->batch_id,
-                                'product_id' => $transfer_product->product_id,
-                                'unit_trade' => $transfer_product->unit_trade,
+                                'batch_id' => $transferProduct->batch_id,
+                                'product_id' => $transferProduct->product_id,
+                                'unit_trade' => $transferProduct->unit_trade,
                                 'unit_retail' => $batch->unit_retail,
-                                'quantity' => $transfer_product->total_piece,
-                                'remaining_qty' => $transfer_product->total_piece,
+                                'quantity' => $transferProduct->total_piece,
+                                'remaining_qty' => $transferProduct->total_piece,
                                 'expiry_date' => $batch->expiry_date,
                                 'sold_quantity' => 0,
                             ]);
@@ -101,57 +103,6 @@ class NewStockController extends Controller
                 }
 
 
-
-
-
-
-
-
-
-                // $itemName = $transferProduct->product->product_name;
-                // $item = Item::where('name', $itemName)->first();
-
-                // if ($item) {
-                //     $item->increment('available_quantity', $transferProduct->total_piece);
-                // } else {
-                //     $item = Item::create([
-                //         'name' => $itemName,
-                //         'itemcategory_id' => $itemCategory->id,
-                //         'unit' => $transferProduct->product->unit_of_measurement,
-                //         'description' => $transferProduct->product->package_detail,
-                //         'available_quantity' => $transferProduct->total_piece,
-                //     ]);
-                // }
-
-                // $itemIdExists = ItemStock::where('item_id', $item->id)->exists();
-
-                // if ($itemIdExists) {
-                //     ItemStock::where('item_id', $item->id)->incrementEach([
-                //         'quantity' => $transferProduct->total_piece,
-                //     ])->update([
-                //         'purchase_price' => $transferProduct->price_per_unit,
-                //     ]);
-                // } else {
-                //     ItemStock::create([
-                //         'itemcategory_id' => $itemCategory->id,
-                //         'item_id' => $item->id,
-                //         // 'supplier_name' => $transferProduct->product->vendor->account_title,
-                //         'store_name' => 'Test store',
-                //         'quantity' => $transferProduct->total_piece,
-                //         'purchase_price' => $transferProduct->price_per_unit,
-                //         'description' => $transferProduct->product->package_detail,
-                //         'currency_symbol' => 'Rs',
-                //     ]);
-
-                //     $category = Category::create([
-                //         'name' => $transferProduct->product->productCategory->name,
-                //         'is_active' => 1,
-                //     ]);
-
-                //     $brand = Brand::create([
-                //         'name' => $transferProduct->product->manufacturer->company_name,
-                //     ]);
-                // }
 
                 $medicineNameExists = Medicine::where('name', $transferProduct->product->product_name)->exists();
 
