@@ -405,7 +405,7 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             $(document).ready(function() {
-
+                calculation();
                 $("#fixed_discount").on('keyup', function() {
                     var fixed_discount = $("#fixed_discount").val();
                     var cost_price = $("#cost_price").val();
@@ -493,7 +493,7 @@
 
             function calculation() {
                 var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                if ($("#manufacturer_retail_price").val() != '') {
+                // if ($("#manufacturer_retail_price").val() != '') {
                     var tp = parseFloat($("#trade_price_percentage").val());
                     var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
                     $("#trade_price").val(calc);
@@ -532,7 +532,7 @@
                     $("#discount_amount").val(percentage);
                     // Fixed Discount Amount Set
 
-                }
+                // }
             }
         </script>
     @endpush
