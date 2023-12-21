@@ -40,11 +40,15 @@
                 </div>
             </a>
         </div>
+        @if ($row->doctorUser)
         <div class="d-flex flex-column">
             <a href="{{route('doctors_show',$row->id)}}"
                class="text-decoration-none mb-1">{{$row->doctorUser->full_name}}</a>
             <span>{{$row->doctorUser->email}}</span>
         </div>
+        @else
+            {{-- <span class="badge bg-light-info">No Doctor</span> --}}
+        @endif
     </div>
 
 @endif

@@ -14,10 +14,19 @@
         @endif
     @endif
 @else
+@if($row->doctorUser)
     <label class="form-check form-switch">
         <input name="status" data-id="{{$row->id}}" class="form-check-input doctor-active-status" type="checkbox"
                value="1" {{$row->doctorUser->status == 1 ? 'checked' : ''}} >
         <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
     </label>
+@else
+    <label class="form-check form-switch">
+        <input name="status" data-id="{{$row->id}}" class="form-check-input doctor-active-status" disabled type="checkbox"
+               value="1">
+        <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+    </label>
+
+@endif
 @endif
 
