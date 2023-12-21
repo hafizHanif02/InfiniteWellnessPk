@@ -479,6 +479,8 @@
 
                     var transferQty = $("#" + id + " input[name='products[" + items + "][total_piece]']").val();
                     var batchQty = $("#" + id + " input[name='products[" + items + "][total_quantity]']").val();
+                    transferQty = parseInt(transferQty);
+                    batchQty = parseInt(batchQty);
 
                     if (transferQty > batchQty) {
                         var batch_id = $("#" + id + " select[name='products[" + items + "][batch_no]']").val();
@@ -492,7 +494,7 @@
 
                                 for (var i = 0; i < data.productBatch.length; i++) {
                                     var remainingQty = data.productBatch[i].remaining_qty;
-
+                                    remainingQty = parseInt(remainingQty);
                                     if (remainingQty >= transferQty) {
                                         console.log("Found batch with enough remaining_qty: ", data.productBatch[i]);
                                         $("#" + id + " select[name='products[" + items + "][batch_no]']").val(data
