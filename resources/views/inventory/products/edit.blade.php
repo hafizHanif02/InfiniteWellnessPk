@@ -235,7 +235,7 @@
                             <div class="mb-5">
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" step="any"
+                                <input type="number" oninput="calculation()" step="any"
                                     name="manufacturer_retail_price" id="manufacturer_retail_price" required
                                     class="form-control"
                                     value="{{ old('manufacturer_retail_price', $product->manufacturer_retail_price) }}"
@@ -249,7 +249,7 @@
                             <div class="mb-5">
                                 <label for="pieces_per_pack" class="form-label">Pieces Per Pack <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="pieces_per_pack"
+                                <input type="number" oninput="calculation()" name="pieces_per_pack"
                                     id="pieces_per_pack" class="form-control"
                                     value="{{ old('pieces_per_pack', $product->pieces_per_pack) }}"
                                     title="Pieces per pack">
@@ -261,7 +261,7 @@
                         <div class="col-md-4">
                             <div class="mb-5">
                                 <label for="total_quantity" class="form-label"></label>
-                                <input type="hidden" onkeyup="calculation()" name="total_quantity"
+                                <input type="hidden" oninput="calculation()" name="total_quantity"
                                     id="total_quantity" class="form-control" readonly
                                     value="{{ old('total_quantity', $product->total_quantity) }}" title="Paking">
                                 @error('total_quantity')
@@ -273,7 +273,7 @@
                             <div class="mb-5">
                                 <label for="trade_price_percentage" class="form-label">Trade Price % <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="trade_price_percentage"
+                                <input type="number" oninput="calculation()" name="trade_price_percentage"
                                     id="trade_price_percentage" class="form-control"
                                     value="{{ old('trade_price_percentage', $product->trade_price_percentage) }}"
                                     title="Trade price percentage">
@@ -321,7 +321,7 @@
                             <div class="mb-5">
                                 <label for="trade_price" class="form-label">Trade Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="trade_price" id="trade_price"
+                                <input type="number" oninput="calculation()" name="trade_price" id="trade_price"
                                     class="form-control" readonly
                                     value="{{ old('trade_price', $product->trade_price) }}" title="Trade price">
                                 @error('trade_price')
@@ -358,7 +358,7 @@
                             <div class="mb-5">
                                 <label for="discount_trade_price" class="form-label">Discount % On Trade Price</label>
                                 <input type="number" name="discount_trade_price" id="discount_trade_price"
-                                    class="form-control" onkeyup="calculation()"
+                                    class="form-control" oninput="calculation()"
                                     placeholder="Enter discount percentage on trade price"
                                     value="{{ old('discount_trade_price', $product->discount_trade_price) }}"
                                     placeholder="Enter discount percentage on trade price"
@@ -372,7 +372,7 @@
                             <div class="mb-5">
                                 <label for="cost_price" class="form-label">Cost Price <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" onkeyup="calculation()" name="cost_price" id="cost_price"
+                                <input type="number" oninput="calculation()" name="cost_price" id="cost_price"
                                     class="form-control" readonly
                                     value="{{ old('cost_price', $product->cost_price) }}" placeholder="Cost price"
                                     title="Cost price">

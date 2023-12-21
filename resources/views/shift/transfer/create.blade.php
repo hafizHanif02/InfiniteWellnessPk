@@ -228,7 +228,7 @@
                                         <td>
                                             <input type="text" name="products[${i}][expiry_date]" class="form-control" id="expiry_date${i}"  readonly>
                                         <td>
-                                            <input type="number" value="1" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" onkeyup="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
+                                            <input type="number" value="1" id="totalpeice${i}" min="1" name="products[${i}][total_piece]" oninput="changeQuantityPerUnit(${products[i].id},${i})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${i}][total_pack]" value="${products[i].number_of_pack}"  class="form-control" readonly>
@@ -361,7 +361,7 @@
                                         <td>
                                             <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}"  readonly>
                                         <td>
-                                            <input type="number" value="1" min="1" name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
+                                            <input type="number" value="1" min="1" name="products[${items}][total_piece]" oninput="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${items}][total_pack]" value="${response.product.number_of_pack}"  class="form-control" readonly>
@@ -441,15 +441,15 @@
                         // UNIT
                         $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").val((price_per_unit_unitonly));
                         $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val((price_per_unit_unitonly));
-                        $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
+                        $("#" + id + " input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('oninput',
                             'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
                         $("#" + id + " input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
                     } else if (unit_of_measurement == 0) {
                         // BOX
                         $("#" + id + " input[name='products[" + items + "][price_per_unit]']").val(tradeprice);
-                        $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
+                        $("#" + id + " input[name='products[" + items + "][price_per_unit2]']").attr('oninput',
                             'changeQuantityPerPack(' + id + ',' + items + ')').val(tradeprice);
-                        $("#" + id + " input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('onkeyup',
+                        $("#" + id + " input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('oninput',
                             'changeQuantityPerPack(' + id + ',' + items + ')');
                         $("#" + id + " input[name='products[" + items + "][total_piece]']").attr('readonly', 'true').val(
                             price_per_unitet *
@@ -607,7 +607,7 @@
                                             <input type="text" name="products[${items}][expiry_date]" class="form-control" id="expiry_date${items}" readonly="">
                                         </td>
                                         <td>
-                                            <input type="number" value="${response.total_piece}"  name="products[${items}][total_piece]" onkeyup="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
+                                            <input type="number" value="${response.total_piece}"  name="products[${items}][total_piece]" oninput="changeQuantityPerUnit(${response.product.id},${items})" class="form-control">
                                         </td>
                                         <td>
                                             <input type="number" name="products[${items}][total_pack]" value="${response.total_pack}"  class="form-control" readonly>
