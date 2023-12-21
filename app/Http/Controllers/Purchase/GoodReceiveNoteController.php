@@ -34,7 +34,7 @@ class GoodReceiveNoteController extends Controller
     }
 
     public function create(): View
-    {
+    { 
         return view('purchase.goodreceivenote.create', [
             'id' => GoodReceiveNote::latest()->pluck('id')->first(),
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),

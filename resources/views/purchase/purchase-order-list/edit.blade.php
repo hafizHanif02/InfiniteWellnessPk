@@ -97,11 +97,11 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="hidden" step="any" id="price_per_unit{{$loop->iteration}}" name="products[{{$loop->iteration}}][price_per_unit]" value="{{$requistionProduct->price_per_unit }}" onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" class="form-control">    
-                                        <input type="number" step="any" id="price_per_unit{{$loop->iteration}}2" name="products[{{$loop->iteration}}][price_per_unit2]" value="{{$requistionProduct->price_per_unit }}" onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" class="form-control">    
+                                        <input type="hidden" step="any" id="price_per_unit{{$loop->iteration}}" name="products[{{$loop->iteration}}][price_per_unit]" value="{{$requistionProduct->price_per_unit }}" oninput="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" class="form-control">    
+                                        <input type="number" step="any" id="price_per_unit{{$loop->iteration}}2" name="products[{{$loop->iteration}}][price_per_unit2]" value="{{$requistionProduct->price_per_unit }}" oninput="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" class="form-control">    
                                     </td>
                                     <td>
-                                        <input type="number"  min="1" name="products[{{$loop->iteration}}][total_piece]" onkeyup="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" value="{{$requistionProduct->total_piece}}" class="form-control">
+                                        <input type="number"  min="1" name="products[{{$loop->iteration}}][total_piece]" oninput="changeQuantityPerUnit({{$requistionProduct->product->id}},{{$loop->iteration}})" value="{{$requistionProduct->total_piece}}" class="form-control">
                                     </td>
                                     <td>
                                         
@@ -111,7 +111,7 @@
                                         <input type="number" name="products[{{$loop->iteration}}][total_pack]" value="{{$requistionProduct->total_piece /$requistionProduct->product->pieces_per_pack }}"  class="form-control" readonly>    
                                     </td>
                                     <td>
-                                        <input type="number" step="any" name="products[{{$loop->iteration}}][discount_percentage]" onkeyup="discountPerc({{$requistionProduct->product->id}})"  id="discount_percentage{{$requistionProduct->product->id}}" value="{{$requistionProduct->discount_percentage}}" class="form-control" >
+                                        <input type="number" step="any" name="products[{{$loop->iteration}}][discount_percentage]" oninput="discountPerc({{$requistionProduct->product->id}})"  id="discount_percentage{{$requistionProduct->product->id}}" value="{{$requistionProduct->discount_percentage}}" class="form-control" >
                                         <input type="hidden" id="discount_amount2{{$requistionProduct->product->id}}">
                                     </td>
                                     <td>
@@ -169,16 +169,16 @@
             if (limit == 1) {
                 // UNIT
                 $("input[name='products[" + items + "][price_per_unit2]']").val((amount / TotalPeice).toFixed(2));
-                $("input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('onkeyup',
+                $("input[name='products[" + items + "][total_piece]']").removeAttr('readonly').attr('oninput',
                     'changeQuantityPerUnit(' + id + ',' + items + ')').val(1);
                 $("input[name='products[" + items + "][total_pack]']").attr('readonly', 'true');
             } else if (limit == 0) {
                 // BOX
                 $("input[name='products[" + items + "][price_per_unit]']").val(0);
-                $("input[name='products[" + items + "][price_per_unit2]']").attr('onkeyup',
+                $("input[name='products[" + items + "][price_per_unit2]']").attr('oninput',
                     'changeQuantityPerPack(' + id + ',' + items + ')').val(0);
 
-                $("input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('onkeyup',
+                $("input[name='products[" + items + "][total_pack]']").removeAttr('readonly').attr('oninput',
                     'changeQuantityPerPack(' + id + ',' + items + ')');
                 $("input[name='products[" + items + "][total_piece]']").attr('readonly', 'true').val(price_per_unitet *
                     TotalPack);

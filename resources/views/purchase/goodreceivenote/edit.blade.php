@@ -153,13 +153,13 @@
                                                     name="products[{{ $loop->iteration }}][deliver_qty]"
                                                     value={{ $goodReceiveProduct->deliver_qty }}
                                                     id="minusquantity{{ $loop->iteration }}"
-                                                    onkeyup="changeQuantity({{ $loop->iteration }})"
+                                                    oninput="changeQuantity({{ $loop->iteration }})"
                                                     class="form-control">
                                             </td>
                                             <td>
                                                 <input type="number" min="0"
                                                     name="products[{{ $loop->iteration }}][discount]"
-                                                    onkeyup="discountPerc({{ $loop->iteration }})"
+                                                    oninput="discountPerc({{ $loop->iteration }})"
                                                     id="discount{{ $loop->iteration }}"
                                                     value="{{ $goodReceiveProduct->discount }}" class="form-control">
                                                 <input type="hidden" readonly
@@ -170,7 +170,7 @@
                                             <td>
                                                 <input type="number" min="0"
                                                     name="products[{{ $loop->iteration }}][saletax_percentage]"
-                                                    onkeyup="saletaxPerc({{ $loop->iteration }})"
+                                                    oninput="saletaxPerc({{ $loop->iteration }})"
                                                     id="saletax{{ $loop->iteration }}"
                                                     value="{{ $goodReceiveProduct->saletax_percentage }}"
                                                     class="form-control">
@@ -270,7 +270,7 @@
                             <div class="col-md-7">
                                 <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
                                 <input type="number" min="0" max="100" id="advance_tax_percentage"
-                                    onkeyup="advanceTax()" placeholder="Advance Tax Percentage"
+                                    oninput="advanceTax()" placeholder="Advance Tax Percentage"
                                     name="advance_tax_percentage" class="form-control"
                                     value="{{ $goodReceiveNote->advance_tax_percentage }}">
                                 @error('advance_tax_percentage')

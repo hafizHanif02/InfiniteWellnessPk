@@ -135,7 +135,7 @@
                             <div class="col-md-7">
                                 <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
                                 <input type="text" id="advance_tax_percentage"
-                                    onkeyup="advanceTax()" placeholder="Advance Tax Percentage"
+                                    oninput="advanceTax()" placeholder="Advance Tax Percentage"
                                     name="advance_tax_percentage" class="form-control" value="0">
                                 @error('advance_tax_percentage')
                                     <small class="text-danger">{{ $message }}</small>
@@ -252,14 +252,14 @@
                                                     ${requistionProduct.product.least_unit == 1 ? `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>` : `<input type="number" id="changequantity${requistionProduct.id}"  value="${(requistionProduct.total_piece)-1}" class="form-control" readonly>`  }
                                                 </td>
                                                 <td>
-                                                    <input type="number" min="0" name="products[${items}][deliver_qty]" value=1 id="minusquantity${requistionProduct.id}"  max="${requistionProduct.product.least_unit == 1 ? `${requistionProduct.total_piece}` : `${requistionProduct.total_piece}` }" onkeyup="changeQuantity(${requistionProduct.id})"   class="form-control" >
+                                                    <input type="number" min="0" name="products[${items}][deliver_qty]" value=1 id="minusquantity${requistionProduct.id}"  max="${requistionProduct.product.least_unit == 1 ? `${requistionProduct.total_piece}` : `${requistionProduct.total_piece}` }" oninput="changeQuantity(${requistionProduct.id})"   class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="products[${items}][discount]" onkeyup="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >
+                                                    <input type="text" name="products[${items}][discount]" oninput="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >
                                                     <input type="hidden" readonly  name="products[${items}][discount_amount]"   id="discount_amount${requistionProduct.id}" value="0" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="text"  name="products[${items}][saletax_percentage]" onkeyup="saletaxPerc(${requistionProduct.id})"  id="saletax${requistionProduct.id}" class="form-control" >
+                                                    <input type="text"  name="products[${items}][saletax_percentage]" oninput="saletaxPerc(${requistionProduct.id})"  id="saletax${requistionProduct.id}" class="form-control" >
                                                 </td>
                                                 <td>
                                                     <input type="text" readonly  name="products[${items}][saletax_amount]"   id="saletax_amount${requistionProduct.id}" class="form-control" >
