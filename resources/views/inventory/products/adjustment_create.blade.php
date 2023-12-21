@@ -130,7 +130,7 @@
                                             <input type="number" id="current_qty${index}" name="products[${index}][current_qty]" class="form-control" value="" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" id="adjustment_qty${index}" name="products[${index}][adjustment_qty]" class="form-control" onkeyup="calculate(${index})" value="">
+                                            <input type="number" id="adjustment_qty${index}" name="products[${index}][adjustment_qty]" class="form-control" oninput="calculate(${index})" value="">
                                         </td>
                                         <td>
                                             <input type="number" id="different_qty${index}" name="products[${index}][different_qty]" class="form-control" value="" readonly>
