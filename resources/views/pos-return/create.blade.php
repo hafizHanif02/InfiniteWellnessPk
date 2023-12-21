@@ -130,7 +130,7 @@
                     <td><input type="text" class="form-control" value="${medicine.medicine.generic_formula}" name="products[${items}][generic_formula]" readonly ></td>
                     <td><input type="number" class="form-control" value="${medicine.product_quantity}" readonly ></td>
                     <td><input type="number"  class="form-control" name="products[${items}][mrp_perunit]" value="${medicine.mrp_perunit}" id="mrp_perunit${items}" readonly ></td>
-                    <td><input type="number"  class="form-control" id="return_quantity${items}" value="0" max=${medicine.product_quantity} onkeyup="chnagequantity(${items})" name="products[${items}][return_quantity]" ></td>
+                    <td><input type="number"  class="form-control" id="return_quantity${items}" value="0" max=${medicine.product_quantity} oninput="chnagequantity(${items})" name="products[${items}][return_quantity]" ></td>
                     <td><input type="number"  class="form-control" id="discount_percentage${items}" value="${medicine.discount_percentage}" name="products[${items}][discount_percentage]" readonly ></td>
                     <td><input type="number"  class="form-control" value="0"  id="product_total_price${items}" name="products[${items}][product_total_price]" readonly >
                         <input type="hidden"  class="form-control" value="0"  id="product_total_price2${items}" name="products[${items}][product_total_price2]" readonly >
