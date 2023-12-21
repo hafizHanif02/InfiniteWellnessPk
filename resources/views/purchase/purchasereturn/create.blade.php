@@ -124,7 +124,7 @@
                                             <input type="text"  placeholder="Piece" readonly  min="1" class="form-control" required>
                                         </td>
                                         <td>
-                                            <input type="text" name="products[${items}][quantity]"  min="1" value="1" id="minusquantity${value.product.id}" max="${value.deliver_qty}" value="${value.good_receive_note.deliver_qty}" name="quantity[${items}]" onkeyup="changeQuantity(${value.product.id},${items})" class="form-control" required>
+                                            <input type="number" name="products[${items}][quantity]"  min="1" value="1" id="minusquantity${value.product.id}" max="${value.deliver_qty}" value="${value.good_receive_note.deliver_qty}" name="quantity[${items}]" oninput="changeQuantity(${value.product.id},${items})" class="form-control" required>
                                         </td>
                                         <td>
                                             <input type="number"  value="${(value.batch)?value.batch.remaining_qty:0}" id="leftedquantity${value.product.id}"  class="form-control" readonly> 
