@@ -205,7 +205,7 @@
                         {{-- <div class="col-md-3"> --}}
                             {{-- <label for="number_of_pack" class="form-label">Number of Pack<sup
                                     class="text-danger">*</sup></label> --}}
-                            <input type="hidden" readonly value="1" onkeyup="calculation()" name="number_of_pack" id="number_of_pack"
+                            <input type="hidden" readonly value="1" oninput="calculation()" name="number_of_pack" id="number_of_pack"
                                 class="form-control @error('number_of_pack') is-invalid @enderror"
                                 placeholder="Select Unit Of Measurement First" value="{{ old('number_of_pack') }}"
                                 title="Number of packet">
@@ -218,7 +218,7 @@
                                 <label for="manufacturer_retail_price" class="form-label">Manufacturer Retail Price
                                     <sup class="text-danger">*</sup></label>
                                 <input type="number" step="any" min="1" name="manufacturer_retail_price" required
-                                    id="manufacturer_retail_price" onkeyup="calculation()"
+                                    id="manufacturer_retail_price" oninput="calculation()"
                                     class="form-control @error('manufacturer_retail_price') is-invalid @enderror"
                                     placeholder="Enter manufacture retail price"
                                     value="{{ old('manufacturer_retail_price') }}" title="Manufacturer retail price">
@@ -231,7 +231,7 @@
                             <div class="mb-5">
                                 <label for="pieces_per_pack" class="form-label">Pieces Per Pack <sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" min="1" onkeyup="calculation()" name="pieces_per_pack" onkeyup="pieces_per_pack()" id="pieces_per_pack"
+                                <input type="number" min="1" oninput="calculation()" name="pieces_per_pack" oninput="pieces_per_pack()" id="pieces_per_pack"
                                     class="form-control @error('pieces_per_pack') is-invalid @enderror"
                                     placeholder="Enter pieces per packet" value="{{ old('pieces_per_pack') }}"
                                     title="Pieces per pack">
@@ -256,9 +256,9 @@
                                 <label for="trade_price_percentage" class="form-label">Trade Price % <sup
                                         class="text-danger">*</sup></label>
                                 <input type="number" min="1" name="trade_price_percentage"
-                                    id="trade_price_percentage" onkeyup="calculation()"
+                                    id="trade_price_percentage" oninput="calculation()"
                                     class="form-control @error('trade_price_percentage') is-invalid @enderror"
-                                    placeholder="Enter trade price %" onkeyup="trade_price_percentage()" value="{{ old('trade_price_percentage') }}"
+                                    placeholder="Enter trade price %" oninput="trade_price_percentage()" value="{{ old('trade_price_percentage') }}"
                                     title="Trade price percentage">
                                 @error('trade_price_percentage')
                                     <small class="text-danger">{{ $message }}</small>
@@ -344,7 +344,7 @@
                             <div class="mb-5">
                                 <label for="discount_trade_price" class="form-label">Discount % On Trade Price</label>
                                 <input type="number"  name="discount_trade_price"
-                                    id="discount_trade_price" onkeyup="calculation()"
+                                    id="discount_trade_price" oninput="calculation()"
                                     class="form-control @error('discount_trade_price') is-invalid @enderror"
                                     placeholder="Enter discount percentage on trade price"
                                     value="{{ old('discount_trade_price') }}" title="Discount trade price">
@@ -424,7 +424,7 @@
 
             function calculation() {
                 var retailPrice = parseFloat($("#manufacturer_retail_price").val());
-                if ($("#manufacturer_retail_price").val() != '') {
+                // if ($("#manufacturer_retail_price").val() != '') {
                     var tp = parseFloat($("#trade_price_percentage").val());
                     var calc = parseFloat(retailPrice - (retailPrice * tp / 100));
                     $("#trade_price").val(calc);
@@ -463,7 +463,7 @@
                     $("#discount_amount").val(percentage);
                     // Fixed Discount Amount Set
 
-                }
+                // }
             }
            
 
