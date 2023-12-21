@@ -255,11 +255,11 @@
                                                     <input type="number" min="0" name="products[${items}][deliver_qty]" value=1 id="minusquantity${requistionProduct.id}"  max="${requistionProduct.product.least_unit == 1 ? `${requistionProduct.total_piece}` : `${requistionProduct.total_piece}` }" oninput="changeQuantity(${requistionProduct.id})"   class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="products[${items}][discount]" oninput="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >
+                                                    <input type="number" name="products[${items}][discount]" oninput="discountPerc(${requistionProduct.id})"  id="discount${requistionProduct.id}" value="0" class="form-control" >
                                                     <input type="hidden" readonly  name="products[${items}][discount_amount]"   id="discount_amount${requistionProduct.id}" value="0" class="form-control" >
                                                 </td>
                                                 <td>
-                                                    <input type="text"  name="products[${items}][saletax_percentage]" oninput="saletaxPerc(${requistionProduct.id})"  id="saletax${requistionProduct.id}" class="form-control" >
+                                                    <input type="number"  name="products[${items}][saletax_percentage]" oninput="saletaxPerc(${requistionProduct.id})"  id="saletax${requistionProduct.id}" class="form-control" >
                                                 </td>
                                                 <td>
                                                     <input type="text" readonly  name="products[${items}][saletax_amount]"   id="saletax_amount${requistionProduct.id}" class="form-control" >
