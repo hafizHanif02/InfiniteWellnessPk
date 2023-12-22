@@ -681,6 +681,7 @@
 
             // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
+            console.log('selling value ' + sellingPriceValue);
 
             totalQuantitySpan.value = totalQuantity;
             discountPercentage.value = fixedDiscount;

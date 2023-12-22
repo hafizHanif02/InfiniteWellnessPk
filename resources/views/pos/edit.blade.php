@@ -272,7 +272,8 @@
                                                     <input type="number" step="any"readonly
                                                         name="products[{{ $loop->iteration }}][mrp_perunit]"
                                                         id="selling_price{{ $loop->iteration }}"
-                                                        value="{{ $posProduct->batchpos ? $posProduct->batchpos->unit_retail : $posProduct->medicine->selling_price }}"
+                                                        {{-- value="{{ $posProduct->batchpos ? $posProduct->batchpos->unit_retail : $posProduct->medicine->selling_price }}" --}}
+                                                        value="{{ $posProduct->mrp_perunit }}"
                                                         class="form-control">
                                                 </td>
                                                 <td>
@@ -799,6 +800,8 @@
 
             // const GenericFormula = selectedOption.getAttribute('data-generic_formula');
             const sellingPriceValue = selectedOption.getAttribute('data-sellingPrice');
+            console.log('selling value ' + sellingPriceValue);
+
 
             totalQuantitySpan.value = totalQuantity;
             discountPercentage.value = fixedDiscount;
@@ -1040,7 +1043,7 @@
             const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
             $('#total_quantity' + id).val(total_quantity);
-            $('#selling_price' + id).val(unit_retail);
+            // $('#selling_price' + id).val(unit_retail);
             ChnageDosage(id);
         }
 
@@ -1210,12 +1213,15 @@
         });
 
         $(document).ready(function() {
-
-            ChnageDosage();
+            var count = 1;
+            $("input[id^='product_total_prices2']").each(function() {
+                count += 1;
+                ChnageDosage(count);
+                discountCalculation(count);
+            });
             discountCalculationTotal();
             ChnageDosageTotal();
             gstCalculationTotal();
-            discountCalculation(1);
 
             if (!localStorage.getItem('pageReloaded')) {
                 // If the 'pageReloaded' flag is not set, reload the page
