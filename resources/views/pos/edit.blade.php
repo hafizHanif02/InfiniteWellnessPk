@@ -1239,6 +1239,7 @@
         //    for delete values when delete row is click
         function deletevalues(id) {
             $("#product_total_prices2" + id).val(0);
+            $("#discount_amounts2" + id).val(0);
             $(`#medicine-row${id}`).remove();
             enablemainbutton();
             ChnageDosageTotal();

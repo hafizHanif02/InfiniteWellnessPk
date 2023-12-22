@@ -672,8 +672,8 @@ class PosController extends Controller
             'total_amount' => $total_amount,
             'total_saletax' => $total_saletax
         ]);
-
-        return redirect()->to('pos/proceed-to-pay-page/' . $id)->withSuccess('Recalculated Successfully');
+        Flash::message('Recalculated Successfully!');
+        return redirect()->to('pos/proceed-to-pay-page/' . $id);
         // return redirect()->back();
 
     }
