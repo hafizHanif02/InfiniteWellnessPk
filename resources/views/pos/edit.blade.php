@@ -1043,7 +1043,7 @@
             const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
             $('#total_quantity' + id).val(total_quantity);
-            // $('#selling_price' + id).val(unit_retail);
+            $('#selling_price' + id).val(unit_retail);
             ChnageDosage(id);
         }
 
