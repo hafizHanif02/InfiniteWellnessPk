@@ -1213,7 +1213,7 @@
         });
 
         $(document).ready(function() {
-            var count = 1;
+            var count = 0;
             $("input[id^='product_total_prices2']").each(function() {
                 count += 1;
                 ChnageDosage(count);
