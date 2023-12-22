@@ -643,4 +643,38 @@ class PosController extends Controller
             'medicines' => $medicines,
         ]);
     }
+
+    public function recalculate($id)
+    {
+        $posProducts = Pos_Product::where('pos_id', $id)->get();
+        // dd($posProducts);
+        foreach($posProducts as $posProduct){
+            $price = $posProduct->product_quantity * $posProduct->mrp_perunit;
+            $discount = $posProduct->discount_amount;
+            $product_total_price = $price - $discount;
+
+            $posProduct->update([
+                'product_total_price' => $product_total_price
+            ]);
+            $discount = $posProducts->sum('discount_amount');
+            // $total_saletax = Pos::;
+            $total_amount_inc_saletax = $posProducts->sum('product_total_price');
+            $total_amount_ex_saletax = $posProducts->sum('product_total_price');
+            // $total_amount_ex_saletax = $total_amount_ex_saletax + $total_saletax;
+            $total_amount = $total_amount_inc_saletax + 1;
+        }
+        $pos = Pos::where('id', $id)->first();
+        $total_saletax = $pos->total_saletax;
+        Pos::where('id', $id)->update([
+            'total_discount' => $discount,
+            'total_amount_inc_saletax' => $total_amount_inc_saletax,
+            'total_amount_ex_saletax' => $total_amount_inc_saletax - $total_saletax,
+            'total_amount' => $total_amount,
+            'total_saletax' => $total_saletax
+        ]);
+
+        return redirect()->to('pos/proceed-to-pay-page/' . $id)->withSuccess('Recalculated Successfully');
+        // return redirect()->back();
+
+    }
 }

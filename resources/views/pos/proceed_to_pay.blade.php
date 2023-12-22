@@ -100,6 +100,9 @@
             </div>
         </form>
         </div>
+        <div class="mb-5">
+            <a href="{{ url('/pos/recalculate') }}/{{$pos->id}}" style="color: white"><button type="button" class="btn btn-success">Recalculate</button></a>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
