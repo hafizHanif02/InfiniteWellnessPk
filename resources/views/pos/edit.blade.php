@@ -331,7 +331,7 @@
                                                                 class="fa-solid fa-print"></i></button></a></td>
                                                 <td class="text-center">
                                                     <a href="javascript:void(0)"
-                                                        title=" {{ __('messages.common.delete') }}"
+                                                        title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
                                                         class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
@@ -735,7 +735,7 @@
                             </td>
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
+                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -1129,7 +1129,7 @@
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
 
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"
+                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -1229,6 +1229,16 @@
             var id = $('.batch_pos').val();
             ChangeBatch(id);
         });
+
+        //    for delete values when delete row is click
+        function deletevalues(id) {
+            $(`#medicine-row${id}`).remove();
+            enablemainbutton();
+
+            ChnageDosageTotal();
+            discountCalculationTotal();
+            gstCalculationTotal();
+        }
     </script>
 
 

@@ -627,8 +627,6 @@
             ChnageDosageTotal();
             discountCalculationTotal();
             gstCalculationTotal();
-            
-            console.log('heelo');
         }
 
 
