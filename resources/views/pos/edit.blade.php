@@ -330,8 +330,8 @@
                                                             class="btn btn-success text-center" id="" disabled><i
                                                                 class="fa-solid fa-print"></i></button></a></td>
                                                 <td class="text-center">
-                                                    <a href="javascript:void(0)"
-                                                        title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
+                                                    <a
+                                                        title=" {{ __('messages.common.delete') }}"  onclick="deletevalues({{ $loop->iteration }})"
                                                         class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </a>
@@ -735,7 +735,7 @@
                             </td>
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
+                            <a title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -1129,7 +1129,7 @@
                         <td><a id="printlabel${a}"><button type="button" class="btn btn-success text-center" id="" disabled><i class="fa-solid fa-print"></i></button></a></td>
 
                         <td class="text-center">
-                            <a href="javascript:void(0)" title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
+                            <a title=" {{ __('messages.common.delete') }}"  onclick="deletevalues(${a})"
                             class="delete-prescription-medicine-item btn px-1 text-danger fs-3 pe-0">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
@@ -1232,9 +1232,9 @@
 
         //    for delete values when delete row is click
         function deletevalues(id) {
+            $("#product_total_prices2" + id).val(0);
             $(`#medicine-row${id}`).remove();
             enablemainbutton();
-
             ChnageDosageTotal();
             discountCalculationTotal();
             gstCalculationTotal();
