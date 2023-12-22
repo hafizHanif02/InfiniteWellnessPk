@@ -54,6 +54,11 @@
                                         <a href="/fast-medical-record/view/{{ $fastrecord->id }}">
                                             <i class="fa fa-eye"></i>
                                         </a>
+                                        <a href="{{ route('fast-medical-record.edit', $fastrecord->id) }}" aria-label="Edit">
+                                            <i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('fast-medical-record.prints', ['id' => $fastrecord->id]) }}" aria-label="Print">
+                                                <i class="fa fa-print"></i>
+                                            </a>
                                     </td>
 
                                 </tr>

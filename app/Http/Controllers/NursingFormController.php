@@ -187,42 +187,47 @@ class NursingFormController extends Controller
             'patients' => Patient::with('user')->get(),
         ]);
     }
-
     public function fastMedicalRecordstore(Request $request)
     {
-        $validator = Validator::make($request->all(), ([
-            'patient_name' => 'required',
-            'referred_by' => 'required',
-            'dob' => 'required',
-            'contact' => 'required',
-            'referrel_date' => 'required',
-            'pre_test_date' => 'required',
-            'pre_test_status' => 'required',
-            'blood_collection_date' => 'required',
-            'blood_collection_amount' => 'required',
-            'blood_collection_status' => 'required',
-            'date_of_shipment' => 'required',
-            'fast_test_report_date' => 'required',
-            'fast_test_report_status' => 'required',
-            'report_session_date' => 'required',
-            'report_session_status' => 'required',
-            'post_test_consult_date' => 'required',
-            'post_test_consult_status' => 'required',
-            'post_post_test_date' => 'required',
-            'post_post_test_status' => 'required',
-            'retest_date' => 'required',
-            'retest_date_status' => 'required',
-            'dietitian' => 'required',
-            'comment' => 'required',
-        ]));
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        } else {
-            FastMedicalRecord::create($request->all());
-            return to_route('fast-medical-record.index')->with('success', 'Fast Medical Record created!');
-        }
+        FastMedicalRecord::create($request->all());
+        return redirect()->route('fast-medical-record.index')->with('success', 'Fast Medical Record created!');
     }
+    
+    // public function fastMedicalRecordstore(Request $request)
+    // {
+    //     // $validator = Validator::make($request->all(), ([
+    //     //     'patient_name' => 'required',
+    //     //     'referred_by' => 'required',
+    //     //     'dob' => 'required',
+    //     //     'contact' => 'required',
+    //     //     'referrel_date' => 'required',
+    //     //     'pre_test_date' => 'required',
+    //     //     'pre_test_status' => 'required',
+    //     //     'blood_collection_date' => 'required',
+    //     //     'blood_collection_amount' => 'required',
+    //     //     'blood_collection_status' => 'required',
+    //     //     'date_of_shipment' => 'required',
+    //     //     'fast_test_report_date' => 'required',
+    //     //     'fast_test_report_status' => 'required',
+    //     //     'report_session_date' => 'required',
+    //     //     'report_session_status' => 'required',
+    //     //     'post_test_consult_date' => 'required',
+    //     //     'post_test_consult_status' => 'required',
+    //     //     'post_post_test_date' => 'required',
+    //     //     'post_post_test_status' => 'required',
+    //     //     'retest_date' => 'required',
+    //     //     'retest_date_status' => 'required',
+    //     //     'dietitian' => 'required',
+    //     //     'comment' => 'required',
+    //     // ]));
+
+    //     // if ($validator->fails()) {
+    //     //     return redirect()->back()->withErrors($validator)->withInput();
+    //     // } else {
+    //         FastMedicalRecord::create($request->all());
+    //         return to_route('fast-medical-record.index')->with('success', 'Fast Medical Record created!');
+    //     // }
+    // }
 
     public function fastMedicalRecordShow($id)
     {
@@ -237,5 +242,27 @@ class NursingFormController extends Controller
             'Fast_Medical_Record' => FastMedicalRecord::get(),
         ]);
     }
+// Edit
+    public function fastMedicalRecordEdit($id)
+    { $patients = Patient::with('user')->get();
+        $fastrecord = FastMedicalRecord::findOrFail($id);
+        return view('Fast-Medical-Record.edit', compact('fastrecord','patients'));
+    }
+    // update
+    public function fastMedicalupdate(Request $request, $id)
+    {        
+        $fastrecord = FastMedicalRecord::findOrFail($id);
+        $fastrecord->update($request->all());
 
+        return redirect()->route('fast-medical-record.index')->with('success', 'Record updated successfully');
+    }
+
+    // print
+    public function fastMedicalprint($id)
+    {
+        return view('Fast-Medical-Record.printed', [
+            'fastrecord' => FastMedicalRecord::where('id', $id)->first(),
+        ]);
+    }
+    
 }

@@ -1,6 +1,7 @@
 @extends('layouts.app3')
 @section('title')
-    F.A.S.T Medical Record
+   Edit F.A.S.T Medical Record
+   {{-- {{dd($fastrecord)}} --}}
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -9,28 +10,15 @@
                 <h3>F.A.S.T Medical Record</h3>
                 <a href="{{ route('fast-medical-record.index') }}" class="btn btn-secondary">Back</a>
             </div>
-            <form action="{{ route('fast-medical-record.store') }}" method="POST" id="myForm">
+            <form action="{{ route('fast-medical-record.update', $fastrecord->id) }}" method="POST" id="myForm">
                 @csrf
+                @method('PUT')
                 <div class="card-body">
                     <div class="row mb-5 mt-5">
                         <div class="col-md-4">
                             <label for="patient_name" class="form-label">MR #<sup class="text-danger">*</sup></label>
-                            <select class="form-select" name="patient_name" id="patient_name">
-                                <option selected disabled>select mr number</option>
-                                @foreach ($patients as $patient)
-                                    <option value="{{ $patient->user->full_name }}"
-                                        {{ old('patient_name') == $patient->user->full_name ? 'selected' : '' }}
-                                        data-blood_pressure="{{ $patient->blood_pressure }}"
-                                        data-patient_id="{{ $patient->id }}" data-heart_rate="{{ $patient->heart_rate }}"
-                                        data-respiratory_rate="{{ $patient->respiratory_rate }}"
-                                        data-temperature="{{ $patient->temperature }}" data-height="{{ $patient->height }}"
-                                        data-weight="{{ $patient->weight }}" data-bmi="{{ $patient->bmi }}"
-                                        data-dob="{{ $patient->user->dob }}" data-contact_no="{{ $patient->user->phone }}"
-                                        data-first_name="{{ $patient->user->first_name }}"
-                                        data-last_name="{{ $patient->user->last_name }}">
-                                        {{ $patient->MR }}
-                                        ~ {{ $patient->user->full_name }}</option>
-                                @endforeach
+                            <input type="text" name="contact" value="{{ old('patient_name', $fastrecord->patient_name) }}" id="contact"
+                            class="form-control" readonly>                       
                             </select>
                             @error('patient_name')
                                 <p class="text-danger">{{ $message }}</p>
@@ -41,7 +29,7 @@
                             <div class="mb-2">
                                 <label for="dob" class="form-label">Date of Birth<sup
                                         class="text-danger">*</sup></label>
-                                <input type="text" name="dob" value="{{ old('dob') }}" id="dob"
+                                <input type="text" name="dob" value="{{ old('dob', $fastrecord->dob) }}"
                                     class="form-control">
                                 @error('dob')
                                     <p class="text-danger">{{ $message }}</p>
@@ -52,7 +40,7 @@
                             <div class="mb-2">
                                 <label for="contact_no" class="form-label">Contact No.<sup
                                         class="text-danger">*</sup></label>
-                                <input type="text" name="contact" value="{{ old('contact') }}" id="contact"
+                                <input type="text" name="contact" value="{{ old('contact', $fastrecord->contact) }}" id="contact"
                                     class="form-control">
                                 @error('contact')
                                     <p class="text-danger">{{ $message }}</p>
@@ -65,7 +53,7 @@
                             <div class="mb-2">
                                 <label for="referred_by" class="form-label">Referred By<sup
                                         class="text-danger">*</sup></label>
-                                <input type="text" value="{{ old('referred_by') }}" name="referred_by" id="referred_by"
+                                <input type="text" value="{{ old('referred_by', $fastrecord->referred_by) }}" name="referred_by" id="referred_by"
                                     class="form-control">
                                 @error('referred_by')
                                     <p class="text-danger">{{ $message }}</p>
@@ -76,7 +64,7 @@
                             <div class="mb-2">
                                 <label for="referral_date" class="form-label">Referral Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('referrel_date') }}" name="referrel_date"
+                                <input type="date" value="{{ old('referrel_date', $fastrecord->referrel_date)}}" name="referrel_date"
                                     id="referrel_date" class="form-control">
                                 @error('referrel_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -94,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="pretest-date" class="form-label">Date<sup class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('pre_test_date') }}" name="pre_test_date"
+                                <input type="date" value="{{ old('pre_test_date', $fastrecord->pre_test_date) }}" name="pre_test_date"
                                     id="pre_test_date" class="form-control">
                                 @error('pre_test_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -107,9 +95,9 @@
                                         class="text-danger">*</sup></label>
                                 <select name="pre_test_status" class="form-select" id="pre_test_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('pre_test_status') == '1' ? 'selected' : '' }}>Completed
+                                    <option value="1" {{ old('pre_test_status', $fastrecord->pre_test_status) == '1' ? 'selected' : '' }}>Completed
                                     </option>
-                                    <option value="0" {{ old('pre_test_status') == '0' ? 'selected' : '' }}>In
+                                    <option value="0" {{ old('pre_test_status',$fastrecord->pre_test_status) == '0' ? 'selected' : '' }}>In
                                         Completed</option>
                                 </select>
                                 @error('pre_test_status')
@@ -127,7 +115,7 @@
                             <div class="mb-2">
                                 <label for="bloodCollection-date" class="form-label">Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('blood_collection_date') }}"
+                                <input type="date" value="{{ old('blood_collection_date', $fastrecord->blood_collection_date) }}"
                                     name="blood_collection_date" id="blood_collection_date" class="form-control">
                                 @error('blood_collection_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -138,7 +126,7 @@
                             <div class="mb-2">
                                 <label for="bloodCollection-amount" class="form-label">Amount<sup
                                         class="text-danger">*</sup></label>
-                                <input type="number" value="{{ old('blood_collection_amount') }}"
+                                <input type="number" value="{{ old('blood_collection_amount', $fastrecord->blood_collection_amount) }}"
                                     name="blood_collection_amount" class="form-control" id="blood_collection_amount">
                                 @error('blood_collection_amount')
                                     <p class="text-danger">{{ $message }}</p>
@@ -151,9 +139,9 @@
                                         class="text-danger">*</sup></label>
                                 <select name="blood_collection_status" class="form-select" id="blood_collection_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('blood_collection_status') == '1' ? 'selected' : '' }}>
+                                    <option value="1" {{ old('blood_collection_status', $fastrecord->blood_collection_status) == '1' ? 'selected' : '' }}>
                                         Completed</option>
-                                    <option value="0" {{ old('blood_collection_status') == '0' ? 'selected' : '' }}>
+                                    <option value="0" {{ old('blood_collection_status', $fastrecord->blood_collection_status) == '0' ? 'selected' : '' }}>
                                         In Completed</option>
                                 </select>
                                 @error('blood_collection_status')
@@ -171,7 +159,7 @@
                             <div class="mb-2">
                                 <label for="date_of_shipment" class="form-label">Date Of Shipment<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('date_of_shipment') }}" name="date_of_shipment"
+                                <input type="date" value="{{ old('date_of_shipment', $fastrecord->date_of_shipment) }}" name="date_of_shipment"
                                     id="date_of_shipment" class="form-control">
                                 @error('date_of_shipment')
                                     <p class="text-danger">{{ $message }}</p>
@@ -188,7 +176,7 @@
                             <div class="mb-2">
                                 <label for="fast_test_report_date" class="form-label">Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('fast_test_report_date') }}"
+                                <input type="date" value="{{ old('fast_test_report_date', $fastrecord->fast_test_report_date) }}"
                                     name="fast_test_report_date" id="fast_test_report_date" class="form-control">
                                 @error('fast_test_report_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -199,13 +187,15 @@
                             <div class="mb-2">
                                 <label for="fast_test_report_status" class="form-label">Status<sup
                                         class="text-danger">*</sup></label>
-                                <select name="fast_test_report_status" class="form-select" id="fast_test_report_status">
-                                    <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('fast_test_report_status') == '1' ? 'selected' : '' }}>
-                                        Provided</option>
-                                    <option value="0" {{ old('fast_test_report_status') == '0' ? 'selected' : '' }}>
-                                        Not Provided</option>
-                                </select>
+                                        <select name="fast_test_report_status" class="form-select" id="fast_test_report_status">
+                                            <option value="" selected disabled>select status</option>
+                                            <option value="1" {{ old('fast_test_report_status', $fastrecord->fast_test_report_status) == '1' ? 'selected' : '' }}>
+                                                Provided
+                                            </option>
+                                            <option value="0" {{ old('fast_test_report_status', $fastrecord->fast_test_report_status) == '0' ? 'selected' : '' }}>
+                                                Not Provided
+                                            </option>
+                                        </select>
                                 @error('fast_test_report_status')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -221,7 +211,7 @@
                             <div class="mb-2">
                                 <label for="report_session_date" class="form-label">Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('report_session_date') }}"
+                                <input type="date" value="{{ old('report_session_date' , $fastrecord->report_session_date) }}"
                                     name="report_session_date" id="report_session_date" class="form-control">
                                 @error('report_session_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -234,9 +224,9 @@
                                         class="text-danger">*</sup></label>
                                 <select name="report_session_status" class="form-select" id="report_session_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('report_session_status') == '1' ? 'selected' : '' }}>
+                                    <option value="1" {{ old('report_session_status' , $fastrecord->report_session_status) == '1' ? 'selected' : '' }}>
                                         Provided</option>
-                                    <option value="0" {{ old('report_session_status') == '0' ? 'selected' : '' }}>Not
+                                    <option value="0" {{ old('report_session_status' , $fastrecord->report_session_status) == '0' ? 'selected' : '' }}>Not
                                         Provided</option>
                                 </select>
                                 @error('report_session_status')
@@ -255,7 +245,7 @@
                             <div class="mb-2">
                                 <label for="post_test_consult_date" class="form-label">Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('post_test_consult_date') }}"
+                                <input type="date" value="{{ old('post_test_consult_date', $fastrecord->post_test_consult_date) }}"
                                     name="post_test_consult_date" id="post_test_consult_date" class="form-control">
                                 @error('post_test_consult_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -269,9 +259,9 @@
                                 <select name="post_test_consult_status" class="form-select"
                                     id="post_test_consult_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('post_test_consult_status') == '1' ? 'selected' : '' }}>
+                                    <option value="1" {{ old('post_test_consult_status', $fastrecord->post_test_consult_status) == '1' ? 'selected' : '' }}>
                                         Completed</option>
-                                    <option value="0" {{ old('post_test_consult_status') == '0' ? 'selected' : '' }}>
+                                    <option value="0" {{ old('post_test_consult_status' , $fastrecord->post_test_consult_status) == '0' ? 'selected' : '' }}>
                                         In Completed</option>
                                 </select>
                                 @error('post_test_consult_status')
@@ -290,7 +280,7 @@
                             <div class="mb-2">
                                 <label for="post_post_test_date" class="form-label">Date<sup
                                         class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('post_post_test_date') }}"
+                                <input type="date" value="{{ old('post_post_test_date', $fastrecord->post_post_test_date) }}"
                                     name="post_post_test_date" id="post_post_test_date" class="form-control">
                                 @error('post_post_test_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -303,9 +293,9 @@
                                         class="text-danger">*</sup></label>
                                 <select name="post_post_test_status" class="form-select" id="post_post_test_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('post_post_test_status') == '1' ? 'selected' : '' }}>
+                                    <option value="1" {{ old('post_post_test_status', $fastrecord->post_post_test_status) == '1' ? 'selected' : '' }}>
                                         Completed</option>
-                                    <option value="0" {{ old('post_post_test_status') == '0' ? 'selected' : '' }}>In
+                                    <option value="0" {{ old('post_post_test_status' , $fastrecord->post_post_test_status) == '0' ? 'selected' : '' }}>In
                                         Completed</option>
                                 </select>
                                 @error('post_post_test_status')
@@ -323,7 +313,7 @@
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="retest_date" class="form-label">Date<sup class="text-danger">*</sup></label>
-                                <input type="date" value="{{ old('retest_date') }}" name="retest_date"
+                                <input type="date" value="{{ old('retest_date' , $fastrecord->retest_date) }}" name="retest_date"
                                     id="retest_date" class="form-control">
                                 @error('retest_date')
                                     <p class="text-danger">{{ $message }}</p>
@@ -336,9 +326,9 @@
                                         class="text-danger">*</sup></label>
                                 <select name="retest_date_status" class="form-select" id="retest_date_status">
                                     <option value="" selected disabled>select status</option>
-                                    <option value="1" {{ old('retest_date_status') == '1' ? 'selected' : '' }}>
+                                    <option value="1" {{ old('retest_date_status' , $fastrecord->retest_date_status) == '1' ? 'selected' : '' }}>
                                         Completed</option>
-                                    <option value="0" {{ old('retest_date_status') == '0' ? 'selected' : '' }}>In
+                                    <option value="0" {{ old('retest_date_status'   , $fastrecord->retest_date_status) == '0' ? 'selected' : '' }}>In
                                         Completed</option>
                                 </select>
                                 @error('retest_date_status')
@@ -355,7 +345,7 @@
                             <div class="mb-2">
                                 <label for="dietitian" class="form-label">Dietitian<sup
                                         class="text-danger">*</sup></label>
-                                <input type="text" value="{{ old('dietitian') }}" name="dietitian" id="dietitian"
+                                <input type="text" value="{{ old('dietitian' , $fastrecord->dietitian) }}" name="dietitian" id="dietitian"
                                     class="form-control">
                                 @error('dietitian')
                                     <p class="text-danger">{{ $message }}</p>
@@ -367,7 +357,7 @@
                                 <label for="retest-status" class="form-label">Comment<sup
                                         class="text-danger">*</sup></label>
                                 <textarea name="comment" id="comment" cols="30" rows="10" class="form-control">
-                                    {{ old('comment') }}
+                                    {{ old('comment' , $fastrecord->comment) }}
                                 </textarea>
                                 @error('comment')
                                     <p class="text-danger">{{ $message }}</p>
@@ -382,16 +372,14 @@
 
                         <div class="col-md-4"></div>
                         <div class="col-md-4 text-center">
-                            <button type="submit" id="submit" class="btn btn-primary w-25">Submit</button>
+                            <button type="submit" id="submit" class="btn btn-primary w-25">Update</button>
                         </div>
                         <div class="col-md-4"></div>
                     </div>
                 </div>
 
         </div>
-
         </form>
-
     </div>
 
 
@@ -460,43 +448,5 @@
                 });
             });
         });
-
-        // $(document).ready(function() {
-        //     $('#submit').prop('disabled', true);
-        //     $('form input, form select, form textarea').on('input change', function() {
-        //         console.log("first");
-        //         if (
-        //             $('#patient_name').val() !== '' &&
-        //             $('#referred_by').val() !== '' &&
-        //             $('#dob').val() !== '' &&
-        //             $('#contact').val() !== '' &&
-        //             $('#referrel_date').val() !== '' &&
-        //             $('#pre_test_date').val() !== '' &&
-        //             $('#pre_test_status').val() !== '' &&
-        //             $('#blood_collection_date').val() !== '' &&
-        //             $('#blood_collection_amount').val() !== '' &&
-        //             $('#blood_collection_status').val() !== '' &&
-        //             $('#date_of_shipment').val() !== '' &&
-        //             $('#fast_test_report_date').val() !== '' &&
-        //             $('#fast_test_report_status').val() !== '' &&
-        //             $('#report_session_date').val() !== '' &&
-        //             $('#report_session_status').val() !== '' &&
-        //             $('#post_test_consult_date').val() !== '' &&
-        //             $('#post_test_consult_status').val() !== '' &&
-        //             $('#post_post_test_date').val() !== '' &&
-        //             $('#post_post_test_status').val() !== '' &&
-        //             $('#retest_date').val() !== '' &&
-        //             $('#retest_date_status').val() !== '' &&
-        //             $('#dietitian').val() !== '' &&
-        //             $('#comment').val() !== ''
-        //         ) {
-        //             $('#submit').prop('disabled', false);
-        //             console.log('if condition');
-        //         } else {
-        //             $('#submit').prop('disabled', true);
-        //             console.log('else condition');
-        //         }
-        //     });
-        // });
     </script>
 @endsection
