@@ -104,7 +104,70 @@ class GoodReceiveNoteController extends Controller
             ]);
 
 
-            // dd($product['batch_no']);
+            $grnProduct = GoodReceiveNote::where('id',$goodReceiveNote->id)->with('goodReceiveProducts')->first();
+
+
+                foreach ($grnProduct->goodReceiveProducts as $goodReceiveProduct) {
+                    $unit_retail = $goodReceiveProduct->manufacturer_retail_price / $goodReceiveProduct->product->pieces_per_pack;
+                    $formatted_unit_retail = number_format($unit_retail, 2);
+                    $quantity = $goodReceiveProduct->deliver_qty + $goodReceiveProduct->bonus;
+    
+                    $batch =   Batch::create([
+                        'batch_no' => $goodReceiveProduct->batch_number,
+                        'product_id' => $goodReceiveProduct->product->id,
+                        'unit_trade' => $goodReceiveProduct->item_amount,
+                        'unit_retail' => $formatted_unit_retail,
+                        'quantity' => $quantity,
+                        'remaining_qty' => $quantity,
+                        'expiry_date' => $goodReceiveProduct->expiry_date,
+                        'transfer_quantity' => 0
+                    ]);
+                    GoodReceiveProduct::where('id', $goodReceiveProduct->id)->update([
+                        'batch_id' => $batch->id
+                    ]);
+    
+                    if ($goodReceiveProduct->bonus != NULL) {
+                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
+                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->bonus);
+                    } else {
+                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty,);
+                    }
+    
+                    // $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
+    
+                    //     $goodReceiveProduct->product->update([
+                    //     'manufacturer_retail_price'=> $goodReceiveProduct->manufacture_retail_price,
+                    //     'unit_trade' => $unit_trade,
+                    //     // 'unit_retail'=> $goodReceiveProduct->item_amount
+                    // ]);
+    
+                    // dd($goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty, $goodReceiveProduct->item_amount, $goodReceiveProduct->manufacturer_retail_price);
+                    $goodReceiveProduct->product->update([
+                        'unit_retail' => $formatted_unit_retail,
+                        'unit_trade' => $goodReceiveProduct->item_amount,
+                        'manufacturer_retail_price' => $goodReceiveProduct->manufacturer_retail_price
+                    ]);
+                }
+            $goodReceiveNote->update([
+                'is_approved' => 1
+            ]);
+            $user = Auth::user();
+            Log::create([
+                'action' => 'Good Receive Note Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' GRN No.' . $goodReceiveNote->id,
+                'action_by_user_id' => $user->id,
+            ]);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

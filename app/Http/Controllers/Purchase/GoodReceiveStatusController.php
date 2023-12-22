@@ -30,6 +30,7 @@ class GoodReceiveStatusController extends Controller
 
     public function status(Request $request, GoodReceiveNote $goodReceiveNote): RedirectResponse
     {
+        // dd($goodReceiveNote->goodReceiveProducts);
         if ($request->status == 1) {
             foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveProduct) {
                 // $unit_trade = (($goodReceiveProduct->product->trade_price_percentage * $goodReceiveProduct->item_amount) / 100) + $goodReceiveProduct->item_amount;
