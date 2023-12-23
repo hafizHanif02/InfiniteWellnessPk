@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
+use App\Models\User;
 use Illuminate\View\View;
+use App\Mail\MarkdownMail;
 use Illuminate\Http\Request;
 use App\Models\Inventory\Vendor;
 use App\Models\Inventory\Product;
@@ -13,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Purchase\RequistionProduct;
+use Illuminate\Support\Facades\Mail as Email;
 use App\Http\Requests\Purchase\RequistionRequest;
 
 class PurchaseOrderController extends Controller
@@ -94,6 +97,69 @@ class PurchaseOrderController extends Controller
             'action' => 'Requisition Has Been ' . ($request->status == 1 ? 'Approved' : 'Rejected') . ' Requisition No.' . $requistion->id,
             'action_by_user_id' => $user->id,
         ]);
+
+
+        // EMAIL
+
+        // $patient = Patient::where('id', $appointment->patient_id)->with('user')->first();
+        // $doctor = Doctor::where('id',  $appointment->doctor_id)->with('user')->first();
+        // $receptions = Receptionist::with('user')->get();
+
+        // $patientEmail = $patient->user->email;
+        // $doctorEmail = $doctor->user->email;
+        // $recipient = [$patient->user->email, $doctor->user->email];
+        $admin = User::where('department_id', 1)->get();
+        $supplyChain = User::where('department_id', 11)->get();
+
+        $recipient = [];
+        foreach ($admin as $admin) {
+            $recipient[] = $admin->email;
+        }
+        $subject = 'Requistion ' . $requistion->id . ' Approved';
+
+
+            $data = array(
+                'message' => 'Requisition No. ' . $requistion->id . ' has been Approved.',
+            );
+
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Requisition No. ' . $requistion->id . ' has been Approved.',
+            'attachments' => null,
+        );
+
+        Email::to($recipient)
+            ->send(new MarkdownMail(
+                'emails.email',
+                $mail['subject'],
+                $mail
+            ));
+
+        foreach ($supplyChain as $supplychain) {
+
+            $supplychain_mail = $supplychain->email;
+            $supplychain_array = [];
+            $supplychain_array[] = $supplychain_mail;
+
+
+            $mail = array(
+                'to' => $supplychain_array,
+                'subject' => $subject,
+                'message' => 'Requisition No. ' . $requistion->id . ' has been Approved.',
+                'attachments' => null,
+            );
+
+            Email::to($supplychain_array)
+                ->send(new MarkdownMail(
+                    'emails.email',
+                    $mail['subject'],
+                    $mail
+                ));
+        }
+        // EMAIL
+
 
         return back()->with('success', 'Requistion updated!');
     }

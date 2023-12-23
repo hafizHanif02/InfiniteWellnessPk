@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Purchase;
 
 use App\Models\Log;
 use Illuminate\View\View;
+use App\Mail\MarkdownMail;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
 use Illuminate\Support\Carbon;
@@ -24,8 +25,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Imports\Purchase\RequistionImport;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
+use Illuminate\Support\Facades\Mail as Email;
 use App\Http\Requests\Purchase\RequistionRequest;
 use App\Imports\Purchase\RequistionDocumentImport;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RequistionController extends Controller
@@ -143,6 +146,71 @@ class RequistionController extends Controller
             mkdir($directory, 0755, true);
         }
         file_put_contents($filePath, $requistionproductlogs);
+
+
+
+        // EMAIL
+
+        // $patient = Patient::where('id', $appointment->patient_id)->with('user')->first();
+        // $doctor = Doctor::where('id',  $appointment->doctor_id)->with('user')->first();
+        // $receptions = Receptionist::with('user')->get();
+
+        // $patientEmail = $patient->user->email;
+        // $doctorEmail = $doctor->user->email;
+        // $recipient = [$patient->user->email, $doctor->user->email];
+        $PharmacistAdmin = User::where('department_id', 13)->get();
+        $Admins = User::where('department_id', 1)->get();
+
+        $recipient = [];
+        foreach ($PharmacistAdmin as $PharmacistAdmin) {
+            $recipient[] = $PharmacistAdmin->email;
+        }
+        $subject = 'Requistion ' . $requistion->id . ' Created';
+
+
+            $data = array(
+                'message' => 'Requisition No. ' . $requistion->id . ' has been created and is awaiting your approval.',
+            );
+
+
+        $mail = array(
+            'to' => $recipient,
+            'subject' => $subject,
+            'message' => 'Requisition No. ' . $requistion->id . ' has been created and is awaiting your approval.',
+            'attachments' => null,
+        );
+
+        Email::to($recipient)
+            ->send(new MarkdownMail(
+                'emails.email',
+                $mail['subject'],
+                $mail
+            ));
+
+        foreach ($Admins as $admin) {
+            $admin_mail = $admin->email;
+            $admin_array = [];
+            $admin_array[] = $admin_mail;
+
+
+            $mail = array(
+                'to' => $admin_array,
+                'subject' => $subject,
+                'message' => 'Requisition No. ' . $requistion->id . ' has been created and is awaiting your approval.',            
+                'attachments' => null,
+            );
+
+            Email::to($admin_array)
+                ->send(new MarkdownMail(
+                    'emails.email',
+                    $mail['subject'],
+                    $mail
+                ));
+        }
+        // EMAIL
+
+
+
         return to_route('purchase.requistions.index')->with('success', 'Requistion created!');
     }
 
