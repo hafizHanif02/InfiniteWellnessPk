@@ -15,9 +15,11 @@
                 @if ($pos->is_paid != 1 )
                 <div class="col-md-12 mb-5 text-end">
                     <a href="{{ route('pos.proceed-to-pay-page',$pos->id) }}"><button class="btn btn-primary">Proceed To Pay</button></a>
+                    @role('Admin|PharmacistAdmin')
                     <a href="{{ route('pos.edit', $pos->id) }}" target="_blank" class="btn btn-primary"> 
                         <i class="fa fa-edit"></i>
                     </a>
+                    @endrole
                 </div>
                 @endif
             <form action="{{ route('pos.enter-paymethod',$pos) }}">

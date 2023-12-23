@@ -1,3 +1,4 @@
+@role('Admin|PharmacistAdmin')
 <div class="d-flex align-items-center">
     <a href="{{url('items'. '/'.$row->id.'/edit')}}" title="{{__('messages.common.edit') }}"
        class="btn px-1 text-primary fs-3 ps-0">
@@ -8,3 +9,4 @@
         <i class="fa-solid fa-trash"></i>
     </a>
 </div>
+@endrole

@@ -1,3 +1,4 @@
+@role('Admin|PharmacistAdmin')
 <div class="d-flex align-items-center">
     <a href="javascript:void(0)" title="{{__('messages.common.edit') }}" data-id="{{ $row->id }}"
        class="editItemCategoryBtn btn px-1 text-primary fs-3 ps-0">
@@ -8,3 +9,4 @@
         <i class="fa-solid fa-trash"></i>
     </a>
 </div>
+@endrole

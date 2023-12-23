@@ -31,11 +31,13 @@
                                     <a href="{{ route('pos-return.show', $pos->id) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    @role('Admin|PharmacistAdmin')
                                     <form action="{{ route('pos-return.destroy',$pos->id) }}" class="d-inline" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-transparent border-0 text-danger"><i class="fa fa-trash"></i></button>
                                     </form>
+                                    @endrole
                                 </td>
                                 
                             </tr>
