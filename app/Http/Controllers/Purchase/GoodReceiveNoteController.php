@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Purchase;
+
 use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Batch;
@@ -34,7 +36,7 @@ class GoodReceiveNoteController extends Controller
     }
 
     public function create(): View
-    { 
+    {
         return view('purchase.goodreceivenote.create', [
             'id' => GoodReceiveNote::latest()->pluck('id')->first(),
             'vendors' => Vendor::orderBy('account_title')->get(['id', 'account_title']),
@@ -73,9 +75,9 @@ class GoodReceiveNoteController extends Controller
             'sale_tax_percentage' => $request->sale_tax_percentage,
         ]);
         $user = Auth::user();
-        $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
-            foreach ($request->products as $product) {
-            $requistion = RequistionProduct::where(['requistion_id'=> $request->requistion_id, 'product_id' => $product['id']])->with('product')->first();
+        $requistionproductlogs = 'GRN No. ' . $goodReceiveNote->id . ' Products:{[produc_id, qty],';
+        foreach ($request->products as $product) {
+            $requistion = RequistionProduct::where(['requistion_id' => $request->requistion_id, 'product_id' => $product['id']])->with('product')->first();
             //   $batch =   Batch::create([
             //         'batch_no' => $product['batch_no'],
             //        'product_id' => $product['id'],
@@ -104,50 +106,50 @@ class GoodReceiveNoteController extends Controller
             ]);
 
 
-            $grnProduct = GoodReceiveNote::where('id',$goodReceiveNote->id)->with('goodReceiveProducts')->first();
+            $grnProduct = GoodReceiveNote::where('id', $goodReceiveNote->id)->with('goodReceiveProducts')->first();
 
 
-                foreach ($grnProduct->goodReceiveProducts as $goodReceiveProduct) {
-                    $unit_retail = $goodReceiveProduct->manufacturer_retail_price / $goodReceiveProduct->product->pieces_per_pack;
-                    $formatted_unit_retail = number_format($unit_retail, 2);
-                    $quantity = $goodReceiveProduct->deliver_qty + $goodReceiveProduct->bonus;
-    
-                    $batch =   Batch::create([
-                        'batch_no' => $goodReceiveProduct->batch_number,
-                        'product_id' => $goodReceiveProduct->product->id,
-                        'unit_trade' => $goodReceiveProduct->item_amount,
-                        'unit_retail' => $formatted_unit_retail,
-                        'quantity' => $quantity,
-                        'remaining_qty' => $quantity,
-                        'expiry_date' => $goodReceiveProduct->expiry_date,
-                        'transfer_quantity' => 0
-                    ]);
-                    GoodReceiveProduct::where('id', $goodReceiveProduct->id)->update([
-                        'batch_id' => $batch->id
-                    ]);
-    
-                    if ($goodReceiveProduct->bonus != NULL) {
-                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
-                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->bonus);
-                    } else {
-                        $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty,);
-                    }
-    
-                    // $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
-    
-                    //     $goodReceiveProduct->product->update([
-                    //     'manufacturer_retail_price'=> $goodReceiveProduct->manufacture_retail_price,
-                    //     'unit_trade' => $unit_trade,
-                    //     // 'unit_retail'=> $goodReceiveProduct->item_amount
-                    // ]);
-    
-                    // dd($goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty, $goodReceiveProduct->item_amount, $goodReceiveProduct->manufacturer_retail_price);
-                    $goodReceiveProduct->product->update([
-                        'unit_retail' => $formatted_unit_retail,
-                        'unit_trade' => $goodReceiveProduct->item_amount,
-                        'manufacturer_retail_price' => $goodReceiveProduct->manufacturer_retail_price
-                    ]);
+            foreach ($grnProduct->goodReceiveProducts as $goodReceiveProduct) {
+                $unit_retail = $goodReceiveProduct->manufacturer_retail_price / $goodReceiveProduct->product->pieces_per_pack;
+                $formatted_unit_retail = number_format($unit_retail, 2);
+                $quantity = $goodReceiveProduct->deliver_qty + $goodReceiveProduct->bonus;
+
+                $batch =   Batch::create([
+                    'batch_no' => $goodReceiveProduct->batch_number,
+                    'product_id' => $goodReceiveProduct->product->id,
+                    'unit_trade' => $goodReceiveProduct->item_amount,
+                    'unit_retail' => $formatted_unit_retail,
+                    'quantity' => $quantity,
+                    'remaining_qty' => $quantity,
+                    'expiry_date' => $goodReceiveProduct->expiry_date,
+                    'transfer_quantity' => 0
+                ]);
+                GoodReceiveProduct::where('id', $goodReceiveProduct->id)->update([
+                    'batch_id' => $batch->id
+                ]);
+
+                if ($goodReceiveProduct->bonus != NULL) {
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty);
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->bonus);
+                } else {
+                    $goodReceiveProduct->product->increment('total_quantity', $goodReceiveProduct->deliver_qty,);
                 }
+
+                // $goodReceiveProduct->product->update(['cost_price' => $goodReceiveProduct->item_amount]);
+
+                //     $goodReceiveProduct->product->update([
+                //     'manufacturer_retail_price'=> $goodReceiveProduct->manufacture_retail_price,
+                //     'unit_trade' => $unit_trade,
+                //     // 'unit_retail'=> $goodReceiveProduct->item_amount
+                // ]);
+
+                // dd($goodReceiveProduct->manufacturer_retail_price/$goodReceiveProduct->deliver_qty, $goodReceiveProduct->item_amount, $goodReceiveProduct->manufacturer_retail_price);
+                $goodReceiveProduct->product->update([
+                    'unit_retail' => $formatted_unit_retail,
+                    'unit_trade' => $goodReceiveProduct->item_amount,
+                    'manufacturer_retail_price' => $goodReceiveProduct->manufacturer_retail_price
+                ]);
+            }
             $goodReceiveNote->update([
                 'is_approved' => 1
             ]);
@@ -171,11 +173,11 @@ class GoodReceiveNoteController extends Controller
 
 
 
-            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],';
+            $requistionproductlogs .= '[' . $product['id'] . ',' . $product['deliver_qty'] . '],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
-            'action' => 'Good Receive Note Has Been Created GRN No.'.$goodReceiveNote->id ,
+            'action' => 'Good Receive Note Has Been Created GRN No.' . $goodReceiveNote->id,
             'action_by_user_id' => $user->id,
         ]);
         $fileName = 'log/' . $logs->id . '.txt';
@@ -192,14 +194,14 @@ class GoodReceiveNoteController extends Controller
     public function show(GoodReceiveNote $goodReceiveNote): View
     {
         return view('purchase.goodreceivenote.show', [
-            'goodReceiveNote' => $goodReceiveNote->load(['goodReceiveProducts.product','requistion.vendor']),
+            'goodReceiveNote' => $goodReceiveNote->load(['goodReceiveProducts.product', 'requistion.vendor']),
         ]);
     }
 
     public function edit($goodReceiveNote): View
     {
         return view('purchase.goodreceivenote.edit', [
-            'goodReceiveNote' => GoodReceiveNote::where('id',$goodReceiveNote)->with(['goodReceiveProducts.product','goodReceiveProducts.requistionProduct'])->first(),
+            'goodReceiveNote' => GoodReceiveNote::where('id', $goodReceiveNote)->with(['goodReceiveProducts.product', 'goodReceiveProducts.requistionProduct'])->first(),
             'vendors' => Vendor::orderBy('contact_person')->get(),
         ]);
     }
@@ -220,10 +222,10 @@ class GoodReceiveNoteController extends Controller
             'advance_tax_amount' => $request->sale_tax_percentage,
         ]);
         $user = Auth::user();
-        $requistionproductlogs = 'GRN No. '.$goodReceiveNote->id.' Products:{[produc_id, qty],';
+        $requistionproductlogs = 'GRN No. ' . $goodReceiveNote->id . ' Products:{[produc_id, qty],';
         foreach ($request->products as $product) {
             $product_id = $product['id'];
-            GoodReceiveProduct::where(['product_id'=>$product_id,'good_receive_note_id'=>$goodReceiveNote->id])->update([
+            GoodReceiveProduct::where(['product_id' => $product_id, 'good_receive_note_id' => $goodReceiveNote->id])->update([
                 'deliver_qty' => $product['deliver_qty'],
                 'bonus' => $product['bonus'] ?? null,
                 'expiry_date' => $product['expiry_date'],
@@ -234,11 +236,11 @@ class GoodReceiveNoteController extends Controller
                 'saletax_amount' => $product['saletax_amount'],
                 'manufacturer_retail_price' => $product['manufacturer_retail_price'],
             ]);
-            $requistionproductlogs .= '['.$product['id'].','.$product['deliver_qty'].'],';
+            $requistionproductlogs .= '[' . $product['id'] . ',' . $product['deliver_qty'] . '],';
         }
         $requistionproductlogs .= '}';
         $logs = Log::create([
-            'action' => 'Good Receive Note Has Been Updated GRN No.'.$goodReceiveNote->id ,
+            'action' => 'Good Receive Note Has Been Updated GRN No.' . $goodReceiveNote->id,
             'action_by_user_id' => $user->id,
         ]);
         $fileName = 'log/' . $logs->id . '.txt';
@@ -256,7 +258,7 @@ class GoodReceiveNoteController extends Controller
     {
         $user = Auth::user();
         Log::create([
-            'action' => 'Good Receive Note Has Been Deleted GRN No.'.$goodReceiveNote->id ,
+            'action' => 'Good Receive Note Has Been Deleted GRN No.' . $goodReceiveNote->id,
             'action_by_user_id' => $user->id,
         ]);
         $goodReceiveNote->delete();
@@ -274,9 +276,9 @@ class GoodReceiveNoteController extends Controller
         //     $totalproductamount += $product->item_amount;
         // }
         //requistion_id
-        $grn = GoodReceiveNote::where('id',$goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first();
+        $grn = GoodReceiveNote::where('id', $goodReceiveNote)->with(['requistion.requistionProducts.product.manufacturer', 'requistion.vendor', 'goodReceiveProducts'])->first();
         $rec = Requistion::where('id', $grn->requistion_id)->first();
-        $manuFacname = DB::table('manufacturers')->where('id', $rec->manufacturer_id )->first();
+        $manuFacname = DB::table('manufacturers')->where('id', $rec->manufacturer_id)->first();
         return view('purchase.goodreceivenote.print', [
             'goodReceiveNote' => $grn,
             'grnManufactureName' => $manuFacname->company_name,
@@ -323,53 +325,82 @@ class GoodReceiveNoteController extends Controller
         return response()->json(['valid' => true, 'message' => 'Validation succeeded.']);
     }
 
+    // public function createBatch()
+    // {
+    //     $GRNProducts = GoodReceiveProduct::with('product')->get();
+
+    //     foreach ($GRNProducts as $GRNProduct) {
+    //         $unit_trade = $GRNProduct->item_amount - (($GRNProduct->product->trade_price_percentage * $GRNProduct->item_amount) / 100);
+    //         $manufacture_retail_price = $GRNProduct->item_amount * $GRNProduct->product->pieces_per_pack;
+    //         // $batchNumber = $GRNProduct->batch_number ?? Str::random(10);
+    //         $batchNumber = $GRNProduct->batch_number ?? strtoupper(Str::random(3) . Str::random(3, '1234567890'));
+    //         $quantity = $GRNProduct->deliver_qty + $GRNProduct->bonus;
+    //         Batch::create([
+    //             'batch_no' => $batchNumber,
+    //             'product_id' => $GRNProduct->product_id,
+    //             'unit_trade' => $unit_trade,
+    //             'unit_retail' => $GRNProduct->product->unit_retail,
+    //             'quantity' => $quantity,
+    //             'remaining_qty' => $quantity,
+    //             'expiry_date' => $GRNProduct->expiry_date,
+    //             'transfer_quantity' => 0
+    //         ]);
+    //     }
+
+    //     return "Done !";
+    // }
+
+
     public function createBatch()
     {
         $GRNProducts = GoodReceiveProduct::with('product')->get();
 
-        foreach( $GRNProducts as $GRNProduct )
-        {
+        foreach ($GRNProducts as $GRNProduct) {
             $unit_trade = $GRNProduct->item_amount - (($GRNProduct->product->trade_price_percentage * $GRNProduct->item_amount) / 100);
             $manufacture_retail_price = $GRNProduct->item_amount * $GRNProduct->product->pieces_per_pack;
-            // $batchNumber = $GRNProduct->batch_number ?? Str::random(10);
             $batchNumber = $GRNProduct->batch_number ?? strtoupper(Str::random(3) . Str::random(3, '1234567890'));
             $quantity = $GRNProduct->deliver_qty + $GRNProduct->bonus;
-            Batch::create([
-            'batch_no' => $batchNumber,
-            'product_id' => $GRNProduct->product_id,
-            'unit_trade' => $unit_trade,
-            'unit_retail'=> $GRNProduct->product->unit_retail,
-            'quantity' => $quantity,
-            'remaining_qty' => $quantity,
-            'expiry_date' => $GRNProduct->expiry_date,
-            'transfer_quantity' => 0
+            $newBatch = Batch::create([
+                'batch_no' => $batchNumber,
+                'product_id' => $GRNProduct->product_id,
+                'unit_trade' => $unit_trade,
+                'unit_retail' => $GRNProduct->product->unit_retail,
+                'quantity' => $quantity,
+                'remaining_qty' => $quantity,
+                'expiry_date' => $GRNProduct->expiry_date,
+                'transfer_quantity' => 0
+            ]);
+            $GRNProduct->update([
+                'batch_id' => $newBatch->id,
             ]);
         }
 
         return "Done !";
     }
+
+
     public function createBatchPOS()
     {
         $transfers = Transfer::with('transferProducts.product')->where('status', 1)->get();
         foreach ($transfers as $transfer) {
             foreach ($transfer->transferProducts as $transferProduct) {
-                if($transferProduct->product->batch){
+                if ($transferProduct->product->batch) {
                     $batch = Batch::where('product_id', $transferProduct->product->id)->first();
                     // foreach($batchs as $batch){
-                        $batch_id = BatchPOS::where('batch_id', $batch->id)->first();
-                        // dd($batch_id);
-                        // if(!$batch_id){
-                            BatchPOS::create([
-                                'batch_id' => $batch->id,
-                                'product_id' => $transferProduct->product_id,
-                                'unit_trade' => $batch->unit_trade,
-                                'unit_retail' => $batch->unit_retail,
-                                'quantity' => $transferProduct->total_piece,
-                                'sold_quantity' => 0,
-                                'remaining_qty' => $transferProduct->total_piece,
-                                'expiry_date' => $batch->expiry_date,
-                            ]);
-                        // }
+                    $batch_id = BatchPOS::where('batch_id', $batch->id)->first();
+                    // dd($batch_id);
+                    // if(!$batch_id){
+                    BatchPOS::create([
+                        'batch_id' => $batch->id,
+                        'product_id' => $transferProduct->product_id,
+                        'unit_trade' => $batch->unit_trade,
+                        'unit_retail' => $batch->unit_retail,
+                        'quantity' => $transferProduct->total_piece,
+                        'sold_quantity' => 0,
+                        'remaining_qty' => $transferProduct->total_piece,
+                        'expiry_date' => $batch->expiry_date,
+                    ]);
+                    // }
                     // }
                 }
             }
@@ -417,8 +448,8 @@ class GoodReceiveNoteController extends Controller
 
             foreach ($transferProducts as $product) {
                 $batches = Batch::where('product_id', $product->product_id)
-                                ->where('remaining_qty', '>', 0)
-                                ->get();
+                    ->where('remaining_qty', '>', 0)
+                    ->get();
 
                 $quantityToTransfer = $product->total_piece;
 
@@ -445,7 +476,7 @@ class GoodReceiveNoteController extends Controller
     public function PosProduct()
     {
         $allBatch = BatchPOS::all();
-        foreach($allBatch as $Onebatch){
+        foreach ($allBatch as $Onebatch) {
             $Onebatch->update([
                 'sold_quantity' => 0,
                 'remaining_qty' => $Onebatch->quantity
@@ -458,8 +489,8 @@ class GoodReceiveNoteController extends Controller
                 $remainingQuantity = $product->product_quantity;
 
                 $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
-                ->orderByDesc('created_at')
-                ->get();
+                    ->orderByDesc('created_at')
+                    ->get();
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->remaining_qty, $remainingQuantity);
                     // dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
@@ -486,12 +517,12 @@ class GoodReceiveNoteController extends Controller
                 $remainingQuantity = $product->product_quantity;
 
                 $batchPosList = BatchPOS::where('product_id', $product->medicine->product->id)
-                ->orderByDesc('created_at')
-                ->get();
+                    ->orderByDesc('created_at')
+                    ->get();
                 foreach ($batchPosList as $batchPos) {
                     $quantityToUpdate = min($batchPos->sold_quantity, $remainingQuantity);
-                     //dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
-                   $batchPos->update([
+                    //dd($quantityToUpdate,$batchPos->remaining_qty, $remainingQuantity );
+                    $batchPos->update([
                         'remaining_qty' => $batchPos->remaining_qty + $quantityToUpdate,
                         'sold_quantity' => $batchPos->sold_quantity - $quantityToUpdate,
                     ]);
@@ -508,7 +539,7 @@ class GoodReceiveNoteController extends Controller
     public function retailSet()
     {
         $products = Product::all();
-        foreach($products as $product){
+        foreach ($products as $product) {
             $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
             Product::where('id', $product->id)->update([
                 'unit_retail' => $unitRetail
@@ -517,6 +548,62 @@ class GoodReceiveNoteController extends Controller
         return 'done';
     }
 
+    public function batchUnitRetail()
+    {
+        // $batches = Batch::all();
+        $products = Product::all();
+        foreach ($products as $product) {
+
+            $grnProducts = GoodReceiveProduct::where('product_id', $product->id)->get();
+            foreach($grnProducts as $grnProduct){
+
+                $batches = Batch::where('product_id', $product->id)->get();
+                foreach($batches as $batch){
+
+                    if($grnProduct->manufacturer_retail_price !== null){
+                        $currentUnitRetail = $grnProduct->manufacturer_retail_price / $grnProduct->product->pieces_per_pack;
+                        // $currentUnitRetail = number_format($currentUnitRetail, 2);
+                        Batch::where('id', $grnProduct->batch_id)->update([
+                            'unit_retail' => $currentUnitRetail 
+                        ]);
+                    }else{
+                        $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
+                        // $unitRetail = number_format($unitRetail, 2);
+                        Batch::where('id', $grnProduct->batch_id)->update([
+                            'unit_retail' => $unitRetail
+                        ]);
+                    }
+
+                }
+
+            }
+
+        }
 
 
+        // foreach ($batches as $batch) {
+        //     $grn = GoodReceiveProduct::where('batch_id', $batch->id)->first();
+        //     if($grn !== null){
+        //         if($grn->manufacturer_retail_price !== null){
+        //             $currentUnitRetail = $grn->manufacturer_retail_price / $grn->product->pieces_per_pack;
+        //             Batch::where('id', $batch->id)->update([
+        //                 'unit_retail' => $currentUnitRetail
+        //             ]);
+        //         }else{
+        //             $product = Product::where('id', $batch->product_id)->first();
+        //             $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
+        //             Batch::where('id', $batch->id)->update([
+        //                 'unit_retail' => $unitRetail
+        //             ]);
+        //         }
+        //     }else{
+        //         $product = Product::where('id', $batch->product_id)->first();
+        //         $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
+        //         Batch::where('id', $batch->id)->update([
+        //             'unit_retail' => $unitRetail
+        //         ]);
+        //     }
+        // }
+        return 'done';
+    }
 }
