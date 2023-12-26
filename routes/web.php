@@ -1389,8 +1389,8 @@ require __DIR__.'/upgrade.php';
 
 
 Route::get('createBatch',[GoodReceiveNoteController::class,'createBatch']);
-Route::get('BatchPOScreate',[GoodReceiveNoteController::class,'createBatchPOS']);
 Route::get('transferBatch',[GoodReceiveNoteController::class,'transferBatch']);
+Route::get('batchUnitRetail',[GoodReceiveNoteController::class,'batchUnitRetail']);
+Route::get('BatchPOScreate',[GoodReceiveNoteController::class,'createBatchPOS']);
 Route::get('PosProduct',[GoodReceiveNoteController::class,'PosProduct']);
 Route::get('retailSet',[GoodReceiveNoteController::class,'retailSet']);
-Route::get('batchUnitRetail',[GoodReceiveNoteController::class,'batchUnitRetail']);
