@@ -43,6 +43,7 @@
                             <thead>
                                 {{-- {{ dd($medicines[0]) }} --}}
                                 <tr>
+                                    <th>#</th>
                                     <th>Product Name</th>
                                     <th>Category</th>
                                     <th>Piece Per Pack</th>
@@ -55,6 +56,7 @@
                             <tbody>
                                 @foreach ($medicines as $product)
                                     <tr>
+                                        <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->product->productCategory->name }}</td>
                                         <td>{{ $product->product->pieces_per_pack }}</td>

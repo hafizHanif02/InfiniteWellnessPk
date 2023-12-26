@@ -442,7 +442,6 @@ class PosController extends Controller
     }
     public function posdailyreport(Request $request)
     {
-
         $posData = Pos::filter($request)->where('is_paid',1)->latest()->paginate(10)->onEachSide(1);
         $posReturnData = PosReturn::with('pos')->filter($request)->latest()->paginate(10)->onEachSide(1);
 
