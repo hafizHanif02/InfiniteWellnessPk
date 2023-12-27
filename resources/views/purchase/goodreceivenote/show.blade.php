@@ -20,6 +20,9 @@
                         </tr>
                         <tr>
                             <th>Invoice Date</th>
+                            @if($goodReceiveNote->invoice_date == null)
+                                <td>-</td>
+                            @endif
                             <td>{{ $goodReceiveNote->invoice_date  }}</td>
                         </tr>
                         <tr>

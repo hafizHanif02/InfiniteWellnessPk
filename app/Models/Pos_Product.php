@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Pos;
 use App\Models\BatchPOS;
 use App\Models\Medicine;
+use App\Models\PosProductReturn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,7 +36,7 @@ class Pos_Product extends Model
     {
         return $this->HasOne(Medicine::class, 'id', 'medicine_id');
     }
-
+    
     public function batchpos(): HasOne
     {
         return $this->HasOne(BatchPOS::class, 'id', 'batch_id');

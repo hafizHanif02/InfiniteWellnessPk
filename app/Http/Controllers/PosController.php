@@ -676,4 +676,12 @@ class PosController extends Controller
         // return redirect()->back();
 
     }
+    public function exportToExcel()
+    {
+    $pos = Pos_Product::with('pos.PosProductReturn')->get();
+        // dd($pos[167]);
+        return view('pos.exportpos', [
+            'pos' => $pos,
+        ]);
+    }
 }

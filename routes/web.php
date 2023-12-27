@@ -1079,6 +1079,7 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('item-report-pos', [PosController::class, 'posItemReport'])->name('posItemReport.index');
         Route::get('item-report', [PosController::class, 'itemReport'])->name('itemReport.itemreport');
         Route::get('item-report-print', [PosController::class, 'itemReportPrint'])->name('itemReport.print');
+        Route::get('export-to-excel', [PosController::class, 'exportToExcel'])->name('posreport.export');
     Route::post('/validate-pos', [PosController::class, 'validatePos']);
 
         Route::get('pos-item-report-print', [PosController::class, 'posItemReportPrint'])->name('posItemReport.print');

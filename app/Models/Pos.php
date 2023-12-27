@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Pos;
 use App\Models\Pos_Product;
+use App\Models\PosProductReturn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,6 +43,10 @@ class Pos extends Model
         return $this->hasMany(Pos_Product::class,'pos_id');
     }
 
+    public function PosProductReturn()
+    {
+        return $this->hasMany(PosProductReturn::class,'pos_id');
+    }
     public function scopeFilter($query, $request): void
     {
         if (isset($request->is_cash)) {
