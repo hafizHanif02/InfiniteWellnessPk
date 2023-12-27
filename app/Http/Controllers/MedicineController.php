@@ -345,7 +345,7 @@ public function medicinesHistory($id){
     $posProductReturn = PosProductReturn::where('medicine_id', $id)
     ->orderBy('created_at', 'asc')
     ->get();
-    return $posProduct;
+    
     return view('medicines.medicinesHistory', compact('product', 'posProduct', 'posProductReturn', 'transfer'));
 }
 }

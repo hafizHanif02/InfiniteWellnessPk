@@ -60,7 +60,17 @@ Medicine History
                                 <td><span  class="badge {{ strtolower($data['type']) === 'pos' ? 'badge-pos' : (strtolower($data['type']) === 'transfer' ? 'badge-transfer' : 'badge-posreturn') }}">
                                 {{ $data['type'] }}</span>
                                 </td>
-                                <td>{{ $data['id'] }}</td>
+                                <td>
+                                    @if($data['type'] == 'Pos')
+                                    {{ $data['pos_id'] }}
+                                    @elseif (($data['type'] == 'Transfer') )
+                                    {{ $data['transfer_id'] }}
+                                    @elseif (($data['type'] == 'Pos Return') )
+                                    {{ $data['pos_return_id'] }}
+                                    @else
+                                    -
+                                    @endif
+                                </td>
                                 <td>
                                     @if($data['type'] == 'Pos')
                                         {{ $data['product_quantity'] }}
