@@ -195,7 +195,7 @@ class MedicineController extends AppBaseController
             'medicines' => Medicine::get(),
             'adjustment_id' => MedicineAdjustment::latest()->pluck('id')->first(),
         ]);
-    
+
     }
 
     public function getMedicines(Request $request): JsonResponse
@@ -233,7 +233,7 @@ class MedicineController extends AppBaseController
             BatchPOS::where('id', $medicine['batch_id'])->update([
                 'remaining_qty' => $medicine['adjustment_qty'],
             ]);
-            
+
             Log::create([
                 'action' => 'Medicines Adjustment Has Been Created Medicine Code:'.$medicine['medicine_id'],
                 'action_by_user_id' => $user->id,
@@ -290,26 +290,26 @@ class MedicineController extends AppBaseController
             'action' => 'Recalculation Has Been Executed ',
             'action_by_user_id' => $user->id,
         ]);
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Medicine recalculation successfully.',
             'medicines' => $medicines
         ]);
     }
-    
+
     public function batchPosReport(Request $request)
     {
         $query = Medicine::query();
-    
+
         if ($request->has('search_data')) {
             $searchTerm = $request->search_data;
             $query->where('name', 'LIKE', '%' . $searchTerm . '%')
                   ->orWhere('id', '=', $searchTerm );
         }
-    
+
         $batches = $query->paginate(10)->onEachSide(1);
-    
+
         return view('medicines.batch_report.batchreports', [
             'batches' => $batches,
             'search_data' => $request->search_data ?? ''
@@ -318,7 +318,7 @@ class MedicineController extends AppBaseController
 
     public function batchPosReportShow($id)
     {
-      
+
         $batches = BatchPOS::where('product_id', $id)->get();
     $product = Medicine::find($id);
 
@@ -341,11 +341,11 @@ public function medicinesHistory($id){
         $query->where('is_paid', 1);
     })
     ->orderBy('created_at', 'asc')
-    ->get(); 
+    ->get();
     $posProductReturn = PosProductReturn::where('medicine_id', $id)
     ->orderBy('created_at', 'asc')
     ->get();
-  
+    return $posProduct;
     return view('medicines.medicinesHistory', compact('product', 'posProduct', 'posProductReturn', 'transfer'));
 }
 }
