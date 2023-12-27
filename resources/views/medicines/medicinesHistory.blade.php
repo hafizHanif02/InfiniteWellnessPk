@@ -53,14 +53,14 @@ Medicine History
                                 return strtotime($a['created_at']) - strtotime($b['created_at']);
                             });
                         @endphp
-
+                        {{$combinedData}}
                         @foreach ($combinedData as $data)
                             <tr class="{{ strtolower(str_replace(' ', '', $data['type'])) }}-row">
                                 <td >{{ ++$key }}</td>
                                 <td><span  class="badge {{ strtolower($data['type']) === 'pos' ? 'badge-pos' : (strtolower($data['type']) === 'transfer' ? 'badge-transfer' : 'badge-posreturn') }}">
                                 {{ $data['type'] }}</span>
                                 </td>
-                                <td>{{ $data['pos_id'] }}</td>
+                                <td>{{ $data['id'] }}</td>
                                 <td>
                                     @if($data['type'] == 'Pos')
                                         {{ $data['product_quantity'] }}
