@@ -9,7 +9,7 @@
                             class="btn btn-primary float-end mr-5 mb-3">Print</a>
                         <a href="{{ route('purchase.good_receive_note.index') }}"
                             class="btn btn-secondary float-end mr-5 mb-3">Back</a>
-                                <button  class="btn btn-primary sm" onclick="ExportToExcel('xlsx')">Export to Excel</button>
+                                <button  class="btn btn-danger float-end mr-5 mb-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
                     </div>
                 </div>
                 <table class="table table-bordered table-hover text-start" >
@@ -145,7 +145,7 @@
                     <th>Expiry </th>
                 </tr>
                 <td>{{ $goodReceiveNote->invoice_number }}</td>
-                <td>{{ $goodReceiveNote->invoice_date }}</td>
+                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $goodReceiveNote->invoice_date)->format('d-m-Y') }}</td>
                 <td>{{ $goodReceiveNote->requistion->vendor->account_title }}</td>
                 @foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveNoteProduct)
                 <td>{{ $goodReceiveNoteProduct->product->product_name }}</td>
