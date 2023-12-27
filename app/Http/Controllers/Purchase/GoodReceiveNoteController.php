@@ -62,6 +62,7 @@ class GoodReceiveNoteController extends Controller
 
         // dd($request->products);
         $goodReceiveNote = GoodReceiveNote::create([
+            'invoice_date' => $request->invoice_date,
             'invoice_number' => $request->invoice_number,
             'requistion_id' => $request->requistion_id,
             'remark' => $request->remark,
@@ -211,6 +212,7 @@ class GoodReceiveNoteController extends Controller
 
         $goodReceiveNote->update([
             'invoice_number' => $request->invoice_number,
+            'invoice_date' => $request->invoice_date,
             'remark' => $request->remark,
             'date' => $request->date,
             'bonus' => $request->bonus,

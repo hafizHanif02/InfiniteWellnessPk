@@ -19,12 +19,16 @@
                         <div class="col-md-6">
                             <label for="invoice_number" class="form-label">Invoice Number</label>
                             <input type="text" name="invoice_number" placeholder="Enter Your Invoice Number"
-                                id="invoice_number" class="form-control">
+                                id="invoice_number" class="form-control" required>
                             @error('invoice_number')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Invoice Date <sup
+                                    class="text-danger">*</sup></label>
+                            <input type="date" name="invoice_date" id="date" required class="form-control">
+                        </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-6">
@@ -79,103 +83,108 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-1">
                                 <button type="button" id="requistion-btn" class="btn btn-primary">Add</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="mb-5">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <td style="min-width: 100px"></td>
-                                        <td style="min-width: 400px">Product</td>
-                                        <td style="min-width: 200px">Demand Total Piece</td>
-                                        <td style="min-width: 200px">Reamining Total Piece</td>
-                                        <td style="min-width: 200px">Deliver Total Piece (Pcs)</td>
-                                        <td style="min-width: 150px">Discount %</td>
-                                        <td style="min-width: 150px">SaleTax %</td>
-                                        <td style="min-width: 150px">SaleTax Amount</td>
-                                        <td style="min-width: 150px">Bonus</td>
-                                        <td style="min-width: 150px">Exp Date</td>
-                                        <td style="min-width: 150px">Batch No.</td>
-                                        <td style="min-width: 150px">Price Per Unit</td>
-                                        <td style="min-width: 150px">MRP</td>
-                                        <td style="min-width: 150px">Amount</td>
-                                    </tr>
-                                </thead>
-                                <tbody id="add-products">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row mb-3 mt-3">
-                            <div class="col-md-7">
-                                <label for="totalcostwithtax" class="form-label">Total Amount</label>
-                                <input type="number" readonly id="totalcostwithtax" placeholder="Total Amount"
-                                    name="total_amount" class="form-control">
-                                @error('totalcostwithtax')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                          
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                <label for="total_discount_amount" class="form-label">Total Discount Amount</label>
-                                <input type="number" readonly id="total_discount_amount" placeholder="Total Amount"
-                                    name="total_discount_amount" class="form-control" value="0">
-                                @error('total_discount_amount')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="mb-5">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <td style="min-width: 100px"></td>
+                                                <td style="min-width: 400px">Product</td>
+                                                <td style="min-width: 200px">Demand Total Piece</td>
+                                                <td style="min-width: 200px">Reamining Total Piece</td>
+                                                <td style="min-width: 200px">Deliver Total Piece (Pcs)</td>
+                                                <td style="min-width: 150px">Discount %</td>
+                                                <td style="min-width: 150px">SaleTax %</td>
+                                                <td style="min-width: 150px">SaleTax Amount</td>
+                                                <td style="min-width: 150px">Bonus</td>
+                                                <td style="min-width: 150px">Exp Date</td>
+                                                <td style="min-width: 150px">Batch No.</td>
+                                                <td style="min-width: 150px">Price Per Unit</td>
+                                                <td style="min-width: 150px">MRP</td>
+                                                <td style="min-width: 150px">Amount</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="add-products">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row d-flex flex-column justify-content-end">
-                        <div class="row mb-3 mt-3">
-                            <div class="col-md-7">
-                                <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
-                                <input type="text" id="advance_tax_percentage"
-                                    oninput="advanceTax()" placeholder="Advance Tax Percentage"
-                                    name="advance_tax_percentage" class="form-control" value="0">
-                                @error('advance_tax_percentage')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="row">
+                                <div class="row mb-3 mt-3">
+                                    <div class="col-md-7">
+                                        <label for="totalcostwithtax" class="form-label">Total Amount</label>
+                                        <input type="number" readonly id="totalcostwithtax"
+                                            placeholder="Total Amount" name="total_amount" class="form-control">
+                                        @error('totalcostwithtax')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="total_discount_amount" class="form-label">Total Discount
+                                            Amount</label>
+                                        <input type="number" readonly id="total_discount_amount"
+                                            placeholder="Total Amount" name="total_discount_amount"
+                                            class="form-control" value="0">
+                                        @error('total_discount_amount')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                <label for="advance_tax_percentage_amount" class="form-label">Advanced Tax
-                                    Amount</label>
-                                <input type="number" id="advance_tax_percentage_amount"
-                                    placeholder="Advance Tax Amount" readonly name="advance_tax_amount"
-                                    class="form-control" value="0">
-                                @error('advance_tax_amount')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="net_total_amountcost" class="form-label">Net Total Amount <sup
-                                    class="text-danger">*</sup></label>
-                            <input type="number" id="net_total_amountcosts2" placeholder="Net Total Amount"
-                                name="net_total_amount" readonly class="form-control">
-                            <input type="hidden" id="net_total_amountcosts2">
-                            <input type="hidden" id="net_total_amountcosts3">
+                            <div class="row d-flex flex-column justify-content-end">
+                                <div class="row mb-3 mt-3">
+                                    <div class="col-md-7">
+                                        <label for="advance_tax_percentage" class="form-label">Advanced Tax %</label>
+                                        <input type="text" id="advance_tax_percentage" oninput="advanceTax()"
+                                            placeholder="Advance Tax Percentage" name="advance_tax_percentage"
+                                            class="form-control" value="0">
+                                        @error('advance_tax_percentage')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="advance_tax_percentage_amount" class="form-label">Advanced Tax
+                                            Amount</label>
+                                        <input type="number" id="advance_tax_percentage_amount"
+                                            placeholder="Advance Tax Amount" readonly name="advance_tax_amount"
+                                            class="form-control" value="0">
+                                        @error('advance_tax_amount')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="net_total_amountcost" class="form-label">Net Total Amount <sup
+                                            class="text-danger">*</sup></label>
+                                    <input type="number" id="net_total_amountcosts2" placeholder="Net Total Amount"
+                                        name="net_total_amount" readonly class="form-control">
+                                    <input type="hidden" id="net_total_amountcosts2">
+                                    <input type="hidden" id="net_total_amountcosts3">
 
-                            @error('net_total_amountcost')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('purchase.good_receive_note.index') }}" class="btn btn-danger">Cancel</a>
-                        {{-- <button type="button" id="save-goodreceivenote-button"
+                                    @error('net_total_amountcost')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center mt-5">
+                                <a href="{{ route('purchase.good_receive_note.index') }}"
+                                    class="btn btn-danger">Cancel</a>
+                                {{-- <button type="button" id="save-goodreceivenote-button"
                             class="btn btn-primary ms-3">Save</button> --}}
-                        <!-- Add this button and message div to your HTML form -->
-                        {{-- <div class="row d-flex justify-content-end"> --}}
-                            <button type="submit" id="save-goodreceivenote-button-check" class="btn btn-primary ms-3">Save</button>
-                            {{-- <button type="button" id="save-goodreceivenote-button-check" class="btn btn-secondary ms-3">Check</button> --}}
-                        {{-- </div> --}}
+                                <!-- Add this button and message div to your HTML form -->
+                                {{-- <div class="row d-flex justify-content-end"> --}}
+                                <button type="submit" id="save-goodreceivenote-button-check"
+                                    class="btn btn-primary ms-3">Save</button>
+                                {{-- <button type="button" id="save-goodreceivenote-button-check" class="btn btn-secondary ms-3">Check</button> --}}
+                                {{-- </div> --}}
 
-                    </div>
+                            </div>
                 </form>
             </div>
         </div>
@@ -183,6 +192,7 @@
     @push('scripts')
         <script nonce="{{ csp_nonce() }}" src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
         </script>
+
         <script nonce="{{ csp_nonce() }}">
             $(document).ready(function() {
                 $('form').on('keypress', 'input', function(e) {
@@ -301,6 +311,7 @@
                 });
             });
 
+
             function changeQuantity(id) {
                 var quantity = $("#minusquantity" + id).val();
                 var totalquantity = $("#totalquantity" + id).val();
@@ -314,32 +325,32 @@
             }
 
 
-            function saletaxPerc(id){
+            function saletaxPerc(id) {
                 // Total Calculation
-                var priceperunit = $('#price_per_unit'+id).val();
-                var InputQty = $('#minusquantity'+id).val();
+                var priceperunit = $('#price_per_unit' + id).val();
+                var InputQty = $('#minusquantity' + id).val();
 
-                var totalAmount = priceperunit*InputQty;
+                var totalAmount = priceperunit * InputQty;
 
                 console.log(totalAmount);
 
                 // Discount Calculation
-                var discountPerc = $('#discount'+id).val();
-                var DiscountAmount = ((discountPerc * totalAmount)/100);
+                var discountPerc = $('#discount' + id).val();
+                var DiscountAmount = ((discountPerc * totalAmount) / 100);
 
                 var AmountwithDiscount = totalAmount - DiscountAmount;
 
                 // SaleTax Calculation
-                var saleTaxpercentage = $('#saletax'+id).val();
-                var SaleAmount = ((AmountwithDiscount * saleTaxpercentage)/100);
+                var saleTaxpercentage = $('#saletax' + id).val();
+                var SaleAmount = ((AmountwithDiscount * saleTaxpercentage) / 100);
 
-                $('#saletax_amount'+id).val(SaleAmount.toFixed(2));
+                $('#saletax_amount' + id).val(SaleAmount.toFixed(2));
 
                 var TotalAmountwithSaleForNet = SaleAmount + AmountwithDiscount;
                 var TotalAmountwithSaleFortotal = totalAmount + SaleAmount;
 
-                $('#totalprices2'+id).val(TotalAmountwithSaleForNet.toFixed(2));
-                $('#totalpricefordiscount'+id).val(TotalAmountwithSaleFortotal.toFixed(2));
+                $('#totalprices2' + id).val(TotalAmountwithSaleForNet.toFixed(2));
+                $('#totalpricefordiscount' + id).val(TotalAmountwithSaleFortotal.toFixed(2));
 
                 calculateTotalAmount();
             }
@@ -464,33 +475,33 @@
                 $('#net_total_amountcosts3').val(Totalamountwithdisc);
             }
 
-$(document).ready(function() {
-    $('#save-goodreceivenote-form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
+            $(document).ready(function() {
+                $('#save-goodreceivenote-form').on('submit', function(e) {
+                    e.preventDefault(); // Prevent the default form submission
 
-        // Perform your AJAX request here
-        $.ajax({
-            url: '/purchase/validate-goodreceivenote',
-            type: 'post',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log('Response:', response);
-                if (response.valid) {
-                    console.log('Before form submission');
-                    $('#save-goodreceivenote-form')[0].submit();
-                    console.log('After form submission');
-                } else {
-                    $('#validation-message').text(response.message);
-                    $('#validation-message').show();
-                }
+                    // Perform your AJAX request here
+                    $.ajax({
+                        url: '/purchase/validate-goodreceivenote',
+                        type: 'post',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            console.log('Response:', response);
+                            if (response.valid) {
+                                console.log('Before form submission');
+                                $('#save-goodreceivenote-form')[0].submit();
+                                console.log('After form submission');
+                            } else {
+                                $('#validation-message').text(response.message);
+                                $('#validation-message').show();
+                            }
 
-            },
-            error: function(xhr, status, error) {
-                // $('#validation-message').html(xhr.responseJSON.message);
+                        },
+                        error: function(xhr, status, error) {
+                            // $('#validation-message').html(xhr.responseJSON.message);
 
-                $('.wrapper').append(
-                    ` <div class="alert alert-danger">
+                            $('.wrapper').append(
+                                ` <div class="alert alert-danger">
                         <div>
                             <div class="d-flex">
                                 <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
@@ -518,16 +529,17 @@ $(document).ready(function() {
                         }
                     </style>
                     `
-        );
-                $('.alert').delay(5000).slideUp(300)
-                $('.alert').delay(50000).slideUp(300, function() {
-                    $('.alert').attr('style', 'display:none')
-                })
-    }
-        });
-    });
-});
-        </script>
+                            );
+                            $('.alert').delay(5000).slideUp(300)
+                            $('.alert').delay(50000).slideUp(300, function() {
+                                $('.alert').attr('style', 'display:none')
+                            })
+                        }
+                    });
+                });
+            });
 
+          
+        </script>
     @endpush
 </x-layouts.app>

@@ -21,7 +21,7 @@ class GoodReceiveNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'invoice_number' => ['required', 'string', 'max:255'],
             'requistion_id' => ['required', 'exists:requistions,id'],
             'remark' => ['nullable', 'string', 'max:255'],
             'date' => ['required', 'date'],
@@ -51,6 +51,7 @@ class GoodReceiveNoteRequest extends FormRequest
             'requistion_id.required' => 'The requistion field is required',
             'products.*.required' => 'Atleast one product is required',
             'products.*.required' => 'The product field is required',
+            'invoice_number.required' => 'The invoice number field is required', 
         ];
     }
 }

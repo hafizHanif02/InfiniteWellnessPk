@@ -20,12 +20,16 @@
                                     class="text-danger">*</sup></label>
                             <input type="text" name="invoice_number"
                                 value="{{ old('invoice_number', $goodReceiveNote->invoice_number) }}"
-                                id="invoice_number" class="form-control">
+                                id="invoice_number" class="form-control" required>
                             @error('invoice_number')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Invoice Date <sup
+                                class="text-danger">*</sup></label>
+                        <input type="date" name="invoice_date" id="date" required class="form-control" required>
+                        </div>
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-6">

@@ -14,6 +14,7 @@ class GoodReceiveNote extends Model
 
     protected $fillable = [
         'invoice_number',
+        'invoice_date',
         'requistion_id',
         'remark',
         'date',
