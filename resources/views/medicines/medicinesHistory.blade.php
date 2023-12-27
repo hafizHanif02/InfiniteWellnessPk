@@ -53,7 +53,7 @@ Medicine History
                                 return strtotime($a['created_at']) - strtotime($b['created_at']);
                             });
                         @endphp
-                        {{print_r($combinedData)}}
+
                         @foreach ($combinedData as $data)
                             <tr class="{{ strtolower(str_replace(' ', '', $data['type'])) }}-row">
                                 <td >{{ ++$key }}</td>
