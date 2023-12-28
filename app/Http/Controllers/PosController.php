@@ -18,6 +18,7 @@ use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Models\PosProductReturn;
 use App\Http\Requests\PosRequest;
+use App\Models\Inventory\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -683,5 +684,16 @@ class PosController extends Controller
         return view('pos.exportpos', [
             'pos' => $pos,
         ]);
+    }
+
+    public function profitLossPOS()
+    {
+        $posProducts = Pos_Product::with('medicine')->get();
+
+        foreach($posProducts as $product){
+            $product->date = $product->created_at->format('Y-m-d');
+            $product->cost_per_unit = Product::where('id', $product->medicine->product_id)->first()->trade_price;
+        }
+        return view('pos.profit-loss', compact('posProducts'));
     }
 }

@@ -372,7 +372,9 @@
 
                         <div class="col-md-4"></div>
                         <div class="col-md-4 text-center">
-                            <button type="submit" id="submit" class="btn btn-primary w-25">Update</button>
+                            <center>
+                                <button type="submit" id="submit" class="btn btn-primary w-25 d-flex justify-content-center align-items-center">Update</button>
+                            </center>
                         </div>
                         <div class="col-md-4"></div>
                     </div>
