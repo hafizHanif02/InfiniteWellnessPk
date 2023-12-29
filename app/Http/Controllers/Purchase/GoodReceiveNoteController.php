@@ -586,30 +586,6 @@ class GoodReceiveNoteController extends Controller
 
         }
 
-
-        // foreach ($batches as $batch) {
-        //     $grn = GoodReceiveProduct::where('batch_id', $batch->id)->first();
-        //     if($grn !== null){
-        //         if($grn->manufacturer_retail_price !== null){
-        //             $currentUnitRetail = $grn->manufacturer_retail_price / $grn->product->pieces_per_pack;
-        //             Batch::where('id', $batch->id)->update([
-        //                 'unit_retail' => $currentUnitRetail
-        //             ]);
-        //         }else{
-        //             $product = Product::where('id', $batch->product_id)->first();
-        //             $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
-        //             Batch::where('id', $batch->id)->update([
-        //                 'unit_retail' => $unitRetail
-        //             ]);
-        //         }
-        //     }else{
-        //         $product = Product::where('id', $batch->product_id)->first();
-        //         $unitRetail = $product->manufacturer_retail_price / $product->pieces_per_pack;
-        //         Batch::where('id', $batch->id)->update([
-        //             'unit_retail' => $unitRetail
-        //         ]);
-        //     }
-        // }
         return 'done';
     }
 
@@ -670,5 +646,18 @@ class GoodReceiveNoteController extends Controller
         [
             'grn' => $grn
         ]);
+    }
+
+    public function FormatunitRetail()
+    {
+        $batchPOS = BatchPOS::all();
+        foreach($batchPOS as $batch){
+            $unitretail = $batch->unit_retail;
+            $unitretail = number_format($unitretail, 2);
+            $unitretail = removeCommaFromNumbers($unitretail);
+            BatchPOS::where('id', $batch->id)->update([
+                'unit_retail' => $unitretail,
+            ]);
+        }
     }
 }
