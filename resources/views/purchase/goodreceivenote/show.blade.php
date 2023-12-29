@@ -119,8 +119,8 @@
                 </table>
             </div>
         </div>
-        <table class="table table-bordered table-hover text-start" id="add-products">
-            <tbody >
+        <table class="table table-bordered table-hover text-start" id="add-products" style="display: none;">
+            <thead>
                 <tr>
                     <th>Invoice #</th>
                     <th>Invoice Date</th>
@@ -131,9 +131,9 @@
                     <th>Qty</th>    
                     <th>Unit</th>
                    <th>Per Unit Trade Price</th>          
-                    {{-- <th>Total Trade price </th> --}}
+                    <th>Total Trade price </th>
                     <th>Discount on Trade Price %</th>
-                    <th>Discount on TP %</th>
+                    {{-- <th>Discount on TP %</th> --}}
                     <th>Sales Tax %</th>
                     <th>Sale Tax Amount</th>
                     {{-- <th>Inclusive of Sale Tax Final-Cost</th> --}}
@@ -147,7 +147,31 @@
                     <th> Profit</th> --}}
                     <th>Expiry </th>
                 </tr>
-                <td>{{ $goodReceiveNote->invoice_number }}</td>
+            </thead>
+            <tbody>
+                    @foreach($GrnProducts as $product)
+                    <tr>
+                        <td>{{ $product->goodReceiveNote->invoice_number }}</td>
+                        <td>{{ $product->goodReceiveNote->invoice_date }}</td>
+                        <td>{{ $product->requistionProduct->requistion->vendor->account_title }}</td>
+                        <td>{{ $product->product->product_name }}</td>
+                        <td>{{ $product->deliver_qty }}</td>
+                        <td>{{ $product->product->unit_of_measurement ? 'Pcs' : 'Unit' }}</td>
+                        <td>{{ $product->product->trade_price }}</td>
+                        <td>{{ $product->product->trade_price * $product->deliver_qty }}</td>
+                        <td>{{ $product->product->discount_trade_price }}</td>
+                        <td>{{ $product->saletax_percentage }}</td>
+                        <td>{{ $product->saletax_amount }}</td>
+                        <td>{{ $product->item_amount }}</td>
+                        <td>{{ $product->goodReceiveNote->advance_tax_percentage }}</td>
+                        <td>{{ $product->goodReceiveNote->net_total_amount }}</td>
+                        <td>{{ $product->manufacturer_retail_price }}</td>
+                        <td>{{ $product->expiry_date }}</td>
+                    </tr>
+                    @endforeach
+
+
+                {{-- <td>{{ $goodReceiveNote->invoice_number }}</td>
                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $goodReceiveNote->invoice_date)->format('d-m-Y') }}</td>
                 <td>{{ $goodReceiveNote->requistion->vendor->account_title }}</td>
                 @foreach ($goodReceiveNote->goodReceiveProducts as $goodReceiveNoteProduct)
@@ -166,7 +190,7 @@
                 @foreach($goodReceiveNote->goodReceiveProducts as $goodReceiveNoteProduct)
                 <td>{{ $goodReceiveNoteProduct->manufacturer_retail_price }}</td>
                 <td>{{ $goodReceiveNoteProduct->expiry_date }}</td>
-                @endforeach         
+                @endforeach  --}}
             </tbody>
         </table>
     </div>

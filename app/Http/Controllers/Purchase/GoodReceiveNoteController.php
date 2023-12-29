@@ -199,6 +199,7 @@ class GoodReceiveNoteController extends Controller
     {
         return view('purchase.goodreceivenote.show', [
             'goodReceiveNote' => $goodReceiveNote->load(['goodReceiveProducts.product', 'requistion.vendor']),
+            'GrnProducts' => GoodReceiveProduct::where('good_receive_note_id', $goodReceiveNote->id)->with('requistionProduct.requistion.vendor')->with('goodReceiveNote')->get(),
         ]);
     }
 
