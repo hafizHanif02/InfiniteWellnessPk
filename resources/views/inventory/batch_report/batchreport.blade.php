@@ -12,7 +12,7 @@
                     <div class="d-flex">
                         <form action="/inventory/export-report" method="GET" id="export-form">
                             <div class="d-flex justify-content-center gap-5 mb-5">
-                                <div class="d-flex gap-5">
+                                <div class="d-flex gap-5" style="margin-top: -20px; padding-right: 10px;">
                                     <div>
                                         <label for="date_from" class="form-label">Date From</label>
                                         <input type="date" value="{{ request('date_from', date('Y-m-d')) }}"
@@ -23,13 +23,11 @@
                                         <input type="date" value="{{ request('date_to', date('Y-m-d')) }}"
                                             class="form-control" name="date_to" id="date_to">
                                     </div>
-                                </div>
-                                <div class="d-flex gap-5 mt-5">
-
-                                    <button type="button" onclick="exportReport()" class="btn btn-primary mt-3">
-                                        Export Report
+                                    <div class="d-flex gap-5 mt-5">
+                                        <button type="button" onclick="exportReport()" class="btn btn-primary mt-3">
+                                            Export Report
                                     </button>
-
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -41,7 +39,7 @@
                         </script>
 
                         <form method="Get" role="search">
-                            <div class="search-container">
+                            <div class="search-container mt-2" >
                                 <input type="text" name="search_data" id="search_data" class="search_data form-control"
                                     value="{{ $search_data }}" placeholder="Search by Name or ID ...">
                                 <button type="submit" class="search-button">
