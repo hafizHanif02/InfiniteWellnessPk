@@ -382,7 +382,9 @@
 
                         <div class="col-md-4"></div>
                         <div class="col-md-4 text-center">
-                            <button type="submit" id="submit" class="btn btn-primary w-25">Submit</button>
+                            <center>
+                                <button type="submit" id="submit" class="btn btn-primary w-25 d-flex justify-content-center align-items-center">Submit</button>
+                            </center>
                         </div>
                         <div class="col-md-4"></div>
                     </div>
