@@ -6,7 +6,7 @@
     @endpush
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header d-flex justify-content-between">
+            {{-- <div class="card-header d-flex justify-content-between">
                 <h3>Batch Report</h3>
                 <div class="container">
                     <div class="d-flex">
@@ -49,7 +49,59 @@
                         </form>
                     </div>
                 </div>
+            </div> --}}
+
+
+
+            <div class="card-header d-flex justify-content-between">
+                <h3>Batch Report</h3>
+                <div class="container">
+                    <div class="d-flex flex-column flex-md-row">
+                        <form action="/inventory/export-report" method="GET" id="export-form"
+                            class="d-flex flex-column flex-md-row align-items-md-center">
+                            <div class="d-flex flex-column flex-md-row gap-3 mb-3">
+                                <div class="mb-3">
+                                    <label for="date_from" class="form-label">Date From</label>
+                                    <input type="date" value="{{ request('date_from', date('Y-m-d')) }}" class="form-control"
+                                        name="date_from" id="date_from">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="date_to" class="form-label">Date To</label>
+                                    <input type="date" value="{{ request('date_to', date('Y-m-d')) }}" class="form-control"
+                                        name="date_to" id="date_to">
+                                </div>
+                                <div class="d-flex mt-md-0 mt-3">
+                                    <button type="button" onclick="exportReport()" class="btn btn-primary ms-5" style="margin: 13px;">
+                                        Export Report
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+            
+                        <script>
+                            function exportReport() {
+                                $('#export-form').submit();
+                            }
+                        </script>
+            
+                        <form method="Get" role="search" class="d-flex flex-column flex-md-row align-items-md-center">
+                            <div class="search-container mt-2 me-md-2">
+                                <input type="text" name="search_data" id="search_data" style="margin: 20px;" class="search_data form-control ms-3"
+                                    value="{{ $search_data }}" placeholder="Search by Name or ID ...">
+                                <button type="submit" class="search-button">
+                                    <i class="fa fa-search" style="font-size:24px;color:rgb(1, 7, 41);"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+            
+            
+
+
+
+
             <div class="card-body">
                 <div class="card-body">
                     @if($batches->isEmpty())
