@@ -125,13 +125,13 @@
                 <div class="text-end fs-5 text-gray-800">
 {{--                    {{ checkValidCurrency($bill->currency_symbol ?? getCurrentCurrency()) ? moneyFormat($bill->amount, strtoupper($bill->currency_symbol ?? getCurrentCurrency())) : number_format($bill->amount).''.($bill->currency_symbol ?? getCurrencySymbol()) }}--}}
                     -{{ checkNumberFormat(($bill->advance_amount) ? $bill->advance_amount : 0, strtoupper($bill->currency_symbol ?? getCurrentCurrency())) }}
-                </div>
+                </div>  
             </div>
             <div class="d-flex justify-content-end flex-stack">
                 <div class="fw-bold pe-10 text-gray-600 fs-7">{{ __('messages.bill.total_amount').(':') }}</div>
                 <div class="text-end fs-5 text-gray-800">
 {{--                    {{ checkValidCurrency($bill->currency_symbol ?? getCurrentCurrency()) ? moneyFormat($bill->amount, strtoupper($bill->currency_symbol ?? getCurrentCurrency())) : number_format($bill->amount).''.($bill->currency_symbol ?? getCurrencySymbol()) }}--}}
-                    {{ checkNumberFormat($bill->total_amount, strtoupper($bill->currency_symbol ?? getCurrentCurrency())) }}
+                    {{ checkNumberFormat($bill->total_amount - $bill->advance_amount, strtoupper($bill->currency_symbol ?? getCurrentCurrency())) }}
                 </div>
             </div>
         </div>

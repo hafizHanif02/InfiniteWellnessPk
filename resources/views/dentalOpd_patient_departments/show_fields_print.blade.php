@@ -1,4 +1,16 @@
 <div>
+    <div style="text-align: right; " class="mt-2">
+        <p>{{ __(' Date:') }} {{ now()->toDateString() }}</p>
+    </div>
+    <center>
+        <div style="margin-top: 25px !important; margin-bottom: 25px !important; margin-left: 20px !important">
+            <img src="https://app.infinitewellnesspk.com/logo.png" width="120px" alt="logo">
+        </div>
+
+        <div style="margin-top: 25px !important; margin-bottom: 10px !important; margin-left: 20px !important">
+            <h2>Infinite Wellness PK</h2>
+        </div>
+    </center>
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -15,7 +27,7 @@
                                class="text-gray-600 text-decoration-none ">
                                 {{ $opdPatientDepartment->patient->patientUser->email }}
                             </a>
-                            <span class="d-flex align-items-center ">
+                            <span class="mt-5">
                                 @if(!empty($opdPatientDepartment->patient->address->address1) || !empty($opdPatientDepartment->patient->address->address2) || !empty($opdPatientDepartment->patient->address->city) || !empty($opdPatientDepartment->patient->address->zip))
                                     <span><i class="fas fa-location"></i></span>
                                 @endif
@@ -53,6 +65,7 @@
             </div>
         </div>
     </div>
+    <hr>
 
     <div class="mt-2 overflow-hidden">
 
@@ -116,6 +129,7 @@
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.weight').':' }}</label>
                                 <span class="fs-5 text-gray-800">{{ !empty($opdPatientDepartment->weight) ? $opdPatientDepartment->weight : __('messages.common.n/a') }}</span>
                             </div>
+                            <hr>
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.bp').':' }}</label>
@@ -132,6 +146,7 @@
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_payments.payment_mode') }}</label>
                                 <span class="fs-5 text-gray-800">{{ !empty($opdPatientDepartment->payment_mode_name) ? $opdPatientDepartment->payment_mode_name : __('messages.common.n/a') }}</span>
                             </div>
+                            <hr>
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.doctor_opd_charge.standard_charge') }}</label>
@@ -157,6 +172,7 @@ checkNumberFormat($opdPatientDepartment->followup_charge, strtoupper($opdPatient
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.is_old_patient').':' }}</label>
                                 <span class="fs-5 text-gray-800">{{ ($opdPatientDepartment->is_old_patient) ? __('messages.common.yes') : __('messages.common.no') }}</span>
                             </div>
+                            <hr>
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.common.created_at').':' }}</label>
@@ -172,6 +188,7 @@ checkNumberFormat($opdPatientDepartment->followup_charge, strtoupper($opdPatient
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.symptoms').':' }}</label>
                                 <span class="fs-5 text-gray-800">{!!  !empty($opdPatientDepartment->symptoms)?nl2br(e($opdPatientDepartment->symptoms)) : __('messages.common.n/a')  !!}</span>
                             </div>
+                            <hr>
                             <div class="col-sm-4 col-4 d-flex flex-column mb-md-10 mb-5">
                                 <label for="name"
                                        class="pb-2 fs-5 text-gray-600">{{ __('messages.ipd_patient.notes').':' }}</label>
@@ -188,6 +205,7 @@ checkNumberFormat($opdPatientDepartment->followup_charge, strtoupper($opdPatient
                                         __('messages.common.n/a') }}
                                 </span>
                             </div>
+                            <hr>
                         </div>
                         <h3>Services</h3>
                         <input type="hidden" id="serviceData" value="{{$opdPatientDepartment->service_id}}" />

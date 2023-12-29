@@ -482,7 +482,7 @@ class OpdPatientDepartmentController extends AppBaseController
             "standard_charge" => $request->standard_charge,
             "followup_charge" => $request->followup_charge,
             "total_amount" => $request->total_amount,
-            'advance_amount' => $advance_amount,
+            'advance_amount' => $advance_amount ?? 0,
         ];
         DentalOpdPatientDepartment::insert($data);
 

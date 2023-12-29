@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Purchase;
 
+use Carbon\Carbon;
 use App\Models\Log;
 use App\Models\Pos;
 use App\Models\Batch;
 use App\Models\BatchPOS;
 use App\Models\PosReturn;
 use Illuminate\View\View;
+use App\Models\GrnPayment;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Shift\Transfer;
@@ -22,6 +24,7 @@ use App\Models\Shift\TransferProduct;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rules\Exists;
 use App\Models\Purchase\GoodReceiveNote;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Purchase\RequistionProduct;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Http\Requests\Purchase\GoodReceiveNoteRequest;
@@ -607,5 +610,64 @@ class GoodReceiveNoteController extends Controller
         //     }
         // }
         return 'done';
+    }
+
+    public function grnPayments()
+    {
+        $grnPayments = GrnPayment::with('grn.requistion.vendor')->get();
+        return view('expenses.GRNPayments.index',
+        [
+            'grnPayments' => $grnPayments
+        ]);
+    }
+
+    public function grnPaymentsCreate()
+    {
+        $grn = GoodReceiveNote::all();
+        return view('expenses.GRNPayments.create',
+        [
+            'grn' => $grn
+        ]);
+    }
+
+    public function getGrn(Request $request)
+    {
+        $grn = GoodReceiveNote::where('id', $request->id)->with('grnPayments')->first();
+        return response()->json([
+            'grn' => $grn,
+        ]);
+    }
+
+    public function grnPaymentsStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'grn_id' => 'required',
+            'paid_amount' => 'required | numeric | min:1',
+            'paid_date' => 'required | date | after_or_equal:today',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+            $grnPayments = new GrnPayment();
+            $grnPayments->grn_id = $request->grn_id;
+            $grnPayments->paid_amount = $request->paid_amount;
+            $grnPayments->paid_date = $request->paid_date;
+            $grnPayments->comments = $request->comments;
+            $grnPayments->created_at = Carbon::now();
+            $grnPayments->updated_at = Carbon::now();
+            $grnPayments->save();
+
+            return redirect()->route('grn-payments')->with('success', 'GRN Payment Added Successfully');
+        }
+    }
+
+    public function grnExport()
+    {
+        $grn = GoodReceiveNote::with('requistion.vendor')->with('grnPayments')->get();
+        return view('purchase.goodreceivenote.export',
+        [
+            'grn' => $grn
+        ]);
     }
 }

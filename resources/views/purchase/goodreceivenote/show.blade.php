@@ -119,7 +119,7 @@
                 </table>
             </div>
         </div>
-        <table class="table table-bordered table-hover text-start" id="add-products" style=" display:none";>
+        <table class="table table-bordered table-hover text-start" id="add-products">
             <tbody >
                 <tr>
                     <th>Invoice #</th>
@@ -154,7 +154,7 @@
                 <td>{{ $goodReceiveNoteProduct->product->product_name }}</td>
                 <td>{{ $goodReceiveNoteProduct->deliver_qty  }}</td>
                 <td>{{ $goodReceiveNoteProduct->product->limit == 0 ? 'Unit' : 'Box' }}</td>
-                <td>{{ $goodReceiveNoteProduct->product->item_amount  }}</td>
+                <td>{{ $goodReceiveNoteProduct->product->trade_price  }}</td>
                 <td>{{ $goodReceiveNoteProduct->product->discount_trade_price  }}</td>
                 <td>{{ $goodReceiveNoteProduct->product->trade_price_percentage  }}</td>
                 <td>{{ $goodReceiveNoteProduct->sale_tax_percentage  }}</td>

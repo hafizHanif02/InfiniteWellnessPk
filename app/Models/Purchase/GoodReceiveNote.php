@@ -2,6 +2,7 @@
 
 namespace App\Models\Purchase;
 
+use App\Models\GrnPayment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,5 +43,11 @@ class GoodReceiveNote extends Model
     public function goodReceiveProducts(): HasMany
     {
         return $this->hasMany(GoodReceiveProduct::class);
+    }   
+
+
+    public function grnPayments(): HasMany
+    {
+        return $this->hasMany(GrnPayment::class, 'grn_id', 'id');
     }
 }

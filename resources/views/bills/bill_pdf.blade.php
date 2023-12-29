@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Total Amount:</td>
-                    <td>{{ checkNumberFormat($bill->total_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
+                    <td>{{ checkNumberFormat($bill->total_amount - $bill->advance_amount, strtoupper($bill['currency_symbol'] ?? getCurrentCurrency())) }}
                     </td>
                 </tr>
 

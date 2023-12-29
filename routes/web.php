@@ -769,6 +769,10 @@ Route::middleware(['auth', 'verified', 'xss', 'checkUserStatus'])->group(functio
         Route::get('returnposreport/filter', [PosController::class, 'posfilterlistdata'])->name('returnposreport.filter');
         Route::get('returnposreport/daily-report', [PosController::class, 'posdailyreport'])->name('returnposreport.daily');
         Route::get('daily-report/filter/', [PosController::class, 'posdailyreportfilter'])->name('returnposreport.filter');
+        Route::get('grn-payments', [GoodReceiveNoteController::class, 'grnPayments'])->name('grn-payments');
+        Route::get('grn-payments-create', [GoodReceiveNoteController::class, 'grnPaymentsCreate'])->name('grn-payments-create');
+        Route::post('get-grn', [GoodReceiveNoteController::class, 'getGrn'])->name('get-grn');
+        Route::post('grn-payments-store', [GoodReceiveNoteController::class, 'grnPaymentsStore'])->name('grn-payments-store');
     });
 
     Route::middleware('role:Admin|Nurse|Doctor|Dietitian')->group(function () {

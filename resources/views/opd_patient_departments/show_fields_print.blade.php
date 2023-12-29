@@ -21,9 +21,9 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-4">
-                                            <strong>{{ __('Patient Id') }}</strong><br>
+                                            <strong>{{ __('Patient MR #') }}</strong><br>
                                             <span
-                                                class="badge bg-light-primary">{{ $opdPatientDepartment->patient->id }}</span><br><br>
+                                                class="badge bg-light-primary">{{ $opdPatientDepartment->patient->MR }}</span><br><br>
                                         </div>
                                         <div class="col-4">
                                             <strong>{{ __('Name') }}</strong><br>

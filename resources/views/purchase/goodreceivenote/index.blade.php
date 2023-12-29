@@ -4,7 +4,10 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Good Receive Note</h3>
-                    <a href="{{route('purchase.good_receive_note.create') }}" class="btn btn-primary float-end mr-5 mb-3">Add New</a>
+                    <div>
+                        <a href="{{route('purchase.grnExport') }}" target="_blank" class="btn btn-secondary float-end mr-5 mb-3">Export to Excel</a>
+                        <a href="{{route('purchase.good_receive_note.create') }}" class="btn btn-primary float-end me-4 mr-5 mb-3">Add New</a>
+                    </div>
                 </div>
                 <table class="table table-bordered text-center table-hover">
                     <thead class="table-dark">

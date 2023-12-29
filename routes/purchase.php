@@ -59,5 +59,6 @@ Route::prefix('purchase')->as('purchase.')->middleware(['auth'])->group(function
 
     // Purchase GRN Print
     Route::get('good_receive_note/print/{id}', [GoodReceiveNoteController::class, 'print'])->name('good_receive_note.print');
+    Route::get('grnExport', [GoodReceiveNoteController::class, 'grnExport'])->name('grnExport');
 
 });
