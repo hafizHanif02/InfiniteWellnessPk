@@ -1619,8 +1619,7 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
 
     @endrole
 
-    
-    @role('Admin')
+    @role('Admin|PharmacistAdmin|Accountant')
     <li class="nav-item">
         <a class="nav-link  d-flex align-items-center py-3 reload-page"
            href="{{ route('FinanceReport') }}">
@@ -1628,7 +1627,9 @@ $vaccinationsPatient = getMenuLinks(\App\Models\User::MAIN_VACCINATION_MGT)
             <span class="aside-menu-title">Finance Report</span>
         </a>
     </li>
-
+    @endrole
+    
+    @role('Admin')
     <li class="nav-item">
         <a class="nav-link  d-flex align-items-center py-3"
            href="{{ route('logs.index') }}">
