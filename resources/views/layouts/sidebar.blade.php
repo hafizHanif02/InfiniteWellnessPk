@@ -4,11 +4,11 @@
 @endphp
 <div class="aside-menu-container" id="sidebar">
     <!--begin::Brand-->
-    <div class="aside-menu-container__aside-logo flex-column-auto">
+    <div class="aside-menu-container__aside-logo flex-column-auto mt-3">
         <a data-turbo="false" href="https://app.infinitewellnesspk.com/" data-toggle="tooltip" data-placement="right"
            class="text-decoration-none sidebar-logo"
            title="{{ getAppName() }}">
-            <img src="https://app.infinitewellnesspk.com/logo.png"
+            <img src="{{ asset('logo.png') }}"
                  alt="Logo" width="50px" height="50px" class="image"/>
             <span class="navbar-brand-name text-dark text-decoration-none logo ps-2">{{ getAppName() }}</span>
         </a>

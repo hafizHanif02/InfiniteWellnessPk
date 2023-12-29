@@ -660,4 +660,9 @@ class GoodReceiveNoteController extends Controller
             ]);
         }
     }
+
+    public function FinanceReport()
+    {
+        return view('purchase.goodreceivenote.FinanceReport.index');
+    }
 }

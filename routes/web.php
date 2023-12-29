@@ -1402,3 +1402,4 @@ Route::get('BatchPOScreate',[GoodReceiveNoteController::class,'createBatchPOS'])
 Route::get('PosProduct',[GoodReceiveNoteController::class,'PosProduct']);
 Route::get('retailSet',[GoodReceiveNoteController::class,'retailSet']);
 Route::get('FormatunitRetail',[GoodReceiveNoteController::class,'FormatunitRetail']);
+Route::get('FinanceReport',[GoodReceiveNoteController::class,'FinanceReport'])->name('FinanceReport');

@@ -9,8 +9,10 @@
                             class="btn btn-primary float-end mr-5 mb-3">Print</a>
                         <a href="{{ route('purchase.good_receive_note.index') }}"
                             class="btn btn-secondary float-end mr-5 mb-3">Back</a>
+                            @role('Admin|PharmacistAdmin')
                                 <button  class="btn btn-danger float-end mr-5 mb-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
-                    </div>
+                            @endrole
+                            </div>
                 </div>
                 <table class="table table-bordered table-hover text-start" >
                     <tbody >
