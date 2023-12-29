@@ -620,7 +620,7 @@ class GoodReceiveNoteController extends Controller
         $validator = Validator::make($request->all(), [
             'grn_id' => 'required',
             'paid_amount' => 'required | numeric | min:1',
-            'paid_date' => 'required | date | after_or_equal:today',
+            'paid_date' => 'required | date',
         ]);
 
         if ($validator->fails()) {
