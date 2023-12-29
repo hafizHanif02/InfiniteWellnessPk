@@ -9,6 +9,7 @@
             <th>Paid/Unpaid</th>
             <th>Unpaid Amount</th>
             <th>Paid Amount</th>
+            <th>Last Paid Date</th>
             <th>Comments</th>
         </tr>
     </thead>
@@ -25,6 +26,7 @@
                 <td>{{ $grn->grnPayments->sum('paid_amount') == 0 ? 'Unpaid' : 'Paid' }}</td>
                 <td>{{ $grn->grnPayments->sum('paid_amount') == 0 ? $grn->net_total_amount : $grn->net_total_amount - $grn->grnPayments->sum('paid_amount') }}</td>
                 <td>{{ $grn->grnPayments->sum('paid_amount') }}</td>
+                <td>{{ $grn->grnPayments->sum('paid_amount') == 0 ? '-' : $grn->grnPayments->sortByDesc('id')->first()->paid_date }}</td>
                 @if ( count($grn->grnPayments) > 0)
                 {{-- @dd() --}}
                 <td>{{ 
