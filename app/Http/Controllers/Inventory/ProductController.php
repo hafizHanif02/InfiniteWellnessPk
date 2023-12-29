@@ -33,6 +33,10 @@ use App\Models\DentalOpdPatientDepartment;
 use App\Models\Purchase\GoodReceiveProduct;
 use App\Models\Purchase\PurchaseReturnNote;
 use App\Http\Requests\Inventory\ProductRequest;
+use Carbon\{
+    Carbon,
+    CarbonPeriod
+};
 
 class ProductController extends Controller
 {
@@ -78,6 +82,101 @@ class ProductController extends Controller
             // Other variables you want to pass to the view
         ]);
     }
+
+    public function exportReport(Request $request) {
+        
+        $from = new Carbon($request->date_from);
+        $to = new Carbon($request->date_to);
+
+        // Export Day Wise Report    
+        $records = BatchPOS::select(DB::raw('DAY(created_at), created_at, batch_id, product_id, quantity, sold_quantity, remaining_qty'))
+                    ->whereBetween('created_at', [$from->format('Y-m-d')." 00:00:00", $to->format('Y-m-d')." 23:59:59"])
+                    ->with('product')
+                    ->get();
+
+        $grouped = $records->groupBy('product_id');
+
+        $results = $grouped->map(function ($group) {
+
+            return $group->groupBy(DB::raw('DAY(created_at)'))->map(function ($row) {
+
+                $grn_qty = GoodReceiveProduct::where('product_id', $row->first()->product_id)
+                        ->whereDate('created_at', '=', $row->first()->created_at->format('Y-m-d'))
+                        ->sum('deliver_qty');
+                
+                $arr = [
+                    'date' => $row->first()->created_at->format('d'),
+                    'opening_qty' => $row->sum('quantity'),
+                    'purchase' => $grn_qty,
+                    'sold_qty' => $row->sum('sold_quantity'),
+                    'closing_qty' => $row->sum('remaining_qty')
+                ];
+
+                return $arr;
+
+            });
+
+        });        
+
+        $dateRange = CarbonPeriod::create($from, $to);
+        
+        $range = array_slice($dateRange->toArray(), 1);
+
+        $days = [];
+        foreach ($range as $date) {
+            $days[$date->format('d')] = [
+                'opening_qty' => 0,
+                'purchase' => 0,
+                'sold_qty' => 0,
+                'closing_qty' => 0
+            ];
+        }
+
+        $grand_total = [
+            'total_purchase' => 0,
+            'total_sold' => 0,
+            'closing' => 0
+        ];
+
+        foreach ($results as $key => $result) {
+            
+            $product_id = $key;
+
+            foreach ($days as $key => $value) {
+                
+                if (!array_key_exists($key, $result->toArray())) {
+                    
+                    $grn_qty = GoodReceiveProduct::where('product_id', $product_id)
+                        ->whereDay('created_at', '=', $key)
+                        ->sum('deliver_qty');
+
+                    $result[$key] = array(
+                        'date' => $key,
+                        'opening_qty' => 0,
+                        'purchase' => $grn_qty,
+                        'sold_qty' => 0,
+                        'closing_qty' => 0
+                    );
+
+                }
+
+                $days[$key] = [
+                    'opening_qty' => $days[$key]['opening_qty'] + $result[$key]['opening_qty'],
+                    'purchase' => $days[$key]['purchase'] + $result[$key]['purchase'],
+                    'sold_qty' => $days[$key]['sold_qty'] + $result[$key]['sold_qty'],
+                    'closing_qty' => $days[$key]['closing_qty'] + $result[$key]['closing_qty'],
+                ];
+            }
+
+            $grand_total['total_purchase'] += $result->sum('purchase');
+            $grand_total['total_sold'] += $result->sum('sold_qty');
+            $grand_total['closing'] += $result->sum('closing_qty');
+            
+        }
+
+        return view('inventory.batch_report.export', compact('results', 'days', 'grand_total'));
+    }
+
 
     public function importExcel(Request $request): RedirectResponse
     {

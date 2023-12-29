@@ -58,6 +58,7 @@ Route::prefix('inventory')->as('inventory.')->middleware(['auth'])->group(functi
     Route::post('adjustment/store', [ProductController::class, 'adjustmentStore'])->name('adjustments.store');
     // batch  report
     Route::get('batch-report', [ProductController::class, 'batchPosReport'])->name('products.batch-pos-report');
+    Route::get('export-report', [ProductController::class, 'exportReport'])->name('products.export-report');
     Route::get('batch-report/show/{id}', [ProductController::class, 'batchPosReportShow'])
     ->name('products.batch-pos-report.print');
 

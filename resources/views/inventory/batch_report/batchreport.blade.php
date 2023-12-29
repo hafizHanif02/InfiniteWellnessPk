@@ -9,16 +9,47 @@
             <div class="card-header d-flex justify-content-between">
                 <h3>Batch Report</h3>
                 <div class="container">
+                    <div class="d-flex">
+                        <form action="/inventory/export-report" method="GET" id="export-form">
+                            <div class="d-flex justify-content-center gap-5 mb-5">
+                                <div class="d-flex gap-5">
+                                    <div>
+                                        <label for="date_from" class="form-label">Date From</label>
+                                        <input type="date" value="{{ request('date_from', date('Y-m-d')) }}"
+                                            class="form-control" name="date_from" id="date_from">
+                                    </div>
+                                    <div>
+                                        <label for="date_to" class="form-label">Date To</label>
+                                        <input type="date" value="{{ request('date_to', date('Y-m-d')) }}"
+                                            class="form-control" name="date_to" id="date_to">
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-5 mt-5">
 
-                    <form method="Get" role="search">
-                        <div class="search-container">
-                            <input type="text" name="search_data" id="search_data" class="search_data form-control"
-                                value="{{ $search_data }}" placeholder="Search by Name or ID ...">
-                            <button type="submit" class="search-button">
-                                <i class="fa fa-search" style="font-size:48px;color:rgb(1, 7, 41);"></i>
-                            </button>
-                        </div>
-                    </form>
+                                    <button type="button" onclick="exportReport()" class="btn btn-primary mt-3">
+                                        Export Report
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <script>
+                            function exportReport() {
+                                $('#export-form').submit();
+                            }
+                        </script>
+
+                        <form method="Get" role="search">
+                            <div class="search-container">
+                                <input type="text" name="search_data" id="search_data" class="search_data form-control"
+                                    value="{{ $search_data }}" placeholder="Search by Name or ID ...">
+                                <button type="submit" class="search-button">
+                                    <i class="fa fa-search" style="font-size:48px;color:rgb(1, 7, 41);"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
