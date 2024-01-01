@@ -19,6 +19,7 @@
         "ext-json": "*",
         "barryvdh/laravel-dompdf": "^1.0",
         "doctrine/dbal": "~2.3",
+        "fahlisaputra/laravel-minify": "^1.1",
         "firebase/php-jwt": "^5.2",
         "guzzlehttp/guzzle": "^7.2",
         "infyomlabs/adminlte-templates": "^5.0",

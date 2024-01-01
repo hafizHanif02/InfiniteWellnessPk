@@ -238,6 +238,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'fahlisaputra/laravel-minify' => array(
+            'pretty_version' => 'v1.1.1',
+            'version' => '1.1.1.0',
+            'reference' => '8180c6e54b4197002ab69733526baf925571e628',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fahlisaputra/laravel-minify',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'fakerphp/faker' => array(
             'pretty_version' => 'v1.23.0',
             'version' => '1.23.0.0',

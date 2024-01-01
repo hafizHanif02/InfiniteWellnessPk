@@ -67,7 +67,8 @@ class AppointmentController extends AppBaseController
         $departments = $this->appointmentRepository->getDoctorDepartments();
         $statusArr = Appointment::STATUS_PENDING;
 
-        return view('appointments.create', compact('patients', 'departments', 'statusArr'));
+        return view('appointments.create',['ignore_minify' => true], compact('patients', 'departments', 'statusArr'));
+        // return view('welcome', ['ignore_minify' => true]);
     }
 
     public function getPatientCase(Request $request)

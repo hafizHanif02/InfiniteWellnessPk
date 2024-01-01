@@ -183,7 +183,7 @@ class PatientController extends AppBaseController
 
             $nursingData = NursingForm::where('patient_mr_number', $patientMR)->with(['patient.user', 'Allergies', 'Medication'])->first();
 
-            return view('patients.show', compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
+            return view('patients.show', ['ignore_minify' => true], compact('data', 'patients', 'vaccinations', 'vaccinationPatients', 'forms', 'currentForm', 'dietdata', 'nursingData'));
         }
     }
     
@@ -691,7 +691,7 @@ class PatientController extends AppBaseController
             $formFile = DB::Table('form_type')->where('fileName', '!=', 'preTestForm')->where(['id' => $form_patientId->formID])->first();
             $fileName = $formFile->fileName;
             $formData = DB::Table('form_data')->where(['formID' => $request->formPatientID])->get();
-            return view('patients.' . $fileName, compact('formData', 'nursingData', 'patientData', 'DietData', 'age'));
+            return view('patients.' . $fileName, compact('formData', 'nursingData', 'patientData', 'DietData', 'age') ,['ignore_minify' => true],);
         }
         return "fdsfasdf";
     }

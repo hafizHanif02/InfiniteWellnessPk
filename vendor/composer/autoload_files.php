@@ -38,6 +38,7 @@ return array(
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
     '6a47392539ca2329373e0d33e1dba053' => $vendorDir . '/symfony/polyfill-intl-icu/bootstrap.php',
     '4a1f389d6ce373bda9e57857d3b61c84' => $vendorDir . '/barryvdh/laravel-debugbar/src/helpers.php',
+    '4e7b0ea3cd6226f5a6c0c7be5e8075dd' => $vendorDir . '/fahlisaputra/laravel-minify/src/Helpers.php',
     '5a29f2abde115bb0e1aa502d691e2e50' => $vendorDir . '/gerardojbaez/money/src/helpers.php',
     '1b0a7df7f0e65ba826767bc5ac6da80b' => $vendorDir . '/imanghafoori/laravel-microscope/src/helpers.php',
     'a28599dc506da421718fad75955a4b9d' => $vendorDir . '/infyomlabs/laravel-generator/src/helpers.php',

@@ -39,6 +39,7 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
+        '4e7b0ea3cd6226f5a6c0c7be5e8075dd' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Helpers.php',
         '5a29f2abde115bb0e1aa502d691e2e50' => __DIR__ . '/..' . '/gerardojbaez/money/src/helpers.php',
         '1b0a7df7f0e65ba826767bc5ac6da80b' => __DIR__ . '/..' . '/imanghafoori/laravel-microscope/src/helpers.php',
         'a28599dc506da421718fad75955a4b9d' => __DIR__ . '/..' . '/infyomlabs/laravel-generator/src/helpers.php',
@@ -225,6 +226,7 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
             'FontLib\\' => 8,
             'Firebase\\JWT\\' => 13,
             'Faker\\' => 6,
+            'Fahlisaputra\\Minify\\' => 20,
         ),
         'E' => 
         array (
@@ -762,6 +764,10 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+        'Fahlisaputra\\Minify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -1548,8 +1554,10 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         'App\\Models\\EmployeePayroll' => __DIR__ . '/../..' . '/app/Models/EmployeePayroll.php',
         'App\\Models\\Enquiry' => __DIR__ . '/../..' . '/app/Models/Enquiry.php',
         'App\\Models\\Expense' => __DIR__ . '/../..' . '/app/Models/Expense.php',
+        'App\\Models\\FastMedicalRecord' => __DIR__ . '/../..' . '/app/Models/FastMedicalRecord.php',
         'App\\Models\\FrontService' => __DIR__ . '/../..' . '/app/Models/FrontService.php',
         'App\\Models\\FrontSetting' => __DIR__ . '/../..' . '/app/Models/FrontSetting.php',
+        'App\\Models\\GrnPayment' => __DIR__ . '/../..' . '/app/Models/GrnPayment.php',
         'App\\Models\\HospitalSchedule' => __DIR__ . '/../..' . '/app/Models/HospitalSchedule.php',
         'App\\Models\\Income' => __DIR__ . '/../..' . '/app/Models/Income.php',
         'App\\Models\\Insurance' => __DIR__ . '/../..' . '/app/Models/Insurance.php',
@@ -3880,6 +3888,15 @@ class ComposerStaticInit71d57f779493fe20eb0a5fcaef14d808
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
+        'Fahlisaputra\\Minify\\Controllers\\HttpConnectionHandler' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Controllers/HttpConnectionHandler.php',
+        'Fahlisaputra\\Minify\\Helpers\\CSS' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Helpers/CSS.php',
+        'Fahlisaputra\\Minify\\Helpers\\Javascript' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Helpers/Javascript.php',
+        'Fahlisaputra\\Minify\\Helpers\\JsObfuscator' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Helpers/JsObfuscator.php',
+        'Fahlisaputra\\Minify\\Middleware\\Minifier' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Middleware/Minifier.php',
+        'Fahlisaputra\\Minify\\Middleware\\MinifyCss' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Middleware/MinifyCss.php',
+        'Fahlisaputra\\Minify\\Middleware\\MinifyHtml' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Middleware/MinifyHtml.php',
+        'Fahlisaputra\\Minify\\Middleware\\MinifyJavascript' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/Middleware/MinifyJavascript.php',
+        'Fahlisaputra\\Minify\\MinifyServiceProvider' => __DIR__ . '/..' . '/fahlisaputra/laravel-minify/src/MinifyServiceProvider.php',
         'Faker\\Calculator\\Ean' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Ean.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Inn.php',

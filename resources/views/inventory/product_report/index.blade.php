@@ -8,24 +8,23 @@
                     <div class="d-flex gap-5">
                         <div>
                             <label for="date_from" class="form-label">Date From</label>
-                            <input type="date" value="{{ request('date_from', date('Y-m-d')) }}"
-                                class="form-control" name="date_from" id="date_from"
-                                onchange="updateQueryString('date_from', this.value)">
+                            <input type="date" value="{{ request('date_from', date('Y-m-d')) }}" class="form-control"
+                                name="date_from" id="date_from" onchange="updateQueryString('date_from', this.value)">
                         </div>
                         <div>
                             <label for="date_to" class="form-label">Date To</label>
-                            <input type="date" value="{{ request('date_to', date('Y-m-d')) }}"
-                                class="form-control" name="date_to" id="date_to"
-                                onchange="updateQueryString('date_to', this.value)">
+                            <input type="date" value="{{ request('date_to', date('Y-m-d')) }}" class="form-control"
+                                name="date_to" id="date_to" onchange="updateQueryString('date_to', this.value)">
                         </div>
                     </div>
                     <div class="d-flex gap-5 mt-5">
                         <a href="{{ route('inventory.products.products_report') }}"
                             class="btn btn-secondary mt-3">Reset</a>
-                            <button class="btn btn-primary mt-3" style="" onclick="ExportToExcel('xlsx')">Export to Excel</button>
-                            <a href="{{ route('products_report.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
-                                target="_blank" class="btn btn-primary mt-3">Print</a>        
-                             
+                        <button class="btn btn-primary mt-3" style="" onclick="ExportToExcel('xlsx')">Export to
+                            Excel</button>
+                        <a href="{{ route('products_report.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
+                            target="_blank" class="btn btn-primary mt-3">Print</a>
+
                     </div>
                 </div>
 
@@ -74,10 +73,12 @@
                         </thead>
                         <tbody>
                             @foreach ($products as $product)
-                            {{-- {{ dd($product) }} --}}
+                                {{-- {{ dd($product) }} --}}
                                 <tr>
                                     <td>{{ $product->id }}</td>
-                                    <td>{{ $product->product_name }}  {{ ($product->generic->formula != NULL ? '(' . $product->generic->formula . ')' : '-') }}</td>
+                                    <td>{{ $product->product_name }}
+                                        {{ $product->generic->formula != null ? '(' . $product->generic->formula . ')' : '-' }}
+                                    </td>
                                     <td>{{ $product->open_quantity }}</td>
                                     <td>{{ $product->stock_current }}</td>
                                     {{-- <td>{{ $product->total_quantity }}</td> --}}
@@ -98,6 +99,13 @@
         </div>
         <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
         <script>
+            $(document).ready(function() {
+                if (!localStorage.getItem('reloaded')) {
+                localStorage.setItem('reloaded', 'true');
+                location.reload(true);
+            }
+            });
+
             function updateQueryString(key, value) {
                 var searchParams = new URLSearchParams(window.location.search);
 
@@ -113,15 +121,6 @@
                 window.location.reload();
             }
 
-
-            /*
-             *   This content is licensed according to the W3C Software License at
-             *   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
-             *
-             *   File:   sortable-table.js
-             *
-             *   Desc:   Adds sorting to a HTML data table that implements ARIA Authoring Practices
-             */
 
             'use strict';
 
@@ -285,21 +284,26 @@
 
             function ExportToExcel(type, fn, dl) {
                 var elt = document.getElementById('tbl_exporttable_to_xls');
-                var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                var wb = XLSX.utils.table_to_book(elt, {
+                    sheet: "sheet1"
+                });
                 var currentDate = new Date();
                 var day = currentDate.getDate().toString().padStart(2, '0');
                 var month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-                var year = currentDate.getFullYear();         
+                var year = currentDate.getFullYear();
                 var formattedDate = day + '-' + month + '-' + year;
                 var fileName = 'POS-Report (' + formattedDate + ').xlsx';
 
                 return dl ?
-                    XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                    XLSX.write(wb, {
+                        bookType: type,
+                        bookSST: true,
+                        type: 'base64'
+                    }) :
                     XLSX.writeFile(wb, fn || fileName);
             }
         </script>
 </x-layouts.app>
-
 <style>
     .button {
         border: none !important;
@@ -310,3 +314,4 @@
         cursor: pointer !important;
     }
 </style>
+

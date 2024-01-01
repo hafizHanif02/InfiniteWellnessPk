@@ -147,12 +147,13 @@
                                                     @foreach ($medicines as $medicine)
                                                         <tr>
                                                             <td>{{ $medicine->name }}</td>
-                                                            <td>{{ $medicine->product->generic->formula}}</td>
+                                                            <td>{{ $medicine->product->generic->formula }}</td>
                                                             <td>{{ $medicine->barcode }}</td>
                                                             <td><button class="btn btn-success" type="button"
-                                                                onclick="addMedicine({{ $medicine->id }})"><i
-                                                                class="fa fa-plus"></i></button>
-                                                                <input type="hidden" id="search_addbtn{{ $medicine->id }}"
+                                                                    onclick="addMedicine({{ $medicine->id }})"><i
+                                                                        class="fa fa-plus"></i></button>
+                                                                <input type="hidden"
+                                                                    id="search_addbtn{{ $medicine->id }}"
                                                                     data-product_id="{{ $medicine->id }}"
                                                                     data-product_name="{{ $medicine->name }}"
                                                                     data-generic_formula="{{ $medicine->product->generic->formula }}"
@@ -163,9 +164,9 @@
                                                                     data-gst="{{ $medicine->product->sale_tax_percentage }}"
                                                                     data-batch_pos="{{ json_encode($medicine->batchpos) }}"
                                                                     data-fixed_discount="{{ $medicine->product->fixed_discount }}"
-                                                                    data-dricetion_of_use="{{$medicine->product->dricetion_of_use}}"
-                                                                    data-common_side_effect="{{$medicine->product->common_side_effect}}"
-                                                                    ></td>
+                                                                    data-dricetion_of_use="{{ $medicine->product->dricetion_of_use }}"
+                                                                    data-common_side_effect="{{ $medicine->product->common_side_effect }}">
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -411,7 +412,7 @@
 
                 var total = 0;
                 selectedMedicinesAttr.forEach(function(medicine, items) {
-                     console.log(medicine);
+                    console.log(medicine);
                     var row = `
                 <tr scope="row" id="medicine-row${items}">
                     <input type="hidden" id="medicineID${items}" name="products[${items}][medicine_id]" value="${medicine.medicine.id}">
@@ -420,7 +421,7 @@
                         <select name="products[${items}][batch_id]" id="batch_pos${items}" onchange="ChangeBatch(${items})" class="batch_pos form-control">
                                 ${medicine.medicine.batchpos.length != 0  ?
                                                 `${medicine.medicine.batchpos.map(batch => {
-                                                    return `<option  value="${batch.id}"
+                                                        return `<option  value="${batch.id}"
                                                                 data-batch-id="${batch.id}"
                                                                 data-quantity_oh="${batch.remaining_qty}"
                                                                 data-remaining_qty="${batch.remaining_qty}"
@@ -429,7 +430,7 @@
                                                                 data-price="${batch.unit_trade}">
                                                             ${batch.batch.batch_no}
                                                             </option>`;
-                                                }).join('')}` :
+                                                    }).join('')}` :
                                                 `<option value="">Not Any Batch Found</option>`
                                             }
                             </select>
@@ -461,7 +462,7 @@
                 </tr>`;
                     $("#medicine-table-body").append(row);
 
-                    var pricerperunit = $('#selling_price'+items).val();
+                    var pricerperunit = $('#selling_price' + items).val();
 
                     // total += ((pricerperunit) * medicine.dosage);
                     gstCalculation(items);
@@ -501,7 +502,7 @@
                             }
                         });
                         var TotalAmount = $('#total_amounts2').val();
-                        console.log('Total 2 '+total_amounts2);
+                        console.log('Total 2 ' + total_amounts2);
                         var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
                         var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
                         var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
@@ -548,10 +549,10 @@
             var grandTotal = total_amount + advance_cost;
 
             $("#total_amount").val(grandTotal.toFixed(2));
-            console.log('Total 3 '+grandTotal.toFixed(2));
+            console.log('Total 3 ' + grandTotal.toFixed(2));
 
         }
-    
+
 
         function Addmore() {
             var tableRow = document.getElementById('medicine-table-body');
@@ -619,7 +620,7 @@
             $('.medicine-select').select2();
             enablemainbutton();
         }
-//    for delete values when delete row is click
+        //    for delete values when delete row is click
         function deletevalues(id) {
             $(`#medicine-row${id}`).remove();
             enablemainbutton();
@@ -649,7 +650,7 @@
 
             const selectedOption = selectMedicine.options[selectMedicine.selectedIndex];
 
-            var batchPosSelect = document.getElementById("batch_pos" +id);
+            var batchPosSelect = document.getElementById("batch_pos" + id);
 
             // Clear previous options
             batchPosSelect.innerHTML = '';
@@ -695,11 +696,13 @@
 
             sellingpriceTag.value = sellingPriceValue;
             // genericformulatag.value = GenericFormula;
-                console.log("selling value " + sellingPriceValue);
+            console.log("selling value " + sellingPriceValue);
             if (batchPositions) {
-                batchPositions.forEach(function (batchPos) {
+                batchPositions.forEach(function(batchPos) {
                     console.log(batchPos);
-                    batchPosSelect.innerHTML += '<option data-quantity_oh="'+batchPos.remaining_qty+'" data-price="'+batchPos.unit_trade+'" data-unit_retail="'+batchPos.unit_retail+'"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
+                    batchPosSelect.innerHTML += '<option data-quantity_oh="' + batchPos.remaining_qty +
+                        '" data-price="' + batchPos.unit_trade + '" data-unit_retail="' + batchPos.unit_retail +
+                        '"  value="' + batchPos.id + '">' + batchPos.batch.batch_no + '</option>';
                     totalQuantity.value = batchPos.remaining_qty;
                     totalMedicineAmount.value = batchPos.unit_trade;
                     totalMedicineAmount2.value = batchPos.unit_trade;
@@ -733,10 +736,10 @@
             });
             $('#total_amount').val(parseFloat(TotalAmount) + 1);
             $('#total_amounts2').val(TotalAmount);
-            console.log('Total 4 '+TotalAmount);
+            console.log('Total 4 ' + TotalAmount);
             $('#total_amount_ex_saletax').val(TotalAmount);
             $('#total_amount_inc_saletax').val(TotalAmount);
-            console.log('change dosage Change dosage !'+TotalAmount);
+            console.log('change dosage Change dosage !' + TotalAmount);
 
 
         }
@@ -772,14 +775,14 @@
                 }
             });
             var TotalAmount = $('#total_amounts2').val();
-            console.log('Total 5 '+TotalAmount);
+            console.log('Total 5 ' + TotalAmount);
             var discount_amounts2Tofixed = discount_amounts2.toFixed(2);
             var AmountWithDiscount = TotalAmount - discount_amounts2Tofixed;
             var amountwithouttaxToFixed = amountwithouttax.toFixed(2);
             $('#total_amount_ex_saletax').val(amountwithouttaxToFixed);
             $('#total_amount_inc_saletax').val(amountwithouttaxToFixed);
             $('#total_amount').val(parseFloat(amountwithouttaxToFixed) + 1);
-            console.log('amount discount !@'+amountwithouttaxToFixed);
+            console.log('amount discount !@' + amountwithouttaxToFixed);
             $('#total_discount').val(discount_amounts2Tofixed);
         }
 
@@ -934,16 +937,16 @@
             var pos_id = $('#pos_id_label').val();
             var medicine_id = $('#medicineID' + id).val();
             window.alert('Your Product Label Has been Generated');
-            $('#printlabel'+id).removeAttr('disabled');
-            $('#printlabel'+id).attr('href',`/lable/label-print/${pos_id}/${medicine_id}`);
-            $('#printlabel'+id).attr('target','__blank');
+            $('#printlabel' + id).removeAttr('disabled');
+            $('#printlabel' + id).attr('href', `/lable/label-print/${pos_id}/${medicine_id}`);
+            $('#printlabel' + id).attr('target', '__blank');
             // /lable/label-print/${pos_id}/${medicine_id}
             // sleep(2000).then(() => { window.open(`/lable/label-print/${pos_id}/${medicine_id}`, '_blank'); });
 
 
         }
 
-        function ChangeBatch(id){
+        function ChangeBatch(id) {
             const selectBatch = document.getElementById('batch_pos' + id);
 
             const selectedOption = selectBatch.options[selectBatch.selectedIndex];
@@ -953,8 +956,8 @@
             const unit_retail = selectedOption.getAttribute('data-unit_retail');
 
             // console.log(selectedOption);
-            $('#total_quantity'+id).val(total_quantity);
-            $('#selling_price'+id).val(unit_retail);
+            $('#total_quantity' + id).val(total_quantity);
+            $('#selling_price' + id).val(unit_retail);
             ChnageDosage(id);
         }
 
@@ -1004,7 +1007,7 @@
                         <select name="products[${a}][batch_id]" id="batch_pos${a}" onchange="ChangeBatch(${a})" class="batch_pos form-control">
                             ${batch_pos.length !== 0
                                 ? `${batch_pos.map(batch => {
-                                    return `<option  value="${batch.id}"
+                                        return `<option  value="${batch.id}"
                                                 data-batch-id="${batch.id}"
                                                 data-quantity_oh="${batch.remaining_qty}"
                                                 data-remaining_qty="${batch.remaining_qty}"
@@ -1014,7 +1017,7 @@
                                             ${batch.batch.batch_no}
                                             </option>`
 
-                                }).join('')}`
+                                    }).join('')}`
                                 : `<option value="">Not Any Batch Found</option>`
                             }
                         </select>
@@ -1058,36 +1061,36 @@
 
                         </td>
                 </tr>`);
-                enablemainbutton();
-                ChangeBatch(a);
+            enablemainbutton();
+            ChangeBatch(a);
         }
         $(document).ready(function() {
-    $('#possubmitform').on('submit', function(e) {
-        e.preventDefault();
+            $('#possubmitform').on('submit', function(e) {
+                e.preventDefault();
 
 
-        $.ajax({
-            url: '/validate-pos',
-            type: 'post',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log('Response:', response);
-                if (response.valid) {
-                    console.log('Before form submission');
-                    $('#possubmitform')[0].submit();
-                    console.log('After form submission');
-                } else {
-                    $('#validation-message').text(response.message);
-                    $('#validation-message').show();
-                }
+                $.ajax({
+                    url: '/validate-pos',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Response:', response);
+                        if (response.valid) {
+                            console.log('Before form submission');
+                            $('#possubmitform')[0].submit();
+                            console.log('After form submission');
+                        } else {
+                            $('#validation-message').text(response.message);
+                            $('#validation-message').show();
+                        }
 
-            },
-            error: function(xhr, status, error) {
-                // $('#validation-message').html(xhr.responseJSON.message);
+                    },
+                    error: function(xhr, status, error) {
+                        // $('#validation-message').html(xhr.responseJSON.message);
 
-                $('.wrapper').append(
-                    ` <div class="alert alert-danger">
+                        $('.wrapper').append(
+                            ` <div class="alert alert-danger">
                         <div>
                             <div class="d-flex">
                                 <i class="fas fa-frown me-2 my-custom-icon" style="font-size: 40px;padding-right:2px;color:orange;"></i>
@@ -1115,21 +1118,20 @@
                         }
                     </style>
                     `
-        );
-                $('.alert').delay(5000).slideUp(300)
-                $('.alert').delay(5000).slideUp(300, function() {
-                    $('.alert').attr('style', 'display:none');
-                    $('#proceede_to_pay').removeAttr('disabled');
-                })
-    }
+                        );
+                        $('.alert').delay(5000).slideUp(300)
+                        $('.alert').delay(5000).slideUp(300, function() {
+                            $('.alert').attr('style', 'display:none');
+                            $('#proceede_to_pay').removeAttr('disabled');
+                        })
+                    }
+                });
+            });
         });
-    });
-});
-$(document).ready(function() {
-    var id = $('.batch_pos').val();
-    ChangeBatch(id)
-;
-})
+        $(document).ready(function() {
+            var id = $('.batch_pos').val();
+            ChangeBatch(id);
+        })
     </script>
 
 
