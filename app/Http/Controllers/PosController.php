@@ -51,12 +51,6 @@ class PosController extends Controller
         ]);
     }
     public function validatePos(Request $request){
-        // foreach ($request->products as $product) {
-        //     if ($product['total_stock'] < $product['product_quantity']) {
-        //         return response()->json(['valid' => false, 'message' => 'Insufficient Stock']);
-        //     }
-
-        // }
         $customMessages = [
             'products.*.medicine_id.required' => 'At least one product is required',
             'products.*.product_quantity.required' => 'At least one product quantity is required',
