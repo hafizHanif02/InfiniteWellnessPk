@@ -48,6 +48,12 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        // Middleware to minify html
+        \Fahlisaputra\Minify\Middleware\MinifyCss::class,
+        // Middleware to minify css
+        \Fahlisaputra\Minify\Middleware\MinifyJavascript::class,
+        // Middleware to minify javascript
+        \Fahlisaputra\Minify\Middleware\MinifyHtml::class,
     ];
 
     /**
@@ -65,12 +71,6 @@ class Kernel extends HttpKernel
             VerifyCsrfToken::class,
             SubstituteBindings::class,
             // \Spatie\Csp\AddCspHeaders::class,
-            // Middleware to minify html
-            \Fahlisaputra\Minify\Middleware\MinifyCss::class,
-            // Middleware to minify css
-            \Fahlisaputra\Minify\Middleware\MinifyJavascript::class,
-            // Middleware to minify javascript
-            \Fahlisaputra\Minify\Middleware\MinifyHtml::class,
         ],
 
         'api' => [
