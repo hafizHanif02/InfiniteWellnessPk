@@ -125,7 +125,7 @@ margin-left: -10px;
             <label class="gender mt-2 form-label"> Age:</label> 
         </div>
         <div class="d-flex col-md-1 mt-2">
-         <input type="number" style="margin-left: 15px;" readonly name="age" placeholder="{{$age }}" value="{{$age }}">   
+         <input type="number" style="margin-left: 15px;" readonly name="age" placeholder="{{$age }}" value="{{$patientData->user->dob }}">   
         </div> 
 
 
@@ -1262,19 +1262,197 @@ margin-left: -10px;
  
  <div class="row mt-3">
           <div class="col-lg-7">
-         <h4 class="siteTitle">Intra Oral Examination:</h4><br>
-         <img src="Screenshot (2).png" width="90%" height="90%" alt="">
+              <h4 class="siteTitle">Intra Oral Examination:</h4><br>
+
+        <div class="row">
+            <div class="col-md-12 p-0 m-0">
+                <table class="table-striped">
+                    <tr class="">
+                      <th><input
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child1')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach"
+                        type="text" name="child1" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child2')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child2" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child3')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child3" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child4')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child4" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child5')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child5" id="" class="form-control" style="width:50px; border-right:1px solid black; border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child6')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child6" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child7')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child7" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child8')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child8" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child9')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child9" id="" class="form-control" style="border-radius: 0;"></th>
+                      <th><input type="text" 
+                        value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child10')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" name="child10" id="" class="form-control" style="border-radius: 0;"></th>
+                    </tr>
+                    <tr class="">
+                      <td><img src="{{ asset('images/DentalForm/t1-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t2-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t3-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t4-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t5-removebg-preview.png') }}" style="border-right:1px solid black; width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t6-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t7-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t8-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t9-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
+                      <td><img src="{{ asset('images/DentalForm/t10-removebg-preview.png') }}"style="width:50px; height:120px;"></td>
+                    </tr>
+
+                    <tr class="">
+                        <th><img src="{{ asset('images/DentalForm/t11-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t12-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t13-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t14-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t15-removebg-preview.png') }}" style="border-right:1px solid black; width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t16-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t17-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t18-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t19-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                        <th><img src="{{ asset('images/DentalForm/t20-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
+                      </tr>
+
+                      <tr class="">
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child11')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child11" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child12')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child12" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child13')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child13" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child14')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child14" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child15')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child15" id="" class="form-control" style="width:50px; border-right:1px solid black; border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child16')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child16" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child17')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child17" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child18')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child18" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child19')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child19" id="" class="form-control" style="border-radius: 0;"></td>
+                        <td><input
+                            value="@foreach($formData as $item)
+                        @if($item->fieldName == 'child20')
+                            {{trim($item->fieldValue)}}
+                            @break
+                        @endif
+                        @endforeach" type="text" name="child20" id="" class="form-control" style="border-radius: 0;"></td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+        
      </div>
      <div class="col-lg-5">
          <h4 class="key">Key:</h4><br>
          <span>Tooth Absent (X)</span><br>
-         <span>Broken Down Roots (DDR)</span><br>
+         <span>Broken Down Roots (BDR)</span><br>
          <span>Grossly Carious (GC)</span><br>
          <span>Tender To Percussion (TTP)</span><br>
          <span>Non Carious Tooth Loss (NC)</span><br>
          <span>Restored (F)</span><br>
          <span>Stains (S)</span><br>
-         <span>Fractured (F)</span><br>
+         <span>Fractured (#)</span><br>
          <span>Impacted (IMP)</span><br>
          <h4 class="Prosthesis">Prosthesis:</h4>
          <span>Crown / Bridge</span><br>
@@ -1284,10 +1462,315 @@ margin-left: -10px;
          <span>Grade II (GII)</span><br>
          <span>Grade III (GIII)</span>
      </div>
-     <div class="row mt-5">
-        <div class="col-lg-12">
-        <img src="Screenshot (2).png" width="100%" height="50%" alt="Section 2">
         </div>
+
+
+
+        <div class="row mt-5 pt-5">
+            <div class="col-md-12">
+                <table>
+                    <thead>
+                            <tr>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult1')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult1" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult2')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult2" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult3')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult3" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult4')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult4" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult5')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult5" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult6')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult6" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult7')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult7" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult8')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult8" id="" class="form-control" style="border-right:1px solid black; border-radius: 0; width: 65px;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult9')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult9" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult10')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult10" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult11')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult11" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult12')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult12" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult13')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult13" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult14')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult14" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult15')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult15" id="" class="form-control" style="border-radius: 0;"></th>
+                                <th><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult16')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult16" id="" class="form-control" style="border-radius: 0;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="{{ asset('images/AdultTeeth/1.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/2.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/3.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/4.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/5.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/6.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/7.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/8.png') }}" style="border-right:1px solid black; width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/9.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/10.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/11.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/12.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/13.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/14.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/15.png') }}" style="width:65px; height:120px;"></td>
+                                <td><img src="{{ asset('images/AdultTeeth/16.png') }}" style="width:65px; height:120px;"></td>
+                            </tr>
+                            <tr>
+                                <th><img src="{{ asset('images/AdultTeeth/17.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/18.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/19.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/20.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/21.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/22.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/23.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/24.png') }}" style="border-right:1px solid black; width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/25.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/26.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/27.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/28.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/29.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/30.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/31.png') }}" style="width:65px; height:120px;"></th>
+                                <th><img src="{{ asset('images/AdultTeeth/32.png') }}" style="width:65px; height:120px;"></th>
+                            </tr>
+                            <tr>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult17')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult17" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult18')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult18" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult19')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult19" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult20')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult20" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult21')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult21" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult22')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult22" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult23')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult23" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult24')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult24" id="" class="form-control" style="border-right:1px solid black; width: 65px; border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult25')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult25" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult26')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult26" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult27')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult27" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult28')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult28" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult29')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult29" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult30')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult30" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult31')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult31" id="" class="form-control" style="border-radius: 0;"></td>
+                                <td><input
+                                    value="@foreach($formData as $item)
+                                    @if($item->fieldName == 'adult32')
+                                        {{trim($item->fieldValue)}}
+                                        @break
+                                    @endif
+                                    @endforeach"
+                                    type="text" name="adult32" id="" class="form-control" style="border-radius: 0;"></td>
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
         </div>
  
  <div class="Investigation">
