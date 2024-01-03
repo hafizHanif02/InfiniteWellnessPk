@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdvancedPayment;
 use App\Models\Bed;
+use App\Models\Pos;
 use App\Models\Bill;
+use App\Models\Nurse;
 use App\Models\Doctor;
+use App\Models\Module;
 use App\Models\Enquiry;
 use App\Models\Invoice;
-use App\Models\Module;
-use App\Models\NoticeBoard;
-use App\Models\Nurse;
 use App\Models\Patient;
 use App\Models\Payment;
 use App\Models\Setting;
-use App\Repositories\DashboardRepository;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Models\PosReturn;
 use Illuminate\View\View;
+use App\Models\NoticeBoard;
+use Illuminate\Http\Request;
+use App\Models\AdvancedPayment;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\Factory;
+use App\Repositories\DashboardRepository;
 
 class HomeController extends AppBaseController
 {
@@ -50,9 +52,13 @@ class HomeController extends AppBaseController
     public function dashboard()
     {
         
-        //        $data['invoiceAmount'] = Invoice::sum('amount');
+            //    $data['invoiceAmount'] = Invoice::sum('amount');
+        $PosAmount = Pos::where('is_paid', 1)->sum('total_amount');
+        $billAmount = Bill::sum('amount');
+        $PosReturn = PosReturn::sum('total_amount');
+        $totalAmount = $PosAmount + $billAmount - $PosReturn;
         $data['invoiceAmount'] = totalAmount();
-        $data['billAmount'] = Bill::sum('amount');
+        $data['billAmount'] = $totalAmount;
         $data['paymentAmount'] = Payment::sum('amount');
         $data['advancePaymentAmount'] = AdvancedPayment::sum('amount');
         $data['doctors'] = Doctor::count();

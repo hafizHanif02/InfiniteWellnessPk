@@ -234,7 +234,7 @@ class PatientController extends AppBaseController
                // Patient ID already exists, so return a response indicating that it's a duplicate.
                // return response()->json(['message' => 'Patient ID already exists'], 400); // You can use a 400 status code for a bad request or choose an appropriate status code.
                // dd($request);
-               $insertedId = DB::table('dietitianAssessment')->update([
+               $insertedId = DB::table('dietitianAssessment')->where('patient_id', $request->patient_id)->update([
                    'patient_id' => $request->patient_id,
                    'age' => $request->age ?? 0,
                    'weight' => $request->weight ?? 0,
@@ -318,7 +318,6 @@ class PatientController extends AppBaseController
                    'date42' => $request->date42 ?? 0,
                    'time42' => $request->time42 ?? 0,
                    'week42' => $request->week42 ?? 0,
-   
                ]);
            } else {
                $insertedId = DB::table('dietitianAssessment')->insertGetId([
@@ -422,7 +421,7 @@ class PatientController extends AppBaseController
                // Patient ID already exists, so return a response indicating that it's a duplicate.
                // return response()->json(['message' => 'Patient ID already exists'], 400); // You can use a 400 status code for a bad request or choose an appropriate status code.
                // dd($request);
-               $insertedId = DB::table('dietitianAssessment')->update([
+               $insertedId = DB::table('dietitianAssessment')->where('patient_id', $request->patient_id)->update([
                    'patient_id' => $request->patient_id,
                    'age' => $request->age ?? 0,
                    'weight' => $request->weight ?? 0,

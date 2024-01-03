@@ -41,7 +41,8 @@
                                         </div>
                                         <div class="text-end text-white">
                                             <h2 class="fs-1-xxl fw-bolder text-white">{{getCurrencySymbol()}} {{ formatCurrency($data['billAmount']) }}</h2>
-                                            <h3 class="mb-0 fs-5 fw-light">{{ __('messages.dashboard.total_bills') }}</h3>
+                                            {{-- <h3 class="mb-0 fs-5 fw-light">{{ __('messages.dashboard.total_bills') }}</h3> --}}
+                                            <h3 class="mb-0 fs-5 fw-light">Total Revenue</h3>
                                         </div>
                                     </div>
                                 </a>

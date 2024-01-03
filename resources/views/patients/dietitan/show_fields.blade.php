@@ -415,7 +415,7 @@
 
                                     <div class="col-md-3">
                                         <label for="pastFluidIntake" class="form-label">Past Fluid Intake</label>
-                                        <input type="number" name="pastFluidIntake"
+                                        <input type="text" name="pastFluidIntake"
                                             value="{{ $dietdata === null ? '' : $dietdata->pastFluidIntake }}"
                                             class="form-control" name="bmi" id="pastFluidIntake"
                                             placeholder="30">
@@ -425,7 +425,7 @@
                                     <div class="col-md-3">
                                         <label for="foodAllergy" class="form-label">Previous Food Allergy (if
                                             any)</label>
-                                        <input type="number" name="foodAllergy"
+                                        <input type="text" name="foodAllergy"
                                             value="{{ $dietdata === null ? '' : $dietdata->foodAllergy }}"
                                             class="form-control" name="foodAllergy" id="foodAllergy"
                                             placeholder="30">

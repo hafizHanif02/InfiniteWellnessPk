@@ -1370,10 +1370,7 @@ console.log("totallllll", TotalCalories)
         });
       });
 
-</script>
-<script>
-    <script>
-    $(document).ready(function() {
+      $(document).ready(function() {
         $("#submitButton").click(function() {
             var formData = new FormData();
 
@@ -1410,6 +1407,6 @@ console.log("totallllll", TotalCalories)
             });
         });
     });
+
 </script>
 
-    </script>
