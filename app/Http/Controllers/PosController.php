@@ -535,6 +535,7 @@ class PosController extends Controller
 
     public function recalculate($id)
     {
+        $user = Auth::user();
         $posProducts = Pos_Product::where('pos_id', $id)->get();
         // dd($posProducts);
         foreach($posProducts as $posProduct){
@@ -561,8 +562,11 @@ class PosController extends Controller
             'total_amount' => $total_amount,
             'total_saletax' => $total_saletax
         ]);
+        $logs = Log::create([
+            'action' => 'Pos Has Been Recalculated Pos No.'.$pos->id,
+            'action_by_user_id' => $user->id,
+        ]);
         Flash::message('Recalculated Successfully!');
-        // return redirect()->to('pos/proceed-to-pay-page/' . $id);
         return redirect()->back();
 
     }
