@@ -1,5 +1,6 @@
 <div>
     <div class="card">
+        {{-- {{dd($data->patientUser)}} --}}
         <div class="card-body">
             <div class="row">
                 <div class="col-xxl-5 col-12">
@@ -337,8 +338,11 @@
 
                     border-radius: 29px;
                     ">
-
-                                {{-- {{dd($dietdata) }} --}}
+                                {{-- Calculated age --}}
+                                @php
+                                    $currentDate = new DateTime();
+                                    $age = $currentDate->diff($dob)->y;
+                                @endphp
                                 <form id="form1" class="row g-3" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="patient_id" value="{{ $data->id }}">
@@ -346,7 +350,7 @@
                                     <div class="col-md-6">
                                         <label for="age" class="form-label">Age (years)</label>
                                         <input value="{{ $dietdata === null ? '' : $dietdata->age }}"
-                                            placeholder="add your age" type="number" name="age"
+                                            placeholder="{{ $age }}" type="number" name="age"
                                             class="form-control" id="age">
                                     </div>
 
@@ -670,28 +674,34 @@
                                     <div class="col-md-6">
                                         <label for="Breakfast" class="form-label">Breakfast:
                                         </label>
-                                        <input type="text" value="{{ ($dietdata === null) ? '' : (($dietdata->Breakfast != null) ? $dietdata->Breakfast : '') }}" class="form-control" id="Breakfast" name="Breakfast">
+                                        <input type="text"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Breakfast != null ? $dietdata->Breakfast : '') }}"
+                                            class="form-control" id="Breakfast" name="Breakfast">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="Midmorning" class="form-label"> Mid-morning / Evening snack:
                                         </label>
-                                        <input type="text"  class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Midmorning != null) ? $dietdata->Midmorning : '') }}" id="Midmorning"
-                                            name="Midmorning">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Midmorning != null ? $dietdata->Midmorning : '') }}"
+                                            id="Midmorning" name="Midmorning">
                                     </div>
 
 
                                     <div class="col-md-6">
                                         <label for="Lunch" class="form-label"> Lunch:
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Lunch != null) ? $dietdata->Lunch : '') }}" id="Lunch" name="Lunch">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Lunch != null ? $dietdata->Lunch : '') }}"
+                                            id="Lunch" name="Lunch">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="Midmorning2" class="form-label"> Dinner:
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Dinner != null) ? $dietdata->Dinner : '') }}" id="Dinner"
-                                            name="Dinner">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Dinner != null ? $dietdata->Dinner : '') }}"
+                                            id="Dinner" name="Dinner">
                                     </div>
 
                                     <div class="col-md-12">
@@ -702,7 +712,9 @@
                                         <label for="Regimen" class="form-label"> Exercise Regimen Followed in the
                                             Past
                                         </label>
-                                        <input type="text" class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->Regimen != null) ? $dietdata->Regimen : '') }}" id="Regimen" name="Regimen">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Regimen != null ? $dietdata->Regimen : '') }}"
+                                            id="Regimen" name="Regimen">
                                     </div>
 
 
@@ -737,31 +749,36 @@
                                     </div>
                                     <div class="col-md-12">
                                         <h3>Recommended Diet </h3>
-                                    </div>           
+                                    </div>
                                     <div class="col-md-6">
                                         <label for="Breakfastpost" class="form-label">Breakfast:
                                         </label>
                                         <input type="text" class="form-control" id="Breakfastpost"
-                                            name="Breakfastpost" value="{{ ($dietdata === null) ? '' : (($dietdata->Breakfastpost != null) ? $dietdata->Breakfastpost : '') }}">
+                                            name="Breakfastpost"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Breakfastpost != null ? $dietdata->Breakfastpost : '') }}">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="Midmorningpost" class="form-label"> Mid-morning / Evening snack:
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Midmorningpost != null) ? $dietdata->Midmorningpost : '') }}" id="Midmorningpost"
-                                            name="Midmorningpost" >
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Midmorningpost != null ? $dietdata->Midmorningpost : '') }}"
+                                            id="Midmorningpost" name="Midmorningpost">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Lunchpost" class="form-label"> Lunch:
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Lunchpost != null) ? $dietdata->Lunchpost : '') }}" id="Lunchpost" name="Lunchpost">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Lunchpost != null ? $dietdata->Lunchpost : '') }}"
+                                            id="Lunchpost" name="Lunchpost">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="Dinnerpost" class="form-label"> Dinner:
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Dinnerpost != null) ? $dietdata->Dinnerpost : '') }}" id="Dinnerpost"
-                                            name="Dinnerpost">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Dinnerpost != null ? $dietdata->Dinnerpost : '') }}"
+                                            id="Dinnerpost" name="Dinnerpost">
                                     </div>
 
                                     <div class="col-md-12">
@@ -773,23 +790,26 @@
                                         <label for="Regimenpost" class="form-label"> Clinical Exercise Recommendations
 
                                         </label>
-                                        <input type="text" class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->Regimenpost != null) ? $dietdata->Regimenpost : '') }}" id="Regimenpost"
-                                            name="Regimenpost">
+                                        <input type="text" class="form-control"
+                                            value="{{ $dietdata === null ? '' : ($dietdata->Regimenpost != null ? $dietdata->Regimenpost : '') }}"
+                                            id="Regimenpost" name="Regimenpost">
                                     </div>
 
                                     <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                         <br>
                                         <label for="exampleInput8">Attach File</label>
-                                        <input name="nutritionalInterventionFile" type="file" class="form-control " id="nutritionalInterventionFile">
+                                        <input name="nutritionalInterventionFile" type="file"
+                                            class="form-control " id="nutritionalInterventionFile">
                                     </div>
                                     <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
                                         <br>
                                         <label>View Attachment</label>
-                                        <br>   
-                                        @if($dietdata != null && $dietdata->nutritionalInterventionFile != null)
-                                        <a href="/storage/Attachments/{{ trim($dietdata->nutritionalInterventionFile) }}" target="_blank">Show Attachment</a>                                                  
-                                    @endif
-                                                                                          
+                                        <br>
+                                        @if ($dietdata != null && $dietdata->nutritionalInterventionFile != null)
+                                            <a href="/storage/Attachments/{{ trim($dietdata->nutritionalInterventionFile) }}"
+                                                target="_blank">Show Attachment</a>
+                                        @endif
+
                                     </div>
                                 </form>
                             </div>
@@ -820,35 +840,40 @@
                                         <div class="col-md-8 pt-4 pb-4">
                                             <label for="Protein" class="form-label">Protein %:
                                             </label>
-                                            <input type="text" class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->Protein != null) ? $dietdata->Protein : '') }}" id="Protein"
-                                                name="Protein">
+                                            <input type="text" class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Protein != null ? $dietdata->Protein : '') }}"
+                                                id="Protein" name="Protein">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Carbohydrates" class="form-label">Carbohydrates %:
                                             </label>
-                                            <input type="text" class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->Carbohydrates != null) ? $dietdata->Carbohydrates : '') }}" id="Carbohydrates"
-                                                name="Carbohydrates">
+                                            <input type="text" class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Carbohydrates != null ? $dietdata->Carbohydrates : '') }}"
+                                                id="Carbohydrates" name="Carbohydrates">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Fat" class="form-label">Fat %:
                                             </label>
-                                            <input type="text" class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->Fat != null) ? $dietdata->Fat : '') }}" id="Fat"
-                                                name="Fat">
+                                            <input type="text" class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Fat != null ? $dietdata->Fat : '') }}"
+                                                id="Fat" name="Fat">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Fluid" class="form-label">Fluid Requirement as per body
                                                 weight:
 
                                             </label>
-                                            <input type="text" disabled class="form-control"   value="{{ ($dietdata === null) ? '' : (($dietdata->Fluid != null) ? $dietdata->Fluid : '') }}" id="Fluid"
-                                                name="Fluid">
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Fluid != null ? $dietdata->Fluid : '') }}"
+                                                id="Fluid" name="Fluid">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Restriction" class="form-label">Fluid Restriction if any:
 
                                             </label>
-                                            <input type="text" class="form-control"    value="{{ ($dietdata === null) ? '' : (($dietdata->Restriction != null) ? $dietdata->Restriction : '') }}" id="Restriction"
-                                                name="Restriction">
+                                            <input type="text" class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Restriction != null ? $dietdata->Restriction : '') }}"
+                                                id="Restriction" name="Restriction">
                                         </div>
                                     </div>
 
@@ -858,18 +883,21 @@
                                             <label for="Proteincalories" class="form-label">
                                             </label>
                                             <input type="text" disabled class="form-control"
-                                            value="{{ ($dietdata === null) ? '' : (($dietdata->Proteincalories != null) ? $dietdata->Proteincalories : '') }}" id="Proteincaloriesval" name="Proteincalories">
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Proteincalories != null ? $dietdata->Proteincalories : '') }}"
+                                                id="Proteincaloriesval" name="Proteincalories">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Carbohydratescalories" class="form-label">
                                             </label>
                                             <input type="text" disabled class="form-control"
-                                            value="{{ ($dietdata === null) ? '' : (($dietdata->Carbohydratescalories != null) ? $dietdata->Carbohydratescalories : '') }}" id="Carbohydratescaloriesval" name="Carbohydratescalories">
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Carbohydratescalories != null ? $dietdata->Carbohydratescalories : '') }}"
+                                                id="Carbohydratescaloriesval" name="Carbohydratescalories">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="Fatcalories" class="form-label">
                                             </label>
-                                            <input type="text" disabled class="form-control" id="Fatcaloriesval" value="{{ ($dietdata === null) ? '' : (($dietdata->Fatcalories != null) ? $dietdata->Fatcalories : '') }}"
+                                            <input type="text" disabled class="form-control" id="Fatcaloriesval"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->Fatcalories != null ? $dietdata->Fatcalories : '') }}"
                                                 name="Fatcalories">
                                         </div>
 
@@ -879,20 +907,23 @@
                                         <div class="col-md-8 pt-4 pb-4">
                                             <label for="ProteinNutrients" class="form-label">
                                             </label>
-                                            <input type="text" disabled class="form-control" id="ProteinNutrients" value="{{ ($dietdata === null) ? '' : (($dietdata->ProteinNutrients != null) ? $dietdata->ProteinNutrients : '') }}"
+                                            <input type="text" disabled class="form-control" id="ProteinNutrients"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->ProteinNutrients != null ? $dietdata->ProteinNutrients : '') }}"
                                                 name="ProteinNutrients">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="CarbohydratesNutrients" class="form-label">
                                             </label>
                                             <input type="text" disabled class="form-control"
-                                            value="{{ ($dietdata === null) ? '' : (($dietdata->CarbohydratesNutrients != null) ? $dietdata->CarbohydratesNutrients : '') }}"  id="CarbohydratesNutrients" name="CarbohydratesNutrients">
+                                                value="{{ $dietdata === null ? '' : ($dietdata->CarbohydratesNutrients != null ? $dietdata->CarbohydratesNutrients : '') }}"
+                                                id="CarbohydratesNutrients" name="CarbohydratesNutrients">
                                         </div>
                                         <div class="col-md-8 pb-4">
                                             <label for="FatNutrients" class="form-label">
                                             </label>
-                                            <input type="text" disabled class="form-control" value="{{ ($dietdata === null) ? '' : (($dietdata->FatNutrients != null) ? $dietdata->FatNutrients : '') }}" id="FatNutrients"
-                                                name="FatNutrients">
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->FatNutrients != null ? $dietdata->FatNutrients : '') }}"
+                                                id="FatNutrients" name="FatNutrients">
                                         </div>
 
                                     </div>
@@ -902,8 +933,9 @@
                                             <label for="BasalEnergy" class="form-label">Basal Energy Expenditure (BEE)
 
                                             </label>
-                                            <input type="text" disabled class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->BasalEnergy != null) ? $dietdata->BasalEnergy : '') }}" id="BasalEnergy"
-                                                name="BasalEnergy">
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->BasalEnergy != null ? $dietdata->BasalEnergy : '') }}"
+                                                id="BasalEnergy" name="BasalEnergy">
                                         </div>
 
 
@@ -914,8 +946,9 @@
                                             <label for="TotalCalories" disabled class="form-label">Total Calories
 
                                             </label>
-                                            <input type="text" disabled class="form-control"  value="{{ ($dietdata === null) ? '' : (($dietdata->TotalCalories != null) ? $dietdata->TotalCalories : '') }}" id="TotalCalories"
-                                                name="TotalCalories">
+                                            <input type="text" disabled class="form-control"
+                                                value="{{ $dietdata === null ? '' : ($dietdata->TotalCalories != null ? $dietdata->TotalCalories : '') }}"
+                                                id="TotalCalories" name="TotalCalories">
                                         </div>
 
 
@@ -946,7 +979,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <form id="form6" action="" enctype="multipart/form-data"> <!-- //! First table starts -->
+                                    <form id="form6" action="" enctype="multipart/form-data">
+                                        <!-- //! First table starts -->
 
                                         <tr>
                                             <td>
@@ -966,18 +1000,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date1" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->date1 != null) ? $dietdata->date1 : '') }}" id="date1" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date1 != null ? $dietdata->date1 : '') }}"
+                                                    id="date1" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time1" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->time1 != null) ? $dietdata->time1 : '') }}"  id="time1" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time1 != null ? $dietdata->time1 : '') }}"
+                                                    id="time1" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>First Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week1" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->week1 != null) ? $dietdata->week1 : '') }}"  id="week1" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week1 != null ? $dietdata->week1 : '') }}"
+                                                    id="week1" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
 
@@ -985,18 +1022,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date2" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->date2 != null) ? $dietdata->date2 : '') }}"  id="date2" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date2 != null ? $dietdata->date2 : '') }}"
+                                                    id="date2" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time2" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->time2 != null) ? $dietdata->time2 : '') }}"   id="time2" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time2 != null ? $dietdata->time2 : '') }}"
+                                                    id="time2" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Second Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week2" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->week2 != null) ? $dietdata->week2 : '') }}"  id="week2" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week2 != null ? $dietdata->week2 : '') }}"
+                                                    id="week2" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
 
@@ -1004,18 +1044,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date3" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->date3 != null) ? $dietdata->date3 : '') }}"  id="date3" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date3 != null ? $dietdata->date3 : '') }}"
+                                                    id="date3" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time3" class="form-control"
-                                                value="{{ ($dietdata === null) ? '' : (($dietdata->time3 != null) ? $dietdata->time3 : '') }}"   id="time3" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time3 != null ? $dietdata->time3 : '') }}"
+                                                    id="time3" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Third Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week3" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week3 != null) ? $dietdata->week3 : '') }}"  id="week3" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week3 != null ? $dietdata->week3 : '') }}"
+                                                    id="week3" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
 
@@ -1023,18 +1066,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date4" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date4 != null) ? $dietdata->date4 : '') }}"  id="date4" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date4 != null ? $dietdata->date4 : '') }}"
+                                                    id="date4" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time4" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time4 != null) ? $dietdata->time4 : '') }}"  id="time4" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time4 != null ? $dietdata->time4 : '') }}"
+                                                    id="time4" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Fourth Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week4" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week4 != null) ? $dietdata->week4 : '') }}"  id="week4" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week4 != null ? $dietdata->week4 : '') }}"
+                                                    id="week4" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <!-- //! First table starts -->
@@ -1060,18 +1106,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date21" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date21 != null) ? $dietdata->date21 : '') }}"  id="date21" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date21 != null ? $dietdata->date21 : '') }}"
+                                                    id="date21" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time21" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time21 != null) ? $dietdata->time21 : '') }}"  id="time21" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time21 != null ? $dietdata->time21 : '') }}"
+                                                    id="time21" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>First Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week21" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week21 != null) ? $dietdata->week21 : '') }}"  id="week21" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week21 != null ? $dietdata->week21 : '') }}"
+                                                    id="week21" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
 
@@ -1079,18 +1128,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date22" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date22 != null) ? $dietdata->date22 : '') }}"  id="date22" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date22 != null ? $dietdata->date22 : '') }}"
+                                                    id="date22" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time22" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time22 != null) ? $dietdata->time22 : '') }}"  id="time22" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time22 != null ? $dietdata->time22 : '') }}"
+                                                    id="time22" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Second Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week22" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week22 != null) ? $dietdata->week22 : '') }}"  id="week22" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week22 != null ? $dietdata->week22 : '') }}"
+                                                    id="week22" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
 
@@ -1098,18 +1150,21 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date33" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date33 != null) ? $dietdata->date33 : '') }}"  id="date33" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date33 != null ? $dietdata->date33 : '') }}"
+                                                    id="date33" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time33" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time33 != null) ? $dietdata->time33 : '') }}"  id="time33" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time33 != null ? $dietdata->time33 : '') }}"
+                                                    id="time33" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Third Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week33" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week33 != null) ? $dietdata->week33 : '') }}"  id="week33" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week33 != null ? $dietdata->week33 : '') }}"
+                                                    id="week33" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <!-- //! PART 2 ends -->
@@ -1135,35 +1190,41 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date31" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date31 != null) ? $dietdata->date31 : '') }}"  id="date31" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date31 != null ? $dietdata->date31 : '') }}"
+                                                    id="date31" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time31" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time31 != null) ? $dietdata->time31 : '') }}"  id="time31" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time31 != null ? $dietdata->time31 : '') }}"
+                                                    id="time31" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>First Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week31" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week31 != null) ? $dietdata->week31 : '') }}"  id="week31" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week31 != null ? $dietdata->week31 : '') }}"
+                                                    id="week31" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="date" name="date88" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date88 != null) ? $dietdata->date88 : '') }}"  id="date88" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date88 != null ? $dietdata->date88 : '') }}"
+                                                    id="date88" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time88" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time88 != null) ? $dietdata->time88 : '') }}"  id="time88" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time88 != null ? $dietdata->time88 : '') }}"
+                                                    id="time88" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Third Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week88" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week88 != null) ? $dietdata->week88 : '') }}"  id="week88" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week88 != null ? $dietdata->week88 : '') }}"
+                                                    id="week88" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <!-- //! PART 3333 ends -->
@@ -1185,38 +1246,44 @@
                                         <tr>
                                             <td>
                                                 <input type="date" name="date42" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->date42 != null) ? $dietdata->date42 : '') }}"  id="date42" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->date42 != null ? $dietdata->date42 : '') }}"
+                                                    id="date42" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <input type="time" name="time42" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->time42 != null) ? $dietdata->time42 : '') }}"  id="time42" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->time42 != null ? $dietdata->time42 : '') }}"
+                                                    id="time42" placeholder="ENTER TEXT HERE">
                                             </td>
                                             <td>
                                                 <p>Second Week</p>
                                             </td>
                                             <td colspan="3">
                                                 <input type="text" name="week42" class="form-control"
-                                                   value="{{ ($dietdata === null) ? '' : (($dietdata->week42 != null) ? $dietdata->week42 : '') }}"  id="week42" placeholder="ENTER TEXT HERE">
+                                                    value="{{ $dietdata === null ? '' : ($dietdata->week42 != null ? $dietdata->week42 : '') }}"
+                                                    id="week42" placeholder="ENTER TEXT HERE">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <!-- //! PART 444 ends -->
                                                 <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6">
-                                            <br>
-                                            <label for="exampleInput8">Attach File</label>
-                                            <input name="patientFollowUpFile" type="file" class="form-control " id="patientFollowUpFile" style="width: 600px;">
-                                        </div>
-                                        <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
-                                            <br>
-                                            <label>View Attachment</label>
-                                            <br>                                                                            
-                                            @if($dietdata != null && $dietdata->patientFollowUpFile != null)
-                                            <a href="/storage/Attachments/{{ trim($dietdata->patientFollowUpFile) }}" target="_blank">Show Attachment</a>                                                  
-                                        @endif                                                        
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                    <br>
+                                                    <label for="exampleInput8">Attach File</label>
+                                                    <input name="patientFollowUpFile" type="file"
+                                                        class="form-control " id="patientFollowUpFile"
+                                                        style="width: 600px;">
+                                                </div>
+                                                <div class="col-lx-6 col-lg-6 col-md-6 col-sm-6 col-6 mt-3">
+                                                    <br>
+                                                    <label>View Attachment</label>
+                                                    <br>
+                                                    @if ($dietdata != null && $dietdata->patientFollowUpFile != null)
+                                                        <a href="/storage/Attachments/{{ trim($dietdata->patientFollowUpFile) }}"
+                                                            target="_blank">Show Attachment</a>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </form>
                                 </tbody>
                             </table>
@@ -1226,9 +1293,9 @@
                     <div style="display: flex;
                                 justify-content: center;"
                         class="col-12">
-                    @role('Admin|Dietitian')
-                        <button id="submitButton"
-                            style="
+                        @role('Admin|Dietitian')
+                            <button id="submitButton"
+                                style="
 
                                     background: #851bff;
                                     color: white;
@@ -1236,8 +1303,8 @@
                                     border-radius: 7px;
                                     padding: 10px 23px;
                                 "
-                            type="submit" class="">Save</button>
-                    @endrole
+                                type="submit" class="">Save</button>
+                        @endrole
                     </div>
                 </div>
                 <!-- Tabs content -->
@@ -1557,48 +1624,47 @@
 </script> --}}
 <script>
     $(document).ready(function() {
-    $("#submitButton").click(function() {
-        var formData = new FormData();
-        // Iterate through each form
-        for (var i = 1; i <= 6; i++) {
-            var formId = 'form' + i;
-            var form = document.getElementById(formId);
+        $("#submitButton").click(function() {
+            var formData = new FormData();
+            // Iterate through each form
+            for (var i = 1; i <= 6; i++) {
+                var formId = 'form' + i;
+                var form = document.getElementById(formId);
 
-            // Append each form's data to the formData object
-            for (var j = 0; j < form.elements.length; j++) {
-                var element = form.elements[j];
-                
-                // Check if the element is a file input
-                if (element.type === 'file') {
-                    // Check if files are selected
-                    if (element.files.length > 0) {
-                        formData.append(element.name, element.files[0]);
+                // Append each form's data to the formData object
+                for (var j = 0; j < form.elements.length; j++) {
+                    var element = form.elements[j];
+
+                    // Check if the element is a file input
+                    if (element.type === 'file') {
+                        // Check if files are selected
+                        if (element.files.length > 0) {
+                            formData.append(element.name, element.files[0]);
+                        }
+                    } else if (element.name) {
+                        formData.append(element.name, element.value);
                     }
-                } else if (element.name) {
-                    formData.append(element.name, element.value);
                 }
             }
-        }      
-        var csrfToken = $('input[name="_token"]').val();
-        formData.append('_token', csrfToken);
-        
-        $.ajax({
-            type: "POST",
-            url: "/patients/{{ $data->id }}",
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            },
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log("Forms submitted successfully:", response);
-            },
-            error: function(error) {
-                console.error("Error submitting the forms:", error);
-            }
+            var csrfToken = $('input[name="_token"]').val();
+            formData.append('_token', csrfToken);
+
+            $.ajax({
+                type: "POST",
+                url: "/patients/{{ $data->id }}",
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log("Forms submitted successfully:", response);
+                },
+                error: function(error) {
+                    console.error("Error submitting the forms:", error);
+                }
+            });
         });
     });
-});
-
 </script>
