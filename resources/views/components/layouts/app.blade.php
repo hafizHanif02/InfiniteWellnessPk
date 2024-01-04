@@ -34,7 +34,7 @@
                         <img src="{{ asset('logo.png') }}" alt="Logo" class="img-fluid" width="50"
                             height="50" class="image" loading="eager" />
                         <span
-                            class="navbar-brand-name text-dark text-decoration-none logo ps-2">{{ config('app.name') }}</span>
+                            class="navbar-brand-name text-dark text-decoration-none logo ps-2">{{ getAppName() }}</span>
                     </a>
                     <button type="button" onclick="toggle()"
                         class="btn px-0 aside-menu-container__aside-menubar d-lg-block d-none sidebar-btn"
