@@ -1266,6 +1266,7 @@ margin-left: -10px;
 
         <div class="row">
             <div class="col-md-12 p-0 m-0">
+                <div class="table-responsive">
                 <table class="table-striped">
                     <tr class="">
                       <th><input
@@ -1340,7 +1341,7 @@ margin-left: -10px;
                         @endif
                         @endforeach" name="child10" id="" class="form-control" style="border-radius: 0;"></th>
                     </tr>
-                    <tr class="">
+                    <tr >
                       <td><img src="{{ asset('images/DentalForm/t1-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
                       <td><img src="{{ asset('images/DentalForm/t2-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
                       <td><img src="{{ asset('images/DentalForm/t3-removebg-preview.png') }}" style="width:50px; height:120px;"></td>
@@ -1353,7 +1354,7 @@ margin-left: -10px;
                       <td><img src="{{ asset('images/DentalForm/t10-removebg-preview.png') }}"style="width:50px; height:120px;"></td>
                     </tr>
 
-                    <tr class="">
+                    <tr style="border-top: solid 1px;">
                         <th><img src="{{ asset('images/DentalForm/t11-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
                         <th><img src="{{ asset('images/DentalForm/t12-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
                         <th><img src="{{ asset('images/DentalForm/t13-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
@@ -1366,7 +1367,7 @@ margin-left: -10px;
                         <th><img src="{{ asset('images/DentalForm/t20-removebg-preview.png') }}" style="width:50px; height:120px;"></th>
                       </tr>
 
-                      <tr class="">
+                      <tr >
                         <td><input
                             value="@foreach($formData as $item)
                         @if($item->fieldName == 'child11')
@@ -1439,6 +1440,7 @@ margin-left: -10px;
                         @endforeach" type="text" name="child20" id="" class="form-control" style="border-radius: 0;"></td>
                       </tr>
                 </table>
+                </div>
             </div>
         </div>
         
@@ -1468,6 +1470,7 @@ margin-left: -10px;
 
         <div class="row mt-5 pt-5">
             <div class="col-md-12">
+                <div class="table-responsive">
                 <table>
                     <thead>
                             <tr>
@@ -1620,7 +1623,7 @@ margin-left: -10px;
                                 <td><img src="{{ asset('images/AdultTeeth/15.png') }}" style="width:65px; height:120px;"></td>
                                 <td><img src="{{ asset('images/AdultTeeth/16.png') }}" style="width:65px; height:120px;"></td>
                             </tr>
-                            <tr>
+                            <tr style="border-top: solid 1px;">
                                 <th><img src="{{ asset('images/AdultTeeth/17.png') }}" style="width:65px; height:120px;"></th>
                                 <th><img src="{{ asset('images/AdultTeeth/18.png') }}" style="width:65px; height:120px;"></th>
                                 <th><img src="{{ asset('images/AdultTeeth/19.png') }}" style="width:65px; height:120px;"></th>
@@ -1770,6 +1773,7 @@ margin-left: -10px;
                             </tr>
                         </tbody>
                 </table>
+                </div>
             </div>
         </div>
  
