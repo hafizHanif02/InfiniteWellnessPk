@@ -17,7 +17,7 @@
                         @php
                         $options = ['' => 'Select Patient'];
                         foreach ($patients as $patient) {
-                            $options[$patient->MR] = "({$patient->MR}) {$patient->patientUser->full_name}";
+                            $options[$patient->id] = "({$patient->MR}) {$patient->patientUser->full_name}";
                         }
                         @endphp
                         {{ Form::select('patient_id', $options, null, ['class' => 'form-control', 'required', 'id' => 'vPatientName', 'data-control' => 'select2']) }}

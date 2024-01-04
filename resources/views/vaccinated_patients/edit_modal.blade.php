@@ -15,7 +15,12 @@
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('patient_id', __('messages.vaccinated_patient.patient').(':'),['class' => 'form-label']) }}
                         <span class="required"></span>
-                        {{ Form::select('patient_id', $patients, null, ['class' => 'form-control', 'required','id'=>'editVPatientName','placeholder' => 'Select Patient','data-control'=> 'select2']) }}
+                        {{-- {{ Form::select('patient_id', $patients, null, ['class' => 'form-control', 'required','id'=>'editVPatientName','placeholder' => 'Select Patient','data-control'=> 'select2']) }} --}}
+                        <select name="patient_id" class="'form-select"  id="editVPatientName" placeholder='Select Patient' class="form-select" required>
+                            @foreach ($patients as $patient)
+                            <option value="{{$patient->id }}">({{$patient->MR}}) {{$patient->patientUser->full_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group col-sm-6 mb-5">
                         {{ Form::label('vaccination_id', __('messages.vaccinated_patient.vaccine').(':'),['class' => 'form-label']) }}
