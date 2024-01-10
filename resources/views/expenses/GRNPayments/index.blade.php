@@ -15,8 +15,8 @@
                             <span class="h3">GRN Payments</span>
                         </div>
                         <div>
-                            <a href="{{ route('expenses.index') }}"><button class="btn btn-secondary me-2">Back</button></a>
-                            <a href="{{ route('grn-payments-create') }}"><button class="btn btn-primary">Create <i
+                            <a href="{{ route('expenses.index') }}"><button class="myBtnSecondary me-2">Back</button></a>
+                            <a href="{{ route('grn-payments-create') }}"><button class="myBtnPrimary">Create <i
                                         class="fa fa-plus"></i></button></a>
                         </div>
                     </div>

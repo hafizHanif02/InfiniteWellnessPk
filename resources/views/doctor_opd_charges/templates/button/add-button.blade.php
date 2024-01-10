@@ -1,6 +1,6 @@
 @if(Auth::user()->hasRole('Receptionist'))
     <div class="dropdown">
-        <a href="javascript:void(0)" class="btn btn-primary dropdown-toggl" id="dropdownMenuButton" data-bs-toggle="dropdown"
+        <a href="javascript:void(0)" class="myBtnPrimary dropdown-toggl" id="dropdownMenuButton" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
             <i class="fa fa-chevron-down"></i>
         </a>

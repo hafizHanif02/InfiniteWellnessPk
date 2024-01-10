@@ -1,6 +1,6 @@
 @if(Auth::user()->hasRole('Receptionist'))
     <div class="dropdown">
-        <a href="javascript:void(0)" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
+        <a href="javascript:void(0)" class="myBtnPrimary" id="dropdownMenuButton" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
             <i class="fa fa-chevron-down"></i>
         </a>
@@ -17,6 +17,6 @@
         </ul>
     </div>
 @else
-    <a href="javascript:void(0)" class="btn btn-primary" data-bs-toggle="modal"
+    <a href="javascript:void(0)" class="myBtnPrimary" data-bs-toggle="modal"
        data-bs-target="#add_charges_modal">{{ __('messages.charge.new_charge') }}</a>
 @endif

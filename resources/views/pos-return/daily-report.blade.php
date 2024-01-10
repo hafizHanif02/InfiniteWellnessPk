@@ -33,8 +33,8 @@
                     </select>
                 </div>
                 <div class="mt-5">
-                    <a href="{{ route('returnposreport.daily') }}" class="btn btn-secondary mt-3">Reset</a>
-                    <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
+                    <a href="{{ route('returnposreport.daily') }}" class="myBtnSecondary mt-3">Reset</a>
+                    <button class="myBtnPrimary mt-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
 
                 </div>
             </div>

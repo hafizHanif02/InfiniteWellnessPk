@@ -17,7 +17,7 @@
                     {{ Form::select('purpose', $filterHeads[0],null, ['id' => 'visitorsHead', 'data-control' =>'select2', 'class' => 'form-select status-selector select2-hidden-accessible data-allow-clear="true"']) }}
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button type="reset" id="visitorResetFilter" class="btn btn-secondary">{{ __('messages.common.reset') }}</button>
+                    <button type="reset" id="visitorResetFilter" class="myBtnSecondary">{{ __('messages.common.reset') }}</button>
                 </div>
             </div>
         </div>

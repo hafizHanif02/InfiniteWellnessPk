@@ -7,7 +7,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="mb-0">@yield('title')</h1>
             <div class="text-end mt-4 mt-md-0">
-                <a class="btn btn-primary charge-edit-btn"
+                <a class="myBtnPrimary charge-edit-btn"
                    data-id="{{ $charge->id }}">{{ __('messages.common.edit') }}</a>
                 <a href="{{ route('charges.index') }}"
                    class="btn btn-outline-primary ms-2">{{ __('messages.common.back') }}</a>
