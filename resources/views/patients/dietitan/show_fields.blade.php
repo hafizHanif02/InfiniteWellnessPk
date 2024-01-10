@@ -399,7 +399,7 @@
                                     </div>
 
 
-                                    <div class="col-md-3">
+                                    {{-- <div class="col-md-3">
                                         <label for="nutritionalStatusCategory" class="form-label">Nutritional Status
                                             Category</label>
                                         <select name="nutritionalStatusCategory" id="nutritionalStatusCategory"
@@ -409,6 +409,18 @@
                                             <option value="Well nourished">Well nourished </option>
                                             <option value="Over nourished">Over nourished</option>
                                         </select>
+                                    </div> --}}
+
+                                    <div class="col-md-3">
+                                        <label for="nutritionalStatusCategory" class="form-label">Nutritional Status
+                                            Category</label>
+                                        <select name="nutritionalStatusCategory" id="nutritionalStatusCategory"
+                                            class="form-select">
+                                            <option value="Severely malnourished" {{ $dietdata->nutritionalStatusCategory == 'Severely malnourished' ? 'selected' : '' }}>Severely malnourished</option>
+                                            <option value="Moderately malnourished" {{ $dietdata->nutritionalStatusCategory == 'Moderately malnourished' ? 'selected' : '' }}>Moderately malnourished </option>
+                                            <option value="Well nourished" {{ $dietdata->nutritionalStatusCategory == 'Well nourished' ? 'selected' : '' }}>Well nourished </option>
+                                            <option value="Over nourished" {{ $dietdata->nutritionalStatusCategory == 'Over nourished' ? 'selected' : '' }}>Over nourished</option>
+                                        </select>
                                     </div>
 
 
@@ -417,9 +429,9 @@
                                             Pattern</label>
                                         <select name="pastDietaryPattern" id="pastDietaryPattern"
                                             class="form-select">
-                                            <option value="Severely malnourished">Compliant</option>
-                                            <option value="Moderately malnourished">Partially- compliant</option>
-                                            <option value="Well nourished">Non Compliant</option>
+                                            <option value="Severely malnourished" {{ $dietdata->pastDietaryPattern == 'Severely malnourished' ? 'selected' : '' }}>Compliant</option>
+                                            <option value="Moderately malnourished" {{ $dietdata->pastDietaryPattern == 'Moderately malnourished' ? 'selected' : '' }}>Partially- compliant</option>
+                                            <option value="Well nourished" {{ $dietdata->pastDietaryPattern == 'Well nourished' ? 'selected' : '' }}>Non Compliant</option>
                                         </select>
                                     </div>
 
@@ -445,11 +457,11 @@
                                     <div class="col-md-3">
                                         <label for="activityFactor" class="form-label">Activity Factor</label>
                                         <select name="activityFactor" id="activityFactor" class="form-select">
-                                            <option value="Sedentary: 1.2">Sedentary: 1.2</option>
-                                            <option value="Active: (Exercise thrice a week) 1.4">Active: (Exercise
+                                            <option value="Sedentary: 1.2" {{ $dietdata->activityFactor == 'Sedentary: 1.2' ? 'selected' : '' }}>Sedentary: 1.2</option>
+                                            <option value="Active: (Exercise thrice a week) 1.4" {{ $dietdata->activityFactor == 'Active: (Exercise thrice a week) 1.4' ? 'selected' : '' }}>Active: (Exercise
                                                 thrice a week) 1.4
                                             </option>
-                                            <option value="Very Active: (Exercise daily) 1.6">Very Active: (Exercise
+                                            <option value="Very Active: (Exercise daily) 1.6" {{ $dietdata->activityFactor == 'Very Active: (Exercise daily) 1.6' ? 'selected' : '' }}>Very Active: (Exercise
                                                 daily) 1.6</option>
                                         </select>
                                     </div>
@@ -458,9 +470,9 @@
                                     <div class="col-md-3">
                                         <label for="appetite" class="form-label">Appetite</label>
                                         <select name="appetite" id="appetite" class="form-select">
-                                            <option value="Decreased">Decreased</option>
-                                            <option value="Fair">Fair</option>
-                                            <option value="Polyphagia">Polyphagia</option>
+                                            <option value="Decreased" {{ $dietdata->appetite == 'Decreased' ? 'selected' : '' }}>Decreased</option>
+                                            <option value="Fair" {{ $dietdata->appetite == 'Fair' ? 'selected' : '' }}>Fair</option>
+                                            <option value="Polyphagia" {{ $dietdata->appetite == 'Polyphagia' ? 'selected' : '' }}>Polyphagia</option>
                                         </select>
                                     </div>
 
@@ -636,7 +648,7 @@
                                                     class="col-sm-6 col-form-label">Any other specific:</label>
                                                 <div class="col-sm-6">
                                                     <input type="text" class="form-control" name="inputEmail3"
-                                                        id="inputEmail3">
+                                                        id="inputEmail3"  value="{{ $dietdata === null ? '' : $dietdata->inputEmail3 }}">
                                                 </div>
                                             </div>
                                             </label>
