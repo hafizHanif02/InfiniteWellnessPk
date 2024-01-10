@@ -22,6 +22,133 @@
     <link rel="stylesheet" nonce="{{ csp_nonce() }}"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     @stack('styles')
+    <style>
+        .myBtnPrimary{
+            background-color: #0000ff;
+            border-color: #6571ff;
+            border: 1px solid transparent;
+            color: #fff;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        .myBtnPrimary:hover {
+            background-color: #6571ff;
+            color: #fff;
+            border-color: #6571ff;
+        }
+        .myBtnDanger{
+            background-color: #f62947;
+            border-color: #f62947;
+            border: 1px solid transparent;
+            color: #fff;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        .myBtnDanger:hover {
+            background-color: #d1233c;
+            border-color: #b91f35;
+            color: #fff;
+        }
+        .myBtnSecondary{
+            background-color: #adb5bd;
+            border-color: #adb5bd;
+            border: 1px solid transparent;
+            color: #080808;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        .myBtnSecondary:hover {
+            background-color: #b9c0c7;
+            border-color: #b5bcc4;
+            color: #000000;
+        }
+        .myBtnSuccess{
+            background-color: #0ac074;
+            border-color: #0ac074;
+            border: 1px solid transparent;
+            color: #ffffff;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        .myBtnSuccess:hover {
+            background-color: #2fc989;
+            border-color: #23c682;
+            color: #ffffff;
+        }
+        .myBtnWarning{
+            background-color: #ffb821;
+            border-color: #ffb821;
+            border: 1px solid transparent;
+            color: #000000;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
+
+        .myBtnWarning:hover {
+            background-color: #ffc342;
+            border-color: #ffbf37;
+            color: #000000;
+        }
+    </style>
 </head>
 
 <body>
