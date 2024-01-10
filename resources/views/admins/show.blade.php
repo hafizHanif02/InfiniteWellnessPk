@@ -8,7 +8,7 @@
             <h1 class="mb-0">@yield('title')</h1>
             <div class="text-end mt-4 mt-md-0">
                 @if($admin->id != 1)
-                    <a class="btn btn-primary edit-btn" href="{{ url('admins/'.$admin->id.'/edit') }}">
+                    <a class="myBtnPrimary edit-btn" href="{{ url('admins/'.$admin->id.'/edit') }}">
                         {{ __('messages.common.edit') }}
                     </a>
                 @endif

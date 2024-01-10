@@ -7,9 +7,9 @@
         <div class="d-flex flex-column">
             @include('flash::message')
             <div class="col-md-12 mb-5 text-end">
-                <a href="{{ route('pos-return.index') }}"><button class="btn btn-secondary">Back</button></a>
+                <a href="{{ route('pos-return.index') }}"><button class="myBtnSecondary">Back</button></a>
                 <a href="{{ route('pos-return.print', $PosReturn->id) }}" target="_blank"><button
-                        class="btn btn-primary">Print</button></a>
+                        class="myBtnPrimary">Print</button></a>
             </div>
 
 

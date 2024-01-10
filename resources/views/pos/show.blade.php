@@ -7,10 +7,10 @@
         <div class="d-flex flex-column">
             @include('flash::message')
             <div class="col-md-12 mb-5 text-end">
-                <a href="{{ route('pos.index') }}"><button class="btn btn-secondary">Back</button></a>
+                <a href="{{ route('pos.index') }}"><button class="myBtnSecondary">Back</button></a>
                 @if ($pos->is_paid == 1)
                     <a href="{{ route('pos.print', $pos->id) }}" target="_blank"><button
-                            class="btn btn-primary">Print</button></a>
+                            class="myBtnPrimary">Print</button></a>
                 @endif
             </div>
             @if ($pos->is_paid != 1)
@@ -132,7 +132,7 @@
             <div class="row ms-5">
                 <div class="col-md-12 p-5 ms-5">
                     <a href="{{ url('/pos/recalculate') }}/{{ $pos->id }}" style="color: white"><button
-                            type="button" class="btn btn-success ms-5">Recalculate</button></a>
+                            type="button" class="myBtnSuccess ms-5">Recalculate</button></a>
                 </div>
             </div>
         </div>

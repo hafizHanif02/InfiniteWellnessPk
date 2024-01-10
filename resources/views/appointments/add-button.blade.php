@@ -1,7 +1,7 @@
 @if (Auth::user()->hasRole('Admin'))
     <div class="d-flex align-items-center py-1">
         <a href="{{ route('appointments.create') }}"
-           class="btn btn-primary">{{ __('messages.appointment.new_appointment') }}</a>
+           class="myBtnPrimary">{{ __('messages.appointment.new_appointment') }}</a>
     </div>
 @endif
 @if (Auth::user()->hasRole('Doctor'))

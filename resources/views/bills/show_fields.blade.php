@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center pb-10">
     <img alt="Logo" src="{{ getLogoUrl() }}" height="100px" width="100px">
-    <a target="_blank" href="{{ route('bills.pdf',['bill' => $bill->id]) }}" class="btn btn-success ms-auto text-white">{{ __('messages.bill.print_bill') }}</a>
+    <a target="_blank" href="{{ route('bills.pdf',['bill' => $bill->id]) }}" class="myBtnSuccess ms-auto text-white">{{ __('messages.bill.print_bill') }}</a>
 </div>
 <div class="m-0">
     <div class="fs-3 text-gray-800 mb-8">Bill #{{ $bill->bill_id }}</div>

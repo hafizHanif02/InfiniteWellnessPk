@@ -12,7 +12,7 @@
                 @foreach ($prescriptions as $prescription)
                 <a href="{{ route('prescriptions.pdf',$prescription) }}"
                    target="_blank"
-                   class="btn btn-success me-2 edit-btn">{{ __('messages.ipd_patient_prescription.print_prescription') }}
+                   class="myBtnSuccess me-2 edit-btn">{{ __('messages.ipd_patient_prescription.print_prescription') }}
                 </a>
                 {{-- <a class="btn btn-primary edit-btn"
                    href="{{route('prescriptions.edit',['prescription' => $prescription->id])}}">

@@ -18,6 +18,6 @@
         </ul>
     @else
         <a href="{{ route('schedules.create') }}"
-           class="btn btn-primary">{{__('messages.schedule.new')}}</a>
+           class="myBtnPrimary">{{__('messages.schedule.new')}}</a>
     @endif
 </div>

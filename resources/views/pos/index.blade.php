@@ -7,11 +7,11 @@
     <div class="d-flex flex-column">
         @include('flash::message')
         <div class="col-md-12 mb-5 text-end">
-            <a href="{{ route('pos.create') }}" target="_blank"><button class="btn btn-primary">Add New POS</button></a>
-            <a href="{{ route('posinv.index') }}" target="_blank"><button class="btn btn-secondary">See In Filter</button></a>
+            <a href="{{ route('pos.create') }}" target="_blank"><button class="myBtnPrimary">Add New POS</button></a>
+            <a href="{{ route('posinv.index') }}" target="_blank"><button class="myBtnSecondary">See In Filter</button></a>
             @role('Admin|PharmacistAdmin')
-            <a href="{{route('posreport.export') }}" target="_blank"><button class="btn btn-danger">POS Report</button></a>
-            <a href="{{route('profitLossPOS') }}" target="_blank"><button class="btn btn-warning">P&L Report</button></a>
+            <a href="{{route('posreport.export') }}" target="_blank"><button class="myBtnDanger">POS Report</button></a>
+            <a href="{{route('profitLossPOS') }}" target="_blank"><button class="myBtnWarning">P&L Report</button></a>
             @endrole
         </div>
         <div class="table-responsive">

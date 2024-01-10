@@ -11,7 +11,7 @@
             <div class="text-end mt-4 mt-md-0">
                 @if (!Auth::user()->hasRole('Doctor|Accountant|Case Manager|Nurse|Patient'))
                     <a href="{{ route('patients.edit',['patient' => $data->id]) }}"
-                       class="btn btn-primary me-2">{{ __('messages.common.edit') }}</a>
+                       class="myBtnPrimary me-2">{{ __('messages.common.edit') }}</a>
                 @endif
                 <a href="{{ url()->previous() }}"
                    class="btn btn-outline-primary">{{ __('messages.common.back') }}</a>

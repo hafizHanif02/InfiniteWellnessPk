@@ -10,7 +10,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="mb-0">{{__('messages.document.document_type_details')}}</h1>
             <div class="text-end mt-4 mt-md-0">
-                <a class="btn btn-primary editDocTypeBtn"
+                <a class="myBtnPrimary editDocTypeBtn"
                    data-id="{{ $documentType->id }}">{{ __('messages.common.edit') }}</a>
                 <a href="{{ url()->previous() }}"
                    class="btn btn-outline-primary ms-2">{{ __('messages.common.back') }}</a>

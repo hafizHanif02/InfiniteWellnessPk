@@ -45,7 +45,33 @@
     <script src="{{ asset('js/pages.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://npmcdn.com/flatpickr@4.5.2/dist/l10n"></script>
+    <style>
+        .myBtnPrimary{
+            background-color: #0000ff;
+            border-color: #6571ff;
+            border: 1px solid transparent;
+            color: #fff;
+            border-radius: 0.313rem;
+            cursor: pointer;
+            display: inline-block;
+            font-size: .875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 0.563rem 1.563rem;
+            text-align: center;
+            text-decoration: none;
+            transition: color .15s ease-in-out,
+            background-color .15s ease-in-out,
+            border-color .15s ease-in-out,
+            box-shadow .15s ease-in-out;
+        }
 
+        .myBtnPrimary:hover {
+            background-color: #6571ff;
+            color: #fff;
+            border-color: #6571ff;
+        }
+        </style>
     @yield('page_scripts')
     <script>
         {{-- let defaultImage = "{{ asset('assets/img/avatar.png') }}"; --}}
@@ -197,7 +223,7 @@
             border-color: #ffbf37;
             color: #000000;
         }
-    </style>
+    </>
 </head>
 
 <body>
