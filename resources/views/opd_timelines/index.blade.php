@@ -2,7 +2,7 @@
     <div class="card-title">
         
         @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Doctor'))
-            <a href="javascript:void(0)" class="btn btn-primary float-end" data-bs-toggle="modal"
+            <a href="javascript:void(0)" class="myBtnPrimary float-end" data-bs-toggle="modal"
                data-bs-target="#addOpdTimelineModal">
                 {{ __('messages.ipd_patient_timeline.new_ipd_timeline') }}
             </a>
