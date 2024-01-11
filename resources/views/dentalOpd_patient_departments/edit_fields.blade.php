@@ -204,8 +204,8 @@
         </div>
     </div>
     <div>
-        {!! Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3', 'id' => 'btnOpdSave']) !!}
-        <a href="{!! route('opd.patient.index') !!}" class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>
+        {!! Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-3', 'id' => 'btnOpdSave']) !!}
+        <a href="{!! route('opd.patient.index') !!}" class="myBtnSecondary">{!! __('messages.common.cancel') !!}</a>
     </div>
 
 </div>

@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Edit Product</h3>
-                <a href="{{ route('inventory.products.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('inventory.products.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-product-form" action="{{ route('inventory.products.update', $product->id) }}"
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-md-1 mt-5">
                             <div class="mt-3"></div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="myBtnPrimary" data-bs-toggle="modal"
                                 data-bs-target="#groupCreateModal">Add</button>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="myBtnPrimary" data-bs-toggle="modal"
                                     data-bs-target="#genericCreateModal">Add</button>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="myBtnPrimary" data-bs-toggle="modal"
                                     data-bs-target="#categoryCreateModal">Add</button>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-1">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="myBtnPrimary" data-bs-toggle="modal"
                                     data-bs-target="#manufacturerCreateModal">Add</button>
                             </div>
                         </div>
@@ -394,8 +394,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('inventory.products.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-product-button" class="btn btn-primary ms-3">Update</button>
+                        <a href="{{ route('inventory.products.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="button" id="save-product-button" class="myBtnPrimary ms-3">Update</button>
                     </div>
                 </form>
             </div>

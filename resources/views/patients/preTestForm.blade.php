@@ -567,7 +567,7 @@ No
 
 
 @role('Admin|Doctor')
-<input type="submit" class="btn btn-primary"  value="SAVE" />
+<input type="submit" class="myBtnPrimary"  value="SAVE" />
 @endrole
 </div>
 

@@ -5,9 +5,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header d-flex justify-content-between">
+            <div class="card-header d-flex justify-content-between ">
                 <h3>F.A.S.T Medical Record</h3>
-                <a href="{{ route('fast-medical-record.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('fast-medical-record.index') }}" class="myBtnSecondary">Back</a>
             </div>
             {{-- <form action="{{ route('fast-medical-record.store') }}" method="POST">
                 @csrf --}}
@@ -288,9 +288,9 @@
                 <div class="row mt-3">
                     <div class="col-md-4"></div>
                     <div class="col-md-4 text-center">
-                        <a href="{{ route('fast-medical-record.index') }}" class="text-white text-decoration-none">
+                        {{-- <a href="{{ route('fast-medical-record.index') }}" class="text-white text-decoration-none">
                             <button type="button" class="btn btn-primary w-25">Back</button>
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="col-md-4"></div>
                 </div>

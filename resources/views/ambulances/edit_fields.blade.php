@@ -69,8 +69,8 @@
 
     <!-- Submit Field -->
     <div class="d-flex justify-content-end">
-        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2 btnSave', 'id' => 'editAmbulanceBtnSave']) }}
+        {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-2 btnSave', 'id' => 'editAmbulanceBtnSave']) }}
         <a href="{{ route('ambulances.index') }}"
-           class="btn btn-secondary me-2">{{ __('messages.common.cancel') }}</a>
+           class="myBtnSecondary me-2">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>

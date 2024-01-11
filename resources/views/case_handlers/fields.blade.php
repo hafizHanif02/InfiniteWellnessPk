@@ -149,9 +149,9 @@
     </div>
 </div>
 <div class="d-flex justify-content-end">
-    {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2','id' => 'caseHandlerSave']) }}
+    {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-2','id' => 'caseHandlerSave']) }}
     &nbsp;&nbsp;&nbsp;
     <a href="{{ route('case-handlers.index') }}"
-       class="btn btn-secondary">{{ __('messages.common.cancel') }}</a>
+       class="myBtnSecondary">{{ __('messages.common.cancel') }}</a>
 </div>
 

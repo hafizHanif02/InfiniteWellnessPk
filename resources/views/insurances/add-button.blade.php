@@ -19,7 +19,7 @@
             </div>
         @else
             <a href="{{ route('insurances.create') }}"
-               class="btn btn-primary">{{ __('messages.insurance.new_insurance') }}</a>
+               class="myBtnPrimary">{{ __('messages.insurance.new_insurance') }}</a>
         @endif
     </div>
 </div>

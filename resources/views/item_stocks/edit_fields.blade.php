@@ -74,8 +74,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-end">
-        {!! Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2', 'id' => 'editStockSave']) !!}
+        {!! Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-2', 'id' => 'editStockSave']) !!}
         <a href="{!! route('item.stock.index') !!}"
-           class="btn btn-secondary me-2">{!! __('messages.common.cancel') !!}</a>
+           class="myBtnSecondary me-2">{!! __('messages.common.cancel') !!}</a>
     </div>
 </div>

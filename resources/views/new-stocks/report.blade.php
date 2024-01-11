@@ -9,7 +9,7 @@ Transfer Report
                 <div class="d-flex justify-content-between">
                     <h3>Transfer Report</h3>
                     @if ($reportStocks->count() > 0)
-                        <a href="{{ route('transfer-report.export') }}" class="btn btn-primary float-end mr-5 mb-3">Export To Excel</a>
+                        <a href="{{ route('transfer-report.export') }}" class="myBtnPrimary float-end mr-5 mb-3">Export To Excel</a>
                     @endif
                 </div>
                 <table class="table table-striped">

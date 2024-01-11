@@ -32,7 +32,7 @@
                                     <h2 class="fs-1-xxl fw-700 text-white">Vendor Ledger Report</h2>
                                     <a href="{{ route('purchase.grnExport') }}" target="_blank"
                                         class="text-decoration-none d-flex justify-content-center">
-                                        <button class="btn btn-primary mt-4">Export</button>
+                                        <button class="myBtnPrimary mt-4">Export</button>
                                     </a>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                     <h2 class="fs-1-xxl fw-700 text-white">Point Of Sale Report</h2>
                                     <a href="{{ route('posreport.export') }}" target="_blank"
                                         class="text-decoration-none d-flex justify-content-center">
-                                        <button class="btn btn-primary mt-4">Export</button>
+                                        <button class="myBtnPrimary  mt-4">Export</button>
                                     </a>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                     <h2 class="fs-1-xxl fw-700 text-white">Profit & Loss Report</h2>
                                     <a href="{{ route('profitLossPOS') }}" target="_blank"
                                         class="text-decoration-none d-flex justify-content-center">
-                                        <button class="btn btn-primary mt-4">Export</button>
+                                        <button class="myBtnPrimary  mt-4">Export</button>
                                     </a>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                             </div>
                                         </div>
                                         <div class="d-flex mt-md-0 mt-3">
-                                            <button type="button" onclick="exportReport()" class="btn btn-primary ms-5"
+                                            <button type="button" onclick="exportReport()" class="myBtnPrimary  ms-5"
                                                 style="margin: 13px;">
                                                 Export Report
                                             </button>

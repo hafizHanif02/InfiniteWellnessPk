@@ -12,9 +12,9 @@
                     <div>
                         @if ($stockReport->count() > 0)
                             <a href="{{ url('new-stocks-report-print') }}/{{ $stockReport->id }}" target="_blank"
-                                class="btn btn-primary me-5">Print</a>
+                                class="myBtnPrimary me-5">Print</a>
                         @endif
-                        <a href="{{ route('new-stocks.report') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('new-stocks.report') }}" class="myBtnSecondary">Back</a>
                     </div>
                 </div>
                 <table class="table table-striped">

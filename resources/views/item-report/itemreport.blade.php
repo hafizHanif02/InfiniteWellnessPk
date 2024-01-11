@@ -13,7 +13,7 @@
                     <div class="card-header">
                         <h3>POS Item Report</h3>
                         <a href="{{ route('itemReport.print', ['date_from' => request('date_from'), 'date_to' => request('date_to')]) }}"
-                            target="_blank" class="btn btn-primary mt-3">Print</a>
+                            target="_blank" class="myBtnPrimary mt-3">Print</a>
                     </div>
                     <div class="card-body">
 
@@ -33,8 +33,8 @@
                                 </div>
                             </div>
                             <div class="mt-5">
-                                <a href="{{ route('itemReport.itemreport') }}" class="btn btn-secondary mt-3">Reset</a>
-                                <button class="btn btn-primary mt-3" onclick="ExportToExcel('xlsx')">Export to
+                                <a href="{{ route('itemReport.itemreport') }}" class="myBtnSecondary mt-3">Reset</a>
+                                <button class="myBtnPrimary mt-3" onclick="ExportToExcel('xlsx')">Export to
                                     Excel</button>
 
                             </div>

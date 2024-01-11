@@ -1897,7 +1897,7 @@ margin-left: -10px;
 </div>
 
 @role('Admin|Doctor')
-<input class="btn btn-primary" type="submit" value="SAVE" />
+<input class="myBtnPrimary" type="submit" value="SAVE" />
 @endrole
 
         </form>

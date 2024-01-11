@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-between">
                     <h3>Purchase Return Detail</h3>
                     <a href="{{ route('purchase.purchase-return-status.index') }}"
-                        class="btn btn-secondary float-end mr-5 mb-3">Back</a>
+                        class="myBtnSecondary float-end mr-5 mb-3">Back</a>
                 </div>
                 <table class="table table-bordered table-hover text-start">
                     <tbody>

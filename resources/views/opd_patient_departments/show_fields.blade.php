@@ -171,7 +171,7 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
             </div>
             <div class="tab-pane fade" id="opdVisits" role="tabpanel" aria-labelledby="opdVisitTab">
                 <a href="{{ route('opd.patient.create').'?revisit='.$opdPatientDepartment->id }}"
-                   class="btn btn-primary float-end">
+                   class="myBtnPrimary float-end">
                     {{ __('messages.opd_patient.revisits') }}
                 </a>
                 <livewire:opd-patient-visitor-table
@@ -179,7 +179,7 @@ checkNumberFormat($opdPatientDepartment->standard_charge, strtoupper($opdPatient
                         opdPatientDepartmentId="{{ $opdPatientDepartment->id }}"/>
             </div>
             <div class="tab-pane fade" id="opdDiagnosis" role="tabpanel" aria-labelledby="opdDiagnosisTab">
-                <a href="javascript:void(0)" class="btn btn-primary float-end" data-bs-toggle="modal"
+                <a href="javascript:void(0)" class="myBtnPrimary float-end" data-bs-toggle="modal"
                    data-bs-target="#add_opd_diagnoses_modal">
                     {{ __('messages.ipd_patient_diagnosis.new_ipd_diagnosis') }}
                 </a>

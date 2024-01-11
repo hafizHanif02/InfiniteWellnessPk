@@ -7,7 +7,7 @@ Medicine History
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Medicine History</h3>
-                <a href="{{ route('medicines.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('medicines.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <table class="table table-bordered text-center table-hover mb-5">

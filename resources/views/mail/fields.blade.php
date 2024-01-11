@@ -50,7 +50,7 @@
     </div>
 </div>
 <div class="d-flex justify-content-end">
-    {{ Form::submit(__('messages.sms.send'), ['class' => 'btn btn-primary me-2']) }}
+    {{ Form::submit(__('messages.sms.send'), ['class' => 'myBtnPrimary me-2']) }}
     <a href="{{ route('mail') }}"
        class="btn btn-secondary">{{ __('messages.common.cancel') }}</a>
 </div>

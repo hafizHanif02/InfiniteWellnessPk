@@ -5,10 +5,10 @@
                 <div class="d-flex justify-content-between">
                     <h3>Transfer List</h3>
                     <div>
-                        <a href="{{ route('shift.transfers.create') }}" class="btn btn-primary mb-3">Add
+                        <a href="{{ route('shift.transfers.create') }}" class="myBtnPrimary mb-3">Add
                             New</a>
                         @if ($transfers->count() > 0)
-                            <a href="{{ route('shift.transfers.export') }}" class="btn btn-secondary ms-5 mb-3">Export To
+                            <a href="{{ route('shift.transfers.export') }}" class="myBtnSecondary ms-5 mb-3">Export To
                                 Excel</a>
                         @endif
                     </div>

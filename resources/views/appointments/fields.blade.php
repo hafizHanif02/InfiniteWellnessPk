@@ -134,9 +134,9 @@
 <div class="row">
     <!-- Submit Field -->
     <div class="form-group col-sm-12 d-flex justify-content-end">
-        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3','id'=>'saveAppointment']) }}
+        {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-3','id'=>'saveAppointment']) }}
         <a href="{{ route('appointments.index') }}"
-           class="btn btn-secondary">{{ __('messages.common.cancel') }}</a>
+           class="myBtnSecondary">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>
 

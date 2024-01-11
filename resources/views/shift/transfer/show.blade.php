@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Transfer Detail</h3>
-                <a href="{{ route('shift.transfers.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('shift.transfers.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <table class="table table-bordered text-start">

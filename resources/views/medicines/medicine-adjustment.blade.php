@@ -11,7 +11,7 @@
             </div>
             <div class="d-flex justify-content-between mb-5">
                 <h3>Adjustment Products</h3>
-                <a href="{{ route('medicines.adjustment.create') }}" class="btn btn-primary">Add
+                <a href="{{ route('medicines.adjustment.create') }}" class="myBtnPrimary">Add
                     Adjustment</a>
             </div>
             <table class="table table-bordered text-center table-hover">

@@ -134,8 +134,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-end">
-        {{ Form::submit(__('messages.common.save'),['class' => 'btn btn-primary btn-save me-3']) }}
+        {{ Form::submit(__('messages.common.save'),['class' => 'myBtnPrimary btn-save me-3']) }}
         <a href="{!! route('users.index') !!}"
-           class="btn btn-secondary">{{__('messages.common.cancel')}}</a>
+           class="myBtnSecondary">{{__('messages.common.cancel')}}</a>
     </div>
 </div>

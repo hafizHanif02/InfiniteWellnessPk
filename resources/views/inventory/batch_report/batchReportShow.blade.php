@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Batch Report </h3>
-                <a href="{{ route('inventory.products.batch-pos-report') }}" class="btn btn-secondary mb-3">Back to Batch
+                <a href="{{ route('inventory.products.batch-pos-report') }}" class="myBtnSecondary mb-3">Back to Batch
                     Report</a>
                 <table class="table table-bordered">
                     <thead>

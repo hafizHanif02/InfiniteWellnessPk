@@ -177,11 +177,11 @@
                         </div>
                     </div>
 
-                    <div class="row text-center mb-5 mt-10">
+                    {{-- <div class="row text-center mb-5 mt-10">
                         <div class="col-md-12">
-                            <a href="/nursing-form" class="btn btn-secondary">Back</a>
+                            <a href="/nursing-form" class="myBtnSecondary">Back</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
 

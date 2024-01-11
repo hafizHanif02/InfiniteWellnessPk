@@ -6,19 +6,19 @@
                     <h3>Categories</h3>
                     <div class="d-flex gap-5">
                         <div>
-                            <a href="{{ asset('csv/Categories.xlsx') }}" class="btn btn-danger" download>Download sample</a>
+                            <a href="{{ asset('csv/Categories.xlsx') }}" class="myBtnDanger" download>Download sample</a>
                         </div>
                         <form id="csv-form" action="{{ route('inventory.product-categories.import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="product_categories_csv" id="product_categories_csv" style="display: none;">
-                            <label for="product_categories_csv" class="btn btn-secondary float-end mr-5 mb-3">Import
+                            <label for="product_categories_csv" class="myBtnSecondary float-end mr-5 mb-3">Import
                                 Excel</label>
-                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                            <button type="submit" class="myBtnSecondary-secondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
                         <a href="{{ route('inventory.product-categories.create') }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Add
+                            class="myBtnPrimary float-end mr-5 mb-3">Add
                             New</a>
                     </div>
                 </div>

@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Shift Transfer Inventory</h3>
-                <a href="{{ route('purchase.return.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('purchase.return.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="alert-container" style="display:none;">
                 <div class="alert alert-danger">

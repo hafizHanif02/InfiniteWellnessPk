@@ -25,7 +25,7 @@
 
     <div class="col-sm-12">
         <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end mb-4">
-            <button type="button" class="btn btn-primary text-star" id="addPackageItem">{{ __('messages.common.add') }}</button>
+            <button type="button" class="myBtnPrimary text-star" id="addPackageItem">{{ __('messages.common.add') }}</button>
         </div>
         <div class="table-responsive-sm">
             <table class="table table-striped" id="packageBillTbl">
@@ -114,8 +114,8 @@
     {{ Form::hidden('total_amount', null, ['class' => 'form-control', 'id' => 'packageTotal_amount']) }}
 
     <div class="d-flex justify-content-end">
-        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2', 'id'=>'packageSaveBtn']) }}
+        {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-2', 'id'=>'packageSaveBtn']) }}
         <a href="{{ route('packages.index') }}"
-           class="btn btn-secondary me-2">{{ __('messages.common.cancel') }}</a>
+           class="myBtnSecondary me-2">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>

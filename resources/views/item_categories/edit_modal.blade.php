@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div class="modal-footer pt-0">
-                {{ Form::button(__('messages.common.save'), ['type'=>'submit','class' => 'btn btn-primary m-0','id'=>'editItemCategorySave','data-loading-text'=>"<span class='spinner-border spinner-border-sm'></span> Processing..."]) }}
-                <button type="button" aria-label="Close" class="btn btn-secondary"
+                {{ Form::button(__('messages.common.save'), ['type'=>'submit','class' => 'myBtnPrimary m-0','id'=>'editItemCategorySave','data-loading-text'=>"<span class='spinner-border spinner-border-sm'></span> Processing..."]) }}
+                <button type="button" aria-label="Close" class="myBtnSecondary"
                             data-bs-dismiss="modal">{{ __('messages.common.cancel') }}</button>
             </div>
             {{ Form::close() }}

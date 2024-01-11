@@ -71,7 +71,7 @@
                                         name="date_to" id="date_to">
                                 </div>
                                 <div class="d-flex mt-md-0 mt-3">
-                                    <button type="button" onclick="exportReport()" class="btn btn-primary ms-5" style="margin: 13px;">
+                                    <button type="button" onclick="exportReport()" class="myBtnPrimary ms-5" style="margin: 13px;">
                                         Export Report
                                     </button>
                                 </div>
@@ -124,7 +124,7 @@
                                 <td>{{ $product->product_name }}</td>
                                 <td>
                                     <a href="{{ route('inventory.products.batch-pos-report.print', ['id' => $product->id]) }}"
-                                        class="btn btn-primary btn-sm">View batch
+                                        class="myBtnPrimary btn-sm">View batch
                                     </a>
                                 </td>
                             </tr>

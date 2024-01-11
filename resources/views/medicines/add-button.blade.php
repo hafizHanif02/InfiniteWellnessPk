@@ -1,6 +1,6 @@
 <div class="dropdown">
     @if(Auth::user()->hasRole('Pharmacist|Admin'))
-    <a href="#" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
+    <a href="#" class="myBtnPrimary" id="dropdownMenuButton" data-bs-toggle="dropdown"
        aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
         <i class="fa fa-chevron-down"></i>
     </a>

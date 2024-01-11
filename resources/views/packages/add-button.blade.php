@@ -2,7 +2,7 @@
     <div class="d-flex align-items-center py-1">
         @if(Auth::user()->hasRole('Receptionist'))
             <div class="dropdown">
-                <a href="javascript:void(0)" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                <a href="javascript:void(0)" class="myBtnPrimary" id="dropdownMenuButton" data-bs-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
                     <i class="fa fa-chevron-down"></i>
                 </a>
@@ -19,7 +19,7 @@
             </div>
         @else
             <a href="{{ route('packages.create') }}"
-               class="btn btn-primary">{{ __('messages.package.new_package') }}</a>
+               class="myBtnPrimary">{{ __('messages.package.new_package') }}</a>
         @endif
     </div>
 </div>

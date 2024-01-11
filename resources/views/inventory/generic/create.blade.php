@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Add New Generic Formula</h3>
-                <a href="{{ route('inventory.generics.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('inventory.generics.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-generic-form" action="{{ route('inventory.generics.store') }}" method="POST">
@@ -43,8 +43,8 @@
                         @enderror
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="{{ route('inventory.generics.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-generic-button" class="btn btn-primary ms-3">Save</button>
+                        <a href="{{ route('inventory.generics.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="button" id="save-generic-button" class="myBtnPrimary ms-3">Save</button>
                     </div>
                 </form>
             </div>

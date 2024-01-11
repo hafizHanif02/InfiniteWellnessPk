@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Edit Category</h3>
-                <a href="{{ route('inventory.product-categories.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('inventory.product-categories.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-category-form" action="{{ route('inventory.product-categories.update',$productCategory->id) }}" method="POST">
@@ -19,8 +19,8 @@
                         @enderror
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('inventory.product-categories.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="submit" class="btn btn-primary ms-3" id="save-category-button">Update</button>
+                        <a href="{{ route('inventory.product-categories.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="submit" class="myBtnPrimary ms-3" id="save-category-button">Update</button>
                     </div>
                 </form>
             </div>

@@ -23,10 +23,10 @@
                         </div>
                         <div class="col-md-6 mb-5 text-end">
                             <a href="{{ route('fast-medical-record.create') }}" target="_blank"><button
-                                    class="btn btn-primary me-3"><i class="fa fa-plus"></i> New</button></a>
+                                    class="myBtnPrimary me-3"><i class="fa fa-plus"></i> New</button></a>
 
                             <a href="{{ route('fast-medical-record.print') }}" target="_blank"><button
-                                    class="btn btn-success"><i class="fa fa-print"></i> Print</button></a>
+                                    class="myBtnSuccess"><i class="fa fa-print"></i> Print</button></a>
 
                         </div>
                     </div>

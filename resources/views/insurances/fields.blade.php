@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary text-star" id="addInsuranceItem">{{ __('messages.common.add') }}</button>
+                    <button type="button" class="myBtnPrimary text-star" id="addInsuranceItem">{{ __('messages.common.add') }}</button>
                 </div>
             </div>
         </div>
@@ -124,8 +124,8 @@
     <!-- Total Amount Field -->
     {{ Form::hidden('total', null, ['class' => 'form-control', 'id' => 'insuranceTotal_amount']) }}
     <div class="d-flex justify-content-end">
-        {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-2', 'id'=>'insuranceSaveBtn']) }}
+        {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-2', 'id'=>'insuranceSaveBtn']) }}
         <a href="{{ route('insurances.index') }}"
-           class="btn btn-secondary me-2">{{ __('messages.common.cancel') }}</a>
+           class="myBtnSecondary me-2">{{ __('messages.common.cancel') }}</a>
     </div>
 </div>

@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h3>Purchase Return List</h3>
-                    <a href="{{ route('purchase.return.create') }}" class="btn btn-primary float-end mr-5 mb-3">Add
+                    <a href="{{ route('purchase.return.create') }}" class="myBtnPrimary float-end mr-5 mb-3">Add
                         New</a>
                 </div>
                 <table class="table table-bordered text-center table-hover">

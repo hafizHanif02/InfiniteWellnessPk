@@ -6,11 +6,11 @@
                     <h3>Good Receive Note Detail</h3>
                     <div class="d-flex gap-5">
                         <a href="{{ route('purchase.good_receive_note.print', $goodReceiveNote->id) }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Print</a>
+                            class="myBtnPrimary float-end mr-5 mb-3">Print</a>
                         <a href="{{ route('purchase.good_receive_note.index') }}"
-                            class="btn btn-secondary float-end mr-5 mb-3">Back</a>
+                            class="myBtnSecondary float-end mr-5 mb-3">Back</a>
                             @role('Admin|PharmacistAdmin')
-                                <button  class="btn btn-danger float-end mr-5 mb-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
+                                <button  class="myBtnDanger float-end mr-5 mb-3" onclick="ExportToExcel('xlsx')">Export to Excel</button>
                             @endrole
                             </div>
                 </div>

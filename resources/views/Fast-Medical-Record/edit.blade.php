@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>F.A.S.T Medical Record</h3>
-                <a href="{{ route('fast-medical-record.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('fast-medical-record.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <form action="{{ route('fast-medical-record.update', $fastrecord->id) }}" method="POST" id="myForm">
                 @csrf
@@ -373,7 +373,7 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-4 text-center">
                             <center>
-                                <button type="submit" id="submit" class="btn btn-primary w-25 d-flex justify-content-center align-items-center">Update</button>
+                                <button type="submit" id="submit" class="myBtnPrimary w-25 d-flex justify-content-center align-items-center">Update</button>
                             </center>
                         </div>
                         <div class="col-md-4"></div>

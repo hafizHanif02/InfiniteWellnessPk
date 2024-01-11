@@ -6,9 +6,9 @@
                     <h3>Good Receive Note</h3>
                     <div>
                         @role('Admin|PharmacistAdmin')
-                        <a href="{{route('purchase.grnExport') }}" target="_blank" class="btn btn-secondary float-end mr-5 mb-3">Vender Ledger Report</a>
+                        <a href="{{route('purchase.grnExport') }}" target="_blank" class="myBtnSecondary float-end mr-5 mb-3">Vender Ledger Report</a>
                         @endrole
-                        <a href="{{route('purchase.good_receive_note.create') }}" class="btn btn-primary float-end me-4 mr-5 mb-3">Add New</a>
+                        <a href="{{route('purchase.good_receive_note.create') }}" class="myBtnPrimary float-end me-4 mr-5 mb-3">Add New</a>
                     </div>
                 </div>
                 <table class="table table-bordered text-center table-hover">

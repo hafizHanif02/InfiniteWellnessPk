@@ -39,7 +39,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary" id="add-btn" title="Add products">Add</button>
+                                <button type="button" class="myBtnPrimary" id="add-btn" title="Add products">Add</button>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                         <td>Limit</td>
                                         <td>Qty</td>
                                         <td>Available Qty</td>
-                                        <td>Pur Rate</td>
+                                        <td>Per Rate</td>
                                         <td>Amount</td>
                                         <td></td>
                                     </tr>
@@ -65,9 +65,9 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('purchase.return.index') }}" class="btn btn-danger">Cancel</a>
+                        <a href="{{ route('purchase.return.index') }}" class="myBtnDanger">Cancel</a>
                         <button type="button" id="save-purchasereturn-button"
-                            class="btn btn-primary ms-3">Save</button>
+                            class="myBtnPrimary ms-3">Save</button>
                     </div>
                 </form>
             </div>

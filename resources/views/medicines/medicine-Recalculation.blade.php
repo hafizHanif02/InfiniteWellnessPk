@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Recalculation</h3>
-                <button class="btn btn-primary" id="recalculate">Recaculate <i class="fas fa-angle-double-down"></i></button>
+                <button class="myBtnPrimary" id="recalculate">Recaculate <i class="fas fa-angle-double-down"></i></button>
             </div>
             <div class="card-body">
                 <table id="table" style="display: none;" class="table table-bordered text-center table-hover">

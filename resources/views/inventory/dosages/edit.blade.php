@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Edit Dosage Form</h3>
-                <a href="{{ route('inventory.dosages.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('inventory.dosages.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-category-form" action="{{ route('inventory.dosages.update', $dosage->id) }}" method="POST">
@@ -34,8 +34,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('inventory.dosages.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-category-button" class="btn btn-primary ms-3">Update</button>
+                        <a href="{{ route('inventory.dosages.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="button" id="save-category-button" class="myBtnPrimary ms-3">Update</button>
                     </div>
                 </form>
             </div>

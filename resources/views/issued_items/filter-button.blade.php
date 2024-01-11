@@ -17,7 +17,7 @@
                     {{ Form::select('status', collect($filterHeads[0])->sortBy('key')->reverse()->toArray(), null, ['id' => 'issuedItemHead', 'data-control' =>'select2', 'class' => 'form-select status-filter']) }}
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button type="reset" id="issuedItemResetFilter" class="btn btn-secondary">{{ __('messages.common.reset') }}</button>
+                    <button type="reset" id="issuedItemResetFilter" class="myBtnSecondary">{{ __('messages.common.reset') }}</button>
                 </div>
             </div>
         </div>

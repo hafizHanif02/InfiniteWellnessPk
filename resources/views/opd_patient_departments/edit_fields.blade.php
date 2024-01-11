@@ -172,8 +172,8 @@
     </div>
 </div>
 <div class="d-flex justify-content-end">
-    {{ Form::submit(__('messages.common.save'), ['class' => 'btn btn-primary me-3', 'id' => 'btnEditOpdSave']) }}
-    <a href="{!! route('opd.patient.index') !!}" class="btn btn-secondary">{!! __('messages.common.cancel') !!}</a>
+    {{ Form::submit(__('messages.common.save'), ['class' => 'myBtnPrimary me-3', 'id' => 'btnEditOpdSave']) }}
+    <a href="{!! route('opd.patient.index') !!}" class="myBtnSecondary">{!! __('messages.common.cancel') !!}</a>
 </div>
 
 <script>

@@ -6,20 +6,20 @@
                     <h3>Generic Formulas</h3>
                     <div class="d-flex gap-5">
                         <div>
-                            <a href="{{ asset('csv/Generics.xlsx') }}" class="btn btn-danger" download>Download
+                            <a href="{{ asset('csv/Generics.xlsx') }}" class="myBtnDanger" download>Download
                                 sample</a>
                         </div>
                         <form id="csv-form" action="{{ route('inventory.generics.import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="generic_csv" id="generic_csv" style="display: none;">
-                            <label for="generic_csv" class="btn btn-secondary float-end mr-5 mb-3">Import
+                            <label for="generic_csv" class="myBtnSecondary float-end mr-5 mb-3">Import
                                 Excel</label>
-                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                            <button type="submit" class="myBtnSecondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
                         <a href="{{ route('inventory.generics.create') }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Add
+                            class="myBtnPrimary float-end mr-5 mb-3">Add
                             New</a>
                     </div>
                 </div>

@@ -18,7 +18,7 @@
                                 class="form-control">
                         </div>
                         <div class="mt-5">
-                            <button type="submit" class="btn btn-primary mt-3">Apply</button>
+                            <button type="submit" class="myBtnPrimary mt-3">Apply</button>
                         </div>
                     </form>
                 </div>

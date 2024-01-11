@@ -7,12 +7,12 @@
 @if (Auth::user()->hasRole('Doctor'))
     <div class="d-flex align-items-center py-1">
         <a data-turbo="false" href="{{ route('appointments.excel') }}"
-           class="btn btn-primary">{{ __('messages.common.export_to_excel') }}</a>
+           class="myBtnPrimary">{{ __('messages.common.export_to_excel') }}</a>
     </div>
 @endif
 @if (Auth::user()->hasRole('Patient|Receptionist'))
     <div class="dropdown pt-1">
-        <a href="#" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
+        <a href="#" class="myBtnPrimary" id="dropdownMenuButton" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
             <i class="fa-solid fa-angle-down"></i>
         </a>

@@ -7,7 +7,7 @@
         <div class="d-md-flex align-items-center justify-content-between mb-7">
             <h1 class="mb-0">{{__('messages.medicine.medicine_brands_details')}}</h1>
             <div class="text-end mt-4 mt-md-0">
-                <a class="btn btn-primary edit-btn"
+                <a class="myBtnPrimary edit-btn"
                    href="{{ route('brands.edit',['brand' => $brand->id])}}">{{ __('messages.common.edit') }}</a>
                 <a href="{{ route('brands.index') }}"
                    class="btn btn-outline-primary ms-2">{{ __('messages.common.back') }}</a>

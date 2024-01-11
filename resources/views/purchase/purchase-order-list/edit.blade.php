@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Edit Purchase Order List</h3>
-                <a href="{{ url('/purchase/purchaseorderlist') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ url('/purchase/purchaseorderlist') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-purchaseorder-form" action="{{ route('purchase.purchaseorderlist.update', $requistion->id) }}" method="POST"
@@ -135,8 +135,8 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('purchase.purchaseorderlist.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="submit" id="save-purchaseorder-button" class="btn btn-primary ms-3">Update</button>
+                        <a href="{{ route('purchase.purchaseorderlist.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="submit" id="save-purchaseorder-button" class="myBtnPrimary ms-3">Update</button>
                     </div>
                 </form>
             </div>

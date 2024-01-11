@@ -16,32 +16,32 @@
                         </form>
                 </div>
                     <div class="d-flex col-auto gap-5">
-                        <a href="{{route('inventory.export-to-excel') }}" target="_blank"><button class="btn btn-primary">Export All Product</button></a>
+                        <a href="{{route('inventory.export-to-excel') }}" target="_blank"><button class="myBtnPrimary">Export All Product</button></a>
                         <div>
-                            <a href="{{ asset('csv/Products.xlsx') }}" class="btn btn-danger" download>Download
+                            <a href="{{ asset('csv/Products.xlsx') }}" class="myBtnDanger" download>Download
                                 sample</a>
                         </div>
                         <form id="csv-form" action="{{ route('inventory.products.import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="products_csv" id="products_csv" style="display: none;">
-                            <label for="products_csv" class="btn btn-secondary float-end mr-5 mb-3">Import
+                            <label for="products_csv" class="myBtnSecondary float-end mr-5 mb-3">Import
                                 Excel</label>
-                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                            <button type="submit" class="myBtnSecondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
                         <form id="update-csv-form" action="{{ route('inventory.products.update-import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="update_product" id="update_product" style="display: none;">
-                            <label for="update_product" class="btn btn-secondary float-end mr-5 mb-3">
+                            <label for="update_product" class="myBtnSecondary float-end mr-5 mb-3">
                                 Update Product Excel
                             </label>
-                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                            <button type="submit" class="myBtnSecondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
                         <a href="{{ route('inventory.products.create') }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Add
+                            class="myBtnPrimary float-end mr-5 mb-3">Add
                             New</a>
                     </div>
                 </div>

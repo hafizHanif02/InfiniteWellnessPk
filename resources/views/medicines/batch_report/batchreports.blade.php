@@ -37,7 +37,7 @@
                             <td>{{ $product->name }}</td>
                             <td>
                                 <a href="{{ route('medicines.batch-pos-report.show', ['id' => $product->product_id]) }}"
-                                    class="btn btn-primary btn-sm">View batch Pos</a>
+                                    class="myBtnPrimary btn-sm">View batch Pos</a>
                             </td>
                         </tr>
                     @endforeach

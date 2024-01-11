@@ -6,20 +6,20 @@
                     <h3>Dosage Form</h3>
                     <div class="d-flex gap-5">
                         <div>
-                            <a href="{{ asset('csv/Dosages.xlsx') }}" class="btn btn-danger" download>Download
+                            <a href="{{ asset('csv/Dosages.xlsx') }}" class="myBtnDanger" download>Download
                                 sample</a>
                         </div>
                         <form id="csv-form" action="{{ route('inventory.dosages.import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="dosages_csv" id="dosages_csv" style="display: none;">
-                            <label for="dosages_csv" class="btn btn-secondary float-end mr-5 mb-3">Import
+                            <label for="dosages_csv" class="myBtnSecondary float-end mr-5 mb-3">Import
                                 Excel</label>
                             <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
                         <a href="{{ route('inventory.dosages.create') }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Add New</a>
+                            class="myBtnPrimary float-end mr-5 mb-3">Add New</a>
                     </div>
                 </div>
                 <table class="table table-bordered text-center table-hover">

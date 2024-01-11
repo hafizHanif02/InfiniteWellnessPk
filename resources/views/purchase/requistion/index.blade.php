@@ -6,19 +6,19 @@
                      <h3>Purchase Requistion </h3>
                      <div class="d-flex gap-5">
                         <div>
-                            <a href="{{ asset('csv/Purchase/Requistions.xlsx') }}" class="btn btn-danger" download>Download
+                            <a href="{{ asset('csv/Purchase/Requistions.xlsx') }}" class="myBtnDanger" download>Download
                                 sample</a>
                         </div>
                         <form id="csv-form" action="{{ route('purchase.requistions.import-excel') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="requistions_csv" id="requistions_csv" style="display: none;">
-                            <label for="requistions_csv" class="btn btn-secondary float-end mr-5 mb-3">Import
+                            <label for="requistions_csv" class="myBtnSecondary float-end mr-5 mb-3">Import
                                 Excel</label>
-                            <button type="submit" class="btn btn-secondary float-end mr-5 mb-3"
+                            <button type="submit" class="btn myBtnSecondary-secondary float-end mr-5 mb-3"
                                 style="display: none;">button</button>
                         </form>
-                        <a href="{{ route('purchase.requistions.create') }}" class="btn btn-primary float-end mr-5 mb-3">Add
+                        <a href="{{ route('purchase.requistions.create') }}" class="myBtnPrimary float-end mr-5 mb-3">Add
                             New</a>
                      </div>
                  </div>

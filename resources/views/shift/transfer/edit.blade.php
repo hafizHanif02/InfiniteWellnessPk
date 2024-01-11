@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Edit Shift Transfer Inventory</h3>
-                <a href="{{ route('purchase.return.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('purchase.return.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form id="save-transfer-form" action="{{ route('shift.transfers.update', $transfer->id) }}" method="POST">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="mt-2"></div>
-                            <button type="button" id="add-btn" class="btn btn-primary mt-5">Add</button>
+                            <button type="button" id="add-btn" class="myBtnPrimary mt-5">Add</button>
                         </div>
                     </div>
                     <div class="mb-5">
@@ -74,8 +74,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('shift.transfers.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-transfer-button" class="btn btn-primary ms-3">Save</button>
+                        <a href="{{ route('shift.transfers.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="button" id="save-transfer-button" class="myBtnPrimary ms-3">Save</button>
                     </div>
                 </form>
             </div>

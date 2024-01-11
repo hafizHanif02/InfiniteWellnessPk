@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="modal-footer p-0">
-                    {{ Form::button(__('messages.common.save'), ['type'=>'submit','class' => 'btn btn-primary me-3','id'=>'btnOpdTimelineSave','data-loading-text'=>"<span class='spinner-border spinner-border-sm'></span> Processing..."]) }}
+                    {{ Form::button(__('messages.common.save'), ['type'=>'submit','class' => 'myBtnPrimary me-3','id'=>'btnOpdTimelineSave','data-loading-text'=>"<span class='spinner-border spinner-border-sm'></span> Processing..."]) }}
                     <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">{{ __('messages.common.cancel') }}</button>
                 </div>

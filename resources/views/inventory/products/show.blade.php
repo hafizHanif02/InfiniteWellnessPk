@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Product Detail</h3>
-                <a href="{{ route('inventory.products.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('inventory.products.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <table class="table table-bordered text-start">

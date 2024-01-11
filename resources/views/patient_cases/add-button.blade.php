@@ -1,6 +1,6 @@
 @if(Auth::user()->hasRole('Receptionist|Case Manager'))
     <div class="dropdown">
-        <a href="javascript:void(0)" class="btn btn-primary" id="dropdownMenuButton" data-bs-toggle="dropdown"
+        <a href="javascript:void(0)" class="myBtnPrimary" id="dropdownMenuButton" data-bs-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">{{ __('messages.common.actions') }}
             <i class="fa fa-chevron-down"></i>
         </a>
@@ -17,5 +17,5 @@
     </div>
 @else
     <a href="{{ route('patient-cases.create') }}"
-       class="btn btn-primary">{{ __('messages.case.new_case') }}</a>
+       class="myBtnPrimary">{{ __('messages.case.new_case') }}</a>
 @endif

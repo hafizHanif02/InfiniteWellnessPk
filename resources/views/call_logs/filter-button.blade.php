@@ -1,7 +1,7 @@
 <div class="ms-auto" wire:ignore>
     <div class="dropdown d-flex align-items-center me-4 me-md-5">
         <button
-                class="btn btn btn-icon btn-primary text-white dropdown-toggle hide-arrow ps-2 pe-0"
+                class="btn btn btn-icon myBtnPrimary text-white dropdown-toggle hide-arrow ps-2 pe-0"
                 type="button" data-bs-auto-close="outside"
                 data-bs-toggle="dropdown" aria-expanded="false"
                 id="callTypeFilterBtn">
@@ -17,7 +17,7 @@
                     {{ Form::select('callType', $filterHeads[0],null, ['id' => 'callType', 'data-control' =>'select2', 'class' => 'form-select status-selector select2-hidden-accessible data-allow-clear="true"']) }}
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button type="reset" id="callLogResetFilter" class="btn btn-secondary">{{ __('messages.common.reset') }}</button>
+                    <button type="reset" id="callLogResetFilter" class="myBtnSecondary">{{ __('messages.common.reset') }}</button>
                 </div>
             </div>
         </div>

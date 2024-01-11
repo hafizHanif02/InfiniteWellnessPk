@@ -6,9 +6,9 @@
                     <h3>Good Receive Status Detail</h3>
                     <div class="d-flex gap-5">
                         <a href="{{ route('purchase.good_receive_note.print', $goodReceiveNote->id) }}"
-                            class="btn btn-primary float-end mr-5 mb-3">Print</a>
+                            class="myBtnPrimary float-end mr-5 mb-3">Print</a>
                         <a href="{{ route('purchase.good-receive-statuses.index') }}"
-                            class="btn btn-secondary float-end mr-5 mb-3">Back</a>
+                            class="myBtnSecondary float-end mr-5 mb-3">Back</a>
                         </div>
                 </div>
                 <table class="table table-bordered table-hover text-start">

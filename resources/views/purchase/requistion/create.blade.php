@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3>Add Purchase Requistion</h3>
-                <a href="{{ route('purchase.requistions.index') }}" class="btn btn-secondary">Back</a>
+                <a href="{{ route('purchase.requistions.index') }}" class="myBtnSecondary">Back</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('purchase.requistions.store') }}" method="POST" id="save-requistion-form" enctype="multipart/form-data">
@@ -98,7 +98,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <button type="button" id="add-btn" class="btn btn-primary">Add</button>
+                                <button type="button" id="add-btn" class="myBtnPrimary">Add</button>
                             </div>
                         </div>
                     </div>
@@ -126,8 +126,8 @@
                         <input type="hidden" readonly id="discount_amount" placeholder="Total Amount"
                             name="discount_amount" class="form-control" value="0">
                     <div class="d-flex justify-content-center mt-5">
-                        <a href="{{ route('purchase.requistions.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="submit" class="btn btn-primary ms-3">Save</button>
+                        <a href="{{ route('purchase.requistions.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="submit" class="myBtnPrimary ms-3">Save</button>
                     </div>
                 </form>
             </div>

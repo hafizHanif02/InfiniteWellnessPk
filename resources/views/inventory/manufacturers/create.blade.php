@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-between">
                     <h3>Add New manufacturer</h3>
                     <a href="{{ route('inventory.manufacturers.index') }}"
-                        class="btn btn-secondary float-end mr-5 mb-3">Back</a>
+                        class="myBtnSecondary float-end mr-5 mb-3">Back</a>
                 </div>
                 <form id="save-manufacturere-form" action="{{ route('inventory.manufacturers.store') }}" method="POST">
                     @csrf
@@ -33,8 +33,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a href="{{ route('inventory.manufacturers.index') }}" class="btn btn-danger">Cancel</a>
-                        <button type="button" id="save-manufacturere-button" class="btn btn-primary ms-3">Save</button>
+                        <a href="{{ route('inventory.manufacturers.index') }}" class="myBtnDanger">Cancel</a>
+                        <button type="button" id="save-manufacturere-button" class="myBtnPrimary ms-3">Save</button>
                     </div>
                 </form>
             </div>
